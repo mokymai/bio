@@ -7,6 +7,8 @@ Authors@R:
            email = "GegznaV@gmail.com"
     )
 Description: What the package does (one paragraph).
+URL: https://mokymai.github.io/bs/
+BugReports: https://mokymai.com/GegznaV/bs/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
