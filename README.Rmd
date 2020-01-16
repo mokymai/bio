@@ -11,6 +11,7 @@ output: github_document
 [![CRAN status](https://www.r-pkg.org/badges/version/bs)](https://CRAN.R-project.org/package=bs)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Updated-on](https://img.shields.io/badge/Updated%20on-`r gsub('-', '--', Sys.Date())`-yellowgreen.svg)]()
+[![Travis build status](https://travis-ci.com/mokymai/bs.svg?branch=master)](https://travis-ci.com/mokymai/bs)
 <!-- badges: end -->
 
 

@@ -12,6 +12,8 @@ status](https://www.r-pkg.org/badges/version/bs)](https://CRAN.R-project.org/pac
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Updated-on](https://img.shields.io/badge/Updated%20on-2020--01--16-yellowgreen.svg)]()
+[![Travis build
+status](https://travis-ci.com/mokymai/bs.svg?branch=master)](https://travis-ci.com/mokymai/bs)
 <!-- badges: end -->
 
 Helper and convenience functions for *Biostatistics* course.
