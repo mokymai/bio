@@ -12,6 +12,7 @@ output: github_document
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Updated-on](https://img.shields.io/badge/Updated%20on-`r gsub('-', '--', Sys.Date())`-yellowgreen.svg)]()
 [![Travis build status](https://travis-ci.com/mokymai/bs.svg?branch=master)](https://travis-ci.com/mokymai/bs)
+[![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/mokymai/bs?branch=master&svg=true)](https://ci.appveyor.com/project/mokymai/bs)
 <!-- badges: end -->
 
 

@@ -14,6 +14,8 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![Updated-on](https://img.shields.io/badge/Updated%20on-2020--01--16-yellowgreen.svg)]()
 [![Travis build
 status](https://travis-ci.com/mokymai/bs.svg?branch=master)](https://travis-ci.com/mokymai/bs)
+[![AppVeyor build
+status](https://ci.appveyor.com/api/projects/status/github/mokymai/bs?branch=master&svg=true)](https://ci.appveyor.com/project/mokymai/bs)
 <!-- badges: end -->
 
 Helper and convenience functions for *Biostatistics* course.
