@@ -1,0 +1,27 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# Package **_bs_**
+
+<!-- badges: start -->
+[![GitHub version](https://img.shields.io/badge/GitHub-v`r packageVersion("bs")`-brightgreen.svg)](https://github.com/GegznaV/bs)
+[![CRAN status](https://www.r-pkg.org/badges/version/bs)](https://CRAN.R-project.org/package=bs)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Updated-on](https://img.shields.io/badge/Updated%20on-`r gsub('-', '--', Sys.Date())`-yellowgreen.svg)]()
+<!-- badges: end -->
+
+
+Helper and convenience functions for *Biostatistics* course.
+
+
+# Install
+
+Install this package from GitHub:
+
+```{r, eval=FALSE}
+install.packages("remotes")
+remotes::install_github("mokymai/bs")
+```

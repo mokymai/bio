@@ -1,0 +1,31 @@
+Package: bs
+Title: Helper Functions for Course BS-2020
+Version: 0.0.0.9000
+Authors@R: 
+    person("Vilmantas", "Gegzna", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-9500-5167"),
+           email = "GegznaV@gmail.com"
+    )
+Description: What the package does (one paragraph).
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.2
+Remotes:
+  Gegznav/snippets
+Imports:
+  tibble,
+  dplyr,
+  fs,
+  stringr,
+  rstudioapi,
+  magrittr,
+  usethis,
+  checkmate,
+  desc,
+  glue,
+  jsonlite,
+  purrr,
+  readr,
+  snippets
