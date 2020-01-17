@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Manage RStudio projects. — projects • bs</title>
+<title>Parse project's path. — parse_proj_path • bs</title>
 
 
 <!-- jquery -->
@@ -35,28 +35,10 @@
 
 
 
-<meta property="og:title" content="Manage RStudio projects. — projects" />
-<meta property="og:description" content="
-
-read_projects() - reads file with projects and list their names and paths.
-
-
-
-get_path_recent_proj_list() -- gets path to the file with the list of
-recent RStudio projects.
-get_path_personal_proj_list() -- gets path to the file with the list of
-personal RStudio projects.
-
-
-
-get_projs_recent() -- lists recent RStudio projects.
-get_projs_personal() -- lists personal RStudio projects.
-get_projs_all() -- lists both recent and personal RStudio projects.
-
-
-
-get_proj_names() -- lists RStudio projects names (as a character
-vector)
+<meta property="og:title" content="Parse project's path. — parse_proj_path" />
+<meta property="og:description" content="Get details about RStudio project from its path.
+extract_proj_name() extracts RStudio project's name form a path to the
+project.
 
 " />
 <meta name="twitter:card" content="summary" />
@@ -122,72 +104,59 @@ vector)
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Manage RStudio projects.</h1>
+    <h1>Parse project's path.</h1>
     
-    <div class="hidden name"><code>projects.Rd</code></div>
+    <div class="hidden name"><code>parse_proj_path.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
-<ul>
-<li><p><code>read_projects()</code> - reads file with projects and list their names and paths.</p></li>
-</ul>
-
-<ul>
-<li><p><code>get_path_recent_proj_list()</code> -- gets path to the file with the list of
-recent RStudio projects.</p></li>
-<li><p><code>get_path_personal_proj_list()</code> -- gets path to the file with the list of
-personal RStudio projects.</p></li>
-</ul>
-
-<ul>
-<li><p><code>get_projs_recent()</code> -- lists recent RStudio projects.</p></li>
-<li><p><code>get_projs_personal()</code> -- lists personal RStudio projects.</p></li>
-<li><p><code>get_projs_all()</code> -- lists both recent and personal RStudio projects.</p></li>
-</ul>
-
-<ul>
-<li><p><code>get_proj_names()</code> -- lists RStudio projects names (as a character
-vector)</p></li>
+    <p>Get details about RStudio project from its path.</p><ul>
+<li><p><code>extract_proj_name()</code> extracts RStudio project's name form a path to the
+project.</p></li>
 </ul>
 
     </div>
 
-    <pre class="usage"><span class='fu'>read_projects</span>(<span class='no'>file</span>, <span class='kw'>sort_by</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>parse_proj_path</span>(<span class='no'>proj_path</span>)
 
-<span class='fu'>get_path_recent_proj_list</span>()
-
-<span class='fu'>get_path_personal_proj_list</span>()
-
-<span class='fu'>get_projs_recent</span>(<span class='kw'>sort_by</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='fu'>get_projs_personal</span>(<span class='kw'>sort_by</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='fu'>get_projs_all</span>()
-
-<span class='fu'>get_proj_names</span>(<span class='kw'>file</span> <span class='kw'>=</span> <span class='fu'>get_path_recent_proj_list</span>(), <span class='kw'>sort_by</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>extract_proj_name</span>(<span class='no'>proj_path</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>file</th>
-      <td><p>(character) Path to file with RStudio projects.</p></td>
-    </tr>
-    <tr>
-      <th>sort_by</th>
-      <td><p>(<code>"name"</code>|<code>"path"</code>|<code><a href='https://rdrr.io/r/base/logical.html'>FALSE</a></code>)</p></td>
+      <th>proj_path</th>
+      <td><p>(character) Path to <code>*.Rproj</code> file.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    
+<ul>
+<li><p><code>parse_proj_path()</code> returns data frame with columns <code>name</code> (with project
+name, i.e., folder name) and <code>path</code> to *.Rproj file.</p></li>
+<li><p><code>extract_proj_name()</code> (character) a vector of extracted character names.</p></li>
+</ul>
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"></pre>
+    <pre class="examples"><div class='input'><span class='no'>path_to_project</span> <span class='kw'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"list/proj.Rproj"</span>, <span class='st'>"C:/R/BS-2020/bs.Rproj"</span>,
+    <span class='st'>"C:/data/analysis/proj.Rproj"</span>)
+
+<span class='fu'>extract_proj_name</span>(<span class='no'>path_to_project</span>)</div><div class='output co'>#&gt; [1] "list"     "BS-2020"  "analysis"</div><div class='input'>
+<span class='fu'>parse_proj_path</span>(<span class='no'>path_to_project</span>)</div><div class='output co'>#&gt; # A tibble: 3 x 3
+#&gt;   name     path                        exists
+#&gt;   &lt;chr&gt;    &lt;chr&gt;                       &lt;lgl&gt; 
+#&gt; 1 list     list/proj.Rproj             FALSE 
+#&gt; 2 BS-2020  C:/R/BS-2020/bs.Rproj       FALSE 
+#&gt; 3 analysis C:/data/analysis/proj.Rproj FALSE </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

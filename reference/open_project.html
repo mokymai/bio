@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Manage RStudio projects. — projects • bs</title>
+<title>Open RStudio project. — open_project • bs</title>
 
 
 <!-- jquery -->
@@ -35,28 +35,11 @@
 
 
 
-<meta property="og:title" content="Manage RStudio projects. — projects" />
-<meta property="og:description" content="
+<meta property="og:title" content="Open RStudio project. — open_project" />
+<meta property="og:description" content="Open RStudio project by name or interactively.
 
-read_projects() - reads file with projects and list their names and paths.
-
-
-
-get_path_recent_proj_list() -- gets path to the file with the list of
+open_recent_proj_list() -- opens the file with the list of
 recent RStudio projects.
-get_path_personal_proj_list() -- gets path to the file with the list of
-personal RStudio projects.
-
-
-
-get_projs_recent() -- lists recent RStudio projects.
-get_projs_personal() -- lists personal RStudio projects.
-get_projs_all() -- lists both recent and personal RStudio projects.
-
-
-
-get_proj_names() -- lists RStudio projects names (as a character
-vector)
 
 " />
 <meta name="twitter:card" content="summary" />
@@ -122,64 +105,78 @@ vector)
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Manage RStudio projects.</h1>
+    <h1>Open RStudio project.</h1>
     
-    <div class="hidden name"><code>projects.Rd</code></div>
+    <div class="hidden name"><code>open_project.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
+    <p>Open RStudio project by name or interactively.</p>
 <ul>
-<li><p><code>read_projects()</code> - reads file with projects and list their names and paths.</p></li>
-</ul>
-
-<ul>
-<li><p><code>get_path_recent_proj_list()</code> -- gets path to the file with the list of
+<li><p><code>open_recent_proj_list()</code> -- opens the file with the list of
 recent RStudio projects.</p></li>
-<li><p><code>get_path_personal_proj_list()</code> -- gets path to the file with the list of
-personal RStudio projects.</p></li>
-</ul>
-
-<ul>
-<li><p><code>get_projs_recent()</code> -- lists recent RStudio projects.</p></li>
-<li><p><code>get_projs_personal()</code> -- lists personal RStudio projects.</p></li>
-<li><p><code>get_projs_all()</code> -- lists both recent and personal RStudio projects.</p></li>
-</ul>
-
-<ul>
-<li><p><code>get_proj_names()</code> -- lists RStudio projects names (as a character
-vector)</p></li>
 </ul>
 
     </div>
 
-    <pre class="usage"><span class='fu'>read_projects</span>(<span class='no'>file</span>, <span class='kw'>sort_by</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>open_project</span>(
+  <span class='kw'>name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>new_session</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>proj_list</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>proj_list_path</span> <span class='kw'>=</span> <span class='fu'><a href='projects.html'>get_path_recent_proj_list</a></span>(),
+  <span class='kw'>only_available</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)
 
-<span class='fu'>get_path_recent_proj_list</span>()
+<span class='fu'>open_project_all</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>new_session</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>only_available</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
 
-<span class='fu'>get_path_personal_proj_list</span>()
+<span class='fu'>open_recent_proj_list</span>()
 
-<span class='fu'>get_projs_recent</span>(<span class='kw'>sort_by</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>open_personal_proj_list</span>()
 
-<span class='fu'>get_projs_personal</span>(<span class='kw'>sort_by</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='fu'>get_projs_all</span>()
-
-<span class='fu'>get_proj_names</span>(<span class='kw'>file</span> <span class='kw'>=</span> <span class='fu'>get_path_recent_proj_list</span>(), <span class='kw'>sort_by</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>update_personal_proj_list</span>()</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>file</th>
-      <td><p>(character) Path to file with RStudio projects.</p></td>
+      <th>name</th>
+      <td><p>(string|<code>NULL</code>) The name of the project or <code>NULL</code> to choose
+a project interactively.</p></td>
     </tr>
     <tr>
-      <th>sort_by</th>
-      <td><p>(<code>"name"</code>|<code>"path"</code>|<code><a href='https://rdrr.io/r/base/logical.html'>FALSE</a></code>)</p></td>
+      <th>new_session</th>
+      <td><p>(logical) should the project be opened in a new session,
+or should the current RStudio session switch to that project? Note
+that <code>TRUE</code> values are only supported with RStudio Desktop and RStudio
+Server Pro.</p></td>
+    </tr>
+    <tr>
+      <th>proj_list</th>
+      <td><p>(data frame) The result of <code><a href='projects.html'>read_projects()</a></code> or <code>NULL</code>.</p></td>
+    </tr>
+    <tr>
+      <th>proj_list_path</th>
+      <td><p>(string) The path to the file with the list of project
+paths. If <code>proj_list</code> is not <code>NULL</code>, then <code>proj_list_path</code> is ignored.</p></td>
+    </tr>
+    <tr>
+      <th>only_available</th>
+      <td><p>(logical) If <code>TRUE</code>, non-existing projects and projects
+with broken paths are removed from the list of choices.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Opens the indicated project.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'>
+<ul>
+<li><p><code><a href='https://rdrr.io/pkg/rstudioapi/man/projects.html'>rstudioapi::openProject()</a></code></p></li>
+<li><p><code><a href='https://rdrr.io/pkg/rstudioapi/man/projects.html'>rstudioapi::initializeProject()</a></code></p></li>
+</ul>
+</div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"></pre>
@@ -188,6 +185,8 @@ vector)</p></li>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
