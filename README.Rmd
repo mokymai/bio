@@ -18,7 +18,7 @@ output: github_document
 <center>
 <font color="red" size=6>
 <br>
-<b>Do not use the package yet.</b><br>
+<b>Do not use the package for now.</b><br>
 Work is still in progress...
 <br><br>
 </font>

@@ -20,8 +20,8 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 
 <center>
 
-<font color="red" size=6> <br> <b>Do not use the package yet.</b><br>
-Work is still in progress… <br><br> </font>
+<font color="red" size=6> <br> <b>Do not use the package for
+now.</b><br> Work is still in progress… <br><br> </font>
 
 </center>
 

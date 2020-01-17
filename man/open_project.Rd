@@ -2,11 +2,10 @@
 % Please edit documentation in R/projects.R
 \name{open_project}
 \alias{open_project}
-\alias{get_path_personal_proj_list}
+\alias{open_project_all}
+\alias{open_recent_proj_list}
 \alias{open_personal_proj_list}
 \alias{update_personal_proj_list}
-\alias{open_project_personal}
-\alias{get_projs_all}
 \title{Open RStudio project.}
 \usage{
 open_project(
@@ -14,18 +13,16 @@ open_project(
   new_session = FALSE,
   proj_list = NULL,
   proj_list_path = get_path_recent_proj_list(),
-  only_existing = TRUE
+  only_available = TRUE
 )
 
-get_path_personal_proj_list()
+open_project_all(name = NULL, new_session = FALSE, only_available = TRUE, ...)
+
+open_recent_proj_list()
 
 open_personal_proj_list()
 
 update_personal_proj_list()
-
-open_project_personal(name = NULL, new_session = FALSE, ...)
-
-get_projs_all()
 }
 \arguments{
 \item{name}{(string|\code{NULL}) The name of the project or \code{NULL} to choose
@@ -41,7 +38,7 @@ Server Pro.}
 \item{proj_list_path}{(string) The path to the file with the list of project
 paths. If \code{proj_list} is not \code{NULL}, then \code{proj_list_path} is ignored.}
 
-\item{only_existing}{(logical) If \code{TRUE}, non-existing projects and projects
+\item{only_available}{(logical) If \code{TRUE}, non-existing projects and projects
 with broken paths are removed from the list of choices.}
 }
 \value{
@@ -49,6 +46,11 @@ Opens the indicated project.
 }
 \description{
 Open RStudio project by name or interactively.
+
+\itemize{
+\item \code{open_recent_proj_list()} -- opens the file with the list of
+recent RStudio projects.
+}
 }
 \examples{
 \dontrun{\donttest{
