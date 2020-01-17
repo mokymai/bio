@@ -58,10 +58,11 @@ variables.
 }
 }
 \examples{
+\dontrun{\donttest{
 get_path_rs_user_settings()
 
 get_path_rs_user_settings("bs-default")
-
+}}
 get_path_r_environ()
 
 }

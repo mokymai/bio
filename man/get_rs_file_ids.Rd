@@ -19,5 +19,7 @@ Data frame with columns \code{id} (for IDs) and \code{path} (for file paths).
 Get RStudio file IDs and paths.
 }
 \examples{
+\dontrun{\donttest{
 head(get_rs_file_ids_user())
+}}
 }

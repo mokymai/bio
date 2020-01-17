@@ -198,7 +198,9 @@ create_rs_keybindings_dir <- function() {
 #' @export
 #'
 #' @examples
+#' \dontrun{\donttest{
 #' head(get_rs_file_ids_user())
+#' }}
 get_rs_file_ids <- function() {
   dplyr::bind_rows(
     get_rs_file_ids_user(),
@@ -317,10 +319,11 @@ open_rs_desktop_user_settings_dir <- function() {
 #' @param (character) type of settings: "current", "bs-default".
 #' @export
 #' @examples
+#' \dontrun{\donttest{
 #' get_path_rs_user_settings()
 #'
 #' get_path_rs_user_settings("bs-default")
-#'
+#' }}
 get_path_rs_user_settings <- function(which = "current") {
   switch(which,
     "current"    =
