@@ -63,7 +63,9 @@ rproj_read_projects <- function(file, sort_by = FALSE) {
 #' @export
 #'
 #' @examples
+#' \dontrun{\donttest{
 #' rproj_path_to_df("C:/data/analysis/proj.Rproj")
+#' }}
 rproj_path_to_df <- function(proj) {
   tibble::tibble(
     name   = rproj_extract_proj_name(path = proj),
@@ -78,7 +80,9 @@ rproj_path_to_df <- function(proj) {
 #' - `rproj_get_path_rs_recent_proj_list()` -- gets path to the file with the list of
 #'    recent RStudio projects.
 #' @examples
+#' \dontrun{\donttest{
 #' rproj_get_path_rs_recent_proj_list()
+#' }}
 #'
 rproj_get_path_rs_recent_proj_list <- function() {
   get_path_rs_desktop_config_dir("monitored/lists/project_mru")
@@ -99,7 +103,9 @@ rproj_get_current_projects <- function(sort_by = FALSE) {
 #' - `rproj_get_proj_names()` -- lists RStudio projects names (as a character
 #'   vector)
 #' @examples
+#' \dontrun{\donttest{
 #' head(rproj_get_proj_names())
+#' }}
 rproj_get_proj_names <- function(file = rproj_get_path_rs_recent_proj_list(),
   sort_by = FALSE) {
   rproj_read_projects(file, sort_by = sort_by)$name
