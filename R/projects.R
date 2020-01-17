@@ -9,9 +9,9 @@
 #' @importFrom magrittr "%>%"
 #' @examples
 #' path_to_project <- c("list/proj.Rproj", "C:/R/BS-2020/bs.Rproj")
-#' rproj_extract_proj_name(path_to_project)
+#' extract_proj_name(path_to_project)
 #
-rproj_extract_proj_name <- function(path) {
+extract_proj_name <- function(path) {
   path <- fs::path(path)
   ext  <- fs::path_ext(path)
   if (any(!tolower(ext) %in% c("Rproj", "rproj"))) {
@@ -27,13 +27,13 @@ rproj_extract_proj_name <- function(path) {
 #'
 #' @export
 #' @description
-#' - `rproj_read_projects()` - reads file with projects and list their names and paths.
+#' - `read_projects()` - reads file with projects and list their names and paths.
 #'
-rproj_read_projects <- function(file, sort_by = FALSE) {
+read_projects <- function(file, sort_by = FALSE) {
 
   projs   <- readr::read_lines(file)
   projs   <- stringr::str_subset(projs, "^\\s*$", negate = TRUE)
-  proj_df <- rproj_path_to_df(projs)
+  proj_df <- parse_proj_path(projs)
 
   switch(
     tolower(sort_by),
@@ -57,18 +57,18 @@ rproj_read_projects <- function(file, sort_by = FALSE) {
 #' @param proj (character) Path to *.Rproj file.
 #'
 #' @return
-#'  - `rproj_path_to_df()` returns data frame with columns `name` (with project
+#'  - `parse_proj_path()` returns data frame with columns `name` (with project
 #'     name, i.e., folder name) and `path` to *.Rproj file.
 #'
 #' @export
 #'
 #' @examples
 #' \dontrun{\donttest{
-#' rproj_path_to_df("C:/data/analysis/proj.Rproj")
+#' parse_proj_path("C:/data/analysis/proj.Rproj")
 #' }}
-rproj_path_to_df <- function(proj) {
+parse_proj_path <- function(proj) {
   tibble::tibble(
-    name   = rproj_extract_proj_name(path = proj),
+    name   = extract_proj_name(path = proj),
     path   = proj,
     exists = file.exists(proj)
   )
@@ -77,48 +77,48 @@ rproj_path_to_df <- function(proj) {
 #' @name projects
 #' @export
 #' @description
-#' - `rproj_get_path_rs_recent_proj_list()` -- gets path to the file with the list of
+#' - `get_path_recent_proj_list()` -- gets path to the file with the list of
 #'    recent RStudio projects.
 #' @examples
 #' \dontrun{\donttest{
-#' rproj_get_path_rs_recent_proj_list()
+#' get_path_recent_proj_list()
 #' }}
 #'
-rproj_get_path_rs_recent_proj_list <- function() {
+get_path_recent_proj_list <- function() {
   get_path_rs_desktop_config_dir("monitored/lists/project_mru")
 }
 
 #' @name projects
 #' @export
 #' @description
-#' - `rproj_get_current_projects()` -- lists current RStudio projects (in a data
+#' - `get_projs_recent()` -- lists recent RStudio projects (into a data
 #'    frame).
-rproj_get_current_projects <- function(sort_by = FALSE) {
-  rproj_read_projects(file = rproj_get_path_rs_recent_proj_list(), sort_by = sort_by)
+get_projs_recent <- function(sort_by = FALSE) {
+  read_projects(file = get_path_recent_proj_list(), sort_by = sort_by)
 }
 
 #' @name projects
 #' @export
 #' @description
-#' - `rproj_get_proj_names()` -- lists RStudio projects names (as a character
+#' - `get_proj_names()` -- lists RStudio projects names (as a character
 #'   vector)
 #' @examples
 #' \dontrun{\donttest{
-#' head(rproj_get_proj_names())
+#' head(get_proj_names())
 #' }}
-rproj_get_proj_names <- function(file = rproj_get_path_rs_recent_proj_list(),
+get_proj_names <- function(file = get_path_recent_proj_list(),
   sort_by = FALSE) {
-  rproj_read_projects(file, sort_by = sort_by)$name
+  read_projects(file, sort_by = sort_by)$name
 }
 
 
 #' @name projects
 #' @export
 #' @description
-#' - `rproj_open_rs_recent_proj_list()` -- opens the file with the list of
+#' - `open_recent_proj_list()` -- opens the file with the list of
 #'    recent RStudio projects.
-rproj_open_rs_recent_proj_list <- function() {
-  open_in_rs(path = rproj_get_path_rs_recent_proj_list())
+open_recent_proj_list <- function() {
+  open_in_rs(path = get_path_recent_proj_list())
 }
 
 
@@ -128,7 +128,7 @@ rproj_open_rs_recent_proj_list <- function() {
 #'
 #' @param name (string|`NULL`) The name of the project or `NULL` to choose
 #'       a project interactively.
-#' @param proj_list (data frame) The result of [rproj_read_projects()] or `NULL`.
+#' @param proj_list (data frame) The result of [read_projects()] or `NULL`.
 #' @param proj_list_path (string) The path to the file with the list of project
 #'        paths. If `proj_list` is not `NULL`, then `proj_list_path` is ignored.
 #' @param new_session (logical) should the project be opened in a new session,
@@ -146,16 +146,16 @@ rproj_open_rs_recent_proj_list <- function() {
 #' @examples
 #' \dontrun{\donttest{
 #'
-#' rproj_open_project()
+#' open_project()
 #'
-#' rproj_open_project("bs")
+#' open_project("bs")
 #'
-#' rproj_open_project("R-2019-project")
+#' open_project("R-2019-project")
 #'
 #' }}
 #
-rproj_open_project <- function(name = NULL, new_session = FALSE, proj_list = NULL,
-  proj_list_path = rproj_get_path_rs_recent_proj_list(), only_existing = TRUE) {
+open_project <- function(name = NULL, new_session = FALSE, proj_list = NULL,
+  proj_list_path = get_path_recent_proj_list(), only_existing = TRUE) {
 
   if (is.null(proj_list)) {
 
@@ -163,7 +163,7 @@ rproj_open_project <- function(name = NULL, new_session = FALSE, proj_list = NUL
       usethis::ui_stop("The file {usethis::ui_path(proj_list_path)} was not found.")
     }
 
-    proj_list <- rproj_read_projects(proj_list_path)
+    proj_list <- read_projects(proj_list_path)
   }
 
   if (isTRUE(only_existing)) {
@@ -227,56 +227,49 @@ rproj_open_project <- function(name = NULL, new_session = FALSE, proj_list = NUL
   rstudioapi::openProject(proj_path, newSession = new_session)
 }
 
-#' @rdname rproj_open_project
+
+# Personal projects ==========================================================
+#' @rdname open_project
 #' @export
-open_project <- function(...) {
-  rproj_open_project(...)
+get_path_personal_proj_list <- function() {
+  fs::path(get_path_r_user_dir(), "personal-project-list-r")
+  # "D:/Dokumentai/R/bs/data-raw/project-list"
 }
 
-# VG projects ================================================================
-rproj_get_path_vg_proj_list <- function() {
-  "D:/Dokumentai/R/bs/data-raw/project-list"
+#' @rdname open_project
+#' @export
+open_personal_proj_list <- function() {
+  open_in_rs(path = get_path_personal_proj_list())
 }
 
-
-rproj_open_vg_proj_list <- function() {
-  open_in_rs(path = rproj_get_path_vg_proj_list())
+#' @rdname open_project
+#' @export
+update_personal_proj_list <- function() {
+  file_vg  <- get_path_personal_proj_list()
+  new_list <- get_projs_all()
+  readr::write_lines(new_list$path, path = file_vg)
 }
 
+#' @rdname open_project
+#' @export
+open_project_personal <- function(name = NULL, new_session = FALSE, ...) {
+  new_list <- get_projs_all()
+  open_project(new_session = new_session, proj_list = new_list, ...)
+}
 
-rproj_list_recent_n_vg_proj <- function() {
+#' @rdname open_project
+#' @export
+get_projs_all <- function() {
 
-  file_recent <- rproj_get_path_rs_recent_proj_list()
-  file_vg     <- rproj_get_path_vg_proj_list()
+  file_recent <- get_path_recent_proj_list()
+  file_vg     <- get_path_personal_proj_list()
 
   new_list <-
     dplyr::bind_rows(
-      rproj_read_projects(file = file_recent),
-      rproj_read_projects(file = file_vg)
+      read_projects(file = file_recent),
+      read_projects(file = file_vg)
     ) %>%
     dplyr::distinct()
 
   new_list
 }
-
-
-rproj_update_vg_proj_list <- function() {
-  file_vg  <- rproj_get_path_vg_proj_list()
-  new_list <- rproj_list_recent_n_vg_proj()
-  readr::write_lines(new_list$path, path = file_vg)
-}
-
-update_vg_proj_list <- function() {
-  rproj_update_vg_proj_list()
-}
-
-rproj_open_project2 <- function(name = NULL, new_session = FALSE, ...) {
-  new_list <- rproj_list_recent_n_vg_proj()
-  rproj_open_project(new_session = new_session, proj_list = new_list, ...)
-}
-
-open_project2 <- function(name = NULL, new_session = FALSE, ...) {
-  new_list <- rproj_list_recent_n_vg_proj()
-  rproj_open_project(new_session = new_session, proj_list = new_list, ...)
-}
-
