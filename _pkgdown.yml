@@ -1,1 +1,18 @@
 destination: docs
+
+home:
+  sections:
+    - dev_status
+    - authors
+    - citation
+    - license
+    - links:
+      # - text: Download from CRAN at
+      #   href: https://cloud.r-project.org/package=bs
+      - text: Report a bug at
+        href: https://mokymai.com/GegznaV/bs/issues
+  link_order:
+    # - repo
+    # - github
+    - bug_report
+    - custom

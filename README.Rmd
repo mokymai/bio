@@ -7,23 +7,31 @@ output: github_document
 # Package **_bs_**
 
 <!-- badges: start -->
-[![GitHub version](https://img.shields.io/badge/GitHub-v`r packageVersion("bs")`-brightgreen.svg)](https://github.com/GegznaV/bs)
 [![CRAN status](https://www.r-pkg.org/badges/version/bs)](https://CRAN.R-project.org/package=bs)
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![GitHub version](https://img.shields.io/badge/GitHub-v`r packageVersion("bs")`-brightgreen.svg)](https://github.com/GegznaV/bs)
 [![Updated-on](https://img.shields.io/badge/Updated%20on-`r gsub('-', '--', Sys.Date())`-yellowgreen.svg)]()
 [![Travis build status](https://travis-ci.com/mokymai/bs.svg?branch=master)](https://travis-ci.com/mokymai/bs)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/mokymai/bs?branch=master&svg=true)](https://ci.appveyor.com/project/mokymai/bs)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
+<center>
+<font color="red" size=6>
+<br>
+<b>Do not use the package yet.</b><br>
+Work is still in progress...
+<br><br>
+</font>
+</center>
 
-Helper and convenience functions for *Biostatistics* course.
+Convenience functions to facilitate installation and management of required resources for __*Biostatistics*__ course unit (*BS-2020*).
 
 
 # Install
 
-Install this package from GitHub:
+To install this package from GitHub:
 
 ```{r, eval=FALSE}
-install.packages("remotes")
+if (!require(remotes)) {install.packages("remotes")}
 remotes::install_github("mokymai/bs")
 ```
