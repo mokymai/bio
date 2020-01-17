@@ -72,9 +72,9 @@ get_path_r_user_dir <- function(...) {
 #' - `get_path_rs_config_dir()` (string) path, if it exists, or error.
 #' @export
 #' @examples
-#' if (FALSE) {
+#' \dontrun{\donttest{
 #' get_path_rs_config_dir()
-#' }
+#' }}
 
 # FIXME: get_path_rs_config_dir() previously was get_rs_state_dir()
 get_path_rs_config_dir  <- function(...) {
@@ -111,10 +111,12 @@ get_path_rs_config_dir  <- function(...) {
 #' https://support.rstudio.com/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State
 #'
 #' @examples
+#' \dontrun{\donttest{
 #' get_path_rs_desktop_config_dir()
 #'
 #' get_path_rs_desktop_config_dir("dictionaries")
-#'
+#' }}
+
 get_path_rs_desktop_config_dir <- function(..., .check = FALSE) {
   # base <-
   #   switch(
@@ -159,7 +161,7 @@ get_path_rs_snippets_dir <- function() {
 #' @name RStudio-config-dir
 #' @export
 #' @examples
-#' get_path_r_user_dir()
+#' get_path_rs_keybindings_dir()
 #'
 get_path_rs_keybindings_dir <- function() {
   get_path_r_user_dir("rstudio", "keybindings")

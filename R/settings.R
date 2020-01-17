@@ -196,7 +196,7 @@ set_initial_rs_configuration <- function() {
 #' @export
 #'
 #' @examples
-#' if (FALSE) {
+#' \dontrun{\donttest{
 #' #-------------------------------------------------
 #' # .rs.readUiPref()
 #' # .rs.writeUiPref()
@@ -220,7 +220,7 @@ set_initial_rs_configuration <- function() {
 #' get_rs_ui_pref_names()
 #'
 #' #-------------------------------------------------
-#' }
+#' }}
 
 read_rs_user_settings <- function(which = "current") {
   file   <- get_path_rs_user_settings(which)

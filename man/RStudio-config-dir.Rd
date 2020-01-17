@@ -50,16 +50,17 @@ sub-directories) of RStudio desktop user interface settings.
 \examples{
 get_path_r_user_dir()
 
-if (FALSE) {
+\dontrun{\donttest{
 get_path_rs_config_dir()
-}
+}}
+\dontrun{\donttest{
 get_path_rs_desktop_config_dir()
 
 get_path_rs_desktop_config_dir("dictionaries")
-
+}}
 get_path_rs_snippets_dir()
 
-get_path_r_user_dir()
+get_path_rs_keybindings_dir()
 
 }
 \seealso{
