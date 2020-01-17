@@ -2,6 +2,7 @@
 % Please edit documentation in R/projects.R
 \name{rproj_open_project}
 \alias{rproj_open_project}
+\alias{open_project}
 \title{Open RStudio project.}
 \usage{
 rproj_open_project(
@@ -11,6 +12,8 @@ rproj_open_project(
   proj_list_path = rproj_get_path_rs_recent_proj_list(),
   only_existing = TRUE
 )
+
+open_project(...)
 }
 \arguments{
 \item{name}{(string|\code{NULL}) The name of the project or \code{NULL} to choose

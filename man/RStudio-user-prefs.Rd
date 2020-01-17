@@ -33,6 +33,7 @@ Find the names of the preferences at:
 https://github.com/rstudio/rstudio/blob/5f2b79427ed526e22f78c794a4b5894ebee2de75/src/cpp/session/SessionUserSettings.cpp#L357-L447
 }
 \examples{
+if (FALSE) {
 #-------------------------------------------------
 # .rs.readUiPref()
 # .rs.writeUiPref()
@@ -56,6 +57,7 @@ get_rs_user_settings_names()
 get_rs_ui_pref_names()
 
 #-------------------------------------------------
+}
 }
 \seealso{
 RStudio functions \code{.rs.readUiPref()}, \code{.rs.writeUiPref()}.

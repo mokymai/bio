@@ -221,6 +221,11 @@ rproj_open_project <- function(name = NULL, new_session = FALSE, proj_list = NUL
   rstudioapi::openProject(proj_path, newSession = new_session)
 }
 
+#' @rdname rproj_open_project
+#' @export
+open_project <- function(...) {
+  rproj_open_project(...)
+}
 
 # VG projects ================================================================
 rproj_get_path_vg_proj_list <- function() {
@@ -255,8 +260,16 @@ rproj_update_vg_proj_list <- function() {
   readr::write_lines(new_list$path, path = file_vg)
 }
 
+update_vg_proj_list <- function() {
+  rproj_update_vg_proj_list()
+}
 
 rproj_open_project2 <- function(name = NULL, new_session = FALSE, ...) {
+  new_list <- rproj_list_recent_n_vg_proj()
+  rproj_open_project(new_session = new_session, proj_list = new_list, ...)
+}
+
+open_project2 <- function(name = NULL, new_session = FALSE, ...) {
   new_list <- rproj_list_recent_n_vg_proj()
   rproj_open_project(new_session = new_session, proj_list = new_list, ...)
 }
