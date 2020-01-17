@@ -6,15 +6,15 @@ reset_rstudio <- function() {
   # rstudioapi::executeCommand("clearUserPrefs")
   bs::reset_rs_user_settings("bs-default", backup = TRUE)
 
-  rstudioapi::executeCommand("clearPlots")
-  rstudioapi::executeCommand("clearRecentFiles")
-  rstudioapi::executeCommand("clearRecentProjects")
-  rstudioapi::executeCommand("clearHelpHistory")
-  rstudioapi::executeCommand("closeAllSourceDocs")
+  rstudioapi::executeCommand("clearPlots",          quiet = TRUE)
+  rstudioapi::executeCommand("clearRecentFiles",    quiet = TRUE)
+  rstudioapi::executeCommand("clearRecentProjects", quiet = TRUE)
+  rstudioapi::executeCommand("clearHelpHistory",    quiet = TRUE)
+  rstudioapi::executeCommand("closeAllSourceDocs",  quiet = TRUE)
   bs::reset_rstudio_layout()
   # clearWorkspace
   bs::clear_r_workspace()
-  rstudioapi::executeCommand("consoleClear")
+  rstudioapi::executeCommand("consoleClear",         quiet = TRUE)
 
   snippets::install_snippets_from_package(type = "r")
   snippets::install_snippets_from_package(type = "markdown")
@@ -94,17 +94,17 @@ clear_r_workspace <- function() {
 reset_rstudio_layout <- function(rs_layout = "left") {
   if (rstudioapi::isAvailable() && rstudioapi::hasFun("executeCommand")) {
     # Set opened RS tabs
-    rstudioapi::executeCommand("activateFiles")
-    rstudioapi::executeCommand("activateEnvironment")
-    rstudioapi::executeCommand("activateConsole")
+    rstudioapi::executeCommand("activateFiles",       quiet = TRUE)
+    rstudioapi::executeCommand("activateEnvironment", quiet = TRUE)
+    rstudioapi::executeCommand("activateConsole",     quiet = TRUE)
 
     switch(rs_layout,
-      "right" = rstudioapi::executeCommand("layoutConsoleOnRight"),
-      "left"  = rstudioapi::executeCommand("layoutConsoleOnLeft")
+      "right" = rstudioapi::executeCommand("layoutConsoleOnRight", quiet = TRUE),
+      "left"  = rstudioapi::executeCommand("layoutConsoleOnLeft",  quiet = TRUE)
     )
 
     # End zooming of single window
-    rstudioapi::executeCommand("layoutEndZoom")
+    rstudioapi::executeCommand("layoutEndZoom", quiet = TRUE)
   }
   invisible()
 }
