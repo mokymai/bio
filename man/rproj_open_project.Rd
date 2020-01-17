@@ -39,7 +39,7 @@ Opens the indicated project.
 Open RStudio project by name or interactively.
 }
 \examples{
-\donttest{\dontrun{
+\dontrun{\donttest{
 
 rproj_open_project()
 

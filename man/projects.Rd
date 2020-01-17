@@ -64,8 +64,14 @@ recent RStudio projects.
 }
 }
 \examples{
+\dontrun{\donttest{
 rproj_path_to_df("C:/data/analysis/proj.Rproj")
+}}
+\dontrun{\donttest{
 rproj_get_path_rs_recent_proj_list()
+}}
 
+\dontrun{\donttest{
 head(rproj_get_proj_names())
+}}
 }

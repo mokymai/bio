@@ -144,7 +144,7 @@ rproj_open_rs_recent_proj_list <- function() {
 #' - [rstudioapi::openProject()]
 #' - [rstudioapi::initializeProject()]
 #' @examples
-#' \donttest{\dontrun{
+#' \dontrun{\donttest{
 #'
 #' rproj_open_project()
 #'
