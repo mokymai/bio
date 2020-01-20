@@ -1,12 +1,12 @@
 Package: bio
-Title: Helper Functions for Course BS-2020
+Title: Resources Manager For BS-2020
 Version: 0.0.0.9000
 Authors@R: 
     person("Vilmantas", "Gegzna", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-9500-5167"),
            email = "GegznaV@gmail.com"
     )
-Description: What the package does (one paragraph).
+Description: Resources manager for course unit BS-2020.
 URL: https://mokymai.github.io/bio/
 BugReports: https://mokymai.com/bio/issues
 License: MIT + file LICENSE
