@@ -1,19 +1,19 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Package ***bs***
+# Package ***bio***
 
 <!-- badges: start -->
 
 [![CRAN
-status](https://www.r-pkg.org/badges/version/bs)](https://CRAN.R-project.org/package=bs)
+status](https://www.r-pkg.org/badges/version/bio)](https://CRAN.R-project.org/package=bio)
 [![GitHub
-version](https://img.shields.io/badge/GitHub-v0.0.0.9000-brightgreen.svg)](https://github.com/GegznaV/bs)
-[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--01--17-yellowgreen.svg)]()
+version](https://img.shields.io/badge/GitHub-v0.0.0.9000-brightgreen.svg)](https://github.com/GegznaV/bio)
+[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--01--20-yellowgreen.svg)]()
 [![Travis build
-status](https://travis-ci.com/mokymai/bs.svg?branch=master)](https://travis-ci.com/mokymai/bs)
+status](https://travis-ci.com/mokymai/bio.svg?branch=master)](https://travis-ci.com/mokymai/bio)
 [![AppVeyor build
-status](https://ci.appveyor.com/api/projects/status/github/mokymai/bs?branch=master&svg=true)](https://ci.appveyor.com/project/mokymai/bs)
+status](https://ci.appveyor.com/api/projects/status/github/mokymai/bio?branch=master&svg=true)](https://ci.appveyor.com/project/mokymai/bio)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
@@ -34,5 +34,5 @@ To install this package from GitHub:
 
 ``` r
 if (!require(remotes)) {install.packages("remotes")}
-remotes::install_github("mokymai/bs")
+remotes::install_github("mokymai/bio")
 ```
