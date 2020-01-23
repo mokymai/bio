@@ -8,7 +8,12 @@ get_pkgs_instalation_status()
 }
 \value{
 Data frame
+
+Data frame with ???
 }
 \description{
 Get infromation about recommended packages
+}
+\examples{
+head(get_pkgs_instalation_status())
 }

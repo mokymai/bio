@@ -2,7 +2,7 @@
 % Please edit documentation in R/packages.R
 \name{compare_version}
 \alias{compare_version}
-\title{Compace version numbers.}
+\title{Compare version numbers.}
 \usage{
 compare_version(v_installed, v_required)
 }
@@ -15,10 +15,20 @@ compare_version(v_installed, v_required)
 The same as in \code{\link[utils:compareVersion]{utils::compareVersion()}}, just a vector.
 }
 \description{
-Compace version numbers.
+Compare version numbers.
 }
 \examples{
 compare_version("2.4", "2")
+
 compare_version("2.3", "2.3")
+
 compare_version("2.3", "2.3.1")
 }
+\seealso{
+Other R-packages-related functions: 
+\code{\link{get_pkgs_installation_details}()},
+\code{\link{get_pkgs_installed}()},
+\code{\link{get_pkgs_recommended}()},
+\code{\link{get_pkgs_req_version}()}
+}
+\concept{R-packages-related functions}

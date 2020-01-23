@@ -4,11 +4,22 @@
 \alias{get_pkgs_req_version}
 \title{Get required version of packages.}
 \usage{
-get_pkgs_req_version(file = "pkgs-required-version")
+get_pkgs_req_version(file = "install-r/pkgs-required-version.txt")
 }
 \value{
-Dataframe with columns  "paketas" and "reikiama_versija".
+Dataframe with columns  "package" and "required_version".
 }
 \description{
 Get required version of packages from a list in a file.
 }
+\examples{
+head(get_pkgs_req_version())
+}
+\seealso{
+Other R-packages-related functions: 
+\code{\link{compare_version}()},
+\code{\link{get_pkgs_installation_details}()},
+\code{\link{get_pkgs_installed}()},
+\code{\link{get_pkgs_recommended}()}
+}
+\concept{R-packages-related functions}
