@@ -1,0 +1,214 @@
+# Main -----------------------------------------------------------------------
+remotes
+fs
+curl
+stringi
+stringr
+rstudioapi
+clipr
+rprojroot
+usethis
+cli
+devtools
+ctv
+BiocManager
+conflicted
+
+tidyselect
+dplyr
+tidyr
+broom
+
+# Markdown -------------------------------------------------------------------
+knitr
+rmarkdown
+bookdown
+bookdownplus
+blogdown
+pkgdown
+namer
+icon
+emo
+pander
+DT
+tinytex
+
+addin.tools
+addins.rmd
+addins.rs
+
+# Kiti -----------------------------------------------------------------------
+ggplot2
+data.table
+checkmate
+BBmisc
+infer
+aplpack
+coda
+arm
+leaps
+lmtest
+matrixcalc
+mi
+sem
+TH.data
+sigr
+raster
+mvtnorm
+multcomp
+multcompView
+carData
+car
+RCurl
+alr4
+openxlsx
+readxl
+forcats
+hms
+
+tidyverse
+
+PMCMR
+PMCMRplus
+descriptr
+xtable
+shiny
+rgl
+parallelMap
+
+covr
+docxtractr
+miniUI
+shinytest
+stringdist
+tabulizer
+tidyxl
+xlsx
+XML
+tidycells
+
+# Markdown | Citation --------------------------------------------------------
+citr
+rcrossref
+ymlthis
+
+# RS add-ins -----------------------------------------------------------------
+rsam
+todor
+
+# Utils ----------------------------------------------------------------------
+ViewPipeSteps
+
+# RS | Spelling, Grammar -----------------------------------------------------
+hunspell
+LanguageToolR
+wellspell.addin
+
+# Strings --------------------------------------------------------------------
+regexplain
+
+# ggplot | Vizualizavimui, grafikams -----------------------------------------
+# ggplot2
+ggrepel
+cowplot
+ggsci
+ggpubr
+ggthemes
+ggpval
+qqplotr
+ggdendro
+ggfittext
+ggformula
+ggridges
+ggfortify
+ggforce
+gghighlight
+ggalluvial
+gggenes
+lemon
+ggQQunif
+ggpmisc
+gginnards
+gglogo
+ggtext
+treemapify
+ggpie
+
+plotly
+autoplotly
+ggplotify
+
+ggmosaic
+ggimage
+
+# To PowerPoint, etc. --------------------------------------------------------
+officer
+flextable
+rvg
+
+# ggplot | RS add-ins --------------------------------------------------------
+esquisse
+ggedit
+ggplotAssist
+latex2exp
+
+# ML -------------------------------------------------------------------------
+ranger
+pls
+caret
+mlr
+mlr3
+mlr3verse
+DALEX
+iml
+tuneRanger
+
+# Statistical analysis -------------------------------------------------------
+vcd
+vcdExtra
+fitdistrplus
+chemCal
+userfriendlyscience
+DescTools
+rcompanion
+skimr
+report
+# descriptr
+summarytools
+AMR
+RVAideMemoire
+# EMT  # dependency of rcompanion
+XNomial
+
+# Lessons --------------------------------------------------------------------
+adventr
+swirl
+learnr
+
+# Kita -----------------------------------------------------------------------
+# Package 'ggstatsplot' has a lot of dependencies
+ggstatsplot
+
+# R Commander ----------------------------------------------------------------
+RcmdrMisc
+Rcmdr
+RcmdrPlugin.EZR
+RcmdrPlugin.KMggplot2
+RcmdrPlugin.EZR.as.menu
+RcmdrPlugin.biostat
+
+DataEntry
+
+# Add-ins ---------------------------------------------------------------------
+datapasta
+dplyrAssist
+janitor
+
+# Stat analizė ---------------------------------------------------------------
+rstatix
+factoextra
+NMF
+NNLM
+
+# import
+# remedy
