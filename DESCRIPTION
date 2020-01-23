@@ -30,4 +30,5 @@ Imports:
   jsonlite,
   purrr,
   readr,
+  pander,
   snippets
