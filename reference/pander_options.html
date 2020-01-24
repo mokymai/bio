@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Open files and directories — open_files • bio</title>
+<title>Get or set Pander options. — pander_options • bio</title>
 
 
 <!-- jquery -->
@@ -35,17 +35,8 @@
 
 
 
-<meta property="og:title" content="Open files and directories — open_files" />
-<meta property="og:description" content="
-
-open_in_rs() tries to open file in RStudio.
-
-
-
-get_path_r_environ()-- gets path to file .Renviron with R environment
-variables.
-
-" />
+<meta property="og:title" content="Get or set Pander options. — pander_options" />
+<meta property="og:description" content="Get or set Pander options." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -109,78 +100,52 @@ variables.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Open files and directories</h1>
+    <h1>Get or set Pander options.</h1>
     
-    <div class="hidden name"><code>open_files.Rd</code></div>
+    <div class="hidden name"><code>pander_options.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
-<ul>
-<li><p><code>open_in_rs()</code> tries to open file in RStudio.</p></li>
-</ul>
-
-<ul>
-<li><p><code>get_path_r_environ()</code>-- gets path to file <code>.Renviron</code> with R environment
-variables.</p></li>
-</ul>
-
+    <p>Get or set Pander options.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>open_in_rs</span>(<span class='no'>path</span>)
-
-<span class='fu'>open_r_user_dir</span>()
-
-<span class='fu'>open_rs_config_dir</span>()
-
-<span class='fu'>get_path_rs_desktop_user_settings_dir</span>()
-
-<span class='fu'>open_rs_desktop_user_settings_dir</span>()
-
-<span class='fu'>get_path_rs_user_settings</span>(<span class='kw'>which</span> <span class='kw'>=</span> <span class='st'>"current"</span>)
-
-<span class='fu'>open_rs_user_settings</span>()
-
-<span class='fu'>open_rs_desktop_config_dir</span>()
-
-<span class='fu'>open_rs_snippets_dir</span>()
-
-<span class='fu'>open_rs_keybindings_dir</span>()
-
-<span class='fu'>get_path_r_environ</span>(<span class='kw'>scope</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"user"</span>, <span class='st'>"project"</span>))
-
-<span class='fu'>open_r_environ</span>()</pre>
+    <pre class="usage"><span class='fu'>pander_options</span>(<span class='no'>o</span>, <span class='no'>value</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>path</th>
-      <td><p>(sting) Path to file.</p></td>
+      <th>o</th>
+      <td><p>(string) option name.</p></td>
     </tr>
     <tr>
-      <th>scope</th>
-      <td><p>(character) One of "user" or "project".</p></td>
+      <th>value</th>
+      <td><p>value to assign (optional)</p></td>
     </tr>
     <tr>
-      <th>(character)</th>
-      <td><p>type of settings: "current", "bio-default".</p></td>
+      <th>...</th>
+      <td><p>valid option - value pairs (e.g., <code>option = "value"</code>).</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'>
-<ul>
-<li><p><code><a href='http://fs.r-lib.org/reference/file_show.html'>fs::file_show()</a></code>,</p></li>
-<li><p><code><a href='https://rdrr.io/pkg/rstudioapi/man/navigateToFile.html'>rstudioapi::navigateToFile()</a></code>,</p></li>
-<li><p><code><a href='https://rdrr.io/r/utils/browseURL.html'>browseURL()</a></code>,</p></li>
-<li><p><code><a href='https://rdrr.io/r/utils/file.edit.html'>utils::file.edit()</a></code></p></li>
-</ul>
-</div>
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/pander/man/evalsOptions.html'>pander::evalsOptions()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"></pre>
+    <pre class="examples"><div class='input'><span class='no'>p_opts</span> <span class='kw'>&lt;-</span> <span class='fu'>pander_options</span>()
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>p_opts</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; $digits
+#&gt; [1] 4
+#&gt; 
+#&gt; $decimal.mark
+#&gt; [1] "."
+#&gt; </div><div class='input'>
+<span class='fu'>pander_options</span>(<span class='st'>"digits"</span>)</div><div class='output co'>#&gt; [1] 4</div><div class='input'>
+<span class='fu'>pander_options</span>(<span class='st'>"digits"</span>, <span class='fl'>5</span>)
+<span class='fu'>pander_options</span>(<span class='st'>"digits"</span>)</div><div class='output co'>#&gt; [1] 5</div><div class='input'>
+<span class='fu'>pander_options</span>(<span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>2</span>)
+<span class='fu'>pander_options</span>(<span class='st'>"digits"</span>)</div><div class='output co'>#&gt; [1] 2</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

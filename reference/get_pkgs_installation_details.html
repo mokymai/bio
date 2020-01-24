@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Open files and directories — open_files • bio</title>
+<title>Get modified package instalation code. — get_pkgs_installation_details • bio</title>
 
 
 <!-- jquery -->
@@ -35,17 +35,9 @@
 
 
 
-<meta property="og:title" content="Open files and directories — open_files" />
-<meta property="og:description" content="
-
-open_in_rs() tries to open file in RStudio.
-
-
-
-get_path_r_environ()-- gets path to file .Renviron with R environment
-variables.
-
-" />
+<meta property="og:title" content="Get modified package instalation code. — get_pkgs_installation_details" />
+<meta property="og:description" content="Get installation code of packages that either should be installed not from
+CRAN or a modified code shold be installed." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -109,75 +101,42 @@ variables.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Open files and directories</h1>
+    <h1>Get modified package instalation code.</h1>
     
-    <div class="hidden name"><code>open_files.Rd</code></div>
+    <div class="hidden name"><code>get_pkgs_installation_details.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    
-<ul>
-<li><p><code>open_in_rs()</code> tries to open file in RStudio.</p></li>
-</ul>
-
-<ul>
-<li><p><code>get_path_r_environ()</code>-- gets path to file <code>.Renviron</code> with R environment
-variables.</p></li>
-</ul>
-
+    <p>Get installation code of packages that either should be installed not from
+CRAN or a modified code shold be installed.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>open_in_rs</span>(<span class='no'>path</span>)
+    <pre class="usage"><span class='fu'>get_pkgs_installation_details</span>(<span class='kw'>file</span> <span class='kw'>=</span> <span class='st'>"install-r/pkgs-install-from.txt"</span>)
 
-<span class='fu'>open_r_user_dir</span>()
+<span class='fu'>get_pkgs_installation_code</span>()</pre>
 
-<span class='fu'>open_rs_config_dir</span>()
 
-<span class='fu'>get_path_rs_desktop_user_settings_dir</span>()
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-<span class='fu'>open_rs_desktop_user_settings_dir</span>()
+    <p>Dataframe with columns</p><ul>
+<li><p><code>"package"</code> (package name),</p></li>
+<li><p><code>"type"</code> (type of input in column <code>details</code>. Currently supported values
+are "code" and "github")</p></li>
+<li><p><code>"details"</code> (either installation code of repository name)</p></li>
+<li><p><code>"notes"</code>  (notes for user)</p></li>
+</ul>
 
-<span class='fu'>get_path_rs_user_settings</span>(<span class='kw'>which</span> <span class='kw'>=</span> <span class='st'>"current"</span>)
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-<span class='fu'>open_rs_user_settings</span>()
-
-<span class='fu'>open_rs_desktop_config_dir</span>()
-
-<span class='fu'>open_rs_snippets_dir</span>()
-
-<span class='fu'>open_rs_keybindings_dir</span>()
-
-<span class='fu'>get_path_r_environ</span>(<span class='kw'>scope</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"user"</span>, <span class='st'>"project"</span>))
-
-<span class='fu'>open_r_environ</span>()</pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>path</th>
-      <td><p>(sting) Path to file.</p></td>
-    </tr>
-    <tr>
-      <th>scope</th>
-      <td><p>(character) One of "user" or "project".</p></td>
-    </tr>
-    <tr>
-      <th>(character)</th>
-      <td><p>type of settings: "current", "bio-default".</p></td>
-    </tr>
-    </table>
-
+    <p>If the file has column <code>ignore</code> with value <code>TRUE</code>, the line is not included
+in the output.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'>
-<ul>
-<li><p><code><a href='http://fs.r-lib.org/reference/file_show.html'>fs::file_show()</a></code>,</p></li>
-<li><p><code><a href='https://rdrr.io/pkg/rstudioapi/man/navigateToFile.html'>rstudioapi::navigateToFile()</a></code>,</p></li>
-<li><p><code><a href='https://rdrr.io/r/utils/browseURL.html'>browseURL()</a></code>,</p></li>
-<li><p><code><a href='https://rdrr.io/r/utils/file.edit.html'>utils::file.edit()</a></code></p></li>
-</ul>
-</div>
+    <div class='dont-index'><p>Other R-packages-related functions: 
+<code><a href='compare_version.html'>compare_version</a>()</code>,
+<code><a href='get_pkgs_installed.html'>get_pkgs_installed</a>()</code>,
+<code><a href='get_pkgs_recommended.html'>get_pkgs_recommended</a>()</code>,
+<code><a href='get_pkgs_req_version.html'>get_pkgs_req_version</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"></pre>
@@ -185,7 +144,8 @@ variables.</p></li>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
