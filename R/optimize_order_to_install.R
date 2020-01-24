@@ -13,7 +13,11 @@
 #'
 #' @export
 #'
-# @examples
+#' @examples
+#'
+#' \dontrun{\donttest{
+#'
+#' }}
 optimize_order_to_install <- function(pkgs_vec = get_pkgs_recommended()$paketas,
   recursive_dependencies = TRUE) {
 

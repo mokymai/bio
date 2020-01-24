@@ -5,24 +5,26 @@
 #' @name version-control
 #' @title Version control in RStudio.
 #' @description
-#' Helper functions for version control in RStudio.
-#'
+#' Helper functions for version control system (vcs) in RStudio.
+#' - `open_rs_proj_vcs_opts()` opens version control setup for RStudio project.
+#' - `show_rs_vcs_rsa_key()` shows version RSA key.
+#' - `browse_rs_vcs_help()` opens website with help of version control in RStudio .
 #' @export
 # open_rs_verion_control_opts <- function() {
-vc_open_rs_proj_vc_opts <- function() {
-  rstudioapi::executeCommand("versionControlProjectSetup")
+open_rs_proj_vcs_opts <- function() {
+  rstudioapi::executeCommand("versionControlProjectSetup", quiet = TRUE)
 }
 
 #' @name version-control
 #' @export
-vc_show_rs_rsa_key <- function() {
-  rstudioapi::executeCommand("versionControlShowRsaKey")
+show_rs_vcs_rsa_key <- function() {
+  rstudioapi::executeCommand("versionControlShowRsaKey", quiet = TRUE)
 }
 
 #' @name version-control
 #' @export
-vc_browse_verson_control_help <- function() {
-  rstudioapi::executeCommand("versionControlHelp")
+browse_rs_vcs_help <- function() {
+  rstudioapi::executeCommand("versionControlHelp", quiet = TRUE)
 }
 
 

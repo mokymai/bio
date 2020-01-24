@@ -4,19 +4,20 @@
 
 #' Compare version numbers.
 #'
-#' @param v_installed vector with version numbers
-#' @param v_required vector with version numbers
+#' @param v_installed vector with installed version numbers
+#' @param v_required vector with required version numbers
 #'
 #' @return The same as in [utils::compareVersion()], just a vector.
 #' @export
 #' @family R-packages-related functions
 #' @examples
+#'
 #' compare_version("2.4", "2")
 #'
 #' compare_version("2.3", "2.3")
 #'
 #' compare_version("2.3", "2.3.1")
-
+#'
 compare_version <- function(v_installed, v_required) {
 
   busena <- numeric(length(v_installed))
@@ -49,7 +50,11 @@ remove_ignored_rows <- function(tbl) {
 #' @export
 #' @family R-packages-related functions
 #' @examples
+#' \dontrun{\donttest{
+#'
 #' head(get_pkgs_installed())
+#'
+#' }}
 get_pkgs_installed <- function() {
   pkgs_existing <- installed.packages()[, c("Package", "Version")]
   rownames(pkgs_existing) <- NULL
@@ -63,7 +68,11 @@ get_pkgs_installed <- function() {
 #' @return Data frame with column `"package"`.
 #' @family R-packages-related functions
 #' @examples
+#' \dontrun{\donttest{
+#'
 #' head(get_pkgs_recommended())
+#'
+#' }}
 get_pkgs_recommended <- function(file = "install-r/pkgs-recommended.txt") {
 
   ln <- readLines(file, encoding = "UTF-8")
@@ -84,7 +93,11 @@ get_pkgs_recommended <- function(file = "install-r/pkgs-recommended.txt") {
 #' @family R-packages-related functions
 #'
 #' @examples
+#' \dontrun{\donttest{
+#'
 #' head(get_pkgs_req_version())
+#'
+#' }}
 get_pkgs_req_version <- function(file = "install-r/pkgs-required-version.txt") {
   tbl <-
     read.table(file, skip = 2, header = TRUE, sep = "|", quote = "'",
@@ -114,9 +127,14 @@ get_pkgs_req_version <- function(file = "install-r/pkgs-required-version.txt") {
 #' @family R-packages-related functions
 #'
 #' @examples
+#' \dontrun{\donttest{
+#'
 #' head(get_pkgs_installation_details())
 #'
 #' head(get_pkgs_installation_code())
+#'
+#' }}
+
 get_pkgs_installation_details <- function(file = "install-r/pkgs-install-from.txt") {
   tbl <- read.table(file, skip = 2, header = TRUE, sep = "|", quote = "'",
     strip.white = TRUE, stringsAsFactors = FALSE)
@@ -209,7 +227,11 @@ add_pkgs_installation_code <- function(pkgs_df) {
 #' @export
 #'
 #' @examples
+#' \dontrun{\donttest{
+#'
 #' head(get_pkgs_instalation_status())
+#'
+#' }}
 get_pkgs_instalation_status <- function() {
   pkgs_rec   <- get_pkgs_recommended()
   pkgs_inst  <- get_pkgs_installed()
