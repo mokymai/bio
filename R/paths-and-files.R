@@ -316,20 +316,22 @@ open_rs_desktop_user_settings_dir <- function() {
 
 
 #' @rdname open_files
-#' @param (character) type of settings: "current", "bs-default".
+#' @param (character) type of settings: "current", "bio-default".
 #' @export
 #' @examples
 #' \dontrun{\donttest{
+#'
 #' get_path_rs_user_settings()
 #'
-#' get_path_rs_user_settings("bs-default")
+#' get_path_rs_user_settings("bio-default")
+#'
 #' }}
 get_path_rs_user_settings <- function(which = "current") {
   switch(which,
     "current"    =
       get_path_rs_desktop_config_dir("monitored/user-settings/user-settings"),
 
-    "bs-default" =
+    "bio-default" =
       system.file("rs-settings", "user-settings", package = "bs"),
 
     stop("unrecognized option: ", which)

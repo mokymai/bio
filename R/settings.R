@@ -4,16 +4,16 @@ reset_rstudio <- function() {
   stop("Function is harmful")
 
   # rstudioapi::executeCommand("clearUserPrefs")
-  bs::reset_rs_user_settings("bs-default", backup = TRUE)
+  bio::reset_rs_user_settings("bio-default", backup = TRUE)
 
   rstudioapi::executeCommand("clearPlots",          quiet = TRUE)
   rstudioapi::executeCommand("clearRecentFiles",    quiet = TRUE)
   rstudioapi::executeCommand("clearRecentProjects", quiet = TRUE)
   rstudioapi::executeCommand("clearHelpHistory",    quiet = TRUE)
   rstudioapi::executeCommand("closeAllSourceDocs",  quiet = TRUE)
-  bs::reset_rstudio_layout()
+  bio::reset_rstudio_layout()
   # clearWorkspace
-  bs::clear_r_workspace()
+  bio::clear_r_workspace()
   rstudioapi::executeCommand("consoleClear",         quiet = TRUE)
 
   snippets::install_snippets_from_package(type = "r")
@@ -204,12 +204,12 @@ set_initial_rs_configuration <- function() {
 #' #-------------------------------------------------
 #' head(read_rs_user_settings(), n = 2)
 #'
-#' head(read_rs_user_settings("bs-default"), n = 2)
+#' head(read_rs_user_settings("bio-default"), n = 2)
 #'
 #' #-------------------------------------------------
 #' head(read_rs_ui_prefs(), n = 2)
 #'
-#' head(read_rs_ui_prefs("bs-default"), n = 2)
+#' head(read_rs_ui_prefs("bio-default"), n = 2)
 #'
 #' #-------------------------------------------------
 #' head(get_rs_ui_prefs(), n = 2)
@@ -295,9 +295,9 @@ get_rs_ui_pref_names <- function(which = "current") {
 
 #' @name RStudio-user-prefs
 #' @export
-reset_rs_user_settings <- function(to = "bs-default", backup = TRUE, ask = TRUE) {
+reset_rs_user_settings <- function(to = "bio-default", backup = TRUE, ask = TRUE) {
 
-  # to = c("rstudio-default", "bs-default")
+  # to = c("rstudio-default", "bio-default")
 
   if (isTRUE(ask)) {
     ans <- usethis::ui_nope("Do you want to reset RStudio user settings?",
@@ -323,8 +323,8 @@ reset_rs_user_settings <- function(to = "bs-default", backup = TRUE, ask = TRUE)
       fs::file_delete(file_current)
       success <- !fs::file_exists(file_current)
     },
-    "bs-default" = {
-      file_default <- get_path_rs_user_settings("bs-default")
+    "bio-default" = {
+      file_default <- get_path_rs_user_settings("bio-default")
       fs::dir_create(fs::path_dir(file_default))
       fs::file_copy(file_default, file_current, overwrite = TRUE)
       success <-
