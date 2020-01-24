@@ -14,7 +14,6 @@
 #'     name, i.e., folder name) and `path` to *.Rproj file.
 #' - `extract_proj_name()` (character) a vector of extracted character names.
 #'
-#' @importFrom magrittr "%>%"
 #' @export
 #'
 #' @examples
