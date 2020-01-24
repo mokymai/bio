@@ -13,7 +13,11 @@ Dataframe with columns  "package" and "required_version".
 Get required version of packages from a list in a file.
 }
 \examples{
+\dontrun{\donttest{
+
 head(get_pkgs_req_version())
+
+}}
 }
 \seealso{
 Other R-packages-related functions: 

@@ -15,5 +15,9 @@ Data frame with ???
 Get infromation about recommended packages
 }
 \examples{
+\dontrun{\donttest{
+
 head(get_pkgs_instalation_status())
+
+}}
 }

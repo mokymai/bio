@@ -20,7 +20,7 @@ get_rs_user_settings_names(which = "current")
 
 get_rs_ui_pref_names(which = "current")
 
-reset_rs_user_settings(to = "bs-default", backup = TRUE, ask = TRUE)
+reset_rs_user_settings(to = "bio-default", backup = TRUE, ask = TRUE)
 }
 \value{
 A named list with some of current RStudio preferences.
@@ -41,12 +41,12 @@ https://github.com/rstudio/rstudio/blob/5f2b79427ed526e22f78c794a4b5894ebee2de75
 #-------------------------------------------------
 head(read_rs_user_settings(), n = 2)
 
-head(read_rs_user_settings("bs-default"), n = 2)
+head(read_rs_user_settings("bio-default"), n = 2)
 
 #-------------------------------------------------
 head(read_rs_ui_prefs(), n = 2)
 
-head(read_rs_ui_prefs("bs-default"), n = 2)
+head(read_rs_ui_prefs("bio-default"), n = 2)
 
 #-------------------------------------------------
 head(get_rs_ui_prefs(), n = 2)

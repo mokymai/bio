@@ -2,17 +2,22 @@
 % Please edit documentation in R/git.R
 \name{version-control}
 \alias{version-control}
-\alias{vc_open_rs_proj_vc_opts}
-\alias{vc_show_rs_rsa_key}
-\alias{vc_browse_verson_control_help}
+\alias{open_rs_proj_vcs_opts}
+\alias{show_rs_vcs_rsa_key}
+\alias{browse_rs_vcs_help}
 \title{Version control in RStudio.}
 \usage{
-vc_open_rs_proj_vc_opts()
+open_rs_proj_vcs_opts()
 
-vc_show_rs_rsa_key()
+show_rs_vcs_rsa_key()
 
-vc_browse_verson_control_help()
+browse_rs_vcs_help()
 }
 \description{
-Helper functions for version control in RStudio.
+Helper functions for version control system (vcs) in RStudio.
+\itemize{
+\item \code{open_rs_proj_vcs_opts()} opens version control setup for RStudio project.
+\item \code{show_rs_vcs_rsa_key()} shows version RSA key.
+\item \code{browse_rs_vcs_help()} opens website with help of version control in RStudio .
+}
 }

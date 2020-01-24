@@ -13,7 +13,11 @@ Data frame with columns \code{"package"} and \code{"current_version"}.
 List packages installed on this computer.
 }
 \examples{
+\dontrun{\donttest{
+
 head(get_pkgs_installed())
+
+}}
 }
 \seealso{
 Other R-packages-related functions: 

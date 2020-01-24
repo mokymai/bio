@@ -25,3 +25,9 @@ the same packages.
 \details{
 recursive_dependencies = TRUE requires internet connection.
 }
+\examples{
+
+\dontrun{\donttest{
+
+}}
+}

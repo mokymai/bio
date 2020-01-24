@@ -28,9 +28,13 @@ If the file has column \code{ignore} with value \code{TRUE}, the line is not inc
 in the output.
 }
 \examples{
+\dontrun{\donttest{
+
 head(get_pkgs_installation_details())
 
 head(get_pkgs_installation_code())
+
+}}
 }
 \seealso{
 Other R-packages-related functions: 

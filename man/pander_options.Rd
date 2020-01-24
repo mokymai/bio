@@ -27,6 +27,7 @@ pander_options("digits")
 
 pander_options(digits = 2)
 pander_options("digits")
+
 }
 \seealso{
 \code{\link[pander:evalsOptions]{pander::evalsOptions()}}

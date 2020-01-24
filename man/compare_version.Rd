@@ -7,9 +7,9 @@
 compare_version(v_installed, v_required)
 }
 \arguments{
-\item{v_installed}{vector with version numbers}
+\item{v_installed}{vector with installed version numbers}
 
-\item{v_required}{vector with version numbers}
+\item{v_required}{vector with required version numbers}
 }
 \value{
 The same as in \code{\link[utils:compareVersion]{utils::compareVersion()}}, just a vector.
@@ -18,11 +18,13 @@ The same as in \code{\link[utils:compareVersion]{utils::compareVersion()}}, just
 Compare version numbers.
 }
 \examples{
+
 compare_version("2.4", "2")
 
 compare_version("2.3", "2.3")
 
 compare_version("2.3", "2.3.1")
+
 }
 \seealso{
 Other R-packages-related functions: 

@@ -45,7 +45,7 @@ open_r_environ()
 
 \item{scope}{(character) One of "user" or "project".}
 
-\item{(character)}{type of settings: "current", "bs-default".}
+\item{(character)}{type of settings: "current", "bio-default".}
 }
 \description{
 \itemize{
@@ -59,9 +59,11 @@ variables.
 }
 \examples{
 \dontrun{\donttest{
+
 get_path_rs_user_settings()
 
-get_path_rs_user_settings("bs-default")
+get_path_rs_user_settings("bio-default")
+
 }}
 get_path_r_environ()
 

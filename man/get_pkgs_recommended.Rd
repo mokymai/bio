@@ -13,7 +13,11 @@ Data frame with column \code{"package"}.
 List of packages of interest.
 }
 \examples{
+\dontrun{\donttest{
+
 head(get_pkgs_recommended())
+
+}}
 }
 \seealso{
 Other R-packages-related functions: 
