@@ -180,6 +180,10 @@ get_proj_names <- function(file = get_path_recent_proj_list(),
 #'        Server Pro.
 #' @param only_available (logical) If `TRUE`, non-existing projects and projects
 #'        with broken paths are removed from the list of choices.
+#' @param pattern (character) regular expression to narrow down the list of
+#'        possible options.
+#' @param negate (logical) If `TRUE`,then the ooptions defined by  `pattern` are
+#'        excluded.
 #'
 #' @return Opens the indicated project.
 #' @export
@@ -197,8 +201,9 @@ get_proj_names <- function(file = get_path_recent_proj_list(),
 #'
 #' }}
 #
-open_project <- function(name = NULL, new_session = FALSE, proj_list = NULL,
-  proj_list_path = get_path_recent_proj_list(), only_available = TRUE) {
+open_project <- function(name = NULL, new_session = TRUE, proj_list = NULL,
+  proj_list_path = get_path_recent_proj_list(), only_available = TRUE,
+  pattern = NULL, negate = FALSE) {
 
   if (is.null(proj_list)) {
 
@@ -211,6 +216,10 @@ open_project <- function(name = NULL, new_session = FALSE, proj_list = NULL,
 
   if (isTRUE(only_available)) {
     proj_list <- dplyr::filter(proj_list, exists == TRUE)
+  }
+
+  if (!is.null(pattern)) {
+    proj_list <- dplyr::filter(proj_list, stringr::str_detect(name, {pattern}, {negate}))
   }
 
   if (is.null(name)) {
@@ -272,7 +281,7 @@ open_project <- function(name = NULL, new_session = FALSE, proj_list = NULL,
 
 #' @rdname open_project
 #' @export
-open_project_all <- function(name = NULL, new_session = FALSE,
+open_project_from_personal_list <- function(name = NULL, new_session = TRUE,
   only_available = TRUE, ...) {
 
   new_list <- get_projs_all()

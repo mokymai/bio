@@ -2,17 +2,19 @@
 % Please edit documentation in R/packages.R
 \name{get_pkgs_instalation_status}
 \alias{get_pkgs_instalation_status}
-\title{Get infromation about recommended packages}
+\title{get_pkgs_instalation_status}
 \usage{
-get_pkgs_instalation_status()
+get_pkgs_instalation_status(
+  pkgs_rec = get_pkgs_recommended(),
+  pkgs_inst = get_pkgs_installed(),
+  pkgs_req_v = get_pkgs_req_version()
+)
 }
 \value{
-Data frame
-
 Data frame with ???
 }
 \description{
-Get infromation about recommended packages
+get_pkgs_instalation_status
 }
 \examples{
 \dontrun{\donttest{

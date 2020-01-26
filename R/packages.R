@@ -100,24 +100,50 @@ get_pkgs_recommended <- function(file = "install-r/pkgs-recommended.txt") {
 #' }}
 get_pkgs_req_version <- function(file = "install-r/pkgs-required-version.txt") {
   tbl <-
-    read.table(file, skip = 2, header = TRUE, sep = "|", quote = "'",
+    read.table(file, skip = 2, header = TRUE, sep = "|", na.strings = c("NA", "-"),
       strip.white = TRUE, stringsAsFactors = FALSE)
 
   remove_ignored_rows(tbl)
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' Get modified package instalation code.
+#' Get details about package on CRAN.
+#'
+#' Convenience function based on [base::available.packages()].
+#' @return
+#' Data frame with columns "package", "cran_version", "on_cran".
+#'
+#' @export
+#' @family R-packages-related functions
+#'
+#' @seealso [base::available.packages()]
+#'
+#' @examples
+#' head(get_pkgs_cran_details())
+get_pkgs_cran_details <- function() {
+  cran_all <-
+    data.frame(
+      available.packages()[ , c("Package", "Version")],
+      on_cran = TRUE,
+      stringsAsFactors = FALSE
+    )
+  rownames(cran_all) <- NULL
+  colnames(cran_all) <- c("package", "cran_version", "on_cran")
+  cran_all
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' Get details about non-CRAN package instalation.
 #'
 #' Get installation code of packages that either should be installed not from
 #' CRAN or a modified code shold be installed.
 #'
-#' @return Dataframe with columns
-#'   - `"package"` (package name),
-#'   - `"type"` (type of input in column `details`. Currently supported values
-#'               are "code" and "github")
-#'   - `"details"` (either installation code of repository name)
-#'   - `"notes"`  (notes for user)
+#' @return Dataframe with columns:
+#'   - `"package"` package name,
+#'   - `"install_from"` source to install from. Currently supported values
+#'               are "code" and "github"
+#'   - `"details"` either installation code of repository name
+#'   - `"notes"`  notes for user.
 #'
 #' @details
 #' If the file has column `ignore` with value `TRUE`, the line is not included
@@ -129,97 +155,19 @@ get_pkgs_req_version <- function(file = "install-r/pkgs-required-version.txt") {
 #' @examples
 #' \dontrun{\donttest{
 #'
-#' head(get_pkgs_installation_details())
+#' head(get_pkgs_non_cran_installation_details())
 #'
 #' head(get_pkgs_installation_code())
 #'
 #' }}
 
-get_pkgs_installation_details <- function(file = "install-r/pkgs-install-from.txt") {
-  tbl <- read.table(file, skip = 2, header = TRUE, sep = "|", quote = "'",
-    strip.white = TRUE, stringsAsFactors = FALSE)
+get_pkgs_non_cran_installation_details <- function(file = "install-r/pkgs-install-from.txt") {
+  tbl <- read.table(file, skip = 2, header = TRUE, sep = "|", strip.white = TRUE,
+    na.strings = c("NA", "-"), stringsAsFactors = FALSE)
 
   remove_ignored_rows(tbl)
 }
 
-#' @name get_pkgs_installation_details
-#' @export
-get_pkgs_installation_code <- function() {
-
-}
-
-#' Add column with package instalation code.
-#'
-#' Add column with installation code for each provided package.
-#'
-#' @param pkgs_df Data frame with columns "paketas" (character) and "on_cran" (logical)
-#'
-#' @return The same data frame with additional columns
-#'  - "diegimo_kodas"  -- strings with code; if a package is not on cran and its
-#'  installation code is not provided, NA value is returned.
-#'  - "ar_mod_kodas" -- logical, if modified code for instalation should be used.
-#' @export
-#'
-# @examples
-# my_pkgs <- head(get_pkgs_recommended())
-# my_pkgs <- get_pkgs_recommended()[c(17, 1, 2, 3, 87),]
-# my_pkgs$on_cran[1] <- FALSE
-#
-# add_pkgs_installation_code(my_pkgs)
-#
-add_pkgs_installation_code <- function(pkgs_df) {
-
-  pkgs_df$..nr <- 1:nrow(pkgs_df)
-  pkgs_code <- get_pkgs_installation_code()
-
-  pkgs_df <- merge(pkgs_df, pkgs_code, all.x = TRUE, sort = FALSE)
-  pkgs_df <- pkgs_df[order(pkgs_df$..nr), ]# Sort
-
-  pkgs_df$ar_mod_kodas <- !is.na(pkgs_df$diegimo_kodas)
-
-  cran_code <-
-    paste0('install.packages("', pkgs_df$paketas, '", dependencies = TRUE)')
-  # paste0('install.packages("', pkgs_df$paketas, '", dependencies = TRUE, quiet = TRUE)')
-
-
-  pkgs_df$diegimo_kodas <-
-    ifelse(!pkgs_df$ar_mod_kodas,
-      ifelse(pkgs_df$on_cran, cran_code, NA_character_),
-      trimws(pkgs_df$diegimo_kodas))
-
-  pkgs_df$..nr <- NULL
-  pkgs_df
-}
-
-
-
-#' Get infromation about recommended packages
-#'
-#' @return Data frame
-#' @export
-#'
-# @examples
-# rez <- get_pkgs_instalation_status()
-#
-# tibble::as_tibble(head(rez))
-#
-# cran_paketai <-
-#   get_pkgs_instalation_status() %>%
-#   dplyr::filter(on_cran) %>%
-#   dplyr::pull(paketas) %>%
-#   stringr::str_c('"',.,'"', collapse = ", ") %>%
-#   structure(class = "glue")
-
-# ne_cran_diegimo_kodas <-
-#   get_pkgs_instalation_status() %>%
-#   dplyr::filter(ar_mod_kodas) %>%
-#   dplyr::pull(diegimo_kodas) %>%
-#   structure(class = "glue")
-#
-
-# TODO: toliau netaisyta
-# tmp3 <- tmp2[, c(-2, -5, -6)]
-# tmp3 <- setNames(tmp3, c("Paketas", "Idiegta_versija", "Reikiama_min_versija"))
 
 #' get_pkgs_instalation_status
 #'
@@ -232,16 +180,19 @@ add_pkgs_installation_code <- function(pkgs_df) {
 #' head(get_pkgs_instalation_status())
 #'
 #' }}
-get_pkgs_instalation_status <- function() {
-  pkgs_rec   <- get_pkgs_recommended()
-  pkgs_inst  <- get_pkgs_installed()
-  pkgs_req_v <- get_pkgs_req_version()
+get_pkgs_instalation_status <- function(
+  pkgs_rec   = get_pkgs_recommended(),
+  pkgs_inst  = get_pkgs_installed(),
+  pkgs_req_v = get_pkgs_req_version()
+) {
 
   tmp <- merge(pkgs_rec, pkgs_inst, by = "package", all.x = TRUE)
   tmp <- merge(tmp, pkgs_req_v,     by = "package", all.x = TRUE)
 
+  tmp$is_installed <- !is.na(tmp$current_version)
   tmp$needs_update <- with(tmp, compare_version(current_version, required_version) < 0)
-  tmp$current_version[is.na(tmp$current_version)]    <- "[ not installed ]"
+
+  # tmp$current_version[is.na(tmp$current_version)]    <- "[ not installed ]"
   tmp$required_version[is.na(tmp$required_version )] <- ""
 
   attr(tmp, "packages_to_update") <- tmp$package[tmp$needs_update]
@@ -272,4 +223,122 @@ get_pkgs_instalation_status <- function() {
 # }
 
 
+#' @family R-packages-related functions
+#' @export
+#' @examples
+#' \dontrun{\donttest{
+#'
+#' get_pkgs_installation_code()
+#'
+#' }}
+get_pkgs_installation_code <- function(outdated_only = TRUE) {
 
+  pkgs_status <- get_pkgs_instalation_status()
+  pkgs_cran   <- get_pkgs_cran_details()
+  pkgs_other  <- get_pkgs_non_cran_installation_details()
+
+  tmp <- pkgs_status
+  tmp <- merge(tmp, pkgs_cran,      by = "package", all.x = TRUE)
+  tmp <- merge(tmp, pkgs_other,     by = "package", all.x = TRUE)
+  tmp$on_cran <- sapply(tmp$on_cran, isTRUE)
+  tmp$newer_on_cran <- with(tmp, on_cran & (compare_version(current_version, cran_version) < 0))
+
+  if (isTRUE(outdated_only)) {
+    tmp_2 <- tmp[tmp$needs_update == TRUE, ]
+  }
+
+  out <- list(
+    status = tmp_2,
+    missing_installation_code = tmp_2[(tmp_2$on_cran == FALSE & is.na(tmp_2$install_from) == TRUE), "package"],
+    install_from_cran   = tmp_2[tmp_2$newer_on_cran, "package"],
+    install_from_github = tmp_2[sapply(tmp_2$install_from == "github", isTRUE), "details"],
+    install_from_code   = tmp_2[sapply(tmp_2$install_from == "code",   isTRUE), "details"]
+  )
+
+  tmp_2[, c("notes_version", "notes", "cran_version", "on_cran", "install_from",
+    "details", "newer_on_cran")] <- NULL
+  out$status <- tmp_2
+  out
+}
+
+
+
+
+
+
+
+
+
+
+#' Add column with package instalation code.
+#'
+#' Add column with installation code for each provided package.
+#'
+#' @param pkgs_df Data frame with columns "paketas" (character) and "on_cran" (logical)
+#'
+#' @return The same data frame with additional columns
+#'  - "diegimo_kodas"  -- strings with code; if a package is not on cran and its
+#'  installation code is not provided, NA value is returned.
+#'  - "ar_mod_kodas" -- logical, if modified code for instalation should be used.
+#' @export
+#'
+# @examples
+# my_pkgs <- head(get_pkgs_recommended())
+# my_pkgs <- get_pkgs_recommended()[c(17, 1, 2, 3, 87),]
+# my_pkgs$on_cran[1] <- FALSE
+#
+# add_pkgs_installation_code(my_pkgs)
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# add_pkgs_installation_code <- function(pkgs_df) {
+#
+#   pkgs_df$..nr <- 1:nrow(pkgs_df)
+#   pkgs_code <- get_pkgs_installation_code()
+#
+#   pkgs_df <- merge(pkgs_df, pkgs_code, all.x = TRUE, sort = FALSE)
+#   pkgs_df <- pkgs_df[order(pkgs_df$..nr), ]# Sort
+#
+#   pkgs_df$ar_mod_kodas <- !is.na(pkgs_df$diegimo_kodas)
+#
+#   cran_code <-
+#     paste0('install.packages("', pkgs_df$paketas, '", dependencies = TRUE)')
+#   # paste0('install.packages("', pkgs_df$paketas, '", dependencies = TRUE, quiet = TRUE)')
+#
+#
+#   pkgs_df$diegimo_kodas <-
+#     ifelse(!pkgs_df$ar_mod_kodas,
+#       ifelse(pkgs_df$on_cran, cran_code, NA_character_),
+#       trimws(pkgs_df$diegimo_kodas))
+#
+#   pkgs_df$..nr <- NULL
+#   pkgs_df
+# }
+
+
+
+#' Get infromation about recommended packages
+#'
+#' @return Data frame
+#' @export
+#'
+# @examples
+# rez <- get_pkgs_instalation_status()
+#
+# tibble::as_tibble(head(rez))
+#
+# cran_paketai <-
+#   get_pkgs_instalation_status() %>%
+#   dplyr::filter(on_cran) %>%
+#   dplyr::pull(paketas) %>%
+#   stringr::str_c('"',.,'"', collapse = ", ") %>%
+#   structure(class = "glue")
+
+# ne_cran_diegimo_kodas <-
+#   get_pkgs_instalation_status() %>%
+#   dplyr::filter(ar_mod_kodas) %>%
+#   dplyr::pull(diegimo_kodas) %>%
+#   structure(class = "glue")
+#
+
+# TODO: toliau netaisyta
+# tmp3 <- tmp2[, c(-2, -5, -6)]
+# tmp3 <- setNames(tmp3, c("Paketas", "Idiegta_versija", "Reikiama_min_versija"))

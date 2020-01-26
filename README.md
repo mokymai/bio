@@ -9,7 +9,7 @@
 status](https://www.r-pkg.org/badges/version/bio)](https://CRAN.R-project.org/package=bio)
 [![GitHub
 version](https://img.shields.io/badge/GitHub-v0.0.0.9000-brightgreen.svg)](https://github.com/GegznaV/bio)
-[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--01--20-yellowgreen.svg)]()
+[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--01--26-yellowgreen.svg)]()
 [![Travis build
 status](https://travis-ci.com/mokymai/bio.svg?branch=master)](https://travis-ci.com/mokymai/bio)
 [![AppVeyor build

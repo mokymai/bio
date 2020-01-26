@@ -2,7 +2,7 @@
 % Please edit documentation in R/projects.R
 \name{open_project}
 \alias{open_project}
-\alias{open_project_all}
+\alias{open_project_from_personal_list}
 \alias{open_recent_proj_list}
 \alias{open_personal_proj_list}
 \alias{update_personal_proj_list}
@@ -10,13 +10,20 @@
 \usage{
 open_project(
   name = NULL,
-  new_session = FALSE,
+  new_session = TRUE,
   proj_list = NULL,
   proj_list_path = get_path_recent_proj_list(),
-  only_available = TRUE
+  only_available = TRUE,
+  pattern = NULL,
+  negate = FALSE
 )
 
-open_project_all(name = NULL, new_session = FALSE, only_available = TRUE, ...)
+open_project_from_personal_list(
+  name = NULL,
+  new_session = TRUE,
+  only_available = TRUE,
+  ...
+)
 
 open_recent_proj_list()
 
@@ -40,6 +47,12 @@ paths. If \code{proj_list} is not \code{NULL}, then \code{proj_list_path} is ign
 
 \item{only_available}{(logical) If \code{TRUE}, non-existing projects and projects
 with broken paths are removed from the list of choices.}
+
+\item{pattern}{(character) regular expression to narrow down the list of
+possible options.}
+
+\item{negate}{(logical) If \code{TRUE},then the ooptions defined by  \code{pattern} are
+excluded.}
 }
 \value{
 Opens the indicated project.

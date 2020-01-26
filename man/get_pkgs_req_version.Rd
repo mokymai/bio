@@ -22,8 +22,10 @@ head(get_pkgs_req_version())
 \seealso{
 Other R-packages-related functions: 
 \code{\link{compare_version}()},
-\code{\link{get_pkgs_installation_details}()},
+\code{\link{get_pkgs_cran_details}()},
+\code{\link{get_pkgs_installation_code}()},
 \code{\link{get_pkgs_installed}()},
+\code{\link{get_pkgs_non_cran_installation_details}()},
 \code{\link{get_pkgs_recommended}()}
 }
 \concept{R-packages-related functions}

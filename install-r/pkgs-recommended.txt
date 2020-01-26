@@ -23,7 +23,7 @@ broom
 knitr
 rmarkdown
 bookdown
-bookdownplus
+# bookdownplus
 blogdown
 pkgdown
 namer
