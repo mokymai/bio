@@ -19,3 +19,5 @@ gghighlight             | github        | yutannihilation/gghighlight           
 ggtext                  | github        | clauswilke/ggtext                      | FALSE  | -
 icon                    | github        | ropenscilabs/icon                      | FALSE  | -
 ggpie                   | github        | rkabacoff/ggpie                        | FALSE  | -
+rsam                    | github        | yonicd/rsam                            | FALSE  | -
+
