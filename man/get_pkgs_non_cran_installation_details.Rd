@@ -39,7 +39,7 @@ head(get_pkgs_installation_code())
 Other R-packages-related functions: 
 \code{\link{compare_version}()},
 \code{\link{get_pkgs_cran_details}()},
-\code{\link{get_pkgs_installation_code}()},
+\code{\link{get_pkgs_instalation_status}()},
 \code{\link{get_pkgs_installed}()},
 \code{\link{get_pkgs_recommended}()},
 \code{\link{get_pkgs_req_version}()}

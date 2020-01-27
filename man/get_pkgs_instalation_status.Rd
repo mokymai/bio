@@ -2,24 +2,43 @@
 % Please edit documentation in R/packages.R
 \name{get_pkgs_instalation_status}
 \alias{get_pkgs_instalation_status}
-\title{get_pkgs_instalation_status}
+\alias{get_pkgs_instalation_status_local}
+\title{Get package installation status.}
 \usage{
-get_pkgs_instalation_status(
+get_pkgs_instalation_status(outdated_only = TRUE)
+
+get_pkgs_instalation_status_local(
   pkgs_rec = get_pkgs_recommended(),
   pkgs_inst = get_pkgs_installed(),
   pkgs_req_v = get_pkgs_req_version()
 )
 }
-\value{
-Data frame with ???
+\arguments{
+\item{outdated_only}{(logical) If \code{TRUE}, only packages, tat need to be
+installed/updated are shown.}
 }
 \description{
-get_pkgs_instalation_status
+Get package installation status.
 }
 \examples{
 \dontrun{\donttest{
 
-head(get_pkgs_instalation_status())
+get_pkgs_installation_code()
+
+}}
+\dontrun{\donttest{
+
+head(get_pkgs_instalation_status_local())
 
 }}
 }
+\seealso{
+Other R-packages-related functions: 
+\code{\link{compare_version}()},
+\code{\link{get_pkgs_cran_details}()},
+\code{\link{get_pkgs_installed}()},
+\code{\link{get_pkgs_non_cran_installation_details}()},
+\code{\link{get_pkgs_recommended}()},
+\code{\link{get_pkgs_req_version}()}
+}
+\concept{R-packages-related functions}
