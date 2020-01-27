@@ -150,18 +150,20 @@ rvg
 esquisse
 ggedit
 ggplotAssist
+
+# plot | utils ---------------------------------------------------------------
 latex2exp
 
 # ML -------------------------------------------------------------------------
-ranger
-pls
-caret
-mlr
-mlr3
-mlr3verse
-DALEX
-iml
-tuneRanger
+# ranger
+# pls
+# caret
+# mlr
+# mlr3
+# mlr3verse
+# DALEX
+# iml
+# tuneRanger
 
 # Statistical analysis -------------------------------------------------------
 vcd
@@ -181,8 +183,8 @@ RVAideMemoire
 XNomial
 
 # Lessons --------------------------------------------------------------------
-adventr
-swirl
+# adventr
+# swirl
 learnr
 
 # Kita -----------------------------------------------------------------------
@@ -202,6 +204,7 @@ DataEntry
 # Add-ins ---------------------------------------------------------------------
 datapasta
 dplyrAssist
+
 janitor
 
 # Stat analizė ---------------------------------------------------------------
