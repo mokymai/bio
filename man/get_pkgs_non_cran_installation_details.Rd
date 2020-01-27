@@ -4,9 +4,7 @@
 \alias{get_pkgs_non_cran_installation_details}
 \title{Get details about non-CRAN package instalation.}
 \usage{
-get_pkgs_non_cran_installation_details(
-  file = "install-r/pkgs-install-from.txt"
-)
+get_pkgs_non_cran_installation_details(file = url_bio("pkgs-install-from.txt"))
 }
 \value{
 Dataframe with columns:

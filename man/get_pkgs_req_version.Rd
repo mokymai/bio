@@ -4,7 +4,7 @@
 \alias{get_pkgs_req_version}
 \title{Get required version of packages.}
 \usage{
-get_pkgs_req_version(file = "install-r/pkgs-required-version.txt")
+get_pkgs_req_version(file = url_bio("pkgs-required-version.txt"))
 }
 \value{
 Dataframe with columns  "package" and "required_version".

@@ -23,7 +23,7 @@ Get package installation status.
 \examples{
 \dontrun{\donttest{
 
-get_pkgs_installation_code()
+get_pkgs_instalation_status()
 
 }}
 \dontrun{\donttest{

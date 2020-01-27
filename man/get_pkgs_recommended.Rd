@@ -4,7 +4,7 @@
 \alias{get_pkgs_recommended}
 \title{List of packages of interest.}
 \usage{
-get_pkgs_recommended(file = "install-r/pkgs-recommended.txt")
+get_pkgs_recommended(file = url_bio("pkgs-recommended.txt"))
 }
 \value{
 Data frame with column \code{"package"}.
