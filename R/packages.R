@@ -227,9 +227,15 @@ get_pkgs_instalation_status <- function(outdated_only = TRUE) {
   out$status <- tmp_2[, c("package", "current_version", "is_installed",
     "required_version", "needs_update", "cran_version", "newer_on_cran")]
 
-  out
+  structure(
+    out,
+    class = c("pkgs_instalation_status", "list")
+  )
 }
 
+print.pkgs_instalation_status <- function(x, ...) {
+  print(structure(x, class = "list"))
+}
 
 #' @rdname get_pkgs_instalation_status
 #' @export
