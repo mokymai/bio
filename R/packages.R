@@ -2,6 +2,11 @@
 # PACKAGES -------------------------------------------------------------------
 # ========================================================================== ~
 
+# Base of URL for files of "bio" sepository on GitHub
+url_bio <- function(file = NULL) {
+  paste0("https://raw.githubusercontent.com/mokymai/bio/master/install-r/", file)
+}
+
 #' Compare version numbers.
 #'
 #' @param v_installed vector with installed version numbers
@@ -73,12 +78,13 @@ get_pkgs_installed <- function() {
 #' head(get_pkgs_recommended())
 #'
 #' }}
-get_pkgs_recommended <- function(file = "install-r/pkgs-recommended.txt") {
+get_pkgs_recommended <- function(file = url_bio("pkgs-recommended.txt")) {
 
   ln <- readLines(file, encoding = "UTF-8")
 
   data.frame(
-    package = ln[!(ln == "" | grepl("^#", ln))],
+    # Remove R comments and trim whitespace.
+    package = trimws(gsub("#.*?$", "", ln[!(ln == "" | grepl("^#", ln))])),
     stringsAsFactors = FALSE
   )
 }
@@ -98,7 +104,7 @@ get_pkgs_recommended <- function(file = "install-r/pkgs-recommended.txt") {
 #' head(get_pkgs_req_version())
 #'
 #' }}
-get_pkgs_req_version <- function(file = "install-r/pkgs-required-version.txt") {
+get_pkgs_req_version <- function(file = url_bio("pkgs-required-version.txt")) {
   tbl <-
     read.table(file, skip = 2, header = TRUE, sep = "|", na.strings = c("NA", "-"),
       strip.white = TRUE, stringsAsFactors = FALSE)
@@ -165,7 +171,8 @@ get_pkgs_cran_details <- function() {
 #'
 #' }}
 
-get_pkgs_non_cran_installation_details <- function(file = "install-r/pkgs-install-from.txt") {
+get_pkgs_non_cran_installation_details <- function(file = url_bio("pkgs-install-from.txt")) {
+
   tbl <- read.table(file, skip = 2, header = TRUE, sep = "|", strip.white = TRUE,
     na.strings = c("NA", "-"), stringsAsFactors = FALSE)
 
@@ -185,7 +192,7 @@ get_pkgs_non_cran_installation_details <- function(file = "install-r/pkgs-instal
 #' @examples
 #' \dontrun{\donttest{
 #'
-#' get_pkgs_installation_code()
+#' get_pkgs_instalation_status()
 #'
 #' }}
 get_pkgs_instalation_status <- function(outdated_only = TRUE) {
