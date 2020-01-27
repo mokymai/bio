@@ -121,13 +121,20 @@ recent RStudio projects.</p></li>
 
     <pre class="usage"><span class='fu'>open_project</span>(
   <span class='kw'>name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>new_session</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>new_session</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>proj_list</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>proj_list_path</span> <span class='kw'>=</span> <span class='fu'><a href='projects.html'>get_path_recent_proj_list</a></span>(),
-  <span class='kw'>only_available</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+  <span class='kw'>only_available</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>negate</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )
 
-<span class='fu'>open_project_all</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>new_session</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>only_available</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+<span class='fu'>open_project_from_personal_list</span>(
+  <span class='kw'>name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>new_session</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>only_available</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>...</span>
+)
 
 <span class='fu'>open_recent_proj_list</span>()
 
@@ -163,6 +170,16 @@ paths. If <code>proj_list</code> is not <code>NULL</code>, then <code>proj_list_
       <th>only_available</th>
       <td><p>(logical) If <code>TRUE</code>, non-existing projects and projects
 with broken paths are removed from the list of choices.</p></td>
+    </tr>
+    <tr>
+      <th>pattern</th>
+      <td><p>(character) regular expression to narrow down the list of
+possible options.</p></td>
+    </tr>
+    <tr>
+      <th>negate</th>
+      <td><p>(logical) If <code>TRUE</code>,then the ooptions defined by  <code>pattern</code> are
+excluded.</p></td>
     </tr>
     </table>
 
