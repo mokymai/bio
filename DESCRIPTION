@@ -1,14 +1,16 @@
 Package: bio
 Title: Resources Manager For BS-2020
-Version: 0.0.0.9000
+Version: 0.0.1
 Authors@R: 
     person("Vilmantas", "Gegzna", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-9500-5167"),
            email = "GegznaV@gmail.com"
     )
 Description: Resources manager for course unit BS-2020.
-URL: https://mokymai.github.io/bio/
-BugReports: https://mokymai.com/bio/issues
+URL: 
+    https://mokymai.github.io/bio/,
+    https://github.com/mokymai/bio/
+BugReports: https://mokymai.github.io/bio/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
