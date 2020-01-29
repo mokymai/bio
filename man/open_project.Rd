@@ -12,7 +12,7 @@ open_project(
   name = NULL,
   new_session = TRUE,
   proj_list = NULL,
-  proj_list_path = get_path_recent_proj_list(),
+  proj_list_path = NULL,
   only_available = TRUE,
   pattern = NULL,
   negate = FALSE

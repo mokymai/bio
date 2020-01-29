@@ -105,8 +105,8 @@ get_path_recent_proj_list <- function() {
 #' @rdname projects
 #' @export
 get_path_personal_proj_list <- function() {
-    # fs::path(get_path_r_user_dir(), "personal-project-list-r"),
-    fs::path(get_path_r_user_dir(), "personal-rstudio-projects-list")
+  # fs::path(get_path_r_user_dir(), "personal-project-list-r"),
+  fs::path(get_path_r_user_dir(), "personal-rstudio-projects-list")
   # "D:/Dokumentai/R/bs/data-raw/project-list"
 }
 
@@ -137,13 +137,13 @@ get_projs_personal <- function(sort_by = FALSE) {
 #' @export
 get_projs_all <- function() {
 
-  file_recent <- get_path_recent_proj_list()
-  file_vg     <- get_path_personal_proj_list()
+  file_recent   <- get_path_recent_proj_list()
+  file_personal <- get_path_personal_proj_list()
 
   new_list <-
     dplyr::bind_rows(
       read_projects(file = file_recent),
-      read_projects(file = file_vg)
+      read_projects(file = file_personal)
     ) %>%
     dplyr::distinct()
 
@@ -202,16 +202,22 @@ get_proj_names <- function(file = get_path_recent_proj_list(),
 #' }}
 #
 open_project <- function(name = NULL, new_session = TRUE, proj_list = NULL,
-  proj_list_path = get_path_recent_proj_list(), only_available = TRUE,
+  proj_list_path = NULL, only_available = TRUE,
   pattern = NULL, negate = FALSE) {
 
-  if (is.null(proj_list)) {
+  if (is.null(proj_list) && is.null(proj_list_path)) {
+    # No projec lists are provided
+    proj_list <- get_projs_all()
 
-    if (!fs::file_exists(proj_list_path)) {
-      usethis::ui_stop("The file {usethis::ui_path(proj_list_path)} was not found.")
+  } else {
+    if (!is.null(proj_list_path)) {
+      if (!fs::file_exists(proj_list_path)) {
+        usethis::ui_stop("The file {usethis::ui_path(proj_list_path)} was not found.")
+      }
+      proj_list_2 <- read_projects(proj_list_path)
     }
 
-    proj_list <- read_projects(proj_list_path)
+    proj_list <- dplyr::bind_rows(proj_list, proj_list_2)
   }
 
   if (isTRUE(only_available)) {
@@ -284,7 +290,7 @@ open_project <- function(name = NULL, new_session = TRUE, proj_list = NULL,
 open_project_from_personal_list <- function(name = NULL, new_session = TRUE,
   only_available = TRUE, ...) {
 
-  new_list <- get_projs_all()
+  new_list <- get_projs_personal()
   open_project(name = name, new_session = new_session, proj_list = new_list,
     only_available = only_available, ...)
 }
@@ -307,9 +313,9 @@ open_personal_proj_list <- function() {
 #' @rdname open_project
 #' @export
 update_personal_proj_list <- function() {
-  file_vg  <- get_path_personal_proj_list()
-  new_list <- get_projs_all()
-  readr::write_lines(new_list$path, path = file_vg)
+  file_personal <- get_path_personal_proj_list()
+  new_list      <- get_projs_all()
+  readr::write_lines(new_list$path, path = file_personal)
 }
 
 
