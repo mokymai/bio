@@ -8,14 +8,14 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/bio)](https://CRAN.R-project.org/package=bio)
 [![GitHub
-version](https://img.shields.io/badge/GitHub-v0.0.0.9000-brightgreen.svg)](https://github.com/GegznaV/bio)
-[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--01--26-yellowgreen.svg)]()
+version](https://img.shields.io/badge/GitHub-v0.0.1-brightgreen.svg)](https://github.com/GegznaV/bio)
 [![Travis build
 status](https://travis-ci.com/mokymai/bio.svg?branch=master)](https://travis-ci.com/mokymai/bio)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/mokymai/bio?branch=master&svg=true)](https://ci.appveyor.com/project/mokymai/bio)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--01--29-yellowgreen.svg)]()
 <!-- badges: end -->
 
 <center>
