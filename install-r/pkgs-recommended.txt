@@ -18,6 +18,7 @@ tidyselect
 dplyr
 tidyr
 broom
+pacman
 
 # Markdown -------------------------------------------------------------------
 knitr
@@ -212,6 +213,10 @@ rstatix
 factoextra
 NMF
 NNLM
+
+# Kita -----------------------------------------------------------------------
+snippets
+bio
 
 # import
 # remedy
