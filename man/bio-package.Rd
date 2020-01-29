@@ -12,7 +12,8 @@ Resources manager for course unit BS-2020.
 Useful links:
 \itemize{
   \item \url{https://mokymai.github.io/bio/}
-  \item Report bugs at \url{https://mokymai.com/bio/issues}
+  \item \url{https://github.com/mokymai/bio/}
+  \item Report bugs at \url{https://mokymai.github.io/bio/issues}
 }
 
 }
