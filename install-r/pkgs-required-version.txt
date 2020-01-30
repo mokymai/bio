@@ -12,6 +12,7 @@ dplyr                       | 0.8.3            | FALSE  | -
 esquisse                    | 0.3.0            | FALSE  | -
 gghighlight                 | 0.2.0            | FALSE  | -
 ggpubr                      | 0.2.4            | FALSE  | -
+ggplot                      | 3.2.1            | FALSE  | -
 ggstatsplot                 | 0.1.4            | FALSE  | -
 knitr                       | 1.27             | FALSE  | -
 LanguageToolR               | 0.1.2            | FALSE  | -
@@ -29,4 +30,4 @@ tcltk2                      | 1.2-11           | FALSE  | -
 tidyselect                  | 1.0.0            | FALSE  | -
 tidyr                       | 1.0.2            | FALSE  | -
 wellspell.addin             | 0.4.3            | FALSE  | -
-
+openxlsx                    | 4.1.4            | FALSE  | -
