@@ -68,7 +68,7 @@ clear_r_history <- function(backup = TRUE) {
   tmp_file <- tempfile()
   write("", file = tmp_file)
   loadhistory(tmp_file)
-  unlink(tmp_file)
+  unlink(tmp_file, recursive = TRUE, force = TRUE)
 }
 
 #' @rdname clear_and_reset
