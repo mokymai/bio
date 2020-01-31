@@ -1,5 +1,13 @@
-# Reikiamos paketų versijos
+---
+title: "Minimal required versions of packages"
+date:  2020-01-30
+notes: ""
 
+
+
+
+---
+# This text must be in line 10 -----------------------------------------------
 package                     | required_version | ignore | notes_version
 addin.tools                 | 0.0.8            | FALSE  | -
 addins.rmd                  | 0.0.10           | FALSE  | -

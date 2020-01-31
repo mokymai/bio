@@ -1,5 +1,13 @@
-# Paketų diegimo vieta
+---
+title: "Non-CRAN repositories to install packages from"
+date:  2020-01-30
+notes: ""
 
+
+
+
+---
+# This text must be in line 10 -----------------------------------------------
 package                 | install_from  | details                                | ignore | notes
 addin.tools             | github        | GegznaV/addin.tools                    | FALSE  | -
 addins.rmd              | github        | GegznaV/addins.rmd                     | FALSE  | -
