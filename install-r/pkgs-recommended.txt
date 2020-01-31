@@ -82,11 +82,11 @@ rgl
 parallelMap
 
 covr
-docxtractr
+# docxtractr
 miniUI
 shinytest
 stringdist
-tabulizer
+# tabulizer
 tidyxl
 xlsx
 XML
@@ -110,7 +110,7 @@ LanguageToolR
 wellspell.addin
 
 # Strings --------------------------------------------------------------------
-regexplain
+# regexplain
 
 # ggplot | Vizualizavimui, grafikams -----------------------------------------
 # ggplot2
@@ -128,8 +128,8 @@ ggridges
 ggfortify
 ggforce
 gghighlight
-ggalluvial
-gggenes
+# ggalluvial
+# gggenes
 lemon
 ggQQunif
 ggpmisc
@@ -222,5 +222,5 @@ NNLM
 snippets
 bio
 extrafont
-# import
-# remedy
+import
+remedy
