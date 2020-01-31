@@ -114,8 +114,16 @@
     <p>List of packages of interest.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_pkgs_recommended</span>(<span class='kw'>file</span> <span class='kw'>=</span> <span class='fu'>url_bio</span>(<span class='st'>"pkgs-recommended.txt"</span>))</pre>
+    <pre class="usage"><span class='fu'>get_pkgs_recommended</span>(<span class='no'>which</span>, <span class='kw'>local_list</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>which</th>
+      <td><p>(character) The name of the list with recommended packages.</p></td>
+    </tr>
+    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
@@ -125,7 +133,7 @@
     <div class='dont-index'><p>Other R-packages-related functions: 
 <code><a href='compare_version.html'>compare_version</a>()</code>,
 <code><a href='get_pkgs_cran_details.html'>get_pkgs_cran_details</a>()</code>,
-<code><a href='get_pkgs_instalation_status.html'>get_pkgs_instalation_status</a>()</code>,
+<code><a href='get_pkgs_installation_status.html'>get_pkgs_installation_status_local</a>()</code>,
 <code><a href='get_pkgs_installed.html'>get_pkgs_installed</a>()</code>,
 <code><a href='get_pkgs_non_cran_installation_details.html'>get_pkgs_non_cran_installation_details</a>()</code>,
 <code><a href='get_pkgs_req_version.html'>get_pkgs_req_version</a>()</code></p></div>
@@ -136,6 +144,7 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
