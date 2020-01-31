@@ -2,9 +2,9 @@
 % Please edit documentation in R/packages.R
 \name{get_pkgs_non_cran_installation_details}
 \alias{get_pkgs_non_cran_installation_details}
-\title{Get details about non-CRAN package instalation.}
+\title{Get details about non-CRAN package installation.}
 \usage{
-get_pkgs_non_cran_installation_details(file = url_bio("pkgs-install-from.txt"))
+get_pkgs_non_cran_installation_details(local_list = FALSE)
 }
 \value{
 Dataframe with columns:
@@ -29,7 +29,6 @@ in the output.
 
 head(get_pkgs_non_cran_installation_details())
 
-head(get_pkgs_installation_code())
 
 }}
 }
@@ -37,7 +36,7 @@ head(get_pkgs_installation_code())
 Other R-packages-related functions: 
 \code{\link{compare_version}()},
 \code{\link{get_pkgs_cran_details}()},
-\code{\link{get_pkgs_instalation_status}()},
+\code{\link{get_pkgs_installation_status_local}()},
 \code{\link{get_pkgs_installed}()},
 \code{\link{get_pkgs_recommended}()},
 \code{\link{get_pkgs_req_version}()}

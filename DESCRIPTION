@@ -33,4 +33,5 @@ Imports:
   purrr,
   readr,
   pander,
-  snippets
+  snippets,
+  styler

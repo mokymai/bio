@@ -4,7 +4,10 @@
 \alias{get_pkgs_recommended}
 \title{List of packages of interest.}
 \usage{
-get_pkgs_recommended(file = url_bio("pkgs-recommended.txt"))
+get_pkgs_recommended(which, local_list = FALSE)
+}
+\arguments{
+\item{which}{(character) The name of the list with recommended packages.}
 }
 \value{
 Data frame with column \code{"package"}.
@@ -14,16 +17,17 @@ List of packages of interest.
 }
 \examples{
 \dontrun{\donttest{
-
-head(get_pkgs_recommended())
+which <- "r209"
+head(get_pkgs_recommended("r209"))
 
 }}
+
 }
 \seealso{
 Other R-packages-related functions: 
 \code{\link{compare_version}()},
 \code{\link{get_pkgs_cran_details}()},
-\code{\link{get_pkgs_instalation_status}()},
+\code{\link{get_pkgs_installation_status_local}()},
 \code{\link{get_pkgs_installed}()},
 \code{\link{get_pkgs_non_cran_installation_details}()},
 \code{\link{get_pkgs_req_version}()}
