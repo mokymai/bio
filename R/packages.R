@@ -67,11 +67,9 @@ remove_ignored_rows <- function(tbl) {
 #' @export
 #' @family R-packages-related functions
 #' @examples
-#' \dontrun{\donttest{
 #'
 #' head(get_pkgs_installed())
 #'
-#' }}
 get_pkgs_installed <- function() {
   pkgs_existing <- installed.packages()[, c("Package", "Version")]
   rownames(pkgs_existing) <- NULL
