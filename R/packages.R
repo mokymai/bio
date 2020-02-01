@@ -4,14 +4,14 @@
 
 # Base of URL for files of "bio" repository on GitHub
 url_bio <- function(file = NULL) {
-  paste0("https://raw.githubusercontent.com/mokymai/bio/master/install-r/", file)
+  paste0("https://raw.githubusercontent.com/mokymai/bio/master/inst/install-r/", file)
 }
+
+# Path to files of installed "bio" package on your machine
 path_bio <- function(file = NULL) {
   system.file("install-r", file, package = "bio")
 }
-is_url_accessible <- function(str) {
-  pingr::is_online() && pingr::is_up(str)
-}
+
 # to_str_vector(LETTERS)
 to_str_vector <- function(str, quotes = '"', collapse = ", ") {
   paste0(quotes, str, quotes, collapse = collapse) %>%
@@ -80,20 +80,22 @@ get_pkgs_installed <- function() {
 
 #' List of packages of interest.
 #'
-#' @param which (character) The name of the list with recommended packages.
+#' @inheritParams get_pkgs_installation_status
+#'
 #' @return Data frame with column `"package"`.
 #' @export
 #' @family R-packages-related functions
 #' @examples
-#' \dontrun{\donttest{
-#' which <- "r209"
+#' # NOTE: It is not recommended to use the local lists as they might be out of date.
+#' # Here it is used for testing purposes only.
+#' options(bio.use_local_list = TRUE)
+#'
 #' head(get_pkgs_recommended("r209"))
 #'
-#' }}
-#'
-get_pkgs_recommended <- function(which, local_list = FALSE) {
+get_pkgs_recommended <- function(list_name,
+  use_local_list = getOption("bio.use_local_list", FALSE)) {
 
-  file <- get_path_pkgs_recommended(which, local_list)
+  file <- get_path_pkgs_recommended(list_name, use_local_list)
   ln <- readLines(file, encoding = "UTF-8")
 
   data.frame(
@@ -105,14 +107,14 @@ get_pkgs_recommended <- function(which, local_list = FALSE) {
 
 # get_path_pkgs_recommended("r209", TRUE)
 # get_path_pkgs_recommended("r209", FALSE)
-get_path_pkgs_recommended <- function(which, local_list) {
-  which <- tolower(which)
-  base_name <- paste0("pkgs-recommended--", which, ".txt")
+get_path_pkgs_recommended <- function(list_name, use_local_list) {
+  list_name <- tolower(list_name)
+  base_name <- paste0("pkgs-recommended--", list_name, ".txt")
 
-  if (isTRUE(local_list)) {
+  if (isTRUE(use_local_list)) {
     file <- path_bio(base_name)
     if (!file.exists(file)) {
-      stop("List '", which, "' was not found.")
+      stop("List '", list_name, "' was not found.")
     }
 
   } else {
@@ -127,18 +129,20 @@ get_path_pkgs_recommended <- function(which, local_list) {
 #'
 #' Get required version of packages from a list in a file.
 #'
+#' @inheritParams get_pkgs_installation_status
+#'
 #' @return Dataframe with columns  "package" and "required_version".
 #' @export
 #' @family R-packages-related functions
 #'
 #' @examples
-#' \dontrun{\donttest{
+#' # NOTE: It is not recommended to use the local lists as they might be out of date.
+#' options(bio.use_local_list = TRUE)
 #'
 #' head(get_pkgs_req_version())
 #'
-#' }}
-get_pkgs_req_version <- function(local_list = FALSE) {
-  file <- get_path_pkgs_req_version(local_list)
+get_pkgs_req_version <- function(use_local_list = getOption("bio.use_local_list", FALSE)) {
+  file <- get_path_pkgs_req_version(use_local_list)
   tbl <-
     read.table(file, skip = 10, header = TRUE, sep = "|", na.strings = c("NA", "-"),
       strip.white = TRUE, stringsAsFactors = FALSE)
@@ -149,10 +153,10 @@ get_pkgs_req_version <- function(local_list = FALSE) {
 # (file <- get_path_pkgs_req_version(TRUE))
 # rmarkdown::yaml_front_matter(file)
 # get_path_pkgs_req_version(FALSE)
-get_path_pkgs_req_version <- function(local_list) {
+get_path_pkgs_req_version <- function(use_local_list) {
   base_name <- "pkgs-required-version.txt"
 
-  if (isTRUE(local_list)) {
+  if (isTRUE(use_local_list)) {
     file <- path_bio(base_name)
     if (!file.exists(file)) {
       stop("File '", base_name, "' was not found.")
@@ -170,18 +174,19 @@ get_path_pkgs_req_version <- function(local_list) {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' Get details about package on CRAN.
 #'
-#' Convenience function based on [base::available.packages()].
+#' Convenience function based on [utils::available.packages()].
 #' @return
 #' Data frame with columns "package", "cran_version", "on_cran".
 #'
 #' @export
 #' @family R-packages-related functions
 #'
-#' @seealso [base::available.packages()]
+#' @seealso [utils::available.packages()]
 #'
 #' @examples
 #' \dontrun{\donttest{
 #'
+#' # NOTE: Internet connection is needed.
 #' head(get_pkgs_cran_details())
 #'
 #' }}
@@ -203,6 +208,8 @@ get_pkgs_cran_details <- function() {
 #' Get installation code of packages that either should be installed not from
 #' CRAN or a modified code shold be installed.
 #'
+#' @inheritParams get_pkgs_installation_status
+#'
 #' @return Dataframe with columns:
 #'   - `"package"` package name,
 #'   - `"install_from"` source to install from. Currently supported values
@@ -218,15 +225,14 @@ get_pkgs_cran_details <- function() {
 #' @family R-packages-related functions
 #'
 #' @examples
-#' \dontrun{\donttest{
+#' # NOTE: It is not recommended to use the local lists as they might be out of date.
+#' options(bio.use_local_list = TRUE)
 #'
 #' head(get_pkgs_non_cran_installation_details())
-#'
-#'
-#' }}
 
-get_pkgs_non_cran_installation_details <- function(local_list = FALSE) {
-  file <- get_path_pkgs_non_cran_installation_details(local_list)
+get_pkgs_non_cran_installation_details <- function(
+  use_local_list = getOption("bio.use_local_list", FALSE)) {
+  file <- get_path_pkgs_non_cran_installation_details(use_local_list)
 
   tbl <- read.table(file, skip = 10, header = TRUE, sep = "|", strip.white = TRUE,
     na.strings = c("NA", "-"), stringsAsFactors = FALSE)
@@ -234,11 +240,12 @@ get_pkgs_non_cran_installation_details <- function(local_list = FALSE) {
   remove_ignored_rows(tbl)
 }
 
-get_path_pkgs_non_cran_installation_details <- function(local_list) {
+
+get_path_pkgs_non_cran_installation_details <- function(use_local_list) {
 
   base_name <- "pkgs-install-from.txt"
 
-  if (isTRUE(local_list)) {
+  if (isTRUE(use_local_list)) {
     file <- path_bio(base_name)
     if (!file.exists(file)) {
       stop("File '", base_name, "' was not found.")
@@ -251,21 +258,20 @@ get_path_pkgs_non_cran_installation_details <- function(local_list) {
 }
 
 # ===========================================================================~
+# Instalation status (local) -------------------------------------------------
 #' @rdname get_pkgs_installation_status
 #' @export
 #'
 #' @examples
-#' \dontrun{\donttest{
-#'
-#' which <- "r209"
 #' head(get_pkgs_installation_status_local("r209"))
 #'
-#' }}
-get_pkgs_installation_status_local <- function(which, local_list = TRUE) {
+
+get_pkgs_installation_status_local <- function(list_name,
+  use_local_list = getOption("bio.use_local_list", TRUE)) {
 
   pkgs_inst  = get_pkgs_installed()
-  pkgs_rec   = get_pkgs_recommended(local_list = local_list, which = which)
-  pkgs_req_v = get_pkgs_req_version(local_list = local_list)
+  pkgs_rec   = get_pkgs_recommended(use_local_list = use_local_list, list_name = list_name)
+  pkgs_req_v = get_pkgs_req_version(use_local_list = use_local_list)
 
   pkgs_init <- merge(pkgs_rec, pkgs_inst, by = "package", all.x = TRUE)
   pkgs_init <- merge(pkgs_init, pkgs_req_v,     by = "package", all.x = TRUE)
@@ -283,13 +289,17 @@ get_pkgs_installation_status_local <- function(which, local_list = TRUE) {
   pkgs_init
 }
 
+# Instalation status ---------------------------------------------------------
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' Get package installation status and code.
 #'
 #' Get package installation status (e.g., if packages of interest are installed
 #' or need to be updated) and package installation code.
 #'
-#' @param include (character) Which packages from the list (indicated in `which`)
+#' @param list_name (character) The name of the list with required R packages.
+#'        E.g., "mini", "Rcmdr", etc.
+#'
+#' @param include (character) Which packages from the list (indicated in `list_name`)
 #'        must be included in the results.
 #'        One of:
 #'        - `outdated` (default): only the packages that need are not installed
@@ -330,7 +340,9 @@ get_pkgs_installation_status_local <- function(which, local_list = TRUE) {
 #' @examples
 #' \dontrun{\donttest{
 #'
-#' which <- "r209"
+#' # NOTE: It is not recommended to use the local lists as they might be out of date.
+#' options(bio.use_local_list = TRUE)
+#' list_name <- "r209"
 #'
 #' (status_out <- get_pkgs_installation_status("r209"))
 #' get_pkgs_installation_code(status_out)
@@ -343,9 +355,10 @@ get_pkgs_installation_status_local <- function(which, local_list = TRUE) {
 #' get_pkgs_installation_code(status_custom)
 #'
 #' }}
-get_pkgs_installation_status <- function(which, include = "outdated",
+get_pkgs_installation_status <- function(list_name, include = "outdated",
   show_status = include, install = include, from_cran_if = install,
-  from_github_if = install, from_elsewhere_if = install, local_list = FALSE) {
+  from_github_if = install, from_elsewhere_if = install,
+  use_local_list = getOption("bio.use_local_list", FALSE)) {
 
   choices <- c("outdated", "missing", "always", "never", FALSE)
 
@@ -356,9 +369,10 @@ get_pkgs_installation_status <- function(which, include = "outdated",
   from_github_if    <- match.arg(from_github_if,    choices)
   from_elsewhere_if <- match.arg(from_elsewhere_if, choices)
 
-  pkgs_init  <- get_pkgs_installation_status_local(which = which, local_list = local_list)
+  pkgs_init  <- get_pkgs_installation_status_local(list_name = list_name,
+    use_local_list = use_local_list)
   pkgs_cran  <- get_pkgs_cran_details()
-  pkgs_other <- get_pkgs_non_cran_installation_details(local_list = local_list)
+  pkgs_other <- get_pkgs_non_cran_installation_details(use_local_list = use_local_list)
 
   pkgs_init <- merge(pkgs_init, pkgs_cran,  by = "package", all.x = TRUE)
   pkgs_init <- merge(pkgs_init, pkgs_other, by = "package", all.x = TRUE)
