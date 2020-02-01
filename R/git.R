@@ -171,6 +171,12 @@ is_meld_installed <- function(path_to_meld = get_default_path_to_meld()) {
   file.exists(path_to_meld)
 }
 
+#' @param path_to_meld (character|`NULL`)
+#'
+#' @param prompt (logical)
+#' @param keepBackup (logical)
+#' @param trustExitCode (logical)
+#'
 #' @rdname meld
 #' @export
 set_meld_as_git_difftool_mergetool <- function(path_to_meld = NULL,

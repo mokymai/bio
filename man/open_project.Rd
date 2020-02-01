@@ -53,6 +53,8 @@ possible options.}
 
 \item{negate}{(logical) If \code{TRUE},then the ooptions defined by  \code{pattern} are
 excluded.}
+
+\item{...}{Further arguments.}
 }
 \value{
 Opens the indicated project.

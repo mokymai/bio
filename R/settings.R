@@ -229,7 +229,7 @@ read_rs_user_settings <- function(which = "current") {
   prefs
 }
 
-#' @name RStudio-user-prefs
+#' @rdname RStudio-user-prefs
 #' @export
 read_rs_ui_prefs <- function(which = "current") {
   prefs <- read_rs_user_settings(which)
@@ -239,7 +239,7 @@ read_rs_ui_prefs <- function(which = "current") {
   uiPrefs
 }
 
-#' @name RStudio-user-prefs
+#' @rdname RStudio-user-prefs
 #' @export
 get_rs_ui_prefs <- function() {
 
@@ -281,19 +281,19 @@ get_rs_ui_prefs <- function() {
   }
 }
 
-#' @name RStudio-user-prefs
+#' @rdname RStudio-user-prefs
 #' @export
 get_rs_user_settings_names <- function(which = "current") {
   names(read_rs_user_settings(which))
 }
 
-#' @name RStudio-user-prefs
+#' @rdname RStudio-user-prefs
 #' @export
 get_rs_ui_pref_names <- function(which = "current") {
   names(read_rs_ui_prefs(which))
 }
 
-#' @name RStudio-user-prefs
+#' @rdname RStudio-user-prefs
 #' @export
 reset_rs_user_settings <- function(to = "bio-default", backup = TRUE, ask = TRUE) {
 

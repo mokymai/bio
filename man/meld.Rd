@@ -24,6 +24,15 @@ set_meld_as_git_difftool_mergetool(
   trustExitCode = TRUE
 )
 }
+\arguments{
+\item{path_to_meld}{(character|\code{NULL})}
+
+\item{prompt}{(logical)}
+
+\item{keepBackup}{(logical)}
+
+\item{trustExitCode}{(logical)}
+}
 \description{
 Helper functions for "Meld".
 }

@@ -184,6 +184,7 @@ get_proj_names <- function(file = get_path_recent_proj_list(),
 #'        possible options.
 #' @param negate (logical) If `TRUE`,then the ooptions defined by  `pattern` are
 #'        excluded.
+#' @param ... Further arguments.
 #'
 #' @return Opens the indicated project.
 #' @export

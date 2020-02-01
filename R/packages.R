@@ -259,12 +259,12 @@ get_path_pkgs_non_cran_installation_details <- function(use_local_list) {
 
 # ===========================================================================~
 # Instalation status (local) -------------------------------------------------
+
 #' @rdname get_pkgs_installation_status
 #' @export
 #'
 #' @examples
 #' head(get_pkgs_installation_status_local("r209"))
-#'
 
 get_pkgs_installation_status_local <- function(list_name,
   use_local_list = getOption("bio.use_local_list", TRUE)) {
@@ -291,8 +291,10 @@ get_pkgs_installation_status_local <- function(list_name,
 
 # Instalation status ---------------------------------------------------------
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' Get package installation status and code.
+#' @name get_pkgs_installation_status
 #'
+#' @title Get package installation status and code.
+#' @description
 #' Get package installation status (e.g., if packages of interest are installed
 #' or need to be updated) and package installation code.
 #'
@@ -333,6 +335,12 @@ get_pkgs_installation_status_local <- function(list_name,
 #'        be included in code that installs packages from other sources. One of
 #'        "outdated", "missing", "always" (see `include`). Defaults to the value
 #'         of `install`.
+#'
+#' @param use_local_list (logical) If `TRUE`, the list, which is in the folder
+#'         of package \pkg{bio} ("local list"), is used. If `FALSE`, the lists
+#'         on "GitHub" repository of the package is used. It is recommended
+#'         using the online version of the list, as it may contain more recent
+#'         changes.
 #'
 #' @export
 #' @family R-packages-related functions
