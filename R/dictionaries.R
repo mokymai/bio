@@ -95,11 +95,11 @@ open_user_dictionaries_dir <- function() {
 
 
 #' @name spelling
-#' @title Spellchecking dictionaries.
+#' @title Dictionaries to check spelling.
 #' @description
-#' `update_rs_system_dictionaries()` downloads and updates spellchecking
-#'  dictionaries.
-#' `delete_rs_system_dictionaries()` deletes spellchecking dictionaries.
+#' `download_rs_system_dictionaries()` downloads and updates RStudio
+#'  spellchecking dictionaries.
+#' `delete_rs_system_dictionaries()` deletes RStudio spellchecking dictionaries.
 #'
 #' @param secure (logical) If `TRUE`, uses "https", if `FALSE`, uses "http".
 #'
@@ -110,10 +110,10 @@ open_user_dictionaries_dir <- function() {
 #'
 #' delete_rs_system_dictionaries()
 #'
-#' update_rs_system_dictionaries()
+#' download_rs_system_dictionaries()
 #'
 #' }
-update_rs_system_dictionaries <- function(secure = TRUE) {
+download_rs_system_dictionaries <- function(secure = TRUE) {
   if (rstudioapi::isAvailable()) {
     dic_dir <- get_path_rs_system_dictionaries_dir()
     .rs.downloadAllDictionaries(targetDir = dic_dir, secure = secure)
