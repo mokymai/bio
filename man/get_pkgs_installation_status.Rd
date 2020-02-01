@@ -5,6 +5,7 @@
 \alias{get_pkgs_installation_status}
 \alias{print.pkgs_installation_status}
 \alias{get_pkgs_installation_code}
+\alias{get_pkgs_installation_code.pkgs_installation_status}
 \alias{get_pkgs_installation_code_cran}
 \alias{get_pkgs_installation_code_github}
 \alias{get_pkgs_installation_code_other}
@@ -26,6 +27,8 @@ get_pkgs_installation_status(
 \method{print}{pkgs_installation_status}(x, ...)
 
 get_pkgs_installation_code(x)
+
+\method{get_pkgs_installation_code}{pkgs_installation_status}(x)
 
 get_pkgs_installation_code_cran(x)
 
@@ -87,18 +90,16 @@ head(get_pkgs_installation_status_local("r209"))
 
 which <- "r209"
 
-get_pkgs_installation_status("r209")
+(status_out <- get_pkgs_installation_status("r209"))
+get_pkgs_installation_code(status_out)
+
 (status_all <- get_pkgs_installation_status("r209", include = "always"))
-
 get_pkgs_installation_code(status_all)
-get_pkgs_installation_code_cran(status_all)
-get_pkgs_installation_code_github(status_all)
 
-
-(status_all_2 <-
+(status_custom <-
   get_pkgs_installation_status("r209", include = "always", install = "outdated"))
+get_pkgs_installation_code(status_custom)
 
-get_pkgs_installation_code(status_all)
 }}
 }
 \seealso{

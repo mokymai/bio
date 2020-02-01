@@ -19,19 +19,20 @@ RoxygenNote: 7.0.2
 Remotes:
   Gegznav/snippets
 Imports:
-  tibble,
-  dplyr,
-  fs,
-  stringr,
-  rstudioapi,
-  magrittr,
-  usethis,
   checkmate,
   desc,
+  dplyr,
+  fs,
   glue,
   jsonlite,
+  magrittr,
+  pander,
   purrr,
   readr,
-  pander,
+  rstudioapi,
   snippets,
-  styler
+  stringr,
+  styler,
+  tibble,
+  tibble,
+  usethis
