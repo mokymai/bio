@@ -316,7 +316,7 @@ open_rs_desktop_user_settings_dir <- function() {
 
 
 #' @rdname open_files
-#' @param (character) type of settings: "current", "bio-default".
+#' @param which (character) type of settings: "current", "bio-default".
 #' @export
 #' @examples
 #' \dontrun{\donttest{
