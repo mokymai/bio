@@ -3,7 +3,7 @@
 .RData
 .Ruserdata
 docs/*
-inst/*
+inst/rs-settings
 X2020.01.14.10.43.54.Rhistory
 data-raw/*
 docs/
