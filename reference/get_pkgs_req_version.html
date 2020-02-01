@@ -114,7 +114,7 @@
     <p>Get required version of packages from a list in a file.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_pkgs_req_version</span>(<span class='kw'>local_list</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>get_pkgs_req_version</span>(<span class='kw'>use_local_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"bio.use_local_list"</span>, <span class='fl'>FALSE</span>))</pre>
 
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -131,7 +131,17 @@
 <code><a href='get_pkgs_recommended.html'>get_pkgs_recommended</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"></pre>
+    <pre class="examples"><div class='input'><span class='co'># NOTE: It is not recommended to use the local lists as they might be out of date.</span>
+<span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span>(<span class='kw'>bio.use_local_list</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'>get_pkgs_req_version</span>())</div><div class='output co'>#&gt;       package required_version notes_version
+#&gt; 1 addin.tools            0.0.8          &lt;NA&gt;
+#&gt; 2  addins.rmd           0.0.10          &lt;NA&gt;
+#&gt; 3   addins.rs            0.0.7          &lt;NA&gt;
+#&gt; 4    bookdown             0.17          &lt;NA&gt;
+#&gt; 5         car            3.0-6          &lt;NA&gt;
+#&gt; 6     cowplot            1.0.0          &lt;NA&gt;</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

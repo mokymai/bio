@@ -114,14 +114,18 @@
     <p>List of packages of interest.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_pkgs_recommended</span>(<span class='no'>which</span>, <span class='kw'>local_list</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>get_pkgs_recommended</span>(
+  <span class='no'>list_name</span>,
+  <span class='kw'>use_local_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"bio.use_local_list"</span>, <span class='fl'>FALSE</span>)
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>which</th>
-      <td><p>(character) The name of the list with recommended packages.</p></td>
+      <th>list_name</th>
+      <td><p>(character) The name of the list with required R packages.
+E.g., "mini", "Rcmdr", etc.</p></td>
     </tr>
     </table>
 
@@ -139,7 +143,18 @@
 <code><a href='get_pkgs_req_version.html'>get_pkgs_req_version</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"></pre>
+    <pre class="examples"><div class='input'><span class='co'># NOTE: It is not recommended to use the local lists as they might be out of date.</span>
+<span class='co'># Here it is used for testing purposes only.</span>
+<span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span>(<span class='kw'>bio.use_local_list</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'>get_pkgs_recommended</span>(<span class='st'>"r209"</span>))</div><div class='output co'>#&gt;      package
+#&gt; 1    remotes
+#&gt; 2         fs
+#&gt; 3       curl
+#&gt; 4    stringi
+#&gt; 5    stringr
+#&gt; 6 rstudioapi</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -116,7 +116,9 @@ CRAN or a modified code shold be installed." />
 CRAN or a modified code shold be installed.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_pkgs_non_cran_installation_details</span>(<span class='kw'>local_list</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>get_pkgs_non_cran_installation_details</span>(
+  <span class='kw'>use_local_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"bio.use_local_list"</span>, <span class='fl'>FALSE</span>)
+)</pre>
 
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -144,7 +146,16 @@ in the output.</p>
 <code><a href='get_pkgs_req_version.html'>get_pkgs_req_version</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"></pre>
+    <pre class="examples"><div class='input'><span class='co'># NOTE: It is not recommended to use the local lists as they might be out of date.</span>
+<span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span>(<span class='kw'>bio.use_local_list</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'>get_pkgs_non_cran_installation_details</span>())</div><div class='output co'>#&gt;       package install_from               details notes
+#&gt; 1 addin.tools       github   GegznaV/addin.tools  &lt;NA&gt;
+#&gt; 2  addins.rmd       github    GegznaV/addins.rmd  &lt;NA&gt;
+#&gt; 3   addins.rs       github     GegznaV/addins.rs  &lt;NA&gt;
+#&gt; 4     adventr       github profandyfield/adventr  &lt;NA&gt;
+#&gt; 5         bio       github           mokymai/bio  &lt;NA&gt;
+#&gt; 7         emo       github            hadley/emo  &lt;NA&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
