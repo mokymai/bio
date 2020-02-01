@@ -2,11 +2,11 @@
 % Please edit documentation in R/dictionaries.R
 \name{spelling}
 \alias{spelling}
-\alias{update_rs_system_dictionaries}
+\alias{download_rs_system_dictionaries}
 \alias{delete_rs_system_dictionaries}
-\title{Spellchecking dictionaries.}
+\title{Dictionaries to check spelling.}
 \usage{
-update_rs_system_dictionaries(secure = TRUE)
+download_rs_system_dictionaries(secure = TRUE)
 
 delete_rs_system_dictionaries()
 }
@@ -14,16 +14,16 @@ delete_rs_system_dictionaries()
 \item{secure}{(logical) If \code{TRUE}, uses "https", if \code{FALSE}, uses "http".}
 }
 \description{
-\code{update_rs_system_dictionaries()} downloads and updates spellchecking
-dictionaries.
-\code{delete_rs_system_dictionaries()} deletes spellchecking dictionaries.
+\code{download_rs_system_dictionaries()} downloads and updates RStudio
+spellchecking dictionaries.
+\code{delete_rs_system_dictionaries()} deletes RStudio spellchecking dictionaries.
 }
 \examples{
 if (FALSE) {
 
 delete_rs_system_dictionaries()
 
-update_rs_system_dictionaries()
+download_rs_system_dictionaries()
 
 }
 }
