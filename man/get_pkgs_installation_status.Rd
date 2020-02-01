@@ -7,11 +7,21 @@
 \alias{get_pkgs_installation_code}
 \alias{get_pkgs_installation_code_cran}
 \alias{get_pkgs_installation_code_github}
-\title{Get package installation status.}
+\alias{get_pkgs_installation_code_other}
+\title{Get package installation status and code.}
 \usage{
 get_pkgs_installation_status_local(which, local_list = TRUE)
 
-get_pkgs_installation_status(which, show = "required", local_list = FALSE)
+get_pkgs_installation_status(
+  which,
+  include = "outdated",
+  show_status = include,
+  install = include,
+  from_cran_if = install,
+  from_github_if = install,
+  from_elsewhere_if = install,
+  local_list = FALSE
+)
 
 \method{print}{pkgs_installation_status}(x, ...)
 
@@ -20,19 +30,52 @@ get_pkgs_installation_code(x)
 get_pkgs_installation_code_cran(x)
 
 get_pkgs_installation_code_github(x)
+
+get_pkgs_installation_code_other(x)
 }
 \arguments{
-\item{show}{(character)
-\itemize{
-\item If \code{"required"}, only packages, that need to be installed/updated are shown.
-}}
+\item{include}{(character) Which packages from the list (indicated in \code{which})
+must be included in the results.
+One of:
+- \code{outdated} (default): only the packages that need are not installed
+or do not have a minimum required version installed.
+- \code{missing }: only the packages that are not installed to be installed.
+- \code{always }: all packages.}
+
+\item{show_status}{(character) Which packages should be included in the
+package installation status summary. One of "outdated",
+"missing", "always" (see \code{include}). Defaults to the value of \code{include}.}
+
+\item{install}{(character) Which packages should be included in the
+package installation code. One of "outdated", "missing", "always"
+(see \code{include}). Defaults to the value of \code{include}. Sets the default
+value for \code{from_cran_if}, \code{from_github_if}, and \code{from_elsewhere_if}.}
+
+\item{from_cran_if}{(character) Condition to filter packages that should be
+included in code that installs packages from CRAN. One of "outdated",
+"missing", "always" (see \code{include}) as well as "newer_on_cran" and
+"required" (see below). Defaults to the value of \code{install}.
+- \code{newer_on_cran} -- if CRAN version is newer than the installed one
+(even if minimum required version is installed).
+- \code{required} -- packages that do not have a minimum required version
+installed even if the required version is not on CRAN.}
+
+\item{from_github_if}{(character) Condition to filter packages that should be
+included in code that installs packages from GitHub. One of "outdated",
+"missing", "always" (see \code{include}). Defaults to the value of \code{install}.}
+
+\item{from_elsewhere_if}{(character) Condition to filter packages that should
+be included in code that installs packages from other sources. One of
+"outdated", "missing", "always" (see \code{include}). Defaults to the value
+of \code{install}.}
 
 \item{x}{Object of interest.}
 
 \item{...}{Arguments to other methods.}
 }
 \description{
-Get package installation status.
+Get package installation status (e.g., if packages of interest are installed
+or need to be updated) and package installation code.
 }
 \examples{
 \dontrun{\donttest{
@@ -45,11 +88,17 @@ head(get_pkgs_installation_status_local("r209"))
 which <- "r209"
 
 get_pkgs_installation_status("r209")
-(status_all <- get_pkgs_installation_status("r209", show = "all"))
+(status_all <- get_pkgs_installation_status("r209", include = "always"))
 
 get_pkgs_installation_code(status_all)
 get_pkgs_installation_code_cran(status_all)
 get_pkgs_installation_code_github(status_all)
+
+
+(status_all_2 <-
+  get_pkgs_installation_status("r209", include = "always", install = "outdated"))
+
+get_pkgs_installation_code(status_all)
 }}
 }
 \seealso{

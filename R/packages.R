@@ -227,7 +227,7 @@ get_pkgs_cran_details <- function() {
 #' }}
 
 get_pkgs_non_cran_installation_details <- function(local_list = FALSE) {
-    file <- get_path_pkgs_non_cran_installation_details(local_list)
+  file <- get_path_pkgs_non_cran_installation_details(local_list)
 
   tbl <- read.table(file, skip = 10, header = TRUE, sep = "|", strip.white = TRUE,
     na.strings = c("NA", "-"), stringsAsFactors = FALSE)
@@ -267,21 +267,62 @@ get_pkgs_installation_status_local <- function(which, local_list = TRUE) {
   pkgs_rec   = get_pkgs_recommended(local_list = local_list, which = which)
   pkgs_req_v = get_pkgs_req_version(local_list = local_list)
 
-  tmp <- merge(pkgs_rec, pkgs_inst, by = "package", all.x = TRUE)
-  tmp <- merge(tmp, pkgs_req_v,     by = "package", all.x = TRUE)
+  pkgs_init <- merge(pkgs_rec, pkgs_inst, by = "package", all.x = TRUE)
+  pkgs_init <- merge(pkgs_init, pkgs_req_v,     by = "package", all.x = TRUE)
 
-  tmp$is_installed <- !is.na(tmp$current_version)
-  tmp$update_is_required <- with(tmp, compare_version(current_version, required_version) < 0)
-  tmp$required_version[is.na(tmp$required_version )] <- ""
-  attr(tmp, "packages_to_update") <- tmp$package[tmp$update_is_required]
-  tmp
+  pkgs_init$is_installed <- !is.na(pkgs_init$current_version)
+
+  pkgs_init$update_is_required <-
+    with(pkgs_init, compare_version(current_version, required_version) < 0)
+
+  pkgs_init$required_version[is.na(pkgs_init$required_version )] <- ""
+
+  attr(pkgs_init, "packages_to_update") <-
+    pkgs_init$package[pkgs_init$update_is_required]
+
+  pkgs_init
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' Get package installation status.
+#' Get package installation status and code.
 #'
-#' @param show (character)
-#' - If `"required"`, only packages, that need to be installed/updated are shown.
+#' Get package installation status (e.g., if packages of interest are installed
+#' or need to be updated) and package installation code.
+#'
+#' @param include (character) Which packages from the list (indicated in `which`)
+#'        must be included in the results.
+#'        One of:
+#'        - `outdated` (default): only the packages that need are not installed
+#'           or do not have a minimum required version installed.
+#'        - `missing `: only the packages that are not installed to be installed.
+#'        - `always `: all packages.
+#'
+#' @param show_status (character) Which packages should be included in the
+#'        package installation status summary. One of "outdated",
+#'        "missing", "always" (see `include`). Defaults to the value of `include`.
+#'
+#' @param install (character) Which packages should be included in the
+#'        package installation code. One of "outdated", "missing", "always"
+#'        (see `include`). Defaults to the value of `include`. Sets the default
+#'        value for `from_cran_if`, `from_github_if`, and `from_elsewhere_if`.
+#'
+#' @param from_cran_if (character) Condition to filter packages that should be
+#'        included in code that installs packages from CRAN. One of "outdated",
+#'        "missing", "always" (see `include`) as well as "newer_on_cran" and
+#'        "required" (see below). Defaults to the value of `install`.
+#'        - `newer_on_cran` -- if CRAN version is newer than the installed one
+#'           (even if minimum required version is installed).
+#'        - `required` -- packages that do not have a minimum required version
+#'          installed even if the required version is not on CRAN.
+#'
+#' @param from_github_if (character) Condition to filter packages that should be
+#'        included in code that installs packages from GitHub. One of "outdated",
+#'        "missing", "always" (see `include`). Defaults to the value of `install`.
+#'
+#' @param from_elsewhere_if (character) Condition to filter packages that should
+#'        be included in code that installs packages from other sources. One of
+#'        "outdated", "missing", "always" (see `include`). Defaults to the value
+#'         of `install`.
 #'
 #' @export
 #' @family R-packages-related functions
@@ -292,48 +333,127 @@ get_pkgs_installation_status_local <- function(which, local_list = TRUE) {
 #' which <- "r209"
 #'
 #' get_pkgs_installation_status("r209")
-#' (status_all <- get_pkgs_installation_status("r209", show = "all"))
+#' (status_all <- get_pkgs_installation_status("r209", include = "always"))
 #'
 #' get_pkgs_installation_code(status_all)
 #' get_pkgs_installation_code_cran(status_all)
 #' get_pkgs_installation_code_github(status_all)
+#'
+#'
+#' (status_2 <-
+#'   get_pkgs_installation_status("r209", include = "always", install = "outdated"))
+#'
+#' get_pkgs_installation_code(status_2)
 #' }}
-get_pkgs_installation_status <- function(which, show = "required", local_list = FALSE) {
+get_pkgs_installation_status <- function(which, include = "outdated",
+  show_status = include, install = include, from_cran_if = install,
+  from_github_if = install, from_elsewhere_if = install, local_list = FALSE) {
 
-  pkgs_status <- get_pkgs_installation_status_local(which = which,
-    local_list = local_list)
-  pkgs_cran   <- get_pkgs_cran_details()
-  pkgs_other  <- get_pkgs_non_cran_installation_details(local_list = local_list)
+  choices <- c("outdated", "missing", "always")
 
-  tmp <- pkgs_status
-  tmp <- merge(tmp, pkgs_cran,      by = "package", all.x = TRUE)
-  tmp <- merge(tmp, pkgs_other,     by = "package", all.x = TRUE)
-  tmp$on_cran <- sapply(tmp$on_cran, isTRUE)
-  tmp$newer_on_cran <- with(tmp, on_cran & (compare_version(current_version, cran_version) < 0))
+  include           <- match.arg(include, choices)
+  show_status       <- match.arg(show_status, choices)
+  install           <- match.arg(install, choices)
+  from_cran_if      <- match.arg(from_cran_if, c(choices, "newer_on_cran", "required"))
+  from_github_if    <- match.arg(from_github_if,    choices)
+  from_elsewhere_if <- match.arg(from_elsewhere_if, choices)
 
-  switch(
-    tolower(show),
-    "required" = tmp_2 <- tmp[tmp$update_is_required == TRUE, ],
+  pkgs_init  <- get_pkgs_installation_status_local(which = which, local_list = local_list)
+  pkgs_cran  <- get_pkgs_cran_details()
+  pkgs_other <- get_pkgs_non_cran_installation_details(local_list = local_list)
 
-    # Otherwise
-    tmp_2 <- tmp
-  )
+  pkgs_init <- merge(pkgs_init, pkgs_cran,  by = "package", all.x = TRUE)
+  pkgs_init <- merge(pkgs_init, pkgs_other, by = "package", all.x = TRUE)
+  pkgs_init$on_cran <- sapply(pkgs_init$on_cran, isTRUE)
+  pkgs_init$newer_on_cran <-
+    with(pkgs_init, on_cran & (compare_version(current_version, cran_version) < 0))
 
+  # Sort columns
+  first_cols <- c("package", "is_installed", "current_version",
+    "required_version", "update_is_required", "cran_version", "newer_on_cran")
+  pkgs_init <-
+    pkgs_init[, c(first_cols, setdiff(colnames(pkgs_init), first_cols))]
+
+   # Filter packages of interest
+  pkgs <-
+    switch(
+      include,
+      "missing"  = pkgs_init[!pkgs_init$is_installed, ],
+      "outdated" = pkgs_init[ pkgs_init$update_is_required, ],
+      "always"   = pkgs_init,
+      stop("Unknown value of `include`: ", include)
+    )
+
+  missing_installation_code <-
+    pkgs[(pkgs$on_cran == FALSE & is.na(pkgs$install_from) == TRUE), "package"]
+
+  pkgs_to_install_or_update <- pkgs[pkgs$update_is_required == TRUE, "package"]
+
+
+  # Show status --------------------------------------------------------------
+  from_code <- sapply(pkgs$install_from == "code", isTRUE)
+
+  status_df <-
+    switch(show_status,
+      "outdated" = pkgs[ pkgs$update_is_required, ],
+      "missing"  = pkgs[!pkgs$is_installed, ],
+      "always"   = pkgs,
+      stop("Unknown value of `show_status`: ", show_status)
+    )
+
+  # From CRAN code -----------------------------------------------------------
+  from_cran_cond <-
+    switch(from_cran_if,
+      "newer_on_cran" = pkgs$newer_on_cran,
+      "outdated"      = pkgs$newer_on_cran &  pkgs$update_is_required,
+      "required"      = pkgs$on_cran       &  pkgs$update_is_required,
+      "missing"       = pkgs$on_cran       & !pkgs$is_installed,
+      "always"        = pkgs$on_cran,
+      stop("Unknown value of `from_cran_if`: ", from_cran_if)
+    )
+
+  install_from_cran  <- pkgs[from_cran_cond, "package"]
+
+  # From GitHub code ---------------------------------------------------------
+  on_github <- sapply(pkgs$install_from == "github", isTRUE)
+
+  from_github_cond <-
+    switch(from_github_if,
+      "outdated" = on_github &  pkgs$update_is_required,
+      "missing"  = on_github & !pkgs$is_installed,
+      "always"   = on_github,
+      stop("Unknown value of `from_github_if`: ", from_github_if)
+    )
+
+  install_from_github <- pkgs[from_github_cond, "details"]
+
+  # Custom instalation code --------------------------------------------------
+  from_code <- sapply(pkgs$install_from == "code", isTRUE)
+
+  from_code_cond <-
+    switch(from_elsewhere_if,
+      "outdated" = from_code &  pkgs$update_is_required,
+      "missing"  = from_code & !pkgs$is_installed,
+      "always"   = from_code,
+      stop("Unknown value of `from_elsewhere_if`: ", from_elsewhere_if)
+    )
+
+  install_from_elsewhere <- pkgs[from_code_cond, "details"]
+
+  # Unknown option -----------------------------------------------------------
+  install_from_unknown <-
+    unique(pkgs$install_from[!pkgs$install_from %in% c("github", "code", NA)])
+
+  # From GitHub code ---------------------------------------------------------
   out <- list(
-    status = tmp_2,
-    missing_installation_code = tmp_2[(tmp_2$on_cran == FALSE & is.na(tmp_2$install_from) == TRUE), "package"],
-    pkgs_to_install_or_update = tmp_2[tmp_2$update_is_required == TRUE, "package"],
-    install_from_cran         = tmp_2[tmp_2$newer_on_cran, "package"],
-    install_from_github       = tmp_2[sapply(tmp_2$install_from == "github", isTRUE), "details"],
-    install_from_elsewhere    = tmp_2[sapply(tmp_2$install_from == "code",   isTRUE), "details"]
+    status                    = status_df,
+    missing_installation_code = missing_installation_code,
+    pkgs_to_install_or_update = pkgs_to_install_or_update,
+    install_from_cran         = install_from_cran,
+    install_from_github       = install_from_github,
+    install_from_elsewhere    = install_from_elsewhere,
+    install_from_unknown      = install_from_unknown
   )
-
-  # tmp_2[, c("notes_version", "notes", "cran_version", "on_cran", "install_from",
-  #   "details", "newer_on_cran")] <- NULL
-  # out$status <- tmp_2
-
-  # out$status <- tmp_2[, c("package", "is_installed", "current_version",
-  # "required_version", "update_is_required", "cran_version", "newer_on_cran")]
 
   structure(
     out,
@@ -376,7 +496,8 @@ get_pkgs_installation_code <- function(x) {
   styler::style_text(
     c(
       get_pkgs_installation_code_cran(x),
-      get_pkgs_installation_code_github(x)
+      get_pkgs_installation_code_github(x),
+      get_pkgs_installation_code_other(x)
     )
   )
 }
@@ -404,5 +525,15 @@ get_pkgs_installation_code_github <- function(x) {
     "remotes::install_github(dependencies = TRUE, upgrade = FALSE,\n", pkgs , ")"
   )
   styler::style_text(res)
+}
+
+#' @rdname get_pkgs_installation_status
+#' @export
+get_pkgs_installation_code_other <- function(x) {
+  if (length(x$install_from_elsewhere) == 0) {
+    return("")
+  }
+
+  styler::style_text(x$install_from_elsewhere)
 }
 
