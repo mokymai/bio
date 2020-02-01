@@ -4,7 +4,9 @@
 \alias{get_pkgs_non_cran_installation_details}
 \title{Get details about non-CRAN package installation.}
 \usage{
-get_pkgs_non_cran_installation_details(local_list = FALSE)
+get_pkgs_non_cran_installation_details(
+  use_local_list = getOption("bio.use_local_list", FALSE)
+)
 }
 \value{
 Dataframe with columns:
@@ -25,12 +27,10 @@ If the file has column \code{ignore} with value \code{TRUE}, the line is not inc
 in the output.
 }
 \examples{
-\dontrun{\donttest{
+# NOTE: It is not recommended to use the local lists as they might be out of date.
+options(bio.use_local_list = TRUE)
 
 head(get_pkgs_non_cran_installation_details())
-
-
-}}
 }
 \seealso{
 Other R-packages-related functions: 

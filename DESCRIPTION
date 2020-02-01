@@ -34,5 +34,4 @@ Imports:
   stringr,
   styler,
   tibble,
-  tibble,
   usethis

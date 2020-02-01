@@ -11,17 +11,20 @@
 \alias{get_pkgs_installation_code_other}
 \title{Get package installation status and code.}
 \usage{
-get_pkgs_installation_status_local(which, local_list = TRUE)
+get_pkgs_installation_status_local(
+  list_name,
+  use_local_list = getOption("bio.use_local_list", TRUE)
+)
 
 get_pkgs_installation_status(
-  which,
+  list_name,
   include = "outdated",
   show_status = include,
   install = include,
   from_cran_if = install,
   from_github_if = install,
   from_elsewhere_if = install,
-  local_list = FALSE
+  use_local_list = getOption("bio.use_local_list", FALSE)
 )
 
 \method{print}{pkgs_installation_status}(x, ...)
@@ -37,7 +40,10 @@ get_pkgs_installation_code_github(x)
 get_pkgs_installation_code_other(x)
 }
 \arguments{
-\item{include}{(character) Which packages from the list (indicated in \code{which})
+\item{list_name}{(character) The name of the list with required R packages.
+E.g., "mini", "Rcmdr", etc.}
+
+\item{include}{(character) Which packages from the list (indicated in \code{list_name})
 must be included in the results.
 One of:
 - \code{outdated} (default): only the packages that need are not installed
@@ -81,15 +87,13 @@ Get package installation status (e.g., if packages of interest are installed
 or need to be updated) and package installation code.
 }
 \examples{
-\dontrun{\donttest{
-
-which <- "r209"
 head(get_pkgs_installation_status_local("r209"))
 
-}}
 \dontrun{\donttest{
 
-which <- "r209"
+# NOTE: It is not recommended to use the local lists as they might be out of date.
+options(bio.use_local_list = TRUE)
+list_name <- "r209"
 
 (status_out <- get_pkgs_installation_status("r209"))
 get_pkgs_installation_code(status_out)

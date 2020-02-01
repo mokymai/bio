@@ -10,17 +10,18 @@ get_pkgs_cran_details()
 Data frame with columns "package", "cran_version", "on_cran".
 }
 \description{
-Convenience function based on \code{\link[base:available.packages]{base::available.packages()}}.
+Convenience function based on \code{\link[utils:available.packages]{utils::available.packages()}}.
 }
 \examples{
 \dontrun{\donttest{
 
+# NOTE: Internet connection is needed.
 head(get_pkgs_cran_details())
 
 }}
 }
 \seealso{
-\code{\link[base:available.packages]{base::available.packages()}}
+\code{\link[utils:available.packages]{utils::available.packages()}}
 
 Other R-packages-related functions: 
 \code{\link{compare_version}()},

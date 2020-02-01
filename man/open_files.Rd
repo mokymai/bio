@@ -43,9 +43,9 @@ open_r_environ()
 \arguments{
 \item{path}{(sting) Path to file.}
 
-\item{scope}{(character) One of "user" or "project".}
+\item{which}{(character) type of settings: "current", "bio-default".}
 
-\item{(character)}{type of settings: "current", "bio-default".}
+\item{scope}{(character) One of "user" or "project".}
 }
 \description{
 \itemize{

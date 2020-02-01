@@ -8,7 +8,7 @@
 \alias{install_atom_meld}
 \title{Helper functions for "Atom".}
 \usage{
-bowse_atom_homepage(variables)
+bowse_atom_homepage()
 
 is_atom_installed()
 

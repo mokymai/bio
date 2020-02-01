@@ -4,7 +4,7 @@
 \alias{get_pkgs_req_version}
 \title{Get required version of packages.}
 \usage{
-get_pkgs_req_version(local_list = FALSE)
+get_pkgs_req_version(use_local_list = getOption("bio.use_local_list", FALSE))
 }
 \value{
 Dataframe with columns  "package" and "required_version".
@@ -13,11 +13,11 @@ Dataframe with columns  "package" and "required_version".
 Get required version of packages from a list in a file.
 }
 \examples{
-\dontrun{\donttest{
+# NOTE: It is not recommended to use the local lists as they might be out of date.
+options(bio.use_local_list = TRUE)
 
 head(get_pkgs_req_version())
 
-}}
 }
 \seealso{
 Other R-packages-related functions: 

@@ -4,10 +4,14 @@
 \alias{get_pkgs_recommended}
 \title{List of packages of interest.}
 \usage{
-get_pkgs_recommended(which, local_list = FALSE)
+get_pkgs_recommended(
+  list_name,
+  use_local_list = getOption("bio.use_local_list", FALSE)
+)
 }
 \arguments{
-\item{which}{(character) The name of the list with recommended packages.}
+\item{list_name}{(character) The name of the list with required R packages.
+E.g., "mini", "Rcmdr", etc.}
 }
 \value{
 Data frame with column \code{"package"}.
@@ -16,11 +20,11 @@ Data frame with column \code{"package"}.
 List of packages of interest.
 }
 \examples{
-\dontrun{\donttest{
-which <- "r209"
-head(get_pkgs_recommended("r209"))
+# NOTE: It is not recommended to use the local lists as they might be out of date.
+# Here it is used for testing purposes only.
+options(bio.use_local_list = TRUE)
 
-}}
+head(get_pkgs_recommended("r209"))
 
 }
 \seealso{
