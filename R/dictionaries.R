@@ -117,13 +117,16 @@ download_rs_system_dictionaries <- function(secure = TRUE) {
   if (rstudioapi::isAvailable()) {
     dic_dir <- get_path_rs_system_dictionaries_dir()
     .rs.downloadAllDictionaries(targetDir = dic_dir, secure = secure)
+
+  } else {
+    FALSE
   }
 }
 
 #' @name spelling
 #' @export
 delete_rs_system_dictionaries <- function() {
-  # FIXME: Ask for user to prevent accidental deletion.
+  # FIXME: Ask user permision to prevent accidental deletion.
   fs::dir_delete(get_path_rs_system_dictionaries_dir())
 }
 
