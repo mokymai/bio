@@ -1,0 +1,20 @@
+# Main -----------------------------------------------------------------------
+remotes
+fs
+
+tidyselect
+dplyr
+tidyr
+ggplot2
+purrr
+tibble
+dplyr
+tidyr
+stringi
+stringr
+readr
+forcats
+tidyverse
+reprex
+conflicted
+usethis

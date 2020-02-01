@@ -1,0 +1,49 @@
+
+# R Commander dependencies ---------------------------------------------------
+
+## Depends
+RcmdrMisc
+car
+effects
+
+## Imports
+tcltk2
+abind
+relimp
+lme4
+
+## Suggests
+aplpack
+boot
+colorspace
+e1071
+foreign
+Hmisc
+knitr
+lattice
+leaps
+lmtest
+markdown
+mgcv
+multcomp
+nlme
+nnet
+nortest
+readxl
+rgl
+rmarkdown
+sem
+
+# R Commander ----------------------------------------------------------------
+Rcmdr
+
+# R Commander plugins --------------------------------------------------------
+RcmdrPlugin.EZR
+RcmdrPlugin.KMggplot2
+RcmdrPlugin.EZR.as.menu
+RcmdrPlugin.biostat
+
+# To PowerPoint, etc. --------------------------------------------------------
+officer
+flextable
+rvg
