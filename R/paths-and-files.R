@@ -384,7 +384,7 @@ open_r_environ <- function() {
 }
 
 
-# ============================================================================
+# str_glue_eval ==============================================================
 str_glue_eval <- function(..., envir = parent.frame(), .sep = "",
   .open = "{", .close = "}", envir_eval = envir,  envir_glue = envir) {
 
