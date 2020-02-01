@@ -15,7 +15,8 @@ status](https://travis-ci.com/mokymai/bio.svg?branch=master)](https://travis-ci.
 status](https://ci.appveyor.com/api/projects/status/github/mokymai/bio?branch=master&svg=true)](https://ci.appveyor.com/project/mokymai/bio)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--01--29-yellowgreen.svg)]()
+[![Documented
+on](https://img.shields.io/badge/Documentation-2020--02--01-yellowgreen.svg)]()
 <!-- badges: end -->
 
 <center>
