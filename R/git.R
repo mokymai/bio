@@ -231,7 +231,7 @@ git config --global difftool.prompt {tolower(prompt)}
 #'
 #' @examples
 #' is_atom_installed()
-bowse_atom_homepage <- function(variables) {
+bowse_atom_homepage <- function() {
   browseURL("https://atom.io/")
 }
 
