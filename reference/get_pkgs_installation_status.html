@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get package installation status. — get_pkgs_installation_status_local • bio</title>
+<title>Get package installation status and code. — get_pkgs_installation_status_local • bio</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,9 @@
 
 
 
-<meta property="og:title" content="Get package installation status. — get_pkgs_installation_status_local" />
-<meta property="og:description" content="Get package installation status." />
+<meta property="og:title" content="Get package installation status and code. — get_pkgs_installation_status_local" />
+<meta property="og:description" content="Get package installation status (e.g., if packages of interest are installed
+or need to be updated) and package installation code." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -105,36 +106,92 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get package installation status.</h1>
+    <h1>Get package installation status and code.</h1>
     <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/packages.R'><code>R/packages.R</code></a></small>
     <div class="hidden name"><code>get_pkgs_installation_status.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Get package installation status.</p>
+    <p>Get package installation status (e.g., if packages of interest are installed
+or need to be updated) and package installation code.</p>
     </div>
 
     <pre class="usage"><span class='fu'>get_pkgs_installation_status_local</span>(<span class='no'>which</span>, <span class='kw'>local_list</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>get_pkgs_installation_status</span>(<span class='no'>which</span>, <span class='kw'>show</span> <span class='kw'>=</span> <span class='st'>"required"</span>, <span class='kw'>local_list</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>get_pkgs_installation_status</span>(
+  <span class='no'>which</span>,
+  <span class='kw'>include</span> <span class='kw'>=</span> <span class='st'>"outdated"</span>,
+  <span class='kw'>show_status</span> <span class='kw'>=</span> <span class='no'>include</span>,
+  <span class='kw'>install</span> <span class='kw'>=</span> <span class='no'>include</span>,
+  <span class='kw'>from_cran_if</span> <span class='kw'>=</span> <span class='no'>install</span>,
+  <span class='kw'>from_github_if</span> <span class='kw'>=</span> <span class='no'>install</span>,
+  <span class='kw'>from_elsewhere_if</span> <span class='kw'>=</span> <span class='no'>install</span>,
+  <span class='kw'>local_list</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
 <span class='co'># S3 method for pkgs_installation_status</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='fu'>get_pkgs_installation_code</span>(<span class='no'>x</span>)
 
+<span class='co'># S3 method for pkgs_installation_status</span>
+<span class='fu'>get_pkgs_installation_code</span>(<span class='no'>x</span>)
+
 <span class='fu'>get_pkgs_installation_code_cran</span>(<span class='no'>x</span>)
 
-<span class='fu'>get_pkgs_installation_code_github</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>get_pkgs_installation_code_github</span>(<span class='no'>x</span>)
+
+<span class='fu'>get_pkgs_installation_code_other</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>show</th>
-      <td><p>(character)</p><ul>
-<li><p>If <code>"required"</code>, only packages, that need to be installed/updated are shown.</p></li>
-</ul></td>
+      <th>include</th>
+      <td><p>(character) Which packages from the list (indicated in <code>which</code>)
+must be included in the results.
+One of:
+- <code>outdated</code> (default): only the packages that need are not installed
+or do not have a minimum required version installed.
+- <code>missing </code>: only the packages that are not installed to be installed.
+- <code>always </code>: all packages.</p></td>
+    </tr>
+    <tr>
+      <th>show_status</th>
+      <td><p>(character) Which packages should be included in the
+package installation status summary. One of "outdated",
+"missing", "always" (see <code>include</code>). Defaults to the value of <code>include</code>.</p></td>
+    </tr>
+    <tr>
+      <th>install</th>
+      <td><p>(character) Which packages should be included in the
+package installation code. One of "outdated", "missing", "always"
+(see <code>include</code>). Defaults to the value of <code>include</code>. Sets the default
+value for <code>from_cran_if</code>, <code>from_github_if</code>, and <code>from_elsewhere_if</code>.</p></td>
+    </tr>
+    <tr>
+      <th>from_cran_if</th>
+      <td><p>(character) Condition to filter packages that should be
+included in code that installs packages from CRAN. One of "outdated",
+"missing", "always" (see <code>include</code>) as well as "newer_on_cran" and
+"required" (see below). Defaults to the value of <code>install</code>.
+- <code>newer_on_cran</code> -- if CRAN version is newer than the installed one
+(even if minimum required version is installed).
+- <code>required</code> -- packages that do not have a minimum required version
+installed even if the required version is not on CRAN.</p></td>
+    </tr>
+    <tr>
+      <th>from_github_if</th>
+      <td><p>(character) Condition to filter packages that should be
+included in code that installs packages from GitHub. One of "outdated",
+"missing", "always" (see <code>include</code>). Defaults to the value of <code>install</code>.</p></td>
+    </tr>
+    <tr>
+      <th>from_elsewhere_if</th>
+      <td><p>(character) Condition to filter packages that should
+be included in code that installs packages from other sources. One of
+"outdated", "missing", "always" (see <code>include</code>). Defaults to the value
+of <code>install</code>.</p></td>
     </tr>
     <tr>
       <th>x</th>
