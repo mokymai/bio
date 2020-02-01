@@ -39,3 +39,10 @@ tidyselect                  | 1.0.0            | FALSE  | -
 tidyr                       | 1.0.2            | FALSE  | -
 wellspell.addin             | 0.4.3            | FALSE  | -
 openxlsx                    | 4.1.4            | FALSE  | -
+multcomp                    | 0.991-2          | FALSE  | Rcmdr
+rgl                         | 0.96.0           | FALSE  | Rcmdr
+rmarkdown                   | 0.9.5            | FALSE  | Rcmdr
+sem                         | 2.1-1            | FALSE  | Rcmdr
+effects                     | 4.0-3            | FALSE  | Rcmdr
+tcltk2                      | 1.2-6            | FALSE  | Rcmdr
+relimp                      | 1.0-5            | FALSE  | Rcmdr
