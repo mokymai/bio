@@ -84,6 +84,7 @@ get_pkgs_installed <- function() {
 #'
 #' @param which (character) The name of the list with recommended packages.
 #' @return Data frame with column `"package"`.
+#' @export
 #' @family R-packages-related functions
 #' @examples
 #' \dontrun{\donttest{
@@ -258,6 +259,7 @@ get_path_pkgs_non_cran_installation_details <- function(local_list) {
 #' @examples
 #' \dontrun{\donttest{
 #'
+#' which <- "r209"
 #' head(get_pkgs_installation_status_local("r209"))
 #'
 #' }}

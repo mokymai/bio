@@ -83,6 +83,7 @@ or need to be updated) and package installation code.
 \examples{
 \dontrun{\donttest{
 
+which <- "r209"
 head(get_pkgs_installation_status_local("r209"))
 
 }}
