@@ -10,7 +10,7 @@ Description: Resources manager for course unit BS-2020.
 URL: 
     https://mokymai.github.io/bio/,
     https://github.com/mokymai/bio/
-BugReports: https://mokymai.github.io/bio/issues
+BugReports: https://github.com/mokymai/bio/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
