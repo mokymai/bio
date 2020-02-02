@@ -18,7 +18,6 @@ to_str_vector <- function(str, quotes = '"', collapse = ", ") {
     structure(., class = "glue")
 }
 
-
 #' Compare version numbers.
 #'
 #' @param v_installed vector with installed version numbers
@@ -61,6 +60,24 @@ remove_ignored_rows <- function(tbl) {
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' Check if packae is installed
+#'
+#' @param pkgs (character) A list of installed packages.
+#'
+#' @return A logical vector for each input element.
+#' @export
+#'
+#' @examples
+#'
+#' is_pkg_installed("bio")
+#'
+#' is_pkg_installed(c("bio", "utils", "grugru"))
+#'
+is_pkg_installed <- function(pkgs) {
+  pkgs %in% .packages(all.available = TRUE)
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' List packages installed on this computer.
 #'
 #' @return Data frame with columns `"package"` and `"current_version"`.
@@ -77,6 +94,7 @@ get_pkgs_installed <- function() {
   colnames(pkgs_existing) <- c("package", "current_version")
   as.data.frame(pkgs_existing, stringsAsFactors = FALSE)
 }
+
 
 #' List of packages of interest.
 #'
@@ -269,12 +287,12 @@ get_path_pkgs_non_cran_installation_details <- function(use_local_list) {
 get_pkgs_installation_status_local <- function(list_name,
   use_local_list = getOption("bio.use_local_list", TRUE)) {
 
-  pkgs_inst  = get_pkgs_installed()
-  pkgs_rec   = get_pkgs_recommended(use_local_list = use_local_list, list_name = list_name)
-  pkgs_req_v = get_pkgs_req_version(use_local_list = use_local_list)
+  pkgs_rec   <- get_pkgs_recommended(use_local_list = use_local_list, list_name = list_name)
+  pkgs_inst  <- get_pkgs_installed()
+  pkgs_req_v <- get_pkgs_req_version(use_local_list = use_local_list)
 
-  pkgs_init <- merge(pkgs_rec, pkgs_inst, by = "package", all.x = TRUE)
-  pkgs_init <- merge(pkgs_init, pkgs_req_v,     by = "package", all.x = TRUE)
+  pkgs_init <- dplyr::left_join(pkgs_rec,   pkgs_inst, by = "package")
+  pkgs_init <- dplyr::left_join(pkgs_init, pkgs_req_v, by = "package")
 
   pkgs_init$is_installed <- !is.na(pkgs_init$current_version)
 
@@ -363,6 +381,14 @@ get_pkgs_installation_status_local <- function(list_name,
 #' get_pkgs_installation_code(status_custom)
 #'
 #' }}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# list_name <- "R209"
+# include <- show_status <- install <- from_cran_if <- from_github_if <-
+#   from_elsewhere_if <-  "always"
+# use_local_list <- TRUE
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 get_pkgs_installation_status <- function(list_name, include = "outdated",
   show_status = include, install = include, from_cran_if = install,
   from_github_if = install, from_elsewhere_if = install,
@@ -382,8 +408,8 @@ get_pkgs_installation_status <- function(list_name, include = "outdated",
   pkgs_cran  <- get_pkgs_cran_details()
   pkgs_other <- get_pkgs_non_cran_installation_details(use_local_list = use_local_list)
 
-  pkgs_init <- merge(pkgs_init, pkgs_cran,  by = "package", all.x = TRUE)
-  pkgs_init <- merge(pkgs_init, pkgs_other, by = "package", all.x = TRUE)
+  pkgs_init <- dplyr::left_join(pkgs_init, pkgs_cran,  by = "package")
+  pkgs_init <- dplyr::left_join(pkgs_init, pkgs_other, by = "package")
   pkgs_init$on_cran <- sapply(pkgs_init$on_cran, isTRUE)
   pkgs_init$newer_on_cran <-
     with(pkgs_init, on_cran & (compare_version(current_version, cran_version) < 0))
@@ -391,6 +417,7 @@ get_pkgs_installation_status <- function(list_name, include = "outdated",
   # Sort columns
   first_cols <- c("package", "is_installed", "current_version",
     "required_version", "update_is_required", "cran_version", "newer_on_cran")
+
   pkgs_init <-
     pkgs_init[, c(first_cols, setdiff(colnames(pkgs_init), first_cols))]
 
@@ -581,3 +608,82 @@ get_pkgs_installation_code_other <- function(x) {
   styler::style_text(x$install_from_elsewhere)
 }
 
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' Optimize order of packages to install.
+#'
+#' Helper function that takes a vector of package names and suggests how to
+#' sort the packages in order not to repeat installation of the same
+#' package if it can be installed as a dependence of some other package.
+#'
+#'
+#' @param pkgs_vec (character) Vector of package names.
+#' @param recursive_dependencies (logical) If `TRUE`, recursive dependencies are
+#'        also checked.
+#'        **NOTE:** `recursive_dependencies = TRUE`requires internet connection.
+#'
+#' @return
+#' A list with suggestion, which packages should be moved.
+#' @export
+#'
+#' @examples
+#'
+#' suggest_optimized_order_of_packages(c("stringr", "stringi", "glue", "readr"))
+#' suggest_optimized_order_of_packages(cran_paketai)
+#'
+suggest_optimized_order_of_packages <- function(pkgs_vec,
+  recursive_dependencies = FALSE) {
+
+  # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  # library(tidyverse)
+
+  list_after <- function(.which, list) {
+    rev(rev(list)[1:which(rev(list) == .which)])
+  }
+
+  list_before <- function(.which, list) {
+    list[1:which(list == .which)]
+  }
+  # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  deps <-
+    tools::package_dependencies(
+      pkgs_vec,
+      which   = c("Depends", "Imports"),
+      reverse = FALSE,
+      recursive = recursive_dependencies
+    )
+
+  rev_deps <-
+    tools::package_dependencies(
+      pkgs_vec,
+      which   = c("Depends", "Imports"),
+      reverse = TRUE,
+      recursive = recursive_dependencies
+    )
+  # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  move_after <-
+    purrr::imap(deps, ~ stringr::str_c(.x[.x %in% list_after(.y, list = pkgs_vec)])) %>%
+    purrr::discard(~length(.) == 0) %>%
+    purrr::imap_chr(~stringr::str_c(stringr::str_pad(.y, 20), " (move after): ",
+      stringr::str_c(.x, collapse = ", "))) %>%
+    purrr::map_chr(structure, class = "glue") %>%
+    unname() %>%
+    structure(class = "glue")
+
+
+  move_before <-
+    purrr::imap(rev_deps, ~ stringr::str_c(.x[.x %in% list_before(.y, list = pkgs_vec)])) %>%
+    purrr::discard(~length(.) == 0) %>%
+    purrr::imap_chr(~stringr::str_c(stringr::str_pad(.y, 20), " (move before): ",
+      stringr::str_c(.x, collapse = ", "))) %>%
+    purrr::map_chr(structure, class = "glue") %>%
+    unname() %>%
+    structure(class = "glue")
+
+  list(move_before = move_before, move_after = move_after)
+
+}
