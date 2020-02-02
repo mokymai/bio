@@ -363,3 +363,16 @@ browse_r_cheat_sheets <- function() {
 check_spelling <- function() {
   rstudioapi::executeCommand("checkSpelling", quiet = TRUE)
 }
+
+show_console <- function() {
+  if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
+    rstudioapi::executeCommand("activateConsole", quiet = TRUE)
+  }
+}
+
+reload_rstudio <- function() {
+  if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
+    rstudioapi::executeCommand("reloadUi", quiet = TRUE)
+  }
+}
+
