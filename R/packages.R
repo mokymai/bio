@@ -630,7 +630,6 @@ get_pkgs_installation_code_other <- function(x) {
 #' @examples
 #'
 #' suggest_optimized_order_of_packages(c("stringr", "stringi", "glue", "readr"))
-#' suggest_optimized_order_of_packages(cran_paketai)
 #'
 suggest_optimized_order_of_packages <- function(pkgs_vec,
   recursive_dependencies = FALSE) {

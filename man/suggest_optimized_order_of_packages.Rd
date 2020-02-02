@@ -24,6 +24,5 @@ package if it can be installed as a dependence of some other package.
 \examples{
 
 suggest_optimized_order_of_packages(c("stringr", "stringi", "glue", "readr"))
-suggest_optimized_order_of_packages(cran_paketai)
 
 }
