@@ -11,20 +11,20 @@
 #'
 #' @return ???
 #'
-#' @export
+#' @noRd
 #'
 #' @examples
 #'
 #' \dontrun{\donttest{
 #'
 #' }}
-optimize_order_to_install <- function(pkgs_vec = get_pkgs_recommended()$paketas,
+optimize_order_to_install <- function(pkgs_vec,
   recursive_dependencies = TRUE) {
 
+  stop("This function is not implemented yet!!!")
 
   pkgs_vec_orig <- pkgs_vec
   # pkgs_vec <- pkgs_vec_orig
-  stop("does not work yet")
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # library(tidyverse)
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -94,13 +94,24 @@ optimize_order_to_install <- function(pkgs_vec = get_pkgs_recommended()$paketas,
   base_pkgs <- c("R", rownames(installed.packages(priority = "base")))
 
   get_deps <- function(x) {
+    # NOTE: all packages must be installed
+    ind <- is_pkg_installed(x)
+
+    if (any(!ind)) {
+      warning("These package are not installed and were removed from the list:\n",
+        paste(x[!ind], sep = ", "))
+    }
+
+    x <- x[ind]
+
     x %>%
-      purrr::map(~ system.file(package = ., "DESCRIPTION") %>%
+      purrr::map(
+        ~ system.file(package = ., "DESCRIPTION") %>%
           desc::desc_get_deps() %>%
           dplyr::pull(package) %>%
           setdiff(base_pkgs)
       ) %>%
-      set_names(x) %>%
+      purrr::set_names(x) %>%
       # imap(~ str_c(.x[.x %in% list_after(.y, list = pkgs_vec)])) %>%
       purrr::imap(~ stringr::str_c(.x[.x %in% x])) %>%
       purrr::imap_dfr(~tibble::tibble(
@@ -114,12 +125,15 @@ optimize_order_to_install <- function(pkgs_vec = get_pkgs_recommended()$paketas,
 
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-  deps <- get_deps(pkgs_vec)
+  deps <- get_deps(x = pkgs_vec)
+
+  # TODO: Does not work from here
 
   # x <- deps
   get_n_deps_below <- function(x) {
     lst <- x$pkg
-    xx <- x %>%
+    xx <-
+      x %>%
       dplyr::mutate(
         deps_below = purrr::map2(deps, pkg,
           ~ stringr::str_c(.x[.x %in% list_after(.y, list = lst)])
@@ -137,14 +151,14 @@ optimize_order_to_install <- function(pkgs_vec = get_pkgs_recommended()$paketas,
 
 
 
-  if (nrow(obj) > 0) {
+  if (nrow(deps) > 0) {
     x <- pkgs_vec
 
     # tbl <- tibble()
 
-    for (i in 1:nrow(obj)) {
+    for (i in 1:nrow(deps)) {
       # x_old <- x
-      x <- str_move_before(x, .what = obj$what[i], .move_before = obj$move_before[i])
+      x <- str_move_before(x, .what = deps$what[i], .move_before = deps$move_before[i])
       # tbl <- bind_rows(
       # tbl,
       # tibble(i = i,
