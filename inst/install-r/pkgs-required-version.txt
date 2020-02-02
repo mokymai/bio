@@ -45,4 +45,4 @@ tcltk2                      | 1.2-11           | FALSE  | Rcmdr
 tcltk2                      | 1.2-6            | FALSE  | Rcmdr
 tidyr                       | 1.0.2            | FALSE  | -
 tidyselect                  | 1.0.0            | FALSE  | -
-wellspell.addin             | 0.4.3            | FALSE  | -
+wellspell.addin             | 0.4.4            | FALSE  | -
