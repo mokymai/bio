@@ -22,7 +22,7 @@ sort the packages in order not to repeat installation of the same
 package if it can be installed as a dependence of some other package.
 }
 \examples{
-
+\dontrun{\donttest{
 suggest_optimized_order_of_packages(c("stringr", "stringi", "glue", "readr"))
-
+}}
 }

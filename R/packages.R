@@ -384,8 +384,13 @@ get_pkgs_installation_status_local <- function(list_name,
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # list_name <- "R209"
+#
 # include <- show_status <- install <- from_cran_if <- from_github_if <-
 #   from_elsewhere_if <-  "always"
+#
+# include <- show_status <- install <- from_cran_if <- from_github_if <-
+#   from_elsewhere_if <-  "outdated"
+#
 # use_local_list <- TRUE
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -410,7 +415,7 @@ get_pkgs_installation_status <- function(list_name, include = "outdated",
 
   pkgs_init <- dplyr::left_join(pkgs_init, pkgs_cran,  by = "package")
   pkgs_init <- dplyr::left_join(pkgs_init, pkgs_other, by = "package")
-  pkgs_init$on_cran <- sapply(pkgs_init$on_cran, isTRUE)
+  pkgs_init$on_cran <- purrr::map_lgl(pkgs_init$on_cran, isTRUE)
   pkgs_init$newer_on_cran <-
     with(pkgs_init, on_cran & (compare_version(current_version, cran_version) < 0))
 
@@ -438,7 +443,7 @@ get_pkgs_installation_status <- function(list_name, include = "outdated",
 
 
   # Show status
-  from_code <- sapply(pkgs$install_from == "code", isTRUE)
+  from_code <- purrr::map_lgl(pkgs$install_from == "code", isTRUE)
 
   show_status_cond <-
     switch(show_status,
@@ -469,7 +474,7 @@ get_pkgs_installation_status <- function(list_name, include = "outdated",
   install_from_cran  <- pkgs[from_cran_cond, "package"]
 
   # From GitHub code
-  on_github <- sapply(pkgs$install_from == "github", isTRUE)
+  on_github <- purrr::map_lgl(pkgs$install_from == "github", isTRUE)
 
   from_github_cond <-
     switch(from_github_if,
@@ -484,7 +489,7 @@ get_pkgs_installation_status <- function(list_name, include = "outdated",
   install_from_github <- pkgs[from_github_cond, "details"]
 
   # Custom instalation code
-  from_code <- sapply(pkgs$install_from == "code", isTRUE)
+  from_code <- purrr::map_lgl(pkgs$install_from == "code", isTRUE)
 
   from_code_cond <-
     switch(from_elsewhere_if,
@@ -551,15 +556,8 @@ get_pkgs_installation_code <- function(x) {
 #' @rdname get_pkgs_installation_status
 #' @export
 get_pkgs_installation_code.pkgs_installation_status <- function(x) {
-  res <- styler::style_text(
-    c(
-      get_pkgs_installation_code_cran(x),
-      get_pkgs_installation_code_github(x),
-      get_pkgs_installation_code_other(x)
-    )
-  )
 
-  # Warn if code is missing
+  # Warn if there are packages with no source of installation
   if (length(x$missing_installation_code) > 0) {
     warning(
       call. = FALSE,
@@ -568,19 +566,33 @@ get_pkgs_installation_code.pkgs_installation_status <- function(x) {
     )
   }
 
-  # Output
-  res
+  # Print installation code, if present
+  res <-
+    c(
+      get_pkgs_installation_code_cran(x),
+      get_pkgs_installation_code_github(x),
+      get_pkgs_installation_code_other(x)
+    )
+  res <- res[!res %in% ""]
 
+  if (length(res) > 0) {
+    res <- styler::style_text(res)
+    return(res)
+
+  } else {
+    return(invisible(res))
+  }
 }
 
 #' @rdname get_pkgs_installation_status
 #  @export
 get_pkgs_installation_code_cran <- function(x) {
   # Install from CRAN only if the version of package is newer on CRAN
-  pkgs <- to_str_vector(x$install_from_cran, collapse = ",\n")
-  if (length(pkgs) == 0) {
+  pkgs_vec <- x$install_from_cran
+  if (length(pkgs_vec) == 0) {
     return("")
   }
+  pkgs <- to_str_vector(pkgs_vec, collapse = ",\n")
   res <- paste0("install.packages(", pkgs , ")")
   styler::style_text(res)
 }
@@ -588,10 +600,11 @@ get_pkgs_installation_code_cran <- function(x) {
 #' @rdname get_pkgs_installation_status
 #  @export
 get_pkgs_installation_code_github <- function(x) {
-  pkgs <- to_str_vector(x$install_from_github, collapse = ",\n")
-  if (length(pkgs) == 0) {
+  pkgs_vec <- x$install_from_github
+  if (length(pkgs_vec) == 0) {
     return("")
   }
+  pkgs <- to_str_vector(pkgs_vec, collapse = ",\n")
   res <- paste0(
     "remotes::install_github(\n", pkgs , ",\n dependencies = TRUE, upgrade = FALSE)"
   )
@@ -601,15 +614,16 @@ get_pkgs_installation_code_github <- function(x) {
 #' @rdname get_pkgs_installation_status
 #  @export
 get_pkgs_installation_code_other <- function(x) {
-  if (length(x$install_from_elsewhere) == 0) {
+  codes_vec <- x$install_from_elsewhere
+  if (length(codes_vec) == 0) {
     return("")
   }
 
-  styler::style_text(x$install_from_elsewhere)
+  styler::style_text(codes_vec)
 }
 
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Optimize order of packages to install ======================================
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' Optimize order of packages to install.
 #'
@@ -628,9 +642,9 @@ get_pkgs_installation_code_other <- function(x) {
 #' @export
 #'
 #' @examples
-#'
+#' \dontrun{\donttest{
 #' suggest_optimized_order_of_packages(c("stringr", "stringi", "glue", "readr"))
-#'
+#' }}
 suggest_optimized_order_of_packages <- function(pkgs_vec,
   recursive_dependencies = FALSE) {
 
