@@ -17,6 +17,7 @@ pingr
 styler
 reprex
 withr
+tictoc
 
 tidyselect
 dplyr
@@ -179,7 +180,7 @@ userfriendlyscience
 DescTools
 rcompanion
 # skimr
-report
+# report
 # descriptr
 summarytools
 AMR
