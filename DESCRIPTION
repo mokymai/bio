@@ -1,6 +1,6 @@
 Package: bio
 Title: Resources Manager For BS-2020
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: 
     person("Vilmantas", "Gegzna", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-9500-5167"),
@@ -20,6 +20,8 @@ Remotes:
   Gegznav/snippets
 Imports:
   checkmate,
+  crayon,
+  clipr,
   desc,
   dplyr,
   fs,
@@ -27,6 +29,7 @@ Imports:
   jsonlite,
   magrittr,
   pander,
+  pingr,
   purrr,
   readr,
   rstudioapi,
