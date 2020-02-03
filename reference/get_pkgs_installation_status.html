@@ -70,7 +70,7 @@ or need to be updated) and package installation code." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9001</span>
       </span>
     </div>
 
@@ -126,19 +126,19 @@ or need to be updated) and package installation code.</p>
   <span class='kw'>include</span> <span class='kw'>=</span> <span class='st'>"outdated"</span>,
   <span class='kw'>show_status</span> <span class='kw'>=</span> <span class='no'>include</span>,
   <span class='kw'>install</span> <span class='kw'>=</span> <span class='no'>include</span>,
-  <span class='kw'>from_cran_if</span> <span class='kw'>=</span> <span class='no'>install</span>,
-  <span class='kw'>from_github_if</span> <span class='kw'>=</span> <span class='no'>install</span>,
-  <span class='kw'>from_elsewhere_if</span> <span class='kw'>=</span> <span class='no'>install</span>,
+  <span class='kw'>cran</span> <span class='kw'>=</span> <span class='no'>install</span>,
+  <span class='kw'>github</span> <span class='kw'>=</span> <span class='no'>install</span>,
+  <span class='kw'>elsewhere</span> <span class='kw'>=</span> <span class='no'>install</span>,
   <span class='kw'>use_local_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"bio.use_local_list"</span>, <span class='fl'>FALSE</span>)
 )
 
 <span class='co'># S3 method for pkgs_installation_status</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
-<span class='fu'>get_pkgs_installation_code</span>(<span class='no'>x</span>)
+<span class='fu'>get_pkgs_installation_code</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for pkgs_installation_status</span>
-<span class='fu'>get_pkgs_installation_code</span>(<span class='no'>x</span>)
+<span class='fu'>get_pkgs_installation_code</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>to_clipboard</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>get_pkgs_installation_code_cran</span>(<span class='no'>x</span>)
 
@@ -183,10 +183,10 @@ package installation status summary. One of "outdated",
       <td><p>(character) Which packages should be included in the
 package installation code. One of "outdated", "missing", "always"
 (see <code>include</code>). Defaults to the value of <code>include</code>. Sets the default
-value for <code>from_cran_if</code>, <code>from_github_if</code>, and <code>from_elsewhere_if</code>.</p></td>
+value for <code>cran</code>, <code>github</code>, and <code>elsewhere</code>.</p></td>
     </tr>
     <tr>
-      <th>from_cran_if</th>
+      <th>cran</th>
       <td><p>(character) Condition to filter packages that should be
 included in code that installs packages from CRAN. One of "outdated",
 "missing", "always" (see <code>include</code>) as well as "newer_on_cran" and
@@ -197,13 +197,13 @@ included in code that installs packages from CRAN. One of "outdated",
 installed even if the required version is not on CRAN.</p></td>
     </tr>
     <tr>
-      <th>from_github_if</th>
+      <th>github</th>
       <td><p>(character) Condition to filter packages that should be
 included in code that installs packages from GitHub. One of "outdated",
 "missing", "always" (see <code>include</code>). Defaults to the value of <code>install</code>.</p></td>
     </tr>
     <tr>
-      <th>from_elsewhere_if</th>
+      <th>elsewhere</th>
       <td><p>(character) Condition to filter packages that should
 be included in code that installs packages from other sources. One of
 "outdated", "missing", "always" (see <code>include</code>). Defaults to the value
