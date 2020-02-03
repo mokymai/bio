@@ -34,6 +34,7 @@ installed and have minimum required versions.
 check_installed_packages("mini", use_local_list = TRUE)
 
 check_installed_packages("mini", include = "always", use_local_list = TRUE)
-check_installed_packages("mini", include = "always", install = "outdated", github = "always", use_local_list = TRUE)
+check_installed_packages("mini", include = "always", install = "outdated",
+ github = "always", use_local_list = TRUE)
 }}
 }
