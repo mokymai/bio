@@ -108,7 +108,7 @@ get_pkgs_installed <- function() {
 #' # Here it is used for testing purposes only.
 #' options(bio.use_local_list = TRUE)
 #'
-#' head(get_pkgs_recommended("gmc-r209p"))
+#' head(get_pkgs_recommended("mini"))
 #'
 get_pkgs_recommended <- function(list_name,
   use_local_list = getOption("bio.use_local_list", FALSE)) {
@@ -320,7 +320,7 @@ get_path_pkgs_non_cran_installation_details <- function(use_local_list) {
 #' @export
 #'
 #' @examples
-#' head(get_pkgs_installation_status_local("gmc-r209"))
+#' head(get_pkgs_installation_status_local("mini"))
 
 get_pkgs_installation_status_local <- function(list_name,
   use_local_list = getOption("bio.use_local_list", TRUE)) {
@@ -406,16 +406,16 @@ get_pkgs_installation_status_local <- function(list_name,
 #'
 #' # NOTE: It is not recommended to use the local lists as they might be out of date.
 #' options(bio.use_local_list = TRUE)
-#' list_name <- "gmc-r209"
+#' list_name <- "mini"
 #'
-#' (status_out <- get_pkgs_installation_status("gmc-r209"))
+#' (status_out <- get_pkgs_installation_status("mini"))
 #' get_pkgs_installation_code(status_out)
 #'
-#' (status_all <- get_pkgs_installation_status("gmc-r209", include = "always"))
+#' (status_all <- get_pkgs_installation_status("mini", include = "always"))
 #' get_pkgs_installation_code(status_all)
 #'
 #' (status_custom <-
-#'   get_pkgs_installation_status("gmc-r209", include = "always", install = "outdated"))
+#'   get_pkgs_installation_status("mini", include = "always", install = "outdated"))
 #' get_pkgs_installation_code(status_custom)
 #'
 #' }}
@@ -706,10 +706,10 @@ get_pkgs_installation_code_other <- function(x) {
 #'
 #' @examples
 #' \dontrun{\donttest{
-#' check_installed_packages("gmc-r209", use_local_list = TRUE)
+#' check_installed_packages("mini", use_local_list = TRUE)
 #'
-#' check_installed_packages("gmc-r209", include = "always", use_local_list = TRUE)
-#' check_installed_packages("gmc-r209", include = "always", install = "outdated", github = "always", use_local_list = TRUE)
+#' check_installed_packages("mini", include = "always", use_local_list = TRUE)
+#' check_installed_packages("mini", include = "always", install = "outdated", github = "always", use_local_list = TRUE)
 #' }}
 check_installed_packages <- function(list_name,
   use_local_list = getOption("bio.use_local_list", FALSE), ...) {

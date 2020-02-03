@@ -30,7 +30,7 @@ List of packages of interest.
 # Here it is used for testing purposes only.
 options(bio.use_local_list = TRUE)
 
-head(get_pkgs_recommended("gmc-r209p"))
+head(get_pkgs_recommended("mini"))
 
 }
 \seealso{

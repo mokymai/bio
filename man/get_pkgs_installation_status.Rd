@@ -93,21 +93,21 @@ Get package installation status (e.g., if packages of interest are installed
 or need to be updated) and package installation code.
 }
 \examples{
-head(get_pkgs_installation_status_local("gmc-r209"))
+head(get_pkgs_installation_status_local("mini"))
 \dontrun{\donttest{
 
 # NOTE: It is not recommended to use the local lists as they might be out of date.
 options(bio.use_local_list = TRUE)
-list_name <- "gmc-r209"
+list_name <- "mini"
 
-(status_out <- get_pkgs_installation_status("gmc-r209"))
+(status_out <- get_pkgs_installation_status("mini"))
 get_pkgs_installation_code(status_out)
 
-(status_all <- get_pkgs_installation_status("gmc-r209", include = "always"))
+(status_all <- get_pkgs_installation_status("mini", include = "always"))
 get_pkgs_installation_code(status_all)
 
 (status_custom <-
-  get_pkgs_installation_status("gmc-r209", include = "always", install = "outdated"))
+  get_pkgs_installation_status("mini", include = "always", install = "outdated"))
 get_pkgs_installation_code(status_custom)
 
 }}

@@ -31,9 +31,9 @@ installed and have minimum required versions.
 }
 \examples{
 \dontrun{\donttest{
-check_installed_packages("gmc-r209", use_local_list = TRUE)
+check_installed_packages("mini", use_local_list = TRUE)
 
-check_installed_packages("gmc-r209", include = "always", use_local_list = TRUE)
-check_installed_packages("gmc-r209", include = "always", install = "outdated", github = "always", use_local_list = TRUE)
+check_installed_packages("mini", include = "always", use_local_list = TRUE)
+check_installed_packages("mini", include = "always", install = "outdated", github = "always", use_local_list = TRUE)
 }}
 }
