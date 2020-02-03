@@ -577,7 +577,8 @@ print.pkgs_installation_status <- function(x, ...) {
 
   } else {
     if (any(x$status$update_is_required)) {
-      usethis::ui_todo("Some packages need to be {crayon::red('updated')}.")
+      usethis::ui_todo(
+        "Some packages should be {crayon::red('installed')} or {crayon::red('updated')}.")
     }
   }
 
@@ -631,8 +632,8 @@ get_pkgs_installation_code.pkgs_installation_status <- function(x, ...,
     clipr::write_clip(res, object_type = "character")
 
     cat("\n")
-    usethis::ui_done("Installation code was copied to clipboard.")
-    usethis::ui_info("Use Ctrl+V (Mac: Cmd+V) to paste it.")
+    usethis::ui_done("Installation code was copied to the clipboard.")
+    usethis::ui_info("Use Ctrl+V (on Mac: Cmd+V) to paste it.")
     usethis::ui_todo(
       "Before installation, close RStudio project and/or restart R session."
     )
@@ -709,7 +710,8 @@ get_pkgs_installation_code_other <- function(x) {
 #' check_installed_packages("mini", use_local_list = TRUE)
 #'
 #' check_installed_packages("mini", include = "always", use_local_list = TRUE)
-#' check_installed_packages("mini", include = "always", install = "outdated", github = "always", use_local_list = TRUE)
+#' check_installed_packages("mini", include = "always", install = "outdated",
+#'  github = "always", use_local_list = TRUE)
 #' }}
 check_installed_packages <- function(list_name,
   use_local_list = getOption("bio.use_local_list", FALSE), ...) {
