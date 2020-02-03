@@ -3,6 +3,9 @@
 reset_rstudio <- function() {
   stop("Function is harmful")
 
+  pingr::my_ip() %in% c("...")
+
+
   # rstudioapi::executeCommand("clearUserPrefs")
   bio::reset_rs_user_settings("bio-default", backup = TRUE)
 
@@ -325,7 +328,7 @@ reset_rs_user_settings <- function(to = "bio-default", backup = TRUE, ask = TRUE
     },
     "bio-default" = {
       file_default <- get_path_rs_user_settings("bio-default")
-      fs::dir_create(fs::path_dir(file_default))
+      fs::dir_create(fs::path_dir(file_current)) # FIXME: file_default or file_current?
       fs::file_copy(file_default, file_current, overwrite = TRUE)
       success <-
         unname(tools::md5sum(file_default) == tools::md5sum(file_current))
@@ -335,7 +338,7 @@ reset_rs_user_settings <- function(to = "bio-default", backup = TRUE, ask = TRUE
   )
 
   if (success) {
-    usethis::ui_done("RStudio setting were reset. Now you should restart RStudio.")
+    usethis::ui_done("RStudio settings were reset. Now you should restart RStudio.")
 
   } else {
     usethis::ui_oops("Resetting RStudio settings failed.")
