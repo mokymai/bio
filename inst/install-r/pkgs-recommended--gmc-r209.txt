@@ -33,7 +33,7 @@ blogdown
 pkgdown
 namer
 icon
-emo
+# emo
 pander
 DT
 tinytex
