@@ -108,13 +108,47 @@ get_pkgs_installed <- function() {
 #' # Here it is used for testing purposes only.
 #' options(bio.use_local_list = TRUE)
 #'
-#' head(get_pkgs_recommended("r209"))
+#' head(get_pkgs_recommended("gmc-r209p"))
 #'
 get_pkgs_recommended <- function(list_name,
   use_local_list = getOption("bio.use_local_list", FALSE)) {
 
   file <- get_path_pkgs_recommended(list_name, use_local_list)
-  ln <- readLines(file, encoding = "UTF-8")
+
+  tryCatch({ln <- readLines(file, encoding = "UTF-8")},
+    # error = function(e) {
+    #   if (!pingr::is_online()) {
+    #     usethis::ui_stop(paste0(
+    #       "No internet connection. The online version of list ",
+    #       "{usethis::ui_value(list_name)} cannot be accessed. "))
+    #   } else {
+    #     usethis::ui_stop(paste0(
+    #       "It seems that list {usethis::ui_value(list_name)} is not present ",
+    #       "online or cannot be accessed. Check if the spelling is correct."))
+    #   }
+    #   return()
+    # },
+    warning = function(w) {
+
+      if (!pingr::is_online()) {
+        usethis::ui_stop(paste0(
+          "No internet connection, thus the online version of list ",
+          "{usethis::ui_value(list_name)} cannot be accessed. ")
+        )
+
+      } else if (stringr::str_detect(w$message, "'404 Not Found'")) {
+        usethis::ui_stop(paste0(
+          "It seems that there is no online version of list ",
+          "{usethis::ui_value(list_name)} or it cannot be accessed. ",
+          "\nCheck if the list name is correct.")
+        )
+
+      } else {
+        usethis::ui_stop(w$message)
+      }
+
+    }
+  )
 
   data.frame(
     # Remove R comments and trim whitespace.
@@ -123,8 +157,8 @@ get_pkgs_recommended <- function(list_name,
   )
 }
 
-# get_path_pkgs_recommended("r209", TRUE)
-# get_path_pkgs_recommended("r209", FALSE)
+# get_path_pkgs_recommended("gmc-r209", TRUE)
+# get_path_pkgs_recommended("gmc-r209", FALSE)
 get_path_pkgs_recommended <- function(list_name, use_local_list) {
   list_name <- tolower(list_name)
   base_name <- paste0("pkgs-recommended--", list_name, ".txt")
@@ -132,12 +166,16 @@ get_path_pkgs_recommended <- function(list_name, use_local_list) {
   if (isTRUE(use_local_list)) {
     file <- path_bio(base_name)
     if (!file.exists(file)) {
-      stop("List '", list_name, "' was not found.")
+      usethis::ui_stop(paste0(
+        "List {usethis::ui_value(list_name)} was not found on your computer. ",
+        "Check if the list name is correct. "
+      ))
     }
 
   } else {
     file <- url_bio(base_name)
   }
+
   file
 }
 
@@ -282,7 +320,7 @@ get_path_pkgs_non_cran_installation_details <- function(use_local_list) {
 #' @export
 #'
 #' @examples
-#' head(get_pkgs_installation_status_local("r209"))
+#' head(get_pkgs_installation_status_local("gmc-r209"))
 
 get_pkgs_installation_status_local <- function(list_name,
   use_local_list = getOption("bio.use_local_list", TRUE)) {
@@ -334,9 +372,9 @@ get_pkgs_installation_status_local <- function(list_name,
 #' @param install (character) Which packages should be included in the
 #'        package installation code. One of "outdated", "missing", "always"
 #'        (see `include`). Defaults to the value of `include`. Sets the default
-#'        value for `from_cran_if`, `from_github_if`, and `from_elsewhere_if`.
+#'        value for `cran`, `github`, and `elsewhere`.
 #'
-#' @param from_cran_if (character) Condition to filter packages that should be
+#' @param cran (character) Condition to filter packages that should be
 #'        included in code that installs packages from CRAN. One of "outdated",
 #'        "missing", "always" (see `include`) as well as "newer_on_cran" and
 #'        "required" (see below). Defaults to the value of `install`.
@@ -345,11 +383,11 @@ get_pkgs_installation_status_local <- function(list_name,
 #'        - `required` -- packages that do not have a minimum required version
 #'          installed even if the required version is not on CRAN.
 #'
-#' @param from_github_if (character) Condition to filter packages that should be
+#' @param github (character) Condition to filter packages that should be
 #'        included in code that installs packages from GitHub. One of "outdated",
 #'        "missing", "always" (see `include`). Defaults to the value of `install`.
 #'
-#' @param from_elsewhere_if (character) Condition to filter packages that should
+#' @param elsewhere (character) Condition to filter packages that should
 #'        be included in code that installs packages from other sources. One of
 #'        "outdated", "missing", "always" (see `include`). Defaults to the value
 #'         of `install`.
@@ -368,45 +406,43 @@ get_pkgs_installation_status_local <- function(list_name,
 #'
 #' # NOTE: It is not recommended to use the local lists as they might be out of date.
 #' options(bio.use_local_list = TRUE)
-#' list_name <- "r209"
+#' list_name <- "gmc-r209"
 #'
-#' (status_out <- get_pkgs_installation_status("r209"))
+#' (status_out <- get_pkgs_installation_status("gmc-r209"))
 #' get_pkgs_installation_code(status_out)
 #'
-#' (status_all <- get_pkgs_installation_status("r209", include = "always"))
+#' (status_all <- get_pkgs_installation_status("gmc-r209", include = "always"))
 #' get_pkgs_installation_code(status_all)
 #'
 #' (status_custom <-
-#'   get_pkgs_installation_status("r209", include = "always", install = "outdated"))
+#'   get_pkgs_installation_status("gmc-r209", include = "always", install = "outdated"))
 #' get_pkgs_installation_code(status_custom)
 #'
 #' }}
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# list_name <- "R209"
+# list_name <- "gmc-r209"
 #
-# include <- show_status <- install <- from_cran_if <- from_github_if <-
-#   from_elsewhere_if <-  "always"
+# include <- show_status <- install <- cran <- github <- elsewhere <- "always"
 #
-# include <- show_status <- install <- from_cran_if <- from_github_if <-
-#   from_elsewhere_if <-  "outdated"
+# include <- show_status <- install <- cran <- github <- elsewhere <- "outdated"
 #
 # use_local_list <- TRUE
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 get_pkgs_installation_status <- function(list_name, include = "outdated",
-  show_status = include, install = include, from_cran_if = install,
-  from_github_if = install, from_elsewhere_if = install,
+  show_status = include, install = include, cran = install,
+  github = install, elsewhere = install,
   use_local_list = getOption("bio.use_local_list", FALSE)) {
 
-  choices <- c("outdated", "missing", "always", "never", FALSE)
+  choices <- c("outdated", "missing", "always", "never", FALSE, TRUE)
 
-  include           <- match.arg(include, choices)
-  show_status       <- match.arg(show_status, choices)
-  install           <- match.arg(install, choices)
-  from_cran_if      <- match.arg(from_cran_if, c(choices, "newer_on_cran", "required"))
-  from_github_if    <- match.arg(from_github_if,    choices)
-  from_elsewhere_if <- match.arg(from_elsewhere_if, choices)
+  include     <- match.arg(include,     choices)
+  show_status <- match.arg(show_status, choices)
+  install     <- match.arg(install,     choices)
+  cran        <- match.arg(cran,      c(choices, "newer_on_cran", "required"))
+  github      <- match.arg(github,      choices)
+  elsewhere   <- match.arg(elsewhere,   choices)
 
   pkgs_init  <- get_pkgs_installation_status_local(list_name = list_name,
     use_local_list = use_local_list)
@@ -432,6 +468,7 @@ get_pkgs_installation_status <- function(list_name, include = "outdated",
       include,
       "missing"  = pkgs_init[!pkgs_init$is_installed, ],
       "outdated" = pkgs_init[ pkgs_init$update_is_required, ],
+      "TRUE"     = ,
       "always"   = pkgs_init,
       stop("Unknown value of `include`: ", include)
     )
@@ -449,26 +486,27 @@ get_pkgs_installation_status <- function(list_name, include = "outdated",
     switch(show_status,
       "outdated" =  pkgs$update_is_required,
       "missing"  = !pkgs$is_installed,
+      "TRUE"     = ,
       "always"   =  rep(TRUE, nrow(pkgs)),
-      "newer" = ,
+      "newer"    = ,
       "FALSE"    = rep(TRUE, nrow(pkgs)),
       stop("Unknown value of `show_status`: ", show_status)
     )
 
   status_df <- pkgs[show_status_cond, ]
 
-
   # From CRAN code
   from_cran_cond <-
-    switch(from_cran_if,
+    switch(cran,
       "newer_on_cran" = pkgs$newer_on_cran,
       "outdated"      = pkgs$newer_on_cran &  pkgs$update_is_required,
       "required"      = pkgs$on_cran       &  pkgs$update_is_required,
       "missing"       = pkgs$on_cran       & !pkgs$is_installed,
+      "TRUE"          = ,
       "always"        = pkgs$on_cran,
       "newer"         = ,
       "FALSE"         = rep(FALSE, nrow(pkgs)),
-      stop("Unknown value of `from_cran_if`: ", from_cran_if)
+      stop("Unknown value of `cran`: ", cran)
     )
 
   install_from_cran  <- pkgs[from_cran_cond, "package"]
@@ -477,13 +515,14 @@ get_pkgs_installation_status <- function(list_name, include = "outdated",
   on_github <- purrr::map_lgl(pkgs$install_from == "github", isTRUE)
 
   from_github_cond <-
-    switch(from_github_if,
+    switch(github,
       "outdated" = on_github &  pkgs$update_is_required,
       "missing"  = on_github & !pkgs$is_installed,
+      "TRUE"     = ,
       "always"   = on_github,
       "newer"    = ,
       "FALSE"    = rep(FALSE, nrow(pkgs)),
-      stop("Unknown value of `from_github_if`: ", from_github_if)
+      stop("Unknown value of `github`: ", github)
     )
 
   install_from_github <- pkgs[from_github_cond, "details"]
@@ -492,13 +531,14 @@ get_pkgs_installation_status <- function(list_name, include = "outdated",
   from_code <- purrr::map_lgl(pkgs$install_from == "code", isTRUE)
 
   from_code_cond <-
-    switch(from_elsewhere_if,
+    switch(elsewhere,
       "outdated" = from_code &  pkgs$update_is_required,
       "missing"  = from_code & !pkgs$is_installed,
+      "TRUE"     = ,
       "always"   = from_code,
       "newer"    = ,
       "FALSE"    = rep(FALSE, nrow(pkgs)),
-      stop("Unknown value of `from_elsewhere_if`: ", from_elsewhere_if)
+      stop("Unknown value of `elsewhere`: ", elsewhere)
     )
 
   install_from_elsewhere <- pkgs[from_code_cond, "details"]
@@ -532,8 +572,13 @@ get_pkgs_installation_status <- function(list_name, include = "outdated",
 #' @export
 print.pkgs_installation_status <- function(x, ...) {
   if (nrow(x$status) == 0) {
-    cat("All required packages are installed and up-to-date.")
+    usethis::ui_done("All required packages are installed and up-to-date.")
     return()
+
+  } else {
+    if (any(x$status$update_is_required)) {
+      usethis::ui_todo("Some packages need to be {crayon::red('updated')}.")
+    }
   }
 
   st <-
@@ -548,14 +593,15 @@ print.pkgs_installation_status <- function(x, ...) {
 
 #' @rdname get_pkgs_installation_status
 #' @export
-get_pkgs_installation_code <- function(x) {
+get_pkgs_installation_code <- function(x, ...) {
   UseMethod("get_pkgs_installation_code")
 }
 
 # Installation code
 #' @rdname get_pkgs_installation_status
 #' @export
-get_pkgs_installation_code.pkgs_installation_status <- function(x) {
+get_pkgs_installation_code.pkgs_installation_status <- function(x, ...,
+  to_clipboard = FALSE) {
 
   # Warn if there are packages with no source of installation
   if (length(x$missing_installation_code) > 0) {
@@ -575,12 +621,26 @@ get_pkgs_installation_code.pkgs_installation_status <- function(x) {
     )
   res <- res[!res %in% ""]
 
-  if (length(res) > 0) {
-    res <- styler::style_text(res)
-    return(res)
+  if (length(res) == 0) {
+    return(invisible(res))
+  }
+
+  res <- styler::style_text(res)
+
+  if (isTRUE(to_clipboard)) {
+    clipr::write_clip(res, object_type = "character")
+
+    cat("\n")
+    usethis::ui_done("Installation code was copied to clipboard.")
+    usethis::ui_info("Use Ctrl+V (Mac: Cmd+V) to paste it.")
+    usethis::ui_todo(
+      "Before installation, close RStudio project and/or restart R session."
+    )
+    return(invisible(res))
 
   } else {
-    return(invisible(res))
+    return(res)
+
   }
 }
 
@@ -601,12 +661,20 @@ get_pkgs_installation_code_cran <- function(x) {
 #  @export
 get_pkgs_installation_code_github <- function(x) {
   pkgs_vec <- x$install_from_github
+
   if (length(pkgs_vec) == 0) {
     return("")
   }
+
   pkgs <- to_str_vector(pkgs_vec, collapse = ",\n")
+
+  if (length(pkgs_vec) > 1) {
+    pkgs <- paste0("c(\n", pkgs ,")")
+  }
+
   res <- paste0(
-    "remotes::install_github(\n", pkgs , ",\n dependencies = TRUE, upgrade = FALSE)"
+    "remotes::install_github(\n", pkgs, ",\n",
+    "dependencies = TRUE, upgrade = FALSE)"
   )
   styler::style_text(res)
 }
@@ -621,8 +689,50 @@ get_pkgs_installation_code_other <- function(x) {
 
   styler::style_text(codes_vec)
 }
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# [!] Check installed packages ===============================================
+# # @rdname get_pkgs_installation_status
+#  @export
+#' Check installed packages
+#'
+#' A user-fiendly version of a function to check if required R packages are
+#' installed and have minimum required versions.
+#'
+#' @inheritParams get_pkgs_installation_status
+#' @param ... Further arguments to [get_pkgs_installation_status()].
+#'
+#' @return Function invisibly returns object with package installation status.
+#' @export
+#'
+#' @examples
+#' \dontrun{\donttest{
+#' check_installed_packages("gmc-r209", use_local_list = TRUE)
+#'
+#' check_installed_packages("gmc-r209", include = "always", use_local_list = TRUE)
+#' check_installed_packages("gmc-r209", include = "always", install = "outdated", github = "always", use_local_list = TRUE)
+#' }}
+check_installed_packages <- function(list_name,
+  use_local_list = getOption("bio.use_local_list", FALSE), ...) {
+  status <-
+    get_pkgs_installation_status(list_name, use_local_list = use_local_list,
+      ...)
 
+  status_name <- make_unique_obj_names("status")
+  code_name   <- stringr::str_glue(
+    "bio::get_pkgs_installation_code({status_name}, to_clipboard = TRUE)")
 
+  print(status)
+
+  if (nrow(status$status) > 0) {
+    assign(status_name, status, envir = .GlobalEnv)
+    cat("\n")
+    usethis::ui_info("To print these results again, type {usethis::ui_field(status_name)} ")
+    usethis::ui_todo("To get package installation code, type:\n{usethis::ui_field(code_name)} ")
+    rstudioapi::sendToConsole(code_name, execute = FALSE)
+  }
+
+  invisible(status)
+}
 # Optimize order of packages to install ======================================
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' Optimize order of packages to install.
