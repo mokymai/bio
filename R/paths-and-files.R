@@ -45,6 +45,22 @@ scoped_path_r <- function(scope = c("user", "project"), ..., envvar = NULL) {
   fs::path(root, ...)
 }
 # Get paths ==================================================================
+
+#' Get path to desktop folder.
+#'
+#' Get path to desktop folder of current user.
+#'
+#' @param ... (character) file or folder name on desktop.
+#'
+#' @return String with path to desktop or path to file or folder on a desktop.
+#' @export
+#'
+#' @examples
+#' get_path_desktop()
+get_path_desktop <- function(...) {
+  fs::path(fs::path_expand("~/Desktop"), ...)
+}
+
 # Get path to RStudio configuration directory.
 
 #' @name RStudio-config-dir
@@ -81,17 +97,17 @@ get_path_rs_config_dir  <- function(...) {
   base <-
     switch(get_os_type(),
       "windows" = fs::path(Sys.getenv("LOCALAPPDATA"), "RStudio"),
-      "linux"   = fs::path_expand_r("~/.config/RStudio"),
+      "linux"   = fs::path_expand_r("~/.config/RStudio"), # FIXME: path_expand_r() or path_expand() ?
       "osx"     = {
         # FIXME: Fix for Mac OS X
         # defaults read com.rstudio.desktop > ~/backup-rstudio-prefs
         warning("Mac OS X is not supported by get_path_rs_config_dir().")
-        fs::path_expand_r("~/.config/RStudio")
+        fs::path_expand_r("~/.config/RStudio") # FIXME: path_expand_r() or path_expand() ?
       },
       # Otherwise:
       {
         warning("Your OS is not supported by get_path_rs_config_dir().")
-        fs::path_expand_r("~/.config/RStudio")
+        fs::path_expand_r("~/.config/RStudio") # FIXME: path_expand_r() or path_expand() ?
       }
     )
   path_construct_and_check(base, ...)
@@ -129,7 +145,7 @@ get_path_rs_desktop_config_dir <- function(..., .check = FALSE) {
     switch(get_os_type(),
       "windows" = fs::path(Sys.getenv("LOCALAPPDATA"), "RStudio-Desktop"),
       # Other OS'es
-      fs::path_expand_r("~/.rstudio-desktop")
+      fs::path_expand_r("~/.rstudio-desktop") # FIXME: path_expand_r() or path_expand() ?
     )
 
   if (.check) {
