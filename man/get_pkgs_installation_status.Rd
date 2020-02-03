@@ -21,17 +21,17 @@ get_pkgs_installation_status(
   include = "outdated",
   show_status = include,
   install = include,
-  from_cran_if = install,
-  from_github_if = install,
-  from_elsewhere_if = install,
+  cran = install,
+  github = install,
+  elsewhere = install,
   use_local_list = getOption("bio.use_local_list", FALSE)
 )
 
 \method{print}{pkgs_installation_status}(x, ...)
 
-get_pkgs_installation_code(x)
+get_pkgs_installation_code(x, ...)
 
-\method{get_pkgs_installation_code}{pkgs_installation_status}(x)
+\method{get_pkgs_installation_code}{pkgs_installation_status}(x, ..., to_clipboard = FALSE)
 
 get_pkgs_installation_code_cran(x)
 
@@ -64,9 +64,9 @@ package installation status summary. One of "outdated",
 \item{install}{(character) Which packages should be included in the
 package installation code. One of "outdated", "missing", "always"
 (see \code{include}). Defaults to the value of \code{include}. Sets the default
-value for \code{from_cran_if}, \code{from_github_if}, and \code{from_elsewhere_if}.}
+value for \code{cran}, \code{github}, and \code{elsewhere}.}
 
-\item{from_cran_if}{(character) Condition to filter packages that should be
+\item{cran}{(character) Condition to filter packages that should be
 included in code that installs packages from CRAN. One of "outdated",
 "missing", "always" (see \code{include}) as well as "newer_on_cran" and
 "required" (see below). Defaults to the value of \code{install}.
@@ -75,11 +75,11 @@ included in code that installs packages from CRAN. One of "outdated",
 - \code{required} -- packages that do not have a minimum required version
 installed even if the required version is not on CRAN.}
 
-\item{from_github_if}{(character) Condition to filter packages that should be
+\item{github}{(character) Condition to filter packages that should be
 included in code that installs packages from GitHub. One of "outdated",
 "missing", "always" (see \code{include}). Defaults to the value of \code{install}.}
 
-\item{from_elsewhere_if}{(character) Condition to filter packages that should
+\item{elsewhere}{(character) Condition to filter packages that should
 be included in code that installs packages from other sources. One of
 "outdated", "missing", "always" (see \code{include}). Defaults to the value
 of \code{install}.}
@@ -93,21 +93,21 @@ Get package installation status (e.g., if packages of interest are installed
 or need to be updated) and package installation code.
 }
 \examples{
-head(get_pkgs_installation_status_local("r209"))
+head(get_pkgs_installation_status_local("gmc-r209"))
 \dontrun{\donttest{
 
 # NOTE: It is not recommended to use the local lists as they might be out of date.
 options(bio.use_local_list = TRUE)
-list_name <- "r209"
+list_name <- "gmc-r209"
 
-(status_out <- get_pkgs_installation_status("r209"))
+(status_out <- get_pkgs_installation_status("gmc-r209"))
 get_pkgs_installation_code(status_out)
 
-(status_all <- get_pkgs_installation_status("r209", include = "always"))
+(status_all <- get_pkgs_installation_status("gmc-r209", include = "always"))
 get_pkgs_installation_code(status_all)
 
 (status_custom <-
-  get_pkgs_installation_status("r209", include = "always", install = "outdated"))
+  get_pkgs_installation_status("gmc-r209", include = "always", install = "outdated"))
 get_pkgs_installation_code(status_custom)
 
 }}
