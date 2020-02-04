@@ -15,6 +15,7 @@ reset_rstudio <- function() {
   rstudioapi::executeCommand("clearHelpHistory",    quiet = TRUE)
   rstudioapi::executeCommand("closeAllSourceDocs",  quiet = TRUE)
   bio::reset_rstudio_layout()
+  rstudioapi::executeCommand("zoomActualSize",      quiet = TRUE)
   # clearWorkspace
   bio::clear_r_workspace()
   rstudioapi::executeCommand("consoleClear",         quiet = TRUE)
@@ -376,6 +377,18 @@ show_console <- function() {
 reload_rstudio <- function() {
   if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
     rstudioapi::executeCommand("reloadUi", quiet = TRUE)
+  }
+}
+
+switch_to_tab <- function() {
+  if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
+    rstudioapi::executeCommand("switchToTab", quiet = TRUE)
+  }
+}
+
+restart_r <- function() {
+  if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
+    rstudioapi::executeCommand("restartR", quiet = TRUE)
   }
 }
 
