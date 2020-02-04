@@ -25,6 +25,7 @@ LanguageToolR           | github        | nevrome/LanguageToolR                 
 latex2exp               | github        | stefano-meschiari/latex2exp            | FALSE  | -
 pander                  | github        | Rapporter/pander                       | FALSE  | -
 practicalgg             | github        | wilkelab/practicalgg                   | FALSE  | -
+qqplotr                 | github        | aloy/qqplotr                           | TRUE   | -
 RcmdrPlugin.biostat     | github        | GegznaV/RcmdrPlugin.biostat            | FALSE  | -
 RcmdrPlugin.EZR.as.menu | github        | GegznaV/RcmdrPlugin.EZR@ezr_as_menu    | FALSE  | -
 regexplain              | github        | gadenbuie/regexplain                   | FALSE  | -
