@@ -430,133 +430,67 @@ get_pkgs_installation_status_local <- function(list_name,
 # use_local_list <- TRUE
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+# ========================================================================== ~
 get_pkgs_installation_status <- function(list_name, include = "outdated",
   show_status = include, install = include, cran = install,
   github = install, elsewhere = install,
   use_local_list = getOption("bio.use_local_list", FALSE)) {
 
-  choices <- c("outdated", "missing", "always", "never", FALSE, TRUE)
+  choices <- c(TRUE, "always", "outdated", "missing", "never", FALSE)
 
-  include     <- match.arg(include,     choices)
-  show_status <- match.arg(show_status, choices)
-  install     <- match.arg(install,     choices)
-  cran        <- match.arg(cran,      c(choices, "newer_on_cran", "required"))
-  github      <- match.arg(github,      choices)
-  elsewhere   <- match.arg(elsewhere,   choices)
+  include     <- match.arg(as.character(include),     choices)
+  show_status <- match.arg(as.character(show_status), choices)
+  install     <- match.arg(as.character(install),     choices)
+  cran        <- match.arg(as.character(cran),      c(choices, "newer_on_cran", "required"))
+  github      <- match.arg(as.character(github),      choices)
+  elsewhere   <- match.arg(as.character(elsewhere),   choices)
 
-  pkgs_init  <- get_pkgs_installation_status_local(list_name = list_name,
+  status_0  <- get_pkgs_installation_status_local(list_name = list_name,
     use_local_list = use_local_list)
   pkgs_cran  <- get_pkgs_cran_details()
   pkgs_other <- get_pkgs_non_cran_installation_details(use_local_list = use_local_list)
 
-  pkgs_init <- dplyr::left_join(pkgs_init, pkgs_cran,  by = "package")
-  pkgs_init <- dplyr::left_join(pkgs_init, pkgs_other, by = "package")
-  pkgs_init$on_cran <- purrr::map_lgl(pkgs_init$on_cran, isTRUE)
-  pkgs_init$newer_on_cran <-
-    with(pkgs_init, on_cran & (compare_version(current_version, cran_version) < 0))
-
-  # Sort columns
   first_cols <- c("package", "is_installed", "current_version",
     "required_version", "update_is_required", "cran_version", "newer_on_cran")
 
-  pkgs_init <-
-    pkgs_init[, c(first_cols, setdiff(colnames(pkgs_init), first_cols))]
-
-  # Filter packages of interest
-  pkgs <-
-    switch(
-      include,
-      "missing"  = pkgs_init[!pkgs_init$is_installed, ],
-      "outdated" = pkgs_init[ pkgs_init$update_is_required, ],
-      "TRUE"     = ,
-      "always"   = pkgs_init,
-      stop("Unknown value of `include`: ", include)
-    )
-
-  missing_installation_code <-
-    pkgs[(pkgs$on_cran == FALSE & is.na(pkgs$install_from) == TRUE), "package"]
-
-  pkgs_to_install_or_update <- pkgs[pkgs$update_is_required == TRUE, "package"]
-
-
-  # Show status
-  from_code <- purrr::map_lgl(pkgs$install_from == "code", isTRUE)
-
-  show_status_cond <-
-    switch(show_status,
-      "outdated" =  pkgs$update_is_required,
-      "missing"  = !pkgs$is_installed,
-      "TRUE"     = ,
-      "always"   =  rep(TRUE, nrow(pkgs)),
-      "newer"    = ,
-      "FALSE"    = rep(TRUE, nrow(pkgs)),
-      stop("Unknown value of `show_status`: ", show_status)
-    )
-
-  status_df <- pkgs[show_status_cond, ]
-
-  # From CRAN code
-  from_cran_cond <-
-    switch(cran,
-      "newer_on_cran" = pkgs$newer_on_cran,
-      "outdated"      = pkgs$newer_on_cran &  pkgs$update_is_required,
-      "required"      = pkgs$on_cran       &  pkgs$update_is_required,
-      "missing"       = pkgs$on_cran       & !pkgs$is_installed,
-      "TRUE"          = ,
-      "always"        = pkgs$on_cran,
-      "newer"         = ,
-      "FALSE"         = rep(FALSE, nrow(pkgs)),
-      stop("Unknown value of `cran`: ", cran)
-    )
-
-  install_from_cran  <- pkgs[from_cran_cond, "package"]
-
-  # From GitHub code
-  on_github <- purrr::map_lgl(pkgs$install_from == "github", isTRUE)
-
-  from_github_cond <-
-    switch(github,
-      "outdated" = on_github &  pkgs$update_is_required,
-      "missing"  = on_github & !pkgs$is_installed,
-      "TRUE"     = ,
-      "always"   = on_github,
-      "newer"    = ,
-      "FALSE"    = rep(FALSE, nrow(pkgs)),
-      stop("Unknown value of `github`: ", github)
-    )
-
-  install_from_github <- pkgs[from_github_cond, "details"]
-
-  # Custom instalation code
-  from_code <- purrr::map_lgl(pkgs$install_from == "code", isTRUE)
-
-  from_code_cond <-
-    switch(elsewhere,
-      "outdated" = from_code &  pkgs$update_is_required,
-      "missing"  = from_code & !pkgs$is_installed,
-      "TRUE"     = ,
-      "always"   = from_code,
-      "newer"    = ,
-      "FALSE"    = rep(FALSE, nrow(pkgs)),
-      stop("Unknown value of `elsewhere`: ", elsewhere)
-    )
-
-  install_from_elsewhere <- pkgs[from_code_cond, "details"]
+  status <-
+    status_0 %>%
+    dplyr::as_tibble() %>%
+    dplyr::left_join(pkgs_cran,  by = "package") %>%
+    dplyr::left_join(pkgs_other, by = "package") %>%
+    dplyr::mutate(
+      on_cran = purrr::map_lgl(on_cran, isTRUE),
+      newer_on_cran = on_cran & (compare_version(current_version, cran_version) < 0),
+      missing_installation_code = (on_cran == FALSE & is.na(install_from) == TRUE)
+    ) %>%
+    dplyr::select(dplyr::one_of(first_cols), dplyr::everything())
 
   # Unknown options of `install_from`
   # TODO: this part of code is not finished:
   install_from_unknown <-
-    unique(pkgs$install_from[!pkgs$install_from %in% c("github", "code", NA)])
+    unique(status$install_from[!status$install_from %in% c("github", "code", NA)])
+
+
+  # missing_installation_code = status[status$missing_installation_code, ]$package
+  # n_to_install_or_update    = sum(status$update_is_required)
+  # pkgs_to_install_or_update = status[any_to_install_or_update, ]$package
 
   # Output structure
   out <- list(
-    status                    = status_df,
-    missing_installation_code = missing_installation_code,
-    pkgs_to_install_or_update = pkgs_to_install_or_update,
-    install_from_cran         = install_from_cran,
-    install_from_github       = install_from_github,
-    install_from_elsewhere    = install_from_elsewhere,
-    install_from_unknown      = install_from_unknown
+    list_name    = list_name,      # stirng
+    status       = status,         # data frame
+    show_status  = show_status,
+    install_from = tibble::tibble(cran, github, elsewhere),
+    missing_installation_code = status[status$missing_installation_code, ]$package,
+    n_to_install_or_update    = sum(status$update_is_required)
+
+    # missing_installation_code = missing_installation_code,
+    # pkgs_to_install_or_update = pkgs_to_install_or_update,
+    #
+    # install_from_cran         = install_from_cran,
+    # install_from_github       = install_from_github,
+    # install_from_elsewhere    = install_from_elsewhere,
+    # install_from_unknown      = install_from_unknown
   )
 
   structure(
@@ -565,31 +499,136 @@ get_pkgs_installation_status <- function(list_name, include = "outdated",
   )
 }
 
+# =~~~========================================================================
+
+
 # Print method ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @param x Object of interest.
 #' @param ... Arguments to other methods.
 #' @rdname get_pkgs_installation_status
 #' @export
 print.pkgs_installation_status <- function(x, ...) {
-  if (nrow(x$status) == 0) {
-    usethis::ui_done("All required packages are installed and up-to-date.")
-    return()
+
+  n <- nrow(x$status)
+  list_name <- usethis::ui_value(x$list_name)
+
+  if (x$n_to_install_or_update == 0) {
+
+    msg <-
+      if (n == 1) {
+        pkg <- crayon::green(x$status$package)
+        "The required version of package {pkg} (in list {list_name}) is installed."
+
+      } else {
+        paste0(
+          "The required versions of all {crayon::green(n)} packages ",
+          "in the list {list_name} are installed."
+        )
+      }
+
+    usethis::ui_done(msg)
 
   } else {
-    if (any(x$status$update_is_required)) {
-      usethis::ui_todo(
-        "Some packages should be {crayon::red('installed')} or {crayon::red('updated')}.")
-    }
+
+    msg <-
+      if (n == 1) {
+        pkg <- crayon::red(x$status$package)
+        paste0(
+          "Package {pkg} (in list {list_name}) should be ",
+          "{crayon::red('installed')} or {crayon::red('updated')}."
+        )
+
+      } else {
+        paste0(
+          "List {list_name} contains {crayon::red(n)} packages (out of {n}) ",
+          "that should be {crayon::red('installed')} or {crayon::red('updated')}."
+        )
+      }
+    usethis::ui_todo(msg)
   }
 
-  st <-
-    x$status[ , c("package", "is_installed", "current_version",
-      "required_version", "update_is_required")] # , "cran_version", "newer_on_cran"
-  st$current_version  <- ifelse(is.na(st$current_version), "-", st$current_version)
-  st$required_version <- ifelse(st$required_version == "", "-", st$required_version )
-  rownames(st) <- NULL
-  print(tibble::as_tibble(st), n = Inf, width = Inf, n_extra = Inf)
+  if (any(x$status_to_show)) {
+    st <-
+      x$status[x$status_to_show , c("package", "is_installed", "current_version",
+        "required_version", "update_is_required")] # , "cran_version", "newer_on_cran"
+    st$current_version  <- ifelse(is.na(st$current_version), "-", st$current_version)
+    st$required_version <- ifelse(st$required_version == "", "-", st$required_version )
+    rownames(st) <- NULL
+    print(tibble::as_tibble(st), n = Inf, width = Inf, n_extra = Inf)
+  }
+}
 
+
+process_pkgs_to_install <- function(x, show_status = x$show_status,
+  cran = x$install_from$cran, github = x$install_from$github,
+  elsewhere = x$install_from$elsewhere
+) {
+
+  st <- x$status
+
+  # Show status
+  show_status_cond <-
+    switch(as.character(show_status),
+      "TRUE"     = ,
+      "always"   =  rep(TRUE, nrow(st)),
+      "outdated" =  st$update_is_required,
+      "missing"  = !st$is_installed,
+      "never"    = ,
+      "FALSE"    = rep(TRUE, nrow(st)),
+      stop("Unknown value of `show_status`: ", show_status)
+    )
+
+  # From CRAN code
+  from_cran_cond <-
+    switch(as.character(cran),
+      "TRUE"          = ,
+      "always"        = st$on_cran,
+      "newer_on_cran" = st$newer_on_cran,
+      "outdated"      = st$newer_on_cran &  st$update_is_required,
+      "required"      = st$on_cran       &  st$update_is_required,
+      "missing"       = st$on_cran       & !st$is_installed,
+      "never"         = ,
+      "FALSE"         = rep(FALSE, nrow(st)),
+      stop("Unknown value of `cran`: ", x$install_from$cran)
+    )
+
+  # From GitHub code
+  on_github <- purrr::map_lgl(st$install_from == "github", isTRUE)
+
+  from_github_cond <-
+    switch(as.character(github),
+      "TRUE"     = ,
+      "always"   = on_github,
+      "outdated" = on_github &  st$update_is_required,
+      "missing"  = on_github & !st$is_installed,
+      "never"    = ,
+      "FALSE"    = rep(FALSE, nrow(st)),
+      stop("Unknown value of `github`: ", github)
+    )
+
+  # Custom instalation code
+  from_code <- purrr::map_lgl(st$install_from == "code", isTRUE)
+
+  from_code_cond <-
+    switch(as.character(elsewhere),
+      "TRUE"     = ,
+      "always"   = from_code,
+      "outdated" = from_code &  st$update_is_required,
+      "missing"  = from_code & !st$is_installed,
+      "never"    = ,
+      "FALSE"    = rep(FALSE, nrow(st)),
+      stop("Unknown value of `elsewhere`: ", elsewhere)
+    )
+
+  c(
+    x,
+    list(
+      status_to_show         = show_status_cond,   # st[show_status_cond, ],
+      install_from_cran      = st[from_cran_cond,   ]$package,
+      install_from_github    = st[from_github_cond, ]$details,
+      install_from_elsewhere = st[from_code_cond,   ]$details
+    )
+  )
 }
 
 #' @rdname get_pkgs_installation_status
@@ -604,13 +643,17 @@ get_pkgs_installation_code <- function(x, ...) {
 get_pkgs_installation_code.pkgs_installation_status <- function(x, ...,
   to_clipboard = FALSE) {
 
+  x <- process_pkgs_to_install(x, ...)
+
   # Warn if there are packages with no source of installation
-  if (length(x$missing_installation_code) > 0) {
-    warning(
-      call. = FALSE,
-      "Missing installation code for: ",
-      paste(x$missing_installation_code, sep = ", ")
-    )
+  pkgs_miss_code <- x$missing_installation_code
+
+  if (length(pkgs_miss_code) > 0) {
+    usethis::ui_warn(paste0(
+      "Installation code is missing for packages: \n",
+      paste0("{crayon::yellow('", pkgs_miss_code, "')}", collapse = ", "),
+      "The packages might be recently removed from CRAN."
+    ))
   }
 
   # Print installation code, if present
@@ -623,6 +666,7 @@ get_pkgs_installation_code.pkgs_installation_status <- function(x, ...,
   res <- res[!res %in% ""]
 
   if (length(res) == 0) {
+    usethis::ui_info("No installation code was generated.")
     return(invisible(res))
   }
 
@@ -645,7 +689,7 @@ get_pkgs_installation_code.pkgs_installation_status <- function(x, ...,
   }
 }
 
-#' @rdname get_pkgs_installation_status
+#  @rdname get_pkgs_installation_status
 #  @export
 get_pkgs_installation_code_cran <- function(x) {
   # Install from CRAN only if the version of package is newer on CRAN
@@ -658,7 +702,7 @@ get_pkgs_installation_code_cran <- function(x) {
   styler::style_text(res)
 }
 
-#' @rdname get_pkgs_installation_status
+#  @rdname get_pkgs_installation_status
 #  @export
 get_pkgs_installation_code_github <- function(x) {
   pkgs_vec <- x$install_from_github
@@ -680,7 +724,7 @@ get_pkgs_installation_code_github <- function(x) {
   styler::style_text(res)
 }
 
-#' @rdname get_pkgs_installation_status
+#  @rdname get_pkgs_installation_status
 #  @export
 get_pkgs_installation_code_other <- function(x) {
   codes_vec <- x$install_from_elsewhere
@@ -811,4 +855,210 @@ suggest_optimized_order_of_packages <- function(pkgs_vec,
 
   list(move_before = move_before, move_after = move_after)
 
+}
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# FIXME: this function does not work yet!
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#' optimize_order_to_install
+#'
+#' Helpeer function that suggest how to optimize order of packages in the
+#' vector of packages in order not to repeat installation of
+#' the same packages.
+#'
+#' recursive_dependencies = TRUE requires internet connection.
+#'
+#' @param pkgs_vec ???
+#' @param recursive_dependencies (logical) ???
+#'
+#' @return ???
+#'
+#' @noRd
+#'
+#' @examples
+#'
+#' \dontrun{\donttest{
+#'
+#' }}
+optimize_order_to_install <- function(pkgs_vec,
+  recursive_dependencies = TRUE) {
+
+  stop("This function is not implemented yet!!!")
+
+  pkgs_vec_orig <- pkgs_vec
+  # pkgs_vec <- pkgs_vec_orig
+  # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  # library(tidyverse)
+  # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  list_after <- function(.which, list) {
+    rev(rev(list)[0:(which(rev(list) == .which) - 1)])
+  }
+  # list_before <- function(.which, list) {
+  #     list[(0:(which(list == .which) - 1))[-1]]
+  # }
+  # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  str_move_before <- function(x, .what, .move_before) {
+    checkmate::assert_string(.what)
+    checkmate::assert_string(.move_before)
+    checkmate::assert_choice(.what, x)
+    checkmate::assert_choice(.move_before, x)
+
+    i <- seq_along(x)
+
+    i_from <- i[x == .what]         # larger number
+    i_to   <- i[x == .move_before]  # smaller number
+
+    # If no need to re-arrenge
+    if (i_from < i_to) {
+      return(x)
+    }
+
+    i_new <- i[i > i_to & i <= i_from]
+    i[i_new] <- i_new - 1
+    i[i_to]  <- i_from
+
+    x[i]
+  }
+  # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  str_move_after <- function(x, .what, .move_after) {
+    checkmate::assert_string(.what)
+    checkmate::assert_string(.move_after)
+    checkmate::assert_choice(.what, x)
+    checkmate::assert_choice(.move_after, x)
+
+    i <- seq_along(x)
+
+    i_from <- i[x == .what]        # smaller number
+    i_to   <- i[x == .move_after]  # larger number
+
+    # If no need to re-arrange
+    if (i_to < i_from) {
+      return(x)
+    }
+
+    i_new <- i[i >= i_from & i < i_to]
+    i[i_new] <- i_new + 1
+    i[i_to]  <- i_from
+
+    x[i]
+  }
+  # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  # deps <-
+  #     tools::package_dependencies(
+  #         pkgs_vec,
+  #         reverse = FALSE,
+  #         which = "all",
+  #         recursive = recursive_dependencies
+  #     )
+
+  # pkgs_vec <- x
+
+  base_pkgs <- c("R", rownames(installed.packages(priority = "base")))
+
+  get_deps <- function(x) {
+    # NOTE: all packages must be installed
+    ind <- is_pkg_installed(x)
+
+    if (any(!ind)) {
+      warning("These package are not installed and were removed from the list:\n",
+        paste(x[!ind], sep = ", "))
+    }
+
+    x <- x[ind]
+
+    x %>%
+      purrr::map(
+        ~ system.file(package = ., "DESCRIPTION") %>%
+          desc::desc_get_deps() %>%
+          dplyr::pull(package) %>%
+          setdiff(base_pkgs)
+      ) %>%
+      purrr::set_names(x) %>%
+      # imap(~ str_c(.x[.x %in% list_after(.y, list = pkgs_vec)])) %>%
+      purrr::imap(~ stringr::str_c(.x[.x %in% x])) %>%
+      purrr::imap_dfr(~tibble::tibble(
+        pkg = .y,
+        deps = list(.x),
+        n_deps = length(.x)
+      )) %>%
+      dplyr::arrange(n_deps != 0) %>%
+      dplyr::select(-n_deps)
+  }
+
+  # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  deps <- get_deps(x = pkgs_vec)
+
+  # TODO: Does not work from here
+
+  # x <- deps
+  get_n_deps_below <- function(x) {
+    lst <- x$pkg
+    xx <-
+      x %>%
+      dplyr::mutate(
+        deps_below = purrr::map2(deps, pkg,
+          ~ stringr::str_c(.x[.x %in% list_after(.y, list = lst)])
+        ),
+        n_deps = purrr::map_dbl(deps_below, length),
+        last_dep = purrr::map_dbl(deps_below, ~max(which(lst %in% .)))
+      ) %>%
+      dplyr::arrange(n_deps != 0)
+
+    lst2 <- xx$pkg
+    xxx <-
+      xx %>%
+      dplyr::mutate()
+  }
+
+
+
+  if (nrow(deps) > 0) {
+    x <- pkgs_vec
+
+    # tbl <- tibble()
+
+    for (i in 1:nrow(deps)) {
+      # x_old <- x
+      x <- str_move_before(x, .what = deps$what[i], .move_before = deps$move_before[i])
+      # tbl <- bind_rows(
+      # tbl,
+      # tibble(i = i,
+      #        identical = identical(x_old, x),
+      #        what = obj$what[i],
+      #        move_before = obj$move_before[i],
+      #        x_old = list(x_old))
+      # )
+    }
+    return(x)
+
+  } else {
+    return(pkgs_vec)
+  }
+
+  # Test output ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  # all(x %in% pkgs_vec)
+  # all(pkgs_vec %in% x)
+  # all.equal(pkgs_vec, x)
+  # tibble(before = sort(pkgs_vec), after = sort(x), match = before == after) %>%
+  #     print(n = Inf)
+  # tibble(before = pkgs_vec, after = x, match = before == after) %>%
+  #     print(n = Inf)
+  #
+  # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  # move_after <-
+  #     imap(deps, ~ str_c(.x[.x %in% list_after(.y, list = pkgs_vec)])) %>%
+  #     discard(~length(.) == 0) %>%
+  #     imap_dfr(~tibble(what = .y, move_after = str_c(.x, collapse = ","))) %>%
+  #     separate_rows(move_after)
+
+  # move_before <-
+  #     imap(rev_deps, ~ str_c(.x[.x %in% list_before(.y, list = pkgs_vec)])) %>%
+  #     discard(~length(.) == 0) %>%
+  #     imap_dfr(~tibble(what = .y, move_before = str_c(.x, collapse = ","))) %>%
+  #     separate_rows(move_before)
+
+  # list(move_before = move_before, move_after = move_after)
 }
