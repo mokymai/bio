@@ -1,6 +1,6 @@
 ---
 title: "Minimal required versions of packages"
-date:  2020-02-04
+date:  2020-02-05
 notes: ""
 
 
@@ -12,7 +12,7 @@ package                     | required_version | ignore | notes_version
 addin.tools                 | 0.0.8            | FALSE  | -
 addins.rmd                  | 0.0.10           | FALSE  | -
 addins.rs                   | 0.0.7            | FALSE  | -
-bio                         | 0.0.0.9001       | FALSE  | -
+bio                         | 0.0.0.9002       | FALSE  | -
 bookdown                    | 0.17             | FALSE  | -
 car                         | 3.0-6            | FALSE  | Rcmdr
 cowplot                     | 1.0.0            | FALSE  | -
