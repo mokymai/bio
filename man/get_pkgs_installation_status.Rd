@@ -6,9 +6,6 @@
 \alias{print.pkgs_installation_status}
 \alias{get_pkgs_installation_code}
 \alias{get_pkgs_installation_code.pkgs_installation_status}
-\alias{get_pkgs_installation_code_cran}
-\alias{get_pkgs_installation_code_github}
-\alias{get_pkgs_installation_code_other}
 \title{Get package installation status and code.}
 \usage{
 get_pkgs_installation_status_local(
@@ -27,17 +24,11 @@ get_pkgs_installation_status(
   use_local_list = getOption("bio.use_local_list", FALSE)
 )
 
-\method{print}{pkgs_installation_status}(x, ...)
+\method{print}{pkgs_installation_status}(x, show_status = x$show_status, ...)
 
 get_pkgs_installation_code(x, ...)
 
 \method{get_pkgs_installation_code}{pkgs_installation_status}(x, ..., to_clipboard = FALSE)
-
-get_pkgs_installation_code_cran(x)
-
-get_pkgs_installation_code_github(x)
-
-get_pkgs_installation_code_other(x)
 }
 \arguments{
 \item{list_name}{(character) The name of the list with required R packages.
