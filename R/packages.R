@@ -499,7 +499,7 @@ get_pkgs_installation_status <- function(list_name, include = "outdated",
   )
 }
 
-# =~~~========================================================================
+# =~~~ methods ---------------------------------------------------------------
 
 
 # Print method ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -507,22 +507,23 @@ get_pkgs_installation_status <- function(list_name, include = "outdated",
 #' @param ... Arguments to other methods.
 #' @rdname get_pkgs_installation_status
 #' @export
-print.pkgs_installation_status <- function(x, ...) {
+print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) {
 
-  n <- nrow(x$status)
   list_name <- usethis::ui_value(x$list_name)
+  st <- x$status
+  n <- nrow(st)
 
   if (x$n_to_install_or_update == 0) {
 
     msg <-
       if (n == 1) {
-        pkg <- crayon::green(x$status$package)
-        "The required version of package {pkg} (in list {list_name}) is installed."
+        pkg <- crayon::green(st$package)
+        "The required version of package {pkg} (from list {list_name}) is installed."
 
       } else {
         paste0(
           "The required versions of all {crayon::green(n)} packages ",
-          "in the list {list_name} are installed."
+          "(from list {list_name}) are already installed."
         )
       }
 
@@ -532,9 +533,9 @@ print.pkgs_installation_status <- function(x, ...) {
 
     msg <-
       if (n == 1) {
-        pkg <- crayon::red(x$status$package)
+        pkg <- crayon::red(st$package)
         paste0(
-          "Package {pkg} (in list {list_name}) should be ",
+          "Package {pkg} (from list {list_name}) should be ",
           "{crayon::red('installed')} or {crayon::red('updated')}."
         )
 
@@ -547,27 +548,9 @@ print.pkgs_installation_status <- function(x, ...) {
     usethis::ui_todo(msg)
   }
 
-  if (any(x$status_to_show)) {
-    st <-
-      x$status[x$status_to_show , c("package", "is_installed", "current_version",
-        "required_version", "update_is_required")] # , "cran_version", "newer_on_cran"
-    st$current_version  <- ifelse(is.na(st$current_version), "-", st$current_version)
-    st$required_version <- ifelse(st$required_version == "", "-", st$required_version )
-    rownames(st) <- NULL
-    print(tibble::as_tibble(st), n = Inf, width = Inf, n_extra = Inf)
-  }
-}
-
-
-process_pkgs_to_install <- function(x, show_status = x$show_status,
-  cran = x$install_from$cran, github = x$install_from$github,
-  elsewhere = x$install_from$elsewhere
-) {
-
-  st <- x$status
 
   # Show status
-  show_status_cond <-
+  pkg_to_show <-
     switch(as.character(show_status),
       "TRUE"     = ,
       "always"   =  rep(TRUE, nrow(st)),
@@ -577,6 +560,25 @@ process_pkgs_to_install <- function(x, show_status = x$show_status,
       "FALSE"    = rep(TRUE, nrow(st)),
       stop("Unknown value of `show_status`: ", show_status)
     )
+
+
+  if (any(pkg_to_show)) {
+    st <-
+      st[pkg_to_show , c("package", "is_installed", "current_version",
+        "required_version", "update_is_required")] # , "cran_version", "newer_on_cran"
+    st$current_version  <- ifelse(is.na(st$current_version), "-", st$current_version)
+    st$required_version <- ifelse(st$required_version == "", "-", st$required_version )
+    rownames(st) <- NULL
+    print(tibble::as_tibble(st), n = Inf, width = Inf, n_extra = Inf)
+  }
+}
+
+
+process_pkgs_to_install <- function(x, cran = x$install_from$cran,
+  github = x$install_from$github, elsewhere = x$install_from$elsewhere
+) {
+
+  st <- x$status
 
   # From CRAN code
   from_cran_cond <-
@@ -623,7 +625,6 @@ process_pkgs_to_install <- function(x, show_status = x$show_status,
   c(
     x,
     list(
-      status_to_show         = show_status_cond,   # st[show_status_cond, ],
       install_from_cran      = st[from_cran_cond,   ]$package,
       install_from_github    = st[from_github_cond, ]$details,
       install_from_elsewhere = st[from_code_cond,   ]$details
@@ -769,7 +770,7 @@ check_installed_packages <- function(list_name,
 
   print(status)
 
-  if (nrow(status$status) > 0) {
+  if (status$n_to_install_or_update > 0) {
     assign(status_name, status, envir = .GlobalEnv)
     cat("\n")
     usethis::ui_info("To print these results again, type {usethis::ui_field(status_name)} ")
