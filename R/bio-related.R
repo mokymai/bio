@@ -10,7 +10,7 @@
 #'
 #' \dontrun{\donttest{
 #'
-#' check_vesion_bio()
+#' check_updates_bio()
 #' update_bio()
 #'
 #' }}
@@ -24,9 +24,9 @@ get_vesion_bio  <- function() {
 
 #' @rdname bio_version
 #' @export
-check_vesion_bio  <- function(show_status = "always", install = "outdated", ...) {
-  get_pkgs_installation_status("bio", include = "always",
-    show_status = show_status, install = install, ...)
+check_updates_bio  <- function(show_status = "always", install = "outdated", ...) {
+  get_pkgs_installation_status(list_name = "bio", show_status = show_status,
+    install = install, ...)
 }
 
 #' @rdname bio_version
@@ -35,6 +35,7 @@ update_bio <- function() {
   if (rstudioapi::isAvailable(version_needed = "1.1.281")) {
     rstudioapi::restartSession(
       paste(sep = "\n",
+        '# Updating package "bio"...',
         'remotes::install_github("mokymai/bio", dependencies = TRUE, upgrade = FALSE)',
         'bio::get_vesion_bio()'
       )
