@@ -15,4 +15,9 @@ knitr
 rmarkdown
 tidyverse
 pander
+esquisse
+snippets
 bio
+addins.rmd
+addins.rs
+RcmdrPlugin.biostat
