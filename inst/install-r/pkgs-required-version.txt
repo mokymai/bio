@@ -55,6 +55,7 @@ sem                         | 2.1-1            | FALSE  | Rcmdr
 skimr                       | 2.1.0            | FALSE  | -
 snippets                    | 0.0.1            | FALSE  | -
 stringr                     | 1.4.0            | FALSE  | -
+styler                      | 1.3.0            | FALSE  | -
 tcltk2                      | 1.2-11           | FALSE  | Rcmdr
 tibble                      | 2.1.3            | FALSE  | -
 tidyr                       | 1.0.2            | FALSE  | -
