@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Rstudio dictionaries — RStudio-dictionaries • bio</title>
+<title>Set RStudio keybindings — set_rstudio_keybindings • bio</title>
 
 
 <!-- jquery -->
@@ -35,29 +35,8 @@
 
 
 
-<meta property="og:title" content="Rstudio dictionaries — RStudio-dictionaries" />
-<meta property="og:description" content="Functions to work with RStudio dictionaries.
-
-get_path_rs_saved_words_dictionary() -- Path to dictionary of words
-saved by user
-open_rs_saved_words_dictionary()
-
-
-
-get_path_rs_system_dictionaries_dir()
-open_rs_system_dictionaries_dir()
-
-
-
-rstudioapi::dictionariesPath()
-open_rs_dictionaries_dir()
-
-
-
-rstudioapi::userDictionariesPath()
-open_user_dictionaries_dir()
-
-" />
+<meta property="og:title" content="Set RStudio keybindings — set_rstudio_keybindings" />
+<meta property="og:description" content="Set RStudio keybindings" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -126,78 +105,40 @@ open_user_dictionaries_dir()
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Rstudio dictionaries</h1>
-    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/dictionaries.R'><code>R/dictionaries.R</code></a></small>
-    <div class="hidden name"><code>RStudio-dictionaries.Rd</code></div>
+    <h1>Set RStudio keybindings</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/settings.R'><code>R/settings.R</code></a></small>
+    <div class="hidden name"><code>set_rstudio_keybindings.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Functions to work with RStudio dictionaries.</p>
-<ul>
-<li><p><code>get_path_rs_saved_words_dictionary()</code> -- Path to dictionary of words
-saved by user</p></li>
-<li><p><code>open_rs_saved_words_dictionary()</code></p></li>
-</ul>
-
-<ul>
-<li><p><code>get_path_rs_system_dictionaries_dir()</code></p></li>
-<li><p><code>open_rs_system_dictionaries_dir()</code></p></li>
-</ul>
-
-<ul>
-<li><p><code><a href='https://rdrr.io/pkg/rstudioapi/man/dictionaries.html'>rstudioapi::dictionariesPath()</a></code></p></li>
-<li><p><code>open_rs_dictionaries_dir()</code></p></li>
-</ul>
-
-<ul>
-<li><p><code><a href='https://rdrr.io/pkg/rstudioapi/man/dictionaries.html'>rstudioapi::userDictionariesPath()</a></code></p></li>
-<li><p><code>open_user_dictionaries_dir()</code></p></li>
-</ul>
-
+    <p>Set RStudio keybindings</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_path_saved_words_dictionary</span>()
+    <pre class="usage"><span class='fu'>set_rstudio_keybindings</span>(<span class='kw'>which</span> <span class='kw'>=</span> <span class='st'>"none"</span>, <span class='kw'>backup</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
-<span class='fu'>get_path_rs_saved_words_dictionary</span>()
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>which</th>
+      <td><p>(string) The type of keybindings. Currently available value is
+<code>"bio-default"</code>.</p></td>
+    </tr>
+    <tr>
+      <th>backup</th>
+      <td><p>(logical) If <code>TRUE</code>, a back-up copy of files with current
+keybindings is ctreated.</p></td>
+    </tr>
+    </table>
 
-<span class='fu'>open_rs_saved_words_dictionary</span>()
-
-<span class='fu'>get_path_rs_system_dictionaries_dir</span>()
-
-<span class='fu'>open_rs_system_dictionaries_dir</span>()
-
-<span class='fu'>open_rs_dictionaries_dir</span>()
-
-<span class='fu'>open_user_dictionaries_dir</span>()</pre>
-
-
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>Path</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><a href='https://rdrr.io/pkg/rstudioapi/man/dictionaries.html'>rstudioapi::dictionaries</a></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-
-<span class='kw pkg'>rstudioapi</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rstudioapi/man/dictionaries.html'>dictionariesPath</a></span>()
-
-<span class='kw pkg'>rstudioapi</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/rstudioapi/man/dictionaries.html'>userDictionariesPath</a></span>()
-
-<span class='fu'>get_path_rs_system_dictionaries_dir</span>()
-}
-
-<span class='fu'><a href='RStudio-config-dir.html'>get_path_rs_desktop_config_dir</a></span>(<span class='st'>"dictionaries"</span>)</div><div class='output co'>#&gt; /home/travis/.rstudio-desktop/dictionaries</div><div class='input'>
-<span class='fu'>get_path_saved_words_dictionary</span>()</div><div class='output co'>#&gt; /home/travis/.rstudio-desktop/monitored/lists/user_dictionary</div><div class='input'>
-
-</div></pre>
+    <pre class="examples"></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#value">Value</a></li>
-      <li><a href="#see-also">See also</a></li>
+      <li><a href="#arguments">Arguments</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
