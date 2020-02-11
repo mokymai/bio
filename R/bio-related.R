@@ -1,9 +1,10 @@
 
-#' @title bio_version
+#' @name bio_version
 #' @title Version management of package 'bio'.
-#'
-#' @return
-#' `get_vesion_bio()` returns version number.
+#' @description
+#' `get_vesion_bio()` returns version number of package \pkg{bio}.
+#' `check_updates_bio()` checks if package \pkg{bio} has a recommended version.
+#' `update_bio()` tries to update package \pkg{bio}.
 #'
 #' @examples
 #' get_vesion_bio()
