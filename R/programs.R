@@ -15,5 +15,4 @@ get_released_r_version <- function(force = FALSE) {
   } else {
     usethis::ui_stop("You are off-line but network connection is required.")
   }
-
 }
