@@ -1,29 +1,99 @@
+# bio::download_rs_system_dictionaries()
+
+# snippets::install_snippets_from_package("snippets", type = "r",        backup = TRUE)
+# snippets::install_snippets_from_package("snippets", type = "markdown", backup = TRUE)
+# bio::set_rstudio_keybindings(which = "bio-default")
+
+# bio::restart_rstudio()
+
 # Clear and Reset ============================================================
+ip_gmc_r209_compact <- "158.129.170.200-237"
+ip_gmc_r209  <- paste0("158.129.170.", 200:237)
 
-reset_rstudio <- function() {
-  stop("Function is harmful")
+ip_gmc_c255_compact <- "158.129.170.240-253"
+ip_gmc_c255  <- paste0("158.129.170.", 240:253)
 
-  pingr::my_ip() %in% c("...")
+ip_ec_108_compact <-
+  "158.129.129.151-249, 158.129.136.241, 158.129.136.57, 158.129.136.61, 158.129.159.234"
 
+ip_ec_108 <-
+  c(
+    paste0("158.129.129.", 151:249),
+    "158.129.136.241",
+    "158.129.136.57",
+    "158.129.136.61",
+    "158.129.159.234"
+  )
 
-  # rstudioapi::executeCommand("clearUserPrefs")
-  bio::reset_rs_user_settings("bio-default", backup = TRUE)
+restriction_status <- function(ignore_ip = FALSE, ...) {
+  isTRUE(ignore_ip)
+}
 
-  rstudioapi::executeCommand("clearPlots",          quiet = TRUE)
-  rstudioapi::executeCommand("clearRecentFiles",    quiet = TRUE)
+reset_rstudio <- function(...) {
+
+  status <- restriction_status(...)
+
+  if (!(status || pingr::my_ip() %in% c(ip_gmc_r209, ip_gmc_c255, ip_ec_108))) {
+    usethis::ui_oops("The function does not work on this computer.")
+    return(invisible())
+  }
+
+  # User preferences
+  rstudioapi::executeCommand("clearUserPrefs")
+  # FIXME: does not work
+  # bio::reset_rs_user_settings("bio-default", backup = TRUE)
+
+  # Dictionaries
+  bio::download_rs_system_dictionaries()
+
+  # Tab Files
+  # TODO: Go to home dir
+  rstudioapi::executeCommand("clearRecentFiles", quiet = TRUE)
+
+  # Tab Plots
+  rstudioapi::executeCommand("clearPlots", quiet = TRUE)
+
+  # Tab Help
+  rstudioapi::executeCommand("clearHelpHistory", quiet = TRUE)
+
+  # Tab Viewer
+  rstudioapi::executeCommand("viewerClearAll", quiet = TRUE)
+
+  # Projects
   rstudioapi::executeCommand("clearRecentProjects", quiet = TRUE)
-  rstudioapi::executeCommand("clearHelpHistory",    quiet = TRUE)
-  rstudioapi::executeCommand("closeAllSourceDocs",  quiet = TRUE)
-  bio::reset_rstudio_layout()
-  rstudioapi::executeCommand("zoomActualSize",      quiet = TRUE)
-  # clearWorkspace
-  bio::clear_r_workspace()
-  rstudioapi::executeCommand("consoleClear",         quiet = TRUE)
 
+  # Tab Environment
+  bio::clear_r_workspace() # clearWorkspace
+
+  # Console
+  rstudioapi::executeCommand("closeAllTerminals",         quiet = TRUE)
+  rstudioapi::executeCommand("setWorkingDirToProjectDir", quiet = TRUE)
+  rstudioapi::executeCommand("consoleClear",              quiet = TRUE)
+
+  # Tab History
+  unlink(".Rhistory")
+  bio::clear_rs_history()
+
+  # Documents
+  rstudioapi::executeCommand("closeAllSourceDocs",   quiet = TRUE)
+
+  # Layout
+  bio::reset_rstudio_layout()
+  rstudioapi::executeCommand("zoomActualSize",       quiet = TRUE)
+  rstudioapi::executeCommand("zoomIn",               quiet = TRUE)
+  rstudioapi::executeCommand("zoomIn",               quiet = TRUE)
+  rstudioapi::executeCommand("activateConsole",      quiet = TRUE)
+
+  # Settings
   snippets::install_snippets_from_package(type = "r")
   snippets::install_snippets_from_package(type = "markdown")
 
-  # TODO: Reset keybindings
+  # Reset keybindings
+  bio::set_rstudio_keybindings("bio-default", backup = TRUE)
+
+  # Restart RS
+  bio::reset_rstudio()
+
 
   invisible()
 
@@ -64,9 +134,16 @@ reset_rstudio <- function() {
 #'
 #' @export
 clear_r_history <- function(backup = TRUE) {
+  # FIXME: jei Windows + RStudio, tai ši funkcija neveikia
+
   if (isTRUE(backup)) {
-    base <- make.names(Sys.time())
-    savehistory(file = paste0(base, ".Rhistory"))
+
+    new_name <- paste0("Rhistory", get_backup_id(), ".Rhistory")
+    hist_backup <- fs::path(get_path_backup_dir(), new_name)
+
+    withr::with_dir(get_path_backup_dir(), savehistory(file = new_name))
+
+    usethis::ui_done("R history saved to {usethis::ui_path(hist_backup)}")
   }
 
   tmp_file <- tempfile()
@@ -77,7 +154,12 @@ clear_r_history <- function(backup = TRUE) {
 
 #' @rdname clear_and_reset
 #' @export
-clear_rs_history <- function() {
+clear_rs_history <- function(backup = FALSE) {
+  if (isTRUE(backup)) {
+    rstudioapi::executeCommand("saveHistory", quiet = TRUE)
+  }
+
+  unlink(".Rhistory")
   rstudioapi::executeCommand("clearHistory", quiet = TRUE)
 }
 
@@ -351,44 +433,100 @@ reset_rs_user_settings <- function(to = "bio-default", backup = TRUE, ask = TRUE
 
 
 # Settings ====================================================================
+#
+#' Set RStudio keybindings
+#'
+#' @param which (string) The type of keybindings. Currently available value is
+#'        `"bio-default"`.
+#' @param backup (logical) If `TRUE`, a back-up copy of files with current
+#'        keybindings is ctreated.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{\dontest{
+#'
+#' bio::set_rstudio_keybindings(which = "bio-default")
+#' bio::restart_rstudio()
+#'
+#' }}
+set_rstudio_keybindings <- function(which = "none", backup = TRUE) {
+
+  switch(
+    which,
+    "bio-default" = {
+      from_files <- fs::dir_ls(path_bio_rs(), regexp = "keybindings--.*?.json$")
+      base_names <- stringr::str_extract(from_files, "(?<=keybindings--).*?.json$")
+      current_files <- fs::path(get_path_rs_keybindings_dir(), base_names)
+    },
+
+    stop("\nUnknown type of keybidings: ",  which)
+  )
+
+  # Create back-up copies
+  if (isTRUE(backup)) {
+    create_backup_copy(current_files, "keybindings")
+  }
+
+  # reset current keybindings
+  fs::file_copy(from_files, current_files, overwrite = TRUE)
+}
+
+# Settings ====================================================================
 #' @name rs-settings
-#' @title RStudio settings
+#' @title RStudio management and settings
 #' @export
 browse_rs_addins <- function() {
-  rstudioapi::executeCommand("browseAddins", quiet = TRUE)
+  invisible(rstudioapi::executeCommand("browseAddins", quiet = TRUE))
 }
 
 #' @name rs-settings
 #' @export
 browse_r_cheat_sheets <- function() {
-  rstudioapi::executeCommand("browseCheatSheets", quiet = TRUE)
+  invisible(rstudioapi::executeCommand("browseCheatSheets", quiet = TRUE))
 }
 
+#' @name rs-settings
+#' @export
 check_spelling <- function() {
-  rstudioapi::executeCommand("checkSpelling", quiet = TRUE)
+  invisible(rstudioapi::executeCommand("checkSpelling", quiet = TRUE))
 }
 
+#' @name rs-settings
+#' @export
 show_console <- function() {
   if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
-    rstudioapi::executeCommand("activateConsole", quiet = TRUE)
+    invisible(rstudioapi::executeCommand("activateConsole", quiet = TRUE))
   }
 }
 
+#' @name rs-settings
+#' @export
 reload_rstudio <- function() {
   if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
-    rstudioapi::executeCommand("reloadUi", quiet = TRUE)
+    invisible(rstudioapi::executeCommand("reloadUi", quiet = TRUE))
   }
 }
 
+#' @name rs-settings
+#' @export
+restart_rstudio <- function() {
+  reload_rstudio()
+}
+
+#' @name rs-settings
+#' @export
 switch_to_tab <- function() {
   if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
-    rstudioapi::executeCommand("switchToTab", quiet = TRUE)
+    invisible(rstudioapi::executeCommand("switchToTab", quiet = TRUE))
   }
 }
 
+#' @name rs-settings
+#' @export
 restart_r <- function() {
   if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
-    rstudioapi::executeCommand("restartR", quiet = TRUE)
+    invisible(rstudioapi::executeCommand("restartR", quiet = TRUE))
   }
 }
 
