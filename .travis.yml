@@ -10,13 +10,13 @@ deploy:
   script: Rscript -e 'pkgdown::deploy_site_github()'
   skip_cleanup: true
 
-# matrix:
+matrix:
 #   allow_failures:
 #   - r: oldrel
 #   - r: devel
-#   include:
-#   - r: release
-#   - r: devel
+  include:
+  - r: release
+  - r: devel
 #   - r: oldrel
 #     env:
 #       - FULL=true

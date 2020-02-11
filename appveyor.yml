@@ -30,10 +30,10 @@ environment:
   # R_REMOTES_STANDALONE: true
   matrix:
     - R_VERSION: release
+    - R_VERSION: devel
 
 #     - R_VERSION: 3.5.3
 #       RTOOLS_VERSION: 35
-#     - R_VERSION: devel
 
 # Adapt as necessary starting from here
 
