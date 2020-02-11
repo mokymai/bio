@@ -10,7 +10,7 @@
 \usage{
 clear_r_history(backup = TRUE)
 
-clear_rs_history()
+clear_rs_history(backup = FALSE)
 
 clear_r_workspace()
 

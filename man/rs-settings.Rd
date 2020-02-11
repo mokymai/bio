@@ -4,12 +4,30 @@
 \alias{rs-settings}
 \alias{browse_rs_addins}
 \alias{browse_r_cheat_sheets}
-\title{RStudio settings}
+\alias{check_spelling}
+\alias{show_console}
+\alias{reload_rstudio}
+\alias{restart_rstudio}
+\alias{switch_to_tab}
+\alias{restart_r}
+\title{RStudio management and settings}
 \usage{
 browse_rs_addins()
 
 browse_r_cheat_sheets()
+
+check_spelling()
+
+show_console()
+
+reload_rstudio()
+
+restart_rstudio()
+
+switch_to_tab()
+
+restart_r()
 }
 \description{
-RStudio settings
+RStudio management and settings
 }
