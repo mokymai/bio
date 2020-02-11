@@ -8,8 +8,12 @@ url_bio <- function(file = NULL) {
 }
 
 # Path to files of installed "bio" package on your machine
-path_bio <- function(file = NULL) {
+path_bio <- function(file = "") {
   system.file("install-r", file, package = "bio")
+}
+
+path_bio_rs <- function(file = "") {
+  system.file("rs-settings", "", package = "bio")
 }
 
 # to_str_vector(LETTERS)
