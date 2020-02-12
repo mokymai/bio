@@ -800,8 +800,9 @@ check_installed_packages <- function(list_name,
   if (status$n_to_install_or_update > 0) {
     assign(status_name, status, envir = .GlobalEnv)
     cat("\n")
-    # usethis::ui_info("To print these results again, type {usethis::ui_field(status_name)} ")
+    usethis::ui_info("The results are saved to object {usethis::ui_field(status_name)} ")
     usethis::ui_todo("To get package installation code, type:\n{usethis::ui_field(code_name)} ")
+    cat("\n")
     rstudioapi::sendToConsole(code_name, execute = FALSE)
   }
 
