@@ -515,9 +515,9 @@ print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) 
 
   list_name <- usethis::ui_value(x$list_name)
   st <- x$status
-  n <- nrow(st)
-
-  if (x$n_to_install_or_update == 0) {
+  n     <- nrow(st)
+  n_old <- x$n_to_install_or_update
+  if (n_old == 0) {
 
     msg <-
       if (n == 1) {
@@ -545,7 +545,7 @@ print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) 
 
       } else {
         paste0(
-          "List {list_name} contains {crayon::red(n)} packages (out of {n}) ",
+          "List {list_name} contains {crayon::red(n_old)} packages (out of {n}) ",
           "that should be {crayon::red('installed')} or {crayon::red('updated')}."
         )
       }
