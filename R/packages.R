@@ -534,7 +534,12 @@ print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) 
     usethis::ui_done(msg)
 
   } else {
-
+    # For singular or plural in English language.
+    if (n_old == 1) {
+      s <- ""
+    } else {
+      s <- "s"
+    }
     msg <-
       if (n == 1) {
         pkg <- crayon::red(st$package)
@@ -545,7 +550,7 @@ print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) 
 
       } else {
         paste0(
-          "List {list_name} contains {crayon::red(n_old)} packages (out of {n}) ",
+          "List {list_name} contains {crayon::red(n_old)} package{s} (out of {n}) ",
           "that should be {crayon::red('installed')} or {crayon::red('updated')}."
         )
       }
