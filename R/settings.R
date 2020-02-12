@@ -405,7 +405,7 @@ reset_rs_user_settings <- function(to = "bio-default", backup = TRUE, ask = TRUE
 
   if (isTRUE(backup)) {
     # FIXME: not implemented
-    usethis::ui_oops("Createing back-up copies of RStudio preferences is not implemented yet.")
+    usethis::ui_oops("Createing back-up copies of RStudio user preferences is not implemented yet.")
     # return()
   }
 
