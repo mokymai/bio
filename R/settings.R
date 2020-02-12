@@ -29,27 +29,35 @@ restriction_status <- function(ignore_ip = FALSE, ...) {
   isTRUE(ignore_ip)
 }
 
-reset_rstudio <- function(..., update_dictionaries = TRUE) {
+reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
 
   status <- restriction_status(...)
 
   if (!(status || pingr::my_ip() %in% c(ip_gmc_r209, ip_gmc_c255, ip_ec_108))) {
-    usethis::ui_oops("The function does not work on this computer.")
+    usethis::ui_oops("This function does not work on this computer.")
     return(invisible())
   }
+
   # Dictionaries
-  if (update_dictionaries) {
+  dict_path <- get_path_rs_system_dictionaries_dir()
+  lt_LT_is_missing <- !any(stringr::str_detect(dir(dict_path), "lt_LT"))
+  if (force_update_dictionaries || lt_LT_is_missing) {
     bio::download_rs_system_dictionaries()
   }
 
   # Working directory
   rstudioapi::executeCommand("setWorkingDirToProjectDir", quiet = TRUE)
 
-  # User preferences
+  # Create/Clean directories
   fs::dir_create(fs::path_expand_r("~/R/Darbinis"))
 
-  bio::reset_rs_user_settings("bio-default", backup = TRUE, ask = FALSE)
+  bs_folder <- fs::path_expand("~/desktop/BS-2020")
+  try(fs::dir_delete(bs_folder))
+  fs::dir_create(bs_folder)
 
+
+  # User preferences
+  bio::reset_rs_user_settings("bio-default", backup = TRUE, ask = FALSE)
 
 
   # Tab Files
@@ -112,8 +120,10 @@ reset_rstudio <- function(..., update_dictionaries = TRUE) {
     }
   }
 
-   # Documents
+  # Documents
   rstudioapi::executeCommand("closeAllSourceDocs", quiet = TRUE)
+
+  # Sys.sleep(1)
 
   # Restart RS
   to_restart <- rstudioapi::showQuestion(
@@ -469,7 +479,7 @@ reset_rs_user_settings <- function(to = "bio-default", backup = TRUE, ask = TRUE
 
 
 
-# Settings ====================================================================
+# Keybindings ================================================================
 #
 #' Set RStudio keybindings
 #'
@@ -509,7 +519,7 @@ set_rstudio_keybindings <- function(which = "none", backup = TRUE) {
   fs::file_copy(from_files, current_files, overwrite = TRUE)
 }
 
-# Settings ====================================================================
+# Other ======================================================================
 #' @name rs-settings
 #' @title RStudio management and settings
 #' @export
@@ -567,3 +577,20 @@ restart_r <- function() {
   }
 }
 
+list_files_on_desktop <- function(type = "file") {
+
+  present_files <- fs::dir_ls(fs::path_expand("~/desktop/"), type = type)
+
+  exts <- paste0(
+    "zip|rar|gif|jpg|png|tiff?|docx?|pptx?|xlsx?|r|rmd|rdata|rds|py|",
+    "txt|data?|csv|tab|tar|tat|",
+    "pdf|fas|mdsx|mtsx|mas|meg|gz"
+  )
+  other <- "3.6.1| 3.6.2|bs-2020|bs-2019|r-2019"
+
+  files_to_remove <-
+    stringr::str_subset(present_files, stringr::str_glue("(\\.({exts})$)|({other})"))
+
+  structure(fs::path_file(files_to_remove), class = "glue")
+  invisible(files_to_remove)
+}
