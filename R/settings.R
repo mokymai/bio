@@ -7,8 +7,8 @@
 # bio::restart_rstudio()
 
 # Clear and Reset ============================================================
-ip_gmc_r209_compact <- "158.129.170.200-237"
-ip_gmc_r209  <- paste0("158.129.170.", 200:237)
+ip_gmc_r209_compact <- "158.129.170.(3,200-237)"
+ip_gmc_r209  <- paste0("158.129.170.", c(3, 200:237))
 
 ip_gmc_c255_compact <- "158.129.170.240-253"
 ip_gmc_c255  <- paste0("158.129.170.", 240:253)
@@ -38,10 +38,14 @@ reset_rstudio <- function(...) {
     return(invisible())
   }
 
+  # Working directory
+  rstudioapi::executeCommand("setWorkingDirToProjectDir", quiet = TRUE)
+
   # User preferences
-  rstudioapi::executeCommand("clearUserPrefs")
+  # rstudioapi::executeCommand("clearUserPrefs")
   # FIXME: does not work
   # bio::reset_rs_user_settings("bio-default", backup = TRUE)
+
 
   # Dictionaries
   bio::download_rs_system_dictionaries()
@@ -65,14 +69,15 @@ reset_rstudio <- function(...) {
   # Tab Environment
   bio::clear_r_workspace() # clearWorkspace
 
-  # Console
-  rstudioapi::executeCommand("closeAllTerminals",         quiet = TRUE)
-  rstudioapi::executeCommand("setWorkingDirToProjectDir", quiet = TRUE)
-  rstudioapi::executeCommand("consoleClear",              quiet = TRUE)
+
 
   # Tab History
   unlink(".Rhistory")
   bio::clear_rs_history()
+
+  # Console
+  rstudioapi::executeCommand("closeAllTerminals",         quiet = TRUE)
+  rstudioapi::executeCommand("consoleClear",              quiet = TRUE)
 
   # Documents
   rstudioapi::executeCommand("closeAllSourceDocs",   quiet = TRUE)
