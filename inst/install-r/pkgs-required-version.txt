@@ -36,6 +36,7 @@ multcomp                    | 0.991-2          | FALSE  | Rcmdr
 officer                     | 0.3.6            | FALSE  | -
 openxlsx                    | 4.1.4            | FALSE  | -
 pander                      | 0.6.4            | FALSE  | -
+plotly                      | 4.9.2            | FALSE  | -
 purrr                       | 0.3.3            | FALSE  | -
 qqplotr                     | 0.0.4            | FALSE  | -
 Rcmdr                       | 2.6-2            | FALSE  | -
