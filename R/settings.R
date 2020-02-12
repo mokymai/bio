@@ -44,11 +44,11 @@ reset_rstudio <- function(...) {
   rstudioapi::executeCommand("setWorkingDirToProjectDir", quiet = TRUE)
 
   # User preferences
-  # rstudioapi::executeCommand("clearUserPrefs")
-  # FIXME: does not work
-  # bio::reset_rs_user_settings("bio-default", backup = TRUE)
-
   fs::dir_create(fs::path_expand_r("~/R/Darbinis"))
+
+  # rstudioapi::executeCommand("clearUserPrefs") # FIXME: does not work
+  bio::reset_rs_user_settings("bio-default", backup = TRUE)
+
 
 
   # Tab Files
@@ -73,12 +73,9 @@ reset_rstudio <- function(...) {
 
 
   # Tab History
+  bio::clear_r_history(backup = FALSE)
   unlink(".Rhistory")
   bio::clear_rs_history()
-
-  # Console
-  rstudioapi::executeCommand("closeAllTerminals",         quiet = TRUE)
-  rstudioapi::executeCommand("consoleClear",              quiet = TRUE)
 
   # Documents
   rstudioapi::executeCommand("closeAllSourceDocs",   quiet = TRUE)
@@ -97,9 +94,12 @@ reset_rstudio <- function(...) {
   # Reset keybindings
   bio::set_rstudio_keybindings("bio-default", backup = TRUE)
 
+  # Console
+  rstudioapi::executeCommand("closeAllTerminals",         quiet = TRUE)
+  rstudioapi::executeCommand("consoleClear",              quiet = TRUE)
+
   # Restart RS
   # bio::restart_rstudio()
-
 
   invisible()
 
@@ -404,17 +404,20 @@ reset_rs_user_settings <- function(to = "bio-default", backup = TRUE, ask = TRUE
 
   if (isTRUE(backup)) {
     # FIXME: not implemented
-    stop("not implemented")
+    usethis::ui_oops("Createing back-up copies of RStudio preferences is not implemented yet.")
+    # return()
   }
 
   file_current <- get_path_rs_user_settings("current")
 
   switch(
     to,
+
     "rstudio-default" = {
       fs::file_delete(file_current)
       success <- !fs::file_exists(file_current)
     },
+
     "bio-default" = {
       file_default <- get_path_rs_user_settings("bio-default")
       fs::dir_create(fs::path_dir(file_current)) # FIXME: file_default or file_current?
@@ -422,15 +425,16 @@ reset_rs_user_settings <- function(to = "bio-default", backup = TRUE, ask = TRUE
       success <-
         unname(tools::md5sum(file_default) == tools::md5sum(file_current))
     },
+
     usethis::ui_stop('Not recognozed option: to = {usethis::ui_value(to[1])}')
 
   )
 
-  if (success) {
-    usethis::ui_done("RStudio settings were reset. Now you should restart RStudio.")
+  if (isTRUE(success)) {
+    usethis::ui_done("RStudio user preferences were reset. Now you should restart RStudio.")
 
   } else {
-    usethis::ui_oops("Resetting RStudio settings failed.")
+    usethis::ui_oops("Failure to reset RStudio user preferences.")
 
   }
 
