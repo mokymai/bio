@@ -29,7 +29,7 @@ restriction_status <- function(ignore_ip = FALSE, ...) {
   isTRUE(ignore_ip)
 }
 
-reset_rstudio <- function(...) {
+reset_rstudio <- function(..., update_dictionaries = TRUE) {
 
   status <- restriction_status(...)
 
@@ -38,7 +38,9 @@ reset_rstudio <- function(...) {
     return(invisible())
   }
   # Dictionaries
-  bio::download_rs_system_dictionaries()
+  if (update_dictionaries) {
+    bio::download_rs_system_dictionaries()
+  }
 
   # Working directory
   rstudioapi::executeCommand("setWorkingDirToProjectDir", quiet = TRUE)
@@ -46,23 +48,22 @@ reset_rstudio <- function(...) {
   # User preferences
   fs::dir_create(fs::path_expand_r("~/R/Darbinis"))
 
-  # rstudioapi::executeCommand("clearUserPrefs") # FIXME: does not work
   bio::reset_rs_user_settings("bio-default", backup = TRUE, ask = FALSE)
 
 
 
   # Tab Files
   # TODO: Go to home dir
-  rstudioapi::executeCommand("clearRecentFiles", quiet = TRUE)
+  rstudioapi::executeCommand("clearRecentFiles",    quiet = TRUE)
 
   # Tab Plots
-  rstudioapi::executeCommand("clearPlots", quiet = TRUE)
+  rstudioapi::executeCommand("clearPlots",          quiet = TRUE)
 
   # Tab Help
-  rstudioapi::executeCommand("clearHelpHistory", quiet = TRUE)
+  rstudioapi::executeCommand("clearHelpHistory",    quiet = TRUE)
 
   # Tab Viewer
-  rstudioapi::executeCommand("viewerClearAll", quiet = TRUE)
+  rstudioapi::executeCommand("viewerClearAll",      quiet = TRUE)
 
   # Projects
   rstudioapi::executeCommand("clearRecentProjects", quiet = TRUE)
@@ -71,21 +72,20 @@ reset_rstudio <- function(...) {
   bio::clear_r_workspace() # clearWorkspace
 
 
-
   # Tab History
   bio::clear_r_history(backup = FALSE)
   unlink(".Rhistory")
   bio::clear_rs_history()
 
   # Documents
-  rstudioapi::executeCommand("closeAllSourceDocs",   quiet = TRUE)
+  rstudioapi::executeCommand("closeAllSourceDocs", quiet = TRUE)
 
   # Layout
   bio::reset_rstudio_layout()
-  rstudioapi::executeCommand("zoomActualSize",       quiet = TRUE)
-  rstudioapi::executeCommand("zoomIn",               quiet = TRUE)
-  rstudioapi::executeCommand("zoomIn",               quiet = TRUE)
-  rstudioapi::executeCommand("activateConsole",      quiet = TRUE)
+  rstudioapi::executeCommand("zoomActualSize",  quiet = TRUE)
+  rstudioapi::executeCommand("zoomIn",          quiet = TRUE)
+  rstudioapi::executeCommand("zoomIn",          quiet = TRUE)
+  rstudioapi::executeCommand("activateConsole", quiet = TRUE)
 
   # Settings
   snippets::install_snippets_from_package(type = "r")
@@ -95,11 +95,36 @@ reset_rstudio <- function(...) {
   bio::set_rstudio_keybindings("bio-default", backup = TRUE)
 
   # Console
-  rstudioapi::executeCommand("closeAllTerminals",         quiet = TRUE)
-  rstudioapi::executeCommand("consoleClear",              quiet = TRUE)
+  rstudioapi::executeCommand("closeAllTerminals", quiet = TRUE)
+  rstudioapi::executeCommand("consoleClear",      quiet = TRUE)
+
+  if (rstudioapi::isAvailable("1.2.879")) {
+    # TODO:
+    white_theme <- rstudioapi::showQuestion(
+      "Chose color theme",
+      "Which theme should be used in RStudio?",
+      " Light (Textmate) ",
+      " Dark (Cobalt) "
+    )
+
+    if (white_theme) {
+      rstudioapi::applyTheme("Textmate (default)")
+    } else {
+      rstudioapi::applyTheme("Cobalt")
+    }
+  }
 
   # Restart RS
-  # bio::restart_rstudio()
+  to_restart <- rstudioapi::showQuestion(
+    "Restart RStudio",
+    "Restart RStudio?",
+    " Yes ",
+    " No "
+  )
+
+  if (to_restart) {
+    bio::restart_rstudio()
+  }
 
   invisible()
 
