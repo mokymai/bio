@@ -351,6 +351,9 @@ get_pkgs_installation_status_local <- function(list_name,
 
 # Instalation status ---------------------------------------------------------
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#
+# FIXME: update the documentation
+#
 #' @name get_pkgs_installation_status
 #'
 #' @title Get package installation status and code.
@@ -442,12 +445,12 @@ get_pkgs_installation_status <- function(list_name, include = "outdated",
 
   choices <- c(TRUE, "always", "outdated", "missing", "never", FALSE)
 
-  include     <- match.arg(as.character(include),     choices)
-  show_status <- match.arg(as.character(show_status), choices)
-  install     <- match.arg(as.character(install),     choices)
-  cran        <- match.arg(as.character(cran),      c(choices, "newer_on_cran", "required"))
-  github      <- match.arg(as.character(github),      choices)
-  elsewhere   <- match.arg(as.character(elsewhere),   choices)
+  include     <- match.arg(as.character(include),       choices)
+  show_status <- match.arg(as.character(show_status), c(choices, "newer_on_cran"))
+  install     <- match.arg(as.character(install),       choices)
+  cran        <- match.arg(as.character(cran),        c(choices, "newer_on_cran", "required"))
+  github      <- match.arg(as.character(github),        choices)
+  elsewhere   <- match.arg(as.character(elsewhere),     choices)
 
   status_0  <- get_pkgs_installation_status_local(list_name = list_name,
     use_local_list = use_local_list)
@@ -486,7 +489,8 @@ get_pkgs_installation_status <- function(list_name, include = "outdated",
     show_status  = show_status,
     install_from = tibble::tibble(cran, github, elsewhere),
     missing_installation_code = status[status$missing_installation_code, ]$package,
-    n_to_install_or_update    = sum(status$update_is_required)
+    n_to_install_or_update    = sum(status$update_is_required),
+    n_newer_on_cran           = sum(status$newer_on_cran)
 
     # missing_installation_code = missing_installation_code,
     # pkgs_to_install_or_update = pkgs_to_install_or_update,
@@ -557,16 +561,27 @@ print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) 
     usethis::ui_todo(msg)
   }
 
+  if (x$n_newer_on_cran > 0) {
+    n_cran <- crayon::yellow(x$n_newer_on_cran)
+    if (x$n_newer_on_cran == 1) {
+      usethis::ui_todo("{n_cran} package has newer version on CRAN.")
+
+    } else {
+      usethis::ui_todo("{n_cran} packages have newer versions on CRAN.")
+    }
+  }
+
 
   # Show status
   pkg_to_show <-
     switch(as.character(show_status),
-      "TRUE"     = ,
-      "always"   =  rep(TRUE, nrow(st)),
-      "outdated" =  st$update_is_required,
-      "missing"  = !st$is_installed,
-      "never"    = ,
-      "FALSE"    = rep(TRUE, nrow(st)),
+      "TRUE"          = ,
+      "always"        =  rep(TRUE, nrow(st)),
+      "newer_on_cran" =  st$update_is_required | st$newer_on_cran,
+      "outdated"      =  st$update_is_required,
+      "missing"       = !st$is_installed,
+      "never"         = ,
+      "FALSE"         = rep(TRUE, nrow(st)),
       stop("Unknown value of `show_status`: ", show_status)
     )
 
@@ -574,10 +589,13 @@ print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) 
   if (any(pkg_to_show)) {
     st <-
       st[pkg_to_show , c("package", "is_installed", "current_version",
-        "required_version", "update_is_required")] # , "cran_version", "newer_on_cran"
+        "required_version", "cran_version", "update_is_required")] # , "cran_version", "newer_on_cran"
     st$current_version  <- ifelse(is.na(st$current_version), "-", st$current_version)
     st$required_version <- ifelse(st$required_version == "", "-", st$required_version )
     rownames(st) <- NULL
+    colnames(st) <- c("package", "is_installed", "v_current", "v_required",
+      "v_cran", "update_is_required")
+    usethis::ui_info("{crayon::silver('Abbreviations:')} {crayon::yellow('v – version')}\n")
     print(tibble::as_tibble(st), n = Inf, width = Inf, n_extra = Inf)
   }
 }
@@ -782,7 +800,7 @@ check_installed_packages <- function(list_name,
   if (status$n_to_install_or_update > 0) {
     assign(status_name, status, envir = .GlobalEnv)
     cat("\n")
-    usethis::ui_info("To print these results again, type {usethis::ui_field(status_name)} ")
+    # usethis::ui_info("To print these results again, type {usethis::ui_field(status_name)} ")
     usethis::ui_todo("To get package installation code, type:\n{usethis::ui_field(code_name)} ")
     rstudioapi::sendToConsole(code_name, execute = FALSE)
   }
