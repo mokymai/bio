@@ -1,35 +1,30 @@
 
 # R Commander dependencies ---------------------------------------------------
 
-## Depends
-RcmdrMisc
-car
-effects
-
-## Imports
 tcltk2
 abind
 relimp
-lme4
-
-## Suggests
-aplpack
-boot
+mgcv
+tibble
+readxl
+nortest
 colorspace
+effects
+aplpack
 e1071
 foreign
-Hmisc
+data.table
+car
+withr
+stringr
+ggplot2
+markdown
 knitr
-lattice
+Hmisc
+RcmdrMisc
 leaps
 lmtest
-markdown
-mgcv
 multcomp
-nlme
-nnet
-nortest
-readxl
 rgl
 rmarkdown
 sem
