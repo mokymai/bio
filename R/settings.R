@@ -47,7 +47,7 @@ reset_rstudio <- function(...) {
   fs::dir_create(fs::path_expand_r("~/R/Darbinis"))
 
   # rstudioapi::executeCommand("clearUserPrefs") # FIXME: does not work
-  bio::reset_rs_user_settings("bio-default", backup = TRUE)
+  bio::reset_rs_user_settings("bio-default", backup = TRUE, ask = FALSE)
 
 
 
@@ -392,8 +392,9 @@ reset_rs_user_settings <- function(to = "bio-default", backup = TRUE, ask = TRUE
   # to = c("rstudio-default", "bio-default")
 
   if (isTRUE(ask)) {
-    ans <- usethis::ui_nope("Do you want to reset RStudio user settings?",
-      yes = "Yes")
+    ans <- usethis::ui_nope("Do you want to reset RStudio user settings?")
+    # ans <- usethis::ui_nope("Do you want to reset RStudio user settings?",
+    #   yes = "Yes")
 
     if (ans) {
       usethis::ui_warn("Cancelled.")
