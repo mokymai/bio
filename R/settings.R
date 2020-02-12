@@ -37,6 +37,8 @@ reset_rstudio <- function(...) {
     usethis::ui_oops("The function does not work on this computer.")
     return(invisible())
   }
+  # Dictionaries
+  bio::download_rs_system_dictionaries()
 
   # Working directory
   rstudioapi::executeCommand("setWorkingDirToProjectDir", quiet = TRUE)
@@ -46,9 +48,8 @@ reset_rstudio <- function(...) {
   # FIXME: does not work
   # bio::reset_rs_user_settings("bio-default", backup = TRUE)
 
+  fs::dir_create(fs::path_expand_r("~/R/Darbinis"))
 
-  # Dictionaries
-  bio::download_rs_system_dictionaries()
 
   # Tab Files
   # TODO: Go to home dir
