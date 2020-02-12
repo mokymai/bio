@@ -98,7 +98,7 @@ reset_rstudio <- function(...) {
   bio::set_rstudio_keybindings("bio-default", backup = TRUE)
 
   # Restart RS
-  bio::restart_rstudio()
+  # bio::restart_rstudio()
 
 
   invisible()
