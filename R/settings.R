@@ -77,8 +77,6 @@ reset_rstudio <- function(..., update_dictionaries = TRUE) {
   unlink(".Rhistory")
   bio::clear_rs_history()
 
-  # Documents
-  rstudioapi::executeCommand("closeAllSourceDocs", quiet = TRUE)
 
   # Layout
   bio::reset_rstudio_layout()
@@ -113,6 +111,9 @@ reset_rstudio <- function(..., update_dictionaries = TRUE) {
       rstudioapi::applyTheme("Cobalt")
     }
   }
+
+   # Documents
+  rstudioapi::executeCommand("closeAllSourceDocs", quiet = TRUE)
 
   # Restart RS
   to_restart <- rstudioapi::showQuestion(
