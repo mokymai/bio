@@ -1,35 +1,30 @@
 
 # R Commander dependencies ---------------------------------------------------
 
-## Depends
-RcmdrMisc
-car
-effects
-
-## Imports
 tcltk2
 abind
 relimp
-lme4
-
-## Suggests
-aplpack
-boot
+mgcv
+tibble
+readxl
+nortest
 colorspace
+effects
+aplpack
 e1071
 foreign
-Hmisc
+data.table
+car
+withr
+stringr
+ggplot2
+markdown
 knitr
-lattice
+Hmisc
+RcmdrMisc
 leaps
 lmtest
-markdown
-mgcv
 multcomp
-nlme
-nnet
-nortest
-readxl
 rgl
 rmarkdown
 sem
@@ -37,38 +32,33 @@ sem
 # R Commander ----------------------------------------------------------------
 Rcmdr
 
+# Other ----------------------------------------------------------------------
+extrafont
+DescTools
+purrr
+dplyr
+tidyr
+broom
+checkmate
+clipr
+forcats
+fs
+janitor
+qqplotr
+plotly
+pander
+openxlsx
+summarytools
+tidyverse
+vcd
+esquisse
 
 # To PowerPoint, etc. --------------------------------------------------------
 officer
 flextable
 rvg
 
-# Other ----------------------------------------------------------------------
-extrafont
-esquisse
-DescTools
-dplyr
-ggplot
-broom
-checkmate
-clipr
-data.table
-forcats
-fs
-ggplot2
-janitor
-qqplotr
-purrr
-plotly
-pander
-openxlsx
-stringr
-summarytools
-tibble
-tidyr
-tidyverse
-vcd
-withr
+
 
 # R Commander plugins --------------------------------------------------------
 RcmdrPlugin.EZR
