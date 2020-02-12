@@ -37,13 +37,3 @@ sem
 # R Commander ----------------------------------------------------------------
 Rcmdr
 
-# R Commander plugins --------------------------------------------------------
-RcmdrPlugin.EZR
-RcmdrPlugin.KMggplot2
-RcmdrPlugin.EZR.as.menu
-RcmdrPlugin.biostat
-
-# To PowerPoint, etc. --------------------------------------------------------
-officer
-flextable
-rvg
