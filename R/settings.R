@@ -576,7 +576,7 @@ restart_r <- function() {
     invisible(rstudioapi::executeCommand("restartR", quiet = TRUE))
   }
 }
-
+# ============================================================================
 list_files_on_desktop <- function(type = "file") {
 
   present_files <- fs::dir_ls(fs::path_expand("~/desktop/"), type = type)
