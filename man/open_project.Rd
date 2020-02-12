@@ -72,7 +72,7 @@ recent RStudio projects.
 
 open_project()
 
-open_project("bs")
+open_project("bio")
 
 open_project("R-2019-project")
 

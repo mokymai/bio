@@ -107,7 +107,7 @@ get_path_recent_proj_list <- function() {
 get_path_personal_proj_list <- function() {
   # fs::path(get_path_r_user_dir(), "personal-project-list-r"),
   fs::path(get_path_r_user_dir(), "personal-rstudio-projects-list")
-  # "D:/Dokumentai/R/bs/data-raw/project-list"
+  # "D:/Dokumentai/R/bio/data-raw/project-list"
 }
 
 #' @name projects
@@ -196,7 +196,7 @@ get_proj_names <- function(file = get_path_recent_proj_list(),
 #'
 #' open_project()
 #'
-#' open_project("bs")
+#' open_project("bio")
 #'
 #' open_project("R-2019-project")
 #'

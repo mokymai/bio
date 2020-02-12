@@ -348,7 +348,7 @@ get_path_rs_user_settings <- function(which = "current") {
       get_path_rs_desktop_config_dir("monitored/user-settings/user-settings"),
 
     "bio-default" =
-      system.file("rs-settings", "user-settings", package = "bs"),
+      system.file("rs-settings", "user-settings", package = "bio"),
 
     stop("unrecognized option: ", which)
   )
