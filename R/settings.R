@@ -29,6 +29,32 @@ restriction_status <- function(ignore_ip = FALSE, ...) {
   isTRUE(ignore_ip)
 }
 
+#' Reset RStudio state in GMC R209 and clear environment.
+#'
+#' This function:
+#' 1) Resets RStudio state and user preferences (incl. color scheme)
+#' 2) Clears function history, plot history, console, recent project list, etc.
+#' 3) Closes unnecessary windows
+#' 4) Resets custom keybindings tto "bio-default"
+#' 5) Resets R Markdown and R snippets to defaults in package "snippets"
+#' 6) Creates folder "~/R/Darbinis" and starts using it as working directory
+#'    when no project is used.
+#' 7) Clears (if possible)/creates folder "BS-2020" on Desktop.
+#'
+#' The function works only in GMC R209, GMC C255 and ITPC EC-108 classrooms.
+#'
+#' @param ...
+#' @param force_update_dictionaries (logical) If `TRUE`, the dictionaries are
+#' forced to be downloaded/updated.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{\donttest{
+#'
+#' bio::reset_rstudio_gmc()
+#'
+#' }}
 reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
 
   status <- restriction_status(...)
