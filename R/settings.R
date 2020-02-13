@@ -52,7 +52,7 @@ reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
   fs::dir_create(fs::path_expand_r("~/R/Darbinis"))
 
   bs_folder <- fs::path_expand("~/desktop/BS-2020")
-  try(fs::dir_delete(bs_folder))
+  # try(fs::dir_delete(bs_folder))
   fs::dir_create(bs_folder)
 
 
