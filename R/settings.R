@@ -51,14 +51,12 @@ reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
   # Create/Clean directories
   fs::dir_create(fs::path_expand_r("~/R/Darbinis"))
 
-  bs_folder <- fs::path_expand("~/desktop/BS-2020")
-  # try(fs::dir_delete(bs_folder))
+  bs_folder <- fs::path_expand("~/Desktop/BS-2020/")
+  try(fs::dir_delete(bs_folder), silent = TRUE)
   fs::dir_create(bs_folder)
-
 
   # User preferences
   bio::reset_rs_user_settings("bio-default", backup = TRUE, ask = FALSE)
-
 
   # Tab Files
   # TODO: Go to home dir
@@ -79,12 +77,10 @@ reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
   # Tab Environment
   bio::clear_r_workspace() # clearWorkspace
 
-
   # Tab History
   bio::clear_r_history(backup = FALSE)
   unlink(".Rhistory")
   bio::clear_rs_history()
-
 
   # Layout
   bio::reset_rstudio_layout()
@@ -516,6 +512,7 @@ set_rstudio_keybindings <- function(which = "none", backup = TRUE) {
   }
 
   # reset current keybindings
+  fs::dir_create(fs::path_dir(current_files), recurse = TRUE)
   fs::file_copy(from_files, current_files, overwrite = TRUE)
 }
 
