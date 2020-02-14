@@ -537,7 +537,7 @@ set_rstudio_keybindings <- function(which = "none", backup = TRUE) {
 
   # Create back-up copies
   if (isTRUE(backup)) {
-    create_backup_copy(current_files, "keybindings")
+    create_backup_copy(current_files, "keybindings", "shortcut keys")
   }
 
   # reset current keybindings
