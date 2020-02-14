@@ -51,3 +51,41 @@ update_bio <- function() {
     bio::get_vesion_bio()
   }
 }
+
+#' Update Rcmdr Biostat
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{\donttest{
+#'
+#' update_rcmdr_biostat()
+#'
+#' }}
+update_rcmdr_biostat <- function() {
+  if (rstudioapi::isAvailable(version_needed = "1.1.281")) {
+    rstudioapi::restartSession(
+      paste(sep = "\n",
+        '# Updating package "RcmdrPlugin.biostat"...',
+        'remotes::install_github("GegznaV/RcmdrPlugin.biostat", dependencies = TRUE, upgrade = FALSE)',
+        'bio::check_installed_packages(',
+        '  "Rcmdr-biostat", ',
+        '  show_status = "newer_on_cran",',
+        '  cran = "newer_on_cran"',
+        ')'
+
+      )
+    )
+
+  } else {
+    # usethis::ui_stop(
+    #   'To run this function, RStudio version 1.1.281 is required. You may also use code:
+    #   remotes::install_github("mokymai/bio", dependencies = TRUE, upgrade = FALSE)'
+    #   )
+    remotes::install_github("GegznaV/RcmdrPlugin.biostat", dependencies = TRUE, upgrade = FALSE)
+    bio::check_installed_packages(
+      "Rcmdr-biostat",
+      show_status = "newer_on_cran", cran = "newer_on_cran"
+    )
+  }
+}
