@@ -82,7 +82,7 @@ reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
   fs::dir_create(bs_folder)
 
   # User preferences
-  bio::reset_rs_user_settings("bio-default", backup = TRUE, ask = FALSE)
+  bio::reset_rs_user_settings(to = "bio-default", backup = TRUE, ask = FALSE)
 
   # Tab Files
   # TODO: Go to home dir
@@ -370,6 +370,11 @@ set_initial_rs_configuration <- function() {
 #' get_rs_ui_pref_names()
 #'
 #' #-------------------------------------------------
+#'
+#' reset_rs_user_settings(to = "bio-default")
+#'
+#' reset_rs_user_settings(to = "rstudio-default")
+#'
 #' }}
 
 read_rs_user_settings <- function(which = "current") {
@@ -445,7 +450,7 @@ get_rs_ui_pref_names <- function(which = "current") {
 
 #' @rdname RStudio-user-prefs
 #' @export
-reset_rs_user_settings <- function(to = "bio-default", backup = TRUE, ask = TRUE) {
+reset_rs_user_settings <- function(to = "none", backup = TRUE, ask = TRUE) {
 
   # to = c("rstudio-default", "bio-default")
 
@@ -460,14 +465,11 @@ reset_rs_user_settings <- function(to = "bio-default", backup = TRUE, ask = TRUE
     }
   }
 
+  file_current <- get_path_rs_user_settings("current")
 
   if (isTRUE(backup)) {
-    # FIXME: not implemented
-    usethis::ui_oops("Createing back-up copies of RStudio user preferences is not implemented yet.")
-    # return()
+    create_backup_copy(file_current, "user_settings", "RStudio settings")
   }
-
-  file_current <- get_path_rs_user_settings("current")
 
   switch(
     to,
@@ -479,7 +481,8 @@ reset_rs_user_settings <- function(to = "bio-default", backup = TRUE, ask = TRUE
 
     "bio-default" = {
       file_default <- get_path_rs_user_settings("bio-default")
-      fs::dir_create(fs::path_dir(file_current)) # FIXME: file_default or file_current?
+      fs::dir_create("~/R/Darbinis") # TODO: change this value, when default UI preferences change.
+      fs::dir_create(fs::path_dir(file_current))
       fs::file_copy(file_default, file_current, overwrite = TRUE)
       success <-
         unname(tools::md5sum(file_default) == tools::md5sum(file_current))
