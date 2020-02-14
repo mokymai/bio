@@ -26,7 +26,7 @@ get_backup_id <- function() {
 
 # Create back-ups ------------------------------------------------------------
 
-create_backup_path <- function(file = NULL, backup_subdir = "",
+construct_backup_path <- function(file = NULL, backup_subdir = "",
   backup_id = get_backup_id()) {
 
   base0 <- fs::path_file(file)
@@ -40,6 +40,7 @@ create_backup_path <- function(file = NULL, backup_subdir = "",
 }
 
 create_backup_copy <- function(file = NULL, backup_subdir = "",
+  of_what = ifelse(backup_subdir == "", "file(s)", backup_subdir),
   backup_id = get_backup_id()) {
 
   f_exist <- fs::file_exists(file)
@@ -47,24 +48,25 @@ create_backup_copy <- function(file = NULL, backup_subdir = "",
   if (any(f_exist)) {
     current_files_e <- file[f_exist]
     backup_files    <-
-      create_backup_path(
+      construct_backup_path(
         current_files_e,
         backup_subdir = backup_subdir,
         backup_id = backup_id
       )
 
-    create_backup_dir("keybindings")
+    create_backup_dir(backup_subdir)
 
     fs::file_copy(current_files_e, backup_files)
 
     usethis::ui_done(paste0(
-      "Back up copy was created in {usethis::ui_path(unique(fs::path_dir(backup_files)))}"
+      "Back up copy of {crayon::green(of_what)} was created ",
+      "in {usethis::ui_path(unique(fs::path_dir(backup_files)))}"
     ))
 
     # FIXME: verify that the back-up was successful
 
   } else {
-    usethis::ui_info("There were no files to back-up.")
+    usethis::ui_info("There were no {crayon::green(of_what)} to back-up.")
     # FIXME: announce that no files were backed-up
   }
 }
