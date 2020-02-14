@@ -864,7 +864,10 @@ suggest_optimized_order_of_packages <- function(pkgs_vec,
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   move_after <-
-    purrr::imap(deps, ~ stringr::str_c(.x[.x %in% list_after(.y, list = pkgs_vec)])) %>%
+    purrr::imap(
+      deps,
+      ~ stringr::str_c(.x[.x %in% list_after(.y, list = pkgs_vec)])
+    ) %>%
     purrr::discard(~length(.) == 0) %>%
     purrr::imap_chr(~stringr::str_c(stringr::str_pad(.y, 20), " (move after): ",
       stringr::str_c(.x, collapse = ", "))) %>%
@@ -874,7 +877,10 @@ suggest_optimized_order_of_packages <- function(pkgs_vec,
 
 
   move_before <-
-    purrr::imap(rev_deps, ~ stringr::str_c(.x[.x %in% list_before(.y, list = pkgs_vec)])) %>%
+    purrr::imap(
+      rev_deps,
+      ~ stringr::str_c(.x[.x %in% list_before(.y, list = pkgs_vec)])
+    ) %>%
     purrr::discard(~length(.) == 0) %>%
     purrr::imap_chr(~stringr::str_c(stringr::str_pad(.y, 20), " (move before): ",
       stringr::str_c(.x, collapse = ", "))) %>%
