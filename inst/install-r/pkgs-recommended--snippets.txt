@@ -1,0 +1,13 @@
+fs
+stringi
+stringr
+magrittr
+purrr
+usethis
+withr
+tidyselect
+tibble
+dplyr
+readr
+snippets
+
