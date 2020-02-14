@@ -4,14 +4,14 @@
 \alias{bio_version}
 \alias{get_vesion_bio}
 \alias{check_updates_bio}
-\alias{update_bio}
+\alias{update_pkg_bio}
 \title{Version management of package 'bio'.}
 \usage{
 get_vesion_bio()
 
 check_updates_bio(show_status = "always", install = "outdated", ...)
 
-update_bio()
+update_pkg_bio()
 }
 \description{
 \code{get_vesion_bio()} returns version number of package \pkg{bio}.
