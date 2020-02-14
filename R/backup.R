@@ -51,15 +51,6 @@ create_backup_dir <- function(...) {
   fs::dir_create(get_path_backup_dir(...))
 }
 
-#' Open directory with backup files
-#'
-#' @param ... Subdirectories name.
-#'
-#' @export
-open_backup_dir <- function(...) {
-  browseURL(get_path_backup_dir(...))
-}
-
 get_backup_id <- function() {
   format(Sys.time(), "__backup_%y%m%d_%H%M%OS0")
 }

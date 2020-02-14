@@ -399,6 +399,15 @@ open_r_environ <- function() {
   browseURL(get_path_r_environ())
 }
 
+#' Open directory with backup files
+#'
+#' @param ... Subdirectories name.
+#'
+#' @export
+open_backup_dir <- function(...) {
+  browseURL(get_path_backup_dir(...))
+}
+
 
 # str_glue_eval ==============================================================
 str_glue_eval <- function(..., envir = parent.frame(), .sep = "",
