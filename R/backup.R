@@ -1,43 +1,5 @@
 
-# Directory for back-ups -----------------------------------------------------
-
-get_path_backup_dir <- function(...) {
-  backup_dir <- Sys.getenv("R_SETTINGS_BACKUP_DIR")
-
-  if (backup_dir == "") {
-    backup_dir <- fs::path(Sys.getenv("R_USER"), ".R-backup")
-  }
-
-  fs::path(backup_dir, ...)
-}
-
-create_backup_dir <- function(...) {
-  fs::dir_create(get_path_backup_dir(...))
-}
-
-open_backup_dir <- function(...) {
-  browseURL(get_path_backup_dir(...))
-}
-
-get_backup_id <- function() {
-  format(Sys.time(), "__backup_%y%m%d_%H%M%OS0")
-}
-
-
 # Create back-ups ------------------------------------------------------------
-
-construct_backup_path <- function(file = NULL, backup_subdir = "",
-  backup_id = get_backup_id()) {
-
-  base0 <- fs::path_file(file)
-  ext   <- fs::path_ext(base0)
-  base  <- fs::path_ext_remove(base0)
-
-  fs::path(
-    get_path_backup_dir(backup_subdir),
-    fs::path_ext_set(paste0(base, backup_id), ext = ext)
-  )
-}
 
 create_backup_copy <- function(file = NULL, backup_subdir = "",
   of_what = ifelse(backup_subdir == "", "file(s)", backup_subdir),
@@ -71,6 +33,49 @@ create_backup_copy <- function(file = NULL, backup_subdir = "",
   }
 }
 
+
+# Directory for back-ups -----------------------------------------------------
+
+get_path_backup_dir <- function(...) {
+  backup_dir <- Sys.getenv("R_SETTINGS_BACKUP_DIR")
+
+  if (backup_dir == "") {
+    backup_dir <- fs::path(Sys.getenv("R_USER"), ".R-backup")
+  }
+
+  fs::path(backup_dir, ...)
+}
+
+
+create_backup_dir <- function(...) {
+  fs::dir_create(get_path_backup_dir(...))
+}
+
+#' Open directory with backup files
+#'
+#' @param ... Subdirectories name.
+#'
+#' @export
+open_backup_dir <- function(...) {
+  browseURL(get_path_backup_dir(...))
+}
+
+get_backup_id <- function() {
+  format(Sys.time(), "__backup_%y%m%d_%H%M%OS0")
+}
+
+construct_backup_path <- function(file = NULL, backup_subdir = "",
+  backup_id = get_backup_id()) {
+
+  base0 <- fs::path_file(file)
+  ext   <- fs::path_ext(base0)
+  base  <- fs::path_ext_remove(base0)
+
+  fs::path(
+    get_path_backup_dir(backup_subdir),
+    fs::path_ext_set(paste0(base, backup_id), ext = ext)
+  )
+}
 
 # Restore from back up  ------------------------------------------------------
 
