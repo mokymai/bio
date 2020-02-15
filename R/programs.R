@@ -225,6 +225,8 @@ check_installed_programs <- function(which = "main", skip_online_check = FALSE,
 
   # xQuartz (on Mac, OS X)
   if (get_os_type() == "osx") {
+    # FIXME: on stack overflow it writes, that this functon might hang R session
+    # https://stackoverflow.com/questions/37438773/is-it-possible-to-check-if-a-graphics-device-is-available-without-calling-dev-ne
     check_program_installed("XQuartz", is_xquartz_installed())
   }
 
