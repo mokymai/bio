@@ -1,10 +1,9 @@
 # bio::download_rs_system_dictionaries()
-
 # snippets::install_snippets_from_package("snippets", type = "r",        backup = TRUE)
 # snippets::install_snippets_from_package("snippets", type = "markdown", backup = TRUE)
-# bio::set_rstudio_keybindings(which = "bio-default")
-
-# bio::restart_rstudio()
+# bio::set_rstudio_keybindings(which = "bio-default", backup = TRUE)
+# bio::reset_rs_user_settings(to = "bio-default", backup = TRUE)
+# bio::reload_rstudio()
 
 # Clear and Reset ============================================================
 ip_gmc_r209_compact <- "158.129.170.(3,200-237)"
