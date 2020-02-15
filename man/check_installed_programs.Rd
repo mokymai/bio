@@ -4,11 +4,15 @@
 \alias{check_installed_programs}
 \title{Check the versions of required programs.}
 \usage{
-check_installed_programs(which = "all", skip_online_check = FALSE)
+check_installed_programs(
+  which = "main",
+  skip_online_check = FALSE,
+  user_info = TRUE
+)
 }
 \arguments{
 \item{which}{(character) Which programs should be checked? Options:
-\code{all} (default), \code{BS-2020}, \code{mini}.}
+\code{main}, \code{all}, \code{BS-2020}.}
 
 \item{skip_online_check}{(logical) If \code{TRUE}, the numbers of newest available
 stable programs are downloaded, when internet connection is connected.}
@@ -22,7 +26,7 @@ Check the versions of required programs.
 \examples{
 check_installed_programs(skip_online_check = TRUE)
 
-check_installed_programs("mini", skip_online_check = TRUE)
+check_installed_programs("all", skip_online_check = TRUE)
 
 check_installed_programs("BS-2020", skip_online_check = TRUE)
 
