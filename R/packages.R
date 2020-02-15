@@ -721,6 +721,20 @@ get_pkgs_installation_code.pkgs_installation_status <- function(x, ...,
     return(invisible(res))
   }
 
+  res <- c(
+    '
+    old_opts <-
+      options(
+        repos = "https://cran.rstudio.com/",
+        pkgType = "both",
+        install.packages.check.source = "yes",
+        install.packages.compile.from.source = "always",
+        Ncpus = max(1, parallel::detectCores() - 1)
+    )
+    ',
+    res
+  )
+
   res <- styler::style_text(res)
 
   if (isTRUE(to_clipboard)) {
