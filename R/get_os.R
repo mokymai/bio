@@ -22,3 +22,17 @@ get_os_type <- function() {
   }
   unname(tolower(os))
 }
+
+#' @rdname get_os_type
+#' @export
+is_32bit_os <- function() {
+  stringr::str_detect(version$arch, "32$")
+}
+
+#' @rdname get_os_type
+#' @export
+is_64bit_os <- function() {
+  stringr::str_detect(version$arch, "64$")
+}
+
+
