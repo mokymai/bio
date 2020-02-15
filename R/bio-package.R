@@ -2,6 +2,9 @@
 #' @importFrom utils browseURL download.file installed.packages loadhistory
 #'                   read.table savehistory unzip
 #' @importFrom magrittr "%>%"
+#' @importFrom crayon underline red green blue cyan yellow magenta silver
+#' @importFrom usethis ui_done ui_todo ui_oops ui_info ui_code ui_field ui_path
+#'                     ui_stop ui_warn ui_value
 
 "_PACKAGE"
 
