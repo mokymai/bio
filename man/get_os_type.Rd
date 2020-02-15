@@ -2,9 +2,15 @@
 % Please edit documentation in R/get_os.R
 \name{get_os_type}
 \alias{get_os_type}
+\alias{is_32bit_os}
+\alias{is_64bit_os}
 \title{Determine operating system (OS).}
 \usage{
 get_os_type()
+
+is_32bit_os()
+
+is_64bit_os()
 }
 \value{
 OS name in lower case: windows, osx, linux, etc.
