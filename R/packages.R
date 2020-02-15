@@ -443,14 +443,17 @@ get_pkgs_installation_status <- function(list_name, include = "outdated",
   github = install, elsewhere = install,
   use_local_list = getOption("bio.use_local_list", FALSE)) {
 
-  choices <- c(TRUE, "always", "outdated", "missing", "never", FALSE)
+  choices <- c(TRUE, "always", "newer_on_cran", "outdated", "missing", "never", FALSE)
 
-  include     <- match.arg(as.character(include),       choices)
-  show_status <- match.arg(as.character(show_status), c(choices, "newer_on_cran"))
-  install     <- match.arg(as.character(install),       choices)
-  cran        <- match.arg(as.character(cran),        c(choices, "newer_on_cran", "required"))
-  github      <- match.arg(as.character(github),        choices)
-  elsewhere   <- match.arg(as.character(elsewhere),     choices)
+  include     <- match.arg(as.character(include),     choices)
+  show_status <- match.arg(as.character(show_status), choices)
+  install     <- match.arg(as.character(install),     choices)
+  cran        <- match.arg(as.character(cran),      c(choices, "required"))
+  github      <- match.arg(as.character(github),      choices)
+  elsewhere   <- match.arg(as.character(elsewhere),   choices)
+
+  github      <- ifelse(github    == "newer_on_cran", "outdated", github)
+  elsewhere   <- ifelse(elsewhere == "newer_on_cran", "outdated", elsewhere)
 
   status_0  <- get_pkgs_installation_status_local(list_name = list_name,
     use_local_list = use_local_list)
@@ -677,10 +680,30 @@ get_pkgs_installation_code.pkgs_installation_status <- function(x, ...,
   pkgs_miss_code <- x$missing_installation_code
 
   if (length(pkgs_miss_code) > 0) {
+
+    r_installed <- getRversion()
+    r_available <- get_released_r_version()
+
+    status_msg <-
+      if (r_installed < r_available) {
+        stringr::str_glue(
+          "Either the packages require a newer version of R ",
+          "(installed {crayon::yellow(r_installed)}, ",
+          "available {crayon::green(r_available)}) ",
+          "or they might be recently removed from CRAN. "
+        )
+
+      } else {
+        "The packages might be recently removed from CRAN. "
+      }
+
     usethis::ui_warn(paste0(
       "Installation code is missing for packages: \n",
-      paste0("{crayon::yellow('", pkgs_miss_code, "')}", collapse = ", "),
-      "The packages might be recently removed from CRAN."
+      paste0("{crayon::yellow('", pkgs_miss_code, "')}", collapse = ", "), ". \n",
+      "{status_msg}",
+      "Check the status of the packages at ",
+      "{crayon::yellow('https://cran.r-project.org/web/packages/')}",
+      "{crayon::blue('[package\\'s name]')}. "
     ))
   }
 
