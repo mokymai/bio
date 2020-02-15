@@ -102,6 +102,27 @@ check_program_version  <- function(program = "", r_installed = "", v_recommended
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+check_user_info <- function() {
+
+  os_info <-
+    c(
+      "Operating system   " = sessionInfo()$running,
+      "Platform "           = sessionInfo()$platform,
+      Sys.getenv(c(
+        "USERNAME", "USERPROFILE", "HOME", "R_USER", "R_HOME", "R_LIBS_USER"))
+    ) %>%
+    as.data.frame()
+
+  os_info$. = fs::path(os_info$.)
+  os_info <- setNames(os_info, c("  "))
+
+  print(os_info, right = FALSE)
+  cat("\n")
+
+  invisible(os_info)
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 check_r_version <- function(v_recommended = "3.6.2", skip_online_check = FALSE) {
 
   check_program_version(
@@ -126,6 +147,25 @@ check_rs_version <- function(v_recommended = "1.2.5033", skip_online_check = FAL
       v_recommended = v_recommended
     )
   }
+  try({
+    if (is_32bit_os()) {
+      ui_info("For 32-bit operating systems, the newest available RStudio version is {yellow('1.1.463')}.")
+    }
+  })
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+is_rtools_installed  <- function(variables) {
+  if (get_os_type() == "windows") {
+    stringr::str_detect(Sys.getenv('PATH'), "\\\\Rtools\\\\")
+  } else {
+    FALSE
+  }
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+is_xquartz_installed  <- function(variables) {
+  isTRUE(unname(capabilities("aqua")))
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -147,7 +187,7 @@ check_program_installed <- function(program = "", condition = NULL) {
 #' @param skip_online_check (logical) If `TRUE`, the numbers of newest available
 #'       stable programs are downloaded, when internet connection is connected.
 #' @param which (character) Which programs should be checked? Options:
-#'        `all` (default), `BS-2020`, `mini`.
+#'        `main`, `all`, `BS-2020`.
 #'
 #' @return
 #' The results of version checking is printed.
@@ -157,21 +197,41 @@ check_program_installed <- function(program = "", condition = NULL) {
 #' @examples
 #' check_installed_programs(skip_online_check = TRUE)
 #'
-#' check_installed_programs("mini", skip_online_check = TRUE)
+#' check_installed_programs("all", skip_online_check = TRUE)
 #'
 #' check_installed_programs("BS-2020", skip_online_check = TRUE)
 #'
-check_installed_programs <- function(which = "all", skip_online_check = FALSE) {
+check_installed_programs <- function(which = "main", skip_online_check = FALSE,
+  user_info = TRUE) {
+
+  if (user_info) {
+    check_user_info()
+  }
+
   if (!skip_online_check) {
     skip_online_check <- check_internet_connection()
   }
 
+  # R
   check_r_version(skip  = skip_online_check)
+
+  # RStudio
   check_rs_version(skip = skip_online_check)
 
-  switch(tolower(which),
-    "mini" = {
+  # Rtools (on Windows)
+  if (get_os_type() == "windows") {
+    check_program_installed("Rtools", is_rtools_installed())
+  }
 
+  # xQuartz (on Mac, OS X)
+  if (get_os_type() == "osx") {
+    check_program_installed("XQuartz", is_xquartz_installed())
+  }
+
+  # Additional software
+  switch(tolower(which),
+    "main" = {
+      NULL
     },
 
     "all" = {
