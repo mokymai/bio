@@ -1,5 +1,107 @@
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' Check the versions of required programs.
+#'
+#' @param skip_online_check (logical) If `TRUE`, the numbers of newest available
+#'       stable programs are downloaded, when internet connection is connected.
+#' @param which (character) Which programs should be checked? Options:
+#'        `main`, `all`, `BS-2020`.
+#'
+#' @return
+#' The results of version checking is printed.
+#'
+#' @export
+#'
+#' @examples
+#'
+#' \dontrun{\donttest{
+#'
+#' check_user_info()
+#'
+#' check_installed_programs()
+#'
+#' check_installed_programs("all")
+#'
+#' check_installed_programs("BS-2020")
+#'
+#' }}
+check_installed_programs <- function(which = "main", skip_online_check = FALSE) {
+
+  # if (user_info) {
+  #   check_user_info()
+  # }
+
+  if (!skip_online_check) {
+    skip_online_check <- check_internet_connection()
+  }
+
+  # R
+  check_r_version(skip  = skip_online_check)
+
+  # RStudio
+  check_rs_version(skip = skip_online_check)
+
+  # Rtools (on Windows)
+  if (get_os_type() == "windows") {
+    check_program_installed("Rtools", is_rtools_installed())
+  }
+
+  # xQuartz (on Mac, OS X)
+  if (get_os_type() == "osx") {
+    # FIXME: on stack overflow it writes, that this functon might hang R session
+    # https://stackoverflow.com/questions/37438773/is-it-possible-to-check-if-a-graphics-device-is-available-without-calling-dev-ne
+    check_program_installed("XQuartz", is_xquartz_installed())
+  }
+
+  # Additional software
+  switch(tolower(which),
+    "main" = {
+      NULL
+    },
+
+    "all" = {
+      check_program_installed("Atom", is_atom_installed())
+      check_program_installed("Git",  is_git_installed())
+      check_program_installed("Meld", is_meld_installed())
+    },
+
+    "bs-2020" = {
+      check_program_installed("Atom", is_atom_installed())
+    },
+    ui_warn("Unknown value '{which}'")
+
+  )
+
+  invisible()
+}
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' @rdname check_installed_programs
+#' @export
+check_user_info <- function() {
+
+  os_info <-
+    c(
+      "Operating system   " = sessionInfo()$running,
+      "Platform "           = sessionInfo()$platform,
+      Sys.getenv(c(
+        "USERNAME", "USERPROFILE", "HOME", "R_USER", "R_HOME", "R_LIBS_USER"))
+    ) %>%
+    as.data.frame()
+
+  os_info$. = fs::path(os_info$.)
+  os_info <- setNames(os_info, c("  "))
+
+  print(os_info, right = FALSE)
+  cat("\n")
+
+  invisible(os_info)
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~ ======================================================
+
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 get_available_r_version <- function(force = FALSE, skip = FALSE) {
   if (isTRUE(skip)) {
     return(NULL)
@@ -101,26 +203,6 @@ check_program_version  <- function(program = "", r_installed = "", v_recommended
   ))
 }
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_user_info <- function() {
-
-  os_info <-
-    c(
-      "Operating system   " = sessionInfo()$running,
-      "Platform "           = sessionInfo()$platform,
-      Sys.getenv(c(
-        "USERNAME", "USERPROFILE", "HOME", "R_USER", "R_HOME", "R_LIBS_USER"))
-    ) %>%
-    as.data.frame()
-
-  os_info$. = fs::path(os_info$.)
-  os_info <- setNames(os_info, c("  "))
-
-  print(os_info, right = FALSE)
-  cat("\n")
-
-  invisible(os_info)
-}
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 check_r_version <- function(v_recommended = "3.6.2", skip_online_check = FALSE) {
@@ -180,77 +262,4 @@ check_program_installed <- function(program = "", condition = NULL) {
 
 }
 
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' Check the versions of required programs.
-#'
-#' @param skip_online_check (logical) If `TRUE`, the numbers of newest available
-#'       stable programs are downloaded, when internet connection is connected.
-#' @param which (character) Which programs should be checked? Options:
-#'        `main`, `all`, `BS-2020`.
-#'
-#' @return
-#' The results of version checking is printed.
-#'
-#' @export
-#'
-#' @examples
-#' check_installed_programs(skip_online_check = TRUE)
-#'
-#' check_installed_programs("all", skip_online_check = TRUE)
-#'
-#' check_installed_programs("BS-2020", skip_online_check = TRUE)
-#'
-check_installed_programs <- function(which = "main", skip_online_check = FALSE,
-  user_info = TRUE) {
-
-  if (user_info) {
-    check_user_info()
-  }
-
-  if (!skip_online_check) {
-    skip_online_check <- check_internet_connection()
-  }
-
-  # R
-  check_r_version(skip  = skip_online_check)
-
-  # RStudio
-  check_rs_version(skip = skip_online_check)
-
-  # Rtools (on Windows)
-  if (get_os_type() == "windows") {
-    check_program_installed("Rtools", is_rtools_installed())
-  }
-
-  # xQuartz (on Mac, OS X)
-  if (get_os_type() == "osx") {
-    # FIXME: on stack overflow it writes, that this functon might hang R session
-    # https://stackoverflow.com/questions/37438773/is-it-possible-to-check-if-a-graphics-device-is-available-without-calling-dev-ne
-    check_program_installed("XQuartz", is_xquartz_installed())
-  }
-
-  # Additional software
-  switch(tolower(which),
-    "main" = {
-      NULL
-    },
-
-    "all" = {
-      check_program_installed("Atom", is_atom_installed())
-      check_program_installed("Git",  is_git_installed())
-      check_program_installed("Meld", is_meld_installed())
-    },
-
-    "bs-2020" = {
-      check_program_installed("Atom", is_atom_installed())
-    },
-    ui_warn("Unknown value '{which}'")
-
-  )
-
-  invisible()
-}
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
