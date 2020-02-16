@@ -43,8 +43,8 @@ Tested only on *Windows 10* (64-bit) with RStudio 1.2.5033.
 <br><br>
 </center>
 
-Bug reports and your feedback are wellcome at https://github.com/mokymai/bio/issues.
-In the report, indicate your operating sistem.
+Bug reports and your feedback are welcome at https://github.com/mokymai/bio/issues.
+In the report, indicate your operating system.
 
 
 # Install
@@ -94,7 +94,7 @@ bio::check_installed_programs("all")
 
 
 Check for installed packages. 
-By defaul, only missing packages or packages with lower than recommended versions are displayed.
+By default, only missing packages or packages with lower than recommended versions are displayed.
 Currently available lists are:
 
 - "mini"
@@ -107,9 +107,15 @@ Currently available lists are:
 - "snippets"
 - "spelling-grammar"
 
-```{r README-8, eval=FALSE, paged.print=FALSE}
+```{r README-8a, eval=FALSE, paged.print=FALSE}
+bio::check_installed_packages(list_name = "mini")
+## ✔ The required versions of all 19 packages (from list 'mini') are already installed.
+```
+
+```{r README-8b, eval=FALSE, paged.print=FALSE}
 bio::check_installed_packages(list_name = "mini", include = "newer_on_cran")
 ## ✔ The required versions of all 19 packages (from list 'mini') are already installed.
+## ● 1 package has newer version on CRAN.
 ```
 
 
@@ -138,15 +144,24 @@ bio::update_pkg_rcmdr_biostat()
 
 ## RStudio settings and user preferences
 
+> You should use functions that reset key bindings (shortcut keys), 
+  RStudio settings and snippets **at your own risk**.
+
+### Dictionaries
+
+Update dictionaries.
 
 To download **hunspell** spelling checking dictionaries (including Lithuanian) for RStudio.
 ```{r eval=FALSE}
 bio::download_spellcheck_dictionaries()
 ```
 
-> You may use functions that reset keybindings, RStudio settings and snippets **at your own risk**.
 
-Change shortcut keys. Options:
+
+### Shortcut keys
+
+Change shortcut keys.
+Options:
 
 - "bio-default" -- shortcut keys, recommended for BS-2020.
 
@@ -165,9 +180,9 @@ Shortcut  | Action
 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad1</kbd>, <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad2</kbd>, <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad3</kbd>, <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad4</kbd>, <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad5</kbd>             | Insert/Replace line into heading of level 1, 2, 3, 4, or level 5 (R Markdown).
 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd>                 | Insert quotes `„`.
 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>'</kbd>                 | Insert quotes `“`.
-<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>P"       | Align selected lines at pattern.
-<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>A"       | Use "Tidyverse" style on selected lines of R code (R code).
-<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S"       | Check spelling in selected text (if package **wellspell.addin** is installed).
+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>P</kbd>  | Align selected lines at pattern.
+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd>  | Use "Tidyverse" style on selected lines of R code (R code).
+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>  | Check spelling in selected text (if package **wellspell.addin** is installed).
 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>D</kbd>                       | Duplicate selected text.
 
 <!-- "addins.rmd::rmd_list_numbered"                : "Ctrl+Shift+Alt+L", -->
@@ -187,8 +202,12 @@ Shortcut  | Action
 <!-- "addins.rs::rs_replace_slash_fw2b"             : "Ctrl+Shift+Alt+/", -->
 <!-- "bookdown::mathquill"                          : "Ctrl+Alt+NumPad9", -->
 
+More on [Customizing Keyboard Shortcuts](https://support.rstudio.com/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts){target="_blank"}.
 
-Reset RStudio user preferences and settings. 
+
+### RStudio settings 
+
+Reset RStudio user preferences and settings.
 Options:
 
 - "bio-default" -- options recommended for course BS-2020.
@@ -199,6 +218,21 @@ bio::reset_rs_user_settings(to = "bio-default")
 ```
 
 
+### Snippets
+
+Replace R code and R Markdown snippets with those in package "snippets".
+More information on 
+[Code Snippets](https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets){target="_blank"} and on package
+[„snippets“](https://gegznav.github.io/snippets/){target="_blank"}.
+
+
+```{r, eval=FALSE}
+snippets::install_snippets_from_package("snippets", type = c("r", "markdown"),
+  backup = TRUE)
+```
+
+
+### Restart R and RStudio
 
 Reload RStudio to see the effect of changed RStudio settings.
 (In some cases it is recommended to close and reopen RStudio).
