@@ -2,13 +2,12 @@
 % Please edit documentation in R/programs.R
 \name{check_installed_programs}
 \alias{check_installed_programs}
+\alias{check_user_info}
 \title{Check the versions of required programs.}
 \usage{
-check_installed_programs(
-  which = "main",
-  skip_online_check = FALSE,
-  user_info = TRUE
-)
+check_installed_programs(which = "main", skip_online_check = FALSE)
+
+check_user_info()
 }
 \arguments{
 \item{which}{(character) Which programs should be checked? Options:
@@ -24,10 +23,16 @@ The results of version checking is printed.
 Check the versions of required programs.
 }
 \examples{
-check_installed_programs(skip_online_check = TRUE)
 
-check_installed_programs("all", skip_online_check = TRUE)
+\dontrun{\donttest{
 
-check_installed_programs("BS-2020", skip_online_check = TRUE)
+check_user_info()
 
+check_installed_programs()
+
+check_installed_programs("all")
+
+check_installed_programs("BS-2020")
+
+}}
 }
