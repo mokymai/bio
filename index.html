@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9017</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9018</span>
       </span>
     </div>
 
@@ -76,78 +76,234 @@
 <p>Convenience functions to facilitate installation and management of required resources for <strong><em>Biostatistics</em></strong> course unit (<em>BS-2020</em>).</p>
 <center>
 
-<font color="red" size="6"> <br> Work is still in progress… <br><br></font>
-
+<font color="red" size="6"> <br> Work is still in progress… </font> <br><font color="darkred" size="4"> Tested only on *Windows 10* (64-bit) with
+RStudio 1.2.5033. </font> <br><br>
 </center>
+<p>Bug reports and your feedback are welcome at <a href="https://github.com/mokymai/bio/issues" class="uri">https://github.com/mokymai/bio/issues</a>. In the report, indicate your operating system.</p>
 </div>
 <div id="install" class="section level1">
 <h1 class="hasAnchor">
 <a href="#install" class="anchor"></a>Install</h1>
-<p>To install this package from GitHub:</p>
+<p>To install this package from GitHub, use code:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span>(remotes)) {<span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"remotes"</span>)}</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">remotes<span class="op">::</span><span class="kw"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"mokymai/bio"</span>)</a></code></pre></div>
 </div>
 <div id="examples" class="section level1">
 <h1 class="hasAnchor">
 <a href="#examples" class="anchor"></a>Examples</h1>
-<div id="update-packages" class="section level2">
-<h2 class="hasAnchor">
-<a href="#update-packages" class="anchor"></a>Update packages</h2>
-<p>Update package <strong>bio</strong>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/bio_version.html">update_pkg_bio</a></span>()</a></code></pre></div>
-<p>Update package <strong>snippets</strong>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/update_pkg_snippets.html">update_pkg_snippets</a></span>()</a></code></pre></div>
-<p>Update package <strong>RcmdrPlugin.biostat</strong>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/update_pkg_rcmdr_biostat.html">update_pkg_rcmdr_biostat</a></span>()</a></code></pre></div>
-</div>
 <div id="check-information-about-os-programs-and-packages" class="section level2">
 <h2 class="hasAnchor">
 <a href="#check-information-about-os-programs-and-packages" class="anchor"></a>Check information about OS, programs and packages</h2>
-<p>Check user information, installed R-related programs and R packages. (OS – operating system.)</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/check_installed_programs.html">check_user_info</a></span>()</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">## Operating system    Windows 10 x64 (build 18362)</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">## Platform            x86_64-w64-mingw32/x64 (64-bit)</a>
-<a class="sourceLine" id="cb5-4" data-line-number="4">## USERNAME            User</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">## USERPROFILE         C:/Users/User</a>
-<a class="sourceLine" id="cb5-6" data-line-number="6">## HOME                C:/Users/User/Documents</a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">## R_USER              C:/Users/User/Documents</a>
-<a class="sourceLine" id="cb5-8" data-line-number="8">## R_HOME              C:/PROGRA~1/R/R-36~1.2</a>
-<a class="sourceLine" id="cb5-9" data-line-number="9">## R_LIBS_USER         C:/R/win-library/3.6</a></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/check_installed_programs.html">check_installed_programs</a></span>(<span class="st">"all"</span>)</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">## ✔ Program R (3.6.2) is installed (recommended 3.6.2, available 3.6.2)</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">## ✖ Program RStudio is not installed or is not running.</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4">## ✔ Program Rtools is installed.</a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">## ✔ Program Atom is installed.</a>
-<a class="sourceLine" id="cb6-6" data-line-number="6">## ✔ Program Git is installed.</a>
-<a class="sourceLine" id="cb6-7" data-line-number="7">## ✔ Program Meld is installed.</a></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/check_installed_packages.html">check_installed_packages</a></span>(<span class="dt">list_name =</span> <span class="st">"mini"</span>, <span class="dt">include =</span> <span class="st">"newer_on_cran"</span>)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">## ✔ The required versions of all 19 packages (from list 'mini') are already installed.</a></code></pre></div>
+<p>Check information about operating system (OS) and R-related user information.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/check_installed_programs.html">check_user_info</a></span>()</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">## Operating system    Windows 10 x64 (build 18362)</a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">## Platform            x86_64-w64-mingw32/x64 (64-bit)</a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">## USERNAME            User</a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">## USERPROFILE         C:/Users/User</a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">## HOME                C:/Users/User/Documents</a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">## R_USER              C:/Users/User/Documents</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">## R_HOME              C:/PROGRA~1/R/R-36~1.2</a>
+<a class="sourceLine" id="cb2-9" data-line-number="9">## R_LIBS_USER         C:/R/win-library/3.6</a></code></pre></div>
+<p>Check installed R-related programs. Options:</p>
+<ul>
+<li>“main” (default) – checks “R”, “RStudio”, “Rtools” (“Windows” only) and “XQuartz” (“Mac” only).</li>
+<li>“all” – additionally checks for presence of “Atom”, “Git” and “GitHub”.</li>
+</ul>
+<!-- end list --><div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/check_installed_programs.html">check_installed_programs</a></span>(<span class="st">"all"</span>)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">## ✔ Program R (3.6.2) is installed (recommended 3.6.2, available 3.6.2)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">## ✖ Program RStudio is not installed or is not running.</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">## ✔ Program Rtools is installed.</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">## ✔ Program Atom is installed.</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">## ✔ Program Git is installed.</a>
+<a class="sourceLine" id="cb3-7" data-line-number="7">## ✔ Program Meld is installed.</a></code></pre></div>
+<p>Check for installed packages. By default, only missing packages or packages with lower than recommended versions are displayed. Currently available lists are:</p>
+<ul>
+<li>“mini”</li>
+<li>“addins-rmd”</li>
+<li>“bio”</li>
+<li>“bs-2020-initial”</li>
+<li>“gmc-r209”</li>
+<li>“rcmdr”</li>
+<li>“rcmdr-biostat”</li>
+<li>“snippets”</li>
+<li>“spelling-grammar”</li>
+</ul>
+<!-- end list --><div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/check_installed_packages.html">check_installed_packages</a></span>(<span class="dt">list_name =</span> <span class="st">"mini"</span>)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">## ✔ The required versions of all 19 packages (from list 'mini') are already installed.</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/check_installed_packages.html">check_installed_packages</a></span>(<span class="dt">list_name =</span> <span class="st">"mini"</span>, <span class="dt">include =</span> <span class="st">"newer_on_cran"</span>)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">## ✔ The required versions of all 19 packages (from list 'mini') are already installed.</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">## ● 1 package has newer version on CRAN.</a></code></pre></div>
+</div>
+<div id="update-packages" class="section level2">
+<h2 class="hasAnchor">
+<a href="#update-packages" class="anchor"></a>Update packages</h2>
+<p>These are the convenience functions to update certain R packages. The functions try to restart R if used in RStudio.</p>
+<p>Update package <strong>bio</strong>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/bio_version.html">update_pkg_bio</a></span>()</a></code></pre></div>
+<p>Update package <strong>snippets</strong>.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/update_pkg_snippets.html">update_pkg_snippets</a></span>()</a></code></pre></div>
+<p>Update package <strong>RcmdrPlugin.biostat</strong>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/update_pkg_rcmdr_biostat.html">update_pkg_rcmdr_biostat</a></span>()</a></code></pre></div>
 </div>
 <div id="rstudio-settings-and-user-preferences" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rstudio-settings-and-user-preferences" class="anchor"></a>RStudio settings and user preferences</h2>
 <blockquote>
-<p>You may use these functions <strong>at your own risk</strong>.</p>
+<p>You should use functions that reset key bindings (shortcut keys), RStudio settings and snippets <strong>at your own risk</strong>.</p>
 </blockquote>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/set_rstudio_keybindings.html">set_rstudio_keybindings</a></span>(<span class="st">"bio-default"</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/RStudio-user-prefs.html">reset_rs_user_settings</a></span>(<span class="dt">to =</span> <span class="st">"bio-default"</span>)</a></code></pre></div>
+<div id="dictionaries" class="section level3">
+<h3 class="hasAnchor">
+<a href="#dictionaries" class="anchor"></a>Dictionaries</h3>
+<p>Update dictionaries.</p>
+<p>To download <strong>hunspell</strong> spelling checking dictionaries (including Lithuanian) for RStudio.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/spelling.html">download_spellcheck_dictionaries</a></span>()</a></code></pre></div>
+</div>
+<div id="shortcut-keys" class="section level3">
+<h3 class="hasAnchor">
+<a href="#shortcut-keys" class="anchor"></a>Shortcut keys</h3>
+<p>Change shortcut keys. Options:</p>
+<ul>
+<li>“bio-default” – shortcut keys, recommended for BS-2020.</li>
+</ul>
+<!-- end list --><div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/set_rstudio_keybindings.html">set_rstudio_keybindings</a></span>(<span class="st">"bio-default"</span>)</a></code></pre></div>
+<table class="table">
+<colgroup>
+<col width="76%">
+<col width="23%">
+</colgroup>
+<thead><tr class="header">
+<th>Shortcut</th>
+<th>Action</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>
+<kbd>Ctrl</kbd>+<kbd>E</kbd>
+</td>
+<td>Insert R code block (R Markdown).</td>
+</tr>
+<tr class="even">
+<td>
+<kbd>Ctrl</kbd>++<kbd>Alt</kbd>+<kbd>T</kbd>
+</td>
+<td>Insert inline code highlighted as R code (R Markdown).</td>
+</tr>
+<tr class="odd">
+<td>
+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>
+</td>
+<td>Insert inline equation (R Markdown).</td>
+</tr>
+<tr class="even">
+<td>
+<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad0</kbd>
+</td>
+<td>Remove heading (R Markdown).</td>
+</tr>
+<tr class="odd">
+<td>
+<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad1</kbd>, <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad2</kbd>, <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad3</kbd>, <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad4</kbd>, <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad5</kbd>
+</td>
+<td>Insert/Replace line into heading of level 1, 2, 3, 4, or level 5 (R Markdown).</td>
+</tr>
+<tr class="even">
+<td>
+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd>
+</td>
+<td>Insert quotes <code>„</code>.</td>
+</tr>
+<tr class="odd">
+<td>
+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>’</kbd>
+</td>
+<td>Insert quotes <code>“</code>.</td>
+</tr>
+<tr class="even">
+<td>
+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>P</kbd>
+</td>
+<td>Align selected lines at pattern.</td>
+</tr>
+<tr class="odd">
+<td>
+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd>
+</td>
+<td>Use “Tidyverse” style on selected lines of R code (R code).</td>
+</tr>
+<tr class="even">
+<td>
+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>
+</td>
+<td>Check spelling in selected text (if package <strong>wellspell.addin</strong> is installed).</td>
+</tr>
+<tr class="odd">
+<td>
+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>D</td>
+<td>Duplicate selected text.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 1.</strong> Some of shortcut keys set with option “bio-default”.</p>
+<!-- "addins.rmd::rmd_list_numbered"                : "Ctrl+Shift+Alt+L", -->
+<!-- "addins.rs::rs_align_code_at_arrow"            : "Ctrl+Shift+Alt+[", -->
+<!-- "addins.rs::rs_align_code_at_equal"            : "Ctrl+Shift+Alt+]", -->
+<!-- "addins.rs::rs_insert_exposition_pipe"         : "Ctrl+Alt+S", -->
+<!-- "addins.rs::rs_insert_infix_in"                : "Ctrl+Alt+NumPad6", -->
+<!-- "addins.rs::rs_insert_line_ds"                 : "Ctrl+Shift+Alt+Q", -->
+<!-- "addins.rs::rs_insert_line_ss"                 : "Shift+Alt+Q", -->
+<!-- "addins.rs::rs_insert_line_sw"                 : "Ctrl+Shift+Q", -->
+<!-- "addins.rs::rs_insert_matrix_multiplication"   : "Ctrl+Alt+NumPad8", -->
+<!-- "addins.rs::rs_insert_tee_pipe"                : "Ctrl+Alt+.", -->
+<!-- "addins.rs::rs_insert_update_pipe"             : "Ctrl+Alt+,", -->
+<!-- "addins.rs::rs_replace_slash_b2fw"             : "Ctrl+Alt+/", -->
+<!-- "addins.rs::rs_replace_slash_bd2s"             : "Ctrl+Shift+Alt+\\", -->
+<!-- "addins.rs::rs_replace_slash_bs2d"             : "Ctrl+Alt+\\", -->
+<!-- "addins.rs::rs_replace_slash_fw2b"             : "Ctrl+Shift+Alt+/", -->
+<!-- "bookdown::mathquill"                          : "Ctrl+Alt+NumPad9", -->
+<p>More on <a href="https://support.rstudio.com/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts">Customizing Keyboard Shortcuts</a>.</p>
+</div>
+<div id="rstudio-settings" class="section level3">
+<h3 class="hasAnchor">
+<a href="#rstudio-settings" class="anchor"></a>RStudio settings</h3>
+<p>Reset RStudio user preferences and settings. Options:</p>
+<ul>
+<li>“bio-default” – options recommended for course BS-2020.</li>
+<li>“rstudio-default” – default RStudio settings.</li>
+</ul>
+<!-- end list --><div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/RStudio-user-prefs.html">reset_rs_user_settings</a></span>(<span class="dt">to =</span> <span class="st">"bio-default"</span>)</a></code></pre></div>
+</div>
+<div id="snippets" class="section level3">
+<h3 class="hasAnchor">
+<a href="#snippets" class="anchor"></a>Snippets</h3>
+<p>Replace R code and R Markdown snippets with those in package “snippets”. More information on <a href="https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets">Code Snippets</a> and on package <a href="https://gegznav.github.io/snippets/">„snippets“</a>.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">snippets<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/snippets/man/install-snippets.html">install_snippets_from_package</a></span>(<span class="st">"snippets"</span>, <span class="dt">type =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"r"</span>, <span class="st">"markdown"</span>),</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">  <span class="dt">backup =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+</div>
+<div id="restart-r-and-rstudio" class="section level3">
+<h3 class="hasAnchor">
+<a href="#restart-r-and-rstudio" class="anchor"></a>Restart R and RStudio</h3>
+<p>Reload RStudio to see the effect of changed RStudio settings. (In some cases it is recommended to close and reopen RStudio).</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/rs-settings.html">reload_rstudio</a></span>()</a></code></pre></div>
+<p>Restart R inside RStudio session. Useful before installation of R packages.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/rs-settings.html">restart_r</a></span>()</a></code></pre></div>
+</div>
 </div>
 <div id="rstudio-projects" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rstudio-projects" class="anchor"></a>RStudio projects</h2>
 <p>Open (recently used) RStudio project.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/open_project.html">open_project</a></span>()</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">## </a>
-<a class="sourceLine" id="cb10-3" data-line-number="3">## Choose the name of the project (press 0 to cancel): </a>
-<a class="sourceLine" id="cb10-4" data-line-number="4">## </a>
-<a class="sourceLine" id="cb10-5" data-line-number="5">##  1: project-1 </a>
-<a class="sourceLine" id="cb10-6" data-line-number="6">##  2: _learn</a>
-<a class="sourceLine" id="cb10-7" data-line-number="7">##  3: biostatistics</a>
-<a class="sourceLine" id="cb10-8" data-line-number="8">##  </a>
-<a class="sourceLine" id="cb10-9" data-line-number="9"></a>
-<a class="sourceLine" id="cb10-10" data-line-number="10">##  Selection: 0</a>
-<a class="sourceLine" id="cb10-11" data-line-number="11">##  Cancelled by user.</a></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/open_project.html">update_personal_proj_list</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/open_project.html">open_project</a></span>()</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2">## </a>
+<a class="sourceLine" id="cb15-3" data-line-number="3">## Choose the name of the project (press 0 to cancel): </a>
+<a class="sourceLine" id="cb15-4" data-line-number="4">## </a>
+<a class="sourceLine" id="cb15-5" data-line-number="5">##  1: project-1 </a>
+<a class="sourceLine" id="cb15-6" data-line-number="6">##  2: _learn</a>
+<a class="sourceLine" id="cb15-7" data-line-number="7">##  3: biostatistics</a>
+<a class="sourceLine" id="cb15-8" data-line-number="8">##  </a>
+<a class="sourceLine" id="cb15-9" data-line-number="9"></a>
+<a class="sourceLine" id="cb15-10" data-line-number="10">##  Selection: 0</a>
+<a class="sourceLine" id="cb15-11" data-line-number="11">##  Cancelled by user.</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/open_project.html">update_personal_proj_list</a></span>()</a></code></pre></div>
 </div>
 </div>
 
@@ -181,7 +337,7 @@
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://CRAN.R-project.org/package=bio"><img src="https://www.r-pkg.org/badges/version/bio" alt="CRAN status"></a></li>
-<li><a href="https://github.com/mokymai/bio"><img src="https://img.shields.io/badge/GitHub-v0.0.0.9017-brightgreen.svg" alt="GitHub version"></a></li>
+<li><a href="https://github.com/mokymai/bio"><img src="https://img.shields.io/badge/GitHub-v0.0.0.9018-brightgreen.svg" alt="GitHub version"></a></li>
 <li><a href="https://travis-ci.com/mokymai/bio"><img src="https://travis-ci.com/mokymai/bio.svg?branch=master" alt="Travis build status"></a></li>
 <li><a href="https://ci.appveyor.com/project/mokymai/bio"><img src="https://ci.appveyor.com/api/projects/status/github/mokymai/bio?branch=master&amp;svg=true" alt="AppVeyor build status"></a></li>
 <li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
