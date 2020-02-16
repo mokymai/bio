@@ -1,0 +1,7 @@
+rstudioapi
+shiny
+addin.tools
+addins.rmd
+addins.rs
+LanguageToolR
+wellspell.addin
