@@ -12,7 +12,6 @@ colorspace
 effects
 aplpack
 e1071
-foreign
 data.table
 car
 withr
