@@ -35,11 +35,13 @@ check_installed_programs <- function(which = "main", skip_online_check = FALSE) 
     skip_online_check <- check_internet_connection()
   }
 
+  v_req <- get_prgm_req_version(use_local_list = skip_online_check)
+
   # R
-  check_r_version(skip  = skip_online_check)
+  check_r_version(v_recommended = v_req$R, skip  = skip_online_check)
 
   # RStudio
-  check_rs_version(skip = skip_online_check)
+  check_rs_version(v_recommended = v_req$RStudio, skip = skip_online_check)
 
   # Rtools (on Windows)
   if (get_os_type() == "windows") {
@@ -68,8 +70,8 @@ check_installed_programs <- function(which = "main", skip_online_check = FALSE) 
     "bs-2020" = {
       check_program_installed("Atom", is_atom_installed())
     },
-    ui_warn("Unknown value '{which}'")
 
+    ui_warn("Unknown value '{which}'")
   )
 
   invisible()
@@ -99,7 +101,32 @@ check_user_info <- function() {
 
 # ~~~~~~~~~~~~~~~~~~~~~ ======================================================
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+get_path_program_req_version <- function(use_local_list) {
+  base_name <- "programs-required-version.txt"
 
+  if (isTRUE(use_local_list)) {
+    file <- path_bio(base_name)
+    if (!file.exists(file)) {
+      stop("File '", base_name, "' was not found.")
+    }
+
+  } else {
+    file <- url_bio(base_name)
+  }
+  file
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+get_prgm_req_version <- function(use_local_list = getOption("bio.use_local_list", FALSE)) {
+  file <- get_path_program_req_version(use_local_list)
+  tbl <-
+    read.table(file, skip = 10, header = TRUE, sep = "|", na.strings = c("NA", "-"),
+      strip.white = TRUE, stringsAsFactors = FALSE)
+
+  tbl <- remove_ignored_rows(tbl)
+  as.list(setNames(tbl$required_version, tbl$program))
+}
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 get_available_r_version <- function(force = FALSE, skip = FALSE) {
