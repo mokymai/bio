@@ -1,0 +1,2 @@
+LanguageToolR
+wellspell.addin
