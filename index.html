@@ -76,8 +76,8 @@
 <p>Convenience functions to facilitate installation and management of required resources for <strong><em>Biostatistics</em></strong> course unit (<em>BS-2020</em>).</p>
 <center>
 
-<font color="red" size="6"> <br> Work is still in progress… </font> <br><font color="darkred" size="4"> Tested only on *Windows 10* (64-bit) with
-RStudio 1.2.5033. </font> <br><br>
+<font color="red" size="6"> <br> Work is still in progress… </font> <br><font color="darkred" size="4"> Tested only on <em>Windows 10</em>
+(64-bit) with RStudio 1.2.5033. </font> <br><br>
 </center>
 <p>Bug reports and your feedback are welcome at <a href="https://github.com/mokymai/bio/issues" class="uri">https://github.com/mokymai/bio/issues</a>. In the report, indicate your operating system.</p>
 </div>
@@ -168,8 +168,8 @@ RStudio 1.2.5033. </font> <br><br>
 <!-- end list --><div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/set_rstudio_keybindings.html">set_rstudio_keybindings</a></span>(<span class="st">"bio-default"</span>)</a></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="76%">
-<col width="23%">
+<col width="68%">
+<col width="31%">
 </colgroup>
 <thead><tr class="header">
 <th>Shortcut</th>
@@ -178,9 +178,46 @@ RStudio 1.2.5033. </font> <br><br>
 <tbody>
 <tr class="odd">
 <td>
+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>
+</td>
+<td>Check spelling in selected text (if package <a href="https://github.com/nevrome/wellspell.addin"><strong>wellspell.addin</strong></a> is installed).</td>
+</tr>
+<tr class="even">
+<td>
+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd>
+</td>
+<td>Use “Tidyverse” style on selected lines of R code (<em>R code</em>).</td>
+</tr>
+<tr class="odd">
+<td>
+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd>
+</td>
+<td>Duplicate selected text.</td>
+</tr>
+<tr class="even">
+<td>
+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>P</kbd>
+</td>
+<td>Align selected lines at pattern.</td>
+</tr>
+<tr class="odd">
+<td>
+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd>
+</td>
+<td>Insert lower opening quotes <code>„</code>.</td>
+</tr>
+<tr class="even">
+<td>
+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>’</kbd>
+</td>
+<td>Insert upper closing quotes <code>“</code>.</td>
+</tr>
+<tr class="odd">
+<td>
 <kbd>Ctrl</kbd>+<kbd>E</kbd>
 </td>
-<td>Insert R code block (R Markdown).</td>
+<td>
+<strong>[!]</strong> Insert/Enclose with R code block (<em>R Markdown</em>).</td>
 </tr>
 <tr class="even">
 <td>
@@ -192,54 +229,25 @@ RStudio 1.2.5033. </font> <br><br>
 <td>
 <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>
 </td>
-<td>Insert inline equation (R Markdown).</td>
+<td>Insert inline LaTeX equation (<em>R Markdown</em>).</td>
 </tr>
 <tr class="even">
 <td>
 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad0</kbd>
 </td>
-<td>Remove heading (R Markdown).</td>
+<td>Remove heading/section name (<em>R Markdown</em>).</td>
 </tr>
 <tr class="odd">
 <td>
-<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad1</kbd>, <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad2</kbd>, <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad3</kbd>, <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad4</kbd>, <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad5</kbd>
+<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad1</kbd>,<br><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad2</kbd>,<br><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad3</kbd>,<br><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad4</kbd>,<br><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad5</kbd>
 </td>
-<td>Insert/Replace line into heading of level 1, 2, 3, 4, or level 5 (R Markdown).</td>
+<td>Replace line into/Insert heading (section name) of level 1, 2, 3, 4, or level 5 (<em>R Markdown</em>).</td>
 </tr>
 <tr class="even">
 <td>
-<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd>
+<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad6</kbd>
 </td>
-<td>Insert quotes <code>„</code>.</td>
-</tr>
-<tr class="odd">
-<td>
-<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>’</kbd>
-</td>
-<td>Insert quotes <code>“</code>.</td>
-</tr>
-<tr class="even">
-<td>
-<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>P</kbd>
-</td>
-<td>Align selected lines at pattern.</td>
-</tr>
-<tr class="odd">
-<td>
-<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd>
-</td>
-<td>Use “Tidyverse” style on selected lines of R code (R code).</td>
-</tr>
-<tr class="even">
-<td>
-<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>
-</td>
-<td>Check spelling in selected text (if package <strong>wellspell.addin</strong> is installed).</td>
-</tr>
-<tr class="odd">
-<td>
-<kbd>Ctrl</kbd>+<kbd>Shift</kbd>D</td>
-<td>Duplicate selected text.</td>
+<td>Insert operator <code><a href="https://rdrr.io/r/base/match.html">%in%</a></code> (<em>R code</em>).</td>
 </tr>
 </tbody>
 </table>
@@ -276,8 +284,7 @@ RStudio 1.2.5033. </font> <br><br>
 <h3 class="hasAnchor">
 <a href="#snippets" class="anchor"></a>Snippets</h3>
 <p>Replace R code and R Markdown snippets with those in package “snippets”. More information on <a href="https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets">Code Snippets</a> and on package <a href="https://gegznav.github.io/snippets/">„snippets“</a>.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">snippets<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/snippets/man/install-snippets.html">install_snippets_from_package</a></span>(<span class="st">"snippets"</span>, <span class="dt">type =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"r"</span>, <span class="st">"markdown"</span>),</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2">  <span class="dt">backup =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">snippets<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/snippets/man/install-snippets.html">install_snippets_from_package</a></span>(<span class="st">"snippets"</span>, <span class="dt">type =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"r"</span>, <span class="st">"markdown"</span>), <span class="dt">backup =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 </div>
 <div id="restart-r-and-rstudio" class="section level3">
 <h3 class="hasAnchor">
@@ -303,6 +310,7 @@ RStudio 1.2.5033. </font> <br><br>
 <a class="sourceLine" id="cb15-9" data-line-number="9"></a>
 <a class="sourceLine" id="cb15-10" data-line-number="10">##  Selection: 0</a>
 <a class="sourceLine" id="cb15-11" data-line-number="11">##  Cancelled by user.</a></code></pre></div>
+<p>Copy the recent projects to your personal project list.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/open_project.html">update_personal_proj_list</a></span>()</a></code></pre></div>
 </div>
 </div>
