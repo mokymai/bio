@@ -38,7 +38,7 @@ check_installed_programs <- function(which = "main", skip_online_check = FALSE) 
   v_req <- get_prgm_req_version(use_local_list = skip_online_check)
 
   # R
-  check_r_version(v_recommended = v_req$R, skip  = skip_online_check)
+  check_r_version(v_recommended = v_req$R, skip = skip_online_check)
 
   # RStudio
   check_rs_version(v_recommended = v_req$RStudio, skip = skip_online_check)
