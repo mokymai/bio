@@ -227,8 +227,7 @@ More information on
 
 
 ```{r, eval=FALSE}
-snippets::install_snippets_from_package("snippets", type = c("r", "markdown"),
-  backup = TRUE)
+snippets::install_snippets_from_package("snippets", type = c("r", "markdown"), backup = TRUE)
 ```
 
 
