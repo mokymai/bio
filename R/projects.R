@@ -237,7 +237,7 @@ open_project <- function(name = NULL, new_session = TRUE, proj_list = NULL,
       )
     }
 
-    cat("\nChoose the name of the project: \n")
+    cat("\nChoose the name of the project (press 0 to cancel): \n")
 
     all_names <- sort(proj_list$name)
     i_name <- utils::menu(all_names)
