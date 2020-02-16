@@ -25,8 +25,8 @@ required resources for ***Biostatistics*** course unit (*BS-2020*).
 <center>
 
 <font color="red" size=6> <br> Work is still in progress… </font> <br>
-<font color="darkred" size=4> Tested only on *Windows 10* (64-bit) with
-RStudio 1.2.5033. </font> <br><br>
+<font color="darkred" size=4> Tested only on <em>Windows 10</em>
+(64-bit) with RStudio 1.2.5033. </font> <br><br>
 
 </center>
 
@@ -159,19 +159,20 @@ Change shortcut keys. Options:
 bio::set_rstudio_keybindings("bio-default")
 ```
 
-| Shortcut                                                                                                                                                                                                                                                      | Action                                                                         |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| <kbd>Ctrl</kbd>+<kbd>E</kbd>                                                                                                                                                                                                                                  | Insert R code block (R Markdown).                                              |
-| <kbd>Ctrl</kbd>++<kbd>Alt</kbd>+<kbd>T</kbd>                                                                                                                                                                                                                  | Insert inline code highlighted as R code (R Markdown).                         |
-| <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>                                                                                                                                                                                                                  | Insert inline equation (R Markdown).                                           |
-| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad0</kbd>                                                                                                                                                                                                             | Remove heading (R Markdown).                                                   |
-| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad1</kbd>, <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad2</kbd>, <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad3</kbd>, <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad4</kbd>, <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad5</kbd> | Insert/Replace line into heading of level 1, 2, 3, 4, or level 5 (R Markdown). |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd>                                                                                                                                                                                                                 | Insert quotes `„`.                                                             |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>’</kbd>                                                                                                                                                                                                                 | Insert quotes `“`.                                                             |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>P</kbd>                                                                                                                                                                                                  | Align selected lines at pattern.                                               |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd>                                                                                                                                                                                                  | Use “Tidyverse” style on selected lines of R code (R code).                    |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>                                                                                                                                                                                                  | Check spelling in selected text (if package **wellspell.addin** is installed). |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>D</kbd>                                                                                                                                                                                                                       | Duplicate selected text.                                                       |
+| Shortcut                                                                                                                                                                                                                                                                      | Action                                                                                                                       |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>                                                                                                                                                                                                                  | Check spelling in selected text (if package [**wellspell.addin**](https://github.com/nevrome/wellspell.addin) is installed). |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd>                                                                                                                                                                                                                  | Use “Tidyverse” style on selected lines of R code (*R code*).                                                                |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd>                                                                                                                                                                                                                                 | Duplicate selected text.                                                                                                     |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>P</kbd>                                                                                                                                                                                                                  | Align selected lines at pattern.                                                                                             |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd>                                                                                                                                                                                                                                 | Insert lower opening quotes `„`.                                                                                             |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>’</kbd>                                                                                                                                                                                                                                 | Insert upper closing quotes `“`.                                                                                             |
+| <kbd>Ctrl</kbd>+<kbd>E</kbd>                                                                                                                                                                                                                                                  | **\[\!\]** Insert R code block (*R Markdown*).                                                                               |
+| <kbd>Ctrl</kbd>++<kbd>Alt</kbd>+<kbd>T</kbd>                                                                                                                                                                                                                                  | Insert inline code highlighted as R code (R Markdown).                                                                       |
+| <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>                                                                                                                                                                                                                                  | Insert inline LaTeX equation (*R Markdown*).                                                                                 |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad0</kbd>                                                                                                                                                                                                                             | Remove heading/section name (*R Markdown*).                                                                                  |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad1</kbd>,<br> <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad2</kbd>,<br> <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad3</kbd>,<br> <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad4</kbd>,<br> <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad5</kbd> | Replace line into/Insert heading (section name) of level 1, 2, 3, 4, or level 5 (*R Markdown*).                              |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad6</kbd>                                                                                                                                                                                                                             | Insert operator `%in%` (*R code*).                                                                                           |
 
 **Table 1.** Some of shortcut keys set with option “bio-default”.
 
@@ -231,8 +232,7 @@ Snippets](https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets)
 and on package [„snippets“](https://gegznav.github.io/snippets/).
 
 ``` r
-snippets::install_snippets_from_package("snippets", type = c("r", "markdown"),
-  backup = TRUE)
+snippets::install_snippets_from_package("snippets", type = c("r", "markdown"), backup = TRUE)
 ```
 
 ### Restart R and RStudio
@@ -268,6 +268,8 @@ bio::open_project()
 ##  Selection: 0
 ##  Cancelled by user.
 ```
+
+Copy the recent projects to your personal project list.
 
 ``` r
 bio::update_personal_proj_list()
