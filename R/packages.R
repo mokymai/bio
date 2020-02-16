@@ -840,7 +840,10 @@ check_installed_packages <- function(list_name,
     usethis::ui_info("The results are saved to object {usethis::ui_field(status_name)} ")
     usethis::ui_todo("To get package installation code, type:\n{usethis::ui_field(code_name)} ")
     cat("\n")
-    rstudioapi::sendToConsole(code_name, execute = FALSE)
+
+    if (rstudioapi::isAvailable("0.99.787")) {
+      rstudioapi::sendToConsole(code_name, execute = FALSE)
+    }
   }
 
   invisible(status)
