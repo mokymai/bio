@@ -229,8 +229,6 @@ get_path_pkgs_req_version <- function(use_local_list) {
 }
 
 
-
-
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' Get details about package on CRAN.
 #'
@@ -598,7 +596,7 @@ print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) 
     rownames(st) <- NULL
     colnames(st) <- c("package", "is_installed", "v_current", "v_required",
       "v_cran", "update_is_required")
-    usethis::ui_info("{crayon::silver('Abbreviations:')} {crayon::yellow('v – version')}\n")
+    usethis::ui_info("{crayon::silver('Abbreviations:')} {crayon::yellow('v \u2014 version')}\n")
     print(tibble::as_tibble(st), n = Inf, width = Inf, n_extra = Inf)
   }
 }
