@@ -350,8 +350,6 @@ get_pkgs_installation_status_local <- function(list_name,
 # Instalation status ---------------------------------------------------------
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
-# FIXME: update the documentation
-#
 #' @name get_pkgs_installation_status
 #'
 #' @title Get package installation status and code.
@@ -676,6 +674,8 @@ get_pkgs_installation_code <- function(x, ...) {
 # Installation code
 #' @rdname get_pkgs_installation_status
 #' @export
+#' @param to_clipboard (logical) If `TRUE`, the code is copied to clipboard and
+#'        returned only invisibly.
 get_pkgs_installation_code.pkgs_installation_status <- function(x, ...,
   to_clipboard = FALSE) {
 
@@ -693,8 +693,8 @@ get_pkgs_installation_code.pkgs_installation_status <- function(x, ...,
       if (r_installed < r_available) {
         stringr::str_glue(
           "Either the packages require a newer version of R ",
-          "(installed {crayon::yellow(r_installed)}, ",
-          "available {crayon::green(r_available)}) ",
+          "(installed {yellow(r_installed)}, ",
+          "available {green(r_available)}) ",
           "or they might be recently removed from CRAN. "
         )
 
@@ -704,11 +704,11 @@ get_pkgs_installation_code.pkgs_installation_status <- function(x, ...,
 
     usethis::ui_warn(paste0(
       "Installation code is missing for packages: \n",
-      paste0("{crayon::yellow('", pkgs_miss_code, "')}", collapse = ", "), ". \n",
+      paste0("{yellow('", pkgs_miss_code, "')}", collapse = ", "), ". \n",
       "{status_msg}",
       "Check the status of the packages at ",
-      "{crayon::yellow('https://cran.r-project.org/web/packages/')}",
-      "{crayon::blue('[package\\'s name]')}. "
+      "{yellow('https://cran.r-project.org/web/packages/')}",
+      "{blue('[package\\'s name]')}. "
     ))
   }
 
@@ -747,7 +747,15 @@ get_pkgs_installation_code.pkgs_installation_status <- function(x, ...,
 
     cat("\n")
     usethis::ui_done("Installation code was copied to the clipboard.")
-    usethis::ui_info("Use Ctrl+V (on Mac: Cmd+V) to paste it.")
+
+    if (get_os_type() == "osx") {
+      usethis::ui_info("Use {yellow('Cmd+V')} to paste it.")
+
+    } else {
+      # non-Mac / non-OS X
+      usethis::ui_info("Use {yellow('Ctrl+V')} to paste it.")
+    }
+
     usethis::ui_todo(
       "Before installation, close RStudio project and/or restart R session."
     )

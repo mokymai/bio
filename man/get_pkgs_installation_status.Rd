@@ -85,6 +85,9 @@ Defaults to the value of \code{install}.}
 \item{x}{Object of interest.}
 
 \item{...}{Arguments to other methods.}
+
+\item{to_clipboard}{(logical) If \code{TRUE}, the code is copied to clipboard and
+returned only invisibly.}
 }
 \description{
 Get package installation status (e.g., if packages of interest are installed
