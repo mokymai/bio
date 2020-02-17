@@ -42,7 +42,7 @@ restriction_status <- function(ignore_ip = FALSE, ...) {
 #'
 #' The function works only in GMC R209, GMC C255 and ITPC EC-108 classrooms.
 #'
-#' @param ...
+#' @param ... Further arguments for advanced users only.
 #' @param force_update_dictionaries (logical) If `TRUE`, the dictionaries are
 #' forced to be downloaded/updated.
 #'
@@ -201,7 +201,7 @@ clear_r_history <- function(backup = TRUE) {
 
   if (isTRUE(backup)) {
 
-    new_name <- paste0("Rhistory", get_backup_id(), ".Rhistory")
+    new_name <- paste0("Rhistory", get_backup_stamp(), ".Rhistory")
     hist_backup <- fs::path(get_path_backup_dir(), new_name)
 
     withr::with_dir(get_path_backup_dir(), savehistory(file = new_name))
@@ -375,6 +375,7 @@ set_initial_rs_configuration <- function() {
 #' reset_rs_user_settings(to = "rstudio-default")
 #'
 #' }}
+#' @inheritParams get_path_rs_user_settings
 
 read_rs_user_settings <- function(which = "current") {
   file   <- get_path_rs_user_settings(which)
@@ -449,6 +450,12 @@ get_rs_ui_pref_names <- function(which = "current") {
 
 #' @rdname RStudio-user-prefs
 #' @export
+#' @param to The set of RStudio user settings.
+#'        One of: "rstudio-default" or "bio-default".
+#' @param backup (logical) If `TRUE`, a backup copy of files with settings is
+#'        created.
+#' @param ask (logical) If `TRUE`, user confirmation to reset settings is
+#'       required.
 reset_rs_user_settings <- function(to = "none", backup = TRUE, ask = TRUE) {
 
   # to = c("rstudio-default", "bio-default")

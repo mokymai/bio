@@ -13,6 +13,7 @@ addin.tools             | github        | GegznaV/addin.tools                   
 addins.rmd              | github        | GegznaV/addins.rmd                     | FALSE  | -
 addins.rs               | github        | GegznaV/addins.rs                      | FALSE  | -
 adventr                 | github        | profandyfield/adventr                  | FALSE  | -
+backup.tools            | github        | GegznaV/backup.tools                   | FALSE  | -
 bio                     | github        | mokymai/bio                            | FALSE  | -
 car                     | repos         | http://R-Forge.R-project.org           | TRUE   | dependencies = TRUE
 emo                     | github        | hadley/emo                             | FALSE  | -

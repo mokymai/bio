@@ -1,4 +1,5 @@
 #' @keywords internal
+#' @import backup.tools
 #' @importFrom utils browseURL download.file installed.packages loadhistory
 #'                   read.table savehistory unzip
 #' @importFrom magrittr "%>%"
