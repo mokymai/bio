@@ -32,48 +32,55 @@ get_pkgs_installation_code(x, ...)
 }
 \arguments{
 \item{list_name}{(character) The name of the list with required R packages.
-E.g., "mini", "Rcmdr", etc.}
+E.g., "mini", "Rcmdr", "Rcmdr-biostat", "bio", etc.}
 
-\item{use_local_list}{(logical) If \code{TRUE}, the list, which is in the folder
-of package \pkg{bio} ("local list"), is used. If \code{FALSE}, the lists
-on "GitHub" repository of the package is used. It is recommended
-using the online version of the list, as it may contain more recent
-changes.}
+\item{use_local_list}{(logical) If \code{TRUE}, the list, which is locally
+installed in the folder of package \pkg{bio} ("local list"), is used.
+If \code{FALSE}, the list on "GitHub" repository of the package is used.
+It is recommended  using the online version of the list, as it may
+contain more recent changes.
+Optiom bight be set globally by, e.g.,
+\code{options(bio.use_local_list = TRUE)}.}
 
 \item{include}{(character) Which packages from the list (indicated in \code{list_name})
 must be included in the results.
 One of:
-- \code{outdated} (default): only the packages that need are not installed
+- \code{"always"} or \code{TRUE}: all packages;
+- \code{"newer_on_cran"} -- only the packages that are \code{"outdated"} or have
+newer version on CRAN. For arguments \code{github} and \code{elsewhere},
+value \code{"newer_on_cran"} is replaced with \code{"outdated"}.
+- \code{"outdated"} (default): only the packages that are not installed
 or do not have a minimum required version installed.
-- \code{missing }: only the packages that are not installed to be installed.
-- \code{always }: all packages.}
+- \code{"missing"}: only the packages that are not installed.
+- \code{"never"} or \code{FALSE}: none.}
 
 \item{show_status}{(character) Which packages should be included in the
-package installation status summary. One of "outdated",
-"missing", "always" (see \code{include}). Defaults to the value of \code{include}.}
+package installation status summary.
+See options of \code{include}.
+Defaults to the value of \code{include}.}
 
 \item{install}{(character) Which packages should be included in the
-package installation code. One of "outdated", "missing", "always"
-(see \code{include}). Defaults to the value of \code{include}. Sets the default
-value for \code{cran}, \code{github}, and \code{elsewhere}.}
+package installation code.
+See options of \code{include}.
+Defaults to the value of \code{include}.
+Sets the default value for \code{cran}, \code{github}, and \code{elsewhere}.}
 
 \item{cran}{(character) Condition to filter packages that should be
-included in code that installs packages from CRAN. One of "outdated",
-"missing", "always" (see \code{include}) as well as "newer_on_cran" and
-"required" (see below). Defaults to the value of \code{install}.
-- \code{newer_on_cran} -- if CRAN version is newer than the installed one
-(even if minimum required version is installed).
-- \code{required} -- packages that do not have a minimum required version
+included in code that installs packages from CRAN.
+See options of \code{include} plus value \code{"required"}.
+Defaults to the value of \code{install}.
+- \code{"required"} -- packages that do not have a minimum required version
 installed even if the required version is not on CRAN.}
 
 \item{github}{(character) Condition to filter packages that should be
-included in code that installs packages from GitHub. One of "outdated",
-"missing", "always" (see \code{include}). Defaults to the value of \code{install}.}
+included in code that installs packages from GitHub.
+See options of \code{include} plus value \code{"required"}.
+Defaults to the value of \code{install}.}
 
 \item{elsewhere}{(character) Condition to filter packages that should
-be included in code that installs packages from other sources. One of
-"outdated", "missing", "always" (see \code{include}). Defaults to the value
-of \code{install}.}
+be included in code that installs packages from other sources.
+See options of \code{include} plus value \code{"required"}.
+Defaults to the value of \code{install}.}
 
 \item{x}{Object of interest.}
 

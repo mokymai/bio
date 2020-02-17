@@ -360,48 +360,55 @@ get_pkgs_installation_status_local <- function(list_name,
 #' or need to be updated) and package installation code.
 #'
 #' @param list_name (character) The name of the list with required R packages.
-#'        E.g., "mini", "Rcmdr", etc.
+#'        E.g., "mini", "Rcmdr", "Rcmdr-biostat", "bio", etc.
 #'
 #' @param include (character) Which packages from the list (indicated in `list_name`)
 #'        must be included in the results.
 #'        One of:
-#'        - `outdated` (default): only the packages that need are not installed
+#'        - `"always"` or `TRUE`: all packages;
+#'        - `"newer_on_cran"` -- only the packages that are `"outdated"` or have
+#'          newer version on CRAN. For arguments `github` and `elsewhere`,
+#'           value `"newer_on_cran"` is replaced with `"outdated"`.
+#'        - `"outdated"` (default): only the packages that are not installed
 #'           or do not have a minimum required version installed.
-#'        - `missing `: only the packages that are not installed to be installed.
-#'        - `always `: all packages.
+#'        - `"missing"`: only the packages that are not installed.
+#'        - `"never"` or `FALSE`: none.
 #'
 #' @param show_status (character) Which packages should be included in the
-#'        package installation status summary. One of "outdated",
-#'        "missing", "always" (see `include`). Defaults to the value of `include`.
+#'        package installation status summary.
+#'        See options of `include`.
+#'        Defaults to the value of `include`.
 #'
 #' @param install (character) Which packages should be included in the
-#'        package installation code. One of "outdated", "missing", "always"
-#'        (see `include`). Defaults to the value of `include`. Sets the default
-#'        value for `cran`, `github`, and `elsewhere`.
+#'        package installation code.
+#'        See options of `include`.
+#'        Defaults to the value of `include`.
+#'        Sets the default value for `cran`, `github`, and `elsewhere`.
 #'
 #' @param cran (character) Condition to filter packages that should be
-#'        included in code that installs packages from CRAN. One of "outdated",
-#'        "missing", "always" (see `include`) as well as "newer_on_cran" and
-#'        "required" (see below). Defaults to the value of `install`.
-#'        - `newer_on_cran` -- if CRAN version is newer than the installed one
-#'           (even if minimum required version is installed).
-#'        - `required` -- packages that do not have a minimum required version
+#'        included in code that installs packages from CRAN.
+#'        See options of `include` plus value `"required"`.
+#'        Defaults to the value of `install`.
+#'        - `"required"` -- packages that do not have a minimum required version
 #'          installed even if the required version is not on CRAN.
 #'
 #' @param github (character) Condition to filter packages that should be
-#'        included in code that installs packages from GitHub. One of "outdated",
-#'        "missing", "always" (see `include`). Defaults to the value of `install`.
+#'        included in code that installs packages from GitHub.
+#'        See options of `include` plus value `"required"`.
+#'        Defaults to the value of `install`.
 #'
 #' @param elsewhere (character) Condition to filter packages that should
-#'        be included in code that installs packages from other sources. One of
-#'        "outdated", "missing", "always" (see `include`). Defaults to the value
-#'         of `install`.
+#'        be included in code that installs packages from other sources.
+#'        See options of `include` plus value `"required"`.
+#'        Defaults to the value of `install`.
 #'
-#' @param use_local_list (logical) If `TRUE`, the list, which is in the folder
-#'         of package \pkg{bio} ("local list"), is used. If `FALSE`, the lists
-#'         on "GitHub" repository of the package is used. It is recommended
-#'         using the online version of the list, as it may contain more recent
-#'         changes.
+#' @param use_local_list (logical) If `TRUE`, the list, which is locally
+#'        installed in the folder of package \pkg{bio} ("local list"), is used.
+#'         If `FALSE`, the list on "GitHub" repository of the package is used.
+#'         It is recommended  using the online version of the list, as it may
+#'         contain more recent changes.
+#'         Optiom bight be set globally by, e.g.,
+#'          `options(bio.use_local_list = TRUE)`.
 #'
 #' @export
 #' @family R-packages-related functions
@@ -582,7 +589,7 @@ print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) 
       "outdated"      =  st$update_is_required,
       "missing"       = !st$is_installed,
       "never"         = ,
-      "FALSE"         = rep(TRUE, nrow(st)),
+      "FALSE"         = rep(FALSE, nrow(st)),
       stop("Unknown value of `show_status`: ", show_status)
     )
 
