@@ -760,7 +760,13 @@ get_pkgs_installation_code_cran <- function(x) {
   if (length(pkgs_vec) == 0) {
     return("")
   }
+
   pkgs <- to_str_vector(pkgs_vec, collapse = ",\n")
+
+  if (length(pkgs_vec) > 1) {
+    pkgs <- paste0("c(\n", pkgs ,")")
+  }
+
   res <- paste0("install.packages(", pkgs , ")")
   styler::style_text(res)
 }
