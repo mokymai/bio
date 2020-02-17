@@ -22,6 +22,10 @@ to_str_vector <- function(str, quotes = '"', collapse = ", ") {
     structure(., class = "glue")
 }
 
+base_r_packages <- function() {
+  rownames(installed.packages(priority = "base"))
+}
+
 #' Compare version numbers.
 #'
 #' @param v_installed vector with installed version numbers
