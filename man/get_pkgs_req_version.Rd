@@ -7,11 +7,13 @@
 get_pkgs_req_version(use_local_list = getOption("bio.use_local_list", FALSE))
 }
 \arguments{
-\item{use_local_list}{(logical) If \code{TRUE}, the list, which is in the folder
-of package \pkg{bio} ("local list"), is used. If \code{FALSE}, the lists
-on "GitHub" repository of the package is used. It is recommended
-using the online version of the list, as it may contain more recent
-changes.}
+\item{use_local_list}{(logical) If \code{TRUE}, the list, which is locally
+installed in the folder of package \pkg{bio} ("local list"), is used.
+If \code{FALSE}, the list on "GitHub" repository of the package is used.
+It is recommended  using the online version of the list, as it may
+contain more recent changes.
+Optiom bight be set globally by, e.g.,
+\code{options(bio.use_local_list = TRUE)}.}
 }
 \value{
 Dataframe with columns  "package" and "required_version".

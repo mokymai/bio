@@ -22,6 +22,18 @@ get_rs_ui_pref_names(which = "current")
 
 reset_rs_user_settings(to = "none", backup = TRUE, ask = TRUE)
 }
+\arguments{
+\item{which}{(character) type of settings: "current", "bio-default".}
+
+\item{to}{The set of RStudio user settings.
+One of: "rstudio-default" or "bio-default".}
+
+\item{backup}{(logical) If \code{TRUE}, a backup copy of files with settings is
+created.}
+
+\item{ask}{(logical) If \code{TRUE}, user confirmation to reset settings is
+required.}
+}
 \value{
 A named list with some of current RStudio preferences.
 }

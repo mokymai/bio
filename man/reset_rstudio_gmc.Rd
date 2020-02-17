@@ -7,6 +7,8 @@
 reset_rstudio_gmc(..., force_update_dictionaries = FALSE)
 }
 \arguments{
+\item{...}{Further arguments for advanced users only.}
+
 \item{force_update_dictionaries}{(logical) If \code{TRUE}, the dictionaries are
 forced to be downloaded/updated.}
 }
