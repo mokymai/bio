@@ -90,8 +90,19 @@ get_git_core_editor_cmd <- function(core_editor = "atom") {
 #' @examples
 #' is_git_installed()
 is_git_installed <- function() {
-  suppressWarnings(
-    system("git --version", show.output.on.console = FALSE) == 0
+  # suppressWarnings(
+  #   system("git --version", show.output.on.console = FALSE) == 0
+  # )
+  tryCatch(
+    {
+      system2("git", "--version", stdout = TRUE, stderr = TRUE)
+      # If no error occurs in system2(), TRUE is returned.
+      TRUE
+    },
+
+    error = function(e) {
+      FALSE
+    }
   )
 }
 
@@ -104,8 +115,10 @@ is_git_installed <- function() {
 #' get_path_to_git()
 get_path_to_git <- function() {
   if (is_git_installed()) {
-    cmd <- switch(get_os_type(), "windows" = "where git", "which git")
-    file <- fs::path(system(cmd, intern = TRUE, show.output.on.console = FALSE))
+    # cmd <- switch(get_os_type(), "windows" = "where git", "which git")
+    # file <- fs::path(system(cmd, intern = TRUE, show.output.on.console = FALSE))
+    cmd <- switch(get_os_type(), "windows" = "where", "which")
+    file <- fs::path(system2(cmd, "git", stdout = TRUE))
     # Replace cmd to bin on Windows
     sub("/cmd/git.exe$", "/bin/git.exe", file)
 
@@ -141,7 +154,6 @@ download_meld <- function() {
       )
       bowse_meld_homepage()
     }
-
   )
 }
 
@@ -156,7 +168,9 @@ get_default_path_to_meld <- function() {
       # "linux"   = "/usr/bin/meld",
       # "osx"     = "/usr/bin/meld", # <- neašku, kaip Mac'e
 
-      system("which meld", intern = TRUE, show.output.on.console = FALSE)
+      # FIXME: Might not work if Meld is not installed
+      system2("which", "meld", stdout = TRUE)
+      # system("which meld", intern = TRUE, show.output.on.console = FALSE)
     )
   # if (!fs::file_exists(path_to)) {
   #   usethis::ui_stop("Path to Meld was not found. ")
@@ -244,8 +258,19 @@ bowse_atom_homepage <- function() {
 #' @rdname atom
 #' @export
 is_atom_installed <- function() {
-  suppressWarnings(
-    system("atom --version", show.output.on.console = FALSE, intern = FALSE) == 0
+  # suppressWarnings(
+  #   system("atom --version", show.output.on.console = FALSE, intern = FALSE) == 0
+  # )
+  tryCatch(
+    {
+      system2("atom", "--version", stdout = TRUE, stderr = TRUE)
+      # If no error occurs in system2(), TRUE is returned.
+      TRUE
+    },
+
+    error = function(e) {
+      FALSE
+    }
   )
 }
 
