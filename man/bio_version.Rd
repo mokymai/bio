@@ -13,6 +13,13 @@ check_updates_bio(show_status = "always", install = "outdated", ...)
 
 update_pkg_bio()
 }
+\arguments{
+\item{show_status}{See argument \code{show_status} in \code{\link[=get_pkgs_installation_status]{get_pkgs_installation_status()}}.}
+
+\item{install}{See argument \code{install} in \code{\link[=get_pkgs_installation_status]{get_pkgs_installation_status()}}.}
+
+\item{...}{Arguments to further methods.}
+}
 \description{
 \code{get_vesion_bio()} returns version number of package \pkg{bio}.
 \code{check_updates_bio()} checks if package \pkg{bio} has a recommended version.
