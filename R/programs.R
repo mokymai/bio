@@ -86,7 +86,7 @@ check_user_info <- function() {
       "Operating system   " = sessionInfo()$running,
       "Platform "           = sessionInfo()$platform,
       Sys.getenv(c(
-        "USERNAME", "USERPROFILE", "HOME", "R_USER", "R_HOME", "R_LIBS_USER"))
+        "LOGNAME", "USERNAME", "USERPROFILE", "HOME", "R_USER", "R_HOME", "R_LIBS_USER"))
     ) %>%
     as.data.frame()
 
