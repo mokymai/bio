@@ -70,7 +70,7 @@ or need to be updated) and package installation code." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9019</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9020</span>
       </span>
     </div>
 
@@ -146,62 +146,69 @@ or need to be updated) and package installation code.</p>
     <tr>
       <th>list_name</th>
       <td><p>(character) The name of the list with required R packages.
-E.g., "mini", "Rcmdr", etc.</p></td>
+E.g., "mini", "Rcmdr", "Rcmdr-biostat", "bio", etc.</p></td>
     </tr>
     <tr>
       <th>use_local_list</th>
-      <td><p>(logical) If <code>TRUE</code>, the list, which is in the folder
-of package <span class="pkg">bio</span> ("local list"), is used. If <code>FALSE</code>, the lists
-on "GitHub" repository of the package is used. It is recommended
-using the online version of the list, as it may contain more recent
-changes.</p></td>
+      <td><p>(logical) If <code>TRUE</code>, the list, which is locally
+installed in the folder of package <span class="pkg">bio</span> ("local list"), is used.
+If <code>FALSE</code>, the list on "GitHub" repository of the package is used.
+It is recommended  using the online version of the list, as it may
+contain more recent changes.
+Optiom bight be set globally by, e.g.,
+<code><a href='https://rdrr.io/r/base/options.html'>options(bio.use_local_list = TRUE)</a></code>.</p></td>
     </tr>
     <tr>
       <th>include</th>
       <td><p>(character) Which packages from the list (indicated in <code>list_name</code>)
 must be included in the results.
 One of:
-- <code>outdated</code> (default): only the packages that need are not installed
+- <code>"always"</code> or <code>TRUE</code>: all packages;
+- <code>"newer_on_cran"</code> -- only the packages that are <code>"outdated"</code> or have
+newer version on CRAN. For arguments <code>github</code> and <code>elsewhere</code>,
+value <code>"newer_on_cran"</code> is replaced with <code>"outdated"</code>.
+- <code>"outdated"</code> (default): only the packages that are not installed
 or do not have a minimum required version installed.
-- <code>missing </code>: only the packages that are not installed to be installed.
-- <code>always </code>: all packages.</p></td>
+- <code>"missing"</code>: only the packages that are not installed.
+- <code>"never"</code> or <code>FALSE</code>: none.</p></td>
     </tr>
     <tr>
       <th>show_status</th>
       <td><p>(character) Which packages should be included in the
-package installation status summary. One of "outdated",
-"missing", "always" (see <code>include</code>). Defaults to the value of <code>include</code>.</p></td>
+package installation status summary.
+See options of <code>include</code>.
+Defaults to the value of <code>include</code>.</p></td>
     </tr>
     <tr>
       <th>install</th>
       <td><p>(character) Which packages should be included in the
-package installation code. One of "outdated", "missing", "always"
-(see <code>include</code>). Defaults to the value of <code>include</code>. Sets the default
-value for <code>cran</code>, <code>github</code>, and <code>elsewhere</code>.</p></td>
+package installation code.
+See options of <code>include</code>.
+Defaults to the value of <code>include</code>.
+Sets the default value for <code>cran</code>, <code>github</code>, and <code>elsewhere</code>.</p></td>
     </tr>
     <tr>
       <th>cran</th>
       <td><p>(character) Condition to filter packages that should be
-included in code that installs packages from CRAN. One of "outdated",
-"missing", "always" (see <code>include</code>) as well as "newer_on_cran" and
-"required" (see below). Defaults to the value of <code>install</code>.
-- <code>newer_on_cran</code> -- if CRAN version is newer than the installed one
-(even if minimum required version is installed).
-- <code>required</code> -- packages that do not have a minimum required version
+included in code that installs packages from CRAN.
+See options of <code>include</code> plus value <code>"required"</code>.
+Defaults to the value of <code>install</code>.
+- <code>"required"</code> -- packages that do not have a minimum required version
 installed even if the required version is not on CRAN.</p></td>
     </tr>
     <tr>
       <th>github</th>
       <td><p>(character) Condition to filter packages that should be
-included in code that installs packages from GitHub. One of "outdated",
-"missing", "always" (see <code>include</code>). Defaults to the value of <code>install</code>.</p></td>
+included in code that installs packages from GitHub.
+See options of <code>include</code> plus value <code>"required"</code>.
+Defaults to the value of <code>install</code>.</p></td>
     </tr>
     <tr>
       <th>elsewhere</th>
       <td><p>(character) Condition to filter packages that should
-be included in code that installs packages from other sources. One of
-"outdated", "missing", "always" (see <code>include</code>). Defaults to the value
-of <code>install</code>.</p></td>
+be included in code that installs packages from other sources.
+See options of <code>include</code> plus value <code>"required"</code>.
+Defaults to the value of <code>install</code>.</p></td>
     </tr>
     <tr>
       <th>x</th>
@@ -210,6 +217,11 @@ of <code>install</code>.</p></td>
     <tr>
       <th>...</th>
       <td><p>Arguments to other methods.</p></td>
+    </tr>
+    <tr>
+      <th>to_clipboard</th>
+      <td><p>(logical) If <code>TRUE</code>, the code is copied to clipboard and
+returned only invisibly.</p></td>
     </tr>
     </table>
 

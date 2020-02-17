@@ -70,7 +70,7 @@ installed and have minimum required versions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9019</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9020</span>
       </span>
     </div>
 
@@ -128,15 +128,17 @@ installed and have minimum required versions.</p>
     <tr>
       <th>list_name</th>
       <td><p>(character) The name of the list with required R packages.
-E.g., "mini", "Rcmdr", etc.</p></td>
+E.g., "mini", "Rcmdr", "Rcmdr-biostat", "bio", etc.</p></td>
     </tr>
     <tr>
       <th>use_local_list</th>
-      <td><p>(logical) If <code>TRUE</code>, the list, which is in the folder
-of package <span class="pkg">bio</span> ("local list"), is used. If <code>FALSE</code>, the lists
-on "GitHub" repository of the package is used. It is recommended
-using the online version of the list, as it may contain more recent
-changes.</p></td>
+      <td><p>(logical) If <code>TRUE</code>, the list, which is locally
+installed in the folder of package <span class="pkg">bio</span> ("local list"), is used.
+If <code>FALSE</code>, the list on "GitHub" repository of the package is used.
+It is recommended  using the online version of the list, as it may
+contain more recent changes.
+Optiom bight be set globally by, e.g.,
+<code><a href='https://rdrr.io/r/base/options.html'>options(bio.use_local_list = TRUE)</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
