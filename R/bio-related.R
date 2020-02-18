@@ -35,17 +35,30 @@ check_updates_bio  <- function(show_status = "always", install = "outdated", ...
 }
 
 #' @rdname bio_version
+#' @inheritParams update_pkg_snippets
 #' @export
-update_pkg_bio <- function() {
+update_pkg_bio <- function(upgrade = FALSE, force = FALSE) {
+  checkmate::assert_flag(upgrade)
+  checkmate::assert_flag(force)
+
   if (rstudioapi::isAvailable(version_needed = "1.1.281")) {
-    rstudioapi::restartSession(
+    force_str <-
+      if (force) {
+        ", force = TRUE"
+      } else {
+        ""
+      }
+
+    command <- stringr::str_glue(
       paste(sep = "\n",
         '# Updating package "bio"...',
         'remotes::install_github(c("GegznaV/backup.tools", "mokymai/bio"), ',
-        '  dependencies = TRUE, upgrade = FALSE)',
-        'bio::get_vesion_bio()'
+        '  dependencies = TRUE, upgrade = {upgrade}{force_str})',
+        'bio::get_vesion_bio()',
+        # 'bio::check_installed_packages("bio", show_status = "newer_on_cran")'
       )
     )
+    rstudioapi::restartSession(command)
 
   } else {
     # usethis::ui_stop(
@@ -53,7 +66,8 @@ update_pkg_bio <- function() {
     #   remotes::install_github("mokymai/bio", dependencies = TRUE, upgrade = FALSE)'
     #   )
     remotes::install_github(c("GegznaV/backup.tools", "mokymai/bio"),
-      dependencies = TRUE, upgrade = FALSE)
+      dependencies = TRUE, upgrade = upgrade, force = force)
     bio::get_vesion_bio()
+    # bio::check_installed_packages("bio", show_status = "newer_on_cran")
   }
 }
