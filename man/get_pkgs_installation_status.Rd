@@ -3,9 +3,9 @@
 \name{get_pkgs_installation_status_local}
 \alias{get_pkgs_installation_status_local}
 \alias{get_pkgs_installation_status}
+\alias{get_last_pkgs_installation_status}
 \alias{print.pkgs_installation_status}
 \alias{get_pkgs_installation_code}
-\alias{get_pkgs_installation_code.pkgs_installation_status}
 \title{Get package installation status and code.}
 \usage{
 get_pkgs_installation_status_local(
@@ -24,11 +24,11 @@ get_pkgs_installation_status(
   use_local_list = getOption("bio.use_local_list", FALSE)
 )
 
+get_last_pkgs_installation_status()
+
 \method{print}{pkgs_installation_status}(x, show_status = x$show_status, ...)
 
-get_pkgs_installation_code(x, ...)
-
-\method{get_pkgs_installation_code}{pkgs_installation_status}(x, ..., to_clipboard = FALSE)
+get_pkgs_installation_code(x = NULL, ..., to_clipboard = FALSE)
 }
 \arguments{
 \item{list_name}{(character) The name of the list with required R packages.
@@ -110,6 +110,11 @@ get_pkgs_installation_code(status_all)
 (status_custom <-
   get_pkgs_installation_status("mini", include = "always", install = "outdated"))
 get_pkgs_installation_code(status_custom)
+
+# Package "remembers" the last created 'pkgs_installation_status' object
+get_pkgs_installation_status("snippets")
+get_last_pkgs_installation_status()
+get_pkgs_installation_code()
 
 }}
 }
