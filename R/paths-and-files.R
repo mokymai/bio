@@ -71,10 +71,12 @@ get_path_desktop <- function(...) {
 #' @examples
 #' get_path_r_user_dir()
 #'
-# Sys.getenv("R_USER")
 # fs::path_home_r()
+# # For Windows only:
+# Sys.getenv("R_USER")
+# fs::path(Sys.getenv("R_USER"), ".R", ...)
 get_path_r_user_dir <- function(...) {
-  fs::path(Sys.getenv("R_USER"), ".R", ...)
+  fs::path_home_r(".R", ...)
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -101,7 +103,7 @@ get_path_rs_config_dir  <- function(...) {
       "osx"     = {
         # FIXME: Fix for Mac OS X
         # defaults read com.rstudio.desktop > ~/backup-rstudio-prefs
-        warning("Mac OS X is not supported by get_path_rs_config_dir().")
+        warning("Function get_path_rs_config_dir() may give a wrong result in Mac OS X.")
         fs::path_expand_r("~/.config/RStudio") # FIXME: path_expand_r() or path_expand() ?
       },
       # Otherwise:
