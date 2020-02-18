@@ -21,7 +21,7 @@ styler
 tidyr
 usethis
 
-snippets
 backup.tools
+snippets
 
 bio
