@@ -1,6 +1,14 @@
 
 # R Commander dependencies ---------------------------------------------------
 
+splines
+boot
+colorspace
+lattice
+MASS
+nlme
+lme4
+nnet
 tcltk2
 abind
 relimp
@@ -57,7 +65,9 @@ officer
 flextable
 rvg
 
-
+# Bio ------------------------------------------------------------------------
+backup.tools
+bio
 
 # R Commander plugins --------------------------------------------------------
 RcmdrPlugin.EZR
