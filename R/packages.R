@@ -529,6 +529,8 @@ print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) 
 
   list_name <- usethis::ui_value(x$list_name)
   st <- x$status
+  n     <- nrow(st)
+  n_old <- x$n_to_install_or_update
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   # Show status
   pkg_to_show <-
@@ -545,24 +547,20 @@ print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) 
 
 
   if (any(pkg_to_show)) {
-    st <-
+    st2 <-
       st[pkg_to_show , c("package", "is_installed", "current_version",
         "required_version", "cran_version", "update_is_required")] # , "cran_version", "newer_on_cran"
-    st$current_version  <- ifelse(is.na(st$current_version), "-", st$current_version)
-    st$required_version <- ifelse(st$required_version == "", "-", st$required_version )
-    rownames(st) <- NULL
-    colnames(st) <- c("package", "is_installed", "v_current", "v_required",
+    st2$current_version  <- ifelse(is.na(st2$current_version), "-", st2$current_version)
+    st2$required_version <- ifelse(st2$required_version == "", "-", st2$required_version )
+    rownames(st2) <- NULL
+    colnames(st2) <- c("package", "is_installed", "v_current", "v_required",
       "v_cran", "update_is_required")
-    usethis::ui_info("{crayon::silver('Abbreviations:')} {crayon::yellow('v \u2014 version')}\n")
-    print(tibble::as_tibble(st), n = Inf, width = Inf, n_extra = Inf)
+    ui_info("{silver('Abbreviations:')} {yellow('v \u2014 version')}\n")
+    print(tibble::as_tibble(st2), n = Inf, width = Inf, n_extra = Inf)
   }
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-  n     <- nrow(st)
-  n_old <- x$n_to_install_or_update
-
   cat("\n")
+  # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   if (n_old == 0) {
 
