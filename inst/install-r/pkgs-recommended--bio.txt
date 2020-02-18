@@ -15,13 +15,13 @@ purrr
 readr
 remotes
 rstudioapi
-snippets
 stringr
 withr
 styler
 tidyr
 usethis
 
+snippets
 backup.tools
 
 bio
