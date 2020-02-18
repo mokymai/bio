@@ -54,7 +54,7 @@ update_pkg_bio <- function(upgrade = FALSE, force = FALSE) {
         '# Updating package "bio"...',
         'remotes::install_github(c("GegznaV/backup.tools", "mokymai/bio"), ',
         '  dependencies = TRUE, upgrade = {upgrade}{force_str})',
-        'bio::get_vesion_bio()',
+        'bio::get_vesion_bio()'
         # 'bio::check_installed_packages("bio", show_status = "newer_on_cran")'
       )
     )
