@@ -41,7 +41,8 @@ update_pkg_bio <- function() {
     rstudioapi::restartSession(
       paste(sep = "\n",
         '# Updating package "bio"...',
-        'remotes::install_github("mokymai/bio", dependencies = TRUE, upgrade = FALSE)',
+        'remotes::install_github(c("GegznaV/backup.tools", "mokymai/bio"), ',
+        '  dependencies = TRUE, upgrade = FALSE)',
         'bio::get_vesion_bio()'
       )
     )
@@ -51,7 +52,8 @@ update_pkg_bio <- function() {
     #   'To run this function, RStudio version 1.1.281 is required. You may also use code:
     #   remotes::install_github("mokymai/bio", dependencies = TRUE, upgrade = FALSE)'
     #   )
-    remotes::install_github("mokymai/bio", dependencies = TRUE, upgrade = FALSE)
+    remotes::install_github(c("GegznaV/backup.tools", "mokymai/bio"),
+      dependencies = TRUE, upgrade = FALSE)
     bio::get_vesion_bio()
   }
 }
