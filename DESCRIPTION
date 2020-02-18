@@ -21,7 +21,7 @@ Remotes:
   GegznaV/backup.tools,
   GegznaV/snippets
 Imports:
-  backup.tools (>=0.0.1),
+  backup.tools (>= 0.0.1),
   checkmate,
   clipr,
   crayon,
