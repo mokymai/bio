@@ -1,7 +1,6 @@
 
 # R Commander dependencies ---------------------------------------------------
 
-splines
 boot
 colorspace
 lattice
