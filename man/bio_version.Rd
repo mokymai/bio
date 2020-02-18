@@ -11,7 +11,7 @@ get_vesion_bio()
 
 check_updates_bio(show_status = "always", install = "outdated", ...)
 
-update_pkg_bio()
+update_pkg_bio(upgrade = FALSE, force = FALSE)
 }
 \arguments{
 \item{show_status}{See argument \code{show_status} in \code{\link[=get_pkgs_installation_status]{get_pkgs_installation_status()}}.}
@@ -19,6 +19,14 @@ update_pkg_bio()
 \item{install}{See argument \code{install} in \code{\link[=get_pkgs_installation_status]{get_pkgs_installation_status()}}.}
 
 \item{...}{Arguments to further methods.}
+
+\item{upgrade}{(logical) \code{TRUE} or \code{FALSE}.
+Upgrade dependencies.
+See \code{upgrade} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
+
+\item{force}{(logical) \code{TRUE} or \code{FALSE}.
+Force to update.
+See \code{upgrade} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
 }
 \description{
 \code{get_vesion_bio()} returns version number of package \pkg{bio}.

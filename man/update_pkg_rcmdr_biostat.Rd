@@ -4,7 +4,19 @@
 \alias{update_pkg_rcmdr_biostat}
 \title{Update package RcmdrPlugin.biostat and related packages}
 \usage{
-update_pkg_rcmdr_biostat()
+update_pkg_rcmdr_biostat(upgrade = TRUE, force = FALSE)
+}
+\arguments{
+\item{...}{
+  Arguments passed on to \code{\link[=update_pkg_snippets]{update_pkg_snippets}}
+  \describe{
+    \item{\code{upgrade}}{(logical) \code{TRUE} or \code{FALSE}.
+Upgrade dependencies.
+See \code{upgrade} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
+    \item{\code{force}}{(logical) \code{TRUE} or \code{FALSE}.
+Force to update.
+See \code{upgrade} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
+  }}
 }
 \description{
 Update package RcmdrPlugin.biostat and related packages

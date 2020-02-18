@@ -7,7 +7,7 @@
 \alias{get_rs_ui_prefs}
 \alias{get_rs_user_settings_names}
 \alias{get_rs_ui_pref_names}
-\alias{reset_rs_user_settings}
+\alias{reset_rstudio_user_settings}
 \title{RStudio preferences.}
 \usage{
 read_rs_user_settings(which = "current")
@@ -20,7 +20,7 @@ get_rs_user_settings_names(which = "current")
 
 get_rs_ui_pref_names(which = "current")
 
-reset_rs_user_settings(to = "none", backup = TRUE, ask = TRUE)
+reset_rstudio_user_settings(to, backup = TRUE, ask = TRUE)
 }
 \arguments{
 \item{which}{(character) type of settings: "current", "bio-default".}
@@ -70,9 +70,9 @@ get_rs_ui_pref_names()
 
 #-------------------------------------------------
 
-reset_rs_user_settings(to = "bio-default")
+reset_rstudio_user_settings(to = "bio-default")
 
-reset_rs_user_settings(to = "rstudio-default")
+reset_rstudio_user_settings(to = "rstudio-default")
 
 }}
 }
