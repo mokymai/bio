@@ -695,7 +695,7 @@ get_pkgs_installation_code.pkgs_installation_status <- function(x, ...,
   if (length(pkgs_miss_code) > 0) {
 
     r_installed <- getRversion()
-    r_available <- get_vailable_r_version()
+    r_available <- get_available_r_version()
 
     status_msg <-
       if (r_installed < r_available) {
