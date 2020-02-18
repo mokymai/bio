@@ -127,7 +127,7 @@ Update package **bio**.
 bio::update_pkg_bio()
 ```
 
-Check if updates to **bio** or its dependency packages are needed.
+Check if there are updates for **bio** or its dependency packages.
 
 ``` r
 bio::check_updates_bio()
