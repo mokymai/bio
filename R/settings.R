@@ -545,17 +545,17 @@ reset_rstudio_keybindings <- function(to, backup = TRUE) {
       # {ui_value("rstudio-default")},
     ))
   }
-  checkmate::assert_string(which)
+  checkmate::assert_string(to)
 
   switch(
-    which,
+    to,
     "bio-default" = {
       from_files <- fs::dir_ls(path_bio_rs(), regexp = "keybindings--.*?.json$")
       base_names <- stringr::str_extract(from_files, "(?<=keybindings--).*?.json$")
       current_files <- fs::path(get_path_rs_keybindings_dir(), base_names)
     },
 
-    stop("\nUnknown type of keybidings: ",  which)
+    stop("\nUnknown type of keybidings: ",  to)
   )
 
   # Create back-up copies
