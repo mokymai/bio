@@ -1,9 +1,9 @@
 # bio::download_rs_system_dictionaries()
-# snippets::install_snippets_from_package("snippets", type = "r",        backup = TRUE)
-# snippets::install_snippets_from_package("snippets", type = "markdown", backup = TRUE)
-# bio::set_rstudio_keybindings(which = "bio-default", backup = TRUE)
-# bio::reset_rs_user_settings(to = "bio-default", backup = TRUE)
+# snippets::install_snippets_from_package("snippets", type = c("r", "markdown"), backup = TRUE)
+# bio::reset_rstudio_keybindings(to = "bio-default", backup = TRUE)
+# bio::reset_rstudio_user_settings(to = "bio-default", backup = TRUE)
 # bio::reload_rstudio()
+
 
 # Clear and Reset ============================================================
 ip_gmc_r209_compact <- "158.129.170.(3,200-237)"
@@ -81,7 +81,7 @@ reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
   fs::dir_create(bs_folder)
 
   # User preferences
-  bio::reset_rs_user_settings(to = "bio-default", backup = TRUE, ask = FALSE)
+  bio::reset_rstudio_user_settings(to = "bio-default", backup = TRUE, ask = FALSE)
 
   # Tab Files
   # TODO: Go to home dir
@@ -119,7 +119,7 @@ reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
   snippets::install_snippets_from_package(type = "markdown")
 
   # Reset keybindings
-  bio::set_rstudio_keybindings("bio-default", backup = TRUE)
+  bio::reset_rstudio_keybindings("bio-default", backup = TRUE)
 
   # Console
   rstudioapi::executeCommand("closeAllTerminals", quiet = TRUE)
@@ -155,7 +155,7 @@ reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
   )
 
   if (to_restart) {
-    bio::restart_rstudio()
+    bio::reload_rstudio()
   }
 
   invisible()
@@ -370,9 +370,9 @@ set_initial_rs_configuration <- function() {
 #'
 #' #-------------------------------------------------
 #'
-#' reset_rs_user_settings(to = "bio-default")
+#' reset_rstudio_user_settings(to = "bio-default")
 #'
-#' reset_rs_user_settings(to = "rstudio-default")
+#' reset_rstudio_user_settings(to = "rstudio-default")
 #'
 #' }}
 #' @inheritParams get_path_rs_user_settings
@@ -456,7 +456,15 @@ get_rs_ui_pref_names <- function(which = "current") {
 #'        created.
 #' @param ask (logical) If `TRUE`, user confirmation to reset settings is
 #'       required.
-reset_rs_user_settings <- function(to = "none", backup = TRUE, ask = TRUE) {
+reset_rstudio_user_settings <- function(to, backup = TRUE, ask = TRUE) {
+
+  if (missing(to)) {
+    ui_stop(paste0(
+      "The set of RStudio user settings is not defined (argument '{yellow('to')}').\n",
+      'Possible options: {ui_value("rstudio-default")}, {ui_value("bio-default")}.'
+    ))
+  }
+  checkmate::assert_string(to)
 
   # to = c("rstudio-default", "bio-default")
 
@@ -514,21 +522,30 @@ reset_rs_user_settings <- function(to = "none", backup = TRUE, ask = TRUE) {
 #
 #' Set RStudio keybindings
 #'
-#' @param which (string) The type of keybindings. Currently available value is
-#'        `"bio-default"`.
+#' @param to (string) The type of keybindings.
+#'        Currently available value is `"bio-default"`.
 #' @param backup (logical) If `TRUE`, a back-up copy of files with current
-#'        keybindings is ctreated.
+#'        keybindings will be created.
 #'
 #' @export
 #'
 #' @examples
 #' \dontrun{\dontest{
 #'
-#' bio::set_rstudio_keybindings(which = "bio-default")
-#' bio::restart_rstudio()
+#' bio::reset_rstudio_keybindings(to = "bio-default")
+#' bio::reload_rstudio()
 #'
 #' }}
-set_rstudio_keybindings <- function(which = "none", backup = TRUE) {
+reset_rstudio_keybindings <- function(to, backup = TRUE) {
+
+  if (missing(to)) {
+    ui_stop(paste0(
+      "The set of RStudio user settings is not defined (argument '{yellow('to')}').\n",
+      'Possible options: {ui_value("bio-default")}.'
+      # {ui_value("rstudio-default")},
+    ))
+  }
+  checkmate::assert_string(which)
 
   switch(
     which,
@@ -549,6 +566,17 @@ set_rstudio_keybindings <- function(which = "none", backup = TRUE) {
   # reset current keybindings
   fs::dir_create(fs::path_dir(current_files), recurse = TRUE)
   fs::file_copy(from_files, current_files, overwrite = TRUE)
+}
+
+#' @rdname reset_rstudio_keybindings
+#' @details
+#' `set_rstudio_keybindings()` is deprecaded.
+#' Use `reset_rstudio_keybindings()` instead.
+#' @param ... Arguments passed to `reset_rstudio_keybindings()`.
+#' @export
+set_rstudio_keybindings <- function(...) {
+  .Deprecated("reset_rstudio_keybindings()")
+  reset_rstudio_keybindings(...)
 }
 
 # Other ======================================================================
