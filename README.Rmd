@@ -19,8 +19,8 @@ options(
 
 
 <!-- badges: start -->
+<!-- [![GitHub version](https://img.shields.io/badge/GitHub-v`r packageVersion("bio")`-brightgreen.svg)](https://github.com/mokymai/bio) -->
 [![CRAN status](https://www.r-pkg.org/badges/version/bio)](https://CRAN.R-project.org/package=bio)
-[![GitHub version](https://img.shields.io/badge/GitHub-v`r packageVersion("bio")`-brightgreen.svg)](https://github.com/mokymai/bio)
 [![Travis build status](https://travis-ci.com/mokymai/bio.svg?branch=master)](https://travis-ci.com/mokymai/bio)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/mokymai/bio?branch=master&svg=true)](https://ci.appveyor.com/project/mokymai/bio)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
@@ -53,7 +53,7 @@ To install this package from GitHub, use code:
 
 ```{r README-1, eval=FALSE}
 if (!require(remotes)) {install.packages("remotes")}
-remotes::install_github("mokymai/bio")
+remotes::install_github("mokymai/bio", dependencies = TRUE)
 ```
 
 # Examples
@@ -67,6 +67,7 @@ Check information about operating system (OS) and R-related user information.
 bio::check_user_info()
 ## Operating system    Windows 10 x64 (build 18362)
 ## Platform            x86_64-w64-mingw32/x64 (64-bit)
+## LOGNAME
 ## USERNAME            User
 ## USERPROFILE         C:/Users/User
 ## HOME                C:/Users/User/Documents
@@ -79,10 +80,19 @@ Check installed R-related programs.
 Options:
 
 - "main" (default) -- checks "R", "RStudio", "Rtools" ("Windows" only) and "XQuartz" ("Mac" only).
-- "all" -- additionally checks for presence of "Atom", "Git" and "GitHub".
+- "all" -- additionally checks for presence of "Atom", "Git" and "Meld". 
+  This check may not work properly on "Mac" and "Linux".
 
 
-```{r README-7, eval=FALSE}
+```{r README-7a, eval=FALSE}
+bio::check_installed_programs()
+## ✔ Program R (3.6.2) is installed (recommended 3.6.2, available 3.6.2)
+## ✖ Program RStudio is not installed or is not running.
+## ✔ Program Rtools is installed.
+```
+
+
+```{r README-7b, eval=FALSE}
 bio::check_installed_programs("all")
 ## ✔ Program R (3.6.2) is installed (recommended 3.6.2, available 3.6.2)
 ## ✖ Program RStudio is not installed or is not running.
@@ -126,8 +136,16 @@ The functions try to restart R if used in RStudio.
 
 
 Update package **bio**.
-```{r README-3, eval=FALSE}
+```{r README-3a, eval=FALSE}
 bio::update_pkg_bio()
+```
+
+Check if updates to **bio** or its dependency packages are needed.
+```{r README-3b, eval=FALSE}
+bio::check_updates_bio()
+```
+```
+✔ The required versions of all 24 packages (from list 'bio') are already installed.
 ```
 
 Update package **snippets**.
@@ -136,10 +154,9 @@ bio::update_pkg_snippets()
 ```
 
 Update package **RcmdrPlugin.biostat**.
-```{r README-5, eval=FALSE}
+```{r README-5a, eval=FALSE}
 bio::update_pkg_rcmdr_biostat()
 ```
-
 
 
 ## RStudio settings and user preferences
@@ -166,7 +183,7 @@ Options:
 - "bio-default" -- shortcut keys, recommended for BS-2020.
 
 ```{r README-9, eval=FALSE}
-bio::set_rstudio_keybindings("bio-default")
+bio::reset_rstudio_keybindings(to = "bio-default")
 ```
 
 : **Table 1.** Some of shortcut keys set with option "bio-default".
@@ -180,10 +197,14 @@ Shortcut  | Action
 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd>                 | Insert lower opening quotes `„`.
 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>'</kbd>                 | Insert upper closing quotes `“`.
 <kbd>Ctrl</kbd>+<kbd>E</kbd>                                  | **[!]** Insert/Enclose with R code block (*R Markdown*).
-<kbd>Ctrl</kbd>++<kbd>Alt</kbd>+<kbd>T</kbd>                  | Insert inline code highlighted as R code (R Markdown).
+<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>T</kbd>                   | Insert inline code highlighted as R code (R Markdown).
 <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>                  | Insert inline LaTeX equation (*R Markdown*).
 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad0</kbd>             | Remove heading/section name (*R Markdown*).
-<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad1</kbd>,<br> <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad2</kbd>,<br> <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad3</kbd>,<br> <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad4</kbd>,<br> <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad5</kbd>             | Replace line into/Insert heading (section name) of level 1, 2, 3, 4, or level 5 (*R Markdown*).
+<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad1</kbd>             | Replace line into/Insert heading (section name) of level 1 (*R Markdown*).
+<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad2</kbd>             | ... of level 2 (*R Markdown*).
+<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad3</kbd>             | ... of level 3 (*R Markdown*).
+<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad4</kbd>             | ... of level 4 (*R Markdown*).
+<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad5</kbd>             | ... of level 5 (*R Markdown*).
 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad6</kbd>             | Insert operator `%in%` (*R code*).
 
 <!-- "addins.rmd::rmd_list_numbered"                : "Ctrl+Shift+Alt+L", -->
@@ -215,7 +236,7 @@ Options:
 - "rstudio-default" -- default RStudio settings.
 
 ```{r README-10, eval=FALSE}
-bio::reset_rs_user_settings(to = "bio-default")
+bio::reset_rstudio_user_settings(to = "bio-default")
 ```
 
 
@@ -248,24 +269,24 @@ bio::restart_r()
 ```
 
 
-## RStudio projects
+<!-- ## RStudio projects -->
 
-Open (recently used) RStudio project.
-```{r README-11, eval=FALSE}
-bio::open_project()
-## 
-## Choose the name of the project (press 0 to cancel): 
-## 
-##  1: project-1 
-##  2: _learn
-##  3: biostatistics
-##  
+<!-- Open (recently used) RStudio project. -->
+<!-- ```{r README-11, eval=FALSE} -->
+<!-- bio::open_project() -->
+<!-- ##  -->
+<!-- ## Choose the name of the project (press 0 to cancel):  -->
+<!-- ##  -->
+<!-- ##  1: project-1  -->
+<!-- ##  2: _learn -->
+<!-- ##  3: biostatistics -->
+<!-- ##   -->
 
-##  Selection: 0
-##  Cancelled by user.
-```
+<!-- ##  Selection: 0 -->
+<!-- ##  Cancelled by user. -->
+<!-- ``` -->
 
-Copy the recent projects to your personal project list.
-```{r README-12, eval=FALSE}
-bio::update_personal_proj_list()
-```
+<!-- Copy the recent projects to your personal project list. -->
+<!-- ```{r README-12, eval=FALSE} -->
+<!-- bio::update_personal_proj_list() -->
+<!-- ``` -->

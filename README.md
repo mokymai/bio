@@ -5,10 +5,10 @@
 
 <!-- badges: start -->
 
+<!-- [![GitHub version](https://img.shields.io/badge/GitHub-v0.0.0.9023-brightgreen.svg)](https://github.com/mokymai/bio) -->
+
 [![CRAN
 status](https://www.r-pkg.org/badges/version/bio)](https://CRAN.R-project.org/package=bio)
-[![GitHub
-version](https://img.shields.io/badge/GitHub-v0.0.0.9020-brightgreen.svg)](https://github.com/mokymai/bio)
 [![Travis build
 status](https://travis-ci.com/mokymai/bio.svg?branch=master)](https://travis-ci.com/mokymai/bio)
 [![AppVeyor build
@@ -40,7 +40,7 @@ To install this package from GitHub, use code:
 
 ``` r
 if (!require(remotes)) {install.packages("remotes")}
-remotes::install_github("mokymai/bio")
+remotes::install_github("mokymai/bio", dependencies = TRUE)
 ```
 
 # Examples
@@ -54,6 +54,7 @@ information.
 bio::check_user_info()
 ## Operating system    Windows 10 x64 (build 18362)
 ## Platform            x86_64-w64-mingw32/x64 (64-bit)
+## LOGNAME
 ## USERNAME            User
 ## USERPROFILE         C:/Users/User
 ## HOME                C:/Users/User/Documents
@@ -67,9 +68,16 @@ Check installed R-related programs. Options:
   - “main” (default) – checks “R”, “RStudio”, “Rtools” (“Windows” only)
     and “XQuartz” (“Mac” only).
   - “all” – additionally checks for presence of “Atom”, “Git” and
-    “GitHub”.
+    “Meld”. This check may not work properly on “Mac” and “Linux”.
 
 <!-- end list -->
+
+``` r
+bio::check_installed_programs()
+## ✔ Program R (3.6.2) is installed (recommended 3.6.2, available 3.6.2)
+## ✖ Program RStudio is not installed or is not running.
+## ✔ Program Rtools is installed.
+```
 
 ``` r
 bio::check_installed_programs("all")
@@ -119,6 +127,14 @@ Update package **bio**.
 bio::update_pkg_bio()
 ```
 
+Check if updates to **bio** or its dependency packages are needed.
+
+``` r
+bio::check_updates_bio()
+```
+
+    ✔ The required versions of all 24 packages (from list 'bio') are already installed.
+
 Update package **snippets**.
 
 ``` r
@@ -156,23 +172,27 @@ Change shortcut keys. Options:
 <!-- end list -->
 
 ``` r
-bio::set_rstudio_keybindings("bio-default")
+bio::reset_rstudio_keybindings(to = "bio-default")
 ```
 
-| Shortcut                                                                                                                                                                                                                                                                      | Action                                                                                                                       |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>                                                                                                                                                                                                                  | Check spelling in selected text (if package [**wellspell.addin**](https://github.com/nevrome/wellspell.addin) is installed). |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd>                                                                                                                                                                                                                  | Use “Tidyverse” style on selected lines of R code (*R code*).                                                                |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd>                                                                                                                                                                                                                                 | Duplicate selected text.                                                                                                     |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>P</kbd>                                                                                                                                                                                                                  | Align selected lines at pattern.                                                                                             |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd>                                                                                                                                                                                                                                 | Insert lower opening quotes `„`.                                                                                             |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>’</kbd>                                                                                                                                                                                                                                 | Insert upper closing quotes `“`.                                                                                             |
-| <kbd>Ctrl</kbd>+<kbd>E</kbd>                                                                                                                                                                                                                                                  | **\[\!\]** Insert/Enclose with R code block (*R Markdown*).                                                                  |
-| <kbd>Ctrl</kbd>++<kbd>Alt</kbd>+<kbd>T</kbd>                                                                                                                                                                                                                                  | Insert inline code highlighted as R code (R Markdown).                                                                       |
-| <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>                                                                                                                                                                                                                                  | Insert inline LaTeX equation (*R Markdown*).                                                                                 |
-| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad0</kbd>                                                                                                                                                                                                                             | Remove heading/section name (*R Markdown*).                                                                                  |
-| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad1</kbd>,<br> <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad2</kbd>,<br> <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad3</kbd>,<br> <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad4</kbd>,<br> <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad5</kbd> | Replace line into/Insert heading (section name) of level 1, 2, 3, 4, or level 5 (*R Markdown*).                              |
-| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad6</kbd>                                                                                                                                                                                                                             | Insert operator `%in%` (*R code*).                                                                                           |
+| Shortcut                                                     | Action                                                                                                                       |
+| ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd> | Check spelling in selected text (if package [**wellspell.addin**](https://github.com/nevrome/wellspell.addin) is installed). |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd> | Use “Tidyverse” style on selected lines of R code (*R code*).                                                                |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd>                | Duplicate selected text.                                                                                                     |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>P</kbd> | Align selected lines at pattern.                                                                                             |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd>                | Insert lower opening quotes `„`.                                                                                             |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>’</kbd>                | Insert upper closing quotes `“`.                                                                                             |
+| <kbd>Ctrl</kbd>+<kbd>E</kbd>                                 | **\[\!\]** Insert/Enclose with R code block (*R Markdown*).                                                                  |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>T</kbd>                  | Insert inline code highlighted as R code (R Markdown).                                                                       |
+| <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>                 | Insert inline LaTeX equation (*R Markdown*).                                                                                 |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad0</kbd>            | Remove heading/section name (*R Markdown*).                                                                                  |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad1</kbd>            | Replace line into/Insert heading (section name) of level 1 (*R Markdown*).                                                   |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad2</kbd>            | … of level 2 (*R Markdown*).                                                                                                 |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad3</kbd>            | … of level 3 (*R Markdown*).                                                                                                 |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad4</kbd>            | … of level 4 (*R Markdown*).                                                                                                 |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad5</kbd>            | … of level 5 (*R Markdown*).                                                                                                 |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad6</kbd>            | Insert operator `%in%` (*R code*).                                                                                           |
 
 **Table 1.** Some of shortcut keys set with option “bio-default”.
 
@@ -221,7 +241,7 @@ Reset RStudio user preferences and settings. Options:
 <!-- end list -->
 
 ``` r
-bio::reset_rs_user_settings(to = "bio-default")
+bio::reset_rstudio_user_settings(to = "bio-default")
 ```
 
 ### Snippets
@@ -251,26 +271,38 @@ packages.
 bio::restart_r()
 ```
 
-## RStudio projects
+<!-- ## RStudio projects -->
 
-Open (recently used) RStudio project.
+<!-- Open (recently used) RStudio project. -->
 
-``` r
-bio::open_project()
-## 
-## Choose the name of the project (press 0 to cancel): 
-## 
-##  1: project-1 
-##  2: _learn
-##  3: biostatistics
-##  
+<!-- ```{r README-11, eval=FALSE} -->
 
-##  Selection: 0
-##  Cancelled by user.
-```
+<!-- bio::open_project() -->
 
-Copy the recent projects to your personal project list.
+<!-- ##  -->
 
-``` r
-bio::update_personal_proj_list()
-```
+<!-- ## Choose the name of the project (press 0 to cancel):  -->
+
+<!-- ##  -->
+
+<!-- ##  1: project-1  -->
+
+<!-- ##  2: _learn -->
+
+<!-- ##  3: biostatistics -->
+
+<!-- ##   -->
+
+<!-- ##  Selection: 0 -->
+
+<!-- ##  Cancelled by user. -->
+
+<!-- ``` -->
+
+<!-- Copy the recent projects to your personal project list. -->
+
+<!-- ```{r README-12, eval=FALSE} -->
+
+<!-- bio::update_personal_proj_list() -->
+
+<!-- ``` -->
