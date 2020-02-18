@@ -432,6 +432,11 @@ get_pkgs_installation_status_local <- function(list_name,
 #'   get_pkgs_installation_status("mini", include = "always", install = "outdated"))
 #' get_pkgs_installation_code(status_custom)
 #'
+#' # Package "remembers" the last created 'pkgs_installation_status' object
+#' get_pkgs_installation_status("snippets")
+#' get_last_pkgs_installation_status()
+#' get_pkgs_installation_code()
+#'
 #' }}
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -450,7 +455,8 @@ get_pkgs_installation_status <- function(list_name, include = "outdated",
   github = install, elsewhere = install,
   use_local_list = getOption("bio.use_local_list", FALSE)) {
 
-  choices <- c(TRUE, "always", "newer_on_cran", "outdated", "missing", "never", FALSE)
+  choices <-
+    c(TRUE, "always", "newer_on_cran", "outdated", "missing", "never", FALSE)
 
   include     <- match.arg(as.character(include),     choices)
   show_status <- match.arg(as.character(show_status), choices)
@@ -511,13 +517,22 @@ get_pkgs_installation_status <- function(list_name, include = "outdated",
     # install_from_unknown      = install_from_unknown
   )
 
-  structure(
+  out <- structure(
     out,
     class = c("pkgs_installation_status", "list")
   )
+
+  bio_envir$last_installation_status <- out
+  out
 }
 
 # =~~~ methods ---------------------------------------------------------------
+
+#' @rdname get_pkgs_installation_status
+#' @export
+get_last_pkgs_installation_status <- function() {
+  bio_envir$last_installation_status
+}
 
 
 # Print method ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -527,7 +542,7 @@ get_pkgs_installation_status <- function(list_name, include = "outdated",
 #' @export
 print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) {
 
-  list_name <- usethis::ui_value(x$list_name)
+  list_name <- ui_value(x$list_name)
   st <- x$status
   n     <- nrow(st)
   n_old <- x$n_to_install_or_update
@@ -566,17 +581,17 @@ print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) 
 
     msg <-
       if (n == 1) {
-        pkg <- crayon::green(st$package)
+        pkg <- green(st$package)
         "The required version of package {pkg} (from list {list_name}) is installed."
 
       } else {
         paste0(
-          "The required versions of all {crayon::green(n)} packages ",
+          "The required versions of all {green(n)} packages ",
           "(from list {list_name}) are already installed."
         )
       }
 
-    usethis::ui_done(msg)
+    ui_done(msg)
 
   } else {
     # For singular or plural in English language.
@@ -587,25 +602,25 @@ print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) 
     }
     msg <-
       if (n == 1) {
-        pkg <- crayon::red(st$package)
+        pkg <- red(st$package)
         paste0(
           "Package {pkg} (from list {list_name}) should be ",
-          "{crayon::red('installed')} or {crayon::red('updated')}."
+          "{red('installed')} or {red('updated')}."
         )
 
       } else {
         paste0(
-          "List {list_name} contains {crayon::red(n_old)} package{s} (out of {n}) ",
-          "that should be {crayon::red('installed')} or {crayon::red('updated')}."
+          "List {list_name} contains {red(n_old)} package{s} (out of {n}) ",
+          "that should be {red('installed')} or {red('updated')}."
         )
       }
-    usethis::ui_todo(msg)
+    ui_oops(msg)
   }
 
   if (x$n_newer_on_cran > 0) {
-    n_cran <- crayon::yellow(x$n_newer_on_cran)
+    n_cran <- yellow(x$n_newer_on_cran)
     if (x$n_newer_on_cran == 1) {
-      usethis::ui_todo("{n_cran} package has newer version on CRAN.")
+      ui_todo("{n_cran} package has newer version on CRAN.")
 
     } else {
       usethis::ui_todo("{n_cran} packages have newer versions on CRAN.")
@@ -673,19 +688,30 @@ process_pkgs_to_install <- function(x, cran = x$install_from$cran,
   )
 }
 
-#' @rdname get_pkgs_installation_status
-#' @export
-get_pkgs_installation_code <- function(x, ...) {
-  UseMethod("get_pkgs_installation_code")
-}
 
 # Installation code
 #' @rdname get_pkgs_installation_status
 #' @export
 #' @param to_clipboard (logical) If `TRUE`, the code is copied to clipboard and
 #'        returned only invisibly.
-get_pkgs_installation_code.pkgs_installation_status <- function(x, ...,
-  to_clipboard = FALSE) {
+get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE) {
+
+  if (is.null(x)) {
+    x <- get_last_pkgs_installation_status()
+  }
+
+  if (is.null(x)) {
+    ui_stop(paste0(
+      "Incorrect value of {ui_value('x')} in ",
+      "{ui_code('get_pkgs_installation_code()')}.\n",
+      "You should should do one of the following: \n",
+      " - run either {ui_code('get_pkgs_installation_status()')} or ",
+      "{ui_code('check_installed_packages()')} before this function; \n",
+      " - provide an object of class {ui_field('pkgs_installation_status')}."
+    ))
+  }
+  checkmate::assert_class(x, "pkgs_installation_status")
+  checkmate::assert_flag(to_clipboard)
 
   x <- process_pkgs_to_install(x, ...)
 
@@ -741,13 +767,12 @@ get_pkgs_installation_code.pkgs_installation_status <- function(x, ...,
         repos = "https://cran.rstudio.com/",
         pkgType = "both",
         install.packages.check.source = "yes",
-        install.packages.compile.from.source = "always",
-        Ncpus = max(1, parallel::detectCores() - 1)
+        install.packages.compile.from.source = "always"
     )
     ',
     res
   )
-
+  # , Ncpus = max(1, parallel::detectCores() - 1)
   res <- styler::style_text(res)
 
   if (isTRUE(to_clipboard)) {
@@ -757,15 +782,17 @@ get_pkgs_installation_code.pkgs_installation_status <- function(x, ...,
     usethis::ui_done("Installation code was copied to the clipboard.")
 
     if (get_os_type() == "osx") {
+      # Mac
       usethis::ui_info("Use {yellow('Cmd+V')} to paste it.")
 
     } else {
-      # non-Mac / non-OS X
+      # Windows / Linux
       usethis::ui_info("Use {yellow('Ctrl+V')} to paste it.")
     }
 
-    usethis::ui_todo(
-      "Before installation, close RStudio project and/or restart R session."
+    usethis::ui_todo(paste0(
+      "But before installation, {underline('close')} RStudio ",
+      "{underline('project')} and/or {underline('restart R session')}.")
     )
     return(invisible(res))
 
@@ -851,20 +878,22 @@ get_pkgs_installation_code_other <- function(x) {
 #' }}
 check_installed_packages <- function(list_name,
   use_local_list = getOption("bio.use_local_list", FALSE), ...) {
-  status <-
-    get_pkgs_installation_status(list_name, use_local_list = use_local_list,
-      ...)
 
-  status_name <- make_unique_obj_names("status")
-  code_name   <- stringr::str_glue(
-    "bio::get_pkgs_installation_code({status_name}, to_clipboard = TRUE)")
+  status <-
+    get_pkgs_installation_status(list_name, use_local_list = use_local_list, ...)
+
+  # status_name <- make_unique_obj_names("status")
+  # code_name   <- stringr::str_glue(
+  #   "bio::get_pkgs_installation_code({status_name}, to_clipboard = TRUE)")
+
+  code_name <- "bio::get_pkgs_installation_code(to_clipboard = TRUE)"
 
   print(status)
 
   if (status$n_to_install_or_update > 0) {
-    assign(status_name, status, envir = .GlobalEnv)
+    assign("last_installation_status", status, envir = bio_envir)
+
     cat("\n")
-    usethis::ui_info("The results are saved to object {usethis::ui_field(status_name)} ")
     usethis::ui_todo("To get package installation code, type:\n{usethis::ui_field(code_name)} ")
     cat("\n")
 
@@ -955,7 +984,9 @@ suggest_optimized_order_of_packages <- function(pkgs_vec,
     unname() %>%
     structure(class = "glue")
 
-  list(move_before = move_before, move_after = move_after)
+  pkgs_base <- pkgs_vec[pkgs_vec %in% base_r_packages()]
+
+  list(move_before = move_before, move_after = move_after, base_packages = pkgs_base)
 
 }
 
