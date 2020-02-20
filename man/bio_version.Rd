@@ -30,7 +30,7 @@ See \code{force} in \code{\link[remotes:install_github]{remotes::install_github(
 \description{
 \code{get_vesion_bio()} returns version number of package \pkg{bio}.
 \code{check_updates_bio()} checks if package \pkg{bio} has a recommended version.
-\code{update_bio()} tries to update package \pkg{bio}.
+\code{update_pkg_bio()} tries to update package \pkg{bio}.
 }
 \examples{
 get_vesion_bio()
