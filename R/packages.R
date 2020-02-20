@@ -531,6 +531,15 @@ get_pkgs_installation_status <- function(list_name, include = "outdated",
 
 # =~~~ methods ---------------------------------------------------------------
 
+
+#' @rdname get_pkgs_installation_status
+#' @export
+get_pkg_lists_local <- function() {
+  path_bio() %>%
+    fs::dir_ls(regexp = "pkgs-recommended") %>%
+    stringr::str_extract("(?<=pkgs-recommended--).*?(?=.txt$)")
+}
+
 #' @rdname get_pkgs_installation_status
 #' @export
 get_last_pkgs_installation_status <- function() {
