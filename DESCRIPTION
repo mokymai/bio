@@ -1,7 +1,7 @@
 Package: bio
 Type: Package
 Title: Resources Manager For BS-2020
-Version: 0.0.0.9024
+Version: 0.0.0.9025
 Authors@R: 
     person("Vilmantas", "Gegzna", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-9500-5167"),
@@ -33,6 +33,7 @@ Imports:
   magrittr,
   pander,
   pingr,
+  pkgbuild,
   purrr,
   readr,
   remotes,
