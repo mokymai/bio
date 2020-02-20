@@ -4,7 +4,7 @@
 #' @description
 #' `get_vesion_bio()` returns version number of package \pkg{bio}.
 #' `check_updates_bio()` checks if package \pkg{bio} has a recommended version.
-#' `update_bio()` tries to update package \pkg{bio}.
+#' `update_pkg_bio()` tries to update package \pkg{bio}.
 #'
 #' @examples
 #' get_vesion_bio()
