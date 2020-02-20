@@ -93,6 +93,9 @@ Defaults to the value of \code{install}.}
 
 \item{to_clipboard}{(logical) If \code{TRUE}, the code is copied to clipboard and
 returned only invisibly.}
+
+\item{upgrade}{Upgrade dependencies.
+See \code{upgrade} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
 }
 \description{
 Get package installation status (e.g., if packages of interest are installed
