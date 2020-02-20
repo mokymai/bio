@@ -1,0 +1,25 @@
+# Main -----------------------------------------------------------------------
+
+markdown
+rmarkdown
+knitr
+pander
+tinitex
+
+bookdown
+blogdown
+ymlthis
+
+rcrossref
+citr
+
+latex2exp
+
+addin.tools
+addins.rmd
+addins.rs
+
+wellspell.addin
+
+snippets
+bio
