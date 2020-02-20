@@ -63,10 +63,14 @@ reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
   status <- restriction_status(...)
 
   if (!(status || is_classroom_ip())) {
-
-    usethis::ui_oops("This function does not work on this computer.")
+    usethis::ui_oops("Unfortunately, this function does not work on this computer.")
     return(invisible())
   }
+
+  # Tab History
+  bio::clear_rs_history()
+  # bio::clear_r_history(backup = FALSE)
+  unlink(".Rhistory")
 
   # Dictionaries
   dict_path <- get_path_rs_system_dictionaries_dir()
@@ -107,11 +111,6 @@ reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
   # Tab Environment
   bio::clear_r_workspace() # clearWorkspace
 
-  # Tab History
-  bio::clear_rs_history()
-  # bio::clear_r_history(backup = FALSE)
-  unlink(".Rhistory")
-
   # Layout
   bio::reset_rstudio_layout()
   rstudioapi::executeCommand("zoomActualSize",  quiet = TRUE)
@@ -120,8 +119,7 @@ reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
   rstudioapi::executeCommand("activateConsole", quiet = TRUE)
 
   # Settings
-  snippets::install_snippets_from_package(type = "r")
-  snippets::install_snippets_from_package(type = "markdown")
+  snippets::install_snippets_from_package(type = c("r", "markdown"))
 
   # Reset keybindings
   bio::reset_rstudio_keybindings("bio-default", backup = TRUE)
@@ -333,9 +331,9 @@ set_initial_rs_configuration <- function() {
 }
 
 
-# Preferences ================================================================
-#' @name RStudio-user-prefs
-#' @title RStudio preferences.
+# Settings and Preferences ===================================================
+#' @name RStudio-settings
+#' @title RStudio settings and preferences.
 #' @description  Get a list of current RStudio preferences.
 #'
 #' @details Find the names of the preferences at:
@@ -346,8 +344,6 @@ set_initial_rs_configuration <- function() {
 #' RStudio functions `.rs.readUiPref()`, `.rs.writeUiPref()`.
 #' - https://stackoverflow.com/a/55940249/4783029
 #' - https://stackoverflow.com/a/54982341/4783029
-#'
-#' @export
 #'
 #' @examples
 #' \dontrun{\donttest{
@@ -381,79 +377,10 @@ set_initial_rs_configuration <- function() {
 #'
 #' }}
 #' @inheritParams get_path_rs_user_settings
+NULL
 
-read_rs_user_settings <- function(which = "current") {
-  file   <- get_path_rs_user_settings(which)
-  liness <- readr::read_lines(file)
-  prefs  <- str_glue_eval('list({stringr::str_c(liness, collapse = ", ")})')
-  prefs
-}
 
-#' @rdname RStudio-user-prefs
-#' @export
-read_rs_ui_prefs <- function(which = "current") {
-  prefs <- read_rs_user_settings(which)
-  uiPrefs <- jsonlite::parse_json(prefs$uiPrefs)
-  # prefs$uiPrefs <- NULL
-  # list(prefs, uiPrefs)
-  uiPrefs
-}
-
-#' @rdname RStudio-user-prefs
-#' @export
-get_rs_ui_prefs <- function() {
-
-  prefs <-
-    c("use_spaces_for_tab",
-      "num_spaces_for_tab",
-      "auto_append_newline",
-      "strip_trailing_whitespace",
-      "default_encoding",
-      "default_sweave_engine",
-      "default_latex_program",
-      "always_enable_concordance",
-      "spelling_dictionary_language",
-      "spelling_custom_dictionaries",
-      "handle_errors_in_user_code_only",
-      "shiny_viewer_type",
-      "plumber_viewer_type",
-      "enable_rstudio_connect",
-      "diagnostics_in_function_calls",
-      "check_arguments_to_r_function_calls",
-      "check_unexpected_assignment_in_function_call",
-      "warn_if_no_such_variable_in_scope",
-      "warn_if_variable_defined_but_not_used",
-      "enable_style_diagnostics",
-      "ansi_console_mode",
-      "terminal_websockets",
-      "terminal_autoclose",
-      "terminal_track_env",
-      "busy_detection",
-      "show_rmd_render_command",
-      "show_publish_diagnostics",
-      "publish_check_certificates",
-      "use_publish_ca_bundle",
-      "publish_ca_bundle"
-    )
-  if (rstudioapi::isAvailable() && exists(".rs.readUiPref")) {
-    vals <- purrr::map(prefs, ~.rs.readUiPref(.))
-    purrr::set_names(vals, prefs)
-  }
-}
-
-#' @rdname RStudio-user-prefs
-#' @export
-get_rs_user_settings_names <- function(which = "current") {
-  names(read_rs_user_settings(which))
-}
-
-#' @rdname RStudio-user-prefs
-#' @export
-get_rs_ui_pref_names <- function(which = "current") {
-  names(read_rs_ui_prefs(which))
-}
-
-#' @rdname RStudio-user-prefs
+#' @rdname RStudio-settings
 #' @export
 #' @param to The set of RStudio user settings.
 #'        One of: "rstudio-default" or "bio-default".
@@ -522,6 +449,79 @@ reset_rstudio_user_settings <- function(to, backup = TRUE, ask = TRUE) {
 }
 
 
+#' @rdname RStudio-settings
+#' @export
+read_rs_user_settings <- function(which = "current") {
+  file   <- get_path_rs_user_settings(which)
+  liness <- readr::read_lines(file)
+  prefs  <- str_glue_eval('list({stringr::str_c(liness, collapse = ", ")})')
+  prefs
+}
+
+#' @rdname RStudio-settings
+#' @export
+read_rs_ui_prefs <- function(which = "current") {
+  prefs <- read_rs_user_settings(which)
+  uiPrefs <- jsonlite::parse_json(prefs$uiPrefs)
+  # prefs$uiPrefs <- NULL
+  # list(prefs, uiPrefs)
+  uiPrefs
+}
+
+#' @rdname RStudio-settings
+#' @export
+get_rs_ui_prefs <- function() {
+
+  prefs <-
+    c("use_spaces_for_tab",
+      "num_spaces_for_tab",
+      "auto_append_newline",
+      "strip_trailing_whitespace",
+      "default_encoding",
+      "default_sweave_engine",
+      "default_latex_program",
+      "always_enable_concordance",
+      "spelling_dictionary_language",
+      "spelling_custom_dictionaries",
+      "handle_errors_in_user_code_only",
+      "shiny_viewer_type",
+      "plumber_viewer_type",
+      "enable_rstudio_connect",
+      "diagnostics_in_function_calls",
+      "check_arguments_to_r_function_calls",
+      "check_unexpected_assignment_in_function_call",
+      "warn_if_no_such_variable_in_scope",
+      "warn_if_variable_defined_but_not_used",
+      "enable_style_diagnostics",
+      "ansi_console_mode",
+      "terminal_websockets",
+      "terminal_autoclose",
+      "terminal_track_env",
+      "busy_detection",
+      "show_rmd_render_command",
+      "show_publish_diagnostics",
+      "publish_check_certificates",
+      "use_publish_ca_bundle",
+      "publish_ca_bundle"
+    )
+  if (rstudioapi::isAvailable() && exists(".rs.readUiPref")) {
+    vals <- purrr::map(prefs, ~.rs.readUiPref(.))
+    purrr::set_names(vals, prefs)
+  }
+}
+
+#' @rdname RStudio-settings
+#' @export
+get_rs_user_settings_names <- function(which = "current") {
+  names(read_rs_user_settings(which))
+}
+
+#' @rdname RStudio-settings
+#' @export
+get_rs_ui_pref_names <- function(which = "current") {
+  names(read_rs_ui_prefs(which))
+}
+
 
 # Keybindings ================================================================
 #
@@ -545,22 +545,35 @@ reset_rstudio_keybindings <- function(to, backup = TRUE) {
 
   if (missing(to)) {
     ui_stop(paste0(
-      "The set of RStudio user settings is not defined (argument '{yellow('to')}').\n",
-      'Possible options: {ui_value("bio-default")}.'
-      # {ui_value("rstudio-default")},
+      "The set of RStudio shortcut keys is not defined (argument '{yellow('to')}').\n",
+      'Possible options: {ui_value(c("bio-default", "rstudio-default"))}.'
     ))
   }
   checkmate::assert_string(to)
 
   switch(
     to,
+
     "bio-default" = {
       from_files <- fs::dir_ls(path_bio_rs(), regexp = "keybindings--.*?.json$")
       base_names <- stringr::str_extract(from_files, "(?<=keybindings--).*?.json$")
       current_files <- fs::path(get_path_rs_keybindings_dir(), base_names)
     },
 
-    stop("\nUnknown type of keybidings: ",  to)
+    "rstudio-default" = {
+      current_files <-
+        if (fs::dir_exists(get_path_rs_keybindings_dir())) {
+          fs::dir_ls(
+            get_path_rs_keybindings_dir(),
+            regexp = "[.]json$"
+          )
+
+        } else {
+          character(0)
+        }
+    },
+
+    stop("\nUnknown type of keybidings: ", to)
   )
 
   # Create back-up copies
@@ -568,51 +581,39 @@ reset_rstudio_keybindings <- function(to, backup = TRUE) {
     create_backup_copy(current_files, "keybindings", "shortcut keys")
   }
 
-  # reset current keybindings
-  fs::dir_create(fs::path_dir(current_files), recurse = TRUE)
-  fs::file_copy(from_files, current_files, overwrite = TRUE)
+  # Reset current keybindings
+  switch(
+    to,
+    "rstudio-default" = {
+      # RStudio defaults are set when setup files are deleted
+      fs::file_delete(current_files)
+    },
+    {
+      # To set other options, files must be copied
+      fs::dir_create(fs::path_dir(current_files), recurse = TRUE)
+      fs::file_copy(from_files, current_files, overwrite = TRUE)
+    }
+  )
+
+  # Output message
+  ui_done("Shortcut keys were reset to {green(to)}.")
 }
 
-#' @rdname reset_rstudio_keybindings
-#' @details
-#' `set_rstudio_keybindings()` is deprecaded.
-#' Use `reset_rstudio_keybindings()` instead.
-#' @param ... Arguments passed to `reset_rstudio_keybindings()`.
+# Restart/Reload -------------------------------------------------------------
+#' @name restart-reload
+#' @title Functions that to restart or reload programs
+#' @description
+#' `restart_r()` restarts R session in RStudio.
+#' `reload_rstudio()` reloads RStudio without closing it.
+#'
 #' @export
-set_rstudio_keybindings <- function(...) {
-  .Deprecated("reset_rstudio_keybindings()")
-  reset_rstudio_keybindings(...)
-}
-
-# Other ======================================================================
-#' @name rs-settings
-#' @title RStudio management and settings
-#' @export
-browse_rs_addins <- function() {
-  invisible(rstudioapi::executeCommand("browseAddins", quiet = TRUE))
-}
-
-#' @name rs-settings
-#' @export
-browse_r_cheat_sheets <- function() {
-  invisible(rstudioapi::executeCommand("browseCheatSheets", quiet = TRUE))
-}
-
-#' @name rs-settings
-#' @export
-check_spelling <- function() {
-  invisible(rstudioapi::executeCommand("checkSpelling", quiet = TRUE))
-}
-
-#' @name rs-settings
-#' @export
-show_console <- function() {
+restart_r <- function() {
   if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
-    invisible(rstudioapi::executeCommand("activateConsole", quiet = TRUE))
+    invisible(rstudioapi::executeCommand("restartR", quiet = TRUE))
   }
 }
 
-#' @name rs-settings
+#' @rdname restart-reload
 #' @export
 reload_rstudio <- function() {
   if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
@@ -620,27 +621,31 @@ reload_rstudio <- function() {
   }
 }
 
-#' @name rs-settings
-#' @export
-restart_rstudio <- function() {
-  reload_rstudio()
+
+# Other ======================================================================
+# @name rs-settings
+# @title RStudio management and settings
+# @export
+browse_rs_addins <- function() {
+  invisible(rstudioapi::executeCommand("browseAddins", quiet = TRUE))
 }
 
-#' @name rs-settings
-#' @export
+browse_r_cheat_sheets <- function() {
+  invisible(rstudioapi::executeCommand("browseCheatSheets", quiet = TRUE))
+}
+
+show_console <- function() {
+  if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
+    invisible(rstudioapi::executeCommand("activateConsole", quiet = TRUE))
+  }
+}
+
 switch_to_tab <- function() {
   if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
     invisible(rstudioapi::executeCommand("switchToTab", quiet = TRUE))
   }
 }
 
-#' @name rs-settings
-#' @export
-restart_r <- function() {
-  if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
-    invisible(rstudioapi::executeCommand("restartR", quiet = TRUE))
-  }
-}
 # ============================================================================
 list_files_on_desktop <- function(type = "file") {
 
@@ -667,10 +672,14 @@ str_to_quotes <- function(x) {
   x
 }
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# If x is string, quotes " are added on both sides of this string to work well
+# with glue().
 chk_arg_upgrade <- function(x) {
-    checkmate::assert_choice(
+  checkmate::assert_choice(
     as.character(x),
     c(TRUE, "default", "ask", "always", "never", FALSE)
   )
   str_to_quotes(x)
 }
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
