@@ -68,7 +68,10 @@ check_installed_programs <- function(which = "main", skip_online_check = FALSE) 
     "all" = {
       check_program_installed("Atom", is_atom_installed())
       check_program_installed("Git",  is_git_installed())
-      check_program_installed("Meld", is_meld_installed())
+      # FIXME: Use better algorithm to check if Meld is installed.
+      try({
+        check_program_installed("Meld", is_meld_installed())
+      }, silent = TRUE)
     },
 
     "bs-2020" = {
