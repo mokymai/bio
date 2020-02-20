@@ -1,7 +1,7 @@
 #' Update package RcmdrPlugin.biostat and related packages
 #'
 #' @export
-#' @inheritDotParams update_pkg_snippets
+#' @inheritParams update_pkg_snippets
 #' @examples
 #' \dontrun{\donttest{
 #'
