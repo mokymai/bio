@@ -2,12 +2,9 @@
 % Please edit documentation in R/settings.R
 \name{reset_rstudio_keybindings}
 \alias{reset_rstudio_keybindings}
-\alias{set_rstudio_keybindings}
 \title{Set RStudio keybindings}
 \usage{
 reset_rstudio_keybindings(to, backup = TRUE)
-
-set_rstudio_keybindings(...)
 }
 \arguments{
 \item{to}{(string) The type of keybindings.
@@ -15,15 +12,9 @@ Currently available value is \code{"bio-default"}.}
 
 \item{backup}{(logical) If \code{TRUE}, a back-up copy of files with current
 keybindings will be created.}
-
-\item{...}{Arguments passed to \code{reset_rstudio_keybindings()}.}
 }
 \description{
 Set RStudio keybindings
-}
-\details{
-\code{set_rstudio_keybindings()} is deprecaded.
-Use \code{reset_rstudio_keybindings()} instead.
 }
 \examples{
 \dontrun{\dontest{
