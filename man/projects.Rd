@@ -15,7 +15,7 @@ read_projects(file, sort_by = FALSE)
 
 get_path_recent_proj_list()
 
-get_path_personal_proj_list()
+get_path_personal_proj_list(create = FALSE)
 
 get_projs_recent(sort_by = FALSE)
 
@@ -29,6 +29,8 @@ get_proj_names(file = get_path_recent_proj_list(), sort_by = FALSE)
 \item{file}{(character) Path to file with RStudio projects.}
 
 \item{sort_by}{(\code{"name"}|\code{"path"}|\code{\link{FALSE}})}
+
+\item{create}{(ligical) If \code{TRUE} and file does not exist, the file is created.}
 }
 \description{
 \itemize{

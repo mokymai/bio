@@ -103,11 +103,16 @@ get_path_recent_proj_list <- function() {
 }
 
 #' @rdname projects
+#' @param create (ligical) If `TRUE` and file does not exist, the file is created.
 #' @export
-get_path_personal_proj_list <- function() {
-  # fs::path(get_path_r_user_dir(), "personal-project-list-r"),
-  fs::path(get_path_r_user_dir(), "personal-rstudio-projects-list")
-  # "D:/Dokumentai/R/bio/data-raw/project-list"
+get_path_personal_proj_list <- function(create = FALSE) {
+  file_personal <- fs::path(get_path_r_user_dir(), "personal-list-rstudio-projects")
+  if (create && !fs::file_exists(file_personal)) {
+    fs::dir_create(fs::path_dir(file_personal))
+    fs::file_create(file_personal)
+    ui_done("File for projects' list was created: {ui_path(file_personal)}")
+  }
+  file_personal
 }
 
 #' @name projects
@@ -130,7 +135,7 @@ get_projs_recent <- function(sort_by = FALSE) {
 #' @name projects
 #' @export
 get_projs_personal <- function(sort_by = FALSE) {
-  read_projects(file = get_path_personal_proj_list(), sort_by = sort_by)
+  read_projects(file = get_path_personal_proj_list(create = TRUE), sort_by = sort_by)
 }
 
 #' @name projects
@@ -138,7 +143,7 @@ get_projs_personal <- function(sort_by = FALSE) {
 get_projs_all <- function() {
 
   file_recent   <- get_path_recent_proj_list()
-  file_personal <- get_path_personal_proj_list()
+  file_personal <- get_path_personal_proj_list(create = TRUE)
 
   new_list <-
     dplyr::bind_rows(
@@ -314,12 +319,9 @@ open_personal_proj_list <- function() {
 #' @rdname open_project
 #' @export
 update_personal_proj_list <- function() {
-  file_personal <- get_path_personal_proj_list()
-  new_list      <- get_projs_all()
+  file_personal <- get_path_personal_proj_list(create = TRUE)
+  new_list <- get_projs_all()
   readr::write_lines(new_list$path, path = file_personal)
+  ui_done("Personal list of projects was updated.")
 }
-
-
-
-
 
