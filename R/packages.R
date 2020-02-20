@@ -694,7 +694,7 @@ process_pkgs_to_install <- function(x, cran = x$install_from$cran,
 
 # Installation code
 #' @rdname get_pkgs_installation_status
-#' @inheritDotParams update_pkg_snippets
+#' @inheritParams update_pkg_snippets
 #' @export
 #' @param to_clipboard (logical) If `TRUE`, the code is copied to clipboard and
 #'        returned only invisibly.
