@@ -164,12 +164,30 @@ get_default_path_to_meld <- function() {
   path_to <-
     switch(
       get_os_type(),
-      "windows" = "C:/Program Files (x86)/Meld/meld.exe",
+      # FIXME: not tested well
+      "windows" =
+        suppressWarnings({
+          out <- system2("where", "meld", stdout = TRUE)
+          if (is.null(attr(out, "status"))) {
+            out
+          } else {
+            "C:/Program Files (x86)/Meld/meld.exe"
+          }
+        }),
+
       # "linux"   = "/usr/bin/meld",
       # "osx"     = "/usr/bin/meld", # <- neašku, kaip Mac'e
 
       # FIXME: Might not work if Meld is not installed
-      system2("which", "meld", stdout = TRUE)
+      suppressWarnings({
+        out <- system2("which", "meld", stdout = TRUE)
+        if (is.null(attr(out, "status"))) {
+          out
+        } else {
+          ""
+        }
+      })
+      # system2("which", "meld", stdout = TRUE)
       # system("which meld", intern = TRUE, show.output.on.console = FALSE)
     )
   # if (!fs::file_exists(path_to)) {
