@@ -38,8 +38,8 @@ check_updates_bio  <- function(show_status = "always", install = "outdated", ...
 #' @inheritParams update_pkg_snippets
 #' @export
 update_pkg_bio <- function(upgrade = FALSE, force = FALSE) {
-  checkmate::assert_flag(upgrade)
   checkmate::assert_flag(force)
+  upgrade <- chk_arg_upgrade(upgrade)
 
   if (rstudioapi::isAvailable(version_needed = "1.1.281")) {
     force_str <-
