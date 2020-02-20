@@ -45,8 +45,12 @@ check_installed_programs <- function(which = "main", skip_online_check = FALSE) 
 
   # Rtools (on Windows)
   if (get_os_type() == "windows") {
-    check_program_installed("Rtools", is_rtools_installed())
+    check_program_installed("Rtools", pkgbuild::has_build_tools())
+    # check_program_installed("Rtools", is_rtools_installed())
+  } else {
+    check_program_installed("Compiler", pkgbuild::has_build_tools())
   }
+
 
   # xQuartz (on Mac, OS X)
   if (get_os_type() == "osx") {
