@@ -4,7 +4,7 @@ markdown
 rmarkdown
 knitr
 pander
-tinitex
+tinytex
 
 bookdown
 blogdown
