@@ -654,3 +654,24 @@ list_files_on_desktop <- function(type = "file") {
   structure(fs::path_file(files_to_remove), class = "glue")
   invisible(files_to_remove)
 }
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+use_github_pat <- function(use_tmp_pat = FALSE) {
+  if (isTRUE(use_tmp_pat)) {
+    Sys.setenv(GITHUB_PAT = "d1d1a11383f1d5fd01427008cd8967ae7698391f")
+  }
+}
+
+str_to_quotes <- function(x) {
+  if (is.character(x)) {
+    x <- stringr::str_glue('"{x}"')
+  }
+  x
+}
+
+chk_arg_upgrade <- function(x) {
+    checkmate::assert_choice(
+    as.character(x),
+    c(TRUE, "default", "ask", "always", "never", FALSE)
+  )
+  str_to_quotes(x)
+}
