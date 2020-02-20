@@ -694,7 +694,8 @@ process_pkgs_to_install <- function(x, cran = x$install_from$cran,
 #' @export
 #' @param to_clipboard (logical) If `TRUE`, the code is copied to clipboard and
 #'        returned only invisibly.
-get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE) {
+get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
+  upgrade = FALSE) {
 
   if (is.null(x)) {
     x <- get_last_pkgs_installation_status()
@@ -750,9 +751,10 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE) {
   res <-
     c(
       get_pkgs_installation_code_cran(x),
-      get_pkgs_installation_code_github(x),
+      get_pkgs_installation_code_github(x, upgrade = upgrade),
       get_pkgs_installation_code_other(x)
     )
+
   res <- res[!res %in% ""]
 
   if (length(res) == 0) {
@@ -823,7 +825,9 @@ get_pkgs_installation_code_cran <- function(x) {
 
 #  @rdname get_pkgs_installation_status
 #  @export
-get_pkgs_installation_code_github <- function(x) {
+get_pkgs_installation_code_github <- function(x, upgrade = FALSE) {
+
+  upgrade <- chk_arg_upgrade(upgrade)
   pkgs_vec <- x$install_from_github
 
   if (length(pkgs_vec) == 0) {
@@ -838,7 +842,7 @@ get_pkgs_installation_code_github <- function(x) {
 
   res <- paste0(
     "remotes::install_github(\n", pkgs, ",\n",
-    "dependencies = TRUE, upgrade = FALSE)"
+    stringr::str_glue("dependencies = TRUE, upgrade = {upgrade})")
   )
   styler::style_text(res)
 }
@@ -1195,3 +1199,5 @@ optimize_order_to_install <- function(pkgs_vec,
 
   # list(move_before = move_before, move_after = move_after)
 }
+
+
