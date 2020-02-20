@@ -70,7 +70,7 @@ or need to be updated) and package installation code." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9024</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9025</span>
       </span>
     </div>
 
@@ -132,12 +132,19 @@ or need to be updated) and package installation code.</p>
   <span class='kw'>use_local_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"bio.use_local_list"</span>, <span class='fl'>FALSE</span>)
 )
 
+<span class='fu'>get_pkg_lists_local</span>()
+
 <span class='fu'>get_last_pkgs_installation_status</span>()
 
 <span class='co'># S3 method for pkgs_installation_status</span>
 <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='kw'>show_status</span> <span class='kw'>=</span> <span class='no'>x</span>$<span class='no'>show_status</span>, <span class='no'>...</span>)
 
-<span class='fu'>get_pkgs_installation_code</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>, <span class='kw'>to_clipboard</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>get_pkgs_installation_code</span>(
+  <span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>to_clipboard</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>upgrade</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -221,6 +228,11 @@ Defaults to the value of <code>install</code>.</p></td>
       <th>to_clipboard</th>
       <td><p>(logical) If <code>TRUE</code>, the code is copied to clipboard and
 returned only invisibly.</p></td>
+    </tr>
+    <tr>
+      <th>upgrade</th>
+      <td><p>Upgrade dependencies.
+See <code>upgrade</code> in <code><a href='https://remotes.r-lib.org/reference/install_github.html'>remotes::install_github()</a></code>.</p></td>
     </tr>
     </table>
 

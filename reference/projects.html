@@ -91,7 +91,7 @@ vector)
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9024</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9025</span>
       </span>
     </div>
 
@@ -162,7 +162,7 @@ vector)</p></li>
 
 <span class='fu'>get_path_recent_proj_list</span>()
 
-<span class='fu'>get_path_personal_proj_list</span>()
+<span class='fu'>get_path_personal_proj_list</span>(<span class='kw'>create</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>get_projs_recent</span>(<span class='kw'>sort_by</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
@@ -182,6 +182,10 @@ vector)</p></li>
     <tr>
       <th>sort_by</th>
       <td><p>(<code>"name"</code>|<code>"path"</code>|<code><a href='https://rdrr.io/r/base/logical.html'>FALSE</a></code>)</p></td>
+    </tr>
+    <tr>
+      <th>create</th>
+      <td><p>(ligical) If <code>TRUE</code> and file does not exist, the file is created.</p></td>
     </tr>
     </table>
 

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get or set Pander options. — pander_options • bio</title>
+<title>Functions that to restart or reload programs — restart-reload • bio</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,9 @@
 
 
 
-<meta property="og:title" content="Get or set Pander options. — pander_options" />
-<meta property="og:description" content="Get or set Pander options." />
+<meta property="og:title" content="Functions that to restart or reload programs — restart-reload" />
+<meta property="og:description" content="restart_r() restarts R session in RStudio.
+reload_rstudio() reloads RStudio without closing it." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -105,59 +106,26 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get or set Pander options.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/pander_options.R'><code>R/pander_options.R</code></a></small>
-    <div class="hidden name"><code>pander_options.Rd</code></div>
+    <h1>Functions that to restart or reload programs</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/settings.R'><code>R/settings.R</code></a></small>
+    <div class="hidden name"><code>restart-reload.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Get or set Pander options.</p>
+    <p><code>restart_r()</code> restarts R session in RStudio.
+<code>reload_rstudio()</code> reloads RStudio without closing it.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>pander_options</span>(<span class='no'>o</span>, <span class='no'>value</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>restart_r</span>()
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>o</th>
-      <td><p>(string) option name.</p></td>
-    </tr>
-    <tr>
-      <th>value</th>
-      <td><p>value to assign (optional)</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>valid option - value pairs (e.g., <code>option = "value"</code>).</p></td>
-    </tr>
-    </table>
+<span class='fu'>reload_rstudio</span>()</pre>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/pander/man/evalsOptions.html'>pander::evalsOptions()</a></code></p></div>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>p_opts</span> <span class='kw'>&lt;-</span> <span class='fu'>pander_options</span>()
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='no'>p_opts</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>2</span>)</div><div class='output co'>#&gt; $digits
-#&gt; [1] 4
-#&gt; 
-#&gt; $decimal.mark
-#&gt; [1] "."
-#&gt; </div><div class='input'>
-<span class='fu'>pander_options</span>(<span class='st'>"digits"</span>)</div><div class='output co'>#&gt; [1] 4</div><div class='input'>
-<span class='fu'>pander_options</span>(<span class='st'>"digits"</span>, <span class='fl'>5</span>)
-<span class='fu'>pander_options</span>(<span class='st'>"digits"</span>)</div><div class='output co'>#&gt; [1] 5</div><div class='input'>
-<span class='fu'>pander_options</span>(<span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>2</span>)
-<span class='fu'>pander_options</span>(<span class='st'>"digits"</span>)</div><div class='output co'>#&gt; [1] 2</div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
