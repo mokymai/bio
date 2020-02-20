@@ -205,7 +205,9 @@ get_path_pkgs_recommended <- function(list_name, use_local_list) {
 #'
 #' head(get_pkgs_req_version())
 #'
-get_pkgs_req_version <- function(use_local_list = getOption("bio.use_local_list", FALSE)) {
+get_pkgs_req_version <- function(
+  use_local_list = getOption("bio.use_local_list", FALSE)) {
+
   file <- get_path_pkgs_req_version(use_local_list)
   tbl <-
     read.table(file, skip = 10, header = TRUE, sep = "|", na.strings = c("NA", "-"),
@@ -294,6 +296,7 @@ get_pkgs_cran_details <- function() {
 
 get_pkgs_non_cran_installation_details <- function(
   use_local_list = getOption("bio.use_local_list", FALSE)) {
+
   file <- get_path_pkgs_non_cran_installation_details(use_local_list)
 
   tbl <- read.table(file, skip = 10, header = TRUE, sep = "|", strip.white = TRUE,
@@ -691,6 +694,7 @@ process_pkgs_to_install <- function(x, cran = x$install_from$cran,
 
 # Installation code
 #' @rdname get_pkgs_installation_status
+#' @inheritDotParams update_pkg_snippets
 #' @export
 #' @param to_clipboard (logical) If `TRUE`, the code is copied to clipboard and
 #'        returned only invisibly.
