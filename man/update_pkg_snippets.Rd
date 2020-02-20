@@ -7,13 +7,12 @@
 update_pkg_snippets(upgrade = TRUE, force = FALSE)
 }
 \arguments{
-\item{upgrade}{(logical) \code{TRUE} or \code{FALSE}.
-Upgrade dependencies.
+\item{upgrade}{Upgrade dependencies.
 See \code{upgrade} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
 
 \item{force}{(logical) \code{TRUE} or \code{FALSE}.
 Force to update.
-See \code{upgrade} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
+See \code{force} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
 }
 \description{
 Update RcmdrPlugin.biostat and related packages

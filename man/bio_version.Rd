@@ -20,13 +20,12 @@ update_pkg_bio(upgrade = FALSE, force = FALSE)
 
 \item{...}{Arguments to further methods.}
 
-\item{upgrade}{(logical) \code{TRUE} or \code{FALSE}.
-Upgrade dependencies.
+\item{upgrade}{Upgrade dependencies.
 See \code{upgrade} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
 
 \item{force}{(logical) \code{TRUE} or \code{FALSE}.
 Force to update.
-See \code{upgrade} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
+See \code{force} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
 }
 \description{
 \code{get_vesion_bio()} returns version number of package \pkg{bio}.
