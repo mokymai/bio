@@ -268,15 +268,6 @@ check_rs_version <- function(v_recommended = "1.2.5033", skip_online_check = FAL
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-is_rtools_installed  <- function(variables) {
-  if (get_os_type() == "windows") {
-    stringr::str_detect(Sys.getenv('PATH'), "\\\\Rtools\\\\")
-  } else {
-    FALSE
-  }
-}
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 is_xquartz_installed  <- function(variables) {
   isTRUE(unname(capabilities("aqua")))
 }
