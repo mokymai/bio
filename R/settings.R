@@ -24,6 +24,10 @@ ip_ec_108 <-
     "158.129.159.234"
   )
 
+is_classroom_ip <- function() {
+  pingr::my_ip(method = "https") %in% c(ip_gmc_r209, ip_gmc_c255, ip_ec_108)
+}
+
 restriction_status <- function(ignore_ip = FALSE, ...) {
   isTRUE(ignore_ip)
 }
@@ -58,7 +62,8 @@ reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
 
   status <- restriction_status(...)
 
-  if (!(status || pingr::my_ip() %in% c(ip_gmc_r209, ip_gmc_c255, ip_ec_108))) {
+  if (!(status || is_classroom_ip())) {
+
     usethis::ui_oops("This function does not work on this computer.")
     return(invisible())
   }
@@ -103,9 +108,9 @@ reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
   bio::clear_r_workspace() # clearWorkspace
 
   # Tab History
-  bio::clear_r_history(backup = FALSE)
-  unlink(".Rhistory")
   bio::clear_rs_history()
+  # bio::clear_r_history(backup = FALSE)
+  unlink(".Rhistory")
 
   # Layout
   bio::reset_rstudio_layout()
@@ -655,12 +660,6 @@ list_files_on_desktop <- function(type = "file") {
   invisible(files_to_remove)
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-use_github_pat <- function(use_tmp_pat = FALSE) {
-  if (isTRUE(use_tmp_pat)) {
-    Sys.setenv(GITHUB_PAT = "d1d1a11383f1d5fd01427008cd8967ae7698391f")
-  }
-}
-
 str_to_quotes <- function(x) {
   if (is.character(x)) {
     x <- stringr::str_glue('"{x}"')
