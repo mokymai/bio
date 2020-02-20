@@ -16,12 +16,12 @@ update_pkg_rcmdr_biostat <- function(upgrade = TRUE, force = FALSE) {
 #' Update RcmdrPlugin.biostat and related packages
 #'
 #' @export
-#' @param upgrade (logical) `TRUE` or `FALSE`.
+#' @param upgrade
 #'        Upgrade dependencies.
 #'        See `upgrade` in [remotes::install_github()].
 #' @param force (logical) `TRUE` or `FALSE`.
 #'        Force to update.
-#'        See `upgrade` in [remotes::install_github()].
+#'        See `force` in [remotes::install_github()].
 #' @examples
 #' \dontrun{\donttest{
 #'
@@ -39,8 +39,9 @@ update_pkg_from_github <- function(pkg = "", github_repo = "", update_list = "",
   checkmate::assert_string(pkg)
   checkmate::assert_string(github_repo)
   checkmate::assert_string(update_list)
-  checkmate::assert_flag(upgrade)
   checkmate::assert_flag(force)
+  upgrade <- chk_arg_upgrade(upgrade)
+
 
   force_str <-
     if (force) {
