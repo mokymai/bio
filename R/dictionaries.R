@@ -132,6 +132,6 @@ delete_spellcheck_dictionaries <- function() {
 
 # ==========================================================================~~
 
-#' @importFrom rstudioapi selectDirectory
-#' @export
-rstudioapi::selectDirectory
+# # @importFrom rstudioapi selectDirectory
+# # @export
+# rstudioapi::selectDirectory
