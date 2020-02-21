@@ -393,17 +393,17 @@ reset_rstudio_user_settings <- function(to, backup = TRUE, ask = TRUE) {
   if (missing(to)) {
     ui_stop(paste0(
       "The set of RStudio user settings is not defined (argument '{yellow('to')}').\n",
-      'Possible options: {ui_value("rstudio-default")}, {ui_value("bio-default")}.'
+      'Possible choices: {ui_value(c("bio-default", "rstudio-default"))}.'
     ))
   }
-  checkmate::assert_string(to)
 
-  # to = c("rstudio-default", "bio-default")
+  checkmate::assert_choice(to, c("rstudio-default", "bio-default"))
 
   if (isTRUE(ask)) {
-    ans <- usethis::ui_nope("Do you want to reset RStudio user settings?")
-    # ans <- usethis::ui_nope("Do you want to reset RStudio user settings?",
-    #   yes = "Yes")
+    ans <- usethis::ui_nope(
+      "Do you want to reset RStudio user settings to {ui_value(to)}?"
+    )
+    # ans <- usethis::ui_nope("...", yes = "Yes")
 
     if (ans) {
       usethis::ui_warn("Cancelled.")
@@ -434,15 +434,16 @@ reset_rstudio_user_settings <- function(to, backup = TRUE, ask = TRUE) {
         unname(tools::md5sum(file_default) == tools::md5sum(file_current))
     },
 
-    usethis::ui_stop('Not recognozed option: to = {usethis::ui_value(to[1])}')
+    usethis::ui_stop('Not recognozed option: to = {usethis::ui_value(to[1])}.')
 
   )
 
   if (isTRUE(success)) {
-    usethis::ui_done("RStudio user preferences were reset. Now you should restart RStudio.")
+    usethis::ui_done("RStudio user settings were reset to {ui_value(to)}.")
+    ui_msg_restart_rstudio()
 
   } else {
-    usethis::ui_oops("Failure to reset RStudio user preferences.")
+    usethis::ui_oops("Failure to reset RStudio user settings.")
 
   }
 
@@ -681,5 +682,12 @@ chk_arg_upgrade <- function(x) {
     c(TRUE, "default", "ask", "always", "never", FALSE)
   )
   str_to_quotes(x)
+}
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ui_msg_restart_rstudio <- function() {
+  (
+    usethis::ui_todo(
+      "To take effect, {underline('RStudio should be closed and reopened')}.")
+  )
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
