@@ -8,7 +8,8 @@
 #' Helper functions for version control system (vcs) in RStudio.
 #' - `open_rs_proj_vcs_opts()` opens version control setup for RStudio project.
 #' - `show_rs_vcs_rsa_key()` shows version RSA key.
-#' - `browse_rs_vcs_help()` opens website with help of version control in RStudio .
+#' - `browse_rs_version_control_help()` opens website with help of version
+#'    control in RStudio .
 #' @export
 # open_rs_verion_control_opts <- function() {
 open_rs_proj_vcs_opts <- function() {
@@ -23,7 +24,7 @@ show_rs_vcs_rsa_key <- function() {
 
 #' @name version-control
 #' @export
-browse_rs_vcs_help <- function() {
+browse_rs_version_control_help <- function() {
   rstudioapi::executeCommand("versionControlHelp", quiet = TRUE)
 }
 
