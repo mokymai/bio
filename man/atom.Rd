@@ -2,13 +2,13 @@
 % Please edit documentation in R/git.R
 \name{atom}
 \alias{atom}
-\alias{bowse_atom_homepage}
+\alias{browse_atom_homepage}
 \alias{is_atom_installed}
 \alias{set_atom_as_git_core_editor}
 \alias{install_atom_meld}
 \title{Helper functions for "Atom".}
 \usage{
-bowse_atom_homepage()
+browse_atom_homepage()
 
 is_atom_installed()
 
