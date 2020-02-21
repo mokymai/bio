@@ -15,7 +15,7 @@ get_pkgs_installation_status_local(
 )
 
 get_pkgs_installation_status(
-  list_name,
+  list_name = NULL,
   include = "outdated",
   show_status = include,
   install = include,

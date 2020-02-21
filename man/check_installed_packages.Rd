@@ -5,7 +5,7 @@
 \title{Check installed packages}
 \usage{
 check_installed_packages(
-  list_name,
+  list_name = NULL,
   use_local_list = getOption("bio.use_local_list", FALSE),
   ...
 )
