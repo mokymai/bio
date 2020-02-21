@@ -1,9 +1,8 @@
-# bio::download_rs_system_dictionaries()
-# snippets::install_snippets_from_package("snippets", type = c("r", "markdown"), backup = TRUE)
-# bio::reset_rstudio_keybindings(to = "bio-default", backup = TRUE)
+# bio::download_spellcheck_dictionaries()
 # bio::reset_rstudio_user_settings(to = "bio-default", backup = TRUE)
+# bio::reset_rstudio_keybindings(to = "bio-default", backup = TRUE)
+# snippets::install_snippets_from_package("snippets", type = c("r", "markdown"), backup = TRUE)
 # bio::reload_rstudio()
-
 
 # Clear and Reset ============================================================
 ip_gmc_r209_compact <- "158.129.170.(3,200-237)"
@@ -28,7 +27,7 @@ is_classroom_ip <- function() {
   pingr::my_ip(method = "https") %in% c(ip_gmc_r209, ip_gmc_c255, ip_ec_108)
 }
 
-restriction_status <- function(ignore_ip = FALSE, ...) {
+restriction_status <- function(ignore_ip = getOption("bio.ignore_ip", FALSE), ...) {
   isTRUE(ignore_ip)
 }
 
@@ -76,7 +75,7 @@ reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
   dict_path <- get_path_rs_system_dictionaries_dir()
   lt_LT_is_missing <- !any(stringr::str_detect(dir(dict_path), "lt_LT"))
   if (force_update_dictionaries || lt_LT_is_missing) {
-    bio::download_rs_system_dictionaries()
+    bio::download_spellcheck_dictionaries()
   }
 
   # Working directory
