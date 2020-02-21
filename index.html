@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9025</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9026</span>
       </span>
     </div>
 
@@ -73,12 +73,22 @@
 </h1></div>
 <!-- badges: start -->
 <!-- [![GitHub version](https://img.shields.io/badge/GitHub-v0.0.0.9025-brightgreen.svg)](https://github.com/mokymai/bio) -->
+<!-- [![CRAN status](https://www.r-pkg.org/badges/version/bio)](https://CRAN.R-project.org/package=bio) -->
 
 <p>Convenience functions to facilitate installation and management of required resources for <strong><em>Biostatistics</em></strong> course unit (<em>BS-2020</em>).</p>
 <center>
 
-<font color="red" size="6"> <br> Work is still in progress… </font> <br><font color="darkred" size="4"> Tested only on <em>Windows 10</em>
-(64-bit) with RStudio 1.2.5033. </font> <br><br>
+<!-- <font color="red" size=6> -->
+
+<!-- <br> -->
+
+<!-- Work is still in progress... -->
+
+<!-- </font> -->
+
+<br><font color="darkred" size="4"> This package is well tested on
+<em>Windows 10</em> (64-bit) with RStudio 1.2.5033 only. </font>
+<br><br>
 </center>
 <p>Bug reports and your feedback are welcome at <a href="https://github.com/mokymai/bio/issues" class="uri">https://github.com/mokymai/bio/issues</a>. In the report, indicate your operating system.</p>
 </div>
@@ -92,9 +102,9 @@
 <div id="examples" class="section level1">
 <h1 class="hasAnchor">
 <a href="#examples" class="anchor"></a>Examples</h1>
-<div id="check-information-about-os-programs-and-packages" class="section level2">
+<div id="check-information-about-os-and-user" class="section level2">
 <h2 class="hasAnchor">
-<a href="#check-information-about-os-programs-and-packages" class="anchor"></a>Check information about OS, programs and packages</h2>
+<a href="#check-information-about-os-and-user" class="anchor"></a>Check information about OS and user</h2>
 <p>Check information about operating system (OS) and R-related user information.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/check_installed_programs.html">check_user_info</a></span>()</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">## Operating system    Windows 10 x64 (build 18362)</a>
@@ -106,10 +116,17 @@
 <a class="sourceLine" id="cb2-8" data-line-number="8">## R_USER              C:/Users/User/Documents</a>
 <a class="sourceLine" id="cb2-9" data-line-number="9">## R_HOME              C:/PROGRA~1/R/R-36~1.2</a>
 <a class="sourceLine" id="cb2-10" data-line-number="10">## R_LIBS_USER         C:/R/win-library/3.6</a></code></pre></div>
-<p>Check installed R-related programs. Options:</p>
+</div>
+<div id="check-information-about-programs" class="section level2">
+<h2 class="hasAnchor">
+<a href="#check-information-about-programs" class="anchor"></a>Check information about programs</h2>
+<p>Check versions of presence of installed R-related and other programs. Options:</p>
 <ul>
-<li>“main” (default) – checks “R”, “RStudio”, “Rtools” (“Windows” only) and “XQuartz” (“Mac” only).</li>
-<li>“all” – additionally checks for presence of “Atom”, “Git” and “Meld”. This check may not work properly on “Mac” and “Linux”.</li>
+<li>
+<code>"main"</code> (default) – checks for “R”, “RStudio”, “Rtools” (“Windows” only) or “Compiler” (non-“Windows” only) and “XQuartz” (“Mac” only).</li>
+<li>
+<code>"all"</code> – additionally checks for presence of “Atom”, “Git” and (sometimes) “Meld”. <!-- This check may not work properly on "Mac" and "Linux". -->
+</li>
 </ul>
 <!-- end list --><div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/check_installed_programs.html">check_installed_programs</a></span>()</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">## ✔ Program R (3.6.2) is installed (recommended 3.6.2, available 3.6.2)</a>
@@ -117,33 +134,41 @@
 <a class="sourceLine" id="cb3-4" data-line-number="4">## ✔ Program Rtools is installed.</a></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/check_installed_programs.html">check_installed_programs</a></span>(<span class="st">"all"</span>)</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">## ✔ Program R (3.6.2) is installed (recommended 3.6.2, available 3.6.2)</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">## ✖ Program RStudio is not installed or is not running.</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">## ✔ Program RStudio (1.2.5033) is installed (recommended 1.2.5033, available 1.2.5033)</a>
 <a class="sourceLine" id="cb4-4" data-line-number="4">## ✔ Program Rtools is installed.</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">## ✔ Program Atom is installed.</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5">## ✖ Program Atom is not found or not configured correctly.</a>
 <a class="sourceLine" id="cb4-6" data-line-number="6">## ✔ Program Git is installed.</a>
 <a class="sourceLine" id="cb4-7" data-line-number="7">## ✔ Program Meld is installed.</a></code></pre></div>
-<p>Check for installed packages. By default, only missing packages or packages with lower than recommended versions are displayed. Currently available lists are:</p>
+</div>
+<div id="check-information-about-r-packages" class="section level2">
+<h2 class="hasAnchor">
+<a href="#check-information-about-r-packages" class="anchor"></a>Check information about “R” packages</h2>
+<p>The following functions may be used to check installed packages by topic. By default, only missing packages or packages with lower versions than recommended are displayed. Currently available lists can be returned by function <code><a href="reference/get_pkgs_installation_status.html">bio::get_pkg_lists_local()</a></code> and they include:</p>
 <ul>
-<li>“mini”</li>
-<li>“addins-rmd”</li>
-<li>“bio”</li>
-<li>“bs-2020-initial”</li>
-<li>“gmc-r209”</li>
-<li>“rcmdr”</li>
-<li>“rcmdr-biostat”</li>
-<li>“snippets”</li>
-<li>“spelling-grammar”</li>
+<li><code>'addins-rmd'</code></li>
+<li><code>'bio'</code></li>
+<li><code>'bs-2020-initial'</code></li>
+<li><code>'ggplot'</code></li>
+<li><code>'gmc-r209'</code></li>
+<li><code>'markdown'</code></li>
+<li><code>'mini'</code></li>
+<li><code>'rcmdr-biostat'</code></li>
+<li><code>'rcmdr'</code></li>
+<li><code>'snippets'</code></li>
+<li><code>'spelling-grammar'</code></li>
+<li><code>'summary'</code></li>
 </ul>
 <!-- end list --><div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/check_installed_packages.html">check_installed_packages</a></span>(<span class="dt">list_name =</span> <span class="st">"mini"</span>)</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2">## ✔ The required versions of all 19 packages (from list 'mini') are already installed.</a></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/check_installed_packages.html">check_installed_packages</a></span>(<span class="dt">list_name =</span> <span class="st">"mini"</span>, <span class="dt">include =</span> <span class="st">"newer_on_cran"</span>)</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2">## ✔ The required versions of all 19 packages (from list 'mini') are already installed.</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">## ● 1 package has newer version on CRAN.</a></code></pre></div>
+<a class="sourceLine" id="cb6-3" data-line-number="3">## ● 1 package has newer version on CRAN.</a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">##   Use `install.packages()` to update it, if needed.</a></code></pre></div>
 </div>
 <div id="update-packages" class="section level2">
 <h2 class="hasAnchor">
 <a href="#update-packages" class="anchor"></a>Update packages</h2>
-<p>These are the convenience functions to update certain R packages. The functions try to restart R if used in RStudio.</p>
+<p>These are the convenience functions to update certain R packages. The functions restart R before installation if used in RStudio.</p>
 <p>Update package <strong>bio</strong>.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/bio_version.html">update_pkg_bio</a></span>()</a></code></pre></div>
 <p>Check if there are updates for <strong>bio</strong> or its dependency packages.</p>
@@ -158,21 +183,23 @@
 <h2 class="hasAnchor">
 <a href="#rstudio-settings-and-user-preferences" class="anchor"></a>RStudio settings and user preferences</h2>
 <blockquote>
-<p>You should use functions that reset key bindings (shortcut keys), RStudio settings and snippets <strong>at your own risk</strong>.</p>
+<p>Make sure that you understand what you do when you use the functions that reset RStudio key bindings (shortcut keys), settings or snippets. <strong>You may loose all your previous settings.</strong></p>
 </blockquote>
 <div id="dictionaries" class="section level3">
 <h3 class="hasAnchor">
 <a href="#dictionaries" class="anchor"></a>Dictionaries</h3>
-<p>Update dictionaries.</p>
-<p>To download <strong>hunspell</strong> spelling checking dictionaries (including Lithuanian) for RStudio.</p>
+<p>This function downloads or updates <strong>hunspell</strong> spelling checking dictionaries dictionaries (including Lithuanian) that can be used by RStudio or by tools from <strong>wellspell.addin</strong> package.</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/spelling.html">download_spellcheck_dictionaries</a></span>()</a></code></pre></div>
 </div>
 <div id="shortcut-keys" class="section level3">
 <h3 class="hasAnchor">
 <a href="#shortcut-keys" class="anchor"></a>Shortcut keys</h3>
-<p>Change shortcut keys. Options:</p>
+<p>This function changes shortcut keys in RStudio. Options:</p>
 <ul>
-<li>“bio-default” – shortcut keys, recommended for BS-2020.</li>
+<li>
+<code>"bio-default"</code> – shortcut keys, recommended for BS-2020.</li>
+<li>
+<code>"rstudio-default"</code> – RStudio defaults.</li>
 </ul>
 <!-- end list --><div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/reset_rstudio_keybindings.html">reset_rstudio_keybindings</a></span>(<span class="dt">to =</span> <span class="st">"bio-default"</span>)</a></code></pre></div>
 <table class="table">
@@ -195,7 +222,7 @@
 <td>
 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd>
 </td>
-<td>Use “Tidyverse” style on selected lines of R code (<em>R code</em>).</td>
+<td>Use “Tidyverse” style on selected lines of R code. Package <strong>styler</strong> must be installed. (<em>R code</em>)</td>
 </tr>
 <tr class="odd">
 <td>
@@ -225,8 +252,7 @@
 <td>
 <kbd>Ctrl</kbd>+<kbd>E</kbd>
 </td>
-<td>
-<strong>[!]</strong> Insert/Enclose with R code block (<em>R Markdown</em>).</td>
+<td>Insert/Enclose with R code block (<em>R Markdown</em>) <strong>[!]</strong> .</td>
 </tr>
 <tr class="even">
 <td>
@@ -284,7 +310,7 @@
 </tr>
 </tbody>
 </table>
-<p><strong>Table 1.</strong> Some of shortcut keys set with option “bio-default”.</p>
+<p><strong>Table 1.</strong> Some of shortcut keys set with option <code>"bio-default"</code>.</p>
 <!-- "addins.rmd::rmd_list_numbered"                : "Ctrl+Shift+Alt+L", -->
 <!-- "addins.rs::rs_align_code_at_arrow"            : "Ctrl+Shift+Alt+[", -->
 <!-- "addins.rs::rs_align_code_at_equal"            : "Ctrl+Shift+Alt+]", -->
@@ -301,31 +327,36 @@
 <!-- "addins.rs::rs_replace_slash_bs2d"             : "Ctrl+Alt+\\", -->
 <!-- "addins.rs::rs_replace_slash_fw2b"             : "Ctrl+Shift+Alt+/", -->
 <!-- "bookdown::mathquill"                          : "Ctrl+Alt+NumPad9", -->
-<p>More on <a href="https://support.rstudio.com/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts">Customizing Keyboard Shortcuts</a>.</p>
+<p>More on <a href="https://support.rstudio.com/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts">Customizing Keyboard Shortcuts</a> in RStudio.</p>
 </div>
 <div id="rstudio-settings" class="section level3">
 <h3 class="hasAnchor">
 <a href="#rstudio-settings" class="anchor"></a>RStudio settings</h3>
-<p>Reset RStudio user preferences and settings. Options:</p>
+<p>This function resets RStudio user preferences and settings. Options:</p>
 <ul>
-<li>“bio-default” – options recommended for course BS-2020.</li>
-<li>“rstudio-default” – default RStudio settings.</li>
+<li>
+<code>"bio-default"</code> – options recommended for course BS-2020.</li>
+<li>
+<code>"rstudio-default"</code> – default RStudio settings.</li>
 </ul>
 <!-- end list --><div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/RStudio-settings.html">reset_rstudio_user_settings</a></span>(<span class="dt">to =</span> <span class="st">"bio-default"</span>)</a></code></pre></div>
 </div>
 <div id="snippets" class="section level3">
 <h3 class="hasAnchor">
 <a href="#snippets" class="anchor"></a>Snippets</h3>
-<p>Replace R code and R Markdown snippets with those in package “snippets”. More information on <a href="https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets">Code Snippets</a> and on package <a href="https://gegznav.github.io/snippets/">„snippets“</a>.</p>
+<p>The function replaces current R code and R Markdown snippets with those in package “snippets”.</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">snippets<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/snippets/man/install-snippets.html">install_snippets_from_package</a></span>(<span class="st">"snippets"</span>, <span class="dt">type =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"r"</span>, <span class="st">"markdown"</span>), <span class="dt">backup =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p>More information on <a href="https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets">Code Snippets</a> in RStudio and on package <a href="https://gegznav.github.io/snippets/">„snippets“</a>.</p>
 </div>
 <div id="restart-r-and-rstudio" class="section level3">
 <h3 class="hasAnchor">
 <a href="#restart-r-and-rstudio" class="anchor"></a>Restart R and RStudio</h3>
-<p>Reload RStudio to see the effect of changed RStudio settings. (In some cases it is recommended to close and reopen RStudio).</p>
+<p>If you want to see the effect of changed settings, you should reload RStudio. You may use this function, which reloads RStudio without closing it:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/restart-reload.html">reload_rstudio</a></span>()</a></code></pre></div>
-<p>Restart R inside RStudio session. Useful before installation of R packages.</p>
+<p>However, in some cases it is recommended to close and reopen RStudio.</p>
+<p>Next, to restart R session without closing RStudio, use:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">bio<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/bio/man/restart-reload.html">restart_r</a></span>()</a></code></pre></div>
+<p>Useful before installation of R packages.</p>
 <!-- ## RStudio projects -->
 <!-- Open (recently used) RStudio project. -->
 <!-- ```{r README-11, eval=FALSE} -->
@@ -377,11 +408,10 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://CRAN.R-project.org/package=bio"><img src="https://www.r-pkg.org/badges/version/bio" alt="CRAN status"></a></li>
 <li><a href="https://travis-ci.com/mokymai/bio"><img src="https://travis-ci.com/mokymai/bio.svg?branch=master" alt="Travis build status"></a></li>
 <li><a href="https://ci.appveyor.com/project/mokymai/bio"><img src="https://ci.appveyor.com/api/projects/status/github/mokymai/bio?branch=master&amp;svg=true" alt="AppVeyor build status"></a></li>
 <li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
-<li><a href=""><img src="https://img.shields.io/badge/Documentation-2020--02--20-yellowgreen.svg" alt="Documented on"></a></li>
+<li><a href=""><img src="https://img.shields.io/badge/Documentation-2020--02--21-yellowgreen.svg" alt="Documented on"></a></li>
 </ul>
 </div>
 </div>
