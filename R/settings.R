@@ -129,18 +129,46 @@ reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
   rstudioapi::executeCommand("consoleClear",      quiet = TRUE)
 
   if (rstudioapi::isAvailable("1.2.879")) {
-    # TODO:
-    white_theme <- rstudioapi::showQuestion(
-      "Chose color theme",
-      "Which theme should be used in RStudio?",
-      " Light (Textmate) ",
-      " Dark (Cobalt) "
+
+    light_theme <- rstudioapi::showQuestion(
+      "Choose light or dark color theme",
+      "Which theme (light/dark) should be used in RStudio?",
+      " Light ",
+      " Dark "
     )
 
-    if (white_theme) {
-      rstudioapi::applyTheme("Textmate (default)")
+    if (light_theme) {
+
+      is_textmate <- rstudioapi::showQuestion(
+        "Choose light color theme",
+        "Which light theme should be used in RStudio?",
+        " Textmate (default) ",
+        " Clouds "
+      )
+
+      if (is_textmate) {
+        rstudioapi::applyTheme("Textmate (default)")
+
+      } else {
+        # rstudioapi::applyTheme("Crimson Editor")
+        # rstudioapi::applyTheme("Xcode")
+        rstudioapi::applyTheme("Clouds")
+      }
+
     } else {
-      rstudioapi::applyTheme("Cobalt")
+      is_cobalt <- rstudioapi::showQuestion(
+        "Choose dark color theme",
+        "Which dark theme should be used in RStudio?",
+        " Cobalt (dark blue) ",
+        " Chaos (black) "
+      )
+
+      if (is_cobalt) {
+        rstudioapi::applyTheme("Cobalt")
+
+      } else {
+        rstudioapi::applyTheme("Chaos")
+      }
     }
   }
 
