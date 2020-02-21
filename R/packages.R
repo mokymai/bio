@@ -453,10 +453,18 @@ get_pkgs_installation_status_local <- function(list_name,
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # ========================================================================== ~
-get_pkgs_installation_status <- function(list_name, include = "outdated",
+get_pkgs_installation_status <- function(list_name = NULL, include = "outdated",
   show_status = include, install = include, cran = install,
   github = install, elsewhere = install,
   use_local_list = getOption("bio.use_local_list", FALSE)) {
+
+  if (is.null(list_name)) {
+    ui_stop(paste0(
+      "The {green('list_name')} is missing. ",
+      "Currently available lists include: ",
+      "{usethis::ui_value(bio::get_pkg_lists_local())}, ..."
+    ))
+  }
 
   choices <-
     c(TRUE, "always", "newer_on_cran", "outdated", "missing", "never", FALSE)
@@ -634,12 +642,13 @@ print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) 
     n_cran <- yellow(x$n_newer_on_cran)
     if (x$n_newer_on_cran == 1) {
       ui_todo("Note: {n_cran} package has newer version on CRAN.")
+      ui_line("  Use {ui_code('install.packages()')} to update it, if needed.")
 
     } else {
       ui_todo("Note: {n_cran} packages have newer versions on CRAN.")
+      ui_line("  Use {ui_code('install.packages()')} to update them, if needed.")
     }
 
-    ui_line("  Use {ui_code('install.packages()')} to update them, if needed.")
   }
 
 }
@@ -896,7 +905,7 @@ get_pkgs_installation_code_other <- function(x) {
 #' check_installed_packages("mini", include = "always", install = "outdated",
 #'  github = "always", use_local_list = TRUE)
 #' }}
-check_installed_packages <- function(list_name,
+check_installed_packages <- function(list_name = NULL,
   use_local_list = getOption("bio.use_local_list", FALSE), ...) {
 
   status <-
