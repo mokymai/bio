@@ -5,10 +5,10 @@
 
 <!-- badges: start -->
 
-<!-- [![GitHub version](https://img.shields.io/badge/GitHub-v0.0.0.9025-brightgreen.svg)](https://github.com/mokymai/bio) -->
-
 <!-- [![CRAN status](https://www.r-pkg.org/badges/version/bio)](https://CRAN.R-project.org/package=bio) -->
 
+[![GitHub
+version](https://img.shields.io/badge/GitHub-v0.0.0.9026-brightgreen.svg)](https://github.com/mokymai/bio)
 [![Travis build
 status](https://travis-ci.com/mokymai/bio.svg?branch=master)](https://travis-ci.com/mokymai/bio)
 [![AppVeyor build
@@ -33,7 +33,7 @@ required resources for ***Biostatistics*** course unit (*BS-2020*).
 <!-- </font> -->
 
 <br> <font color="darkred" size=4> This package is well tested on
-<em>Windows 10</em> (64-bit) with RStudio 1.2.5033 only. </font>
+<em>Windows 10</em> (64-bit) with RStudio 1.2.5033 <b>only</b>. </font>
 <br><br>
 
 </center>
@@ -195,26 +195,27 @@ This function changes shortcut keys in RStudio. Options:
 bio::reset_rstudio_keybindings(to = "bio-default")
 ```
 
-| Shortcut                                                     | Action                                                                                                                       |
-| ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd> | Check spelling in selected text (if package [**wellspell.addin**](https://github.com/nevrome/wellspell.addin) is installed). |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd> | Use “Tidyverse” style on selected lines of R code. Package **styler** must be installed. (*R code*)                          |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd>                | Duplicate selected text.                                                                                                     |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>P</kbd> | Align selected lines at pattern.                                                                                             |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd>                | Insert lower opening quotes `„`.                                                                                             |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>’</kbd>                | Insert upper closing quotes `“`.                                                                                             |
-| <kbd>Ctrl</kbd>+<kbd>E</kbd>                                 | Insert/Enclose with R code block (*R Markdown*) **\[\!\]** .                                                                 |
-| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>T</kbd>                  | Insert inline code highlighted as R code (R Markdown).                                                                       |
-| <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>                 | Insert inline LaTeX equation (*R Markdown*).                                                                                 |
-| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad0</kbd>            | Remove heading/section name (*R Markdown*).                                                                                  |
-| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad1</kbd>            | Replace line into/Insert heading (section name) of level 1 (*R Markdown*).                                                   |
-| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad2</kbd>            | … of level 2 (*R Markdown*).                                                                                                 |
-| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad3</kbd>            | … of level 3 (*R Markdown*).                                                                                                 |
-| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad4</kbd>            | … of level 4 (*R Markdown*).                                                                                                 |
-| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad5</kbd>            | … of level 5 (*R Markdown*).                                                                                                 |
-| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad6</kbd>            | Insert operator `%in%` (*R code*).                                                                                           |
+| Shortcut                                                     | Action                                                                                                                        |
+| ------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd> | Check spelling in selected text. Package [**wellspell.addin**](https://github.com/nevrome/wellspell.addin) must be installed. |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd> | Use “Tidyverse” style on selected lines of R code. Package **styler** must be installed (*R code*).                           |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd>                | Duplicate selected text.                                                                                                      |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>P</kbd> | Align selected lines at pattern.                                                                                              |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd>                | Insert lower opening quotes `„`.                                                                                              |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>’</kbd>                | Insert upper closing quotes `“`.                                                                                              |
+| <kbd>Ctrl</kbd>+<kbd>E</kbd>                                 | Insert/Enclose with R code block (*R Markdown*) **\[\!\]** .                                                                  |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>T</kbd>                  | Insert inline code highlighted as R code (R Markdown).                                                                        |
+| <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>                 | Insert inline LaTeX equation (*R Markdown*).                                                                                  |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad0</kbd>            | Remove heading/section name (*R Markdown*).                                                                                   |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad1</kbd>            | Replace line into/Insert heading (section name) of level 1 (*R Markdown*).                                                    |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad2</kbd>            | … of level 2 (*R Markdown*).                                                                                                  |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad3</kbd>            | … of level 3 (*R Markdown*).                                                                                                  |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad4</kbd>            | … of level 4 (*R Markdown*).                                                                                                  |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad5</kbd>            | … of level 5 (*R Markdown*).                                                                                                  |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad6</kbd>            | Insert operator `%in%` (*R code*).                                                                                            |
 
-**Table 1.** Some of shortcut keys set with option `"bio-default"`.
+**Table 1.** Some examples of shortcut keys set with option
+`"bio-default"`.
 
 <!-- "addins.rmd::rmd_list_numbered"                : "Ctrl+Shift+Alt+L", -->
 

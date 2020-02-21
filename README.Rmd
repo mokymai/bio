@@ -38,7 +38,7 @@ Convenience functions to facilitate installation and management of required reso
 <!-- </font> -->
 <br>
 <font color="darkred" size=4>
-This package is well tested on <em>Windows 10</em> (64-bit) with RStudio 1.2.5033 only.
+This package is well tested on <em>Windows 10</em> (64-bit) with RStudio 1.2.5033 <b>only</b>.
 </font>
 <br><br>
 </center>
@@ -192,12 +192,12 @@ Options:
 bio::reset_rstudio_keybindings(to = "bio-default")
 ```
 
-: **Table 1.** Some of shortcut keys set with option `"bio-default"`{.r}.
+: **Table 1.** Some examples of shortcut keys set with option `"bio-default"`{.r}.
 
 Shortcut  | Action
 --------- | -------------------------------------------------------------------------------------------------------------------------------------------
-<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>  | Check spelling in selected text (if package [**wellspell.addin**](https://github.com/nevrome/wellspell.addin){target="_blank"} is installed).
-<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd>  | Use "Tidyverse" style on selected lines of R code. Package **styler** must be installed. (*R code*)
+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>  | Check spelling in selected text. Package [**wellspell.addin**](https://github.com/nevrome/wellspell.addin){target="_blank"} must be installed.
+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd>  | Use "Tidyverse" style on selected lines of R code. Package **styler** must be installed (*R code*).
 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd>                 | Duplicate selected text.
 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>P</kbd>  | Align selected lines at pattern.
 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd>                 | Insert lower opening quotes `„`.
