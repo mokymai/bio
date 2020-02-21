@@ -68,8 +68,8 @@ reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
   }
 
   # Tab History
-  bio::clear_rs_history()
-  # bio::clear_r_history(backup = FALSE)
+  clear_rs_history()
+  # clear_r_history(backup = FALSE)
   unlink(".Rhistory")
 
   # Dictionaries
@@ -191,14 +191,16 @@ reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
 }
 
 
-# Clear R history
 #' @name clear_and_reset
 #' @title Clear and Reset R and RStudio.
 #' @description Clear and Reset R and RStudio settings and preferences.
 #'
 #' @param backup (logical) If `TRUE`, a backup copy is created.
 #'
-#' @export
+
+NULL
+
+# Clear R history
 clear_r_history <- function(backup = TRUE) {
   # FIXME: jei Windows + RStudio, tai ši funkcija neveikia
 
@@ -259,75 +261,6 @@ reset_rstudio_layout <- function(rs_layout = "left") {
     rstudioapi::executeCommand("layoutEndZoom", quiet = TRUE)
   }
   invisible()
-}
-
-# Initial config =============================================================
-
-# Mod.: 2019-08-26
-#
-# USAGE:
-# source("https://mokymai.github.io/resursai/rs-settings/nustatymai-rs-v1.2.R", encoding = "UTF-8")
-#
-# NOTE: now works on Windows.
-#
-# TODO:
-# 1. Adapt code for Linux and Mac.
-# 2. Create file backups, if they are already present.
-# 3. check if RStudio version is at least 1.2.
-# 4. If case no snippet file exists, a file with default snippets should be
-#    added before adding new snippet.
-# 5. Add key bindings and snippets only if they do not exist or differ.
-#    - In case of differences, allow choosing which one should be kept.
-
-# set_initial_rs_configuration()
-
-set_initial_rs_configuration <- function() {
-  # if (!require("fs")) {install.packages("fs")}
-
-  # Download files
-  config_url  = "https://mokymai.github.io/resursai/rs-settings/nustatymai-rs-v1.2.zip"
-  config_dir  = tempdir()
-  config_file = fs::file_temp("nustatymai-rs-v1.2__", config_dir, ext = ".zip")
-
-  on.exit(fs::dir_delete(config_dir)) # Clean up
-
-  download.file(url = config_url, destfile = config_file)
-
-  # Unzip
-  message("Unzipping files. Please wait...")
-  unzip(config_file, exdir = config_dir, setTimes = TRUE)
-
-  # Set R snippent and key bindings
-  message("Copying configuration files...")
-
-  rs_settings_from <-  fs::path(config_dir, ".Windows/.R")
-  rs_settings_to   <-  fs::path_expand_r("~/.R")
-
-  fs::dir_create(rs_settings_to, recurse = TRUE)
-
-  fs::dir_copy(
-    path     = rs_settings_from,
-    new_path = rs_settings_to,
-    overwrite = TRUE
-  )
-
-  # Set RStudio configuration
-  rs_config_from <- fs::path(config_dir, ".Windows/RStudio-Desktop")
-  rs_config_to   <- fs::path(Sys.getenv("LOCALAPPDATA"), "RStudio-Desktop")
-
-  fs::dir_create(rs_config_to, recurve = TRUE)
-
-  fs::dir_copy(
-    path     = rs_config_from,
-    new_path = rs_config_to,
-    overwrite = TRUE
-  )
-
-  # Follow up message
-  message(
-    "\n\n",
-    "Now you should TURN OFF and restart RStudio to complete the configutation.\n"
-  )
 }
 
 
