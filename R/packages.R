@@ -582,7 +582,8 @@ print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) 
     rownames(st2) <- NULL
     colnames(st2) <- c("package", "is_installed", "v_current", "v_required",
       "v_cran", "update_is_required")
-    ui_info("{silver('Abbreviations:')} {yellow('v \u2014 version')}\n")
+    cat("\n")
+    ui_info("{silver('Abbreviations:')} {yellow('v \u2014 version')}\n\n")
     print(tibble::as_tibble(st2), n = Inf, width = Inf, n_extra = Inf)
   }
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -594,11 +595,11 @@ print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) 
     msg <-
       if (n == 1) {
         pkg <- green(st$package)
-        "The required version of package {pkg} (from list {list_name}) is installed."
+        "Minimal required version of package {pkg} (from list {list_name}) is installed."
 
       } else {
         paste0(
-          "The required versions of all {green(n)} packages ",
+          "Minimal required versions of all {green(n)} packages ",
           "(from list {list_name}) are already installed."
         )
       }
@@ -632,11 +633,13 @@ print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) 
   if (x$n_newer_on_cran > 0) {
     n_cran <- yellow(x$n_newer_on_cran)
     if (x$n_newer_on_cran == 1) {
-      ui_todo("{n_cran} package has newer version on CRAN.")
+      ui_todo("Note: {n_cran} package has newer version on CRAN.")
 
     } else {
-      usethis::ui_todo("{n_cran} packages have newer versions on CRAN.")
+      ui_todo("Note: {n_cran} packages have newer versions on CRAN.")
     }
+
+    ui_line("  Use {ui_code('install.packages()')} to update them, if needed.")
   }
 
 }
