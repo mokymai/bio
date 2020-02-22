@@ -4,7 +4,7 @@
 \alias{update_pkg_snippets}
 \title{Update RcmdrPlugin.biostat and related packages}
 \usage{
-update_pkg_snippets(upgrade = TRUE, force = FALSE)
+update_pkg_snippets(upgrade = FALSE, force = FALSE)
 }
 \arguments{
 \item{upgrade}{Upgrade dependencies.
