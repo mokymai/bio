@@ -665,13 +665,17 @@ print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) 
     if (x$n_newer_on_cran == 1) {
       ui_info(paste0(
         "Note: {n_cran} package has newer version on CRAN. ",
-        "You may update it, if needed.")
+        # "You may update it, if needed."
+        ""
+        )
       )
 
     } else {
       ui_info(paste0(
         "Note: {n_cran} packages have newer versions on CRAN. ",
-        "You may update them, if needed.")
+        # "You may update them, if needed."
+        ""
+        )
       )
     }
   }
