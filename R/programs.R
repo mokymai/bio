@@ -224,15 +224,17 @@ check_program_version  <- function(program = "", r_installed = "", v_recommended
     print_fun <- ui_todo
     v_color   <- red
     r_color   <- green
+    install_status <- "should be updated"
 
   } else {
     print_fun <- ui_done
     v_color   <- green
     r_color   <- yellow
+    install_status <- "is installed"
   }
 
   print_fun(paste0(
-    "Program {blue(program)} ({v_color(r_installed)}) is installed ",
+    "Program {blue(program)} ({v_color(r_installed)}) {install_status} ",
     "(recommended {r_color(v_recommended)}{if_available})"
   ))
 }
@@ -282,7 +284,7 @@ check_program_installed <- function(program = "", condition = NULL) {
     ui_done("Program {blue(program)} is installed.")
 
   } else {
-    ui_oops("Program {red(program)} is not found or not configured correctly.")
+    ui_oops("Program {red(program)} is not detected or configured incorrectly.")
   }
 
 }
