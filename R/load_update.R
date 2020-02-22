@@ -4,6 +4,7 @@
 #' @export
 #' @inheritParams update_pkg_snippets
 #' @inheritParams check_updates_bio
+#'
 #' @examples
 #' \dontrun{\donttest{
 #'
@@ -12,9 +13,13 @@
 #' check_updates_rcmdr_biostat()
 #'
 #' }}
-check_updates_rcmdr_biostat  <- function(show_status = "always", install = "outdated", ...) {
-  get_pkgs_installation_status(list_name = "Rcmdr-biostat", show_status = show_status,
-    install = install, ...)
+check_updates_rcmdr_biostat  <- function(show_status = "always",
+  install = "outdated", upgrade = FALSE, ...) {
+
+  # get_pkgs_installation_status(list_name = "Rcmdr-biostat", show_status = show_status,
+  #   install = install, ...)
+  check_installed_packages(list_name = "Rcmdr-biostat", show_status = show_status,
+    install = install, upgrade = upgrade, ...)
 }
 
 #' @rdname update_pkg_rcmdr_biostat

@@ -7,6 +7,7 @@
 check_installed_packages(
   list_name = NULL,
   use_local_list = getOption("bio.use_local_list", FALSE),
+  upgrade = FALSE,
   ...
 )
 }
@@ -21,6 +22,9 @@ It is recommended  using the online version of the list, as it may
 contain more recent changes.
 Optiom bight be set globally by, e.g.,
 \code{options(bio.use_local_list = TRUE)}.}
+
+\item{upgrade}{Upgrade dependencies.
+See \code{upgrade} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
 
 \item{...}{Further arguments to \code{\link[=get_pkgs_installation_status]{get_pkgs_installation_status()}}.}
 }

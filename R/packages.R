@@ -915,8 +915,8 @@ get_pkgs_installation_code_other <- function(x) {
 #' installed and have minimum required versions.
 #'
 #' @inheritParams get_pkgs_installation_status
+#' @inheritParams get_pkgs_installation_code
 #' @param ... Further arguments to [get_pkgs_installation_status()].
-#'
 #' @return Function invisibly returns object with package installation status.
 #' @export
 #'
@@ -929,16 +929,22 @@ get_pkgs_installation_code_other <- function(x) {
 #'  github = "always", use_local_list = TRUE)
 #' }}
 check_installed_packages <- function(list_name = NULL,
-  use_local_list = getOption("bio.use_local_list", FALSE), ...) {
+  use_local_list = getOption("bio.use_local_list", FALSE), upgrade = FALSE,
+  ...) {
 
   status <-
     get_pkgs_installation_status(list_name, use_local_list = use_local_list, ...)
 
-  # status_name <- make_unique_obj_names("status")
-  # code_name   <- stringr::str_glue(
-  #   "bio::get_pkgs_installation_code({status_name}, to_clipboard = TRUE)")
+  upgrade_str <-
+    if (isTRUE(upgrade)) {
+      ", upgrade = TRUE"
+    } else {
+      ""
+    }
 
-  code_name <- "bio::get_pkgs_installation_code(to_clipboard = TRUE)"
+  code_str <- stringr::str_glue(
+    "bio::get_pkgs_installation_code(to_clipboard = TRUE{upgrade_str})"
+  )
 
   print(status)
 
@@ -946,11 +952,13 @@ check_installed_packages <- function(list_name = NULL,
     assign("last_installation_status", status, envir = bio_envir)
 
     cat("\n")
-    usethis::ui_todo("To get package installation code, type:\n{usethis::ui_field(code_name)} ")
+    usethis::ui_todo(paste0(
+      "To get package installation code, type:\n{usethis::ui_field(code_str)} ")
+      )
     cat("\n")
 
     if (rstudioapi::isAvailable("0.99.787")) {
-      rstudioapi::sendToConsole(code_name, execute = FALSE)
+      rstudioapi::sendToConsole(code_str, execute = FALSE)
     }
   }
 

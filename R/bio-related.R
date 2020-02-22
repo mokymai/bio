@@ -27,11 +27,17 @@ get_vesion_bio  <- function() {
 #' @export
 #' @param show_status See argument `show_status` in [get_pkgs_installation_status()].
 #' @param install See argument `install` in [get_pkgs_installation_status()].
+#' @inheritParams check_installed_packages
 #' @param ... Arguments to further methods.
 #'
-check_updates_bio  <- function(show_status = "always", install = "outdated", ...) {
-  get_pkgs_installation_status(list_name = "bio", show_status = show_status,
-    install = install, ...)
+check_updates_bio  <- function(show_status = "always", install = "outdated",
+  upgrade = FALSE, ...) {
+
+  check_installed_packages(list_name = "bio", show_status = show_status,
+    install = install, upgrade = upgrade, ...)
+
+  # get_pkgs_installation_status(list_name = "bio", show_status = show_status,
+  # install = install, ...)
 }
 
 #' @rdname bio_version
