@@ -8,7 +8,7 @@
 <!-- [![CRAN status](https://www.r-pkg.org/badges/version/bio)](https://CRAN.R-project.org/package=bio) -->
 
 [![GitHub
-version](https://img.shields.io/badge/GitHub-v0.0.0.9027-brightgreen.svg)](https://github.com/mokymai/bio)
+version](https://img.shields.io/badge/GitHub-v0.0.1-brightgreen.svg)](https://github.com/mokymai/bio)
 [![Travis build
 status](https://travis-ci.com/mokymai/bio.svg?branch=master)](https://travis-ci.com/mokymai/bio)
 [![AppVeyor build
