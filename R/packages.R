@@ -641,16 +641,18 @@ print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) 
   if (x$n_newer_on_cran > 0) {
     n_cran <- yellow(x$n_newer_on_cran)
     if (x$n_newer_on_cran == 1) {
-      ui_todo("Note: {n_cran} package has newer version on CRAN.")
-      ui_line("  Use {ui_code('install.packages()')} to update it, if needed.")
+      ui_todo(paste0(
+        "Note: {n_cran} package has newer version on CRAN. ",
+        "You may update it, if needed.")
+      )
 
     } else {
-      ui_todo("Note: {n_cran} packages have newer versions on CRAN.")
-      ui_line("  Use {ui_code('install.packages()')} to update them, if needed.")
+      ui_todo(paste0(
+        "Note: {n_cran} packages have newer versions on CRAN. ",
+        "You may update them, if needed.")
+      )
     }
-
   }
-
 }
 
 

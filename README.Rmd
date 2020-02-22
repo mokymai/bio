@@ -128,8 +128,7 @@ bio::check_installed_packages(list_name = "mini")
 ```{r README-8b, eval=FALSE, paged.print=FALSE}
 bio::check_installed_packages(list_name = "mini", include = "newer_on_cran")
 ## ✔ The required versions of all 19 packages (from list 'mini') are already installed.
-## ● 1 package has newer version on CRAN.
-##   Use `install.packages()` to update it, if needed.
+## ● 1 package has newer version on CRAN. You may update it, if needed.
 ```
 
 
