@@ -58,7 +58,6 @@ remotes::install_github("mokymai/bio", dependencies = TRUE)
 
 # Examples
 
-
 ## Check information about OS and user
 
 Check information about operating system (OS) and R-related user information.
