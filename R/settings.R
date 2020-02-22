@@ -647,8 +647,9 @@ chk_arg_upgrade <- function(x) {
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ui_msg_restart_rstudio <- function() {
-  usethis::ui_todo(
-    "To take effect, {underline('RStudio should be closed and reopened')}."
-  )
+  usethis::ui_todo(paste0(
+    "To take effect, {underline('RStudio')} should be ",
+    "{underline('closed and reopened')}."
+  ))
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
