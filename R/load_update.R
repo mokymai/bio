@@ -8,7 +8,7 @@
 #' update_pkg_rcmdr_biostat()
 #'
 #' }}
-update_pkg_rcmdr_biostat <- function(upgrade = TRUE, force = FALSE) {
+update_pkg_rcmdr_biostat <- function(upgrade = FALSE, force = FALSE) {
   update_pkg_from_github("RcmdrPlugin.biostat", "GegznaV/RcmdrPlugin.biostat",
     "Rcmdr-biostat", upgrade = upgrade, force = force)
 }
@@ -28,7 +28,7 @@ update_pkg_rcmdr_biostat <- function(upgrade = TRUE, force = FALSE) {
 #' update_pkg_snippets()
 #'
 #' }}
-update_pkg_snippets <- function(upgrade = TRUE, force = FALSE) {
+update_pkg_snippets <- function(upgrade = FALSE, force = FALSE) {
   update_pkg_from_github("snippets", "GegznaV/snippets", "snippets",
     upgrade = upgrade, force = force)
 }
