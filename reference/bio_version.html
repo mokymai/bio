@@ -120,7 +120,12 @@ update_pkg_bio() tries to update package bio." />
 
     <pre class="usage"><span class='fu'>get_vesion_bio</span>()
 
-<span class='fu'>check_updates_bio</span>(<span class='kw'>show_status</span> <span class='kw'>=</span> <span class='st'>"always"</span>, <span class='kw'>install</span> <span class='kw'>=</span> <span class='st'>"outdated"</span>, <span class='no'>...</span>)
+<span class='fu'>check_updates_bio</span>(
+  <span class='kw'>show_status</span> <span class='kw'>=</span> <span class='st'>"always"</span>,
+  <span class='kw'>install</span> <span class='kw'>=</span> <span class='st'>"outdated"</span>,
+  <span class='kw'>upgrade</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
+)
 
 <span class='fu'>update_pkg_bio</span>(<span class='kw'>upgrade</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
@@ -136,13 +141,13 @@ update_pkg_bio() tries to update package bio." />
       <td><p>See argument <code>install</code> in <code><a href='get_pkgs_installation_status.html'>get_pkgs_installation_status()</a></code>.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Arguments to further methods.</p></td>
-    </tr>
-    <tr>
       <th>upgrade</th>
       <td><p>Upgrade dependencies.
 See <code>upgrade</code> in <code><a href='https://remotes.r-lib.org/reference/install_github.html'>remotes::install_github()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Arguments to further methods.</p></td>
     </tr>
     <tr>
       <th>force</th>

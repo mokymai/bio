@@ -119,6 +119,7 @@ installed and have minimum required versions.</p>
     <pre class="usage"><span class='fu'>check_installed_packages</span>(
   <span class='kw'>list_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>use_local_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"bio.use_local_list"</span>, <span class='fl'>FALSE</span>),
+  <span class='kw'>upgrade</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='no'>...</span>
 )</pre>
 
@@ -139,6 +140,11 @@ It is recommended  using the online version of the list, as it may
 contain more recent changes.
 Optiom bight be set globally by, e.g.,
 <code><a href='https://rdrr.io/r/base/options.html'>options(bio.use_local_list = TRUE)</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>upgrade</th>
+      <td><p>Upgrade dependencies.
+See <code>upgrade</code> in <code><a href='https://remotes.r-lib.org/reference/install_github.html'>remotes::install_github()</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
