@@ -32,9 +32,8 @@ required resources for ***Biostatistics*** course unit (*BS-2020*).
 
 <!-- </font> -->
 
-<br> <font color="darkred" size=4> This package is well tested on
-<em>Windows 10</em> (64-bit) with RStudio 1.2.5033 <b>only</b>. </font>
-<br><br>
+<br> <font color="darkred" size=4> This package is tested on <em>Windows
+10</em> (64-bit) with RStudio 1.2.5033. </font> <br><br>
 
 </center>
 
@@ -131,7 +130,7 @@ bio::check_installed_packages(list_name = "mini")
 ``` r
 bio::check_installed_packages(list_name = "mini", include = "newer_on_cran")
 ## ✔ The required versions of all 19 packages (from list 'mini') are already installed.
-## ● 1 package has newer version on CRAN. You may update it, if needed.
+## i Note: 1 package has newer version on CRAN. You may update it, if needed.
 ```
 
 ## Update packages
