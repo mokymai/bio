@@ -789,12 +789,11 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
 
   res <- c(
     '
-    old_opts <-
-      options(
-        repos = "https://cran.rstudio.com/",
-        pkgType = "both",
-        install.packages.check.source = "yes",
-        install.packages.compile.from.source = "always"
+    options(
+      repos = "https://cran.rstudio.com/",
+      pkgType = "both",
+      install.packages.check.source = "yes",
+      install.packages.compile.from.source = "always"
     )
     ',
     res
