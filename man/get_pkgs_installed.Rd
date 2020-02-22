@@ -4,7 +4,13 @@
 \alias{get_pkgs_installed}
 \title{List packages installed on this computer.}
 \usage{
-get_pkgs_installed()
+get_pkgs_installed(rm_duplicates = TRUE)
+}
+\arguments{
+\item{rm_duplicates}{(logical) Should duplicated names of packages be removed?
+If \code{TRUE}, when several packages are found, only the one with the
+highest version is returned. If \code{FALSE}, no packages are removed
+from the list.}
 }
 \value{
 Data frame with columns \code{"package"} and \code{"current_version"}.
@@ -15,6 +21,9 @@ List packages installed on this computer.
 \examples{
 
 head(get_pkgs_installed())
+
+nrow(get_pkgs_installed(rm_duplicates = TRUE))
+nrow(get_pkgs_installed(rm_duplicates = FALSE))
 
 }
 \seealso{

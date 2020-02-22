@@ -88,6 +88,10 @@ is_pkg_installed <- function(pkgs) {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' List packages installed on this computer.
 #'
+#' @param rm_duplicates (logical) Should duplicated names of packages be removed?
+#'        If `TRUE`, when several packages are found, only the one with the
+#'        highest version is returned. If `FALSE`, no packages are removed
+#'        from the list.
 #' @return Data frame with columns `"package"` and `"current_version"`.
 #' @export
 #' @family R-packages-related functions
@@ -95,12 +99,30 @@ is_pkg_installed <- function(pkgs) {
 #'
 #' head(get_pkgs_installed())
 #'
-get_pkgs_installed <- function() {
+#' nrow(get_pkgs_installed(rm_duplicates = TRUE))
+#' nrow(get_pkgs_installed(rm_duplicates = FALSE))
+#'
+get_pkgs_installed <- function(rm_duplicates = TRUE) {
   pkgs_existing <- installed.packages()[, c("Package", "Version")]
   rownames(pkgs_existing) <- NULL
   # colnames(pkgs_existing) <- c("paketas", "turima_versija")
   colnames(pkgs_existing) <- c("package", "current_version")
-  as.data.frame(pkgs_existing, stringsAsFactors = FALSE)
+  df <- as.data.frame(pkgs_existing, stringsAsFactors = FALSE)
+
+  if (isTRUE(rm_duplicates)) {
+    df %>%
+      dplyr::group_by(package) %>%
+      dplyr::group_modify(
+        ~ dplyr::filter(., current_version == max(current_version))
+      ) %>%
+      dplyr::ungroup() %>%
+      dplyr::distinct() %>%
+      as.data.frame(stringsAsFactors = FALSE)
+
+  } else {
+    df
+
+  }
 }
 
 
