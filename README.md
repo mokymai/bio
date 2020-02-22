@@ -16,7 +16,7 @@ status](https://ci.appveyor.com/api/projects/status/github/mokymai/bio?branch=ma
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Documented
-on](https://img.shields.io/badge/Documentation-2020--02--22-yellowgreen.svg)]()
+on](https://img.shields.io/badge/Documentation-2020--02--23-yellowgreen.svg)]()
 <!-- badges: end -->
 
 Convenience functions to facilitate installation and management of
@@ -95,7 +95,7 @@ bio::check_installed_programs("all")
 ## ✔ Program R (3.6.2) is installed (recommended 3.6.2, available 3.6.2)
 ## ✔ Program RStudio (1.2.5033) is installed (recommended 1.2.5033, available 1.2.5033)
 ## ✔ Program Rtools is installed.
-## ✖ Program Atom is not found or not configured correctly.
+## ✖ Program Atom is not detected or configured incorrectly.
 ## ✔ Program Git is installed.
 ## ✔ Program Meld is installed.
 ```
@@ -124,13 +124,13 @@ returned by function `bio::get_pkg_lists_local()` and they include:
 
 ``` r
 bio::check_installed_packages(list_name = "mini")
-## ✔ The required versions of all 19 packages (from list 'mini') are already installed.
+## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.
 ```
 
 ``` r
 bio::check_installed_packages(list_name = "mini", include = "newer_on_cran")
-## ✔ The required versions of all 19 packages (from list 'mini') are already installed.
-## i Note: 1 package has newer version on CRAN. You may update it, if needed.
+## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.
+## i Note: 1 package has newer version on CRAN.
 ```
 
 ## Update packages
@@ -150,7 +150,7 @@ Check if there are updates for **bio** or its dependency packages.
 bio::check_updates_bio()
 ```
 
-    ✔ The required versions of all 24 packages (from list 'bio') are already installed.
+    ✔ Minimal required versions of all 24 packages (from list 'bio') are already installed.
 
 Update package **snippets**.
 
