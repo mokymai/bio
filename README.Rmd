@@ -98,7 +98,7 @@ bio::check_installed_programs("all")
 ## ✔ Program R (3.6.2) is installed (recommended 3.6.2, available 3.6.2)
 ## ✔ Program RStudio (1.2.5033) is installed (recommended 1.2.5033, available 1.2.5033)
 ## ✔ Program Rtools is installed.
-## ✖ Program Atom is not found or not configured correctly.
+## ✖ Program Atom is not detected or configured incorrectly.
 ## ✔ Program Git is installed.
 ## ✔ Program Meld is installed.
 ```
