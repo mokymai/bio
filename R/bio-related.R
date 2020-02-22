@@ -37,7 +37,7 @@ check_updates_bio  <- function(show_status = "always", install = "outdated", ...
 #' @rdname bio_version
 #' @inheritParams update_pkg_snippets
 #' @export
-update_pkg_bio <- function(upgrade = FALSE, force = FALSE) {
+update_pkg_bio <- function(upgrade = TRUE, force = FALSE) {
   checkmate::assert_flag(force)
   upgrade <- chk_arg_upgrade(upgrade)
 
@@ -61,10 +61,6 @@ update_pkg_bio <- function(upgrade = FALSE, force = FALSE) {
     rstudioapi::restartSession(command)
 
   } else {
-    # usethis::ui_stop(
-    #   'To run this function, RStudio version 1.1.281 is required. You may also use code:
-    #   remotes::install_github("mokymai/bio", dependencies = TRUE, upgrade = FALSE)'
-    #   )
     remotes::install_github(c("GegznaV/backup.tools", "mokymai/bio"),
       dependencies = TRUE, upgrade = upgrade, force = force)
     bio::get_vesion_bio()

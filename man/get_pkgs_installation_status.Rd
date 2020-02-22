@@ -31,12 +31,7 @@ get_last_pkgs_installation_status()
 
 \method{print}{pkgs_installation_status}(x, show_status = x$show_status, ...)
 
-get_pkgs_installation_code(
-  x = NULL,
-  ...,
-  to_clipboard = FALSE,
-  upgrade = FALSE
-)
+get_pkgs_installation_code(x = NULL, ..., to_clipboard = FALSE, upgrade = TRUE)
 }
 \arguments{
 \item{list_name}{(character) The name of the list with required R packages.

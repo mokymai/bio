@@ -11,7 +11,7 @@ get_vesion_bio()
 
 check_updates_bio(show_status = "always", install = "outdated", ...)
 
-update_pkg_bio(upgrade = FALSE, force = FALSE)
+update_pkg_bio(upgrade = TRUE, force = FALSE)
 }
 \arguments{
 \item{show_status}{See argument \code{show_status} in \code{\link[=get_pkgs_installation_status]{get_pkgs_installation_status()}}.}
