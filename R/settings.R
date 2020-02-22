@@ -142,16 +142,16 @@ reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
         "Choose light color theme",
         "Which light theme should be used in RStudio?",
         " Textmate (default) ",
-        " Clouds "
+        " Crimson Editor "
       )
 
       if (is_textmate) {
         rstudioapi::applyTheme("Textmate (default)")
 
       } else {
-        # rstudioapi::applyTheme("Crimson Editor")
+        rstudioapi::applyTheme("Crimson Editor")
         # rstudioapi::applyTheme("Xcode")
-        rstudioapi::applyTheme("Clouds")
+        # rstudioapi::applyTheme("Clouds")
       }
 
     } else {
@@ -159,14 +159,16 @@ reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
         "Choose dark color theme",
         "Which dark theme should be used in RStudio?",
         " Cobalt (dark blue) ",
-        " Chaos (black) "
+        " Tomorrow Night 80s (black) "
       )
 
       if (is_cobalt) {
         rstudioapi::applyTheme("Cobalt")
 
       } else {
-        rstudioapi::applyTheme("Chaos")
+        # rstudioapi::applyTheme("Vibrant Ink")
+        # rstudioapi::applyTheme("Chaos")
+        rstudioapi::applyTheme("Tomorrow Night 80s")
       }
     }
   }
