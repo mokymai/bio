@@ -10,6 +10,12 @@ check_updates_rcmdr_biostat(show_status = "always", install = "outdated", ...)
 update_pkg_rcmdr_biostat(upgrade = FALSE, force = FALSE)
 }
 \arguments{
+\item{show_status}{See argument \code{show_status} in \code{\link[=get_pkgs_installation_status]{get_pkgs_installation_status()}}.}
+
+\item{install}{See argument \code{install} in \code{\link[=get_pkgs_installation_status]{get_pkgs_installation_status()}}.}
+
+\item{...}{Arguments to further methods.}
+
 \item{upgrade}{Upgrade dependencies.
 See \code{upgrade} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
 
@@ -24,6 +30,8 @@ Update package RcmdrPlugin.biostat and related packages
 \dontrun{\donttest{
 
 update_pkg_rcmdr_biostat()
+
+check_updates_rcmdr_biostat()
 
 }}
 }

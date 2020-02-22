@@ -3,10 +3,13 @@
 #'
 #' @export
 #' @inheritParams update_pkg_snippets
+#' @inheritParams check_updates_bio
 #' @examples
 #' \dontrun{\donttest{
 #'
 #' update_pkg_rcmdr_biostat()
+#'
+#' check_updates_rcmdr_biostat()
 #'
 #' }}
 check_updates_rcmdr_biostat  <- function(show_status = "always", install = "outdated", ...) {
