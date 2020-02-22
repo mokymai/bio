@@ -122,13 +122,13 @@ cat(res)
 
 ```{r README-8a, eval=FALSE, paged.print=FALSE}
 bio::check_installed_packages(list_name = "mini")
-## ✔ The required versions of all 19 packages (from list 'mini') are already installed.
+## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.
 ```
 
 ```{r README-8b, eval=FALSE, paged.print=FALSE}
 bio::check_installed_packages(list_name = "mini", include = "newer_on_cran")
-## ✔ The required versions of all 19 packages (from list 'mini') are already installed.
-## i Note: 1 package has newer version on CRAN. You may update it, if needed.
+## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.
+## i Note: 1 package has newer version on CRAN.
 ```
 
 
@@ -148,7 +148,7 @@ Check if there are updates for **bio** or its dependency packages.
 bio::check_updates_bio()
 ```
 ```
-✔ The required versions of all 24 packages (from list 'bio') are already installed.
+✔ Minimal required versions of all 24 packages (from list 'bio') are already installed.
 ```
 
 Update package **snippets**.
