@@ -1,4 +1,5 @@
-#' Update package RcmdrPlugin.biostat and related packages
+#' @name update_pkg_rcmdr_biostat
+#' @title Update package RcmdrPlugin.biostat and related packages
 #'
 #' @export
 #' @inheritParams update_pkg_snippets
@@ -8,6 +9,13 @@
 #' update_pkg_rcmdr_biostat()
 #'
 #' }}
+check_updates_rcmdr_biostat  <- function(show_status = "always", install = "outdated", ...) {
+  get_pkgs_installation_status(list_name = "Rcmdr-biostat", show_status = show_status,
+    install = install, ...)
+}
+
+#' @rdname update_pkg_rcmdr_biostat
+#' @export
 update_pkg_rcmdr_biostat <- function(upgrade = FALSE, force = FALSE) {
   update_pkg_from_github("RcmdrPlugin.biostat", "GegznaV/RcmdrPlugin.biostat",
     "Rcmdr-biostat", upgrade = upgrade, force = force)

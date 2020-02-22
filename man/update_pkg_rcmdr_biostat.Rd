@@ -2,8 +2,11 @@
 % Please edit documentation in R/load_update.R
 \name{update_pkg_rcmdr_biostat}
 \alias{update_pkg_rcmdr_biostat}
+\alias{check_updates_rcmdr_biostat}
 \title{Update package RcmdrPlugin.biostat and related packages}
 \usage{
+check_updates_rcmdr_biostat(show_status = "always", install = "outdated", ...)
+
 update_pkg_rcmdr_biostat(upgrade = FALSE, force = FALSE)
 }
 \arguments{
