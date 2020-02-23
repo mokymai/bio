@@ -56,7 +56,7 @@ rvg                         | 0.2.3            | FALSE  | -
 scales                      | 1.1.0            | FALSE  | -
 sem                         | 2.1-1            | FALSE  | Rcmdr
 skimr                       | 2.1.0            | FALSE  | -
-snippets                    | 0.0.2            | FALSE  | -
+snippets                    | 0.0.3            | FALSE  | -
 stringr                     | 1.4.0            | FALSE  | -
 styler                      | 1.3.2            | FALSE  | -
 tcltk2                      | 1.2-11           | FALSE  | Rcmdr
