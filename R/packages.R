@@ -817,6 +817,8 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
 
   res <- c(
     '
+    # To read more on the used options, run code:
+    # help("options") # Opens help on options
     options(
       repos = "https://cran.rstudio.com/",
       pkgType = "both",
