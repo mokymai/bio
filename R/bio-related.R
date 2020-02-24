@@ -58,10 +58,11 @@ update_pkg_bio <- function(upgrade = FALSE, force = FALSE) {
     command <- stringr::str_glue(
       paste(sep = "\n",
         '# Updating package "bio"...',
-        'remotes::install_github(c("GegznaV/backup.tools", "mokymai/bio"), ',
+        'remotes::install_github(c("GegznaV/backup.tools", "GegznaV/snippets", "mokymai/bio"), ',
         '  dependencies = TRUE, upgrade = {upgrade}{force_str})',
-        'bio::get_vesion_bio()'
-        # 'bio::check_installed_packages("bio", show_status = "newer_on_cran")'
+        'bio::get_vesion_bio()',
+        "",
+        'bio::check_installed_packages("bio", show_status = "newer_on_cran")'
       )
     )
     rstudioapi::restartSession(command)
@@ -70,6 +71,6 @@ update_pkg_bio <- function(upgrade = FALSE, force = FALSE) {
     remotes::install_github(c("GegznaV/backup.tools", "mokymai/bio"),
       dependencies = TRUE, upgrade = upgrade, force = force)
     bio::get_vesion_bio()
-    # bio::check_installed_packages("bio", show_status = "newer_on_cran")
+    bio::check_installed_packages("bio", show_status = "newer_on_cran")
   }
 }
