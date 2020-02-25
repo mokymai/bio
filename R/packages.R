@@ -170,7 +170,9 @@ get_pkgs_recommended <- function(list_name,
         usethis::ui_stop(paste0(
           "It seems that there is no online version of list ",
           "{usethis::ui_value(list_name)} or it cannot be accessed. ",
-          "\nCheck if the list name is correct.")
+          "\nCheck if the list name is correct. ",
+          "Did you mean one of: \n{usethis::ui_value(bio::get_pkg_lists_local())}, ..."
+          )
         )
 
       } else {
@@ -197,8 +199,9 @@ get_path_pkgs_recommended <- function(list_name, use_local_list) {
     file <- path_bio(base_name)
     if (!file.exists(file)) {
       usethis::ui_stop(paste0(
-        "List {usethis::ui_value(list_name)} was not found on your computer. ",
-        "Check if the list name is correct. "
+        "List {usethis::ui_value(list_name)} was not found on your computer. \n",
+        "Check if the list name is correct. ",
+        "Did you mean one of: \n{usethis::ui_value(bio::get_pkg_lists_local())}, ..."
       ))
     }
 
