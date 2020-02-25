@@ -76,7 +76,9 @@ update_pkg_from_github <- function(pkg = "", github_repo = "", update_list = "",
           '  "{github_repo}",',
           '  dependencies = TRUE, upgrade = {upgrade}{force_str}',
           ')',
+          "",
           'packageVersion("{pkg}")',
+          "",
           'bio::check_installed_packages("{update_list}", show_status = "newer_on_cran")'
         )
       )
