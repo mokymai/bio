@@ -56,8 +56,7 @@ update_pkg_from_github <- function(pkg = "", github_repo = "", update_list = "",
   checkmate::assert_string(github_repo)
   checkmate::assert_string(update_list)
   checkmate::assert_flag(force)
-  upgrade <- chk_arg_upgrade(upgrade)
-
+  upgrade_str <- chk_arg_upgrade(upgrade)
 
   force_str <-
     if (force) {
@@ -74,12 +73,12 @@ update_pkg_from_github <- function(pkg = "", github_repo = "", update_list = "",
           '# Updating package "{pkg}"...',
           'remotes::install_github(',
           '  "{github_repo}",',
-          '  dependencies = TRUE, upgrade = {upgrade}{force_str}',
+          '  dependencies = TRUE, upgrade = {upgrade_str}{force_str}',
           ')',
           "",
           'packageVersion("{pkg}")',
           "",
-          'bio::check_installed_packages("{update_list}", show_status = "newer_on_cran")'
+          'bio::check_installed_packages("{update_list}", show_status = "newer_on_cran", upgrade = {upgrade_str})'
         )
       )
     rstudioapi::restartSession(command)
@@ -87,6 +86,7 @@ update_pkg_from_github <- function(pkg = "", github_repo = "", update_list = "",
   } else {
     remotes::install_github(github_repo, dependencies = TRUE, force = force,
       upgrade = upgrade)
-    bio::check_installed_packages(update_list, show_status = "newer_on_cran")
+    bio::check_installed_packages(update_list, show_status = "newer_on_cran",
+      upgrade = upgrade)
   }
 }
