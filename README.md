@@ -16,7 +16,7 @@ status](https://ci.appveyor.com/api/projects/status/github/mokymai/bio?branch=ma
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Documented
-on](https://img.shields.io/badge/Documentation-2020--02--23-yellowgreen.svg)]()
+on](https://img.shields.io/badge/Documentation-2020--02--25-yellowgreen.svg)]()
 <!-- badges: end -->
 
 Convenience functions to facilitate installation and management of
@@ -196,7 +196,7 @@ bio::reset_rstudio_keybindings(to = "bio-default")
 | Shortcut                                                     | Action                                                                                                                        |
 | ------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd> | Check spelling in selected text. Package [**wellspell.addin**](https://github.com/nevrome/wellspell.addin) must be installed. |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd> | Use “Tidyverse” style on selected lines of R code. Package **styler** must be installed (*R code*).                           |
+| <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd>                 | Use “Tidyverse” style on selected lines of R code. Package **styler** must be installed (*R code*).                           |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd>                | Duplicate selected text.                                                                                                      |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>P</kbd> | Align selected lines at pattern.                                                                                              |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd>                | Insert lower opening quotes `„`.                                                                                              |

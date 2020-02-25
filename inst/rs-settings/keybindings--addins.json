@@ -27,6 +27,6 @@
     "addins.rs::rs_replace_slash_bs2d"             : "Ctrl+Alt+\\",
     "addins.rs::rs_replace_slash_fw2b"             : "Ctrl+Shift+Alt+/",
     "bookdown::mathquill"                          : "Ctrl+Alt+NumPad9",
-    "styler::style_selection"                      : "Ctrl+Shift+Alt+A",
+    "styler::style_selection"                      : "Shift+Alt+A",
     "wellspell.addin::spellcheck"                  : "Ctrl+Shift+Alt+S"
 }
