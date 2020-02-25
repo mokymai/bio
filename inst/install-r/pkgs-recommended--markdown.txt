@@ -15,11 +15,15 @@ citr
 
 latex2exp
 
+shiny
+
+rstudioapi
 addin.tools
 addins.rmd
 addins.rs
 
 wellspell.addin
 
+backup.tools
 snippets
 bio
