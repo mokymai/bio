@@ -4,7 +4,7 @@
 \alias{update_pkg_snippets}
 \title{Update RcmdrPlugin.biostat and related packages}
 \usage{
-update_pkg_snippets(upgrade = FALSE, force = FALSE)
+update_pkg_snippets(upgrade = FALSE, force = FALSE, quiet = TRUE)
 }
 \arguments{
 \item{upgrade}{Upgrade dependencies.
@@ -13,6 +13,10 @@ See \code{upgrade} in \code{\link[remotes:install_github]{remotes::install_githu
 \item{force}{(logical) \code{TRUE} or \code{FALSE}.
 Force to update.
 See \code{force} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
+
+\item{quiet}{(logical) \code{TRUE} or \code{FALSE}.
+Should installation messages be printed?
+See \code{quiet} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
 }
 \description{
 Update RcmdrPlugin.biostat and related packages
