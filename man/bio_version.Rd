@@ -16,7 +16,7 @@ check_updates_bio(
   ...
 )
 
-update_pkg_bio(upgrade = FALSE, force = FALSE)
+update_pkg_bio(upgrade = FALSE, force = FALSE, quiet = TRUE)
 }
 \arguments{
 \item{show_status}{See argument \code{show_status} in \code{\link[=get_pkgs_installation_status]{get_pkgs_installation_status()}}.}
@@ -31,6 +31,10 @@ See \code{upgrade} in \code{\link[remotes:install_github]{remotes::install_githu
 \item{force}{(logical) \code{TRUE} or \code{FALSE}.
 Force to update.
 See \code{force} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
+
+\item{quiet}{(logical) \code{TRUE} or \code{FALSE}.
+Should installation messages be printed?
+See \code{quiet} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
 }
 \description{
 \code{get_vesion_bio()} returns version number of package \pkg{bio}.

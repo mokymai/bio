@@ -8,7 +8,7 @@
 <!-- [![CRAN status](https://www.r-pkg.org/badges/version/bio)](https://CRAN.R-project.org/package=bio) -->
 
 [![GitHub
-version](https://img.shields.io/badge/GitHub-v0.0.1-brightgreen.svg)](https://github.com/mokymai/bio)
+version](https://img.shields.io/badge/GitHub-v0.0.2-brightgreen.svg)](https://github.com/mokymai/bio)
 [![Travis build
 status](https://travis-ci.com/mokymai/bio.svg?branch=master)](https://travis-ci.com/mokymai/bio)
 [![AppVeyor build
@@ -16,7 +16,7 @@ status](https://ci.appveyor.com/api/projects/status/github/mokymai/bio?branch=ma
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Documented
-on](https://img.shields.io/badge/Documentation-2020--02--25-yellowgreen.svg)]()
+on](https://img.shields.io/badge/Documentation-2020--02--26-yellowgreen.svg)]()
 <!-- badges: end -->
 
 Convenience functions to facilitate installation and management of

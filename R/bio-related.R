@@ -41,25 +41,32 @@ check_updates_bio  <- function(show_status = "always", install = "outdated",
 }
 
 #' @rdname bio_version
-#' @inheritParams update_pkg_snippets
+#'
+#' @param upgrade
+#'        Upgrade dependencies.
+#'        See `upgrade` in [remotes::install_github()].
+#' @param force (logical) `TRUE` or `FALSE`.
+#'        Force to update.
+#'        See `force` in [remotes::install_github()].
+#' @param quiet (logical) `TRUE` or `FALSE`.
+#'        Should installation messages be printed?
+#'        See `quiet` in [remotes::install_github()].
+#'
 #' @export
-update_pkg_bio <- function(upgrade = FALSE, force = FALSE) {
+update_pkg_bio <- function(upgrade = FALSE, force = FALSE, quiet = TRUE) {
   checkmate::assert_flag(force)
+  checkmate::assert_flag(quiet)
   upgrade_str <- chk_arg_upgrade(upgrade)
 
   if (rstudioapi::isAvailable(version_needed = "1.1.281")) {
-    force_str <-
-      if (force) {
-        ", force = TRUE"
-      } else {
-        ""
-      }
+    force_str <- if (force) {", force = TRUE"} else {""}
+    quiet_str <- if (quiet) {", quiet = TRUE"} else {""}
 
     command <- stringr::str_glue(
       paste(sep = "\n",
         '# Updating package "bio"...',
         'remotes::install_github(c("GegznaV/backup.tools", "GegznaV/snippets", "mokymai/bio"), ',
-        '  dependencies = TRUE, upgrade = {upgrade_str}{force_str})',
+        '  dependencies = TRUE, upgrade = {upgrade_str}{force_str}{quiet_str})',
         "",
         'bio::get_vesion_bio()',
         "",
@@ -70,7 +77,7 @@ update_pkg_bio <- function(upgrade = FALSE, force = FALSE) {
 
   } else {
     remotes::install_github(c("GegznaV/backup.tools", "mokymai/bio"),
-      dependencies = TRUE, upgrade = upgrade, force = force)
+      dependencies = TRUE, upgrade = upgrade, force = force, quiet = quiet)
     bio::get_vesion_bio()
     bio::check_installed_packages("bio", show_status = "newer_on_cran",
       upgrade = upgrade)

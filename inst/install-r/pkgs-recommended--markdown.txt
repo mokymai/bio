@@ -1,10 +1,17 @@
 # Main -----------------------------------------------------------------------
 
 markdown
-rmarkdown
 knitr
-pander
 tinytex
+rmarkdown
+pander
+
+shiny
+
+rstudioapi
+addin.tools
+addins.rmd
+addins.rs
 
 bookdown
 blogdown
@@ -14,13 +21,6 @@ rcrossref
 citr
 
 latex2exp
-
-shiny
-
-rstudioapi
-addin.tools
-addins.rmd
-addins.rs
 
 wellspell.addin
 

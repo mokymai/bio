@@ -55,6 +55,7 @@ check_installed_programs <- function(which = "main", skip_online_check = FALSE) 
   # xQuartz (on Mac, OS X)
   if (get_os_type() == "osx") {
     # FIXME: on stack overflow it writes, that this functon might hang R session
+    # if XQuartz is missing.
     # https://stackoverflow.com/questions/37438773/is-it-possible-to-check-if-a-graphics-device-is-available-without-calling-dev-ne
     check_program_installed("XQuartz", is_xquartz_installed())
   }
@@ -126,10 +127,13 @@ get_path_program_req_version <- function(use_local_list) {
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 get_prgm_req_version <- function(use_local_list = getOption("bio.use_local_list", FALSE)) {
+
   file <- get_path_program_req_version(use_local_list)
-  tbl <-
-    read.table(file, skip = 10, header = TRUE, sep = "|", na.strings = c("NA", "-"),
-      strip.white = TRUE, stringsAsFactors = FALSE)
+
+  # text <- download_from_github_with_curl(file)
+
+  tbl <- read.table(file, skip = 10, header = TRUE, sep = "|",
+      na.strings = c("NA", "-"), strip.white = TRUE, stringsAsFactors = FALSE)
 
   tbl <- remove_ignored_rows(tbl)
   as.list(setNames(tbl$required_version, tbl$program))
