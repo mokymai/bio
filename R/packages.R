@@ -18,17 +18,18 @@ path_bio_rs <- function(file = "") {
 
 # Returns more meaningful error message, if GitHub does not allow to connect.
 # Return a string of text or error message
-download_from_github_with_curl <- function(file) {
 
-  res <- curl::curl_fetch_memory(file)
-
-  if (res$status_code >= 300) {
-    stop(remotes:::github_error(res))
-
-  } else {
-    rawToChar(res$content)
-  }
-}
+# download_from_github_with_curl <- function(file) {
+#
+#   res <- curl::curl_fetch_memory(file)
+#
+#   if (res$status_code >= 300) {
+#     stop(remotes:::github_error(res))
+#
+#   } else {
+#     rawToChar(res$content)
+#   }
+# }
 
 # to_str_vector(LETTERS)
 to_str_vector <- function(str, quotes = '"', collapse = ", ") {
@@ -248,8 +249,8 @@ get_pkgs_req_version <- function(
   use_local_list = getOption("bio.use_local_list", FALSE)) {
 
   file <- get_path_pkgs_req_version(use_local_list)
-  text <- download_from_github_with_curl(file)
-  tbl <- read.table(text = text, skip = 10, header = TRUE, sep = "|",
+  # text <- download_from_github_with_curl(file)
+  tbl <- read.table(file, skip = 10, header = TRUE, sep = "|",
     na.strings = c("NA", "-"), strip.white = TRUE, stringsAsFactors = FALSE)
 
   remove_ignored_rows(tbl)
@@ -337,8 +338,8 @@ get_pkgs_non_cran_installation_details <- function(
   use_local_list = getOption("bio.use_local_list", FALSE)) {
 
   file <- get_path_pkgs_non_cran_installation_details(use_local_list)
-  text <- download_from_github_with_curl(file)
-  tbl <- read.table(text = text, skip = 10, header = TRUE, sep = "|",
+  # text <- download_from_github_with_curl(file)
+  tbl <- read.table(file, skip = 10, header = TRUE, sep = "|",
     strip.white = TRUE, na.strings = c("NA", "-"), stringsAsFactors = FALSE)
 
   remove_ignored_rows(tbl)

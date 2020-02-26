@@ -130,9 +130,9 @@ get_prgm_req_version <- function(use_local_list = getOption("bio.use_local_list"
 
   file <- get_path_program_req_version(use_local_list)
 
-  text <- download_from_github_with_curl(file)
+  # text <- download_from_github_with_curl(file)
 
-  tbl <- read.table(text = text, skip = 10, header = TRUE, sep = "|",
+  tbl <- read.table(file, skip = 10, header = TRUE, sep = "|",
       na.strings = c("NA", "-"), strip.white = TRUE, stringsAsFactors = FALSE)
 
   tbl <- remove_ignored_rows(tbl)
