@@ -1,7 +1,7 @@
 Package: bio
 Type: Package
 Title: Resources Manager For BS-2020
-Version: 0.0.2
+Version: 0.0.3
 Authors@R: 
     person("Vilmantas", "Gegzna", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-9500-5167"),
@@ -19,11 +19,13 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.0.2
 Remotes:
   GegznaV/backup.tools,
-  GegznaV/snippets
+  GegznaV/snippets,
+  jimhester/completeme
 Imports:
   backup.tools (>= 0.0.1),
   checkmate,
   clipr,
+  completeme,
   crayon,
   desc,
   dplyr,

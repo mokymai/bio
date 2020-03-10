@@ -341,6 +341,9 @@ reset_rstudio_layout <- function(rs_layout = "left") {
 #' @inheritParams get_path_rs_user_settings
 NULL
 
+# For auto-completion
+user_settings_defaults <- c('bio-default', 'rstudio-default')
+
 
 #' @rdname RStudio-settings
 #' @export
@@ -355,7 +358,7 @@ reset_rstudio_user_settings <- function(to, backup = TRUE, ask = TRUE) {
   if (missing(to)) {
     ui_stop(paste0(
       "The set of RStudio user settings is not defined (argument '{yellow('to')}').\n",
-      'Possible choices: {ui_value(c("bio-default", "rstudio-default"))}.'
+      'Possible choices: {ui_value(user_settings_defaults)}.'
     ))
   }
 
@@ -396,7 +399,10 @@ reset_rstudio_user_settings <- function(to, backup = TRUE, ask = TRUE) {
         unname(tools::md5sum(file_default) == tools::md5sum(file_current))
     },
 
-    usethis::ui_stop('Not recognozed option: to = {usethis::ui_value(to[1])}.')
+    usethis::ui_stop(paste0(
+      'Unknown option of user setting defaults: to = {usethis::ui_value(to[1])}. \n',
+      "Possible options: {ui_value(user_settings_defaults)}."
+    ))
 
   )
 
@@ -487,7 +493,10 @@ get_rs_ui_pref_names <- function(which = "current") {
 
 
 # Keybindings ================================================================
-#
+
+# For auto-completion
+keybindings_defaults   <- c('bio-default', 'rstudio-default')
+
 #' Set RStudio keybindings
 #'
 #' @param to (string) The type of keybindings.
@@ -509,7 +518,7 @@ reset_rstudio_keybindings <- function(to, backup = TRUE) {
   if (missing(to)) {
     ui_stop(paste0(
       "The set of RStudio shortcut keys is not defined (argument '{yellow('to')}').\n",
-      'Possible options: {ui_value(c("bio-default", "rstudio-default"))}.'
+      'Possible options: {ui_value(keybindings_defaults)}.'
     ))
   }
   checkmate::assert_string(to)
@@ -536,7 +545,10 @@ reset_rstudio_keybindings <- function(to, backup = TRUE) {
         }
     },
 
-    stop("\nUnknown type of keybidings: ", to)
+    usethis::ui_stop(paste0(
+      'Unknown type of keybidings: to = {usethis::ui_value(to[1])}. \n',
+      "Possible options: {ui_value(user_settings_defaults)}."
+    ))
   )
 
   # Create back-up copies
