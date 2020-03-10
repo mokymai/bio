@@ -15,14 +15,18 @@ addins.rs
 
 bookdown
 blogdown
+pagedown
 ymlthis
 
+DT
 rcrossref
 citr
 
 latex2exp
 
 wellspell.addin
+
+rticles
 
 backup.tools
 snippets
