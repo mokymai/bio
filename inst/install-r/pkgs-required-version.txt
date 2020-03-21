@@ -17,7 +17,9 @@ bio                         | 0.0.2            | FALSE  | -
 blogdown                    | 0.18             | FALSE  | -
 bookdown                    | 0.18             | FALSE  | -
 car                         | 3.0-6            | FALSE  | Rcmdr
+citr                        | 0.3.2            | FALSE  | -
 cowplot                     | 1.0.0            | FALSE  | -
+crossref                    | 1.0.0            | FALSE  | -
 data.table                  | 1.12.8           | FALSE  | -
 DescTools                   | 0.99.32          | FALSE  | -
 dplyr                       | 0.8.4            | FALSE  | -
