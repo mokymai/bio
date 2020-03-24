@@ -833,6 +833,11 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
     return(invisible(res))
   }
 
+  # if (Sys.getenv("GITHUB_PAT") == "") {
+  #   # usethis::browse_github_pat()
+  #   # Sys.setenv(GITHUB_PAT = "write your PAT here, if you have it")
+  # }
+
   res <- c(
     '
     # To read more on the used options, run code:
@@ -843,6 +848,11 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
       install.packages.check.source = "yes",
       install.packages.compile.from.source = "always"
     )
+
+    # For installation from GitHub
+    # Read more at: https://remotes.r-lib.org/#environment-variables
+    Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS = "true")
+
     ',
     res
   )
