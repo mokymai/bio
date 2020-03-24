@@ -13,6 +13,8 @@ addin.tools
 addins.rmd
 addins.rs
 
+whoami
+
 bookdown
 blogdown
 pagedown

@@ -1,6 +1,6 @@
 ---
 title: "Non-CRAN repositories to install packages from"
-date:  2020-01-30
+date:  2020-03-25
 notes: ""
 
 
@@ -18,6 +18,7 @@ bio                     | github        | mokymai/bio                           
 car                     | repos         | http://R-Forge.R-project.org           | TRUE   | dependencies = TRUE
 emo                     | github        | hadley/emo                             | FALSE  | -
 gghighlight             | github        | yutannihilation/gghighlight            | TRUE   | -
+ggmosaic                | github     | rmcd1024/ggmosaic@ggplot_3.3.0-scales/fix | TRUE   | Use this fork until the main branch (haleyjeppson/ggmosaic) is updated.
 ggpie                   | github        | rkabacoff/ggpie                        | FALSE  | -
 ggtext                  | github        | clauswilke/ggtext                      | TRUE   | -
 gridtext                | github        | clauswilke/gridtext                    | TRUE   | -
