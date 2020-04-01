@@ -1,6 +1,6 @@
 ---
 title: "Non-CRAN repositories to install packages from"
-date:  2020-03-25
+date:  2020-04-01
 notes: ""
 
 
@@ -9,34 +9,34 @@ notes: ""
 ---
 # This text must be in line 10 -----------------------------------------------
 package                 | install_from  | details                                | ignore | notes
+car                     | repos         | http://R-Forge.R-project.org           | TRUE   | dependencies = TRUE
+gghighlight             | github        | yutannihilation/gghighlight            | TRUE   | -
+ggtext                  | github        | clauswilke/ggtext                      | TRUE   | -
+gridtext                | github        | clauswilke/gridtext                    | TRUE   | -
+qqplotr                 | github        | aloy/qqplotr                           | TRUE   | -
+todor                   | github        | dokato/todor                           | TRUE   | -
+ymlthis                 | github        | r-lib/ymlthis                          | TRUE   | -
 addin.tools             | github        | GegznaV/addin.tools                    | FALSE  | -
 addins.rmd              | github        | GegznaV/addins.rmd                     | FALSE  | -
 addins.rs               | github        | GegznaV/addins.rs                      | FALSE  | -
 adventr                 | github        | profandyfield/adventr                  | FALSE  | -
 backup.tools            | github        | GegznaV/backup.tools                   | FALSE  | -
 bio                     | github        | mokymai/bio                            | FALSE  | -
-car                     | repos         | http://R-Forge.R-project.org           | TRUE   | dependencies = TRUE
 emo                     | github        | hadley/emo                             | FALSE  | -
-gghighlight             | github        | yutannihilation/gghighlight            | TRUE   | -
-ggmosaic                | github     | rmcd1024/ggmosaic@ggplot_3.3.0-scales/fix | TRUE   | Use this fork until the main branch (haleyjeppson/ggmosaic) is updated.
+ggmosaic                | github     | rmcd1024/ggmosaic@ggplot_3.3.0-scales/fix | FALSE  | Use this fork until the main branch (haleyjeppson/ggmosaic) is updated.
 ggpie                   | github        | rkabacoff/ggpie                        | FALSE  | -
-ggtext                  | github        | clauswilke/ggtext                      | TRUE   | -
-gridtext                | github        | clauswilke/gridtext                    | TRUE   | -
 icon                    | github        | ropenscilabs/icon                      | FALSE  | -
 LanguageToolR           | github        | nevrome/LanguageToolR                  | FALSE  | -
 latex2exp               | github        | stefano-meschiari/latex2exp            | FALSE  | -
 pander                  | github        | Rapporter/pander                       | FALSE  | -
 practicalgg             | github        | wilkelab/practicalgg                   | FALSE  | -
-qqplotr                 | github        | aloy/qqplotr                           | TRUE   | -
 RcmdrPlugin.biostat     | github        | GegznaV/RcmdrPlugin.biostat            | FALSE  | -
 RcmdrPlugin.EZR.as.menu | github        | GegznaV/RcmdrPlugin.EZR@ezr_as_menu    | FALSE  | -
 regexplain              | github        | gadenbuie/regexplain                   | FALSE  | -
 report                  | github        | easystats/report                       | FALSE  | -
 rsam                    | github        | yonicd/rsam                            | FALSE  | -
 snippets                | github        | GegznaV/snippets                       | FALSE  | -
-todor                   | github        | dokato/todor                           | TRUE   | -
 ViewPipeSteps           | github        | daranzolin/ViewPipeSteps               | FALSE  | -
 wellspell.addin         | github        | nevrome/wellspell.addin                | FALSE  | -
-ymlthis                 | github        | r-lib/ymlthis                          | TRUE   | -
 
 
