@@ -7,7 +7,7 @@
 
 <!-- [![CRAN status](https://www.r-pkg.org/badges/version/bio)](https://CRAN.R-project.org/package=bio) -->
 
-<!-- [![GitHub version](https://img.shields.io/badge/GitHub-v0.0.4-brightgreen.svg)](https://github.com/mokymai/bio) -->
+<!-- [![GitHub version](https://img.shields.io/badge/GitHub-v0.0.4.1-brightgreen.svg)](https://github.com/mokymai/bio) -->
 
 [![GitHub last
 commit](https://img.shields.io/github/last-commit/mokymai/bio)](https://github.com/mokymai/bio)
@@ -18,7 +18,7 @@ status](https://ci.appveyor.com/api/projects/status/github/mokymai/bio?branch=ma
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Documented
-on](https://img.shields.io/badge/Documentation-2020--03--25-yellowgreen.svg)]()
+on](https://img.shields.io/badge/Documentation-2020--04--04-yellowgreen.svg)]()
 <!-- badges: end -->
 
 Convenience functions to facilitate installation and management of
@@ -87,14 +87,14 @@ Options:
 
 ``` r
 bio::check_installed_programs()
-## ✔ Program R (3.6.2) is installed (recommended 3.6.2, available 3.6.2)
+## ✔ Program R (3.6.3) is installed (recommended 3.6.3, available 3.6.3)
 ## ✖ Program RStudio is not installed or is not running.
 ## ✔ Program Rtools is installed.
 ```
 
 ``` r
 bio::check_installed_programs("all")
-## ✔ Program R (3.6.2) is installed (recommended 3.6.2, available 3.6.2)
+## ✔ Program R (3.6.3) is installed (recommended 3.6.3, available 3.6.3)
 ## ✔ Program RStudio (1.2.5033) is installed (recommended 1.2.5033, available 1.2.5033)
 ## ✔ Program Rtools is installed.
 ## ✖ Program Atom is not detected or configured incorrectly.
@@ -185,9 +185,20 @@ bio::download_spellcheck_dictionaries()
 
 ### Shortcut keys
 
-This function changes shortcut keys in RStudio. Options:
+This function changes shortcut keys in RStudio.
 
-  - `"bio-default"` – shortcut keys, recommended for BS-2020.
+Run function without arguments to see the available options.
+
+``` r
+bio::reset_rstudio_keybindings()
+```
+
+    ## Error: The set of RStudio shortcut keys is not defined (argument 'to').
+    ## Possible options: 'bio-default', 'rstudio-default'.
+
+Options:
+
+  - `"bio-default"` – shortcut keys recommended for course BS-2020.
   - `"rstudio-default"` – RStudio defaults.
 
 <!-- end list -->
@@ -256,9 +267,20 @@ in RStudio.
 
 ### RStudio settings
 
-This function resets RStudio user preferences and settings. Options:
+This function resets RStudio user preferences and settings.
 
-  - `"bio-default"` – options recommended for course BS-2020.
+Run function without arguments to see the available options.
+
+``` r
+bio::reset_rstudio_user_settings()
+```
+
+    ## Error: The set of RStudio user settings is not defined (argument 'to').
+    ## Possible choices: 'bio-default', 'rstudio-default'.
+
+The options:
+
+  - `"bio-default"` – settings recommended for course BS-2020.
   - `"rstudio-default"` – default RStudio settings.
 
 <!-- end list -->
@@ -279,7 +301,7 @@ snippets::install_snippets_from_package("snippets", type = c("r", "markdown"), b
 More information on [Code
 Snippets](https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets)
 in RStudio and on package
-[„snippets“](https://gegznav.github.io/snippets/).
+[**snippets**](https://gegznav.github.io/snippets/).
 
 ### Restart R and RStudio
 
@@ -299,7 +321,7 @@ Next, to restart R session without closing RStudio, use:
 bio::restart_r()
 ```
 
-Useful before installation of R packages.
+Useful to apply before trying to install R packages.
 
 <!-- ## RStudio projects -->
 

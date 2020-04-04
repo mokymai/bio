@@ -90,7 +90,7 @@ Options:
 
 ```{r README-7a, eval=FALSE}
 bio::check_installed_programs()
-## ✔ Program R (3.6.2) is installed (recommended 3.6.2, available 3.6.2)
+## ✔ Program R (3.6.3) is installed (recommended 3.6.3, available 3.6.3)
 ## ✖ Program RStudio is not installed or is not running.
 ## ✔ Program Rtools is installed.
 ```
@@ -98,7 +98,7 @@ bio::check_installed_programs()
 
 ```{r README-7b, eval=FALSE}
 bio::check_installed_programs("all")
-## ✔ Program R (3.6.2) is installed (recommended 3.6.2, available 3.6.2)
+## ✔ Program R (3.6.3) is installed (recommended 3.6.3, available 3.6.3)
 ## ✔ Program RStudio (1.2.5033) is installed (recommended 1.2.5033, available 1.2.5033)
 ## ✔ Program Rtools is installed.
 ## ✖ Program Atom is not detected or configured incorrectly.
@@ -184,12 +184,18 @@ bio::download_spellcheck_dictionaries()
 ### Shortcut keys
 
 This function changes shortcut keys in RStudio.
+
+Run function without arguments to see the available options.
+```{r README-9a, eval=TRUE, error=TRUE}
+bio::reset_rstudio_keybindings()
+```
+
 Options:
 
-- `"bio-default"`{.r} -- shortcut keys, recommended for BS-2020.
+- `"bio-default"`{.r} -- shortcut keys recommended for course BS-2020.
 - `"rstudio-default"`{.r} -- RStudio defaults.
 
-```{r README-9, eval=FALSE}
+```{r README-9b, eval=FALSE}
 bio::reset_rstudio_keybindings(to = "bio-default")
 ```
 
@@ -237,12 +243,18 @@ More on [Customizing Keyboard Shortcuts](https://support.rstudio.com/hc/en-us/ar
 ### RStudio settings 
 
 This function resets RStudio user preferences and settings.
-Options:
 
-- `"bio-default"`{.r} -- options recommended for course BS-2020.
+Run function without arguments to see the available options.
+```{r README-10a, eval=TRUE, error=TRUE}
+bio::reset_rstudio_user_settings()
+```
+
+The options:
+
+- `"bio-default"`{.r} -- settings recommended for course BS-2020.
 - `"rstudio-default"`{.r} -- default RStudio settings.
 
-```{r README-10, eval=FALSE}
+```{r README-10b, eval=FALSE}
 bio::reset_rstudio_user_settings(to = "bio-default")
 ```
 
@@ -257,7 +269,7 @@ snippets::install_snippets_from_package("snippets", type = c("r", "markdown"), b
 
 More information on 
 [Code Snippets](https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets){target="_blank"} in RStudio and on package
-[„snippets“](https://gegznav.github.io/snippets/){target="_blank"}.
+[**snippets**](https://gegznav.github.io/snippets/){target="_blank"}.
 
 
 ### Restart R and RStudio
@@ -274,7 +286,7 @@ Next, to restart R session without closing RStudio, use:
 ```{r, eval=FALSE}
 bio::restart_r()
 ```
-Useful before installation of R packages.
+Useful to apply before trying to install R packages.
 
 
 <!-- ## RStudio projects -->
