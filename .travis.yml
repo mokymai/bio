@@ -6,7 +6,7 @@ os: linux
 dist: xenial
 warnings_are_errors: false
 
-before_cache: Rscript -e 'remotes::install_github("r-lib/pkddown")'
+before_cache: Rscript -e 'remotes::install_github("r-lib/pkgdown")'
 deploy:
   provider: script
   script: Rscript -e 'pkgdown::deploy_site_github()'
