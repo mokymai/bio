@@ -2,23 +2,23 @@
 
 language: r
 cache: packages
-warnings_are_errors: false
 os: linux
 dist: xenial
+warnings_are_errors: false
 
 before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
 deploy:
   provider: script
   script: Rscript -e 'pkgdown::deploy_site_github()'
-  edge: true
 
 jobs:
-#   allow_failures:
-#   - r: oldrel
-#   - r: devel
   include:
   - r: release
   - r: devel
+
 #   - r: oldrel
 #     env:
 #       - FULL=true
+#   allow_failures:
+#   - r: oldrel
+#   - r: devel
