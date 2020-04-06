@@ -6,16 +6,16 @@ os: linux
 dist: xenial
 warnings_are_errors: false
 
+before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
+deploy:
+  provider: script
+  script: Rscript -e 'pkgdown::deploy_site_github()'
+  skip_cleanup: true
 
-jobs:
-  include:
-  - r: release
-    before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
-    deploy:
-      provider: script
-      script: Rscript -e 'pkgdown::deploy_site_github()'
-      skip_cleanup: true
-  - r: devel
+# jobs:
+#  include:
+#  - r: release
+#  - r: devel
 
 #   - r: oldrel
 #     env:
