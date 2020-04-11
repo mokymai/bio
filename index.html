@@ -116,26 +116,26 @@
 <p>Check versions of presence of installed R-related and other programs. Options:</p>
 <ul>
 <li>
-<code>"main"</code> (default) â checks for âRâ, âRStudioâ, âRtoolsâ (âWindowsâ only) or âCompilerâ (non-âWindowsâ only) and âXQuartzâ (âMacâ only).</li>
+<code>"main"</code> (default) – checks for “R”, “RStudio”, “Rtools” (“Windows” only) or “Compiler” (non-“Windows” only) and “XQuartz” (“Mac” only).</li>
 <li>
-<code>"all"</code> â additionally checks for presence of âAtomâ, âGitâ and (sometimes) âMeldâ. <!-- This check may not work properly on "Mac" and "Linux". -->
+<code>"all"</code> – additionally checks for presence of “Atom”, “Git” and (sometimes) “Meld”. <!-- This check may not work properly on "Mac" and "Linux". -->
 </li>
 </ul>
 <!-- end list --><div class="sourceCode" id="cb3"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/check_installed_programs.html">check_installed_programs</a></span>()
-<span class="co">## â Program R (3.6.3) is installed (recommended 3.6.3, available 3.6.3)</span>
-<span class="co">## â Program RStudio is not installed or is not running.</span>
-<span class="co">## â Program Rtools is installed.</span></pre></div>
+<span class="co">## ✔ Program R (3.6.3) is installed (recommended 3.6.3, available 3.6.3)</span>
+<span class="co">## ✖ Program RStudio is not installed or is not running.</span>
+<span class="co">## ✔ Program Rtools is installed.</span></pre></div>
 <div class="sourceCode" id="cb4"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/check_installed_programs.html">check_installed_programs</a></span>(<span class="st">"all"</span>)
-<span class="co">## â Program R (3.6.3) is installed (recommended 3.6.3, available 3.6.3)</span>
-<span class="co">## â Program RStudio (1.2.5033) is installed (recommended 1.2.5033, available 1.2.5033)</span>
-<span class="co">## â Program Rtools is installed.</span>
-<span class="co">## â Program Atom is not detected or configured incorrectly.</span>
-<span class="co">## â Program Git is installed.</span>
-<span class="co">## â Program Meld is installed.</span></pre></div>
+<span class="co">## ✔ Program R (3.6.3) is installed (recommended 3.6.3, available 3.6.3)</span>
+<span class="co">## ✔ Program RStudio (1.2.5033) is installed (recommended 1.2.5033, available 1.2.5033)</span>
+<span class="co">## ✔ Program Rtools is installed.</span>
+<span class="co">## ✖ Program Atom is not detected or configured incorrectly.</span>
+<span class="co">## ✔ Program Git is installed.</span>
+<span class="co">## ✔ Program Meld is installed.</span></pre></div>
 </div>
 <div id="check-information-about-r-packages" class="section level2">
 <h2 class="hasAnchor">
-<a href="#check-information-about-r-packages" class="anchor"></a>Check information about âRâ packages</h2>
+<a href="#check-information-about-r-packages" class="anchor"></a>Check information about “R” packages</h2>
 <p>The following functions may be used to check installed packages by topic. By default, only missing packages or packages with lower versions than recommended are displayed. Currently available lists can be returned by function <code><a href="reference/get_pkgs_installation_status.html">bio::get_pkg_lists_local()</a></code> and they include:</p>
 <ul>
 <li><code>'addins-rmd'</code></li>
@@ -153,9 +153,9 @@
 <li><code>'tidyverse'</code></li>
 </ul>
 <!-- end list --><div class="sourceCode" id="cb5"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/check_installed_packages.html">check_installed_packages</a></span>(<span class="kw">list_name</span> <span class="kw">=</span> <span class="st">"mini"</span>)
-<span class="co">## â Minimal required versions of all 19 packages (from list 'mini') are already installed.</span></pre></div>
+<span class="co">## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.</span></pre></div>
 <div class="sourceCode" id="cb6"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/check_installed_packages.html">check_installed_packages</a></span>(<span class="kw">list_name</span> <span class="kw">=</span> <span class="st">"mini"</span>, <span class="kw">include</span> <span class="kw">=</span> <span class="st">"newer_on_cran"</span>)
-<span class="co">## â Minimal required versions of all 19 packages (from list 'mini') are already installed.</span>
+<span class="co">## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.</span>
 <span class="co">## i Note: 1 package has newer version on CRAN.</span></pre></div>
 </div>
 <div id="update-packages" class="section level2">
@@ -166,7 +166,7 @@
 <div class="sourceCode" id="cb7"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/bio_version.html">update_pkg_bio</a></span>()</pre></div>
 <p>Check if there are updates for <strong>bio</strong> or its dependency packages.</p>
 <div class="sourceCode" id="cb8"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/bio_version.html">check_updates_bio</a></span>()</pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">â Minimal required versions of all <span class="dv">24</span> <span class="kw">packages</span> (from list <span class="st">'bio'</span>) are already installed.</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">✔ Minimal required versions of all <span class="dv">24</span> <span class="kw">packages</span> (from list <span class="st">'bio'</span>) are already installed.</a></code></pre></div>
 <p>Update package <strong>snippets</strong>.</p>
 <div class="sourceCode" id="cb10"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/update_pkg_snippets.html">update_pkg_snippets</a></span>()</pre></div>
 <p>Update package <strong>RcmdrPlugin.biostat</strong>.</p>
@@ -195,9 +195,9 @@
 <p>Options:</p>
 <ul>
 <li>
-<code>"bio-default"</code> â shortcut keys recommended for course BS-2020.</li>
+<code>"bio-default"</code> – shortcut keys recommended for course BS-2020.</li>
 <li>
-<code>"rstudio-default"</code> â RStudio defaults.</li>
+<code>"rstudio-default"</code> – RStudio defaults.</li>
 </ul>
 <!-- end list --><div class="sourceCode" id="cb15"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/reset_rstudio_keybindings.html">reset_rstudio_keybindings</a></span>(<span class="kw">to</span> <span class="kw">=</span> <span class="st">"bio-default"</span>)</pre></div>
 <table class="table">
@@ -220,7 +220,7 @@
 <td>
 <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd>
 </td>
-<td>Use âTidyverseâ style on selected lines of R code. Package <strong>styler</strong> must be installed (<em>R code</em>).</td>
+<td>Use “Tidyverse” style on selected lines of R code. Package <strong>styler</strong> must be installed (<em>R code</em>).</td>
 </tr>
 <tr class="odd">
 <td>
@@ -238,19 +238,19 @@
 <td>
 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd>
 </td>
-<td>Insert lower opening quotes <code>â</code>.</td>
+<td>Insert lower opening quotes <code>„</code>.</td>
 </tr>
 <tr class="even">
 <td>
-<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>â</kbd>
+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>’</kbd>
 </td>
-<td>Insert upper closing quotes <code>â</code>.</td>
+<td>Insert upper closing quotes <code>“</code>.</td>
 </tr>
 <tr class="odd">
 <td>
 <kbd>Ctrl</kbd>+<kbd>E</kbd>
 </td>
-<td>Insert/Enclose with R code block (<em>R Markdown</em>) <strong><br><span class="math display">â</span><br></strong> .</td>
+<td>Insert/Enclose with R code block (<em>R Markdown</em>) <strong><br><span class="math display">​</span><br></strong> .</td>
 </tr>
 <tr class="even">
 <td>
@@ -280,25 +280,25 @@
 <td>
 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad2</kbd>
 </td>
-<td>â¦ of level 2 (<em>R Markdown</em>).</td>
+<td>… of level 2 (<em>R Markdown</em>).</td>
 </tr>
 <tr class="odd">
 <td>
 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad3</kbd>
 </td>
-<td>â¦ of level 3 (<em>R Markdown</em>).</td>
+<td>… of level 3 (<em>R Markdown</em>).</td>
 </tr>
 <tr class="even">
 <td>
 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad4</kbd>
 </td>
-<td>â¦ of level 4 (<em>R Markdown</em>).</td>
+<td>… of level 4 (<em>R Markdown</em>).</td>
 </tr>
 <tr class="odd">
 <td>
 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad5</kbd>
 </td>
-<td>â¦ of level 5 (<em>R Markdown</em>).</td>
+<td>… of level 5 (<em>R Markdown</em>).</td>
 </tr>
 <tr class="even">
 <td>
@@ -338,16 +338,16 @@
 <p>The options:</p>
 <ul>
 <li>
-<code>"bio-default"</code> â settings recommended for course BS-2020.</li>
+<code>"bio-default"</code> – settings recommended for course BS-2020.</li>
 <li>
-<code>"rstudio-default"</code> â default RStudio settings.</li>
+<code>"rstudio-default"</code> – default RStudio settings.</li>
 </ul>
 <!-- end list --><div class="sourceCode" id="cb18"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/RStudio-settings.html">reset_rstudio_user_settings</a></span>(<span class="kw">to</span> <span class="kw">=</span> <span class="st">"bio-default"</span>)</pre></div>
 </div>
 <div id="snippets" class="section level3">
 <h3 class="hasAnchor">
 <a href="#snippets" class="anchor"></a>Snippets</h3>
-<p>The function replaces current R code and R Markdown snippets with those in package âsnippetsâ.</p>
+<p>The function replaces current R code and R Markdown snippets with those in package “snippets”.</p>
 <div class="sourceCode" id="cb19"><pre class="r"><span class="kw pkg">snippets</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/snippets/man/install-snippets.html">install_snippets_from_package</a></span>(<span class="st">"snippets"</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"r"</span>, <span class="st">"markdown"</span>), <span class="kw">backup</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></div>
 <p>More information on <a href="https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets">Code Snippets</a> in RStudio and on package <a href="https://gegznav.github.io/snippets/"><strong>snippets</strong></a>.</p>
 </div>
@@ -427,7 +427,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>
