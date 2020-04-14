@@ -1,6 +1,6 @@
 ---
 title: "Minimal required versions of packages"
-date:  2020-04-11
+date:  2020-04-14
 notes: ""
 
 
@@ -26,6 +26,8 @@ devtools                    | 2.3.0            | FALSE  | -
 dplyr                       | 0.8.4            | FALSE  | -
 DT                          | 0.1.3            | FALSE  | -
 effects                     | 4.0-3            | FALSE  | Rcmdr
+effectsize                  | 0.3.0            | FALSE  | -
+effsize                     | 0.8.0            | FALSE  | -
 esquisse                    | 0.3.0            | FALSE  | -
 factoextra                  | 1.0.7            | FALSE  | -
 flextable                   | 0.5.7            | FALSE  | -
@@ -38,7 +40,7 @@ ggpubr                      | 0.2.5            | FALSE  | -
 ggstatsplot                 | 0.3.0            | FALSE  | -
 glue                        | 1.4.0            | FALSE  | -
 hms                         | 0.5.3            | FALSE  | -
-janitor                     | 2.0.0            | FALSE  | -
+janitor                     | 2.0.1            | FALSE  | -
 knitr                       | 1.28             | FALSE  | -
 LanguageToolR               | 0.1.2            | FALSE  | -
 latex2exp                   | 0.4.0            | FALSE  | -
