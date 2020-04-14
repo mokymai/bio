@@ -28,6 +28,7 @@ Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS = "true")
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/mokymai/bio?branch=master&svg=true)](https://ci.appveyor.com/project/mokymai/bio)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Documented on](https://img.shields.io/badge/Documentation-`r gsub('-', '--', Sys.Date())`-yellowgreen.svg)]()
+[![R build status](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
 <!-- badges: end -->
 
 
