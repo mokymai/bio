@@ -11,11 +11,13 @@ Package ***bio***
 commit](https://img.shields.io/github/last-commit/mokymai/bio)](https://github.com/mokymai/bio)
 [![R build
 status](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/mokymai/bio/branch/master/graph/badge.svg)](https://codecov.io/gh/mokymai/bio?branch=master)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
-[![Documented
-on](https://img.shields.io/badge/Documentation-2020--04--22-yellowgreen.svg)]()
 <!-- badges: end -->
+
+<!-- [![Documented on](https://img.shields.io/badge/Documentation-2020--04--22-yellowgreen.svg)]() -->
 
 Convenience functions to facilitate installation and management of
 required resources for ***Biostatistics*** course unit (*BS-2020*).
@@ -189,8 +191,8 @@ Run function without arguments to see the available options.
 bio::reset_rstudio_keybindings()
 ```
 
-    ## Error: The set of RStudio shortcut keys is not defined (argument 'to').
-    ## Possible options: 'bio-default', 'rstudio-default'.
+    Error: The set of RStudio shortcut keys is not defined (argument 'to').
+    Possible options: 'bio-default', 'rstudio-default'.
 
 Options:
 
@@ -271,8 +273,8 @@ Run function without arguments to see the available options.
 bio::reset_rstudio_user_settings()
 ```
 
-    ## Error: The set of RStudio user settings is not defined (argument 'to').
-    ## Possible choices: 'bio-default', 'rstudio-default'.
+    Error: The set of RStudio user settings is not defined (argument 'to').
+    Possible choices: 'bio-default', 'rstudio-default'.
 
 The options:
 
