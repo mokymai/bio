@@ -189,8 +189,8 @@ Run function without arguments to see the available options.
 bio::reset_rstudio_keybindings()
 ```
 
-    ## Error: The set of RStudio shortcut keys is not defined (argument '[33mto[39m').
-    ## Possible options: [34m'bio-default'[39m, [34m'rstudio-default'[39m.
+    Error: The set of RStudio shortcut keys is not defined (argument 'to').
+    Possible options: 'bio-default', 'rstudio-default'.
 
 Options:
 
@@ -271,8 +271,8 @@ Run function without arguments to see the available options.
 bio::reset_rstudio_user_settings()
 ```
 
-    ## Error: The set of RStudio user settings is not defined (argument '[33mto[39m').
-    ## Possible choices: [34m'bio-default'[39m, [34m'rstudio-default'[39m.
+    Error: The set of RStudio user settings is not defined (argument 'to').
+    Possible choices: 'bio-default', 'rstudio-default'.
 
 The options:
 
