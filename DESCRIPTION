@@ -47,3 +47,5 @@ Imports:
   tidyr,
   usethis,
   withr
+Suggests: 
+    covr
