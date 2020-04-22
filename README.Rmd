@@ -40,7 +40,7 @@ Convenience functions to facilitate installation and management of required reso
 <!-- </font> -->
 <br>
 <font color="darkred" size=4>
-This package is tested on <em>Windows 10</em> (64-bit) with RStudio 1.2.5033.
+This package is tested on <em>Windows 10</em> (64-bit) with RStudio 1.2.5042.
 </font>
 <br><br>
 </center>
