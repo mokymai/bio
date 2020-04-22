@@ -9,16 +9,12 @@ Package ***bio***
 
 [![GitHub last
 commit](https://img.shields.io/github/last-commit/mokymai/bio)](https://github.com/mokymai/bio)
-[![Travis build
-status](https://travis-ci.com/mokymai/bio.svg?branch=master)](https://travis-ci.com/mokymai/bio)
-[![AppVeyor build
-status](https://ci.appveyor.com/api/projects/status/github/mokymai/bio?branch=master&svg=true)](https://ci.appveyor.com/project/mokymai/bio)
+[![R build
+status](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Documented
 on](https://img.shields.io/badge/Documentation-2020--04--22-yellowgreen.svg)]()
-[![R build
-status](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
 <!-- badges: end -->
 
 Convenience functions to facilitate installation and management of
