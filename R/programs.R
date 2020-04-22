@@ -158,9 +158,10 @@ get_available_r_version <- function(force = FALSE, skip = FALSE) {
       max()
 
   } else {
-    ui_warn(
-      "To get the newest availableR version, network connection is required. You are offline. "
-    )
+    ui_warn(paste(
+      "To get the newest availableR version, network connection is required.",
+      "You are offline. "
+    ))
     NULL
   }
 }
@@ -245,7 +246,7 @@ check_program_version  <- function(program = "", r_installed = "", v_recommended
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_r_version <- function(v_recommended = "3.6.2", skip_online_check = FALSE) {
+check_r_version <- function(v_recommended = "3.6.3", skip_online_check = FALSE) {
 
   check_program_version(
     program = 'R',
@@ -256,7 +257,7 @@ check_r_version <- function(v_recommended = "3.6.2", skip_online_check = FALSE) 
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_rs_version <- function(v_recommended = "1.2.5033", skip_online_check = FALSE) {
+check_rs_version <- function(v_recommended = "1.2.5042", skip_online_check = FALSE) {
 
   if (!rstudioapi::isAvailable()) {
     ui_oops("Program {red('RStudio')} is not installed or is not running. ")
