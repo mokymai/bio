@@ -1,13 +1,11 @@
+Package ***bio***
+================
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Package ***bio***
+<!-- # Package **_bio_** -->
 
 <!-- badges: start -->
-
-<!-- [![CRAN status](https://www.r-pkg.org/badges/version/bio)](https://CRAN.R-project.org/package=bio) -->
-
-<!-- [![GitHub version](https://img.shields.io/badge/GitHub-v0.0.4.2-brightgreen.svg)](https://github.com/mokymai/bio) -->
 
 [![GitHub last
 commit](https://img.shields.io/github/last-commit/mokymai/bio)](https://github.com/mokymai/bio)
@@ -18,7 +16,7 @@ status](https://ci.appveyor.com/api/projects/status/github/mokymai/bio?branch=ma
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Documented
-on](https://img.shields.io/badge/Documentation-2020--04--14-yellowgreen.svg)]()
+on](https://img.shields.io/badge/Documentation-2020--04--22-yellowgreen.svg)]()
 [![R build
 status](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
 <!-- badges: end -->

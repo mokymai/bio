@@ -31,8 +31,8 @@ tmp_GITHUB_PAT <- "d1d1a11383f1d5fd01427008cd8967ae7698391f"
 
   # Other
   try({
-      if (is.na(pat) && pingr::my_ip(method = "https") %in% ip_ec_108)
-        Sys.setenv(GITHUB_PAT = tmp_GITHUB_PAT)
+    if (is.na(pat) && pingr::my_ip(method = "https") %in% ip_ec_108)
+      Sys.setenv(GITHUB_PAT = tmp_GITHUB_PAT)
   }, silent = TRUE)
 }
 
@@ -70,3 +70,11 @@ auto_completions_bio <- function(env) {
     return(paste0('"', bio::get_pkg_lists_local(), '"'))
   }
 }
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+globalVariables(c(
+  ".", ".rs.downloadAllDictionaries", "bowse_meld_homepage", "cran_version",
+  "current_version", "deps_below", "get_path_rs_desktop_dir", "install_from",
+  "n_deps", "name", "on_cran", "package", "panderOptions", "pandoc.header",
+  "pandoc.list", "pkg", "value"
+))
