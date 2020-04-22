@@ -7,15 +7,13 @@ Package ***bio***
 
 <!-- badges: start -->
 
-[![GitHub last
-commit](https://img.shields.io/github/last-commit/mokymai/bio)](https://github.com/mokymai/bio)
 [![R build
 status](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
-[![Codecov test
-coverage](https://codecov.io/gh/mokymai/bio/branch/master/graph/badge.svg)](https://codecov.io/gh/mokymai/bio?branch=master)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
+
+<!-- [![GitHub last commit](https://img.shields.io/github/last-commit/mokymai/bio)](https://github.com/mokymai/bio) -->
 
 <!-- [![Documented on](https://img.shields.io/badge/Documentation-2020--04--22-yellowgreen.svg)]() -->
 
@@ -33,7 +31,7 @@ required resources for ***Biostatistics*** course unit (*BS-2020*).
 <!-- </font> -->
 
 <br> <font color="darkred" size=4> This package is tested on <em>Windows
-10</em> (64-bit) with RStudio 1.2.5033. </font> <br><br>
+10</em> (64-bit) with RStudio 1.2.5042. </font> <br><br>
 
 </center>
 
@@ -191,8 +189,8 @@ Run function without arguments to see the available options.
 bio::reset_rstudio_keybindings()
 ```
 
-    Error: The set of RStudio shortcut keys is not defined (argument 'to').
-    Possible options: 'bio-default', 'rstudio-default'.
+    ## Error: The set of RStudio shortcut keys is not defined (argument '[33mto[39m').
+    ## Possible options: [34m'bio-default'[39m, [34m'rstudio-default'[39m.
 
 Options:
 
@@ -273,8 +271,8 @@ Run function without arguments to see the available options.
 bio::reset_rstudio_user_settings()
 ```
 
-    Error: The set of RStudio user settings is not defined (argument 'to').
-    Possible choices: 'bio-default', 'rstudio-default'.
+    ## Error: The set of RStudio user settings is not defined (argument '[33mto[39m').
+    ## Possible choices: [34m'bio-default'[39m, [34m'rstudio-default'[39m.
 
 The options:
 
