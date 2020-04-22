@@ -185,12 +185,8 @@ bio::download_spellcheck_dictionaries()
 This function changes shortcut keys in RStudio.
 
 Run function without arguments to see the available options.
-```{r README-9a, eval=FALSE, error=TRUE}
+```{r README-9a, eval=TRUE, error=TRUE}
 bio::reset_rstudio_keybindings()
-```
-```
-Error: The set of RStudio shortcut keys is not defined (argument 'to').
-Possible options: 'bio-default', 'rstudio-default'.
 ```
 
 
@@ -249,12 +245,8 @@ More on [Customizing Keyboard Shortcuts](https://support.rstudio.com/hc/en-us/ar
 This function resets RStudio user preferences and settings.
 
 Run function without arguments to see the available options.
-```{r README-10a, eval=FALSE, error=TRUE}
+```{r README-10a, eval=TRUE, error=TRUE}
 bio::reset_rstudio_user_settings()
-```
-```
-Error: The set of RStudio user settings is not defined (argument 'to').
-Possible choices: 'bio-default', 'rstudio-default'.
 ```
 
 
