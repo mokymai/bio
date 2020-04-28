@@ -15,7 +15,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 
 <!-- [![GitHub last commit](https://img.shields.io/github/last-commit/mokymai/bio)](https://github.com/mokymai/bio) -->
 
-<!-- [![Documented on](https://img.shields.io/badge/Documentation-2020--04--22-yellowgreen.svg)]() -->
+<!-- [![Documented on](https://img.shields.io/badge/Documentation-2020--04--28-yellowgreen.svg)]() -->
 
 Convenience functions to facilitate installation and management of
 required resources for ***Biostatistics*** course unit (*BS-2020*).
@@ -108,14 +108,17 @@ returned by function `bio::get_pkg_lists_local()` and they include:
   - `'addins-rmd'`
   - `'bio'`
   - `'bs-2020-initial'`
+  - `'confidence-intervals'`
   - `'ggplot'`
   - `'gmc-r209'`
+  - `'linear-regression'`
   - `'markdown'`
   - `'mini'`
   - `'rcmdr-biostat'`
   - `'rcmdr'`
   - `'snippets'`
   - `'spelling-grammar'`
+  - `'statistical-tests'`
   - `'summary'`
   - `'tidyverse'`
 
