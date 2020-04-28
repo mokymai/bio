@@ -29,6 +29,7 @@ latex2exp
 wellspell.addin
 
 rticles
+icon
 
 backup.tools
 snippets

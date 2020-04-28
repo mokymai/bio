@@ -1,0 +1,13 @@
+DescTools
+
+dplyr
+broom
+tidyverse
+
+car
+lmtest
+Hmisc
+RcmdrMisc
+lm.beta
+chemCal
+ggstatsplot
