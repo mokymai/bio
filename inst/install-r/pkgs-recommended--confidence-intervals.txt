@@ -1,0 +1,10 @@
+magrittr
+tibble
+purrr
+dplyr
+tidyr
+ggplot2
+tidyverse
+
+DescTools
+
