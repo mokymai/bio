@@ -1,6 +1,6 @@
 ---
 title: "Minimal required versions of packages"
-date:  2020-04-14
+date:  2020-05-04
 notes: ""
 
 
@@ -34,9 +34,9 @@ flextable                   | 0.5.7            | FALSE  | -
 forcats                     | 0.4.0            | FALSE  | -
 fs                          | 1.4.1            | FALSE  | -
 gghighlight                 | 0.2.0            | FALSE  | -
-ggmosaic                    | 0.2.2            | FALSE  | -
+ggmosaic                    | 0.3.0            | FALSE  | -
 ggplot2                     | 3.3.0            | FALSE  | -
-ggpubr                      | 0.2.5            | FALSE  | -
+ggpubr                      | 0.3.0            | FALSE  | -
 ggstatsplot                 | 0.3.0            | FALSE  | -
 glue                        | 1.4.0            | FALSE  | -
 hms                         | 0.5.3            | FALSE  | -
@@ -46,7 +46,7 @@ LanguageToolR               | 0.1.2            | FALSE  | -
 latex2exp                   | 0.4.0            | FALSE  | -
 lm.beta                     | 1.5-1            | FALSE  | -
 multcomp                    | 0.991-2          | FALSE  | Rcmdr
-officer                     | 0.3.7            | FALSE  | -
+officer                     | 0.3.9            | FALSE  | -
 openxlsx                    | 4.1.4            | FALSE  | -
 pander                      | 0.6.4            | FALSE  | -
 pkgdown                     | 1.5.1            | FALSE  | -
