@@ -1,6 +1,6 @@
 ---
 title: "Non-CRAN repositories to install packages from"
-date:  2020-04-01
+date:  2020-05-06
 notes: ""
 
 
@@ -23,7 +23,7 @@ adventr                 | github        | profandyfield/adventr                 
 backup.tools            | github        | GegznaV/backup.tools                   | FALSE  | -
 bio                     | github        | mokymai/bio                            | FALSE  | -
 emo                     | github        | hadley/emo                             | FALSE  | -
-ggmosaic                | github     | rmcd1024/ggmosaic@ggplot_3.3.0-scales/fix | FALSE  | Use this fork until the main branch (haleyjeppson/ggmosaic) is updated.
+ggmosaic                | github        | haleyjeppson/ggmosaic                  | FALSE  | -
 ggpie                   | github        | rkabacoff/ggpie                        | FALSE  | -
 icon                    | github        | ropenscilabs/icon                      | FALSE  | -
 LanguageToolR           | github        | nevrome/LanguageToolR                  | FALSE  | -
