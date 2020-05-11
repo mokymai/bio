@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Update RcmdrPlugin.biostat and related packages — update_pkg_snippets • bio</title>
+<title>List packages used in file(s) — list_pkgs_used_in_dir • bio</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="Update RcmdrPlugin.biostat and related packages — update_pkg_snippets" />
-<meta property="og:description" content="Update RcmdrPlugin.biostat and related packages" />
+<meta property="og:title" content="List packages used in file(s) — list_pkgs_used_in_dir" />
+<meta property="og:description" content="These functions search for library(pkg), require(pkg) or pkg::function()
+and return package names from these expressions." />
 
 
 
@@ -108,42 +109,46 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Update RcmdrPlugin.biostat and related packages</h1>
-    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/load_update.R'><code>R/load_update.R</code></a></small>
-    <div class="hidden name"><code>update_pkg_snippets.Rd</code></div>
+    <h1>List packages used in file(s)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/packages.R'><code>R/packages.R</code></a></small>
+    <div class="hidden name"><code>list_pkgs_used_in_dir.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Update RcmdrPlugin.biostat and related packages</p>
+    <p>These functions search for <code><a href='https://rdrr.io/pkg/pkg/man'>library(pkg)</a></code>, <code><a href='https://rdrr.io/pkg/pkg/man'>require(pkg)</a></code> or <code>pkg::function()</code>
+and return package names from these expressions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>update_pkg_snippets</span>(<span class='kw'>upgrade</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>list_pkgs_used_in_dir</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>regexp</span> <span class='kw'>=</span> <span class='st'>"(?i)[.](rmd|r)$"</span>, <span class='no'>...</span>)
+
+<span class='fu'>list_pkgs_used_in_files</span>(<span class='no'>files</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>upgrade</th>
-      <td><p>Upgrade dependencies.
-See <code>upgrade</code> in <code><a href='https://remotes.r-lib.org/reference/install_github.html'>remotes::install_github()</a></code>.</p></td>
+      <th>path</th>
+      <td><p>Path to directory with R and R Markdown files. Defaults to <code>"."</code>.</p></td>
     </tr>
     <tr>
-      <th>force</th>
-      <td><p>(logical) <code>TRUE</code> or <code>FALSE</code>.
-Force to update.
-See <code>force</code> in <code><a href='https://remotes.r-lib.org/reference/install_github.html'>remotes::install_github()</a></code>.</p></td>
+      <th>regexp</th>
+      <td><p>Regular expression to filter file names. Defaults to R and Rmd
+files.</p></td>
     </tr>
     <tr>
-      <th>quiet</th>
-      <td><p>(logical) <code>TRUE</code> or <code>FALSE</code>.
-Should installation messages be printed?
-See <code>quiet</code> in <code><a href='https://remotes.r-lib.org/reference/install_github.html'>remotes::install_github()</a></code>.</p></td>
+      <th>...</th>
+      <td><p>Further arfuments to <a href='http://fs.r-lib.org/reference/dir_ls.html'>fs::dir_ls</a>.</p></td>
+    </tr>
+    <tr>
+      <th>files</th>
+      <td><p>Path to R or Rmd files</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"></pre>
+    <p>Character vector with package names.</p>
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
