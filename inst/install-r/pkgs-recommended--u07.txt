@@ -1,0 +1,25 @@
+# U07 -----------------------------------------------------------------------
+
+magrittr
+conflicted
+scales
+knitr
+dplyr
+readxl
+fs
+purrr
+stringr
+ggplot2
+tidyverse
+
+car
+RcmdrMisc
+data.table
+janitor
+DescTools
+effectsize
+ggpubr
+rstatix
+MVN
+
+bio

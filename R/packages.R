@@ -1290,4 +1290,35 @@ optimize_order_to_install <- function(pkgs_vec,
   # list(move_before = move_before, move_after = move_after)
 }
 
+# List packages --------------------------------------------------------------
+#' List packages used in file(s)
+#'
+#' These functions search for `library(pkg)`, `require(pkg)` or `pkg::function()`
+#' and return package names from these expressions.
+#'
+#' @param path Path to directory with R and R Markdown files. Defaults to `"."`.
+#' @param files Path to R or Rmd files
+#' @param regexp Regular expression to filter file names. Defaults to R and Rmd
+#'        files.
+#' @param ... Further arfuments to [fs::dir_ls].
+#'
+#' @return Character vector with package names.
+#' @export
+list_pkgs_used_in_dir <- function(path = ".", regexp = "(?i)[.](rmd|r)$", ...) {
+  path %>%
+  fs::dir_ls(regexp = "(?i)[.](rmd|r)$") %>%
+    list_pkgs_used_in_files()
+}
 
+
+#' @rdname list_pkgs_used_in_dir
+#' @export
+list_pkgs_used_in_files <- function(files) {
+  files %>%
+  purrr::map(~readr::read_file(.)) %>%
+  stringr::str_extract_all(
+    "(?<=(library|require)\\()(.*?)(?=\\))|(?<=\\s|\n)[a-zA-Z.]*?(?=::)"
+  ) %>%
+  purrr::reduce(c) %>%
+  unique()
+}

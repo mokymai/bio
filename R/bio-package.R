@@ -21,19 +21,10 @@ NULL
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Internal bio environment
 bio_envir <- new.env()
-tmp_GITHUB_PAT <- "d1d1a11383f1d5fd01427008cd8967ae7698391f"
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .onLoad <- function(libname, pkgname) {
-  pat <- Sys.getenv("GITHUB_PAT", NA_character_)
-
   # Autocompletions
   completeme::register_completion(bio = auto_completions_bio)
-
-  # Other
-  try({
-    if (is.na(pat) && pingr::my_ip(method = "https") %in% ip_ec_108)
-      Sys.setenv(GITHUB_PAT = tmp_GITHUB_PAT)
-  }, silent = TRUE)
 }
 
 auto_completions_bio <- function(env) {
