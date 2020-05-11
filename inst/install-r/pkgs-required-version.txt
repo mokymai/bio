@@ -1,6 +1,6 @@
 ---
 title: "Minimal required versions of packages"
-date:  2020-05-04
+date:  2020-05-11
 notes: ""
 
 
@@ -13,7 +13,7 @@ addin.tools                 | 0.0.9            | FALSE  | -
 addins.rmd                  | 0.0.10           | FALSE  | -
 addins.rs                   | 0.0.8            | FALSE  | -
 backup.tools                | 0.0.1            | FALSE  | -
-bio                         | 0.0.2            | FALSE  | -
+bio                         | 0.0.5            | FALSE  | -
 blogdown                    | 0.18             | FALSE  | -
 bookdown                    | 0.18             | FALSE  | -
 car                         | 3.0-6            | FALSE  | Rcmdr
@@ -21,7 +21,7 @@ citr                        | 0.3.2            | FALSE  | -
 cowplot                     | 1.0.0            | FALSE  | -
 crossref                    | 1.0.0            | FALSE  | -
 data.table                  | 1.12.8           | FALSE  | -
-DescTools                   | 0.99.32          | FALSE  | -
+DescTools                   | 0.99.35          | FALSE  | -
 devtools                    | 2.3.0            | FALSE  | -
 dplyr                       | 0.8.4            | FALSE  | -
 DT                          | 0.1.3            | FALSE  | -
@@ -31,13 +31,13 @@ effsize                     | 0.8.0            | FALSE  | -
 esquisse                    | 0.3.0            | FALSE  | -
 factoextra                  | 1.0.7            | FALSE  | -
 flextable                   | 0.5.7            | FALSE  | -
-forcats                     | 0.4.0            | FALSE  | -
+forcats                     | 0.5.0            | FALSE  | -
 fs                          | 1.4.1            | FALSE  | -
-gghighlight                 | 0.2.0            | FALSE  | -
+gghighlight                 | 0.3.0            | FALSE  | -
 ggmosaic                    | 0.3.0            | FALSE  | -
 ggplot2                     | 3.3.0            | FALSE  | -
 ggpubr                      | 0.3.0            | FALSE  | -
-ggstatsplot                 | 0.3.0            | FALSE  | -
+ggstatsplot                 | 0.4.0            | FALSE  | -
 glue                        | 1.4.0            | FALSE  | -
 hms                         | 0.5.3            | FALSE  | -
 janitor                     | 2.0.1            | FALSE  | -
@@ -62,14 +62,14 @@ readxl                      | 1.3.1            | FALSE  | -
 relimp                      | 1.0-5            | FALSE  | Rcmdr
 remotes                     | 2.1.1            | FALSE  | -
 rgl                         | 0.96.0           | FALSE  | Rcmdr
-rlang                       | 0.4.5            | FALSE  | -
+rlang                       | 0.4.6            | FALSE  | -
 rmarkdown                   | 0.9.5            | FALSE  | Rcmdr
 rstatix                     | 0.5.0            | FALSE  | -
 rvg                         | 0.2.4            | FALSE  | -
 scales                      | 1.1.0            | FALSE  | -
 sem                         | 2.1-1            | FALSE  | Rcmdr
 skimr                       | 2.1.0            | FALSE  | -
-snippets                    | 0.0.3            | FALSE  | -
+snippets                    | 0.0.4            | FALSE  | -
 stringr                     | 1.4.0            | FALSE  | -
 styler                      | 1.3.2            | FALSE  | -
 tcltk2                      | 1.2-11           | FALSE  | Rcmdr
@@ -78,8 +78,8 @@ tidyr                       | 1.0.2            | FALSE  | -
 tidyselect                  | 1.0.0            | FALSE  | -
 tidyverse                   | 1.3.0            | FALSE  | -
 tidyxl                      | 1.0.5            | FALSE  | -
-unpivotr                    | 0.5.1            | FALSE  | -
-usethis                     | 1.6.0            | FALSE  | -
+unpivotr                    | 0.6.0            | FALSE  | -
+usethis                     | 1.6.1            | FALSE  | -
 vcd                         | 1.4-7            | FALSE  | -
 wellspell.addin             | 0.5.0            | FALSE  | -
 ymlthis                     | 0.1.2            | FALSE  | -
