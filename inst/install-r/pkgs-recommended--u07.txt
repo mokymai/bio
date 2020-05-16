@@ -10,6 +10,7 @@ fs
 purrr
 stringr
 ggplot2
+tibble
 tidyverse
 
 car

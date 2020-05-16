@@ -10,11 +10,13 @@ fs
 purrr
 stringr
 ggplot2
+tibble
 tidyverse
 
 broom
 
 car
+lmtest
 RcmdrMisc
 data.table
 janitor
