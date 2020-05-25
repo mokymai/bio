@@ -26,7 +26,7 @@ devtools                    | 2.3.0            | FALSE  | -
 dplyr                       | 0.8.4            | FALSE  | -
 DT                          | 0.1.3            | FALSE  | -
 effects                     | 4.0-4            | FALSE  | Rcmdr
-effectsize                  | 0.3.0            | FALSE  | -
+effectsize                  | 0.3.1            | FALSE  | -
 effsize                     | 0.8.0            | FALSE  | -
 esquisse                    | 0.3.0            | FALSE  | -
 factoextra                  | 1.0.7            | FALSE  | -
@@ -39,6 +39,7 @@ ggplot2                     | 3.3.0            | FALSE  | -
 ggpubr                      | 0.3.0            | FALSE  | -
 ggstatsplot                 | 0.4.0            | FALSE  | -
 glue                        | 1.4.0            | FALSE  | -
+haven                       | 2.3.0            | FALSE  | -
 hms                         | 0.5.3            | FALSE  | -
 janitor                     | 2.0.1            | FALSE  | -
 knitr                       | 1.28             | FALSE  | -
@@ -68,7 +69,7 @@ rstatix                     | 0.5.0            | FALSE  | -
 rvg                         | 0.2.4            | FALSE  | -
 scales                      | 1.1.0            | FALSE  | -
 sem                         | 2.1-1            | FALSE  | Rcmdr
-skimr                       | 2.1.0            | FALSE  | -
+skimr                       | 2.1.1            | FALSE  | -
 snippets                    | 0.0.4            | FALSE  | -
 stringr                     | 1.4.0            | FALSE  | -
 styler                      | 1.3.2            | FALSE  | -
