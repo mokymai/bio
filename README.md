@@ -7,15 +7,17 @@ Package ***bio***
 
 <!-- badges: start -->
 
+[![GitHub
+version](https://img.shields.io/badge/GitHub-0.0.5-brightgreen.svg)](https://github.com/mokymai/bio)
+[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--06--09-yellowgreen.svg)](/commits/master)
 [![R build
 status](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+
 <!-- badges: end -->
 
 <!-- [![GitHub last commit](https://img.shields.io/github/last-commit/mokymai/bio)](https://github.com/mokymai/bio) -->
-
-<!-- [![Documented on](https://img.shields.io/badge/Documentation-2020--04--28-yellowgreen.svg)]() -->
 
 Convenience functions to facilitate installation and management of
 required resources for ***Biostatistics*** course unit (*BS-2020*).
@@ -121,6 +123,8 @@ returned by function `bio::get_pkg_lists_local()` and they include:
   - `'statistical-tests'`
   - `'summary'`
   - `'tidyverse'`
+  - `'u07'`
+  - `'u08'`
 
 <!-- end list -->
 

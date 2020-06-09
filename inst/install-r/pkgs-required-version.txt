@@ -1,6 +1,6 @@
 ---
 title: "Minimal required versions of packages"
-date:  2020-05-23
+date:  2020-06-09
 notes: ""
 
 
@@ -11,7 +11,7 @@ notes: ""
 package                     | required_version | ignore | notes_version
 addin.tools                 | 0.0.9            | FALSE  | -
 addins.rmd                  | 0.0.10           | FALSE  | -
-addins.rs                   | 0.0.8            | FALSE  | -
+addins.rs                   | 0.0.9            | FALSE  | -
 backup.tools                | 0.0.1            | FALSE  | -
 bio                         | 0.0.5            | FALSE  | -
 blogdown                    | 0.19             | FALSE  | -
