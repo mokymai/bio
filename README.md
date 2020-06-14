@@ -9,7 +9,7 @@ Package ***bio***
 
 [![GitHub
 version](https://img.shields.io/badge/GitHub-0.0.5.1-brightgreen.svg)](https://github.com/mokymai/bio)
-[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--06--09-yellowgreen.svg)](/commits/master)
+[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--06--14-yellowgreen.svg)](/commits/master)
 [![R build
 status](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
 [![Lifecycle:
