@@ -2,7 +2,7 @@ on:
   push:
     branches:
       - mastertest
-      -codecov
+      - codecov
   pull_request:
     branches:
       - mastertest
