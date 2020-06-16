@@ -1,12 +1,12 @@
 on:
   push:
     branches:
-      - mastertest
-      - codecov
+      - master
+      - test-codecov
   pull_request:
     branches:
       - mastertest
-      - codecov
+      - test-codecov
 
 name: R-CMD-check
 
