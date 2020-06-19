@@ -9,11 +9,13 @@ Package ***bio***
 
 [![GitHub
 version](https://img.shields.io/badge/GitHub-0.0.5.1-brightgreen.svg)](https://github.com/mokymai/bio)
-[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--06--14-yellowgreen.svg)](/commits/master)
+[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--06--16-yellowgreen.svg)](/commits/master)
 [![R build
 status](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Codecov test
+coverage](https://codecov.io/gh/mokymai/bio/branch/master/graph/badge.svg)](https://codecov.io/gh/mokymai/bio?branch=master)
 <!-- badges: end -->
 
 <!-- [![GitHub last commit](https://img.shields.io/github/last-commit/mokymai/bio)](https://github.com/mokymai/bio) -->
