@@ -136,7 +136,7 @@ ggQQunif
 ggpmisc
 gginnards
 gglogo
-# ggtext
+ggtext
 treemapify
 ggpie
 

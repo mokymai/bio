@@ -53,14 +53,16 @@ Optiom bight be set globally by, e.g.,
 \item{include}{(character) Which packages from the list (indicated in \code{list_name})
 must be included in the results.
 One of:
-- \code{"always"} or \code{TRUE}: all packages;
-- \code{"newer_on_cran"} -- only the packages that are \code{"outdated"} or have
+\itemize{
+\item \code{"always"} or \code{TRUE}: all packages;
+\item \code{"newer_on_cran"} -- only the packages that are \code{"outdated"} or have
 newer version on CRAN. For arguments \code{github} and \code{elsewhere},
 value \code{"newer_on_cran"} is replaced with \code{"outdated"}.
-- \code{"outdated"} (default): only the packages that are not installed
+\item \code{"outdated"} (default): only the packages that are not installed
 or do not have a minimum required version installed.
-- \code{"missing"}: only the packages that are not installed.
-- \code{"never"} or \code{FALSE}: none.}
+\item \code{"missing"}: only the packages that are not installed.
+\item \code{"never"} or \code{FALSE}: none.
+}}
 
 \item{show_status}{(character) Which packages should be included in the
 package installation status summary.
@@ -77,8 +79,10 @@ Sets the default value for \code{cran}, \code{github}, and \code{elsewhere}.}
 included in code that installs packages from CRAN.
 See options of \code{include} plus value \code{"required"}.
 Defaults to the value of \code{install}.
-- \code{"required"} -- packages that do not have a minimum required version
-installed even if the required version is not on CRAN.}
+\itemize{
+\item \code{"required"} -- packages that do not have a minimum required version
+installed even if the required version is not on CRAN.
+}}
 
 \item{github}{(character) Condition to filter packages that should be
 included in code that installs packages from GitHub.

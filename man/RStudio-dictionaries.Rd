@@ -43,12 +43,12 @@ saved by user
 }
 
 \itemize{
-\item \code{\link[rstudioapi:dictionariesPath]{rstudioapi::dictionariesPath()}}
+\item \code{\link[rstudioapi:dictionaries]{rstudioapi::dictionariesPath()}}
 \item \code{open_rs_dictionaries_dir()}
 }
 
 \itemize{
-\item \code{\link[rstudioapi:userDictionariesPath]{rstudioapi::userDictionariesPath()}}
+\item \code{\link[rstudioapi:dictionaries]{rstudioapi::userDictionariesPath()}}
 \item \code{open_user_dictionaries_dir()}
 }
 }

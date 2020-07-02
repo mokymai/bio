@@ -147,7 +147,7 @@ get_available_r_version <- function(force = FALSE, skip = FALSE) {
 
   if (force || pingr::is_online()) {
     c(
-      "https://cran.r-project.org/src/base/R-3",
+      # "https://cran.r-project.org/src/base/R-3",
       "https://cran.r-project.org/src/base/R-4"
     ) %>%
       purrr::map(readr::read_lines) %>%
@@ -246,7 +246,7 @@ check_program_version  <- function(program = "", r_installed = "", v_recommended
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_r_version <- function(v_recommended = "3.6.3", skip_online_check = FALSE) {
+check_r_version <- function(v_recommended = "4.0.2", skip_online_check = FALSE) {
 
   check_program_version(
     program = 'R',
@@ -257,7 +257,7 @@ check_r_version <- function(v_recommended = "3.6.3", skip_online_check = FALSE) 
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_rs_version <- function(v_recommended = "1.2.5042", skip_online_check = FALSE) {
+check_rs_version <- function(v_recommended = "1.3.1054", skip_online_check = FALSE) {
 
   if (!rstudioapi::isAvailable()) {
     ui_oops("Program {red('RStudio')} is not installed or is not running. ")
@@ -272,7 +272,10 @@ check_rs_version <- function(v_recommended = "1.2.5042", skip_online_check = FAL
   }
   try({
     if (is_32bit_os()) {
-      ui_info("For 32-bit operating systems, the newest available RStudio version is {yellow('1.1.463')}.")
+      ui_info(stringr::str_c(
+        "For 32-bit operating systems, the newest available RStudio version ",
+        "is {yellow('1.1.463')}."
+      ))
     }
   })
 }
@@ -293,5 +296,3 @@ check_program_installed <- function(program = "", condition = NULL) {
   }
 
 }
-
-

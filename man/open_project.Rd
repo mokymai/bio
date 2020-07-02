@@ -80,7 +80,7 @@ open_project("R-2019-project")
 }
 \seealso{
 \itemize{
-\item \code{\link[rstudioapi:openProject]{rstudioapi::openProject()}}
-\item \code{\link[rstudioapi:initializeProject]{rstudioapi::initializeProject()}}
+\item \code{\link[rstudioapi:projects]{rstudioapi::openProject()}}
+\item \code{\link[rstudioapi:projects]{rstudioapi::initializeProject()}}
 }
 }

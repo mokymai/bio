@@ -410,14 +410,15 @@ get_pkgs_installation_status_local <- function(list_name,
 #' @param include (character) Which packages from the list (indicated in `list_name`)
 #'        must be included in the results.
 #'        One of:
-#'        - `"always"` or `TRUE`: all packages;
-#'        - `"newer_on_cran"` -- only the packages that are `"outdated"` or have
-#'          newer version on CRAN. For arguments `github` and `elsewhere`,
-#'           value `"newer_on_cran"` is replaced with `"outdated"`.
-#'        - `"outdated"` (default): only the packages that are not installed
-#'           or do not have a minimum required version installed.
-#'        - `"missing"`: only the packages that are not installed.
-#'        - `"never"` or `FALSE`: none.
+#'
+#' - `"always"` or `TRUE`: all packages;
+#' - `"newer_on_cran"` -- only the packages that are `"outdated"` or have
+#'   newer version on CRAN. For arguments `github` and `elsewhere`,
+#'    value `"newer_on_cran"` is replaced with `"outdated"`.
+#' - `"outdated"` (default): only the packages that are not installed
+#'    or do not have a minimum required version installed.
+#' - `"missing"`: only the packages that are not installed.
+#' - `"never"` or `FALSE`: none.
 #'
 #' @param show_status (character) Which packages should be included in the
 #'        package installation status summary.
@@ -434,8 +435,9 @@ get_pkgs_installation_status_local <- function(list_name,
 #'        included in code that installs packages from CRAN.
 #'        See options of `include` plus value `"required"`.
 #'        Defaults to the value of `install`.
-#'        - `"required"` -- packages that do not have a minimum required version
-#'          installed even if the required version is not on CRAN.
+#'
+#' - `"required"` -- packages that do not have a minimum required version
+#'   installed even if the required version is not on CRAN.
 #'
 #' @param github (character) Condition to filter packages that should be
 #'        included in code that installs packages from GitHub.
@@ -795,26 +797,42 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
     r_installed <- getRversion()
     r_available <- get_available_r_version()
 
+    if (length(pkgs_miss_code) > 1) {
+      # Plural
+      s    <- "s"
+      ss   <- ""
+      each <- "each"
+
+    } else {
+      # Singular
+      s    <- ""
+      ss   <- "s"
+      each <- "the"
+    }
+
     status_msg <-
       if (r_installed < r_available) {
         stringr::str_glue(
-          "Either the packages require a newer version of R ",
+          "Either the package{s} require{ss} a newer version of R ",
           "(installed {yellow(r_installed)}, ",
           "available {green(r_available)}) ",
-          "or they might be recently removed from CRAN. "
+          "or the package{s} might be recently removed from CRAN. "
         )
 
       } else {
-        "The packages might be recently removed from CRAN. "
+        stringr::str_glue(
+          "The package{s} might be recently removed from CRAN. "
+        )
       }
 
     usethis::ui_warn(paste0(
-      "Installation code is missing for packages: \n",
+      "Installation code is missing for package{s}: \n",
       paste0("{yellow('", pkgs_miss_code, "')}", collapse = ", "), ". \n",
       "{status_msg}",
-      "Check the status of the packages at ",
-      "{yellow('https://cran.r-project.org/web/packages/')}",
-      "{blue('[package\\'s name]')}. "
+      "\n",
+      "Check the status of {each} package at \n",
+      "{yellow('https://CRAN.R-project.org/package=')}",
+      "{blue('[package\\'s name]')} "
     ))
   }
 
