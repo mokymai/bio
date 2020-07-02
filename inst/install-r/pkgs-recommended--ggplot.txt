@@ -16,3 +16,4 @@ ggedit
 ggmosaic
 autoplotly
 paletteer
+ggtext
