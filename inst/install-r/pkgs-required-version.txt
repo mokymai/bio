@@ -40,6 +40,7 @@ ggmosaic                    | 0.3.0            | FALSE  | -
 ggplot2                     | 3.3.1            | FALSE  | -
 ggpubr                      | 0.4.0            | FALSE  | -
 ggstatsplot                 | 0.4.0            | FALSE  | -
+ggtext                      | 0.1.0            | FALSE  | -
 glue                        | 1.4.0            | FALSE  | -
 haven                       | 2.3.0            | FALSE  | -
 hms                         | 0.5.3            | FALSE  | -
