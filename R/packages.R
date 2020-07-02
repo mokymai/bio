@@ -410,14 +410,15 @@ get_pkgs_installation_status_local <- function(list_name,
 #' @param include (character) Which packages from the list (indicated in `list_name`)
 #'        must be included in the results.
 #'        One of:
-#'        - `"always"` or `TRUE`: all packages;
-#'        - `"newer_on_cran"` -- only the packages that are `"outdated"` or have
-#'          newer version on CRAN. For arguments `github` and `elsewhere`,
-#'           value `"newer_on_cran"` is replaced with `"outdated"`.
-#'        - `"outdated"` (default): only the packages that are not installed
-#'           or do not have a minimum required version installed.
-#'        - `"missing"`: only the packages that are not installed.
-#'        - `"never"` or `FALSE`: none.
+#'
+#' - `"always"` or `TRUE`: all packages;
+#' - `"newer_on_cran"` -- only the packages that are `"outdated"` or have
+#'   newer version on CRAN. For arguments `github` and `elsewhere`,
+#'    value `"newer_on_cran"` is replaced with `"outdated"`.
+#' - `"outdated"` (default): only the packages that are not installed
+#'    or do not have a minimum required version installed.
+#' - `"missing"`: only the packages that are not installed.
+#' - `"never"` or `FALSE`: none.
 #'
 #' @param show_status (character) Which packages should be included in the
 #'        package installation status summary.
@@ -434,8 +435,9 @@ get_pkgs_installation_status_local <- function(list_name,
 #'        included in code that installs packages from CRAN.
 #'        See options of `include` plus value `"required"`.
 #'        Defaults to the value of `install`.
-#'        - `"required"` -- packages that do not have a minimum required version
-#'          installed even if the required version is not on CRAN.
+#'
+#' - `"required"` -- packages that do not have a minimum required version
+#'   installed even if the required version is not on CRAN.
 #'
 #' @param github (character) Condition to filter packages that should be
 #'        included in code that installs packages from GitHub.

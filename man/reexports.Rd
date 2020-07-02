@@ -13,8 +13,8 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{backup.tools}{\code{\link[backup.tools]{open_backup_dir}}}
+  \item{backup.tools}{\code{\link[backup.tools:get_path_backup_dir]{open_backup_dir}}}
 
-  \item{usethis}{\code{\link[usethis]{edit_git_config}}, \code{\link[usethis]{use_git_config}}}
+  \item{usethis}{\code{\link[usethis:edit]{edit_git_config}}, \code{\link[usethis]{use_git_config}}}
 }}
 
