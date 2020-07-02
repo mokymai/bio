@@ -795,26 +795,42 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
     r_installed <- getRversion()
     r_available <- get_available_r_version()
 
+    if (length(pkgs_miss_code) > 1) {
+      # Plural
+      s    <- "s"
+      ss   <- ""
+      each <- "each"
+
+    } else {
+      # Singular
+      s    <- ""
+      ss   <- "s"
+      each <- "the"
+    }
+
     status_msg <-
       if (r_installed < r_available) {
         stringr::str_glue(
-          "Either the packages require a newer version of R ",
+          "Either the package{s} require{ss} a newer version of R ",
           "(installed {yellow(r_installed)}, ",
           "available {green(r_available)}) ",
-          "or they might be recently removed from CRAN. "
+          "or the package{s} might be recently removed from CRAN. "
         )
 
       } else {
-        "The packages might be recently removed from CRAN. "
+        stringr::str_glue(
+          "The package{s} might be recently removed from CRAN. "
+        )
       }
 
     usethis::ui_warn(paste0(
-      "Installation code is missing for packages: \n",
+      "Installation code is missing for package{s}: \n",
       paste0("{yellow('", pkgs_miss_code, "')}", collapse = ", "), ". \n",
       "{status_msg}",
-      "Check the status of the packages at ",
-      "{yellow('https://cran.r-project.org/web/packages/')}",
-      "{blue('[package\\'s name]')}. "
+      "\n",
+      "Check the status of {each} package at \n",
+      "{yellow('https://CRAN.R-project.org/package=')}",
+      "{blue('[package\\'s name]')} "
     ))
   }
 
