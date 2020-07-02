@@ -73,7 +73,7 @@ or need to be updated) and package installation code." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.5.2</span>
       </span>
     </div>
 
@@ -120,19 +120,19 @@ or need to be updated) and package installation code.</p>
     </div>
 
     <pre class="usage"><span class='fu'>get_pkgs_installation_status_local</span>(
-  <span class='no'>list_name</span>,
-  <span class='kw'>use_local_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"bio.use_local_list"</span>, <span class='fl'>TRUE</span>)
+  <span class='kw'>list_name</span>,
+  use_local_list = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"bio.use_local_list"</span>, <span class='fl'>TRUE</span>)
 )
 
 <span class='fu'>get_pkgs_installation_status</span>(
-  <span class='kw'>list_name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>include</span> <span class='kw'>=</span> <span class='st'>"outdated"</span>,
-  <span class='kw'>show_status</span> <span class='kw'>=</span> <span class='no'>include</span>,
-  <span class='kw'>install</span> <span class='kw'>=</span> <span class='no'>include</span>,
-  <span class='kw'>cran</span> <span class='kw'>=</span> <span class='no'>install</span>,
-  <span class='kw'>github</span> <span class='kw'>=</span> <span class='no'>install</span>,
-  <span class='kw'>elsewhere</span> <span class='kw'>=</span> <span class='no'>install</span>,
-  <span class='kw'>use_local_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"bio.use_local_list"</span>, <span class='fl'>FALSE</span>)
+  list_name = <span class='kw'>NULL</span>,
+  include = <span class='st'>"outdated"</span>,
+  show_status = <span class='kw'>include</span>,
+  install = <span class='kw'>include</span>,
+  cran = <span class='kw'>install</span>,
+  github = <span class='kw'>install</span>,
+  elsewhere = <span class='kw'>install</span>,
+  use_local_list = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"bio.use_local_list"</span>, <span class='fl'>FALSE</span>)
 )
 
 <span class='fu'>get_pkg_lists_local</span>()
@@ -140,13 +140,13 @@ or need to be updated) and package installation code.</p>
 <span class='fu'>get_last_pkgs_installation_status</span>()
 
 <span class='co'># S3 method for pkgs_installation_status</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>x</span>, <span class='kw'>show_status</span> <span class='kw'>=</span> <span class='no'>x</span>$<span class='no'>show_status</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>x</span>, show_status = <span class='kw'>x</span><span class='op'>$</span><span class='kw'>show_status</span>, <span class='kw'>...</span>)
 
 <span class='fu'>get_pkgs_installation_code</span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>to_clipboard</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>upgrade</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  x = <span class='kw'>NULL</span>,
+  <span class='kw'>...</span>,
+  to_clipboard = <span class='fl'>FALSE</span>,
+  upgrade = <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -171,15 +171,16 @@ Optiom bight be set globally by, e.g.,
       <th>include</th>
       <td><p>(character) Which packages from the list (indicated in <code>list_name</code>)
 must be included in the results.
-One of:
-- <code>"always"</code> or <code>TRUE</code>: all packages;
-- <code>"newer_on_cran"</code> -- only the packages that are <code>"outdated"</code> or have
+One of:</p><ul>
+<li><p><code>"always"</code> or <code>TRUE</code>: all packages;</p></li>
+<li><p><code>"newer_on_cran"</code> -- only the packages that are <code>"outdated"</code> or have
 newer version on CRAN. For arguments <code>github</code> and <code>elsewhere</code>,
-value <code>"newer_on_cran"</code> is replaced with <code>"outdated"</code>.
-- <code>"outdated"</code> (default): only the packages that are not installed
-or do not have a minimum required version installed.
-- <code>"missing"</code>: only the packages that are not installed.
-- <code>"never"</code> or <code>FALSE</code>: none.</p></td>
+value <code>"newer_on_cran"</code> is replaced with <code>"outdated"</code>.</p></li>
+<li><p><code>"outdated"</code> (default): only the packages that are not installed
+or do not have a minimum required version installed.</p></li>
+<li><p><code>"missing"</code>: only the packages that are not installed.</p></li>
+<li><p><code>"never"</code> or <code>FALSE</code>: none.</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>show_status</th>
@@ -201,9 +202,10 @@ Sets the default value for <code>cran</code>, <code>github</code>, and <code>els
       <td><p>(character) Condition to filter packages that should be
 included in code that installs packages from CRAN.
 See options of <code>include</code> plus value <code>"required"</code>.
-Defaults to the value of <code>install</code>.
-- <code>"required"</code> -- packages that do not have a minimum required version
-installed even if the required version is not on CRAN.</p></td>
+Defaults to the value of <code>install</code>.</p><ul>
+<li><p><code>"required"</code> -- packages that do not have a minimum required version
+installed even if the required version is not on CRAN.</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>github</th>
@@ -242,12 +244,12 @@ See <code>upgrade</code> in <code><a href='https://remotes.r-lib.org/reference/i
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other R-packages-related functions: 
-<code><a href='compare_version.html'>compare_version</a>()</code>,
-<code><a href='get_pkgs_cran_details.html'>get_pkgs_cran_details</a>()</code>,
-<code><a href='get_pkgs_installed.html'>get_pkgs_installed</a>()</code>,
-<code><a href='get_pkgs_non_cran_installation_details.html'>get_pkgs_non_cran_installation_details</a>()</code>,
-<code><a href='get_pkgs_recommended.html'>get_pkgs_recommended</a>()</code>,
-<code><a href='get_pkgs_req_version.html'>get_pkgs_req_version</a>()</code></p></div>
+<code>compare_version()</code>,
+<code>get_pkgs_cran_details()</code>,
+<code>get_pkgs_installed()</code>,
+<code>get_pkgs_non_cran_installation_details()</code>,
+<code>get_pkgs_recommended()</code>,
+<code>get_pkgs_req_version()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"></pre>

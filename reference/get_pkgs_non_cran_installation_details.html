@@ -73,7 +73,7 @@ CRAN or a modified code shold be installed." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.5.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.5.2</span>
       </span>
     </div>
 
@@ -120,7 +120,7 @@ CRAN or a modified code shold be installed.</p>
     </div>
 
     <pre class="usage"><span class='fu'>get_pkgs_non_cran_installation_details</span>(
-  <span class='kw'>use_local_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"bio.use_local_list"</span>, <span class='fl'>FALSE</span>)
+  use_local_list = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"bio.use_local_list"</span>, <span class='fl'>FALSE</span>)
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -155,24 +155,24 @@ in the output.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other R-packages-related functions: 
-<code><a href='compare_version.html'>compare_version</a>()</code>,
-<code><a href='get_pkgs_cran_details.html'>get_pkgs_cran_details</a>()</code>,
-<code><a href='get_pkgs_installation_status.html'>get_pkgs_installation_status_local</a>()</code>,
-<code><a href='get_pkgs_installed.html'>get_pkgs_installed</a>()</code>,
-<code><a href='get_pkgs_recommended.html'>get_pkgs_recommended</a>()</code>,
-<code><a href='get_pkgs_req_version.html'>get_pkgs_req_version</a>()</code></p></div>
+<code>compare_version()</code>,
+<code>get_pkgs_cran_details()</code>,
+<code>get_pkgs_installation_status_local()</code>,
+<code>get_pkgs_installed()</code>,
+<code>get_pkgs_recommended()</code>,
+<code>get_pkgs_req_version()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># NOTE: It is not recommended to use the local lists as they might be out of date.</span>
-<span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span>(<span class='kw'>bio.use_local_list</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span>(bio.use_local_list = <span class='fl'>TRUE</span>)
 
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'>get_pkgs_non_cran_installation_details</span>())</div><div class='output co'>#&gt;         package install_from               details notes
-#&gt; 8   addin.tools       github   GegznaV/addin.tools  &lt;NA&gt;
-#&gt; 9    addins.rmd       github    GegznaV/addins.rmd  &lt;NA&gt;
-#&gt; 10    addins.rs       github     GegznaV/addins.rs  &lt;NA&gt;
-#&gt; 11      adventr       github profandyfield/adventr  &lt;NA&gt;
-#&gt; 12 backup.tools       github  GegznaV/backup.tools  &lt;NA&gt;
-#&gt; 13          bio       github           mokymai/bio  &lt;NA&gt;</div></pre>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'>get_pkgs_non_cran_installation_details</span>())</div><div class='output co'>#&gt;        package install_from               details notes
+#&gt; 1  addin.tools       github   GegznaV/addin.tools  &lt;NA&gt;
+#&gt; 2   addins.rmd       github    GegznaV/addins.rmd  &lt;NA&gt;
+#&gt; 3    addins.rs       github     GegznaV/addins.rs  &lt;NA&gt;
+#&gt; 4      adventr       github profandyfield/adventr  &lt;NA&gt;
+#&gt; 5 backup.tools       github  GegznaV/backup.tools  &lt;NA&gt;
+#&gt; 6          bio       github           mokymai/bio  &lt;NA&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
