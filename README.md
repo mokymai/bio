@@ -8,8 +8,8 @@ Package ***bio***
 <!-- badges: start -->
 
 [![GitHub
-version](https://img.shields.io/badge/GitHub-0.0.5.2-brightgreen.svg)](https://github.com/mokymai/bio)
-[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--07--02-yellowgreen.svg)](/commits/master)
+version](https://img.shields.io/badge/GitHub-0.0.5.3-brightgreen.svg)](https://github.com/mokymai/bio)
+[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--07--17-yellowgreen.svg)](/commits/master)
 [![R build
 status](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
 [![Lifecycle:
