@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.5.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.5.3</span>
       </span>
     </div>
 
@@ -90,10 +90,8 @@
 <h1 class="hasAnchor">
 <a href="#install" class="anchor"></a>Install</h1>
 <p>To install this package from GitHub, use code:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="co">if</span> (<span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="kw"><a href="https://remotes.r-lib.org">remotes</a></span>)) {<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"remotes"</span>)}
-<span class="kw">remotes</span>::<span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"mokymai/bio"</span>, dependencies = <span class="fl">TRUE</span>)
-</pre></div>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="kw">if</span> (!<span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="no">remotes</span>)) {<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"remotes"</span>)}
+<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"mokymai/bio"</span>, <span class="kw">dependencies</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></div>
 </div>
 <div id="examples" class="section level1">
 <h1 class="hasAnchor">
@@ -102,8 +100,7 @@
 <h2 class="hasAnchor">
 <a href="#check-information-about-os-and-user" class="anchor"></a>Check information about OS and user</h2>
 <p>Check information about operating system (OS) and R-related user information.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw">bio</span>::<span class="fu"><a href="reference/check_installed_programs.html">check_user_info</a></span>()
+<div class="sourceCode" id="cb2"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/check_installed_programs.html">check_user_info</a></span>()
 <span class="co">## Operating system    Windows 10 x64 (build 18362)</span>
 <span class="co">## Platform            x86_64-w64-mingw32/x64 (64-bit)</span>
 <span class="co">## LOGNAME</span>
@@ -112,8 +109,7 @@
 <span class="co">## HOME                C:/Users/User/Documents</span>
 <span class="co">## R_USER              C:/Users/User/Documents</span>
 <span class="co">## R_HOME              C:/PROGRA~1/R/R-36~1.2</span>
-<span class="co">## R_LIBS_USER         C:/R/win-library/3.6</span>
-</pre></div>
+<span class="co">## R_LIBS_USER         C:/R/win-library/3.6</span></pre></div>
 </div>
 <div id="check-information-about-programs" class="section level2">
 <h2 class="hasAnchor">
@@ -126,26 +122,22 @@
 <code>"all"</code> – additionally checks for presence of “Atom”, “Git” and (sometimes) “Meld”. <!-- This check may not work properly on "Mac" and "Linux". -->
 </li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="kw">bio</span>::<span class="fu"><a href="reference/check_installed_programs.html">check_installed_programs</a></span>()
+<!-- end list --><div class="sourceCode" id="cb3"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/check_installed_programs.html">check_installed_programs</a></span>()
 <span class="co">## ✔ Program R (3.6.3) is installed (recommended 3.6.3, available 3.6.3)</span>
 <span class="co">## ✖ Program RStudio is not installed or is not running.</span>
-<span class="co">## ✔ Program Rtools is installed.</span>
-</pre></div>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="kw">bio</span>::<span class="fu"><a href="reference/check_installed_programs.html">check_installed_programs</a></span>(<span class="st">"all"</span>)
+<span class="co">## ✔ Program Rtools is installed.</span></pre></div>
+<div class="sourceCode" id="cb4"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/check_installed_programs.html">check_installed_programs</a></span>(<span class="st">"all"</span>)
 <span class="co">## ✔ Program R (3.6.3) is installed (recommended 3.6.3, available 3.6.3)</span>
 <span class="co">## ✔ Program RStudio (1.2.5033) is installed (recommended 1.2.5033, available 1.2.5042)</span>
 <span class="co">## ✔ Program Rtools is installed.</span>
 <span class="co">## ✖ Program Atom is not detected or configured incorrectly.</span>
 <span class="co">## ✔ Program Git is installed.</span>
-<span class="co">## ✔ Program Meld is installed.</span>
-</pre></div>
+<span class="co">## ✔ Program Meld is installed.</span></pre></div>
 </div>
 <div id="check-information-about-r-packages" class="section level2">
 <h2 class="hasAnchor">
 <a href="#check-information-about-r-packages" class="anchor"></a>Check information about “R” packages</h2>
-<p>The following functions may be used to check installed packages by topic. By default, only missing packages or packages with lower versions than recommended are displayed. Currently available lists can be returned by function <code><a href="reference/get_pkgs_installation_status_local.html">bio::get_pkg_lists_local()</a></code> and they include:</p>
+<p>The following functions may be used to check installed packages by topic. By default, only missing packages or packages with lower versions than recommended are displayed. Currently available lists can be returned by function <code><a href="reference/get_pkgs_installation_status.html">bio::get_pkg_lists_local()</a></code> and they include:</p>
 <ul>
 <li><code>'addins-rmd'</code></li>
 <li><code>'bio'</code></li>
@@ -166,37 +158,25 @@
 <li><code>'u07'</code></li>
 <li><code>'u08'</code></li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="kw">bio</span>::<span class="fu"><a href="reference/check_installed_packages.html">check_installed_packages</a></span>(list_name = <span class="st">"mini"</span>)
+<!-- end list --><div class="sourceCode" id="cb5"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/check_installed_packages.html">check_installed_packages</a></span>(<span class="kw">list_name</span> <span class="kw">=</span> <span class="st">"mini"</span>)
+<span class="co">## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.</span></pre></div>
+<div class="sourceCode" id="cb6"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/check_installed_packages.html">check_installed_packages</a></span>(<span class="kw">list_name</span> <span class="kw">=</span> <span class="st">"mini"</span>, <span class="kw">include</span> <span class="kw">=</span> <span class="st">"newer_on_cran"</span>)
 <span class="co">## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.</span>
-</pre></div>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="kw">bio</span>::<span class="fu"><a href="reference/check_installed_packages.html">check_installed_packages</a></span>(list_name = <span class="st">"mini"</span>, include = <span class="st">"newer_on_cran"</span>)
-<span class="co">## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.</span>
-<span class="co">## i Note: 1 package has newer version on CRAN.</span>
-</pre></div>
+<span class="co">## i Note: 1 package has newer version on CRAN.</span></pre></div>
 </div>
 <div id="update-packages" class="section level2">
 <h2 class="hasAnchor">
 <a href="#update-packages" class="anchor"></a>Update packages</h2>
 <p>These are the convenience functions to update certain R packages. The functions restart R before installation if used in RStudio.</p>
 <p>Update package <strong>bio</strong>.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="kw">bio</span>::<span class="fu"><a href="reference/bio_version.html">update_pkg_bio</a></span>()
-</pre></div>
+<div class="sourceCode" id="cb7"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/bio_version.html">update_pkg_bio</a></span>()</pre></div>
 <p>Check if there are updates for <strong>bio</strong> or its dependency packages.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="kw">bio</span>::<span class="fu"><a href="reference/bio_version.html">check_updates_bio</a></span>()
-</pre></div>
+<div class="sourceCode" id="cb8"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/bio_version.html">check_updates_bio</a></span>()</pre></div>
 <div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>✔ Minimal required versions of all <span class="dv">24</span> <span class="kw">packages</span> (from list <span class="st">'bio'</span>) are already installed.</span></code></pre></div>
 <p>Update package <strong>snippets</strong>.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="kw">bio</span>::<span class="fu"><a href="reference/update_pkg_snippets.html">update_pkg_snippets</a></span>()
-</pre></div>
+<div class="sourceCode" id="cb10"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/update_pkg_snippets.html">update_pkg_snippets</a></span>()</pre></div>
 <p>Update package <strong>RcmdrPlugin.biostat</strong>.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="kw">bio</span>::<span class="fu"><a href="reference/update_pkg_rcmdr_biostat.html">update_pkg_rcmdr_biostat</a></span>()
-</pre></div>
+<div class="sourceCode" id="cb11"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/update_pkg_rcmdr_biostat.html">update_pkg_rcmdr_biostat</a></span>()</pre></div>
 </div>
 <div id="rstudio-settings-and-user-preferences" class="section level2">
 <h2 class="hasAnchor">
@@ -208,18 +188,14 @@
 <h3 class="hasAnchor">
 <a href="#dictionaries" class="anchor"></a>Dictionaries</h3>
 <p>This function downloads or updates <strong>hunspell</strong> spelling checking dictionaries dictionaries (including Lithuanian) that can be used by RStudio or by tools from <strong>wellspell.addin</strong> package.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="kw">bio</span>::<span class="fu"><a href="reference/spelling.html">download_spellcheck_dictionaries</a></span>()
-</pre></div>
+<div class="sourceCode" id="cb12"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/spelling.html">download_spellcheck_dictionaries</a></span>()</pre></div>
 </div>
 <div id="shortcut-keys" class="section level3">
 <h3 class="hasAnchor">
 <a href="#shortcut-keys" class="anchor"></a>Shortcut keys</h3>
 <p>This function changes shortcut keys in RStudio.</p>
 <p>Run function without arguments to see the available options.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit">
-<span class="kw">bio</span>::<span class="fu"><a href="reference/reset_rstudio_keybindings.html">reset_rstudio_keybindings</a></span>()
-</pre></div>
+<div class="sourceCode" id="cb13"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/reset_rstudio_keybindings.html">reset_rstudio_keybindings</a></span>()</pre></div>
 <div class="sourceCode" id="cb14"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>Error<span class="op">:</span><span class="st"> </span>The set of RStudio shortcut keys is not <span class="kw">defined</span> (argument <span class="st">'to'</span>).</span>
 <span id="cb14-2"><a href="#cb14-2"></a>Possible options<span class="op">:</span><span class="st"> 'bio-default'</span>, <span class="st">'rstudio-default'</span>.</span></code></pre></div>
 <p>Options:</p>
@@ -229,9 +205,7 @@
 <li>
 <code>"rstudio-default"</code> – RStudio defaults.</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb15"><pre class="downlit">
-<span class="kw">bio</span>::<span class="fu"><a href="reference/reset_rstudio_keybindings.html">reset_rstudio_keybindings</a></span>(to = <span class="st">"bio-default"</span>)
-</pre></div>
+<!-- end list --><div class="sourceCode" id="cb15"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/reset_rstudio_keybindings.html">reset_rstudio_keybindings</a></span>(<span class="kw">to</span> <span class="kw">=</span> <span class="st">"bio-default"</span>)</pre></div>
 <table class="table">
 <colgroup>
 <col width="32%">
@@ -364,9 +338,7 @@
 <a href="#rstudio-settings" class="anchor"></a>RStudio settings</h3>
 <p>This function resets RStudio user preferences and settings.</p>
 <p>Run function without arguments to see the available options.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit">
-<span class="kw">bio</span>::<span class="fu"><a href="reference/RStudio-settings.html">reset_rstudio_user_settings</a></span>()
-</pre></div>
+<div class="sourceCode" id="cb16"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/RStudio-settings.html">reset_rstudio_user_settings</a></span>()</pre></div>
 <div class="sourceCode" id="cb17"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>Error<span class="op">:</span><span class="st"> </span>The set of RStudio user settings is not <span class="kw">defined</span> (argument <span class="st">'to'</span>).</span>
 <span id="cb17-2"><a href="#cb17-2"></a>Possible choices<span class="op">:</span><span class="st"> 'bio-default'</span>, <span class="st">'rstudio-default'</span>.</span></code></pre></div>
 <p>The options:</p>
@@ -376,31 +348,23 @@
 <li>
 <code>"rstudio-default"</code> – default RStudio settings.</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb18"><pre class="downlit">
-<span class="kw">bio</span>::<span class="fu"><a href="reference/RStudio-settings.html">reset_rstudio_user_settings</a></span>(to = <span class="st">"bio-default"</span>)
-</pre></div>
+<!-- end list --><div class="sourceCode" id="cb18"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/RStudio-settings.html">reset_rstudio_user_settings</a></span>(<span class="kw">to</span> <span class="kw">=</span> <span class="st">"bio-default"</span>)</pre></div>
 </div>
 <div id="snippets" class="section level3">
 <h3 class="hasAnchor">
 <a href="#snippets" class="anchor"></a>Snippets</h3>
 <p>The function replaces current R code and R Markdown snippets with those in package “snippets”.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit">
-<span class="kw">snippets</span>::<span class="fu"><a href="https://rdrr.io/pkg/snippets/man/install-snippets.html">install_snippets_from_package</a></span>(<span class="st">"snippets"</span>, type = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"r"</span>, <span class="st">"markdown"</span>), backup = <span class="fl">TRUE</span>)
-</pre></div>
+<div class="sourceCode" id="cb19"><pre class="r"><span class="kw pkg">snippets</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/snippets/man/install-snippets.html">install_snippets_from_package</a></span>(<span class="st">"snippets"</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"r"</span>, <span class="st">"markdown"</span>), <span class="kw">backup</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></div>
 <p>More information on <a href="https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets">Code Snippets</a> in RStudio and on package <a href="https://gegznav.github.io/snippets/"><strong>snippets</strong></a>.</p>
 </div>
 <div id="restart-r-and-rstudio" class="section level3">
 <h3 class="hasAnchor">
 <a href="#restart-r-and-rstudio" class="anchor"></a>Restart R and RStudio</h3>
 <p>If you want to see the effect of changed settings, you should reload RStudio. You may use this function, which reloads RStudio without closing it:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit">
-<span class="kw">bio</span>::<span class="fu"><a href="reference/restart-reload.html">reload_rstudio</a></span>()
-</pre></div>
+<div class="sourceCode" id="cb20"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/restart-reload.html">reload_rstudio</a></span>()</pre></div>
 <p>However, in some cases it is recommended to close and reopen RStudio.</p>
 <p>Next, to restart R session without closing RStudio, use:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit">
-<span class="kw">bio</span>::<span class="fu"><a href="reference/restart-reload.html">restart_r</a></span>()
-</pre></div>
+<div class="sourceCode" id="cb21"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/restart-reload.html">restart_r</a></span>()</pre></div>
 <p>Useful to apply before trying to install R packages.</p>
 <!-- ## RStudio projects -->
 <!-- Open (recently used) RStudio project. -->
@@ -453,8 +417,8 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/mokymai/bio"><img src="https://img.shields.io/badge/GitHub-0.0.5.2-brightgreen.svg" alt="GitHub version"></a></li>
-<li><a href="/commits/master"><img src="https://img.shields.io/badge/Updated%20on-2020--07--02-yellowgreen.svg" alt="Updated-on"></a></li>
+<li><a href="https://github.com/mokymai/bio"><img src="https://img.shields.io/badge/GitHub-0.0.5.3-brightgreen.svg" alt="GitHub version"></a></li>
+<li><a href="/commits/master"><img src="https://img.shields.io/badge/Updated%20on-2020--07--17-yellowgreen.svg" alt="Updated-on"></a></li>
 <li><a href="https://github.com/mokymai/bio/actions"><img src="https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 <li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 </ul>
@@ -468,7 +432,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
