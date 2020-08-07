@@ -24,7 +24,7 @@ Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS = "true")
 <!-- badges: start -->
 [![GitHub version](https://img.shields.io/badge/GitHub-`r packageVersion("bio")`-brightgreen.svg)](https://github.com/mokymai/bio)
 [![Updated-on](https://img.shields.io/badge/Updated%20on-`r gsub('-', '--', Sys.Date())`-yellowgreen.svg)](/commits/master)
-[![R build status](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
+[![R-CMD-check](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
