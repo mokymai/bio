@@ -41,8 +41,6 @@ open_r_environ()
 \item{which}{(character) type of settings: "current", "bio-default".}
 
 \item{scope}{(character) One of "user" or "project".}
-
-\item{path}{(sting) Path to file.}
 }
 \description{
 Open RStudio related files and directories.
