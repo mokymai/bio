@@ -27,13 +27,13 @@ get_vesion_bio  <- function() {
 #' @export
 #' @param show_status See argument `show_status` in [get_pkgs_installation_status()].
 #' @param install See argument `install` in [get_pkgs_installation_status()].
-#' @inheritParams check_installed_packages
+#' @inheritParams check_packages_by_topic
 #' @param ... Arguments to further methods.
 #'
 check_updates_pkg_bio  <- function(show_status = "always", install = "outdated",
   upgrade = FALSE, ...) {
 
-  check_installed_packages(list_name = "bio", show_status = show_status,
+  check_packages_by_topic(list_name = "bio", show_status = show_status,
     install = install, upgrade = upgrade, ...)
 
   # get_pkgs_installation_status(list_name = "bio", show_status = show_status,
@@ -86,7 +86,7 @@ update_pkg_bio <- function(upgrade = FALSE, force = FALSE, quiet = TRUE) {
         "",
         'bio::get_vesion_bio()',
         "",
-        'bio::check_installed_packages("bio", show_status = "newer_on_cran", upgrade = {upgrade_str})'
+        'bio::check_packages_by_topic("bio", show_status = "newer_on_cran", upgrade = {upgrade_str})'
       )
     )
     rstudioapi::restartSession(command)
@@ -95,7 +95,7 @@ update_pkg_bio <- function(upgrade = FALSE, force = FALSE, quiet = TRUE) {
     remotes::install_github(c("GegznaV/backup.tools", "mokymai/bio"),
       dependencies = TRUE, upgrade = upgrade, force = force, quiet = quiet)
     bio::get_vesion_bio()
-    bio::check_installed_packages("bio", show_status = "newer_on_cran",
+    bio::check_packages_by_topic("bio", show_status = "newer_on_cran",
       upgrade = upgrade)
   }
 }

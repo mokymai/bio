@@ -780,7 +780,7 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
       "{ui_code('get_pkgs_installation_code()')}.\n",
       "You should should do one of the following: \n",
       " - run either {ui_code('get_pkgs_installation_status()')} or ",
-      "{ui_code('check_installed_packages()')} before this function; \n",
+      "{ui_code('check_packages_by_topic()')} before this function; \n",
       " - provide an object of class {ui_field('pkgs_installation_status')}."
     ))
   }
@@ -974,13 +974,13 @@ get_pkgs_installation_code_other <- function(x) {
 #'
 #' @examples
 #' \dontrun{\donttest{
-#' check_installed_packages("mini", use_local_list = TRUE)
+#' check_packages_by_topic("mini", use_local_list = TRUE)
 #'
-#' check_installed_packages("mini", include = "always", use_local_list = TRUE)
-#' check_installed_packages("mini", include = "always", install = "outdated",
+#' check_packages_by_topic("mini", include = "always", use_local_list = TRUE)
+#' check_packages_by_topic("mini", include = "always", install = "outdated",
 #'  github = "always", use_local_list = TRUE)
 #' }}
-check_installed_packages <- function(list_name = NULL,
+check_packages_by_topic <- function(list_name = NULL,
   use_local_list = getOption("bio.use_local_list", FALSE), upgrade = FALSE,
   ...) {
 
@@ -1016,6 +1016,16 @@ check_installed_packages <- function(list_name = NULL,
 
   invisible(status)
 }
+
+#' @rdname check_packages_by_topic
+#' @export
+check_installed_packages <- function(...) {
+  # TODO: Create new function `check_installed_packages()` that checks info
+  # about package.
+  .Deprecated("check_packages_by_topic")
+  check_packages_by_topic(...)
+}
+
 # Optimize order of packages to install ======================================
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' Optimize order of packages to install.

@@ -30,7 +30,7 @@ bio_envir <- new.env()
 auto_completions_bio <- function(env) {
 
   funs_pkg_lists <- c(
-    "check_installed_packages",
+    "check_packages_by_topic",
     "get_pkgs_installation_status",
     "get_path_pkgs_recommended",
     "get_pkgs_installation_status_local"

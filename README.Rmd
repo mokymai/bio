@@ -124,12 +124,12 @@ cat(res)
 ```
 
 ```{r README-8a, eval=FALSE, paged.print=FALSE}
-bio::check_installed_packages(list_name = "mini")
+bio::check_packages_by_topic(list_name = "mini")
 ## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.
 ```
 
 ```{r README-8b, eval=FALSE, paged.print=FALSE}
-bio::check_installed_packages(list_name = "mini", include = "newer_on_cran")
+bio::check_packages_by_topic(list_name = "mini", include = "newer_on_cran")
 ## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.
 ## i Note: 1 package has newer version on CRAN.
 ```

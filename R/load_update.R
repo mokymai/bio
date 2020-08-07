@@ -18,7 +18,7 @@ check_updates_rcmdr_biostat  <- function(show_status = "always",
 
   # get_pkgs_installation_status(list_name = "Rcmdr-biostat", show_status = show_status,
   #   install = install, ...)
-  check_installed_packages(list_name = "Rcmdr-biostat", show_status = show_status,
+  check_packages_by_topic(list_name = "Rcmdr-biostat", show_status = show_status,
     install = install, upgrade = upgrade, ...)
 }
 
@@ -81,7 +81,7 @@ update_pkg_from_github <- function(pkg = "", github_repo = "", update_list = "",
           "",
           'packageVersion("{pkg}")',
           "",
-          'bio::check_installed_packages("{update_list}", show_status = "newer_on_cran", upgrade = {upgrade_str})'
+          'bio::check_packages_by_topic("{update_list}", show_status = "newer_on_cran", upgrade = {upgrade_str})'
         )
       )
     rstudioapi::restartSession(command)
@@ -89,7 +89,7 @@ update_pkg_from_github <- function(pkg = "", github_repo = "", update_list = "",
   } else {
     remotes::install_github(github_repo, dependencies = TRUE, force = force,
       upgrade = upgrade, quiet = quiet)
-    bio::check_installed_packages(update_list, show_status = "newer_on_cran",
+    bio::check_packages_by_topic(update_list, show_status = "newer_on_cran",
       upgrade = upgrade)
   }
 }
