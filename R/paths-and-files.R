@@ -256,10 +256,11 @@ get_rs_file_ids_project <- function() {
 #' - `set_wd_to_files_pane()`: ... -> to Files Pane Directory
 #'   (directory opened in files tab)
 #' - `set_wd_to_project_dir()`: ... -> To Project Directory
-#' - `set_wd()`: ... -> Choose Directory...
+#' - `set_wd_interactive()`: ... -> Choose Directory...
 #'
+#' @name set_wd
 #' @export
-set_wd <- function() {
+set_wd_interactive <- function() {
   if (rstudioapi::isAvailable() && rstudioapi::hasFun("executeCommand")) {
     invisible(rstudioapi::executeCommand("setWorkingDir"))
   }
