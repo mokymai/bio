@@ -2,12 +2,13 @@
 % Please edit documentation in R/paths-and-files.R
 \name{set_wd}
 \alias{set_wd}
+\alias{set_wd_interactive}
 \alias{set_wd_to_active_doc}
 \alias{set_wd_to_files_pane}
 \alias{set_wd_to_project_dir}
 \title{Change working directory in RStudio}
 \usage{
-set_wd()
+set_wd_interactive()
 
 set_wd_to_active_doc()
 
@@ -25,6 +26,6 @@ RStudio menu -> Session -> Set Working Directory -> ...:
 \item \code{set_wd_to_files_pane()}: ... -> to Files Pane Directory
 (directory opened in files tab)
 \item \code{set_wd_to_project_dir()}: ... -> To Project Directory
-\item \code{set_wd()}: ... -> Choose Directory...
+\item \code{set_wd_interactive()}: ... -> Choose Directory...
 }
 }
