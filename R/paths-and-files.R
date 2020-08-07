@@ -293,20 +293,49 @@ set_wd_to_project_dir <- function() {
 # Open files and Directories =================================================
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-#' @name open_files
-#' @title Open files and directories
+#' @name open_in_rstudio
+#' @title Open file in RStudio
+#'
 #' @description
-#' - `open_in_rs()` tries to open file in RStudio.
+#' Function tries opening a file in RStudio.
 #' @param path (sting) Path to file.
+#' @param ... Further arguments to [rstudioapi::navigateToFile()].
+#'
+#' @concept open
+#' @concept open files
+#'
 #' @seealso
-#' - [fs::file_show()],
 #' - [rstudioapi::navigateToFile()],
-#' - [browseURL()],
+#' - [fs::file_show()], [browseURL()],
 #' - [utils::file.edit()]
+#'
+#' @export
+open_in_rstudio <- function(path, ...) {
+  rstudioapi::navigateToFile(path, ...)
+  # fs::file_show(path = path, browser = "RStudio")
+}
+
+#' @rdname open_in_rstudio
 #' @export
 open_in_rs <- function(path) {
+  .Deprecated("open_in_rstudio")
   fs::file_show(path = path, browser = "RStudio")
 }
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' @name open_files
+#'
+#' @title Open files and directories
+#' @description
+#' Open RStudio related files and directories.
+#'
+#' @param path (sting) Path to file.
+#' @seealso
+#' - [fs::file_show()], [browseURL()],
+#' - [rstudioapi::navigateToFile()],
+#' - [utils::file.edit()]
+NULL
 
 #' @rdname open_files
 #' @export
