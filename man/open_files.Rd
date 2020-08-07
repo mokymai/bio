@@ -2,7 +2,6 @@
 % Please edit documentation in R/paths-and-files.R
 \name{open_files}
 \alias{open_files}
-\alias{open_in_rs}
 \alias{open_r_user_dir}
 \alias{open_rs_config_dir}
 \alias{get_path_rs_desktop_user_settings_dir}
@@ -16,8 +15,6 @@
 \alias{open_r_environ}
 \title{Open files and directories}
 \usage{
-open_in_rs(path)
-
 open_r_user_dir()
 
 open_rs_config_dir()
@@ -41,16 +38,14 @@ get_path_r_environ(scope = c("user", "project"))
 open_r_environ()
 }
 \arguments{
-\item{path}{(sting) Path to file.}
-
 \item{which}{(character) type of settings: "current", "bio-default".}
 
 \item{scope}{(character) One of "user" or "project".}
+
+\item{path}{(sting) Path to file.}
 }
 \description{
-\itemize{
-\item \code{open_in_rs()} tries to open file in RStudio.
-}
+Open RStudio related files and directories.
 
 \itemize{
 \item \code{get_path_r_environ()}-- gets path to file \code{.Renviron} with R environment
@@ -70,9 +65,8 @@ get_path_r_environ()
 }
 \seealso{
 \itemize{
-\item \code{\link[fs:file_show]{fs::file_show()}},
+\item \code{\link[fs:file_show]{fs::file_show()}}, \code{\link[=browseURL]{browseURL()}},
 \item \code{\link[rstudioapi:navigateToFile]{rstudioapi::navigateToFile()}},
-\item \code{\link[=browseURL]{browseURL()}},
 \item \code{\link[utils:file.edit]{utils::file.edit()}}
 }
 }

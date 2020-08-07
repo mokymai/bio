@@ -3,11 +3,19 @@
 \name{bio_version}
 \alias{bio_version}
 \alias{get_vesion_bio}
+\alias{check_updates_pkg_bio}
 \alias{check_updates_bio}
 \alias{update_pkg_bio}
 \title{Version management of package 'bio'.}
 \usage{
 get_vesion_bio()
+
+check_updates_pkg_bio(
+  show_status = "always",
+  install = "outdated",
+  upgrade = FALSE,
+  ...
+)
 
 check_updates_bio(
   show_status = "always",
