@@ -331,11 +331,12 @@ open_in_rs <- function(path) {
 #' @description
 #' Open RStudio related files and directories.
 #'
-#' @param path (sting) Path to file.
 #' @seealso
 #' - [fs::file_show()], [browseURL()],
 #' - [rstudioapi::navigateToFile()],
 #' - [utils::file.edit()]
+
+# @param path (sting) Path to file.
 NULL
 
 #' @rdname open_files
