@@ -30,7 +30,7 @@ get_vesion_bio  <- function() {
 #' @inheritParams check_installed_packages
 #' @param ... Arguments to further methods.
 #'
-check_updates_bio  <- function(show_status = "always", install = "outdated",
+check_updates_pkg_bio  <- function(show_status = "always", install = "outdated",
   upgrade = FALSE, ...) {
 
   check_installed_packages(list_name = "bio", show_status = show_status,
@@ -38,6 +38,22 @@ check_updates_bio  <- function(show_status = "always", install = "outdated",
 
   # get_pkgs_installation_status(list_name = "bio", show_status = show_status,
   # install = install, ...)
+
+}
+
+#' @rdname bio_version
+#' @export
+check_updates_bio  <- function(show_status = "always", install = "outdated",
+  upgrade = FALSE, ...) {
+
+  .Deprecated("check_updates_pkg_bio")
+
+  check_updates_pkg_bio(
+    show_status = show_status,
+    install = install,
+    upgrade = upgrade,
+    ...
+    )
 }
 
 #' @rdname bio_version
