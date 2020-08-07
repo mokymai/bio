@@ -91,7 +91,7 @@ Options:
 
 ```{r README-7a, eval=FALSE}
 bio::check_installed_programs()
-## ✔ Program R (3.6.3) is installed (recommended 3.6.3, available 3.6.3)
+## ✔ Program R (4.0.2) is installed (recommended 4.0.2, available 4.0.2)
 ## ✖ Program RStudio is not installed or is not running.
 ## ✔ Program Rtools is installed.
 ```
@@ -99,8 +99,8 @@ bio::check_installed_programs()
 
 ```{r README-7b, eval=FALSE}
 bio::check_installed_programs("all")
-## ✔ Program R (3.6.3) is installed (recommended 3.6.3, available 3.6.3)
-## ✔ Program RStudio (1.2.5033) is installed (recommended 1.2.5033, available 1.2.5042)
+## ✔ Program R (4.0.2) is installed (recommended 4.0.2, available 4.0.2)
+## ✔ Program RStudio (1.2.5033) is installed (recommended 1.2.5033, available 1.3.1056)
 ## ✔ Program Rtools is installed.
 ## ✖ Program Atom is not detected or configured incorrectly.
 ## ✔ Program Git is installed.
