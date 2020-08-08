@@ -1,6 +1,6 @@
 
 #' @name bio_version
-#' @title Version management of package 'bio'.
+#' @title Version management of package '\pkg{bio}'
 #' @description
 #' `get_vesion_bio()` returns version number of package \pkg{bio}.
 #' `check_updates_bio()` checks if package \pkg{bio} has a recommended version.
@@ -19,17 +19,20 @@ NULL
 
 #' @rdname bio_version
 #' @export
+#' @concept packages
 get_vesion_bio  <- function() {
   packageVersion("bio")
 }
 
 #' @rdname bio_version
-#' @export
+#'
 #' @param show_status See argument `show_status` in [get_pkgs_installation_status()].
 #' @param install See argument `install` in [get_pkgs_installation_status()].
 #' @inheritParams check_packages_by_topic
 #' @param ... Arguments to further methods.
 #'
+#' @export
+#' @concept packages
 check_updates_pkg_bio  <- function(show_status = "always", install = "outdated",
   upgrade = FALSE, ...) {
 
@@ -43,6 +46,7 @@ check_updates_pkg_bio  <- function(show_status = "always", install = "outdated",
 
 #' @rdname bio_version
 #' @export
+#' @concept packages
 check_updates_bio  <- function(show_status = "always", install = "outdated",
   upgrade = FALSE, ...) {
 
@@ -69,6 +73,7 @@ check_updates_bio  <- function(show_status = "always", install = "outdated",
 #'        See `quiet` in [remotes::install_github()].
 #'
 #' @export
+#' @concept packages
 update_pkg_bio <- function(upgrade = FALSE, force = FALSE, quiet = TRUE) {
   checkmate::assert_flag(force)
   checkmate::assert_flag(quiet)
