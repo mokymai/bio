@@ -22,49 +22,7 @@ NULL
 # Internal bio environment
 bio_envir <- new.env()
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.onLoad <- function(libname, pkgname) {
-  # # Autocompletions
-  # # ---------------
-  # # Remotes:
-  # # jimhester/completeme
-  #
-  # completeme::register_completion(bio = auto_completions_bio)
-}
 
-# auto_completions_bio <- function(env) {
-#
-#   funs_pkg_lists <- c(
-#     "check_packages_by_topic",
-#     "get_pkgs_installation_status",
-#     "get_path_pkgs_recommended",
-#     "get_pkgs_installation_status_local"
-#   )
-#
-#   funs <- c(
-#     "reset_rstudio_keybindings",
-#     "reset_rstudio_user_settings",
-#     funs_pkg_lists
-#   )
-#
-#   if (
-#     (!completeme::is_first_argument(env)) ||
-#       (!completeme::current_function(env) %in% funs)
-#   ) {
-#     return(NULL)
-#   }
-#
-#   if (completeme::current_function(env) %in% "reset_rstudio_keybindings") {
-#     return(paste0('"', keybindings_defaults, '"'))
-#   }
-#
-#   if (completeme::current_function(env) %in% "reset_rstudio_user_settings") {
-#     return(paste0('"', user_settings_defaults, '"'))
-#   }
-#
-#   if (completeme::current_function(env) %in% funs_pkg_lists) {
-#     return(paste0('"', bio::get_pkg_lists_local(), '"'))
-#   }
-# }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 globalVariables(c(
