@@ -2,12 +2,12 @@
 #' @name bio_version
 #' @title Version management of package '\pkg{bio}'
 #' @description
-#' `get_vesion_bio()` returns version number of package \pkg{bio}.
+#' `get_vesion_pkg_bio()` returns version number of package \pkg{bio}.
 #' `check_updates_bio()` checks if package \pkg{bio} has a recommended version.
 #' `update_pkg_bio()` tries to update package \pkg{bio}.
 #'
 #' @examples
-#' get_vesion_bio()
+#' get_vesion_pkg_bio()
 #'
 #' \dontrun{\donttest{
 #'
@@ -20,7 +20,7 @@ NULL
 #' @rdname bio_version
 #' @export
 #' @concept packages
-get_vesion_bio  <- function() {
+get_vesion_pkg_bio  <- function() {
   packageVersion("bio")
 }
 
@@ -42,22 +42,6 @@ check_updates_pkg_bio  <- function(show_status = "always", install = "outdated",
   # get_pkgs_installation_status(list_name = "bio", show_status = show_status,
   # install = install, ...)
 
-}
-
-#' @rdname bio_version
-#' @export
-#' @concept packages
-check_updates_bio  <- function(show_status = "always", install = "outdated",
-  upgrade = FALSE, ...) {
-
-  .Deprecated("check_updates_pkg_bio")
-
-  check_updates_pkg_bio(
-    show_status = show_status,
-    install = install,
-    upgrade = upgrade,
-    ...
-    )
 }
 
 #' @rdname bio_version
@@ -89,7 +73,7 @@ update_pkg_bio <- function(upgrade = FALSE, force = FALSE, quiet = TRUE) {
         'remotes::install_github(c("GegznaV/backup.tools", "GegznaV/snippets", "mokymai/bio"), ',
         '  dependencies = TRUE, upgrade = {upgrade_str}{force_str}{quiet_str})',
         "",
-        'bio::get_vesion_bio()',
+        'bio::get_vesion_pkg_bio()',
         "",
         'bio::check_packages_by_topic("bio", show_status = "newer_on_cran", upgrade = {upgrade_str})'
       )
@@ -99,7 +83,7 @@ update_pkg_bio <- function(upgrade = FALSE, force = FALSE, quiet = TRUE) {
   } else {
     remotes::install_github(c("GegznaV/backup.tools", "mokymai/bio"),
       dependencies = TRUE, upgrade = upgrade, force = force, quiet = quiet)
-    bio::get_vesion_bio()
+    bio::get_vesion_pkg_bio()
     bio::check_packages_by_topic("bio", show_status = "newer_on_cran",
       upgrade = upgrade)
   }
