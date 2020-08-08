@@ -229,7 +229,7 @@ create_rs_keybindings_dir <- function() {
 #
 # library(tidyverse)
 #' @name get_rs_file_ids
-#' @title Get RStudio document IDs and paths.
+#' @title Get RStudio document IDs and paths
 #' @description Get RStudio file IDs and paths.
 #'
 #' @return Data frame with columns `id` (for IDs) and `path` (for file paths).
