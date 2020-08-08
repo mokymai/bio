@@ -25,7 +25,6 @@ Imports:
   backup.tools (>= 0.0.1),
   checkmate,
   clipr,
-  completeme,
   crayon,
   desc,
   dplyr,
