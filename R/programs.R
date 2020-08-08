@@ -88,7 +88,7 @@ check_installed_programs <- function(which = "main", skip_online_check = FALSE) 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @rdname check_installed_programs
 #' @export
-#' @concept utilities
+# @concept utilities
 check_user_info <- function() {
 
   os_info <-
