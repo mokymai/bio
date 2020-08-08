@@ -3,6 +3,8 @@
 #'
 #' This function was replaced by [open_in_rstudio()] and will be removed soon.
 #'
+#' @param path See [open_in_rstudio()].
+#'
 #' @export
 #' @concept deprecated
 open_in_rs <- function(path) {
@@ -38,6 +40,11 @@ check_installed_packages <- function(...) {
 #'
 #' This function was replaced by [check_updates_pkg_bio()] and will be removed
 #' soon.
+#'
+#' @param show_status See [check_updates_pkg_bio()].
+#' @param install See [check_updates_pkg_bio()].
+#' @param upgrade See [check_updates_pkg_bio()].
+#' @param ... See [check_updates_pkg_bio()].
 #'
 #' @export
 #' @concept deprecated
