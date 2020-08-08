@@ -1,9 +1,11 @@
 #' @name update_pkg_rcmdr_biostat
-#' @title Update package RcmdrPlugin.biostat and related packages
+#' @title Update '\pkg{RcmdrPlugin.biostat}' and related packages
 #'
 #' @export
 #' @inheritParams update_pkg_snippets
 #' @inheritParams check_updates_bio
+#'
+#' @concept packages
 #'
 #' @examples
 #' \dontrun{\donttest{
@@ -29,10 +31,13 @@ update_pkg_rcmdr_biostat <- function(upgrade = FALSE, force = FALSE, quiet = TRU
     "Rcmdr-biostat", upgrade = upgrade, force = force, quiet = quiet)
 }
 
-#' Update RcmdrPlugin.biostat and related packages
+#' Update '\pkg{snippets}' and related packages
 #'
 #' @inheritParams update_pkg_bio
 #' @export
+#'
+#' @concept packages
+#'
 #' @examples
 #' \dontrun{\donttest{
 #'
