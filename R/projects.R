@@ -1,7 +1,7 @@
 # Get details about RStudio projects from its path ============================
 
 #' @name parse_proj_path
-#' @title Parse project's path.
+#' @title Parse project's path
 #' @description
 #' Get details about RStudio project from its path.
 #'
@@ -15,6 +15,8 @@
 #' - `extract_proj_name()` (character) a vector of extracted character names.
 #'
 #' @export
+#'
+#' @concept rstudio projects
 #'
 #' @examples
 #' path_to_project <-  c("list/proj.Rproj", "C:/R/BS-2020/bs.Rproj",
@@ -50,18 +52,21 @@ extract_proj_name <- function(proj_path) {
 
 # Manage RStudio projects ====================================================
 #' @name projects
-#' @title Manage RStudio projects.
+#' @title Manage RStudio projects
 #'
-#' @param file (character) Path to file with RStudio projects.
-#' @param sort_by (`"name"`|`"path"`|[`FALSE`])
-#'
-#' @export
 #' @description
 #' - `read_projects()` - reads file with projects and list their names and paths.
 #' @examples
 #' \dontrun{\donttest{
 #' read_projects(get_path_recent_proj_list())
 #' }}
+#'
+#' @param file (character) Path to file with RStudio projects.
+#' @param sort_by (`"name"`|`"path"`|[`FALSE`])
+#'
+#' @export
+#'
+#' @concept rstudio projects
 #'
 read_projects <- function(file, sort_by = FALSE) {
 
@@ -170,7 +175,7 @@ get_proj_names <- function(file = get_path_recent_proj_list(),
 }
 
 # Open RStudio project =======================================================
-#' Open RStudio project.
+#' Open RStudio project
 #'
 #' Open RStudio project by name or interactively.
 #'
@@ -193,6 +198,9 @@ get_proj_names <- function(file = get_path_recent_proj_list(),
 #'
 #' @return Opens the indicated project.
 #' @export
+#'
+#' @concept rstudio projects
+#'
 #' @seealso
 #' - [rstudioapi::openProject()]
 #' - [rstudioapi::initializeProject()]
