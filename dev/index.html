@@ -44,6 +44,23 @@
      
   </a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-book"></span>
+     
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li class="dropdown-header">Documentation for version of package:</li>
+    <li>
+      <a href="https://mokymai.github.io/bio/">Released</a>
+    </li>
+    <li>
+      <a href="https://mokymai.github.io/bio/dev/">In-development</a>
+    </li>
+  </ul>
+</li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -172,7 +189,7 @@
 <p>Update package <strong>bio</strong>.</p>
 <div class="sourceCode" id="cb7"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/bio_version.html">update_pkg_bio</a></span>()</pre></div>
 <p>Check if there are updates for <strong>bio</strong> or its dependency packages.</p>
-<div class="sourceCode" id="cb8"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/bio_version.html">check_updates_bio</a></span>()</pre></div>
+<div class="sourceCode" id="cb8"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/check_updates_bio.html">check_updates_bio</a></span>()</pre></div>
 <div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>✔ Minimal required versions of all <span class="dv">24</span> <span class="kw">packages</span> (from list <span class="st">'bio'</span>) are already installed.</span></code></pre></div>
 <p>Update package <strong>snippets</strong>.</p>
 <div class="sourceCode" id="cb10"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/update_pkg_snippets.html">update_pkg_snippets</a></span>()</pre></div>
@@ -189,7 +206,7 @@
 <h3 class="hasAnchor">
 <a href="#dictionaries" class="anchor"></a>Dictionaries</h3>
 <p>This function downloads or updates <strong>hunspell</strong> spelling checking dictionaries dictionaries (including Lithuanian) that can be used by RStudio or by tools from <strong>wellspell.addin</strong> package.</p>
-<div class="sourceCode" id="cb12"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/spelling.html">download_spellcheck_dictionaries</a></span>()</pre></div>
+<div class="sourceCode" id="cb12"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/spelling.html">rstudio_download_spellcheck_dictionaries</a></span>()</pre></div>
 </div>
 <div id="shortcut-keys" class="section level3">
 <h3 class="hasAnchor">
@@ -411,7 +428,8 @@
 <div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>Vilmantas Gegzna <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-9500-5167" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>
+<a href="https://orcid.org/0000-0002-9500-5167">Vilmantas Gegzna</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-9500-5167" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 </ul>
 </div>
 
@@ -419,7 +437,7 @@
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://github.com/mokymai/bio"><img src="https://img.shields.io/badge/GitHub-0.0.5.9000-brightgreen.svg" alt="GitHub version"></a></li>
-<li><a href="/commits/master"><img src="https://img.shields.io/badge/Updated%20on-2020--08--07-yellowgreen.svg" alt="Updated-on"></a></li>
+<li><a href="/commits/master"><img src="https://img.shields.io/badge/Updated%20on-2020--08--08-yellowgreen.svg" alt="Updated-on"></a></li>
 <li><a href="https://github.com/mokymai/bio/actions"><img src="https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 </ul>
@@ -429,7 +447,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Vilmantas Gegzna.</p>
+  <p>Developed by <a href="https://orcid.org/0000-0002-9500-5167">Vilmantas Gegzna</a>.</p>
 </div>
 
 <div class="pkgdown">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Version management of package '<span class="pkg">bio</span>' — bio_version • bio</title>
+<title>Deprecated. Use <code>get_vesion_pkg_bio()</code> instead — get_vesion_bio • bio</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,9 @@
 
 
 
-<meta property="og:title" content="Version management of package '<span class="pkg">bio</span>' — bio_version" />
-<meta property="og:description" content="get_vesion_pkg_bio() returns version number of package bio.
-check_updates_bio() checks if package bio has a recommended version.
-update_pkg_bio() tries to update package bio." />
+<meta property="og:title" content="Deprecated. Use <code>get_vesion_pkg_bio()</code> instead — get_vesion_bio" />
+<meta property="og:description" content="This function was replaced by get_vesion_pkg_bio() and will be removed
+soon." />
 
 
 <meta name="robots" content="noindex">
@@ -127,65 +126,20 @@ update_pkg_bio() tries to update package bio." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Version management of package '<span class="pkg">bio</span>'</h1>
-    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/bio-related.R'><code>R/bio-related.R</code></a></small>
-    <div class="hidden name"><code>bio_version.Rd</code></div>
+    <h1>Deprecated. Use <code>get_vesion_pkg_bio()</code> instead</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/deprecated-functions.R'><code>R/deprecated-functions.R</code></a></small>
+    <div class="hidden name"><code>get_vesion_bio.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>get_vesion_pkg_bio()</code> returns version number of package <span class="pkg">bio</span>.
-<code><a href='check_updates_bio.html'>check_updates_bio()</a></code> checks if package <span class="pkg">bio</span> has a recommended version.
-<code>update_pkg_bio()</code> tries to update package <span class="pkg">bio</span>.</p>
+    <p>This function was replaced by <code><a href='bio_version.html'>get_vesion_pkg_bio()</a></code> and will be removed
+soon.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_vesion_pkg_bio</span>()
-
-<span class='fu'>check_updates_pkg_bio</span>(
-  <span class='kw'>show_status</span> <span class='kw'>=</span> <span class='st'>"always"</span>,
-  <span class='kw'>install</span> <span class='kw'>=</span> <span class='st'>"outdated"</span>,
-  <span class='kw'>upgrade</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)
-
-<span class='fu'>update_pkg_bio</span>(<span class='kw'>upgrade</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>quiet</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>show_status</th>
-      <td><p>See argument <code>show_status</code> in <code><a href='get_pkgs_installation_status.html'>get_pkgs_installation_status()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>install</th>
-      <td><p>See argument <code>install</code> in <code><a href='get_pkgs_installation_status.html'>get_pkgs_installation_status()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>upgrade</th>
-      <td><p>Upgrade dependencies.
-See <code>upgrade</code> in <code><a href='https://remotes.r-lib.org/reference/install_github.html'>remotes::install_github()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Arguments to further methods.</p></td>
-    </tr>
-    <tr>
-      <th>force</th>
-      <td><p>(logical) <code>TRUE</code> or <code>FALSE</code>.
-Force to update.
-See <code>force</code> in <code><a href='https://remotes.r-lib.org/reference/install_github.html'>remotes::install_github()</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>quiet</th>
-      <td><p>(logical) <code>TRUE</code> or <code>FALSE</code>.
-Should installation messages be printed?
-See <code>quiet</code> in <code><a href='https://remotes.r-lib.org/reference/install_github.html'>remotes::install_github()</a></code>.</p></td>
-    </tr>
-    </table>
+    <pre class="usage"><span class='fu'>get_vesion_bio</span>()</pre>
 
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"></pre>
+
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
