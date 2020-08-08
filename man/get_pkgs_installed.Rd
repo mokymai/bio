@@ -2,7 +2,7 @@
 % Please edit documentation in R/packages.R
 \name{get_pkgs_installed}
 \alias{get_pkgs_installed}
-\title{List packages installed on this computer.}
+\title{List packages installed on this computer}
 \usage{
 get_pkgs_installed(rm_duplicates = TRUE)
 }
@@ -16,7 +16,7 @@ from the list.}
 Data frame with columns \code{"package"} and \code{"current_version"}.
 }
 \description{
-List packages installed on this computer.
+List packages installed on this computer
 }
 \examples{
 
@@ -36,3 +36,4 @@ Other R-packages-related functions:
 \code{\link{get_pkgs_req_version}()}
 }
 \concept{R-packages-related functions}
+\concept{packages}

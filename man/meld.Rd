@@ -7,7 +7,7 @@
 \alias{get_default_path_to_meld}
 \alias{is_meld_installed}
 \alias{set_meld_as_git_difftool_mergetool}
-\title{Helper functions for "Meld".}
+\title{Helper functions for "Meld"}
 \usage{
 browse_meld_homepage()
 
@@ -34,8 +34,9 @@ set_meld_as_git_difftool_mergetool(
 \item{trustExitCode}{(logical)}
 }
 \description{
-Helper functions for "Meld".
+Helper functions for "Meld"
 }
 \examples{
 is_meld_installed()
 }
+\concept{programs}

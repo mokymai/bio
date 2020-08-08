@@ -2,27 +2,29 @@
 % Please edit documentation in R/dictionaries.R
 \name{spelling}
 \alias{spelling}
-\alias{download_spellcheck_dictionaries}
-\alias{delete_spellcheck_dictionaries}
-\title{Dictionaries to check spelling.}
+\alias{rstudio_download_spellcheck_dictionaries}
+\alias{rstudio_delete_spellcheck_dictionaries}
+\title{Dictionaries to check spelling}
 \usage{
-download_spellcheck_dictionaries(secure = TRUE)
+rstudio_download_spellcheck_dictionaries(secure = TRUE)
 
-delete_spellcheck_dictionaries()
+rstudio_delete_spellcheck_dictionaries()
 }
 \arguments{
 \item{secure}{(logical) If \code{TRUE}, uses "https", if \code{FALSE}, uses "http".}
 }
 \description{
-\code{download_spellcheck_dictionaries()}
+\code{rstudio_download_spellcheck_dictionaries()}
 downloads and updates RStudio (system) spellchecking dictionaries.
-\code{delete_spellcheck_dictionaries()}
+\code{rstudio_delete_spellcheck_dictionaries()}
 deletes RStudio (system) spellchecking dictionaries.
 }
 \examples{
 if (FALSE) {
 
-  delete_spellcheck_dictionaries()
-download_spellcheck_dictionaries()
+rstudio_delete_spellcheck_dictionaries()
+rstudio_download_spellcheck_dictionaries()
 }
 }
+\concept{dictionaries}
+\concept{r and rstudio settings}

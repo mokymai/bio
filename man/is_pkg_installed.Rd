@@ -22,3 +22,4 @@ is_pkg_installed("bio")
 is_pkg_installed(c("bio", "utils", "grugru"))
 
 }
+\concept{packages}

@@ -2,12 +2,9 @@
 % Please edit documentation in R/paths-and-files.R
 \name{open_in_rstudio}
 \alias{open_in_rstudio}
-\alias{open_in_rs}
 \title{Open file in RStudio}
 \usage{
 open_in_rstudio(path, ...)
-
-open_in_rs(path)
 }
 \arguments{
 \item{path}{(sting) Path to file.}

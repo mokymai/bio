@@ -2,7 +2,7 @@
 % Please edit documentation in R/load_update.R
 \name{update_pkg_snippets}
 \alias{update_pkg_snippets}
-\title{Update RcmdrPlugin.biostat and related packages}
+\title{Update '\pkg{snippets}' and related packages}
 \usage{
 update_pkg_snippets(upgrade = FALSE, force = FALSE, quiet = TRUE)
 }
@@ -19,7 +19,7 @@ Should installation messages be printed?
 See \code{quiet} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
 }
 \description{
-Update RcmdrPlugin.biostat and related packages
+Update '\pkg{snippets}' and related packages
 }
 \examples{
 \dontrun{\donttest{
@@ -28,3 +28,4 @@ update_pkg_snippets()
 
 }}
 }
+\concept{packages}

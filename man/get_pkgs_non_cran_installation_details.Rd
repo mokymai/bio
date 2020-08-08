@@ -2,7 +2,7 @@
 % Please edit documentation in R/packages.R
 \name{get_pkgs_non_cran_installation_details}
 \alias{get_pkgs_non_cran_installation_details}
-\title{Get details about non-CRAN package installation.}
+\title{Get details about non-CRAN package installation}
 \usage{
 get_pkgs_non_cran_installation_details(
   use_local_list = getOption("bio.use_local_list", FALSE)
@@ -51,3 +51,4 @@ Other R-packages-related functions:
 \code{\link{get_pkgs_req_version}()}
 }
 \concept{R-packages-related functions}
+\concept{packages}

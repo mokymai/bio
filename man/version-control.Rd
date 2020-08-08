@@ -5,7 +5,7 @@
 \alias{open_rs_proj_vcs_opts}
 \alias{show_rs_vcs_rsa_key}
 \alias{browse_rs_version_control_help}
-\title{Version control in RStudio.}
+\title{Version control in RStudio}
 \usage{
 open_rs_proj_vcs_opts()
 
@@ -19,6 +19,7 @@ Helper functions for version control system (vcs) in RStudio.
 \item \code{open_rs_proj_vcs_opts()} opens version control setup for RStudio project.
 \item \code{show_rs_vcs_rsa_key()} shows version RSA key.
 \item \code{browse_rs_version_control_help()} opens website with help of version
-control in RStudio .
+control in RStudio.
 }
 }
+\concept{programs}

@@ -14,3 +14,4 @@ reload_rstudio()
 \code{restart_r()} restarts R session in RStudio.
 \code{reload_rstudio()} reloads RStudio without closing it.
 }
+\concept{utilities}

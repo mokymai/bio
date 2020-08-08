@@ -68,3 +68,4 @@ get_path_r_environ()
 \item \code{\link[utils:file.edit]{utils::file.edit()}}
 }
 }
+\concept{paths and dirs}

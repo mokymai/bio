@@ -2,8 +2,7 @@
 % Please edit documentation in R/packages.R
 \name{check_packages_by_topic}
 \alias{check_packages_by_topic}
-\alias{check_installed_packages}
-\title{Check installed packages}
+\title{Check installed packages by topic}
 \usage{
 check_packages_by_topic(
   list_name = NULL,
@@ -11,8 +10,6 @@ check_packages_by_topic(
   upgrade = FALSE,
   ...
 )
-
-check_installed_packages(...)
 }
 \arguments{
 \item{list_name}{(character) The name of the list with required R packages.
@@ -47,3 +44,4 @@ check_packages_by_topic("mini", include = "always", install = "outdated",
  github = "always", use_local_list = TRUE)
 }}
 }
+\concept{packages}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/packages.R
 \name{get_pkgs_cran_details}
 \alias{get_pkgs_cran_details}
-\title{Get details about package on CRAN.}
+\title{Get details about package on CRAN}
 \usage{
 get_pkgs_cran_details()
 }
@@ -32,3 +32,4 @@ Other R-packages-related functions:
 \code{\link{get_pkgs_req_version}()}
 }
 \concept{R-packages-related functions}
+\concept{packages}

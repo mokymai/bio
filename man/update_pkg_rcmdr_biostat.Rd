@@ -3,7 +3,7 @@
 \name{update_pkg_rcmdr_biostat}
 \alias{update_pkg_rcmdr_biostat}
 \alias{check_updates_rcmdr_biostat}
-\title{Update package RcmdrPlugin.biostat and related packages}
+\title{Update '\pkg{RcmdrPlugin.biostat}' and related packages}
 \usage{
 check_updates_rcmdr_biostat(
   show_status = "always",
@@ -15,14 +15,8 @@ check_updates_rcmdr_biostat(
 update_pkg_rcmdr_biostat(upgrade = FALSE, force = FALSE, quiet = TRUE)
 }
 \arguments{
-\item{show_status}{See argument \code{show_status} in \code{\link[=get_pkgs_installation_status]{get_pkgs_installation_status()}}.}
-
-\item{install}{See argument \code{install} in \code{\link[=get_pkgs_installation_status]{get_pkgs_installation_status()}}.}
-
 \item{upgrade}{Upgrade dependencies.
 See \code{upgrade} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
-
-\item{...}{Arguments to further methods.}
 
 \item{force}{(logical) \code{TRUE} or \code{FALSE}.
 Force to update.
@@ -33,7 +27,7 @@ Should installation messages be printed?
 See \code{quiet} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
 }
 \description{
-Update package RcmdrPlugin.biostat and related packages
+Update '\pkg{RcmdrPlugin.biostat}' and related packages
 }
 \examples{
 \dontrun{\donttest{
@@ -44,3 +38,4 @@ check_updates_rcmdr_biostat()
 
 }}
 }
+\concept{packages}

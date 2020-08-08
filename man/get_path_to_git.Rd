@@ -15,3 +15,4 @@ Get path to Git.
 \examples{
 get_path_to_git()
 }
+\concept{programs}

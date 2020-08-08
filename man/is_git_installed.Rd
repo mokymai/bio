@@ -2,7 +2,7 @@
 % Please edit documentation in R/git.R
 \name{is_git_installed}
 \alias{is_git_installed}
-\title{Check if GIT is installed.}
+\title{Check if Git is installed}
 \usage{
 is_git_installed()
 }
@@ -10,8 +10,9 @@ is_git_installed()
 logical value.
 }
 \description{
-Check if GIT is installed.
+Check if Git is installed
 }
 \examples{
 is_git_installed()
 }
+\concept{programs}

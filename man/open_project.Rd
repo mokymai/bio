@@ -6,7 +6,7 @@
 \alias{open_recent_proj_list}
 \alias{open_personal_proj_list}
 \alias{update_personal_proj_list}
-\title{Open RStudio project.}
+\title{Open RStudio project}
 \usage{
 open_project(
   name = NULL,
@@ -51,7 +51,7 @@ with broken paths are removed from the list of choices.}
 \item{pattern}{(character) regular expression to narrow down the list of
 possible options.}
 
-\item{negate}{(logical) If \code{TRUE},then the ooptions defined by  \code{pattern} are
+\item{negate}{(logical) If \code{TRUE}, then the options defined by  \code{pattern} are
 excluded.}
 
 \item{...}{Further arguments.}
@@ -84,3 +84,4 @@ open_project("R-2019-project")
 \item \code{\link[rstudioapi:projects]{rstudioapi::initializeProject()}}
 }
 }
+\concept{rstudio projects}

@@ -22,3 +22,4 @@ Helper functions for "Atom".
 \examples{
 is_atom_installed()
 }
+\concept{programs}

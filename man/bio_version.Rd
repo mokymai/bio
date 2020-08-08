@@ -2,22 +2,14 @@
 % Please edit documentation in R/bio-related.R
 \name{bio_version}
 \alias{bio_version}
-\alias{get_vesion_bio}
+\alias{get_vesion_pkg_bio}
 \alias{check_updates_pkg_bio}
-\alias{check_updates_bio}
 \alias{update_pkg_bio}
-\title{Version management of package 'bio'.}
+\title{Version management of package '\pkg{bio}'}
 \usage{
-get_vesion_bio()
+get_vesion_pkg_bio()
 
 check_updates_pkg_bio(
-  show_status = "always",
-  install = "outdated",
-  upgrade = FALSE,
-  ...
-)
-
-check_updates_bio(
   show_status = "always",
   install = "outdated",
   upgrade = FALSE,
@@ -45,12 +37,12 @@ Should installation messages be printed?
 See \code{quiet} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
 }
 \description{
-\code{get_vesion_bio()} returns version number of package \pkg{bio}.
+\code{get_vesion_pkg_bio()} returns version number of package \pkg{bio}.
 \code{check_updates_bio()} checks if package \pkg{bio} has a recommended version.
 \code{update_pkg_bio()} tries to update package \pkg{bio}.
 }
 \examples{
-get_vesion_bio()
+get_vesion_pkg_bio()
 
 \dontrun{\donttest{
 
@@ -59,3 +51,4 @@ update_bio()
 
 }}
 }
+\concept{packages}

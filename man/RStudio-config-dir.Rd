@@ -69,3 +69,4 @@ get_path_rs_keybindings_dir()
 https://support.rstudio.com/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State
 }
 }
+\concept{paths and dirs}

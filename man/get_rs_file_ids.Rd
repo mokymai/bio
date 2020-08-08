@@ -4,7 +4,7 @@
 \alias{get_rs_file_ids}
 \alias{get_rs_file_ids_user}
 \alias{get_rs_file_ids_project}
-\title{Get RStudio document IDs and paths.}
+\title{Get RStudio document IDs and paths}
 \usage{
 get_rs_file_ids()
 
@@ -23,3 +23,4 @@ Get RStudio file IDs and paths.
 head(get_rs_file_ids_user())
 }}
 }
+\concept{paths and dirs}

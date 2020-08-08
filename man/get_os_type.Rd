@@ -27,3 +27,4 @@ https://www.r-bloggers.com/identifying-the-os-from-r/
 \author{
 The code is based on https://www.r-bloggers.com/identifying-the-os-from-r/
 }
+\concept{utilities}

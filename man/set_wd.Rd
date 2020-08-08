@@ -29,3 +29,4 @@ RStudio menu -> Session -> Set Working Directory -> ...:
 \item \code{set_wd_interactive()}: ... -> Choose Directory...
 }
 }
+\concept{r and rstudio settings}
