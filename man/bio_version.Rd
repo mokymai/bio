@@ -38,7 +38,7 @@ See \code{quiet} in \code{\link[remotes:install_github]{remotes::install_github(
 }
 \description{
 \code{get_vesion_pkg_bio()} returns version number of package \pkg{bio}.
-\code{check_updates_bio()} checks if package \pkg{bio} has a recommended version.
+\code{check_updates_pkg_bio()} checks if package \pkg{bio} has a recommended version.
 \code{update_pkg_bio()} tries to update package \pkg{bio}.
 }
 \examples{
@@ -46,7 +46,7 @@ get_vesion_pkg_bio()
 
 \dontrun{\donttest{
 
-check_updates_bio()
+check_updates_pkg_bio()
 update_bio()
 
 }}

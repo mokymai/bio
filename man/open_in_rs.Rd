@@ -6,6 +6,9 @@
 \usage{
 open_in_rs(path)
 }
+\arguments{
+\item{path}{See \code{\link[=open_in_rstudio]{open_in_rstudio()}}.}
+}
 \description{
 This function was replaced by \code{\link[=open_in_rstudio]{open_in_rstudio()}} and will be removed soon.
 }

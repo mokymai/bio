@@ -15,8 +15,14 @@ check_updates_rcmdr_biostat(
 update_pkg_rcmdr_biostat(upgrade = FALSE, force = FALSE, quiet = TRUE)
 }
 \arguments{
+\item{show_status}{See argument \code{show_status} in \code{\link[=get_pkgs_installation_status]{get_pkgs_installation_status()}}.}
+
+\item{install}{See argument \code{install} in \code{\link[=get_pkgs_installation_status]{get_pkgs_installation_status()}}.}
+
 \item{upgrade}{Upgrade dependencies.
 See \code{upgrade} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
+
+\item{...}{Arguments to further methods.}
 
 \item{force}{(logical) \code{TRUE} or \code{FALSE}.
 Force to update.

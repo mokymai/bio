@@ -11,6 +11,15 @@ check_updates_bio(
   ...
 )
 }
+\arguments{
+\item{show_status}{See \code{\link[=check_updates_pkg_bio]{check_updates_pkg_bio()}}.}
+
+\item{install}{See \code{\link[=check_updates_pkg_bio]{check_updates_pkg_bio()}}.}
+
+\item{upgrade}{See \code{\link[=check_updates_pkg_bio]{check_updates_pkg_bio()}}.}
+
+\item{...}{See \code{\link[=check_updates_pkg_bio]{check_updates_pkg_bio()}}.}
+}
 \description{
 This function was replaced by \code{\link[=check_updates_pkg_bio]{check_updates_pkg_bio()}} and will be removed
 soon.
