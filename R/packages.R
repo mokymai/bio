@@ -420,7 +420,7 @@ get_pkgs_installation_status_local <- function(list_name,
 #
 #' @name get_pkgs_installation_status
 #'
-#' @title Get package installation status and code.
+#' @title Get package installation status and code
 #' @description
 #' Get package installation status (e.g., if packages of interest are installed
 #' or need to be updated) and package installation code.
