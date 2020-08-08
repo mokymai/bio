@@ -3,11 +3,14 @@
 #' Determine the operating system (OS) of your machine.
 #'
 #' @return OS name in lower case: windows, osx, linux, etc.
-#' @export
 #' @author
 #' The code is based on https://www.r-bloggers.com/identifying-the-os-from-r/
 #' @seealso
 #' https://www.r-bloggers.com/identifying-the-os-from-r/
+#'
+#' @export
+#' @concept utilities
+#'
 #' @examples
 #' get_os_type()
 get_os_type <- function() {
