@@ -12,11 +12,15 @@
 
 # LanguageToolR::lato_quick_setup()
 #' @name RStudio-dictionaries
-#' @title Rstudio dictionaries
+#' @title RStudio dictionaries
 #' @description
 #' Functions to work with RStudio dictionaries.
-#' @return Path
+#'
+#' @return String with path.
 #' @export
+#'
+#' @concept paths and dirs
+#' @concept dictionaries
 #'
 #' @seealso [rstudioapi::dictionaries]
 #' @examples
@@ -95,7 +99,7 @@ open_user_dictionaries_dir <- function() {
 
 
 #' @name spelling
-#' @title Dictionaries to check spelling.
+#' @title Dictionaries to check spelling
 #' @description
 #' `rstudio_download_spellcheck_dictionaries()`
 #'  downloads and updates RStudio (system) spellchecking dictionaries.
@@ -106,6 +110,7 @@ open_user_dictionaries_dir <- function() {
 #'
 #' @export
 #' @concept r and rstudio settings
+#' @concept dictionaries
 #'
 #' @examples
 #' if (FALSE) {
@@ -127,6 +132,7 @@ rstudio_download_spellcheck_dictionaries <- function(secure = TRUE) {
 #' @name spelling
 #' @export
 #' @concept r and rstudio settings
+#' @concept dictionaries
 rstudio_delete_spellcheck_dictionaries <- function() {
   # FIXME: Ask user permision to prevent accidental deletion.
   fs::dir_delete(get_path_rs_system_dictionaries_dir())
@@ -136,4 +142,5 @@ rstudio_delete_spellcheck_dictionaries <- function() {
 
 # # @importFrom rstudioapi selectDirectory
 # # @export
+# #  @concept dictionaries
 # rstudioapi::selectDirectory
