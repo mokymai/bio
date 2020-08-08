@@ -3,7 +3,7 @@
 # RStudio version control ====================================================
 
 #' @name version-control
-#' @title Version control in RStudio.
+#' @title Version control in RStudio
 #' @description
 #' Helper functions for version control system (vcs) in RStudio.
 #' - `open_rs_proj_vcs_opts()` opens version control setup for RStudio project.
@@ -11,6 +11,8 @@
 #' - `browse_rs_version_control_help()` opens website with help of version
 #'    control in RStudio .
 #' @export
+#'
+#' @concept programs
 # open_rs_verion_control_opts <- function() {
 open_rs_proj_vcs_opts <- function() {
   rstudioapi::executeCommand("versionControlProjectSetup", quiet = TRUE)
@@ -18,12 +20,14 @@ open_rs_proj_vcs_opts <- function() {
 
 #' @name version-control
 #' @export
+#' @concept programs
 show_rs_vcs_rsa_key <- function() {
   rstudioapi::executeCommand("versionControlShowRsaKey", quiet = TRUE)
 }
 
 #' @name version-control
 #' @export
+#' @concept programs
 browse_rs_version_control_help <- function() {
   rstudioapi::executeCommand("versionControlHelp", quiet = TRUE)
 }
@@ -44,9 +48,10 @@ browse_rs_version_control_help <- function() {
 # )
 # ==========================================================================~~
 #' @name git
-#' @title Helper functions for "Git".
+#' @title Helper functions for "Git"
 #' @description
 #' Helper functions for "Git".
+#' @concept programs
 NULL
 
 
@@ -132,9 +137,10 @@ get_path_to_git <- function() {
 # Meld =======================================================================
 
 #' @name meld
-#' @title Helper functions for "Meld".
+#' @title Helper functions for "Meld"
 #'
 #' @export
+#' @concept programs
 #'
 #' @examples
 #' is_meld_installed()
@@ -144,6 +150,7 @@ browse_meld_homepage <- function() {
 
 #' @rdname meld
 #' @export
+#' @concept programs
 download_meld <- function() {
   switch(get_os_type(),
     windows = browseURL("https://download.gnome.org/binaries/win32/meld/3.18/Meld-3.18.3-win32.msi"),
@@ -160,6 +167,7 @@ download_meld <- function() {
 
 #' @rdname meld
 #' @export
+#' @concept programs
 get_default_path_to_meld <- function() {
 
   path_to <-
@@ -200,18 +208,20 @@ get_default_path_to_meld <- function() {
 
 #' @rdname meld
 #' @export
+#' @concept programs
 is_meld_installed <- function(path_to_meld = get_default_path_to_meld()) {
   file.exists(path_to_meld)
 }
 
-#' @param path_to_meld (character|`NULL`)
+#' @rdname meld
 #'
+#' @param path_to_meld (character|`NULL`)
 #' @param prompt (logical)
 #' @param keepBackup (logical)
 #' @param trustExitCode (logical)
 #'
-#' @rdname meld
 #' @export
+#' @concept programs
 set_meld_as_git_difftool_mergetool <- function(path_to_meld = NULL,
   prompt = FALSE, keepBackup = FALSE, trustExitCode = TRUE) {
 
@@ -267,6 +277,7 @@ git config --global difftool.prompt {tolower(prompt)}
 #' @title Helper functions for "Atom".
 #'
 #' @export
+#' @concept programs
 #'
 #' @examples
 #' is_atom_installed()
@@ -295,6 +306,7 @@ is_atom_installed <- function() {
 
 #' @rdname atom
 #' @export
+#' @concept programs
 set_atom_as_git_core_editor <- function() {
   if (is_atom_installed()) {
     glue::glue('git config --global core.editor "atom --wait"')
@@ -303,6 +315,7 @@ set_atom_as_git_core_editor <- function() {
 
 #' @rdname atom
 #' @export
+#' @concept programs
 install_atom_meld <- function() {
   # Installs Atom package "atim-meld"
   if (is_atom_installed()) {
