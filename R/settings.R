@@ -1,4 +1,4 @@
-# bio::download_spellcheck_dictionaries()
+# bio::rstudio_download_spellcheck_dictionaries()
 # bio::reset_rstudio_user_settings(to = "bio-default", backup = TRUE)
 # bio::reset_rstudio_keybindings(to = "bio-default", backup = TRUE)
 # snippets::install_snippets_from_package("snippets", type = c("r", "markdown"), backup = TRUE)
@@ -77,7 +77,7 @@ reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
   dict_path <- get_path_rs_system_dictionaries_dir()
   lt_LT_is_missing <- !any(stringr::str_detect(dir(dict_path), "lt_LT"))
   if (force_update_dictionaries || lt_LT_is_missing) {
-    bio::download_spellcheck_dictionaries()
+    bio::rstudio_download_spellcheck_dictionaries()
   }
 
   # Working directory

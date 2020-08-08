@@ -97,23 +97,24 @@ open_user_dictionaries_dir <- function() {
 #' @name spelling
 #' @title Dictionaries to check spelling.
 #' @description
-#' `download_spellcheck_dictionaries()`
+#' `rstudio_download_spellcheck_dictionaries()`
 #'  downloads and updates RStudio (system) spellchecking dictionaries.
-#' `delete_spellcheck_dictionaries()`
+#' `rstudio_delete_spellcheck_dictionaries()`
 #' deletes RStudio (system) spellchecking dictionaries.
 #'
 #' @param secure (logical) If `TRUE`, uses "https", if `FALSE`, uses "http".
 #'
 #' @export
+#' @concept r and rstudio settings
 #'
 #' @examples
 #' if (FALSE) {
 #'
-#'   delete_spellcheck_dictionaries()
-#' download_spellcheck_dictionaries()
+#'   rstudio_delete_spellcheck_dictionaries()
+#' rstudio_download_spellcheck_dictionaries()
 #' }
 
-download_spellcheck_dictionaries <- function(secure = TRUE) {
+rstudio_download_spellcheck_dictionaries <- function(secure = TRUE) {
     if (rstudioapi::isAvailable()) {
     dic_dir <- get_path_rs_system_dictionaries_dir()
     .rs.downloadAllDictionaries(targetDir = dic_dir, secure = secure)
@@ -125,7 +126,8 @@ download_spellcheck_dictionaries <- function(secure = TRUE) {
 
 #' @name spelling
 #' @export
-delete_spellcheck_dictionaries <- function() {
+#' @concept r and rstudio settings
+rstudio_delete_spellcheck_dictionaries <- function() {
   # FIXME: Ask user permision to prevent accidental deletion.
   fs::dir_delete(get_path_rs_system_dictionaries_dir())
 }
