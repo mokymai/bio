@@ -1044,24 +1044,6 @@ check_packages_by_topic <- function(list_name = NULL,
   invisible(status)
 }
 
-#' Deprecated
-#'
-#' Deprecated. See [check_packages_by_topic()].
-#'
-#' @param ... See [check_packages_by_topic()].
-#'
-#' @name check_packages_by_topic-deprecated
-#'
-#' @export
-#'
-#' @concept deprecated
-#'
-check_installed_packages <- function(...) {
-  # TODO: Create new function `check_installed_packages()` that checks info
-  # about package.
-  .Deprecated("check_packages_by_topic")
-  check_packages_by_topic(...)
-}
 
 # Optimize order of packages to install ======================================
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

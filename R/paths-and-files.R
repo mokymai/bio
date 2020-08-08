@@ -343,14 +343,6 @@ open_in_rstudio <- function(path, ...) {
   # fs::file_show(path = path, browser = "RStudio")
 }
 
-#' @rdname open_in_rstudio
-#' @export
-open_in_rs <- function(path) {
-  .Deprecated("open_in_rstudio")
-  fs::file_show(path = path, browser = "RStudio")
-}
-
-
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @name open_files
 #'
