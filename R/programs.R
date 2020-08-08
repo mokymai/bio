@@ -1,6 +1,6 @@
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' Check the versions of required programs.
+#' Check the versions of required programs
 #'
 #' @param skip_online_check (logical) If `TRUE`, the numbers of newest available
 #'       stable programs are downloaded, when internet connection is connected.
@@ -11,6 +11,7 @@
 #' The results of version checking is printed.
 #'
 #' @export
+#' @concept programs
 #'
 #' @examples
 #'
@@ -87,6 +88,7 @@ check_installed_programs <- function(which = "main", skip_online_check = FALSE) 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @rdname check_installed_programs
 #' @export
+#' @concept utilities
 check_user_info <- function() {
 
   os_info <-
