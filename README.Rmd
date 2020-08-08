@@ -148,7 +148,7 @@ bio::update_pkg_bio()
 
 Check if there are updates for **bio** or its dependency packages.
 ```{r README-3b, eval=FALSE}
-bio::check_updates_bio()
+bio::check_updates_pkg_bio()
 ```
 ```
 ✔ Minimal required versions of all 24 packages (from list 'bio') are already installed.

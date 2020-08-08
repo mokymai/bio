@@ -3,7 +3,7 @@
 #'
 #' @export
 #' @inheritParams update_pkg_snippets
-#' @inheritParams check_updates_bio
+#' @inheritParams check_updates_pkg_bio
 #'
 #' @concept packages
 #'

@@ -3,7 +3,7 @@
 #' @title Version management of package '\pkg{bio}'
 #' @description
 #' `get_vesion_pkg_bio()` returns version number of package \pkg{bio}.
-#' `check_updates_bio()` checks if package \pkg{bio} has a recommended version.
+#' `check_updates_pkg_bio()` checks if package \pkg{bio} has a recommended version.
 #' `update_pkg_bio()` tries to update package \pkg{bio}.
 #'
 #' @examples
@@ -11,7 +11,7 @@
 #'
 #' \dontrun{\donttest{
 #'
-#' check_updates_bio()
+#' check_updates_pkg_bio()
 #' update_bio()
 #'
 #' }}
