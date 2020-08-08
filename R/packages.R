@@ -41,14 +41,18 @@ base_r_packages <- function() {
   rownames(installed.packages(priority = "base"))
 }
 
-#' Compare version numbers.
+#' Compare version numbers
 #'
 #' @param v_installed vector with installed version numbers
 #' @param v_required vector with required version numbers
 #'
 #' @return The same as in [utils::compareVersion()], just a vector.
 #' @export
+#'
 #' @family R-packages-related functions
+#'
+#' @concept utilities
+#'
 #' @examples
 #'
 #' compare_version("2.4", "2")
@@ -90,6 +94,8 @@ remove_ignored_rows <- function(tbl) {
 #' @return A logical vector for each input element.
 #' @export
 #'
+#' @concept packages
+#'
 #' @examples
 #'
 #' is_pkg_installed("bio")
@@ -101,15 +107,19 @@ is_pkg_installed <- function(pkgs) {
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' List packages installed on this computer.
+#' List packages installed on this computer
 #'
 #' @param rm_duplicates (logical) Should duplicated names of packages be removed?
 #'        If `TRUE`, when several packages are found, only the one with the
 #'        highest version is returned. If `FALSE`, no packages are removed
 #'        from the list.
 #' @return Data frame with columns `"package"` and `"current_version"`.
+#'
 #' @export
 #' @family R-packages-related functions
+#'
+#' @concept packages
+#'
 #' @examples
 #'
 #' head(get_pkgs_installed())
@@ -141,13 +151,16 @@ get_pkgs_installed <- function(rm_duplicates = TRUE) {
 }
 
 
-#' List of packages of interest.
+#' List of packages of interest
 #'
 #' @inheritParams get_pkgs_installation_status
 #'
 #' @return Data frame with column `"package"`.
 #' @export
 #' @family R-packages-related functions
+#'
+#' @concept packages
+#'
 #' @examples
 #' # NOTE: It is not recommended to use the local lists as they might be out of date.
 #' # Here it is used for testing purposes only.
@@ -229,7 +242,7 @@ get_path_pkgs_recommended <- function(list_name, use_local_list) {
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' Get required version of packages.
+#' Get required version of packages
 #'
 #' Get required version of packages from a list in a file.
 #'
@@ -238,6 +251,8 @@ get_path_pkgs_recommended <- function(list_name, use_local_list) {
 #' @return Dataframe with columns  "package" and "required_version".
 #' @export
 #' @family R-packages-related functions
+#'
+#' @concept packages
 #'
 #' @examples
 #' # NOTE: It is not recommended to use the local lists as they might be out of date.
@@ -276,7 +291,7 @@ get_path_pkgs_req_version <- function(use_local_list) {
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' Get details about package on CRAN.
+#' Get details about package on CRAN
 #'
 #' Convenience function based on [utils::available.packages()].
 #' @return
@@ -286,6 +301,8 @@ get_path_pkgs_req_version <- function(use_local_list) {
 #' @family R-packages-related functions
 #'
 #' @seealso [utils::available.packages()]
+#'
+#' @concept packages
 #'
 #' @examples
 #' \dontrun{\donttest{
@@ -307,7 +324,7 @@ get_pkgs_cran_details <- function() {
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' Get details about non-CRAN package installation.
+#' Get details about non-CRAN package installation
 #'
 #' Get installation code of packages that either should be installed not from
 #' CRAN or a modified code shold be installed.
@@ -327,6 +344,8 @@ get_pkgs_cran_details <- function() {
 #'
 #' @export
 #' @family R-packages-related functions
+#'
+#' @concept packages
 #'
 #' @examples
 #' # NOTE: It is not recommended to use the local lists as they might be out of date.
@@ -367,6 +386,8 @@ get_path_pkgs_non_cran_installation_details <- function(use_local_list) {
 
 #' @rdname get_pkgs_installation_status
 #' @export
+#'
+#' @concept packages
 #'
 #' @examples
 #' head(get_pkgs_installation_status_local("mini"))
@@ -459,6 +480,8 @@ get_pkgs_installation_status_local <- function(list_name,
 #'
 #' @export
 #' @family R-packages-related functions
+#'
+#' @concept packages
 #'
 #' @examples
 #' \dontrun{\donttest{
@@ -598,9 +621,9 @@ get_last_pkgs_installation_status <- function() {
 
 
 # Print method ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' @rdname get_pkgs_installation_status
 #' @param x Object of interest.
 #' @param ... Arguments to other methods.
-#' @rdname get_pkgs_installation_status
 #' @export
 print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) {
 
@@ -961,7 +984,8 @@ get_pkgs_installation_code_other <- function(x) {
 # [!] Check installed packages ===============================================
 # # @rdname get_pkgs_installation_status
 #  @export
-#' Check installed packages
+
+#' Check installed packages by topic
 #'
 #' A user-fiendly version of a function to check if required R packages are
 #' installed and have minimum required versions.
@@ -969,8 +993,11 @@ get_pkgs_installation_code_other <- function(x) {
 #' @inheritParams get_pkgs_installation_status
 #' @inheritParams get_pkgs_installation_code
 #' @param ... Further arguments to [get_pkgs_installation_status()].
+#'
 #' @return Function invisibly returns object with package installation status.
 #' @export
+#'
+#' @concept packages
 #'
 #' @examples
 #' \dontrun{\donttest{
@@ -1017,8 +1044,18 @@ check_packages_by_topic <- function(list_name = NULL,
   invisible(status)
 }
 
-#' @rdname check_packages_by_topic
+#' Deprecated
+#'
+#' Deprecated. See [check_packages_by_topic()].
+#'
+#' @param ... See [check_packages_by_topic()].
+#'
+#' @name check_packages_by_topic-deprecated
+#'
 #' @export
+#'
+#' @concept deprecated
+#'
 check_installed_packages <- function(...) {
   # TODO: Create new function `check_installed_packages()` that checks info
   # about package.
@@ -1028,7 +1065,7 @@ check_installed_packages <- function(...) {
 
 # Optimize order of packages to install ======================================
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' Optimize order of packages to install.
+#' Optimize order of packages to install
 #'
 #' Helper function that takes a vector of package names and suggests how to
 #' sort the packages in order not to repeat installation of the same
@@ -1043,6 +1080,8 @@ check_installed_packages <- function(...) {
 #' @return
 #' A list with suggestion, which packages should be moved.
 #' @export
+#'
+#' @concept packages
 #'
 #' @examples
 #' \dontrun{\donttest{
@@ -1328,7 +1367,7 @@ optimize_order_to_install <- function(pkgs_vec,
 #' @param files Path to R or Rmd files
 #' @param regexp Regular expression to filter file names. Defaults to R and Rmd
 #'        files.
-#' @param ... Further arfuments to [fs::dir_ls].
+#' @param ... Further arguments to [fs::dir_ls].
 #'
 #' @return Character vector with package names.
 #' @export
