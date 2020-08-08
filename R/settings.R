@@ -31,13 +31,13 @@ restriction_status <- function(ignore_ip = getOption("bio.ignore_ip", FALSE), ..
   isTRUE(ignore_ip)
 }
 
-#' Reset RStudio state in GMC R209 and clear environment.
+#' Reset RStudio state in GMC R209 and clear environment
 #'
 #' This function:
 #' 1) Resets RStudio state and user preferences (incl. color scheme)
 #' 2) Clears function history, plot history, console, recent project list, etc.
 #' 3) Closes unnecessary windows
-#' 4) Resets custom keybindings tto "bio-default"
+#' 4) Resets custom keybindings to "bio-default"
 #' 5) Resets R Markdown and R snippets to defaults in package "snippets"
 #' 6) Creates folder "~/R/Darbinis" and starts using it as working directory
 #'    when no project is used.
@@ -50,6 +50,8 @@ restriction_status <- function(ignore_ip = getOption("bio.ignore_ip", FALSE), ..
 #' forced to be downloaded/updated.
 #'
 #' @export
+#'
+#' @concept r and rstudio settings
 #'
 #' @examples
 #' \dontrun{\donttest{
@@ -226,6 +228,7 @@ reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
 #'
 #' @param backup (logical) If `TRUE`, a backup copy is created.
 #'
+#' @concept r and rstudio settings
 
 NULL
 
@@ -306,6 +309,8 @@ reset_rstudio_layout <- function(rs_layout = "left") {
 #' RStudio functions `.rs.readUiPref()`, `.rs.writeUiPref()`.
 #' - https://stackoverflow.com/a/55940249/4783029
 #' - https://stackoverflow.com/a/54982341/4783029
+#'
+#' @concept r and rstudio settings
 #'
 #' @examples
 #' \dontrun{\donttest{
@@ -506,6 +511,8 @@ keybindings_defaults   <- c('bio-default', 'rstudio-default')
 #'
 #' @export
 #'
+#' @concept r and rstudio settings
+#'
 #' @examples
 #' \dontrun{\dontest{
 #'
@@ -582,6 +589,7 @@ reset_rstudio_keybindings <- function(to, backup = TRUE) {
 #' `reload_rstudio()` reloads RStudio without closing it.
 #'
 #' @export
+#' @concept utilities
 restart_r <- function() {
   if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
     invisible(rstudioapi::executeCommand("restartR", quiet = TRUE))
@@ -590,6 +598,7 @@ restart_r <- function() {
 
 #' @rdname restart-reload
 #' @export
+#' @concept utilities
 reload_rstudio <- function() {
   if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
     invisible(rstudioapi::executeCommand("reloadUi", quiet = TRUE))
