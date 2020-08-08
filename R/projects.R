@@ -103,7 +103,7 @@ get_path_recent_proj_list <- function() {
 }
 
 #' @rdname projects
-#' @param create (ligical) If `TRUE` and file does not exist, the file is created.
+#' @param create (logical) If `TRUE` and file does not exist, the file is created.
 #' @export
 get_path_personal_proj_list <- function(create = FALSE) {
   file_personal <- fs::path(get_path_r_user_dir(), "personal-list-of-rstudio-projects")
@@ -187,7 +187,7 @@ get_proj_names <- function(file = get_path_recent_proj_list(),
 #'        with broken paths are removed from the list of choices.
 #' @param pattern (character) regular expression to narrow down the list of
 #'        possible options.
-#' @param negate (logical) If `TRUE`,then the ooptions defined by  `pattern` are
+#' @param negate (logical) If `TRUE`, then the options defined by  `pattern` are
 #'        excluded.
 #' @param ... Further arguments.
 #'
