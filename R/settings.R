@@ -223,7 +223,7 @@ reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
 
 
 #' @name clear_and_reset
-#' @title Clear and Reset R and RStudio.
+#' @title Clear and Reset R and RStudio
 #' @description Clear and Reset R and RStudio settings and preferences.
 #'
 #' @param backup (logical) If `TRUE`, a backup copy is created.
@@ -298,7 +298,7 @@ reset_rstudio_layout <- function(rs_layout = "left") {
 
 # Settings and Preferences ===================================================
 #' @name RStudio-settings
-#' @title RStudio settings and preferences.
+#' @title RStudio settings and preferences
 #' @description  Get a list of current RStudio preferences.
 #'
 #' @details Find the names of the preferences at:
@@ -589,7 +589,9 @@ reset_rstudio_keybindings <- function(to, backup = TRUE) {
 #' `reload_rstudio()` reloads RStudio without closing it.
 #'
 #' @export
+#'
 #' @concept utilities
+#'
 restart_r <- function() {
   if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
     invisible(rstudioapi::executeCommand("restartR", quiet = TRUE))
@@ -640,7 +642,7 @@ list_files_on_desktop <- function(type = "file") {
     "txt|data?|csv|tab|tar|tat|",
     "pdf|fas|mdsx|mtsx|mas|meg|gz"
   )
-  other <- "3.6.1| 3.6.2|bs-2020|bs-2019|r-2019"
+  other <- "3.6.1| 3.6.2|4.0.2|bs-2020|bs-2019|r-2019"
 
   files_to_remove <-
     stringr::str_subset(present_files, stringr::str_glue("(\\.({exts})$)|({other})"))
