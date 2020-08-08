@@ -110,7 +110,7 @@ open_user_dictionaries_dir <- function() {
 #' @examples
 #' if (FALSE) {
 #'
-#'   rstudio_delete_spellcheck_dictionaries()
+#' rstudio_delete_spellcheck_dictionaries()
 #' rstudio_download_spellcheck_dictionaries()
 #' }
 
