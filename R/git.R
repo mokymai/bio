@@ -9,10 +9,11 @@
 #' - `open_rs_proj_vcs_opts()` opens version control setup for RStudio project.
 #' - `show_rs_vcs_rsa_key()` shows version RSA key.
 #' - `browse_rs_version_control_help()` opens website with help of version
-#'    control in RStudio .
-#' @export
+#'    control in RStudio.
 #'
+#' @export
 #' @concept programs
+#'
 # open_rs_verion_control_opts <- function() {
 open_rs_proj_vcs_opts <- function() {
   rstudioapi::executeCommand("versionControlProjectSetup", quiet = TRUE)
@@ -58,20 +59,25 @@ NULL
 # @rdname git
 #' @importFrom usethis edit_git_config
 #' @export
+#' @concept programs
 usethis::edit_git_config
 # usethis::edit_git_config("user")
 
 # @rdname git
 #' @importFrom usethis use_git_config
 #' @export
+#' @concept programs
 usethis::use_git_config
 
 
 #' @rdname git
-#' @export
+#'
 #' @param core_editor (character) Name of Git core editor.
 # TODO: pasirinkti programą, kuri atidaro git config failus [core] editor
 # https://help.github.com/en/articles/associating-text-editors-with-git
+#
+#' @export
+#' @concept programs
 
 get_git_core_editor_cmd <- function(core_editor = "atom") {
   # core_editor = "atom"  # "atom", "npp", "GitExtensions"
@@ -88,10 +94,11 @@ get_git_core_editor_cmd <- function(core_editor = "atom") {
 }
 
 
-#' Check if GIT is installed.
+#' Check if Git is installed
 #'
 #' @return logical value.
 #' @export
+#' @concept programs
 #'
 #' @examples
 #' is_git_installed()
@@ -116,6 +123,7 @@ is_git_installed <- function() {
 #'
 #' @return Path to Git as string of NULL, if Git is not installed or not configured properly.
 #' @export
+#' @concept programs
 #'
 #' @examples
 #' get_path_to_git()
@@ -287,6 +295,7 @@ browse_atom_homepage <- function() {
 
 #' @rdname atom
 #' @export
+#' @concept programs
 is_atom_installed <- function() {
   # suppressWarnings(
   #   system("atom --version", show.output.on.console = FALSE, intern = FALSE) == 0
