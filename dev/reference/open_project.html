@@ -145,19 +145,20 @@ recent RStudio projects.</p></li>
     </div>
 
     <pre class="usage"><span class='fu'>open_project</span>(
-  <span class='kw'>name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>new_session</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>proj_list</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>proj_list_path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>only_available</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>negate</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )
 
 <span class='fu'>open_project_from_personal_list</span>(
-  <span class='kw'>name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>new_session</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>only_available</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='no'>...</span>
 )
 
@@ -171,9 +172,9 @@ recent RStudio projects.</p></li>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>name</th>
-      <td><p>(string|<code>NULL</code>) The name of the project or <code>NULL</code> to choose
-a project interactively.</p></td>
+      <th>pattern</th>
+      <td><p>(character) regular expression to narrow down the list of
+possible options.</p></td>
     </tr>
     <tr>
       <th>new_session</th>
@@ -197,9 +198,9 @@ paths. If <code>proj_list</code> is not <code>NULL</code>, then <code>proj_list_
 with broken paths are removed from the list of choices.</p></td>
     </tr>
     <tr>
-      <th>pattern</th>
-      <td><p>(character) regular expression to narrow down the list of
-possible options.</p></td>
+      <th>name</th>
+      <td><p>(string|<code>NULL</code>) The name of the project or <code>NULL</code> to choose
+a project interactively.</p></td>
     </tr>
     <tr>
       <th>negate</th>
