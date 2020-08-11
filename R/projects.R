@@ -215,9 +215,9 @@ get_proj_names <- function(file = get_path_recent_proj_list(),
 #'
 #' }}
 #
-open_project <- function(name = NULL, new_session = TRUE, proj_list = NULL,
+open_project <- function(pattern = NULL, new_session = TRUE, proj_list = NULL,
   proj_list_path = NULL, only_available = TRUE,
-  pattern = NULL, negate = FALSE) {
+  name = NULL, negate = FALSE) {
 
   if (is.null(proj_list) && is.null(proj_list_path)) {
     # No projec lists are provided
@@ -301,12 +301,12 @@ open_project <- function(name = NULL, new_session = TRUE, proj_list = NULL,
 
 #' @rdname open_project
 #' @export
-open_project_from_personal_list <- function(name = NULL, new_session = TRUE,
-  only_available = TRUE, ...) {
+open_project_from_personal_list <- function(pattern = NULL, new_session = TRUE,
+  only_available = TRUE, name = NULL, ...) {
 
   new_list <- get_projs_personal()
-  open_project(name = name, new_session = new_session, proj_list = new_list,
-    only_available = only_available, ...)
+  open_project(pattern = pattern, new_session = new_session, proj_list = new_list,
+    only_available = only_available, name = name, ...)
 }
 
 #' @rdname open_project
@@ -315,13 +315,13 @@ open_project_from_personal_list <- function(name = NULL, new_session = TRUE,
 #' - `open_recent_proj_list()` -- opens the file with the list of
 #'    recent RStudio projects.
 open_recent_proj_list <- function() {
-  open_in_rs(path = get_path_recent_proj_list())
+  open_in_rstudio(path = get_path_recent_proj_list())
 }
 
 #' @rdname open_project
 #' @export
 open_personal_proj_list <- function() {
-  open_in_rs(path = get_path_personal_proj_list())
+  open_in_rstudio(path = get_path_personal_proj_list())
 }
 
 #' @rdname open_project
