@@ -56,7 +56,7 @@ get_path_rs_saved_words_dictionary <- function() {
 #' @rdname RStudio-dictionaries
 #' @export
 open_rs_saved_words_dictionary <- function() {
-  get_path_rs_saved_words_dictionary() %>% open_in_rs()
+  get_path_rs_saved_words_dictionary() %>% open_in_rstudio()
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
