@@ -411,7 +411,7 @@ get_path_rs_user_settings <- function(which = "current") {
 #' @rdname open_files
 #' @export
 open_rs_user_settings <- function() {
-    open_in_rs(path = get_path_rs_user_settings())
+    open_in_rstudio(path = get_path_rs_user_settings())
 }
 
 #' @rdname open_files
