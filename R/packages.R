@@ -906,7 +906,7 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
     cat("\n")
     usethis::ui_done("Installation code was copied to the clipboard.")
 
-    if (get_os_type() == "osx") {
+    if (get_os_type() == "mac") {
       # Mac
       usethis::ui_info("Use {yellow('Cmd+V')} to paste it.")
 

@@ -193,7 +193,7 @@ get_default_path_to_meld <- function() {
         }),
 
       # "linux"   = "/usr/bin/meld",
-      # "osx"     = "/usr/bin/meld", # <- neašku, kaip Mac'e
+      # "mac"     = "/usr/bin/meld", # <- neašku, kaip Mac'e
 
       # FIXME: Might not work if Meld is not installed
       suppressWarnings({

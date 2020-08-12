@@ -54,7 +54,7 @@ check_installed_programs <- function(which = "main", skip_online_check = FALSE) 
 
 
   # xQuartz (on Mac, OS X)
-  if (get_os_type() == "osx") {
+  if (get_os_type() == "mac") {
     # FIXME: on stack overflow it writes, that this functon might hang R session
     # if XQuartz is missing.
     # https://stackoverflow.com/questions/37438773/is-it-possible-to-check-if-a-graphics-device-is-available-without-calling-dev-ne
@@ -259,7 +259,7 @@ check_r_version <- function(v_recommended = "4.0.2", skip_online_check = FALSE) 
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_rs_version <- function(v_recommended = "1.3.1056", skip_online_check = FALSE) {
+check_rs_version <- function(v_recommended = "1.3.1073", skip_online_check = FALSE) {
 
   if (!rstudioapi::isAvailable()) {
     ui_oops("Program {red('RStudio')} is not installed or is not running. ")

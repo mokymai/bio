@@ -113,7 +113,7 @@ get_path_rs_config_dir  <- function(...) {
     switch(get_os_type(),
       "windows" = fs::path(Sys.getenv("LOCALAPPDATA"), "RStudio"),
       "linux"   = fs::path_expand_r("~/.config/RStudio"), # FIXME: path_expand_r() or path_expand() ?
-      "osx"     = {
+      "mac"     = {
         # FIXME: Fix for Mac OS X
         # defaults read com.rstudio.desktop > ~/backup-rstudio-prefs
         warning("Function get_path_rs_config_dir() may give a wrong result in Mac OS X.")
