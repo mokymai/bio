@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.5.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.6</span>
       </span>
     </div>
 
@@ -42,6 +42,23 @@
     <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-book"></span>
+     
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li class="dropdown-header">Documentation for version of package:</li>
+    <li>
+      <a href="https://mokymai.github.io/bio/">Released</a>
+    </li>
+    <li>
+      <a href="https://mokymai.github.io/bio/dev/">In-development</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="reference/index.html">Reference</a>
@@ -123,12 +140,12 @@
 </li>
 </ul>
 <!-- end list --><div class="sourceCode" id="cb3"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/check_installed_programs.html">check_installed_programs</a></span>()
-<span class="co">## ✔ Program R (3.6.3) is installed (recommended 3.6.3, available 3.6.3)</span>
+<span class="co">## ✔ Program R (4.0.2) is installed (recommended 4.0.2, available 4.0.2)</span>
 <span class="co">## ✖ Program RStudio is not installed or is not running.</span>
 <span class="co">## ✔ Program Rtools is installed.</span></pre></div>
 <div class="sourceCode" id="cb4"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/check_installed_programs.html">check_installed_programs</a></span>(<span class="st">"all"</span>)
-<span class="co">## ✔ Program R (3.6.3) is installed (recommended 3.6.3, available 3.6.3)</span>
-<span class="co">## ✔ Program RStudio (1.2.5033) is installed (recommended 1.2.5033, available 1.2.5042)</span>
+<span class="co">## ✔ Program R (4.0.2) is installed (recommended 4.0.2, available 4.0.2)</span>
+<span class="co">## ✔ Program RStudio (1.2.5033) is installed (recommended 1.2.5033, available 1.3.1056)</span>
 <span class="co">## ✔ Program Rtools is installed.</span>
 <span class="co">## ✖ Program Atom is not detected or configured incorrectly.</span>
 <span class="co">## ✔ Program Git is installed.</span>
@@ -158,9 +175,9 @@
 <li><code>'u07'</code></li>
 <li><code>'u08'</code></li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb5"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/check_installed_packages.html">check_installed_packages</a></span>(<span class="kw">list_name</span> <span class="kw">=</span> <span class="st">"mini"</span>)
+<!-- end list --><div class="sourceCode" id="cb5"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/check_packages_by_topic.html">check_packages_by_topic</a></span>(<span class="kw">list_name</span> <span class="kw">=</span> <span class="st">"mini"</span>)
 <span class="co">## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.</span></pre></div>
-<div class="sourceCode" id="cb6"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/check_installed_packages.html">check_installed_packages</a></span>(<span class="kw">list_name</span> <span class="kw">=</span> <span class="st">"mini"</span>, <span class="kw">include</span> <span class="kw">=</span> <span class="st">"newer_on_cran"</span>)
+<div class="sourceCode" id="cb6"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/check_packages_by_topic.html">check_packages_by_topic</a></span>(<span class="kw">list_name</span> <span class="kw">=</span> <span class="st">"mini"</span>, <span class="kw">include</span> <span class="kw">=</span> <span class="st">"newer_on_cran"</span>)
 <span class="co">## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.</span>
 <span class="co">## i Note: 1 package has newer version on CRAN.</span></pre></div>
 </div>
@@ -171,7 +188,7 @@
 <p>Update package <strong>bio</strong>.</p>
 <div class="sourceCode" id="cb7"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/bio_version.html">update_pkg_bio</a></span>()</pre></div>
 <p>Check if there are updates for <strong>bio</strong> or its dependency packages.</p>
-<div class="sourceCode" id="cb8"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/bio_version.html">check_updates_bio</a></span>()</pre></div>
+<div class="sourceCode" id="cb8"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/bio_version.html">check_updates_pkg_bio</a></span>()</pre></div>
 <div class="sourceCode" id="cb9"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>✔ Minimal required versions of all <span class="dv">24</span> <span class="kw">packages</span> (from list <span class="st">'bio'</span>) are already installed.</span></code></pre></div>
 <p>Update package <strong>snippets</strong>.</p>
 <div class="sourceCode" id="cb10"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/update_pkg_snippets.html">update_pkg_snippets</a></span>()</pre></div>
@@ -188,7 +205,7 @@
 <h3 class="hasAnchor">
 <a href="#dictionaries" class="anchor"></a>Dictionaries</h3>
 <p>This function downloads or updates <strong>hunspell</strong> spelling checking dictionaries dictionaries (including Lithuanian) that can be used by RStudio or by tools from <strong>wellspell.addin</strong> package.</p>
-<div class="sourceCode" id="cb12"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/spelling.html">download_spellcheck_dictionaries</a></span>()</pre></div>
+<div class="sourceCode" id="cb12"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/spelling.html">rstudio_download_spellcheck_dictionaries</a></span>()</pre></div>
 </div>
 <div id="shortcut-keys" class="section level3">
 <h3 class="hasAnchor">
@@ -410,16 +427,17 @@
 <div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>Vilmantas Gegzna <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-9500-5167" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>
+<a href="https://orcid.org/0000-0002-9500-5167">Vilmantas Gegzna</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-9500-5167" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 </ul>
 </div>
 
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/mokymai/bio"><img src="https://img.shields.io/badge/GitHub-0.0.5.3-brightgreen.svg" alt="GitHub version"></a></li>
-<li><a href="/commits/master"><img src="https://img.shields.io/badge/Updated%20on-2020--07--17-yellowgreen.svg" alt="Updated-on"></a></li>
-<li><a href="https://github.com/mokymai/bio/actions"><img src="https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://github.com/mokymai/bio"><img src="https://img.shields.io/badge/GitHub-0.0.6-brightgreen.svg" alt="GitHub version"></a></li>
+<li><a href="/commits/master"><img src="https://img.shields.io/badge/Updated%20on-2020--08--12-yellowgreen.svg" alt="Updated-on"></a></li>
+<li><a href="https://github.com/mokymai/bio/actions"><img src="https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 </ul>
 </div>
@@ -428,7 +446,7 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Vilmantas Gegzna.</p>
+  <p>Developed by <a href="https://orcid.org/0000-0002-9500-5167">Vilmantas Gegzna</a>.</p>
 </div>
 
 <div class="pkgdown">

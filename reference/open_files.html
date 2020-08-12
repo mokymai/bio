@@ -40,11 +40,7 @@
 
 
 <meta property="og:title" content="Open files and directories — open_files" />
-<meta property="og:description" content="
-
-open_in_rs() tries to open file in RStudio.
-
-
+<meta property="og:description" content="Open RStudio related files and directories.
 
 get_path_r_environ()-- gets path to file .Renviron with R environment
 variables.
@@ -81,7 +77,7 @@ variables.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.5.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.6</span>
       </span>
     </div>
 
@@ -92,6 +88,23 @@ variables.
     <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-book"></span>
+     
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Documentation for version of package:</li>
+    <li>
+      <a href="https://mokymai.github.io/bio/">Released</a>
+    </li>
+    <li>
+      <a href="https://mokymai.github.io/bio/dev/">In-development</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -123,11 +136,7 @@ variables.
     </div>
 
     <div class="ref-description">
-    
-<ul>
-<li><p><code>open_in_rs()</code> tries to open file in RStudio.</p></li>
-</ul>
-
+    <p>Open RStudio related files and directories.</p>
 <ul>
 <li><p><code>get_path_r_environ()</code>-- gets path to file <code>.Renviron</code> with R environment
 variables.</p></li>
@@ -135,9 +144,7 @@ variables.</p></li>
 
     </div>
 
-    <pre class="usage"><span class='fu'>open_in_rs</span>(<span class='no'>path</span>)
-
-<span class='fu'>open_r_user_dir</span>()
+    <pre class="usage"><span class='fu'>open_r_user_dir</span>()
 
 <span class='fu'>open_rs_config_dir</span>()
 
@@ -163,10 +170,6 @@ variables.</p></li>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>path</th>
-      <td><p>(sting) Path to file.</p></td>
-    </tr>
-    <tr>
       <th>which</th>
       <td><p>(character) type of settings: "current", "bio-default".</p></td>
     </tr>
@@ -180,9 +183,8 @@ variables.</p></li>
 
     <div class='dont-index'>
 <ul>
-<li><p><code><a href='http://fs.r-lib.org/reference/file_show.html'>fs::file_show()</a></code>,</p></li>
+<li><p><code><a href='http://fs.r-lib.org/reference/file_show.html'>fs::file_show()</a></code>, <code><a href='https://rdrr.io/r/utils/browseURL.html'>browseURL()</a></code>,</p></li>
 <li><p><code><a href='https://rdrr.io/pkg/rstudioapi/man/navigateToFile.html'>rstudioapi::navigateToFile()</a></code>,</p></li>
-<li><p><code><a href='https://rdrr.io/r/utils/browseURL.html'>browseURL()</a></code>,</p></li>
 <li><p><code><a href='https://rdrr.io/r/utils/file.edit.html'>utils::file.edit()</a></code></p></li>
 </ul>
 </div>
@@ -200,7 +202,7 @@ variables.</p></li>
 
       <footer>
       <div class="copyright">
-  <p>Developed by Vilmantas Gegzna.</p>
+  <p>Developed by <a href='https://orcid.org/0000-0002-9500-5167'>Vilmantas Gegzna</a>.</p>
 </div>
 
 <div class="pkgdown">

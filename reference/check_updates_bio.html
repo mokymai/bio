@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Clear and Reset R and RStudio — clear_and_reset • bio</title>
+<title>Deprecated. Use <code>check_updates_pkg_bio()</code> instead — check_updates_bio • bio</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="Clear and Reset R and RStudio — clear_and_reset" />
-<meta property="og:description" content="Clear and Reset R and RStudio settings and preferences." />
+<meta property="og:title" content="Deprecated. Use <code>check_updates_pkg_bio()</code> instead — check_updates_bio" />
+<meta property="og:description" content="This function was replaced by check_updates_pkg_bio() and will be removed
+soon." />
 
 
 
@@ -125,31 +126,41 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Clear and Reset R and RStudio</h1>
-    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/settings.R'><code>R/settings.R</code></a></small>
-    <div class="hidden name"><code>clear_and_reset.Rd</code></div>
+    <h1>Deprecated. Use <code>check_updates_pkg_bio()</code> instead</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/deprecated-functions.R'><code>R/deprecated-functions.R</code></a></small>
+    <div class="hidden name"><code>check_updates_bio.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Clear and Reset R and RStudio settings and preferences.</p>
+    <p>This function was replaced by <code><a href='bio_version.html'>check_updates_pkg_bio()</a></code> and will be removed
+soon.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>clear_rs_history</span>(<span class='kw'>backup</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-
-<span class='fu'>clear_r_workspace</span>()
-
-<span class='fu'>reset_rstudio_layout</span>(<span class='kw'>rs_layout</span> <span class='kw'>=</span> <span class='st'>"left"</span>)</pre>
+    <pre class="usage"><span class='fu'>check_updates_bio</span>(
+  <span class='kw'>show_status</span> <span class='kw'>=</span> <span class='st'>"always"</span>,
+  <span class='kw'>install</span> <span class='kw'>=</span> <span class='st'>"outdated"</span>,
+  <span class='kw'>upgrade</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>backup</th>
-      <td><p>(logical) If <code>TRUE</code>, a backup copy is created.</p></td>
+      <th>show_status</th>
+      <td><p>See <code><a href='bio_version.html'>check_updates_pkg_bio()</a></code>.</p></td>
     </tr>
     <tr>
-      <th>rs_layout</th>
-      <td><p>(<code>"left"</code>|<code>"right"</code>) Type of RStudio panes layout.</p></td>
+      <th>install</th>
+      <td><p>See <code><a href='bio_version.html'>check_updates_pkg_bio()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>upgrade</th>
+      <td><p>See <code><a href='bio_version.html'>check_updates_pkg_bio()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>See <code><a href='bio_version.html'>check_updates_pkg_bio()</a></code>.</p></td>
     </tr>
     </table>
 
