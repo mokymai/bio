@@ -13,7 +13,7 @@ is_32bit_os()
 is_64bit_os()
 }
 \value{
-OS name in lower case: windows, osx, linux, etc.
+OS name in lower case: windows, mac, linux, etc.
 }
 \description{
 Determine the operating system (OS) of your machine.
