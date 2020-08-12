@@ -8,10 +8,9 @@ Package ***bio***
 <!-- badges: start -->
 
 [![GitHub
-version](https://img.shields.io/badge/GitHub-0.0.5.3-brightgreen.svg)](https://github.com/mokymai/bio)
-[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--07--17-yellowgreen.svg)](/commits/master)
-[![R build
-status](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
+version](https://img.shields.io/badge/GitHub-0.0.5.9000-brightgreen.svg)](https://github.com/mokymai/bio)
+[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--08--08-yellowgreen.svg)](/commits/master)
+[![R-CMD-check](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
@@ -84,15 +83,15 @@ Options:
 
 ``` r
 bio::check_installed_programs()
-## ✔ Program R (3.6.3) is installed (recommended 3.6.3, available 3.6.3)
+## ✔ Program R (4.0.2) is installed (recommended 4.0.2, available 4.0.2)
 ## ✖ Program RStudio is not installed or is not running.
 ## ✔ Program Rtools is installed.
 ```
 
 ``` r
 bio::check_installed_programs("all")
-## ✔ Program R (3.6.3) is installed (recommended 3.6.3, available 3.6.3)
-## ✔ Program RStudio (1.2.5033) is installed (recommended 1.2.5033, available 1.2.5042)
+## ✔ Program R (4.0.2) is installed (recommended 4.0.2, available 4.0.2)
+## ✔ Program RStudio (1.2.5033) is installed (recommended 1.2.5033, available 1.3.1056)
 ## ✔ Program Rtools is installed.
 ## ✖ Program Atom is not detected or configured incorrectly.
 ## ✔ Program Git is installed.
@@ -128,12 +127,12 @@ returned by function `bio::get_pkg_lists_local()` and they include:
 <!-- end list -->
 
 ``` r
-bio::check_installed_packages(list_name = "mini")
+bio::check_packages_by_topic(list_name = "mini")
 ## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.
 ```
 
 ``` r
-bio::check_installed_packages(list_name = "mini", include = "newer_on_cran")
+bio::check_packages_by_topic(list_name = "mini", include = "newer_on_cran")
 ## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.
 ## i Note: 1 package has newer version on CRAN.
 ```

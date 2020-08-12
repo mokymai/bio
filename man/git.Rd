@@ -3,7 +3,7 @@
 \name{git}
 \alias{git}
 \alias{get_git_core_editor_cmd}
-\title{Helper functions for "Git".}
+\title{Helper functions for "Git"}
 \usage{
 get_git_core_editor_cmd(core_editor = "atom")
 }
@@ -13,3 +13,4 @@ get_git_core_editor_cmd(core_editor = "atom")
 \description{
 Helper functions for "Git".
 }
+\concept{programs}

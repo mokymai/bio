@@ -6,22 +6,23 @@
 \alias{open_recent_proj_list}
 \alias{open_personal_proj_list}
 \alias{update_personal_proj_list}
-\title{Open RStudio project.}
+\title{Open RStudio project}
 \usage{
 open_project(
-  name = NULL,
+  pattern = NULL,
   new_session = TRUE,
   proj_list = NULL,
   proj_list_path = NULL,
   only_available = TRUE,
-  pattern = NULL,
+  name = NULL,
   negate = FALSE
 )
 
 open_project_from_personal_list(
-  name = NULL,
+  pattern = NULL,
   new_session = TRUE,
   only_available = TRUE,
+  name = NULL,
   ...
 )
 
@@ -32,8 +33,8 @@ open_personal_proj_list()
 update_personal_proj_list()
 }
 \arguments{
-\item{name}{(string|\code{NULL}) The name of the project or \code{NULL} to choose
-a project interactively.}
+\item{pattern}{(character) regular expression to narrow down the list of
+possible options.}
 
 \item{new_session}{(logical) should the project be opened in a new session,
 or should the current RStudio session switch to that project? Note
@@ -48,10 +49,10 @@ paths. If \code{proj_list} is not \code{NULL}, then \code{proj_list_path} is ign
 \item{only_available}{(logical) If \code{TRUE}, non-existing projects and projects
 with broken paths are removed from the list of choices.}
 
-\item{pattern}{(character) regular expression to narrow down the list of
-possible options.}
+\item{name}{(string|\code{NULL}) The name of the project or \code{NULL} to choose
+a project interactively.}
 
-\item{negate}{(logical) If \code{TRUE},then the ooptions defined by  \code{pattern} are
+\item{negate}{(logical) If \code{TRUE}, then the options defined by  \code{pattern} are
 excluded.}
 
 \item{...}{Further arguments.}
@@ -84,3 +85,4 @@ open_project("R-2019-project")
 \item \code{\link[rstudioapi:projects]{rstudioapi::initializeProject()}}
 }
 }
+\concept{rstudio projects}

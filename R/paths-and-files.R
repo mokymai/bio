@@ -1,12 +1,13 @@
 # General ====================================================================
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' Construct path and check if it exists.
+#' Construct path and check if it exists
 #'
 #' @param base (character) The base for the path name.
 #' @param ... (character) Parts of the path.
 #'
 #' @return Path or error if the path does not exist.
 #'
+#' @concept paths and dirs
 #' @keywords internal
 #' @noRd
 #'
@@ -46,13 +47,16 @@ scoped_path_r <- function(scope = c("user", "project"), ..., envvar = NULL) {
 }
 # Get paths ==================================================================
 
-#' Get path to desktop folder.
+#' Get path to desktop folder
 #'
 #' Get path to desktop folder of current user.
 #'
 #' @param ... (character) file or folder name on desktop.
 #'
 #' @return String with path to desktop or path to file or folder on a desktop.
+#'
+#' @concept paths and dirs
+#'
 #' @export
 #'
 #' @examples
@@ -67,7 +71,11 @@ get_path_desktop <- function(...) {
 #' @title Directories of R and RStudio (desktop) settings, preferences, etc.
 #' @description
 #' - `get_path_r_user_dir()`-- gets path to the main R user directory.
+#'
+#' @concept paths and dirs
+#'
 #' @export
+#'
 #' @examples
 #' get_path_r_user_dir()
 #'
@@ -84,11 +92,16 @@ get_path_r_user_dir <- function(...) {
 #' @description
 #' - `get_path_rs_config_dir()` -- gets path to RStudio configuration directory
 #'   or its sub-directories.
+#'
 #' @param ... (character) Parts of the path. Path to sub-directories.
 #'
 #' @return
 #' - `get_path_rs_config_dir()` (string) path, if it exists, or error.
+#'
+#' @concept paths and dirs
+#'
 #' @export
+#'
 #' @examples
 #' \dontrun{\donttest{
 #' get_path_rs_config_dir()
@@ -100,7 +113,7 @@ get_path_rs_config_dir  <- function(...) {
     switch(get_os_type(),
       "windows" = fs::path(Sys.getenv("LOCALAPPDATA"), "RStudio"),
       "linux"   = fs::path_expand_r("~/.config/RStudio"), # FIXME: path_expand_r() or path_expand() ?
-      "osx"     = {
+      "mac"     = {
         # FIXME: Fix for Mac OS X
         # defaults read com.rstudio.desktop > ~/backup-rstudio-prefs
         warning("Function get_path_rs_config_dir() may give a wrong result in Mac OS X.")
@@ -119,14 +132,19 @@ get_path_rs_config_dir  <- function(...) {
 #' @description
 #' - `get_path_rs_desktop_config_dir()`` - gets path to directory (and its
 #'    sub-directories) of RStudio desktop user interface settings.
+#'
 #' @param .check (logical) If `TRUE`, additionally checks for path existance.
 #'
 #' @return (string) path to RStudio desktop user settings directory.
 #'         When `.check = TRUE`, renturns error, if the path does not exist.
-#' @export
+#'
 #' @seealso
 #' - `get_path_rs_desktop_config_dir()`:
 #' https://support.rstudio.com/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State
+#'
+#' @concept paths and dirs
+#'
+#' @export
 #'
 #' @examples
 #' \dontrun{\donttest{
@@ -167,6 +185,7 @@ get_path_rs_desktop_config_dir <- function(..., .check = FALSE) {
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @name RStudio-config-dir
+#' @concept paths and dirs
 #' @export
 #' @examples
 #' get_path_rs_snippets_dir()
@@ -177,6 +196,7 @@ get_path_rs_snippets_dir <- function() {
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @name RStudio-config-dir
+#' @concept paths and dirs
 #' @export
 #' @examples
 #' get_path_rs_keybindings_dir()
@@ -209,10 +229,12 @@ create_rs_keybindings_dir <- function() {
 #
 # library(tidyverse)
 #' @name get_rs_file_ids
-#' @title Get RStudio document IDs and paths.
+#' @title Get RStudio document IDs and paths
 #' @description Get RStudio file IDs and paths.
 #'
 #' @return Data frame with columns `id` (for IDs) and `path` (for file paths).
+#'
+#' @concept paths and dirs
 #' @export
 #'
 #' @examples
@@ -227,6 +249,7 @@ get_rs_file_ids <- function() {
 }
 
 #' @rdname get_rs_file_ids
+#' @concept paths and dirs
 #' @export
 get_rs_file_ids_user <- function() {
   get_path_rs_desktop_config_dir("notebooks/paths") %>%
@@ -239,6 +262,7 @@ get_rs_file_ids_user <- function() {
 }
 
 #' @rdname get_rs_file_ids
+#' @concept paths and dirs
 #' @export
 get_rs_file_ids_project <- function() {
   # TODO: Not implemented yet
@@ -256,10 +280,14 @@ get_rs_file_ids_project <- function() {
 #' - `set_wd_to_files_pane()`: ... -> to Files Pane Directory
 #'   (directory opened in files tab)
 #' - `set_wd_to_project_dir()`: ... -> To Project Directory
-#' - `set_wd()`: ... -> Choose Directory...
+#' - `set_wd_interactive()`: ... -> Choose Directory...
+#'
+#' @name set_wd
+#'
+#' @concept r and rstudio settings
 #'
 #' @export
-set_wd <- function() {
+set_wd_interactive <- function() {
   if (rstudioapi::isAvailable() && rstudioapi::hasFun("executeCommand")) {
     invisible(rstudioapi::executeCommand("setWorkingDir"))
   }
@@ -293,20 +321,44 @@ set_wd_to_project_dir <- function() {
 # Open files and Directories =================================================
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+#' @name open_in_rstudio
+#' @title Open file in RStudio
+#'
+#' @description
+#' Function tries opening a file in RStudio.
+#' @param path (sting) Path to file.
+#' @param ... Further arguments to [rstudioapi::navigateToFile()].
+#'
+#' @concept open
+#' @concept open files
+#'
+#' @seealso
+#' - [rstudioapi::navigateToFile()],
+#' - [fs::file_show()], [browseURL()],
+#' - [utils::file.edit()]
+#'
+#' @export
+open_in_rstudio <- function(path, ...) {
+  rstudioapi::navigateToFile(path, ...)
+  # fs::file_show(path = path, browser = "RStudio")
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @name open_files
+#'
 #' @title Open files and directories
 #' @description
-#' - `open_in_rs()` tries to open file in RStudio.
-#' @param path (sting) Path to file.
+#' Open RStudio related files and directories.
+#'
 #' @seealso
-#' - [fs::file_show()],
+#' - [fs::file_show()], [browseURL()],
 #' - [rstudioapi::navigateToFile()],
-#' - [browseURL()],
 #' - [utils::file.edit()]
-#' @export
-open_in_rs <- function(path) {
-  fs::file_show(path = path, browser = "RStudio")
-}
+#'
+#' @concept paths and dirs
+
+# @param path (sting) Path to file.
+NULL
 
 #' @rdname open_files
 #' @export
@@ -359,7 +411,7 @@ get_path_rs_user_settings <- function(which = "current") {
 #' @rdname open_files
 #' @export
 open_rs_user_settings <- function() {
-    open_in_rs(path = get_path_rs_user_settings())
+    open_in_rstudio(path = get_path_rs_user_settings())
 }
 
 #' @rdname open_files

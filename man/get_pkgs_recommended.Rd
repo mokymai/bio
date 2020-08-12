@@ -2,7 +2,7 @@
 % Please edit documentation in R/packages.R
 \name{get_pkgs_recommended}
 \alias{get_pkgs_recommended}
-\title{List of packages of interest.}
+\title{List of packages of interest}
 \usage{
 get_pkgs_recommended(
   list_name,
@@ -25,7 +25,7 @@ Optiom bight be set globally by, e.g.,
 Data frame with column \code{"package"}.
 }
 \description{
-List of packages of interest.
+List of packages of interest
 }
 \examples{
 # NOTE: It is not recommended to use the local lists as they might be out of date.
@@ -45,3 +45,4 @@ Other R-packages-related functions:
 \code{\link{get_pkgs_req_version}()}
 }
 \concept{R-packages-related functions}
+\concept{packages}

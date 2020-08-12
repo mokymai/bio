@@ -3,7 +3,7 @@
 \name{check_installed_programs}
 \alias{check_installed_programs}
 \alias{check_user_info}
-\title{Check the versions of required programs.}
+\title{Check the versions of required programs}
 \usage{
 check_installed_programs(which = "main", skip_online_check = FALSE)
 
@@ -20,7 +20,7 @@ stable programs are downloaded, when internet connection is connected.}
 The results of version checking is printed.
 }
 \description{
-Check the versions of required programs.
+Check the versions of required programs
 }
 \examples{
 
@@ -36,3 +36,4 @@ check_installed_programs("BS-2020")
 
 }}
 }
+\concept{programs}

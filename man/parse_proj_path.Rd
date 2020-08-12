@@ -3,7 +3,7 @@
 \name{parse_proj_path}
 \alias{parse_proj_path}
 \alias{extract_proj_name}
-\title{Parse project's path.}
+\title{Parse project's path}
 \usage{
 parse_proj_path(proj_path)
 
@@ -34,3 +34,4 @@ extract_proj_name(path_to_project)
 
 parse_proj_path(path_to_project)
 }
+\concept{rstudio projects}

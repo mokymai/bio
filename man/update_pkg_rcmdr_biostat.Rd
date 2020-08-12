@@ -3,7 +3,7 @@
 \name{update_pkg_rcmdr_biostat}
 \alias{update_pkg_rcmdr_biostat}
 \alias{check_updates_rcmdr_biostat}
-\title{Update package RcmdrPlugin.biostat and related packages}
+\title{Update '\pkg{RcmdrPlugin.biostat}' and related packages}
 \usage{
 check_updates_rcmdr_biostat(
   show_status = "always",
@@ -33,7 +33,7 @@ Should installation messages be printed?
 See \code{quiet} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
 }
 \description{
-Update package RcmdrPlugin.biostat and related packages
+Update '\pkg{RcmdrPlugin.biostat}' and related packages
 }
 \examples{
 \dontrun{\donttest{
@@ -44,3 +44,4 @@ check_updates_rcmdr_biostat()
 
 }}
 }
+\concept{packages}

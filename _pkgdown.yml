@@ -1,18 +1,129 @@
+# ----------------------------------------------------------------------------
+
 destination: docs
 
-home:
-  sections:
-    - dev_status
-    - authors
-    - citation
-    - license
-    - links:
-      # - text: Download from CRAN at
-      #   href: https://cloud.r-project.org/package=bs
-      - text: Report a bug at
-        href: https://mokymai.com/GegznaV/bs/issues
-  link_order:
-    # - repo
-    # - github
-    - bug_report
-    - custom
+# ----------------------------------------------------------------------------
+
+development:
+  mode: auto
+
+# ----------------------------------------------------------------------------
+
+authors:
+  Vilmantas Gegzna:
+    href: https://orcid.org/0000-0002-9500-5167
+
+# ----------------------------------------------------------------------------
+
+navbar:
+  structure:
+    left:  [home, version, intro, articles, tutorials, reference, news]
+    right: [github]
+  components:
+    version:
+      icon: fa-book
+      menu:
+      - text: "Documentation for version of package:"
+      - text: Released
+        href: https://mokymai.github.io/bio/
+      - text: In-development
+        href: https://mokymai.github.io/bio/dev/
+
+# ----------------------------------------------------------------------------
+
+# home:
+#   sections:
+#     - dev_status
+#     - authors
+#     - citation
+#     - license
+#     - links:
+#       # - text: Download from CRAN at
+#       #   href: https://cloud.r-project.org/package=bs
+#       - text: Report a bug at
+#         href: https://mokymai.com/GegznaV/bs/issues
+#   link_order:
+#     # - repo
+#     # - github
+#     - bug_report
+#     - custom
+
+# ----------------------------------------------------------------------------
+
+#'
+#' @concept paths and dirs
+# ----------------------------------------------------------------------------
+
+reference:
+
+- title: "Programs" # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- contents:
+  - check_installed_programs
+  - has_concept("programs")
+
+
+- title: "Packages" # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- contents:
+  - has_concept("packages")
+
+
+- title: "RStudio projects" # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- contents:
+  - has_concept("rstudio projects")
+
+
+- title: 'Settings' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- subtitle: 'R and RStudio settings' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- contents:
+  - has_concept("r and rstudio settings")
+
+- subtitle: 'Other settings' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- contents:
+  - has_concept("settings")
+
+
+- title: 'Utilities and helper functions' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- contents:
+  - has_concept("utilities")
+
+- subtitle: 'Paths and directories' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- contents:
+  - has_concept("paths and dirs")
+
+
+- title: 'Other functions' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  desc: "Functions not mentioned above."
+- contents:
+  - lacks_concepts(c(
+    "programs",
+    "packages",
+    "rstudio projects",
+    "paths and dirs",
+    "settings",
+    "r and rstudio settings",
+    "utilities",
+    "deprecated"
+    ))
+
+
+- title: 'Deprecated functions' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  desc: "You should **not** use these functions any more."
+- contents:
+  - has_concept("deprecated", internal = TRUE)
+
+
+
+# ----------------------------------------------------------------------------
+
+figures:
+  dev: grDevices::png
+  dpi: 96
+  dev.args: []
+  fig.ext: png
+  fig.width: 4.854
+  fig.height: 3
+  fig.retina: 2
+  fig.asp: 1.618
+
+# -------------------------------------------------------------------------

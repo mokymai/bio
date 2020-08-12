@@ -1,7 +1,7 @@
 # Get details about RStudio projects from its path ============================
 
 #' @name parse_proj_path
-#' @title Parse project's path.
+#' @title Parse project's path
 #' @description
 #' Get details about RStudio project from its path.
 #'
@@ -15,6 +15,8 @@
 #' - `extract_proj_name()` (character) a vector of extracted character names.
 #'
 #' @export
+#'
+#' @concept rstudio projects
 #'
 #' @examples
 #' path_to_project <-  c("list/proj.Rproj", "C:/R/BS-2020/bs.Rproj",
@@ -50,18 +52,21 @@ extract_proj_name <- function(proj_path) {
 
 # Manage RStudio projects ====================================================
 #' @name projects
-#' @title Manage RStudio projects.
+#' @title Manage RStudio projects
 #'
-#' @param file (character) Path to file with RStudio projects.
-#' @param sort_by (`"name"`|`"path"`|[`FALSE`])
-#'
-#' @export
 #' @description
 #' - `read_projects()` - reads file with projects and list their names and paths.
 #' @examples
 #' \dontrun{\donttest{
 #' read_projects(get_path_recent_proj_list())
 #' }}
+#'
+#' @param file (character) Path to file with RStudio projects.
+#' @param sort_by (`"name"`|`"path"`|[`FALSE`])
+#'
+#' @export
+#'
+#' @concept rstudio projects
 #'
 read_projects <- function(file, sort_by = FALSE) {
 
@@ -103,7 +108,7 @@ get_path_recent_proj_list <- function() {
 }
 
 #' @rdname projects
-#' @param create (ligical) If `TRUE` and file does not exist, the file is created.
+#' @param create (logical) If `TRUE` and file does not exist, the file is created.
 #' @export
 get_path_personal_proj_list <- function(create = FALSE) {
   file_personal <- fs::path(get_path_r_user_dir(), "personal-list-of-rstudio-projects")
@@ -170,7 +175,7 @@ get_proj_names <- function(file = get_path_recent_proj_list(),
 }
 
 # Open RStudio project =======================================================
-#' Open RStudio project.
+#' Open RStudio project
 #'
 #' Open RStudio project by name or interactively.
 #'
@@ -187,12 +192,15 @@ get_proj_names <- function(file = get_path_recent_proj_list(),
 #'        with broken paths are removed from the list of choices.
 #' @param pattern (character) regular expression to narrow down the list of
 #'        possible options.
-#' @param negate (logical) If `TRUE`,then the ooptions defined by  `pattern` are
+#' @param negate (logical) If `TRUE`, then the options defined by  `pattern` are
 #'        excluded.
 #' @param ... Further arguments.
 #'
 #' @return Opens the indicated project.
 #' @export
+#'
+#' @concept rstudio projects
+#'
 #' @seealso
 #' - [rstudioapi::openProject()]
 #' - [rstudioapi::initializeProject()]
@@ -207,9 +215,9 @@ get_proj_names <- function(file = get_path_recent_proj_list(),
 #'
 #' }}
 #
-open_project <- function(name = NULL, new_session = TRUE, proj_list = NULL,
+open_project <- function(pattern = NULL, new_session = TRUE, proj_list = NULL,
   proj_list_path = NULL, only_available = TRUE,
-  pattern = NULL, negate = FALSE) {
+  name = NULL, negate = FALSE) {
 
   if (is.null(proj_list) && is.null(proj_list_path)) {
     # No projec lists are provided
@@ -293,12 +301,12 @@ open_project <- function(name = NULL, new_session = TRUE, proj_list = NULL,
 
 #' @rdname open_project
 #' @export
-open_project_from_personal_list <- function(name = NULL, new_session = TRUE,
-  only_available = TRUE, ...) {
+open_project_from_personal_list <- function(pattern = NULL, new_session = TRUE,
+  only_available = TRUE, name = NULL, ...) {
 
   new_list <- get_projs_personal()
-  open_project(name = name, new_session = new_session, proj_list = new_list,
-    only_available = only_available, ...)
+  open_project(pattern = pattern, new_session = new_session, proj_list = new_list,
+    only_available = only_available, name = name, ...)
 }
 
 #' @rdname open_project
@@ -307,13 +315,13 @@ open_project_from_personal_list <- function(name = NULL, new_session = TRUE,
 #' - `open_recent_proj_list()` -- opens the file with the list of
 #'    recent RStudio projects.
 open_recent_proj_list <- function() {
-  open_in_rs(path = get_path_recent_proj_list())
+  open_in_rstudio(path = get_path_recent_proj_list())
 }
 
 #' @rdname open_project
 #' @export
 open_personal_proj_list <- function() {
-  open_in_rs(path = get_path_personal_proj_list())
+  open_in_rstudio(path = get_path_personal_proj_list())
 }
 
 #' @rdname open_project

@@ -2,7 +2,7 @@
 % Please edit documentation in R/paths-and-files.R
 \name{get_path_desktop}
 \alias{get_path_desktop}
-\title{Get path to desktop folder.}
+\title{Get path to desktop folder}
 \usage{
 get_path_desktop(...)
 }
@@ -18,3 +18,4 @@ Get path to desktop folder of current user.
 \examples{
 get_path_desktop()
 }
+\concept{paths and dirs}

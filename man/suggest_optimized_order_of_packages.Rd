@@ -2,7 +2,7 @@
 % Please edit documentation in R/packages.R
 \name{suggest_optimized_order_of_packages}
 \alias{suggest_optimized_order_of_packages}
-\title{Optimize order of packages to install.}
+\title{Optimize order of packages to install}
 \usage{
 suggest_optimized_order_of_packages(pkgs_vec, recursive_dependencies = FALSE)
 }
@@ -26,3 +26,4 @@ package if it can be installed as a dependence of some other package.
 suggest_optimized_order_of_packages(c("stringr", "stringi", "glue", "readr"))
 }}
 }
+\concept{packages}

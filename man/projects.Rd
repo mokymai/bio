@@ -9,7 +9,7 @@
 \alias{get_projs_personal}
 \alias{get_projs_all}
 \alias{get_proj_names}
-\title{Manage RStudio projects.}
+\title{Manage RStudio projects}
 \usage{
 read_projects(file, sort_by = FALSE)
 
@@ -30,7 +30,7 @@ get_proj_names(file = get_path_recent_proj_list(), sort_by = FALSE)
 
 \item{sort_by}{(\code{"name"}|\code{"path"}|\code{\link{FALSE}})}
 
-\item{create}{(ligical) If \code{TRUE} and file does not exist, the file is created.}
+\item{create}{(logical) If \code{TRUE} and file does not exist, the file is created.}
 }
 \description{
 \itemize{
@@ -75,3 +75,4 @@ get_projs_all()
 head(get_proj_names())
 }}
 }
+\concept{rstudio projects}

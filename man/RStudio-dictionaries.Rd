@@ -9,7 +9,7 @@
 \alias{open_rs_system_dictionaries_dir}
 \alias{open_rs_dictionaries_dir}
 \alias{open_user_dictionaries_dir}
-\title{Rstudio dictionaries}
+\title{RStudio dictionaries}
 \usage{
 get_path_saved_words_dictionary()
 
@@ -26,7 +26,7 @@ open_rs_dictionaries_dir()
 open_user_dictionaries_dir()
 }
 \value{
-Path
+String with path.
 }
 \description{
 Functions to work with RStudio dictionaries.
@@ -71,3 +71,5 @@ get_path_saved_words_dictionary()
 \seealso{
 \link[rstudioapi:dictionaries]{rstudioapi::dictionaries}
 }
+\concept{dictionaries}
+\concept{paths and dirs}

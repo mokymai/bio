@@ -2,7 +2,7 @@
 % Please edit documentation in R/packages.R
 \name{get_pkgs_req_version}
 \alias{get_pkgs_req_version}
-\title{Get required version of packages.}
+\title{Get required version of packages}
 \usage{
 get_pkgs_req_version(use_local_list = getOption("bio.use_local_list", FALSE))
 }
@@ -38,3 +38,4 @@ Other R-packages-related functions:
 \code{\link{get_pkgs_recommended}()}
 }
 \concept{R-packages-related functions}
+\concept{packages}

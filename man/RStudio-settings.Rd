@@ -8,7 +8,7 @@
 \alias{get_rs_ui_prefs}
 \alias{get_rs_user_settings_names}
 \alias{get_rs_ui_pref_names}
-\title{RStudio settings and preferences.}
+\title{RStudio settings and preferences}
 \usage{
 reset_rstudio_user_settings(to, backup = TRUE, ask = TRUE)
 
@@ -83,3 +83,4 @@ RStudio functions \code{.rs.readUiPref()}, \code{.rs.writeUiPref()}.
 \item https://stackoverflow.com/a/54982341/4783029
 }
 }
+\concept{r and rstudio settings}

@@ -7,7 +7,7 @@
 \alias{get_last_pkgs_installation_status}
 \alias{print.pkgs_installation_status}
 \alias{get_pkgs_installation_code}
-\title{Get package installation status and code.}
+\title{Get package installation status and code}
 \usage{
 get_pkgs_installation_status_local(
   list_name,
@@ -143,3 +143,4 @@ Other R-packages-related functions:
 \code{\link{get_pkgs_req_version}()}
 }
 \concept{R-packages-related functions}
+\concept{packages}

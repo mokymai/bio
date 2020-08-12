@@ -15,7 +15,7 @@ list_pkgs_used_in_files(files)
 \item{regexp}{Regular expression to filter file names. Defaults to R and Rmd
 files.}
 
-\item{...}{Further arfuments to \link[fs:dir_ls]{fs::dir_ls}.}
+\item{...}{Further arguments to \link[fs:dir_ls]{fs::dir_ls}.}
 
 \item{files}{Path to R or Rmd files}
 }

@@ -4,7 +4,7 @@
 \alias{str_move}
 \alias{str_move_before}
 \alias{str_move_after}
-\title{Change the position of a string in a vector.}
+\title{Change the position of a string in a vector}
 \usage{
 str_move_before(x, what, move_before)
 

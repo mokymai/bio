@@ -24,3 +24,4 @@ bio::reload_rstudio()
 
 }}
 }
+\concept{r and rstudio settings}

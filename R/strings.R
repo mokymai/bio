@@ -1,5 +1,5 @@
 #' @name str_move
-#' @title Change the position of a string in a vector.
+#' @title Change the position of a string in a vector
 #' @description
 #' Change the position of a string in a character vector.
 #'

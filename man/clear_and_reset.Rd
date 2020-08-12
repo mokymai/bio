@@ -5,7 +5,7 @@
 \alias{clear_rs_history}
 \alias{clear_r_workspace}
 \alias{reset_rstudio_layout}
-\title{Clear and Reset R and RStudio.}
+\title{Clear and Reset R and RStudio}
 \usage{
 clear_rs_history(backup = FALSE)
 
@@ -21,3 +21,4 @@ reset_rstudio_layout(rs_layout = "left")
 \description{
 Clear and Reset R and RStudio settings and preferences.
 }
+\concept{r and rstudio settings}

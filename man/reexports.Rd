@@ -7,6 +7,7 @@
 \alias{use_git_config}
 \alias{open_backup_dir}
 \title{Objects exported from other packages}
+\concept{programs}
 \keyword{internal}
 \description{
 These objects are imported from other packages. Follow the links

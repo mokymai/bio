@@ -2,7 +2,7 @@
 % Please edit documentation in R/settings.R
 \name{reset_rstudio_gmc}
 \alias{reset_rstudio_gmc}
-\title{Reset RStudio state in GMC R209 and clear environment.}
+\title{Reset RStudio state in GMC R209 and clear environment}
 \usage{
 reset_rstudio_gmc(..., force_update_dictionaries = FALSE)
 }
@@ -18,7 +18,7 @@ This function:
 \item Resets RStudio state and user preferences (incl. color scheme)
 \item Clears function history, plot history, console, recent project list, etc.
 \item Closes unnecessary windows
-\item Resets custom keybindings tto "bio-default"
+\item Resets custom keybindings to "bio-default"
 \item Resets R Markdown and R snippets to defaults in package "snippets"
 \item Creates folder "~/R/Darbinis" and starts using it as working directory
 when no project is used.
@@ -35,3 +35,4 @@ bio::reset_rstudio_gmc()
 
 }}
 }
+\concept{r and rstudio settings}

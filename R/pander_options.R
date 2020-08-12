@@ -7,6 +7,8 @@
 #' @param ... valid option - value pairs (e.g., `option = "value"`).
 #' @seealso [pander::evalsOptions()]
 #'
+#' @concept settings
+#'
 #' @export
 #'
 #' @examples

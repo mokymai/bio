@@ -3,14 +3,17 @@
 # RStudio version control ====================================================
 
 #' @name version-control
-#' @title Version control in RStudio.
+#' @title Version control in RStudio
 #' @description
 #' Helper functions for version control system (vcs) in RStudio.
 #' - `open_rs_proj_vcs_opts()` opens version control setup for RStudio project.
 #' - `show_rs_vcs_rsa_key()` shows version RSA key.
 #' - `browse_rs_version_control_help()` opens website with help of version
-#'    control in RStudio .
+#'    control in RStudio.
+#'
 #' @export
+#' @concept programs
+#'
 # open_rs_verion_control_opts <- function() {
 open_rs_proj_vcs_opts <- function() {
   rstudioapi::executeCommand("versionControlProjectSetup", quiet = TRUE)
@@ -18,12 +21,14 @@ open_rs_proj_vcs_opts <- function() {
 
 #' @name version-control
 #' @export
+#' @concept programs
 show_rs_vcs_rsa_key <- function() {
   rstudioapi::executeCommand("versionControlShowRsaKey", quiet = TRUE)
 }
 
 #' @name version-control
 #' @export
+#' @concept programs
 browse_rs_version_control_help <- function() {
   rstudioapi::executeCommand("versionControlHelp", quiet = TRUE)
 }
@@ -44,29 +49,35 @@ browse_rs_version_control_help <- function() {
 # )
 # ==========================================================================~~
 #' @name git
-#' @title Helper functions for "Git".
+#' @title Helper functions for "Git"
 #' @description
 #' Helper functions for "Git".
+#' @concept programs
 NULL
 
 
 # @rdname git
 #' @importFrom usethis edit_git_config
 #' @export
+#' @concept programs
 usethis::edit_git_config
 # usethis::edit_git_config("user")
 
 # @rdname git
 #' @importFrom usethis use_git_config
 #' @export
+#' @concept programs
 usethis::use_git_config
 
 
 #' @rdname git
-#' @export
+#'
 #' @param core_editor (character) Name of Git core editor.
 # TODO: pasirinkti programą, kuri atidaro git config failus [core] editor
 # https://help.github.com/en/articles/associating-text-editors-with-git
+#
+#' @export
+#' @concept programs
 
 get_git_core_editor_cmd <- function(core_editor = "atom") {
   # core_editor = "atom"  # "atom", "npp", "GitExtensions"
@@ -83,10 +94,11 @@ get_git_core_editor_cmd <- function(core_editor = "atom") {
 }
 
 
-#' Check if GIT is installed.
+#' Check if Git is installed
 #'
 #' @return logical value.
 #' @export
+#' @concept programs
 #'
 #' @examples
 #' is_git_installed()
@@ -111,6 +123,7 @@ is_git_installed <- function() {
 #'
 #' @return Path to Git as string of NULL, if Git is not installed or not configured properly.
 #' @export
+#' @concept programs
 #'
 #' @examples
 #' get_path_to_git()
@@ -132,9 +145,10 @@ get_path_to_git <- function() {
 # Meld =======================================================================
 
 #' @name meld
-#' @title Helper functions for "Meld".
+#' @title Helper functions for "Meld"
 #'
 #' @export
+#' @concept programs
 #'
 #' @examples
 #' is_meld_installed()
@@ -144,6 +158,7 @@ browse_meld_homepage <- function() {
 
 #' @rdname meld
 #' @export
+#' @concept programs
 download_meld <- function() {
   switch(get_os_type(),
     windows = browseURL("https://download.gnome.org/binaries/win32/meld/3.18/Meld-3.18.3-win32.msi"),
@@ -160,6 +175,7 @@ download_meld <- function() {
 
 #' @rdname meld
 #' @export
+#' @concept programs
 get_default_path_to_meld <- function() {
 
   path_to <-
@@ -177,7 +193,7 @@ get_default_path_to_meld <- function() {
         }),
 
       # "linux"   = "/usr/bin/meld",
-      # "osx"     = "/usr/bin/meld", # <- neašku, kaip Mac'e
+      # "mac"     = "/usr/bin/meld", # <- neašku, kaip Mac'e
 
       # FIXME: Might not work if Meld is not installed
       suppressWarnings({
@@ -200,18 +216,20 @@ get_default_path_to_meld <- function() {
 
 #' @rdname meld
 #' @export
+#' @concept programs
 is_meld_installed <- function(path_to_meld = get_default_path_to_meld()) {
   file.exists(path_to_meld)
 }
 
-#' @param path_to_meld (character|`NULL`)
+#' @rdname meld
 #'
+#' @param path_to_meld (character|`NULL`)
 #' @param prompt (logical)
 #' @param keepBackup (logical)
 #' @param trustExitCode (logical)
 #'
-#' @rdname meld
 #' @export
+#' @concept programs
 set_meld_as_git_difftool_mergetool <- function(path_to_meld = NULL,
   prompt = FALSE, keepBackup = FALSE, trustExitCode = TRUE) {
 
@@ -267,6 +285,7 @@ git config --global difftool.prompt {tolower(prompt)}
 #' @title Helper functions for "Atom".
 #'
 #' @export
+#' @concept programs
 #'
 #' @examples
 #' is_atom_installed()
@@ -276,6 +295,7 @@ browse_atom_homepage <- function() {
 
 #' @rdname atom
 #' @export
+#' @concept programs
 is_atom_installed <- function() {
   # suppressWarnings(
   #   system("atom --version", show.output.on.console = FALSE, intern = FALSE) == 0
@@ -295,6 +315,7 @@ is_atom_installed <- function() {
 
 #' @rdname atom
 #' @export
+#' @concept programs
 set_atom_as_git_core_editor <- function() {
   if (is_atom_installed()) {
     glue::glue('git config --global core.editor "atom --wait"')
@@ -303,6 +324,7 @@ set_atom_as_git_core_editor <- function() {
 
 #' @rdname atom
 #' @export
+#' @concept programs
 install_atom_meld <- function() {
   # Installs Atom package "atim-meld"
   if (is_atom_installed()) {

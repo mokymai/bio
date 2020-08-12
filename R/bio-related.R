@@ -1,17 +1,17 @@
 
 #' @name bio_version
-#' @title Version management of package 'bio'.
+#' @title Version management of package '\pkg{bio}'
 #' @description
-#' `get_vesion_bio()` returns version number of package \pkg{bio}.
-#' `check_updates_bio()` checks if package \pkg{bio} has a recommended version.
+#' `get_vesion_pkg_bio()` returns version number of package \pkg{bio}.
+#' `check_updates_pkg_bio()` checks if package \pkg{bio} has a recommended version.
 #' `update_pkg_bio()` tries to update package \pkg{bio}.
 #'
 #' @examples
-#' get_vesion_bio()
+#' get_vesion_pkg_bio()
 #'
 #' \dontrun{\donttest{
 #'
-#' check_updates_bio()
+#' check_updates_pkg_bio()
 #' update_bio()
 #'
 #' }}
@@ -19,25 +19,29 @@ NULL
 
 #' @rdname bio_version
 #' @export
-get_vesion_bio  <- function() {
+#' @concept packages
+get_vesion_pkg_bio  <- function() {
   packageVersion("bio")
 }
 
 #' @rdname bio_version
-#' @export
+#'
 #' @param show_status See argument `show_status` in [get_pkgs_installation_status()].
 #' @param install See argument `install` in [get_pkgs_installation_status()].
-#' @inheritParams check_installed_packages
+#' @inheritParams check_packages_by_topic
 #' @param ... Arguments to further methods.
 #'
-check_updates_bio  <- function(show_status = "always", install = "outdated",
+#' @export
+#' @concept packages
+check_updates_pkg_bio  <- function(show_status = "always", install = "outdated",
   upgrade = FALSE, ...) {
 
-  check_installed_packages(list_name = "bio", show_status = show_status,
+  check_packages_by_topic(list_name = "bio", show_status = show_status,
     install = install, upgrade = upgrade, ...)
 
   # get_pkgs_installation_status(list_name = "bio", show_status = show_status,
   # install = install, ...)
+
 }
 
 #' @rdname bio_version
@@ -53,6 +57,7 @@ check_updates_bio  <- function(show_status = "always", install = "outdated",
 #'        See `quiet` in [remotes::install_github()].
 #'
 #' @export
+#' @concept packages
 update_pkg_bio <- function(upgrade = FALSE, force = FALSE, quiet = TRUE) {
   checkmate::assert_flag(force)
   checkmate::assert_flag(quiet)
@@ -68,9 +73,9 @@ update_pkg_bio <- function(upgrade = FALSE, force = FALSE, quiet = TRUE) {
         'remotes::install_github(c("GegznaV/backup.tools", "GegznaV/snippets", "mokymai/bio"), ',
         '  dependencies = TRUE, upgrade = {upgrade_str}{force_str}{quiet_str})',
         "",
-        'bio::get_vesion_bio()',
+        'bio::get_vesion_pkg_bio()',
         "",
-        'bio::check_installed_packages("bio", show_status = "newer_on_cran", upgrade = {upgrade_str})'
+        'bio::check_packages_by_topic("bio", show_status = "newer_on_cran", upgrade = {upgrade_str})'
       )
     )
     rstudioapi::restartSession(command)
@@ -78,8 +83,8 @@ update_pkg_bio <- function(upgrade = FALSE, force = FALSE, quiet = TRUE) {
   } else {
     remotes::install_github(c("GegznaV/backup.tools", "mokymai/bio"),
       dependencies = TRUE, upgrade = upgrade, force = force, quiet = quiet)
-    bio::get_vesion_bio()
-    bio::check_installed_packages("bio", show_status = "newer_on_cran",
+    bio::get_vesion_pkg_bio()
+    bio::check_packages_by_topic("bio", show_status = "newer_on_cran",
       upgrade = upgrade)
   }
 }

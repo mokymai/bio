@@ -32,3 +32,4 @@ pander_options("digits")
 \seealso{
 \code{\link[pander:evalsOptions]{pander::evalsOptions()}}
 }
+\concept{settings}
