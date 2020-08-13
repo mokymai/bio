@@ -112,13 +112,9 @@ jobs:
         with:
           repository: ${{ env.DEST_REPO }} # 'mokymai/download'
           # ref: 'master'
-          path: "${{ env.DEST_REPO_NAME }}"
           # fetch-depth: ''
-
-          # Personal access token (PAT) used to fetch the repository. The PAT is configured
-          # with the local git config, which enables your scripts to run authenticated git
-          # commands. The post-job step removes the PAT.
-          # token: ''
+          path: "${{ env.DEST_REPO_NAME }}"
+          token: "${{ secrets.DEPLOY_DRAT_TOKEN }}"
 
           # SSH key used to fetch the repository. The SSH key is configured with the local
           # git config, which enables your scripts to run authenticated git commands. The
