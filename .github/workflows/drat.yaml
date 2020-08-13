@@ -31,7 +31,7 @@ jobs:
 
     steps:
       - name: Show DEST_REPO_NAME
-        run: echo ${{ DEST_REPO_NAME }}
+        run: echo ${{ env.DEST_REPO_NAME }}
 #
 #       - uses: actions/checkout@v2
 #
