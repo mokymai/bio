@@ -28,11 +28,10 @@ jobs:
       DEST_REPO:  mokymai/download
       DEST_ORG:   mokymai
       DEST_REPO_NAME:  download
-      ENV: ${{ env.SOURCE_REPO }}
 
     steps:
-      - name: Show env
-        run: echo $ENV
+      - name: Show DEST_REPO_NAME
+        run: echo ${{ DEST_REPO_NAME }}
 #
 #       - uses: actions/checkout@v2
 #
