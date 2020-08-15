@@ -50,7 +50,7 @@ get_path_saved_words_dictionary <- function() {
 #'    saved by user
 #' - `open_rs_saved_words_dictionary()`
 get_path_rs_saved_words_dictionary <- function() {
-  get_path_rs_desktop_dir("monitored/lists/user_dictionary")
+  get_path_rs_desktop_config_dir("monitored/lists/user_dictionary")
 }
 
 #' @rdname RStudio-dictionaries
