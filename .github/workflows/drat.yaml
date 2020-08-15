@@ -103,7 +103,7 @@ jobs:
           token: "${{ secrets.DEPLOY_DRAT_TOKEN }}"
           # fetch-depth: ''
 
-     - name: Drat -- insert
+      - name: Drat -- insert
         if: success()
         run: |
           built_package <-
