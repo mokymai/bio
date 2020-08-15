@@ -27,7 +27,7 @@ bio_envir <- new.env()
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 globalVariables(c(
   ".", ".rs.downloadAllDictionaries", "bowse_meld_homepage", "cran_version",
-  "current_version", "deps_below", "get_path_rs_desktop_dir", "install_from",
+  "current_version", "deps_below", "install_from",
   "n_deps", "name", "on_cran", "package", "panderOptions", "pandoc.header",
   "pandoc.list", "pkg", "value"
 ))
