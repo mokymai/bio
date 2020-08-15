@@ -93,7 +93,7 @@ jobs:
           path: check
 
 # Everything above is standard build & check steps
-# Now the steps to deploy to ${DEST_REPO_NAME}
+# Now the steps to deploy to ${DEST_REPO}
 
       - uses: actions/checkout@v2
         with:
@@ -103,20 +103,7 @@ jobs:
           token: "${{ secrets.DEPLOY_DRAT_TOKEN }}"
           # fetch-depth: ''
 
-
-# Please leave commented lines below, they are very helpful in troubleshooting.
-      # - name: Drat -- update README.md
-      # if: success()
-      # run: |
-      #    cd ${TMP_DIR}
-      #    # Grab the portion of the file we want to re-use
-      #    awk '/^# hySpc\.pkgs$/, /^Packages currently residing here:$/' README.md > README.tmp
-      #    # append the listing of .tar.gz present, along a little formating
-      #    # (appending to .md that will be parsed and displayed by GH)
-      #    ls -lhR  --time-style=long-iso | grep \.tar\.gz$ | awk '{print "\n* "$8, " ("$6")"}' >> README.tmp
-      #    mv README.tmp README.md
-
-      - name: Drat -- insert
+     - name: Drat -- insert
         if: success()
         run: |
           built_package <-
