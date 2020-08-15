@@ -95,7 +95,8 @@ jobs:
 # Everything above is standard build & check steps
 # Now the steps to deploy to ${DEST_REPO}
 
-      - uses: actions/checkout@v2
+      - name: Git clone ${{ env.DEST_REPO }}
+        uses: actions/checkout@v2
         with:
           repository: ${{ env.DEST_REPO }} # 'mokymai/download'
           ref:   'master'
