@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - drat
+      - drat2
 
 # Note on the above: if more than one branch given one may stomp on the other
 name: drat
