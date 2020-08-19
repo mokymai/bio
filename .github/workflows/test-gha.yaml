@@ -50,7 +50,7 @@ jobs:
       - name: Drat -- git versions -1
         run: |
           cd ${TMP_DIR}
-          git ls-files -z |\
+          git ls-files -z .tar.gz '*.tar.gz' |\
             xargs -0 -n 1 -I {} -- git log -1 --format="%as {}" {} |\
             grep \.tar\.gz$                           |\
             grep Archive -v                           |\
@@ -58,7 +58,7 @@ jobs:
             sed 's/_/ /g'                             |\
             sed 's/.tar.gz/ /g'                       |\
             awk '{print "- **"$2"**", $3, "("$1")"}'  |\
-            sort -ir
+            sort -Vi
 
       - name: Drat -- awk
         run: |
