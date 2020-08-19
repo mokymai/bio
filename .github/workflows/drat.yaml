@@ -76,7 +76,7 @@ jobs:
         run:   roxygen2::roxygenize()
 
       - name: Build source package
-        if: runner.os == 'Windows' && matrix.config.r == "release"
+        if: runner.os == 'Windows' && matrix.config.r == 'release'
         shell: Rscript {0}
         run: |
             dir.create("check", showWarnings = FALSE)
