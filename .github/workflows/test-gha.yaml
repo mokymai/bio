@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - drat2
+      - drat
 
 # Note on the above: if more than one branch given one may stomp on the other
 name: drat
@@ -38,7 +38,7 @@ jobs:
 
 # The steps to include built package in ${DEST_REPO}
 
-      - name: Git clone ${{ env.DEST_REPO }}
+      - name: Git clone DEST_REPO
         uses: actions/checkout@v2
         with:
           repository: ${{ env.DEST_REPO }} # 'mokymai/download'
