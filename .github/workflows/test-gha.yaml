@@ -1,0 +1,59 @@
+on:
+  push:
+    branches:
+      - drat2
+
+# Note on the above: if more than one branch given one may stomp on the other
+name: drat
+
+jobs:
+  drat:
+    runs-on: ${{ matrix.config.os }}
+
+    name: "drat: ${{ matrix.config.os }} (R-${{ matrix.config.r }})"
+
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - {os: ubuntu-16.04,   r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
+          # - {os: ubuntu-16.04,   r: 'oldrel',  rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
+          # - {os: ubuntu-16.04,   r: 'devel',   rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
+          # - {os: windows-latest, r: 'release'}
+          # - {os: windows-latest, r: 'oldrel'}
+          # - {os: windows-latest, r: 'devel'}
+          # - {os: macOS-latest,   r: 'release'}
+          # - {os: macOS-latest,   r: 'oldrel'}
+          # - {os: macOS-latest,   r: 'devel'}
+
+    env:
+      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+      RSPM: ${{ matrix.config.rspm }}
+      SOURCE_REPO: ${{ github.repository }}
+      DEST_REPO:   mokymai/download
+      TMP_DIR:     tmp_dir
+
+    steps:
+      - uses: actions/checkout@v2
+
+# The steps to include built package in ${DEST_REPO}
+
+      - name: Git clone ${{ env.DEST_REPO }}
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ env.DEST_REPO }} # 'mokymai/download'
+          ref:   'master'
+          path:  "${{ env.TMP_DIR }}"
+          token: "${{ secrets.DEPLOY_DRAT_TOKEN }}"
+          # fetch-depth: ''
+
+      - name: Drat -- git versions -1
+        run: |
+          cd ${TMP_DIR}
+          git ls-files -z | xargs -0 -n1 -I{} -- git log -1 --format="%ai {}" {}
+
+      - name: Drat -- git versions -2
+        run: |
+          cd ${TMP_DIR}
+          git ls-files -z | xargs -0 -n1 -I{} -- git log -2 --format="%ai {}" {}
+
