@@ -45,7 +45,7 @@ jobs:
           ref:   'master'
           path:  "${{ env.TMP_DIR }}"
           token: "${{ secrets.DEPLOY_DRAT_TOKEN }}"
-          # fetch-depth: ''
+          fetch-depth: '-1'
 
       - name: Drat -- git versions -1
         run: |
