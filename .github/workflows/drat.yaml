@@ -120,31 +120,6 @@ jobs:
           )
         shell: Rscript {0}
 
-      - name: Drat -- update README.md
-        if: success()
-        run: |
-
-           # Grab the firs portion of the file we want to re-use
-           awk '/^<!-- document begins: DO NOT REMOVE THIS LINE -->/, /^<!-- current versions: start -->/' README.md > README.tmp
-
-           # Append the listing of .tar.gz present, along a little formating
-           # (appending to .md that will be parsed and displayed by GH)
-           echo "" >> README.tmp # add blank line
-
-           ls -lhR --time-style=long-iso --ignore="Archive" |\
-             grep \.tar\.gz$     |\
-             sed 's/_/ /g'       |\
-             sed 's/.tar.gz/ /g' |\
-             awk '{print "- "$8, $9, "("$6")"}' >> README.tmp
-
-           echo "" >> README.tmp # add blank line
-
-           # Grab one more portion of the file we want to re-use
-           awk '/^<!-- current versions: end -->/, /^<!-- end of document: DO NOT REMOVE THIS LINE -->/' README.md >> README.tmp
-
-           # Create new version of README.md
-           mv README.tmp README.md
-
       - name: Drat -- commit and push
         if: success()
         run: |
