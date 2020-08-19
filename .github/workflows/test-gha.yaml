@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - drat
+      - test-GH-Actions
 
 # Note on the above: if more than one branch given one may stomp on the other
 name: drat
@@ -52,8 +52,8 @@ jobs:
           cd ${TMP_DIR}
           git ls-files -z | xargs -0 -n1 -I{} -- git log -1 --format="%ai {}" {}
 
-      - name: Drat -- git versions -2
+      - name: Drat -- git versions -3
         run: |
           cd ${TMP_DIR}
-          git ls-files -z | xargs -0 -n1 -I{} -- git log -2 --format="%ai {}" {}
+          git ls-files -z | xargs -0 -n1 -I{} -- git log -3 --format="%ai {}" {}
 
