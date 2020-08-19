@@ -1,10 +1,10 @@
 on:
   push:
     branches:
-      - test-GH-Actions
+      - drat
 
 # Note on the above: if more than one branch given one may stomp on the other
-name: drat
+name: test-GH-Actions
 
 jobs:
   drat:
