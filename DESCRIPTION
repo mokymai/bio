@@ -18,9 +18,8 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-Remotes:
-  GegznaV/backup.tools,
-  GegznaV/snippets
+Additional_repositories:
+  https://mokymai.github.io/download/
 Imports:
   backup.tools (>= 0.0.1),
   checkmate,
