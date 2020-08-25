@@ -2,7 +2,7 @@
 % Please edit documentation in R/deprecated-functions.R
 \name{open_in_rs}
 \alias{open_in_rs}
-\title{Deprecated. Use \code{open_in_rstudio()} instead}
+\title{DEPRECATED. Use \code{open_in_rstudio()} instead}
 \usage{
 open_in_rs(path)
 }

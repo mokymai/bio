@@ -3,7 +3,7 @@
 \name{check_packages_by_topic-deprecated}
 \alias{check_packages_by_topic-deprecated}
 \alias{check_installed_packages}
-\title{Deprecated. Use \code{check_packages_by_topic()} instead}
+\title{DEPRECATED. Use \code{check_packages_by_topic()} instead}
 \usage{
 check_installed_packages(...)
 }
