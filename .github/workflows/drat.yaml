@@ -130,6 +130,7 @@ jobs:
 
       - name: Drat -- commit and push
         if: success()
+        shell: bash
         run: |
           pwd
           dir
