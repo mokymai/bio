@@ -19,10 +19,10 @@ jobs:
           # - {os: ubuntu-16.04,   r: 'oldrel',  rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
           # - {os: ubuntu-16.04,   r: 'devel',   rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
           - {os: windows-latest, r: 'release'}
-          - {os: windows-latest, r: 'oldrel'}
+          # - {os: windows-latest, r: 'oldrel'}
           # - {os: windows-latest, r: 'devel'}
-          - {os: macOS-latest,   r: 'release'}
-          - {os: macOS-latest,   r: 'oldrel'}
+          # - {os: macOS-latest,   r: 'release'}
+          # - {os: macOS-latest,   r: 'oldrel'}
           # - {os: macOS-latest,   r: 'devel'}
 
     env:
@@ -131,9 +131,19 @@ jobs:
       - name: Drat -- commit and push
         if: success()
         run: |
+          pwd
+          dir
+          echo "${TMP_DIR}"
+
           cd "${TMP_DIR}" # move into the subdir, which is Git controlled
+
+          pwd
+          git status
           git add *
+          git status
           git add -f *.tar.gz
+          git status
+
           git commit -m "Update from ${SOURCE_REPO}" || echo "Nothing to commit"
           git push origin master                     || echo "Nothing to commit"
 
