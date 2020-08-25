@@ -24,7 +24,7 @@ Optiom bight be set globally by, e.g.,
 \code{options(bio.use_local_list = TRUE)}.}
 
 \item{upgrade}{Upgrade dependencies.
-See \code{upgrade} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
+See \code{upgrade} in \code{\link[remotes:install_cran]{remotes::install_cran()}}.}
 
 \item{...}{Further arguments to \code{\link[=get_pkgs_installation_status]{get_pkgs_installation_status()}}.}
 }

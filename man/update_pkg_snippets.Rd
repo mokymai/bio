@@ -8,15 +8,15 @@ update_pkg_snippets(upgrade = FALSE, force = FALSE, quiet = TRUE)
 }
 \arguments{
 \item{upgrade}{Upgrade dependencies.
-See \code{upgrade} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
+See \code{upgrade} in \code{\link[remotes:install_cran]{remotes::install_cran()}}.}
 
 \item{force}{(logical) \code{TRUE} or \code{FALSE}.
 Force to update.
-See \code{force} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
+See \code{force} in \code{\link[remotes:install_cran]{remotes::install_cran()}}.}
 
 \item{quiet}{(logical) \code{TRUE} or \code{FALSE}.
 Should installation messages be printed?
-See \code{quiet} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
+See \code{quiet} in \code{\link[remotes:install_cran]{remotes::install_cran()}}.}
 }
 \description{
 Update '\pkg{snippets}' and related packages

@@ -20,17 +20,17 @@ update_pkg_rcmdr_biostat(upgrade = FALSE, force = FALSE, quiet = TRUE)
 \item{install}{See argument \code{install} in \code{\link[=get_pkgs_installation_status]{get_pkgs_installation_status()}}.}
 
 \item{upgrade}{Upgrade dependencies.
-See \code{upgrade} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
+See \code{upgrade} in \code{\link[remotes:install_cran]{remotes::install_cran()}}.}
 
 \item{...}{Arguments to further methods.}
 
 \item{force}{(logical) \code{TRUE} or \code{FALSE}.
 Force to update.
-See \code{force} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
+See \code{force} in \code{\link[remotes:install_cran]{remotes::install_cran()}}.}
 
 \item{quiet}{(logical) \code{TRUE} or \code{FALSE}.
 Should installation messages be printed?
-See \code{quiet} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
+See \code{quiet} in \code{\link[remotes:install_cran]{remotes::install_cran()}}.}
 }
 \description{
 Update '\pkg{RcmdrPlugin.biostat}' and related packages

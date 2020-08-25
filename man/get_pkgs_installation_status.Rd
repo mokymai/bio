@@ -102,7 +102,7 @@ Defaults to the value of \code{install}.}
 returned only invisibly.}
 
 \item{upgrade}{Upgrade dependencies.
-See \code{upgrade} in \code{\link[remotes:install_github]{remotes::install_github()}}.}
+See \code{upgrade} in \code{\link[remotes:install_cran]{remotes::install_cran()}}.}
 }
 \description{
 Get package installation status (e.g., if packages of interest are installed
