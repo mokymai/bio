@@ -28,7 +28,6 @@ get_vesion_pkg_bio  <- function() {
 #'
 #' @param show_status See argument `show_status` in [get_pkgs_installation_status()].
 #' @param install See argument `install` in [get_pkgs_installation_status()].
-#' @inheritParams check_packages_by_topic
 #' @param ... Arguments to further methods.
 #'
 #' @export
