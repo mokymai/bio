@@ -3,8 +3,7 @@ on:
     branches:
       - drat
 
-# Note on the above: if more than one branch given one may stomp on the other
-name: drat
+name: Insert package (drat)
 
 jobs:
   drat:
@@ -30,6 +29,7 @@ jobs:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       SOURCE_REPO: ${{ github.repository }}
       DEST_REPO:   mokymai/download
+      REPO: ${{ github.event.repository.name }}
       TMP_DIR:     tmp_dir
       RSPM:        ${{ matrix.config.rspm }}
 
@@ -67,7 +67,6 @@ jobs:
       - name: Install dependencies
         shell: Rscript {0}
         run: |
-          # remotes::install_cran(c("rcmdcheck", "roxygen2", "drat"))
           remotes::install_cran(c("roxygen2", "devtools", "drat"))
           remotes::install_deps(dependencies = TRUE)
 
@@ -76,11 +75,11 @@ jobs:
         run:   roxygen2::roxygenize()
 
       - name: Build source package
-        if: runner.os == 'Windows' && matrix.config.r == 'release'
+        # if: runner.os == 'Windows' && matrix.config.r == 'release'
         shell: Rscript {0}
         run: |
-            dir.create("check", showWarnings = FALSE)
-            devtools::build(path = "check")
+          dir.create("check", showWarnings = FALSE)
+          devtools::build(path = "check")
 
       - name: Build binary package
         if: runner.os != 'Linux'
