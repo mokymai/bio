@@ -10,6 +10,7 @@ read_rs_user_settings(...)
 \item{...}{Arguments passed to \code{\link[=rstudio_read_user_settings]{rstudio_read_user_settings()}}}
 }
 \description{
+DO NOT USE THIS FUNCTION!
 This function was replaced by \code{\link[=rstudio_read_user_settings]{rstudio_read_user_settings()}} and will be removed soon.
 }
 \concept{deprecated}

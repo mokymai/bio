@@ -10,6 +10,7 @@ reset_rstudio_gmc(...)
 \item{...}{Arguments passed to \code{\link[=rstudio_reset_gmc]{rstudio_reset_gmc()}}}
 }
 \description{
+DO NOT USE THIS FUNCTION!
 This function was replaced by \code{\link[=rstudio_reset_gmc]{rstudio_reset_gmc()}} and will be removed soon.
 }
 \concept{deprecated}

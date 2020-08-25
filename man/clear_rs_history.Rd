@@ -10,6 +10,7 @@ clear_rs_history(...)
 \item{...}{Arguments passed to \code{\link[=rstudio_clear_history]{rstudio_clear_history()}}}
 }
 \description{
+DO NOT USE THIS FUNCTION!
 This function was replaced by \code{\link[=rstudio_clear_history]{rstudio_clear_history()}} and will be removed soon.
 }
 \concept{deprecated}

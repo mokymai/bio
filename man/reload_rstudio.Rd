@@ -10,6 +10,7 @@ reload_rstudio(...)
 \item{...}{Arguments passed to \code{\link[=rstudio_reload]{rstudio_reload()}}}
 }
 \description{
+DO NOT USE THIS FUNCTION!
 This function was replaced by \code{\link[=rstudio_reload]{rstudio_reload()}} and will be removed soon.
 }
 \concept{deprecated}

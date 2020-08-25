@@ -10,6 +10,7 @@ restart_r(...)
 \item{...}{Arguments passed to \code{\link[=rstudio_restart_r]{rstudio_restart_r()}}}
 }
 \description{
+DO NOT USE THIS FUNCTION!
 This function was replaced by \code{\link[=rstudio_restart_r]{rstudio_restart_r()}} and will be removed soon.
 }
 \concept{deprecated}

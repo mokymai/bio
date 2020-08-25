@@ -10,6 +10,7 @@ reset_rstudio_user_settings(...)
 \item{...}{Arguments passed to \code{\link[=rstudio_reset_user_settings]{rstudio_reset_user_settings()}}}
 }
 \description{
+DO NOT USE THIS FUNCTION!
 This function was replaced by \code{\link[=rstudio_reset_user_settings]{rstudio_reset_user_settings()}} and will be removed soon.
 }
 \concept{deprecated}

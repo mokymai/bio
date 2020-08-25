@@ -1,6 +1,7 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' DEPRECATED. Use `open_in_rstudio()` instead
 #'
+#' DO NOT USE THIS FUNCTION!
 #' This function was replaced by [open_in_rstudio()] and will be removed soon.
 #'
 #' @param path See [open_in_rstudio()].
@@ -15,6 +16,7 @@ open_in_rs <- function(path) {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' DEPRECATED. Use `check_packages_by_topic()` instead
 #'
+#' DO NOT USE THIS FUNCTION!
 #' This function was replaced by  [check_packages_by_topic()] and will be
 #'  removed soon.
 #'
@@ -36,6 +38,7 @@ check_installed_packages <- function(...) {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' DEPRECATED. Use `check_updates_pkg_bio()` instead
 #'
+#' DO NOT USE THIS FUNCTION!
 #' This function was replaced by [check_updates_pkg_bio()] and will be removed
 #' soon.
 #'
@@ -62,6 +65,7 @@ check_updates_bio  <- function(show_status = "always", install = "outdated",
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' DEPRECATED. Use `get_vesion_pkg_bio()` instead
 #'
+#' DO NOT USE THIS FUNCTION!
 #' This function was replaced by [get_vesion_pkg_bio()] and will be removed
 #' soon.
 #'
@@ -75,6 +79,7 @@ get_vesion_bio  <- function() {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' DEPRECATED. Use `rstudio_reset_gmc()` instead
 #'
+#' DO NOT USE THIS FUNCTION!
 #' This function was replaced by [rstudio_reset_gmc()] and will be removed soon.
 #' @param ... Arguments passed to [rstudio_reset_gmc()]
 #'
@@ -88,6 +93,7 @@ reset_rstudio_gmc <- function(...) {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' DEPRECATED. Use `rstudio_clear_history()` instead
 #'
+#' DO NOT USE THIS FUNCTION!
 #' This function was replaced by [rstudio_clear_history()] and will be removed soon.
 #' @param ... Arguments passed to [rstudio_clear_history()]
 #'
@@ -101,6 +107,7 @@ clear_rs_history <- function(...) {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' DEPRECATED. Use `rstudio_reset_layout()` instead
 #'
+#' DO NOT USE THIS FUNCTION!
 #' This function was replaced by [rstudio_reset_layout()] and will be removed soon.
 #' @param ... Arguments passed to [rstudio_reset_layout()]
 #'
@@ -114,6 +121,7 @@ reset_rstudio_layout <- function(...) {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' DEPRECATED. Use `rstudio_reset_user_settings()` instead
 #'
+#' DO NOT USE THIS FUNCTION!
 #' This function was replaced by [rstudio_reset_user_settings()] and will be removed soon.
 #' @param ... Arguments passed to [rstudio_reset_user_settings()]
 #'
@@ -127,6 +135,7 @@ reset_rstudio_user_settings <- function(...) {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' DEPRECATED. Use `rstudio_read_user_settings()` instead
 #'
+#' DO NOT USE THIS FUNCTION!
 #' This function was replaced by [rstudio_read_user_settings()] and will be removed soon.
 #' @param ... Arguments passed to [rstudio_read_user_settings()]
 #'
@@ -140,6 +149,7 @@ read_rs_user_settings <- function(...) {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' DEPRECATED. Use `rstudio_read_ui_prefs()` instead
 #'
+#' DO NOT USE THIS FUNCTION!
 #' This function was replaced by [rstudio_read_ui_prefs()] and will be removed soon.
 #' @param ... Arguments passed to [rstudio_read_ui_prefs()]
 #'
@@ -153,6 +163,7 @@ read_rs_ui_prefs <- function(...) {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' DEPRECATED. Use `rstudio_get_ui_prefs()` instead
 #'
+#' DO NOT USE THIS FUNCTION!
 #' This function was replaced by [rstudio_get_ui_prefs()] and will be removed soon.
 #' @param ... Arguments passed to [rstudio_get_ui_prefs()]
 #'
@@ -166,6 +177,7 @@ get_rs_ui_prefs <- function(...) {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' DEPRECATED. Use `rstudio_get_user_setting_names()` instead
 #'
+#' DO NOT USE THIS FUNCTION!
 #' This function was replaced by [rstudio_get_user_setting_names()] and will be removed soon.
 #' @param ... Arguments passed to [rstudio_get_user_setting_names()]
 #'
@@ -179,6 +191,7 @@ get_rs_user_settings_names <- function(...) {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' DEPRECATED. Use `rstudio_get_ui_pref_names()` instead
 #'
+#' DO NOT USE THIS FUNCTION!
 #' This function was replaced by [rstudio_get_ui_pref_names()] and will be removed soon.
 #' @param ... Arguments passed to [rstudio_get_ui_pref_names()]
 #'
@@ -192,6 +205,7 @@ get_rs_ui_pref_names <- function(...) {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' DEPRECATED. Use `rstudio_reset_keybindings()` instead
 #'
+#' DO NOT USE THIS FUNCTION!
 #' This function was replaced by [rstudio_reset_keybindings()] and will be removed soon.
 #' @param ... Arguments passed to [rstudio_reset_keybindings()]
 #'
@@ -205,6 +219,7 @@ reset_rstudio_keybindings <- function(...) {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' DEPRECATED. Use `rstudio_restart_r()` instead
 #'
+#' DO NOT USE THIS FUNCTION!
 #' This function was replaced by [rstudio_restart_r()] and will be removed soon.
 #' @param ... Arguments passed to [rstudio_restart_r()]
 #'
@@ -218,6 +233,7 @@ restart_r <- function(...) {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' DEPRECATED. Use `rstudio_reload()` instead
 #'
+#' DO NOT USE THIS FUNCTION!
 #' This function was replaced by [rstudio_reload()] and will be removed soon.
 #' @param ... Arguments passed to [rstudio_reload()]
 #'

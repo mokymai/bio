@@ -10,6 +10,7 @@ get_rs_ui_prefs(...)
 \item{...}{Arguments passed to \code{\link[=rstudio_get_ui_prefs]{rstudio_get_ui_prefs()}}}
 }
 \description{
+DO NOT USE THIS FUNCTION!
 This function was replaced by \code{\link[=rstudio_get_ui_prefs]{rstudio_get_ui_prefs()}} and will be removed soon.
 }
 \concept{deprecated}

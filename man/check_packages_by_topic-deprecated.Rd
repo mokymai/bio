@@ -11,6 +11,7 @@ check_installed_packages(...)
 \item{...}{See \code{\link[=check_packages_by_topic]{check_packages_by_topic()}}.}
 }
 \description{
+DO NOT USE THIS FUNCTION!
 This function was replaced by  \code{\link[=check_packages_by_topic]{check_packages_by_topic()}} and will be
 removed soon.
 }

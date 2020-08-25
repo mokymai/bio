@@ -10,6 +10,7 @@ get_rs_ui_pref_names(...)
 \item{...}{Arguments passed to \code{\link[=rstudio_get_ui_pref_names]{rstudio_get_ui_pref_names()}}}
 }
 \description{
+DO NOT USE THIS FUNCTION!
 This function was replaced by \code{\link[=rstudio_get_ui_pref_names]{rstudio_get_ui_pref_names()}} and will be removed soon.
 }
 \concept{deprecated}
