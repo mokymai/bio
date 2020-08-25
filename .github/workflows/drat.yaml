@@ -1,9 +1,9 @@
 on:
   push:
     branches:
-      - drat
+      - master
 
-name: Insert package (drat)
+name: Publish package (drat)
 
 jobs:
   drat:
@@ -15,14 +15,11 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          # - {os: ubuntu-16.04,   r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
-          # - {os: ubuntu-16.04,   r: 'oldrel',  rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
-          # - {os: ubuntu-16.04,   r: 'devel',   rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
           - {os: windows-latest, r: 'release'}
           - {os: windows-latest, r: 'oldrel'}
-          # - {os: windows-latest, r: 'devel'}
           - {os: macOS-latest,   r: 'release'}
           - {os: macOS-latest,   r: 'oldrel'}
+          # - {os: windows-latest, r: 'devel'}
           # - {os: macOS-latest,   r: 'devel'}
 
     env:
@@ -30,7 +27,6 @@ jobs:
       SOURCE_REPO: ${{ github.repository }}
       DEST_REPO:   mokymai/download
       TMP_DIR:     tmp_dir
-      RSPM:        ${{ matrix.config.rspm }}
 
     steps:
       - uses: actions/checkout@v2
@@ -53,15 +49,6 @@ jobs:
           path: ${{ env.R_LIBS_USER }}
           key:  ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
-
-      - name: Install system dependencies
-        if: runner.os == 'Linux'
-        env:
-          RHUB_PLATFORM: linux-x86_64-ubuntu-gcc
-        run: |
-          Rscript -e "remotes::install_github('r-hub/sysreqs')"
-          sysreqs=$(Rscript -e "cat(sysreqs::sysreq_commands('DESCRIPTION'))")
-          sudo -s eval "$sysreqs"
 
       - name: Install dependencies
         shell: Rscript {0}
@@ -90,10 +77,9 @@ jobs:
 # The steps to include the built package in ${DEST_REPO}
       - name: Configure Git
         run: |
-          # git config --global url."https://${TOKEN}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
-
           git config --global user.email "actions@github.com"
           git config --global user.name  "GitHub Actions"
+          # git config --global url."https://${TOKEN}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
         env:
           TOKEN: ${{ secrets.DEPLOY_DRAT_TOKEN }}
 
@@ -119,7 +105,6 @@ jobs:
           built_packages
 
           for (i in seq_along(built_packages)) {
-
             drat::insertPackages(
               file    = built_packages[i],
               repodir = Sys.getenv("TMP_DIR"),
