@@ -59,7 +59,7 @@ restriction_status <- function(ignore_ip = getOption("bio.ignore_ip", FALSE), ..
 #' bio::rstudio_reset_in_gmc()
 #'
 #' }}
-rstudio_gmc_reset <- function(..., force_update_dictionaries = FALSE) {
+rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
 
   status <- restriction_status(...)
 
