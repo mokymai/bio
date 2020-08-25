@@ -33,7 +33,7 @@ esquisse                    | 0.3.0            | FALSE  | -
 factoextra                  | 1.0.7            | FALSE  | -
 flextable                   | 0.5.10           | FALSE  | -
 forcats                     | 0.5.0            | FALSE  | -
-fs                          | 1.5.5            | FALSE  | -
+fs                          | 1.5.0            | FALSE  | -
 ggforce                     | 0.3.2            | FALSE  | -
 gghighlight                 | 0.3.0            | FALSE  | -
 ggmosaic                    | 0.3.0            | FALSE  | -
@@ -73,7 +73,7 @@ relimp                      | 1.0-5            | FALSE  | Rcmdr
 remotes                     | 2.2.0            | FALSE  | -
 rgl                         | 0.96.0           | FALSE  | Rcmdr
 rlang                       | 0.4.7            | FALSE  | -
-rmarkdown                   | 2.3.3            | FALSE  | –
+rmarkdown                   | 2.3              | FALSE  | –
 roxygen2                    | 7.1.1            | FALSE  | -
 rstatix                     | 0.6.0            | FALSE  | -
 rvg                         | 0.2.5            | FALSE  | -
