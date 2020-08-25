@@ -47,17 +47,17 @@ check_updates_pkg_bio  <- function(show_status = "always", install = "outdated",
 #'
 #' @param upgrade
 #'        Upgrade dependencies.
-#'        See `upgrade` in [remotes::install_github()].
+#'        See `upgrade` in [remotes::install_cran()].
 #' @param force (logical) `TRUE` or `FALSE`.
 #'        Force to update.
-#'        See `force` in [remotes::install_github()].
+#'        See `force` in [remotes::install_cran()].
 #' @param quiet (logical) `TRUE` or `FALSE`.
 #'        Should installation messages be printed?
-#'        See `quiet` in [remotes::install_github()].
+#'        See `quiet` in [remotes::install_cran()].
 #'
 #' @export
 #' @concept packages
-update_pkg_bio <- function(upgrade = FALSE, force = FALSE, quiet = TRUE) {
+update_pkg_bio <- function(upgrade = TRUE, force = FALSE, quiet = TRUE) {
   checkmate::assert_flag(force)
   checkmate::assert_flag(quiet)
   upgrade_str <- chk_arg_upgrade(upgrade)
@@ -69,8 +69,11 @@ update_pkg_bio <- function(upgrade = FALSE, force = FALSE, quiet = TRUE) {
     command <- stringr::str_glue(
       paste(sep = "\n",
         '# Updating package "bio"...',
-        'remotes::install_github(c("GegznaV/backup.tools", "GegznaV/snippets", "mokymai/bio"), ',
-        '  dependencies = TRUE, upgrade = {upgrade_str}{force_str}{quiet_str})',
+        'Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS = "true")',
+        '',
+        'repos <- c("https://mokymai.github.io/download/", getOption("repos"))',
+        'remotes::install_cran("bio", repos = repos, dependencies = TRUE,',
+        '  upgrade = {upgrade_str}{force_str}{quiet_str})',
         "",
         'bio::get_vesion_pkg_bio()',
         "",
@@ -80,7 +83,8 @@ update_pkg_bio <- function(upgrade = FALSE, force = FALSE, quiet = TRUE) {
     rstudioapi::restartSession(command)
 
   } else {
-    remotes::install_github(c("GegznaV/backup.tools", "GegznaV/snippets", "mokymai/bio"),
+    repos <- c("https://mokymai.github.io/download/", getOption("repos"))
+    remotes::install_cran("bio", repos = repos,
       dependencies = TRUE, upgrade = upgrade, force = force, quiet = quiet)
     bio::get_vesion_pkg_bio()
     bio::check_packages_by_topic("bio", show_status = "newer_on_cran",
