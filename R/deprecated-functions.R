@@ -73,16 +73,16 @@ get_vesion_bio  <- function() {
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' DEPRECATED. Use `rstudio_gmc_reset()` instead
+#' DEPRECATED. Use `rstudio_reset_gmc()` instead
 #'
-#' This function was replaced by [rstudio_gmc_reset()] and will be removed soon.
-#' @param ... Arguments passed to [rstudio_gmc_reset()]
+#' This function was replaced by [rstudio_reset_gmc()] and will be removed soon.
+#' @param ... Arguments passed to [rstudio_reset_gmc()]
 #'
 #' @export
 #' @concept deprecated
 reset_rstudio_gmc <- function(...) {
-  .Deprecated("rstudio_gmc_reset")
-  rstudio_gmc_reset(...)
+  .Deprecated("rstudio_reset_gmc")
+  rstudio_reset_gmc(...)
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
