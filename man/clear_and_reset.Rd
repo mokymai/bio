@@ -2,16 +2,16 @@
 % Please edit documentation in R/settings.R
 \name{clear_and_reset}
 \alias{clear_and_reset}
-\alias{clear_rs_history}
+\alias{rstudio_clear_history}
 \alias{clear_r_workspace}
-\alias{reset_rstudio_layout}
+\alias{rstudio_reset_layout}
 \title{Clear and Reset R and RStudio}
 \usage{
-clear_rs_history(backup = FALSE)
+rstudio_clear_history(backup = FALSE)
 
 clear_r_workspace()
 
-reset_rstudio_layout(rs_layout = "left")
+rstudio_reset_layout(rs_layout = "left")
 }
 \arguments{
 \item{backup}{(logical) If \code{TRUE}, a backup copy is created.}

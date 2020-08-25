@@ -2,25 +2,25 @@
 % Please edit documentation in R/settings.R
 \name{RStudio-settings}
 \alias{RStudio-settings}
-\alias{reset_rstudio_user_settings}
-\alias{read_rs_user_settings}
-\alias{read_rs_ui_prefs}
-\alias{get_rs_ui_prefs}
-\alias{get_rs_user_settings_names}
-\alias{get_rs_ui_pref_names}
+\alias{rstudio_reset_user_settings}
+\alias{rstudio_read_user_settings}
+\alias{rstudio_read_ui_prefs}
+\alias{rstudio_get_ui_prefs}
+\alias{rstudio_get_user_setting_names}
+\alias{rstudio_get_ui_pref_names}
 \title{RStudio settings and preferences}
 \usage{
-reset_rstudio_user_settings(to, backup = TRUE, ask = TRUE)
+rstudio_reset_user_settings(to, backup = TRUE, ask = TRUE)
 
-read_rs_user_settings(which = "current")
+rstudio_read_user_settings(which = "current")
 
-read_rs_ui_prefs(which = "current")
+rstudio_read_ui_prefs(which = "current")
 
-get_rs_ui_prefs()
+rstudio_get_ui_prefs()
 
-get_rs_user_settings_names(which = "current")
+rstudio_get_user_setting_names(which = "current")
 
-get_rs_ui_pref_names(which = "current")
+rstudio_get_ui_pref_names(which = "current")
 }
 \arguments{
 \item{to}{The set of RStudio user settings.
@@ -51,28 +51,28 @@ https://github.com/rstudio/rstudio/blob/5f2b79427ed526e22f78c794a4b5894ebee2de75
 # .rs.writeUiPref()
 
 #-------------------------------------------------
-head(read_rs_user_settings(), n = 2)
+head(rstudio_read_user_settings(), n = 2)
 
-head(read_rs_user_settings("bio-default"), n = 2)
-
-#-------------------------------------------------
-head(read_rs_ui_prefs(), n = 2)
-
-head(read_rs_ui_prefs("bio-default"), n = 2)
+head(rstudio_read_user_settings("bio-default"), n = 2)
 
 #-------------------------------------------------
-head(get_rs_ui_prefs(), n = 2)
+head(rstudio_read_ui_prefs(), n = 2)
+
+head(rstudio_read_ui_prefs("bio-default"), n = 2)
 
 #-------------------------------------------------
-get_rs_user_settings_names()
+head(rstudio_get_ui_prefs(), n = 2)
 
-get_rs_ui_pref_names()
+#-------------------------------------------------
+rstudio_get_user_setting_names()
+
+rstudio_get_ui_pref_names()
 
 #-------------------------------------------------
 
-reset_rstudio_user_settings(to = "bio-default")
+rstudio_reset_user_settings(to = "bio-default")
 
-reset_rstudio_user_settings(to = "rstudio-default")
+rstudio_reset_user_settings(to = "rstudio-default")
 
 }}
 }

@@ -81,7 +81,7 @@ update_pkg_bio <- function(upgrade = FALSE, force = FALSE, quiet = TRUE) {
     rstudioapi::restartSession(command)
 
   } else {
-    remotes::install_github(c("GegznaV/backup.tools", "mokymai/bio"),
+    remotes::install_github(c("GegznaV/backup.tools", "GegznaV/snippets", "mokymai/bio"),
       dependencies = TRUE, upgrade = upgrade, force = force, quiet = quiet)
     bio::get_vesion_pkg_bio()
     bio::check_packages_by_topic("bio", show_status = "newer_on_cran",

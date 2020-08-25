@@ -2,16 +2,16 @@
 % Please edit documentation in R/settings.R
 \name{restart-reload}
 \alias{restart-reload}
-\alias{restart_r}
-\alias{reload_rstudio}
+\alias{rstudio_restart_r}
+\alias{rstudio_reload}
 \title{Functions that to restart or reload programs}
 \usage{
-restart_r()
+rstudio_restart_r()
 
-reload_rstudio()
+rstudio_reload()
 }
 \description{
-\code{restart_r()} restarts R session in RStudio.
-\code{reload_rstudio()} reloads RStudio without closing it.
+\code{rstudio_restart_r()} restarts R session in RStudio.
+\code{rstudio_reload()} reloads RStudio without closing it.
 }
 \concept{utilities}

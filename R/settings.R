@@ -1,8 +1,8 @@
 # bio::rstudio_download_spellcheck_dictionaries()
-# bio::reset_rstudio_user_settings(to = "bio-default", backup = TRUE)
-# bio::reset_rstudio_keybindings(to = "bio-default", backup = TRUE)
+# bio::rstudio_reset_user_settings(to = "bio-default", backup = TRUE)
+# bio::rstudio_reset_keybindings(to = "bio-default", backup = TRUE)
 # snippets::install_snippets_from_package("snippets", type = c("r", "markdown"), backup = TRUE)
-# bio::reload_rstudio()
+# bio::rstudio_reload()
 
 # Clear and Reset ============================================================
 ip_gmc_r209_compact <- "158.129.170.(3,200-237)"
@@ -56,10 +56,10 @@ restriction_status <- function(ignore_ip = getOption("bio.ignore_ip", FALSE), ..
 #' @examples
 #' \dontrun{\donttest{
 #'
-#' bio::reset_rstudio_gmc()
+#' bio::rstudio_reset_in_gmc()
 #'
 #' }}
-reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
+rstudio_gmc_reset <- function(..., force_update_dictionaries = FALSE) {
 
   status <- restriction_status(...)
 
@@ -69,7 +69,7 @@ reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
   }
 
   # Tab History
-  clear_rs_history()
+  rstudio_clear_history()
   # clear_r_history(backup = FALSE)
   unlink(".Rhistory")
 
@@ -91,7 +91,7 @@ reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
   fs::dir_create(bs_folder)
 
   # User preferences
-  bio::reset_rstudio_user_settings(to = "bio-default", backup = TRUE, ask = FALSE)
+  bio::rstudio_reset_user_settings(to = "bio-default", backup = TRUE, ask = FALSE)
 
   # Tab Files
   # TODO: Go to home dir
@@ -113,7 +113,7 @@ reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
   bio::clear_r_workspace() # clearWorkspace
 
   # Layout
-  bio::reset_rstudio_layout()
+  bio::rstudio_reset_layout()
   rstudioapi::executeCommand("zoomActualSize",  quiet = TRUE)
   rstudioapi::executeCommand("zoomIn",          quiet = TRUE)
   rstudioapi::executeCommand("zoomIn",          quiet = TRUE)
@@ -123,7 +123,7 @@ reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
   snippets::install_snippets_from_package(type = c("r", "markdown"))
 
   # Reset keybindings
-  bio::reset_rstudio_keybindings("bio-default", backup = TRUE)
+  bio::rstudio_reset_keybindings("bio-default", backup = TRUE)
 
   # Console
   rstudioapi::executeCommand("closeAllTerminals", quiet = TRUE)
@@ -189,7 +189,7 @@ reset_rstudio_gmc <- function(..., force_update_dictionaries = FALSE) {
   )
 
   if (to_restart) {
-    bio::reload_rstudio()
+    bio::rstudio_reload()
   }
 
   invisible()
@@ -254,7 +254,7 @@ clear_r_history <- function(backup = TRUE) {
 
 #' @rdname clear_and_reset
 #' @export
-clear_rs_history <- function(backup = FALSE) {
+rstudio_clear_history <- function(backup = FALSE) {
   if (isTRUE(backup)) {
     rstudioapi::executeCommand("saveHistory", quiet = TRUE)
   }
@@ -277,7 +277,7 @@ clear_r_workspace <- function() {
 #' @rdname clear_and_reset
 #' @param rs_layout (`"left"`|`"right"`) Type of RStudio panes layout.
 #' @export
-reset_rstudio_layout <- function(rs_layout = "left") {
+rstudio_reset_layout <- function(rs_layout = "left") {
   if (rstudioapi::isAvailable() && rstudioapi::hasFun("executeCommand")) {
     # Set opened RS tabs
     rstudioapi::executeCommand("activateFiles",       quiet = TRUE)
@@ -319,28 +319,28 @@ reset_rstudio_layout <- function(rs_layout = "left") {
 #' # .rs.writeUiPref()
 #'
 #' #-------------------------------------------------
-#' head(read_rs_user_settings(), n = 2)
+#' head(rstudio_read_user_settings(), n = 2)
 #'
-#' head(read_rs_user_settings("bio-default"), n = 2)
-#'
-#' #-------------------------------------------------
-#' head(read_rs_ui_prefs(), n = 2)
-#'
-#' head(read_rs_ui_prefs("bio-default"), n = 2)
+#' head(rstudio_read_user_settings("bio-default"), n = 2)
 #'
 #' #-------------------------------------------------
-#' head(get_rs_ui_prefs(), n = 2)
+#' head(rstudio_read_ui_prefs(), n = 2)
+#'
+#' head(rstudio_read_ui_prefs("bio-default"), n = 2)
 #'
 #' #-------------------------------------------------
-#' get_rs_user_settings_names()
+#' head(rstudio_get_ui_prefs(), n = 2)
 #'
-#' get_rs_ui_pref_names()
+#' #-------------------------------------------------
+#' rstudio_get_user_setting_names()
+#'
+#' rstudio_get_ui_pref_names()
 #'
 #' #-------------------------------------------------
 #'
-#' reset_rstudio_user_settings(to = "bio-default")
+#' rstudio_reset_user_settings(to = "bio-default")
 #'
-#' reset_rstudio_user_settings(to = "rstudio-default")
+#' rstudio_reset_user_settings(to = "rstudio-default")
 #'
 #' }}
 #' @inheritParams get_path_rs_user_settings
@@ -358,7 +358,7 @@ user_settings_defaults <- c('bio-default', 'rstudio-default')
 #'        created.
 #' @param ask (logical) If `TRUE`, user confirmation to reset settings is
 #'       required.
-reset_rstudio_user_settings <- function(to, backup = TRUE, ask = TRUE) {
+rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
 
   if (missing(to)) {
     ui_stop(paste0(
@@ -425,7 +425,7 @@ reset_rstudio_user_settings <- function(to, backup = TRUE, ask = TRUE) {
 
 #' @rdname RStudio-settings
 #' @export
-read_rs_user_settings <- function(which = "current") {
+rstudio_read_user_settings <- function(which = "current") {
   file   <- get_path_rs_user_settings(which)
   liness <- readr::read_lines(file)
   prefs  <- str_glue_eval('list({stringr::str_c(liness, collapse = ", ")})')
@@ -434,8 +434,8 @@ read_rs_user_settings <- function(which = "current") {
 
 #' @rdname RStudio-settings
 #' @export
-read_rs_ui_prefs <- function(which = "current") {
-  prefs <- read_rs_user_settings(which)
+rstudio_read_ui_prefs <- function(which = "current") {
+  prefs <- rstudio_read_user_settings(which)
   uiPrefs <- jsonlite::parse_json(prefs$uiPrefs)
   # prefs$uiPrefs <- NULL
   # list(prefs, uiPrefs)
@@ -444,7 +444,7 @@ read_rs_ui_prefs <- function(which = "current") {
 
 #' @rdname RStudio-settings
 #' @export
-get_rs_ui_prefs <- function() {
+rstudio_get_ui_prefs <- function() {
 
   prefs <-
     c("use_spaces_for_tab",
@@ -486,14 +486,14 @@ get_rs_ui_prefs <- function() {
 
 #' @rdname RStudio-settings
 #' @export
-get_rs_user_settings_names <- function(which = "current") {
-  names(read_rs_user_settings(which))
+rstudio_get_user_setting_names <- function(which = "current") {
+  names(rstudio_read_user_settings(which))
 }
 
 #' @rdname RStudio-settings
 #' @export
-get_rs_ui_pref_names <- function(which = "current") {
-  names(read_rs_ui_prefs(which))
+rstudio_get_ui_pref_names <- function(which = "current") {
+  names(rstudio_read_ui_prefs(which))
 }
 
 
@@ -516,11 +516,11 @@ keybindings_defaults   <- c('bio-default', 'rstudio-default')
 #' @examples
 #' \dontrun{\dontest{
 #'
-#' bio::reset_rstudio_keybindings(to = "bio-default")
-#' bio::reload_rstudio()
+#' bio::rstudio_reset_keybindings(to = "bio-default")
+#' bio::rstudio_reload()
 #'
 #' }}
-reset_rstudio_keybindings <- function(to, backup = TRUE) {
+rstudio_reset_keybindings <- function(to, backup = TRUE) {
 
   if (missing(to)) {
     ui_stop(paste0(
@@ -585,14 +585,14 @@ reset_rstudio_keybindings <- function(to, backup = TRUE) {
 #' @name restart-reload
 #' @title Functions that to restart or reload programs
 #' @description
-#' `restart_r()` restarts R session in RStudio.
-#' `reload_rstudio()` reloads RStudio without closing it.
+#' `rstudio_restart_r()` restarts R session in RStudio.
+#' `rstudio_reload()` reloads RStudio without closing it.
 #'
 #' @export
 #'
 #' @concept utilities
 #'
-restart_r <- function() {
+rstudio_restart_r <- function() {
   if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
     invisible(rstudioapi::executeCommand("restartR", quiet = TRUE))
   }
@@ -601,7 +601,7 @@ restart_r <- function() {
 #' @rdname restart-reload
 #' @export
 #' @concept utilities
-reload_rstudio <- function() {
+rstudio_reload <- function() {
   if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
     invisible(rstudioapi::executeCommand("reloadUi", quiet = TRUE))
   }
@@ -612,21 +612,21 @@ reload_rstudio <- function() {
 # @name rs-settings
 # @title RStudio management and settings
 # @export
-browse_rs_addins <- function() {
+rstudio_browse_rs_addins <- function() {
   invisible(rstudioapi::executeCommand("browseAddins", quiet = TRUE))
 }
 
-browse_r_cheat_sheets <- function() {
+rstudio_browse_r_cheat_sheets <- function() {
   invisible(rstudioapi::executeCommand("browseCheatSheets", quiet = TRUE))
 }
 
-show_console <- function() {
+rstudio_show_console <- function() {
   if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
     invisible(rstudioapi::executeCommand("activateConsole", quiet = TRUE))
   }
 }
 
-switch_to_tab <- function() {
+rstudio_switch_to_tab <- function() {
   if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
     invisible(rstudioapi::executeCommand("switchToTab", quiet = TRUE))
   }

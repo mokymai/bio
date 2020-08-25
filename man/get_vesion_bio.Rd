@@ -2,7 +2,7 @@
 % Please edit documentation in R/deprecated-functions.R
 \name{get_vesion_bio}
 \alias{get_vesion_bio}
-\title{Deprecated. Use \code{get_vesion_pkg_bio()} instead}
+\title{DEPRECATED. Use \code{get_vesion_pkg_bio()} instead}
 \usage{
 get_vesion_bio()
 }

@@ -72,7 +72,7 @@ get_path_rs_system_dictionaries_dir <- function() {
 #' @rdname RStudio-dictionaries
 #' @export
 open_rs_system_dictionaries_dir <- function() {
-  fs::file_show(get_path_rs_system_dictionaries_dir())
+  get_path_rs_system_dictionaries_dir() %>% fs::file_show()
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @rdname RStudio-dictionaries
