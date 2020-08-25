@@ -45,11 +45,13 @@ jobs:
           ref:   'master'
           path:  "${{ env.TMP_DIR }}"
           token: "${{ secrets.DEPLOY_DRAT_TOKEN }}"
-          fetch-depth: '-1'
+          fetch-depth: '0'
 
       - name: Drat -- git versions -1
         run: |
           cd ${TMP_DIR}
+          pwd
+
           git ls-files -z .tar.gz '*.tar.gz' |\
             xargs -0 -n 1 -I {} -- git log -1 --format="%as {}" {} |\
             grep \.tar\.gz$                           |\
@@ -63,7 +65,9 @@ jobs:
       - name: Drat -- awk
         run: |
           cd ${TMP_DIR}
-           ls -lhR --time-style=long-iso --ignore="Archive" |\
+          pwd
+
+          ls -lhR --time-style=long-iso --ignore="Archive" |\
              grep \.tar\.gz$                          |\
              sed 's/_/ /g'                            |\
              sed 's/.tar.gz/ /g'                      |\
@@ -74,6 +78,7 @@ jobs:
         if: success()
         run: |
            cd ${TMP_DIR}
+           pwd
 
            # grab the portion of the file we want to re-use
            awk '/^# /, /^<!-- list of packages: start | DO NOT REMOVE THIS LINE -->/' README.md > README.tmp
@@ -124,3 +129,6 @@ jobs:
 
            # Create a new version of README.md
            mv README.tmp README.md
+
+           cat README.md
+
