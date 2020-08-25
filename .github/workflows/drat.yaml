@@ -15,13 +15,13 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: ubuntu-16.04,   r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
+          # - {os: ubuntu-16.04,   r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
           # - {os: ubuntu-16.04,   r: 'oldrel',  rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
           # - {os: ubuntu-16.04,   r: 'devel',   rspm: "https://packagemanager.rstudio.com/cran/__linux__/xenial/latest"}
-          # - {os: windows-latest, r: 'release'}
+          - {os: windows-latest, r: 'release'}
           # - {os: windows-latest, r: 'oldrel'}
           # - {os: windows-latest, r: 'devel'}
-          # - {os: macOS-latest,   r: 'release'}
+          - {os: macOS-latest,   r: 'release'}
           # - {os: macOS-latest,   r: 'oldrel'}
           # - {os: macOS-latest,   r: 'devel'}
 
@@ -29,7 +29,6 @@ jobs:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       SOURCE_REPO: ${{ github.repository }}
       DEST_REPO:   mokymai/download
-      REPO: ${{ github.event.repository.name }}
       TMP_DIR:     tmp_dir
       RSPM:        ${{ matrix.config.rspm }}
 
@@ -75,7 +74,7 @@ jobs:
         run:   roxygen2::roxygenize()
 
       - name: Build source package
-        # if: runner.os == 'Windows' && matrix.config.r == 'release'
+        if: runner.os == 'Windows' && matrix.config.r == 'release'
         shell: Rscript {0}
         run: |
           dir.create("check", showWarnings = FALSE)
@@ -88,14 +87,15 @@ jobs:
             dir.create("check", showWarnings = FALSE)
             devtools::build(path = "check", binary = TRUE)
 
-# The steps to include built package in ${DEST_REPO}
-
+# The steps to include the built package in ${DEST_REPO}
       - name: Configure Git
         run: |
-          # git config --global url."https://${{ secrets.DEPLOY_DRAT_TOKEN }}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
+          # git config --global url."https://${TOKEN}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
 
           git config --global user.email "actions@github.com"
           git config --global user.name  "GitHub Actions"
+        env:
+          TOKEN: ${{ secrets.DEPLOY_DRAT_TOKEN }}
 
       - name: Git clone DEST_REPO
         uses: actions/checkout@v2
@@ -117,20 +117,18 @@ jobs:
               full.names = TRUE
             )
 
+          built_package
+
           drat::insertPackage(
             file    = built_package,
             repodir = Sys.getenv("TMP_DIR"),
             action  = "archive"
           )
 
-          dir(Sys.getenv("TMP_DIR"))
-
       - name: Drat -- commit and push
         if: success()
         run: |
-          pwd
           cd "${TMP_DIR}" # move into the subdir, which is Git controlled
-          pwd
           git add *
           git add -f *.tar.gz
           git commit -m "Update from ${SOURCE_REPO}" || echo "Nothing to commit"
