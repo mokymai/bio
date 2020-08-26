@@ -13,7 +13,7 @@ addin.tools                 | 0.0.9            | FALSE  | -
 addins.rmd                  | 0.0.10           | FALSE  | -
 addins.rs                   | 0.0.9            | FALSE  | -
 backup.tools                | 0.0.1            | FALSE  | -
-bio                         | 0.0.6            | FALSE  | -
+bio                         | 0.0.8            | FALSE  | -
 blogdown                    | 0.20             | FALSE  | -
 bookdown                    | 0.20             | FALSE  | -
 car                         | 3.0-9            | FALSE  | Rcmdr
@@ -81,7 +81,7 @@ scales                      | 1.1.1            | FALSE  | -
 sem                         | 2.1-1            | FALSE  | Rcmdr
 shiny                       | 1.5.0            | FALSE  | -
 skimr                       | 2.1.2            | FALSE  | -
-snippets                    | 0.0.4            | FALSE  | -
+snippets                    | 0.0.5            | FALSE  | -
 stringr                     | 1.4.0            | FALSE  | -
 styler                      | 1.3.2            | FALSE  | -
 tcltk2                      | 1.2-11           | FALSE  | Rcmdr
