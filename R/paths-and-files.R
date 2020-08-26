@@ -373,6 +373,7 @@ set_wd_to_project_dir <- function() {
 open_in_rstudio <- function(path, ...) {
   rstudioapi::navigateToFile(path, ...)
   # fs::file_show(path = path, browser = "RStudio")
+  # TODO (SEE ALSO): usethis::edit_file()
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

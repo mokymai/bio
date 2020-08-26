@@ -46,6 +46,7 @@ check_installed_programs <- function(which = "main", skip_online_check = FALSE) 
 
   # Rtools (on Windows)
   if (get_os_type() == "windows") {
+    # TODO (SEE ALSO): rstudioapi::buildToolsCheck()
     check_program_installed("Rtools", pkgbuild::has_build_tools())
     # check_program_installed("Rtools", is_rtools_installed())
   } else {
