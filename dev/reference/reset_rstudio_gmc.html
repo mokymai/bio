@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Reset RStudio state in GMC R209 and clear environment — reset_rstudio_gmc • bio</title>
+<title>DEPRECATED. Use <code>rstudio_reset_gmc()</code> instead — reset_rstudio_gmc • bio</title>
 
 
 <!-- jquery -->
@@ -39,18 +39,9 @@
 
 
 
-<meta property="og:title" content="Reset RStudio state in GMC R209 and clear environment — reset_rstudio_gmc" />
-<meta property="og:description" content="This function:
-Resets RStudio state and user preferences (incl. color scheme)
-Clears function history, plot history, console, recent project list, etc.
-Closes unnecessary windows
-Resets custom keybindings to &quot;bio-default&quot;
-Resets R Markdown and R snippets to defaults in package &quot;snippets&quot;
-Creates folder &quot;~/R/Darbinis&quot; and starts using it as working directory
-when no project is used.
-Clears (if possible)/creates folder &quot;BS-2020&quot; on Desktop.
-
-" />
+<meta property="og:title" content="DEPRECATED. Use <code>rstudio_reset_gmc()</code> instead — reset_rstudio_gmc" />
+<meta property="og:description" content="DO NOT USE THIS FUNCTION!
+This function was replaced by rstudio_reset_gmc() and will be removed soon." />
 
 
 <meta name="robots" content="noindex">
@@ -82,7 +73,7 @@ Clears (if possible)/creates folder &quot;BS-2020&quot; on Desktop.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.6.1</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.7.1</span>
       </span>
     </div>
 
@@ -135,47 +126,28 @@ Clears (if possible)/creates folder &quot;BS-2020&quot; on Desktop.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Reset RStudio state in GMC R209 and clear environment</h1>
-    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/settings.R'><code>R/settings.R</code></a></small>
+    <h1>DEPRECATED. Use <code>rstudio_reset_gmc()</code> instead</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/deprecated-functions.R'><code>R/deprecated-functions.R</code></a></small>
     <div class="hidden name"><code>reset_rstudio_gmc.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function:</p><ol>
-<li><p>Resets RStudio state and user preferences (incl. color scheme)</p></li>
-<li><p>Clears function history, plot history, console, recent project list, etc.</p></li>
-<li><p>Closes unnecessary windows</p></li>
-<li><p>Resets custom keybindings to "bio-default"</p></li>
-<li><p>Resets R Markdown and R snippets to defaults in package "snippets"</p></li>
-<li><p>Creates folder "~/R/Darbinis" and starts using it as working directory
-when no project is used.</p></li>
-<li><p>Clears (if possible)/creates folder "BS-2020" on Desktop.</p></li>
-</ol>
-
+    <p>DO NOT USE THIS FUNCTION!
+This function was replaced by <code><a href='rstudio_reset_gmc.html'>rstudio_reset_gmc()</a></code> and will be removed soon.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>reset_rstudio_gmc</span>(<span class='no'>...</span>, <span class='kw'>force_update_dictionaries</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>reset_rstudio_gmc</span>(<span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>Further arguments for advanced users only.</p></td>
-    </tr>
-    <tr>
-      <th>force_update_dictionaries</th>
-      <td><p>(logical) If <code>TRUE</code>, the dictionaries are
-forced to be downloaded/updated.</p></td>
+      <td><p>Arguments passed to <code><a href='rstudio_reset_gmc.html'>rstudio_reset_gmc()</a></code></p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The function works only in GMC R209, GMC C255 and ITPC EC-108 classrooms.</p>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

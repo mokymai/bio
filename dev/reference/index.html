@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.6.1</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.7.1</span>
       </span>
     </div>
 
@@ -330,25 +330,25 @@
       <tr>
         
         <td>
-          <p><code><a href="RStudio-settings.html">reset_rstudio_user_settings()</a></code> <code><a href="RStudio-settings.html">read_rs_user_settings()</a></code> <code><a href="RStudio-settings.html">read_rs_ui_prefs()</a></code> <code><a href="RStudio-settings.html">get_rs_ui_prefs()</a></code> <code><a href="RStudio-settings.html">get_rs_user_settings_names()</a></code> <code><a href="RStudio-settings.html">get_rs_ui_pref_names()</a></code> </p>
+          <p><code><a href="RStudio-settings.html">rstudio_reset_user_settings()</a></code> <code><a href="RStudio-settings.html">rstudio_read_user_settings()</a></code> <code><a href="RStudio-settings.html">rstudio_read_ui_prefs()</a></code> <code><a href="RStudio-settings.html">rstudio_get_ui_prefs()</a></code> <code><a href="RStudio-settings.html">rstudio_get_user_setting_names()</a></code> <code><a href="RStudio-settings.html">rstudio_get_ui_pref_names()</a></code> </p>
         </td>
         <td><p>RStudio settings and preferences</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="clear_and_reset.html">clear_rs_history()</a></code> <code><a href="clear_and_reset.html">clear_r_workspace()</a></code> <code><a href="clear_and_reset.html">reset_rstudio_layout()</a></code> </p>
+          <p><code><a href="clear_and_reset.html">rstudio_clear_history()</a></code> <code><a href="clear_and_reset.html">clear_r_workspace()</a></code> <code><a href="clear_and_reset.html">rstudio_reset_layout()</a></code> </p>
         </td>
         <td><p>Clear and Reset R and RStudio</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="reset_rstudio_gmc.html">reset_rstudio_gmc()</a></code> </p>
+          <p><code><a href="rstudio_reset_gmc.html">rstudio_reset_gmc()</a></code> </p>
         </td>
         <td><p>Reset RStudio state in GMC R209 and clear environment</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="reset_rstudio_keybindings.html">reset_rstudio_keybindings()</a></code> </p>
+          <p><code><a href="rstudio_reset_keybindings.html">rstudio_reset_keybindings()</a></code> </p>
         </td>
         <td><p>Set RStudio keybindings</p></td>
       </tr><tr>
@@ -410,7 +410,7 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="restart-reload.html">restart_r()</a></code> <code><a href="restart-reload.html">reload_rstudio()</a></code> </p>
+          <p><code><a href="restart-reload.html">rstudio_restart_r()</a></code> <code><a href="restart-reload.html">rstudio_reload_ui()</a></code> </p>
         </td>
         <td><p>Functions that to restart or reload programs</p></td>
       </tr>
@@ -505,25 +505,97 @@
         <td>
           <p><code><a href="check_packages_by_topic-deprecated.html">check_installed_packages()</a></code> </p>
         </td>
-        <td><p>Deprecated. Use <code>check_packages_by_topic()</code> instead</p></td>
+        <td><p>DEPRECATED. Use <code>check_packages_by_topic()</code> instead</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="check_updates_bio.html">check_updates_bio()</a></code> </p>
         </td>
-        <td><p>Deprecated. Use <code>check_updates_pkg_bio()</code> instead</p></td>
+        <td><p>DEPRECATED. Use <code>check_updates_pkg_bio()</code> instead</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="clear_rs_history.html">clear_rs_history()</a></code> </p>
+        </td>
+        <td><p>DEPRECATED. Use <code>rstudio_clear_history()</code> instead</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_rs_ui_pref_names.html">get_rs_ui_pref_names()</a></code> </p>
+        </td>
+        <td><p>DEPRECATED. Use <code>rstudio_get_ui_pref_names()</code> instead</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_rs_ui_prefs.html">get_rs_ui_prefs()</a></code> </p>
+        </td>
+        <td><p>DEPRECATED. Use <code>rstudio_get_ui_prefs()</code> instead</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_rs_user_settings_names.html">get_rs_user_settings_names()</a></code> </p>
+        </td>
+        <td><p>DEPRECATED. Use <code>rstudio_get_user_setting_names()</code> instead</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="get_vesion_bio.html">get_vesion_bio()</a></code> </p>
         </td>
-        <td><p>Deprecated. Use <code>get_vesion_pkg_bio()</code> instead</p></td>
+        <td><p>DEPRECATED. Use <code>get_vesion_pkg_bio()</code> instead</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="open_in_rs.html">open_in_rs()</a></code> </p>
         </td>
-        <td><p>Deprecated. Use <code>open_in_rstudio()</code> instead</p></td>
+        <td><p>DEPRECATED. Use <code>open_in_rstudio()</code> instead</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="read_rs_ui_prefs.html">read_rs_ui_prefs()</a></code> </p>
+        </td>
+        <td><p>DEPRECATED. Use <code>rstudio_read_ui_prefs()</code> instead</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="read_rs_user_settings.html">read_rs_user_settings()</a></code> </p>
+        </td>
+        <td><p>DEPRECATED. Use <code>rstudio_read_user_settings()</code> instead</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="reload_rstudio.html">reload_rstudio()</a></code> </p>
+        </td>
+        <td><p>DEPRECATED. Use <code>rstudio_reload_ui()</code> instead</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="reset_rstudio_gmc.html">reset_rstudio_gmc()</a></code> </p>
+        </td>
+        <td><p>DEPRECATED. Use <code>rstudio_reset_gmc()</code> instead</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="reset_rstudio_keybindings.html">reset_rstudio_keybindings()</a></code> </p>
+        </td>
+        <td><p>DEPRECATED. Use <code>rstudio_reset_keybindings()</code> instead</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="reset_rstudio_layout.html">reset_rstudio_layout()</a></code> </p>
+        </td>
+        <td><p>DEPRECATED. Use <code>rstudio_reset_layout()</code> instead</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="reset_rstudio_user_settings.html">reset_rstudio_user_settings()</a></code> </p>
+        </td>
+        <td><p>DEPRECATED. Use <code>rstudio_reset_user_settings()</code> instead</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="restart_r.html">restart_r()</a></code> </p>
+        </td>
+        <td><p>DEPRECATED. Use <code>rstudio_restart_r()</code> instead</p></td>
       </tr>
     </tbody>
     </table>

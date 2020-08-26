@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>List of packages of interest — get_pkgs_recommended • bio</title>
+<title>DEPRECATED. Use <code>rstudio_read_user_settings()</code> instead — read_rs_user_settings • bio</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="List of packages of interest — get_pkgs_recommended" />
-<meta property="og:description" content="List of packages of interest" />
+<meta property="og:title" content="DEPRECATED. Use <code>rstudio_read_user_settings()</code> instead — read_rs_user_settings" />
+<meta property="og:description" content="DO NOT USE THIS FUNCTION!
+This function was replaced by rstudio_read_user_settings() and will be removed soon." />
 
 
 <meta name="robots" content="noindex">
@@ -125,66 +126,28 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>List of packages of interest</h1>
-    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/packages.R'><code>R/packages.R</code></a></small>
-    <div class="hidden name"><code>get_pkgs_recommended.Rd</code></div>
+    <h1>DEPRECATED. Use <code>rstudio_read_user_settings()</code> instead</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/deprecated-functions.R'><code>R/deprecated-functions.R</code></a></small>
+    <div class="hidden name"><code>read_rs_user_settings.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>List of packages of interest</p>
+    <p>DO NOT USE THIS FUNCTION!
+This function was replaced by <code><a href='RStudio-settings.html'>rstudio_read_user_settings()</a></code> and will be removed soon.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_pkgs_recommended</span>(
-  <span class='no'>list_name</span>,
-  <span class='kw'>use_local_list</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"bio.use_local_list"</span>, <span class='fl'>FALSE</span>)
-)</pre>
+    <pre class="usage"><span class='fu'>read_rs_user_settings</span>(<span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>list_name</th>
-      <td><p>(character) The name of the list with required R packages.
-E.g., "mini", "Rcmdr", "Rcmdr-biostat", "bio", etc.</p></td>
-    </tr>
-    <tr>
-      <th>use_local_list</th>
-      <td><p>(logical) If <code>TRUE</code>, the list, which is locally
-installed in the folder of package <span class="pkg">bio</span> ("local list"), is used.
-If <code>FALSE</code>, the list on "GitHub" repository of the package is used.
-It is recommended  using the online version of the list, as it may
-contain more recent changes.
-Optiom bight be set globally by, e.g.,
-<code><a href='https://rdrr.io/r/base/options.html'>options(bio.use_local_list = TRUE)</a></code>.</p></td>
+      <th>...</th>
+      <td><p>Arguments passed to <code><a href='RStudio-settings.html'>rstudio_read_user_settings()</a></code></p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Data frame with column <code>"package"</code>.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Other R-packages-related functions: 
-<code><a href='compare_version.html'>compare_version</a>()</code>,
-<code><a href='get_pkgs_cran_details.html'>get_pkgs_cran_details</a>()</code>,
-<code><a href='get_pkgs_installation_status.html'>get_pkgs_installation_status_local</a>()</code>,
-<code><a href='get_pkgs_installed.html'>get_pkgs_installed</a>()</code>,
-<code><a href='get_pkgs_non_cran_installation_details.html'>get_pkgs_non_cran_installation_details</a>()</code>,
-<code><a href='get_pkgs_req_version.html'>get_pkgs_req_version</a>()</code></p></div>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># NOTE: It is not recommended to use the local lists as they might be out of date.</span>
-<span class='co'># Here it is used for testing purposes only.</span>
-<span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span>(<span class='kw'>bio.use_local_list</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'>get_pkgs_recommended</span>(<span class='st'>"mini"</span>))</div><div class='output co'>#&gt;      package
-#&gt; 1    remotes
-#&gt; 2         fs
-#&gt; 3 tidyselect
-#&gt; 4      dplyr
-#&gt; 5      tidyr
-#&gt; 6    ggplot2</div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
