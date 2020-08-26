@@ -200,7 +200,6 @@ bio::rstudio_download_spellcheck_dictionaries()
 
 ### Shortcut keys
 
-> The functions in this sub-section may **not** work correctly with the newest versions of RStudio (vesion > 1.3.0).
 
 This function changes shortcut keys in RStudio.
 
