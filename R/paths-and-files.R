@@ -129,12 +129,12 @@ get_path_rs_config_dir  <- function(...) {
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-get_path_user_settings_dir_rs1.3 <- function(...) {
+get_path_user_settings_dir_rs_1.3 <- function(...) {
   base_path <-
     if (get_os_type() == "windows") {
       fs::path(Sys.getenv("APPDATA"), "RStudio")
     } else {
-      fs::path_expand_r("~/.config/")
+      fs::path_expand_r("~/.config/rstudio/")
     }
   fs::path(base_path, ...)
 }
@@ -212,8 +212,13 @@ get_path_rs_desktop_config_dir <- function(..., .check = FALSE) {
 #' @examples
 #' get_path_rs_snippets_dir()
 #'
-get_path_rs_snippets_dir <- function() {
-  get_path_r_user_dir("snippets")
+get_path_rs_snippets_dir <- function(rstudio_version = "auto") {
+  if (resolve_rs_version(rstudio_version) > "1.3") {
+    get_path_user_settings_dir_rs_1.3("snippets")
+  } else {
+    get_path_r_user_dir("snippets")
+  }
+
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -223,8 +228,13 @@ get_path_rs_snippets_dir <- function() {
 #' @examples
 #' get_path_rs_keybindings_dir()
 #'
-get_path_rs_keybindings_dir <- function() {
-  get_path_r_user_dir("rstudio", "keybindings")
+get_path_rs_keybindings_dir <- function(rstudio_version = "auto") {
+
+  if (resolve_rs_version(rstudio_version) > "1.3") {
+    get_path_user_settings_dir_rs_1.3("keybindings")
+  } else {
+    get_path_r_user_dir("rstudio", "keybindings")
+  }
 }
 
 
@@ -433,7 +443,7 @@ get_path_rs_user_settings <- function(which = "current") {
 #' @rdname open_files
 #' @export
 open_rs_user_settings <- function() {
-    open_in_rstudio(path = get_path_rs_user_settings())
+  open_in_rstudio(path = get_path_rs_user_settings())
 }
 
 #' @rdname open_files
