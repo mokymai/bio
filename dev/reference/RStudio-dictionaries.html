@@ -93,7 +93,7 @@ open_user_dictionaries_dir()
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.7.1</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.7.2</span>
       </span>
     </div>
 
@@ -182,7 +182,7 @@ saved by user</p></li>
 
 <span class='fu'>open_rs_saved_words_dictionary</span>()
 
-<span class='fu'>get_path_rs_system_dictionaries_dir</span>()
+<span class='fu'>get_path_rs_system_dictionaries_dir</span>(<span class='kw'>rstudio_version</span> <span class='kw'>=</span> <span class='st'>"auto"</span>)
 
 <span class='fu'>open_rs_system_dictionaries_dir</span>()
 
@@ -190,6 +190,16 @@ saved by user</p></li>
 
 <span class='fu'>open_user_dictionaries_dir</span>()</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>rstudio_version</th>
+      <td><p>Numeric version of RStudio (the output is different
+for RStudio &lt; 1.3 and 1.3 or newer series). If <code>"auto"</code>, the version
+of RStudio will be determined automatically.</p></td>
+    </tr>
+    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
