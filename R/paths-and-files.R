@@ -209,11 +209,19 @@ get_path_rs_desktop_config_dir <- function(..., .check = FALSE) {
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @name RStudio-config-dir
+#'
+#' @inheritParams RStudio-dictionaries
+#'
 #' @concept paths and dirs
 #' @export
 #' @examples
+#' \dontrun{\donttest{
 #' get_path_rs_snippets_dir()
+#' }}
 #'
+#' get_path_rs_snippets_dir(rstudio_version = "1.3.1073")
+#'
+
 get_path_rs_snippets_dir <- function(rstudio_version = "auto") {
   if (resolve_rs_version(rstudio_version) > "1.3") {
     get_path_user_settings_dir_rs_1.3("snippets")
@@ -405,6 +413,12 @@ open_r_user_dir <- function() {
 #' @export
 open_rs_config_dir <- function() {
   browseURL(get_path_rs_config_dir())
+}
+
+#' @rdname open_files
+#' @export
+open_rs_1.3_user_settings_dir <- function() {
+  browseURL(get_path_user_settings_dir_rs_1.3())
 }
 
 #' @rdname open_files
