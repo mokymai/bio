@@ -6,9 +6,6 @@
 \usage{
 reload_rstudio()
 }
-\arguments{
-\item{...}{Arguments passed to \code{\link[=rstudio_reload_ui]{rstudio_reload_ui()}}}
-}
 \description{
 DO NOT USE THIS FUNCTION!
 This function was replaced by \code{\link[=rstudio_reload_ui]{rstudio_reload_ui()}} and will be removed soon.
