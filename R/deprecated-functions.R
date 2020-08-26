@@ -226,18 +226,20 @@ reset_rstudio_keybindings <- function(...) {
 #' @export
 #' @concept deprecated
 restart_r <- function() {
+  .Deprecated("rstudio_restart_r")
   rstudio_restart_r()
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' DEPRECATED. Use `rstudio_reload()` instead
+#' DEPRECATED. Use `rstudio_reload_ui()` instead
 #'
 #' DO NOT USE THIS FUNCTION!
-#' This function was replaced by [rstudio_reload()] and will be removed soon.
-#' @param ... Arguments passed to [rstudio_reload()]
+#' This function was replaced by [rstudio_reload_ui()] and will be removed soon.
+#' @param ... Arguments passed to [rstudio_reload_ui()]
 #'
 #' @export
 #' @concept deprecated
 reload_rstudio <- function() {
+  .Deprecated("rstudio_reload_ui")
   rstudio_reload_ui()
 }
