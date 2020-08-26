@@ -81,7 +81,7 @@ open_rs_system_dictionaries_dir <- function() {
 #' - [rstudioapi::dictionariesPath()]
 #' - `open_rs_dictionaries_dir()`
 open_rs_dictionaries_dir <- function() {
-# "C:/Program Files/RStudio/resources/dictionaries"
+  # "C:/Program Files/RStudio/resources/dictionaries"
   rstudioapi::dictionariesPath() %>% fs::file_show()
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -120,7 +120,11 @@ open_user_dictionaries_dir <- function() {
 #' }
 
 rstudio_download_spellcheck_dictionaries <- function(secure = TRUE) {
-    if (rstudioapi::isAvailable()) {
+  if (rstudioapi::isAvailable()) {
+    if (rstudioapi::isAvailable() && rstudioapi::versionInfo()$version > "1.3") {
+      warning("This function does not work in RStudio 1.3.0 or newer yet.\n")
+      return(FALSE)
+    }
     dic_dir <- get_path_rs_system_dictionaries_dir()
     .rs.downloadAllDictionaries(targetDir = dic_dir, secure = secure)
 
