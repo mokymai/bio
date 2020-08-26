@@ -129,6 +129,8 @@ get_path_rs_config_dir  <- function(...) {
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' @rdname RStudio-config-dir
+#' @export
 get_path_user_settings_dir_rs_1.3 <- function(...) {
   base_path <-
     if (get_os_type() == "windows") {

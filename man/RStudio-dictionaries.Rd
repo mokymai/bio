@@ -17,13 +17,18 @@ get_path_rs_saved_words_dictionary()
 
 open_rs_saved_words_dictionary()
 
-get_path_rs_system_dictionaries_dir()
+get_path_rs_system_dictionaries_dir(rstudio_version = "auto")
 
 open_rs_system_dictionaries_dir()
 
 open_rs_dictionaries_dir()
 
 open_user_dictionaries_dir()
+}
+\arguments{
+\item{rstudio_version}{Numeric version of RStudio (the output is different
+for RStudio < 1.3 and 1.3 or newer series). If \code{"auto"}, the version
+of RStudio will be determined automatically.}
 }
 \value{
 String with path.

@@ -4,6 +4,7 @@
 \alias{RStudio-config-dir}
 \alias{get_path_r_user_dir}
 \alias{get_path_rs_config_dir}
+\alias{get_path_user_settings_dir_rs_1.3}
 \alias{get_path_rs_desktop_config_dir}
 \alias{get_path_rs_snippets_dir}
 \alias{get_path_rs_keybindings_dir}
@@ -13,11 +14,13 @@ get_path_r_user_dir(...)
 
 get_path_rs_config_dir(...)
 
+get_path_user_settings_dir_rs_1.3(...)
+
 get_path_rs_desktop_config_dir(..., .check = FALSE)
 
-get_path_rs_snippets_dir()
+get_path_rs_snippets_dir(rstudio_version = "auto")
 
-get_path_rs_keybindings_dir()
+get_path_rs_keybindings_dir(rstudio_version = "auto")
 }
 \arguments{
 \item{...}{(character) Parts of the path. Path to sub-directories.}
