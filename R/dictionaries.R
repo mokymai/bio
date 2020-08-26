@@ -61,12 +61,21 @@ open_rs_saved_words_dictionary <- function() {
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @rdname RStudio-dictionaries
+#' @param rstudio_version Numeric version of RStudio (the output is different
+#'        for RStudio < 1.3 and 1.3 or newer series). If `"auto"`, the version
+#'        of RStudio will be determined automatically.
 #' @export
 #' @description
 #' - `get_path_rs_system_dictionaries_dir()`
 #' - `open_rs_system_dictionaries_dir()`
-get_path_rs_system_dictionaries_dir <- function() {
-  fs::path(rstudioapi::userDictionariesPath(), "languages-system")
+get_path_rs_system_dictionaries_dir <- function(rstudio_version = "auto") {
+
+  if (resolve_rs_version(rstudio_version) > "1.3") {
+    get_path_user_settings_dir_rs1.3("dictionaries", "languages-system")
+
+  } else {
+    fs::path(rstudioapi::userDictionariesPath(), "languages-system")
+  }
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @rdname RStudio-dictionaries
