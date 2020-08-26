@@ -128,6 +128,28 @@ get_path_rs_config_dir  <- function(...) {
   path_construct_and_check(base, ...)
 }
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+get_path_user_settings_dir_rs1.3 <- function(...) {
+  base_path <-
+    if (get_os_type() == "windows") {
+      fs::path(Sys.getenv("APPDATA"), "RStudio")
+    } else {
+      fs::path_expand_r("~/.config/")
+    }
+  fs::path(base_path, ...)
+}
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# If "auto", returns wersion of RStudio or error if RStudio does not run.
+# If character with version number, returns that value as numeric version.
+resolve_rs_version <- function(rstudio_version) {
+  if (rstudio_version == "auto") {
+    rstudioapi::versionInfo()$version
+  } else {
+    as.numeric_version(rstudio_version)
+  }
+}
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 #' @rdname RStudio-config-dir
 #' @description
 #' - `get_path_rs_desktop_config_dir()`` - gets path to directory (and its
