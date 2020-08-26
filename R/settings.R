@@ -360,11 +360,6 @@ user_settings_defaults <- c('bio-default', 'rstudio-default')
 #'       required.
 rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
 
-  if (rstudioapi::isAvailable() && rstudioapi::versionInfo()$version > "1.3") {
-    warning("This function does not work in RStudio 1.3.0 or newer yet.\n")
-    return(FALSE)
-  }
-
   if (missing(to)) {
     ui_stop(paste0(
       "The set of RStudio user settings is not defined (argument '{yellow('to')}').\n",
@@ -402,8 +397,8 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
 
     "bio-default" = {
       file_default <- get_path_rs_user_settings("bio-default")
-      fs::dir_create("~/R/Darbinis") # TODO: change this value, when default UI preferences change.
-      fs::dir_create(fs::path_dir(file_current))
+      fs::dir_create("~/R/Darbinis", recurse = TRUE) # TODO: change this value, when default UI preferences change.
+      fs::dir_create(fs::path_dir(file_current), recurse = TRUE)
       fs::file_copy(file_default, file_current, overwrite = TRUE)
       success <-
         unname(tools::md5sum(file_default) == tools::md5sum(file_current))
