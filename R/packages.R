@@ -312,9 +312,11 @@ get_path_pkgs_req_version <- function(use_local_list) {
 #'
 #' }}
 get_pkgs_cran_details <- function() {
+  repos <- unique(c("https://mokymai.github.io/download/" , getOption("repos")))
+
   cran_all <-
     data.frame(
-      available.packages()[ , c("Package", "Version")],
+      available.packages(repos = repos)[ , c("Package", "Version")],
       on_cran = TRUE,
       stringsAsFactors = FALSE
     )
