@@ -4,6 +4,7 @@
 \alias{open_files}
 \alias{open_r_user_dir}
 \alias{open_rs_config_dir}
+\alias{open_rs_1.3_user_settings_dir}
 \alias{get_path_rs_desktop_user_settings_dir}
 \alias{open_rs_desktop_user_settings_dir}
 \alias{get_path_rs_user_settings}
@@ -18,6 +19,8 @@
 open_r_user_dir()
 
 open_rs_config_dir()
+
+open_rs_1.3_user_settings_dir()
 
 get_path_rs_desktop_user_settings_dir()
 
