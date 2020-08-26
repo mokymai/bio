@@ -527,11 +527,6 @@ keybindings_defaults   <- c('bio-default', 'rstudio-default')
 #' }}
 rstudio_reset_keybindings <- function(to, backup = TRUE) {
 
-  if (rstudioapi::isAvailable() && rstudioapi::versionInfo()$version > "1.3") {
-    warning("This function does not work in RStudio 1.3.0 or newer yet.\n")
-    return(FALSE)
-  }
-
   if (missing(to)) {
     ui_stop(paste0(
       "The set of RStudio shortcut keys is not defined (argument '{yellow('to')}').\n",
