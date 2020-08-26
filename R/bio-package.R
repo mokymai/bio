@@ -1,4 +1,10 @@
 #' @keywords internal
+
+"_PACKAGE"
+
+# The following block is used by usethis to automatically manage
+# roxygen namespace tags. Modify with care!
+## usethis namespace: start
 #' @import backup.tools
 #' @importFrom utils browseURL download.file installed.packages loadhistory
 #'                   read.table savehistory unzip
@@ -8,13 +14,6 @@
 #'                     ui_stop ui_warn ui_value ui_line
 #' @importFrom stats setNames
 #' @importFrom utils available.packages packageVersion sessionInfo
-#'
-
-"_PACKAGE"
-
-# The following block is used by usethis to automatically manage
-# roxygen namespace tags. Modify with care!
-## usethis namespace: start
 ## usethis namespace: end
 NULL
 
