@@ -439,7 +439,10 @@ open_rs_desktop_user_settings_dir <- function() {
 
 
 #' @rdname open_files
+#'
 #' @param which (character) type of settings: "current", "bio-default".
+#' @inheritParams RStudio-dictionaries
+#'
 #' @export
 #' @examples
 #' \dontrun{\donttest{
@@ -449,13 +452,24 @@ open_rs_desktop_user_settings_dir <- function() {
 #' get_path_rs_user_settings("bio-default")
 #'
 #' }}
-get_path_rs_user_settings <- function(which = "current") {
+get_path_rs_user_settings <- function(which = "current", rstudio_version = "auto") {
+
+  rs_version <- resolve_rs_version(rstudio_version)
+
   switch(which,
     "current"    =
-      get_path_rs_desktop_config_dir("monitored/user-settings/user-settings"),
+      if (rs_version > "1.3") {
+        get_path_user_settings_dir_rs_1.3("rstudio-prefs.json")
+      } else {
+        get_path_rs_desktop_config_dir("monitored/user-settings/user-settings")
+      },
 
     "bio-default" =
-      system.file("rs-settings", "user-settings", package = "bio"),
+      if (rs_version > "1.3") {
+        system.file("rs-settings", "rstudio-prefs.json", package = "bio")
+      } else {
+        system.file("rs-settings", "user-settings", package = "bio")
+      },
 
     stop("unrecognized option: ", which)
   )
