@@ -9,8 +9,8 @@ Package ***bio***
 
 [![GitHub
 version](https://img.shields.io/badge/GitHub-0.0.7-brightgreen.svg)](https://github.com/mokymai/bio)
-[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--08--26-yellowgreen.svg)](/commits/master)
 [![R-CMD-check](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
+[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--08--26-yellowgreen.svg)](/commits/master)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
@@ -18,7 +18,8 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 <!-- [![GitHub last commit](https://img.shields.io/github/last-commit/mokymai/bio)](https://github.com/mokymai/bio) -->
 
 Convenience functions to facilitate installation and management of
-required resources for ***Biostatistics*** course unit (*BS-2020*).
+required resources for course units ***Biostatistics*** (*BS-2020*) and
+***Introduction to data analysis with R*** (*R-2020*).
 
 <center>
 
@@ -31,7 +32,8 @@ required resources for ***Biostatistics*** course unit (*BS-2020*).
 <!-- </font> -->
 
 <br> <font color="darkred" size=4> This package is tested on <em>Windows
-10</em> (64-bit) with RStudio 1.2.5042. </font> <br><br>
+10</em> (64-bit) with RStudio <b>1.2</b>.5042.<br> Some functions do not
+work correctly with RStudio <b>1.3</b>.0 or newer yet. </font> <br><br>
 
 </center>
 
@@ -180,12 +182,12 @@ bio::update_pkg_rcmdr_biostat()
 
 > Make sure that you understand what you are doing when you try using
 > the functions that reset RStudio key bindings (shortcut keys),
-> settings or snippets. **You may loose all your previous settings.**
+> settings or snippets. **You may loose *all* your previous settings.**
 
 ### Dictionaries
 
-> The functions in this sub-section may work correctly with the newest
-> versions of RStudio (vesion \> 1.3).
+> The functions in this sub-section may **not** work correctly with the
+> newest versions of RStudio (vesion \> 1.3.0).
 
 This function downloads or updates **hunspell** spelling checking
 dictionaries dictionaries (including Lithuanian) that can be used by
@@ -197,8 +199,8 @@ bio::rstudio_download_spellcheck_dictionaries()
 
 ### Shortcut keys
 
-> The functions in this sub-section may work correctly with the newest
-> versions of RStudio (vesion \> 1.3).
+> The functions in this sub-section may **not** work correctly with the
+> newest versions of RStudio (vesion \> 1.3.0).
 
 This function changes shortcut keys in RStudio.
 
@@ -206,10 +208,9 @@ Run function without arguments to see the available options.
 
 ``` r
 bio::rstudio_reset_keybindings()
+#> Error: The set of RStudio shortcut keys is not defined (argument 'to').
+#> Possible options: 'bio-default', 'rstudio-default'.
 ```
-
-    Error: The set of RStudio shortcut keys is not defined (argument 'to').
-    Possible options: 'bio-default', 'rstudio-default'.
 
 Options:
 
@@ -285,19 +286,18 @@ in RStudio.
 
 ### RStudio settings
 
-> The functions in this sub-section may work correctly with the newest
-> versions of RStudio (vesion \> 1.3).
+> The functions in this sub-section may **not** work correctly with the
+> newest versions of RStudio (vesion \> 1.3.0).
 
 This function resets RStudio user preferences and settings.
 
 Run function without arguments to see the available options.
 
 ``` r
-bio::reset_rstudio_user_settings()
+bio::rstudio_reset_user_settings()
+#> Error: The set of RStudio user settings is not defined (argument 'to').
+#> Possible choices: 'bio-default', 'rstudio-default'.
 ```
-
-    Error: The set of RStudio user settings is not defined (argument 'to').
-    Possible choices: 'bio-default', 'rstudio-default'.
 
 The options:
 
@@ -307,13 +307,10 @@ The options:
 <!-- end list -->
 
 ``` r
-bio::reset_rstudio_user_settings(to = "bio-default")
+bio::rstudio_reset_user_settings(to = "bio-default")
 ```
 
 ### Snippets
-
-> The functions in this sub-section may work correctly with the newest
-> versions of RStudio (vesion \> 1.3).
 
 The function replaces current R code and R Markdown snippets with those
 in package “snippets”.
