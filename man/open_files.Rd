@@ -26,7 +26,7 @@ get_path_rs_desktop_user_settings_dir()
 
 open_rs_desktop_user_settings_dir()
 
-get_path_rs_user_settings(which = "current")
+get_path_rs_user_settings(which = "current", rstudio_version = "auto")
 
 open_rs_user_settings()
 
@@ -42,6 +42,10 @@ open_r_environ()
 }
 \arguments{
 \item{which}{(character) type of settings: "current", "bio-default".}
+
+\item{rstudio_version}{Numeric version of RStudio (the output is different
+for RStudio < 1.3 and 1.3 or newer series). If \code{"auto"}, the version
+of RStudio will be determined automatically.}
 
 \item{scope}{(character) One of "user" or "project".}
 }
