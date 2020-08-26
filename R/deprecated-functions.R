@@ -221,7 +221,6 @@ reset_rstudio_keybindings <- function(...) {
 #'
 #' DO NOT USE THIS FUNCTION!
 #' This function was replaced by [rstudio_restart_r()] and will be removed soon.
-#' @param ... Arguments passed to [rstudio_restart_r()]
 #'
 #' @export
 #' @concept deprecated
@@ -235,7 +234,6 @@ restart_r <- function() {
 #'
 #' DO NOT USE THIS FUNCTION!
 #' This function was replaced by [rstudio_reload_ui()] and will be removed soon.
-#' @param ... Arguments passed to [rstudio_reload_ui()]
 #'
 #' @export
 #' @concept deprecated
