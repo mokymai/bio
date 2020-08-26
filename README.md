@@ -8,8 +8,8 @@ Package ***bio***
 <!-- badges: start -->
 
 [![GitHub
-version](https://img.shields.io/badge/GitHub-0.0.5.9000-brightgreen.svg)](https://github.com/mokymai/bio)
-[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--08--08-yellowgreen.svg)](/commits/master)
+version](https://img.shields.io/badge/GitHub-0.0.7-brightgreen.svg)](https://github.com/mokymai/bio)
+[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--08--26-yellowgreen.svg)](/commits/master)
 [![R-CMD-check](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
@@ -41,7 +41,15 @@ operating system.
 
 # Install
 
-To install this package from GitHub, use code:
+To install this package from CRAN-like repository, use code
+(recommended):
+
+``` r
+repos <- c("https://mokymai.github.io/download/", getOption("repos"))
+install.packages("bio", repos = repos)
+```
+
+To install this package from GitHub:
 
 ``` r
 if (!require(remotes)) {install.packages("remotes")}
@@ -57,15 +65,15 @@ information.
 
 ``` r
 bio::check_user_info()
-## Operating system    Windows 10 x64 (build 18362)
+## Operating system    Windows 10 x64 (build 18363)
 ## Platform            x86_64-w64-mingw32/x64 (64-bit)
 ## LOGNAME
 ## USERNAME            User
 ## USERPROFILE         C:/Users/User
 ## HOME                C:/Users/User/Documents
 ## R_USER              C:/Users/User/Documents
-## R_HOME              C:/PROGRA~1/R/R-36~1.2
-## R_LIBS_USER         C:/R/win-library/3.6
+## R_HOME              C:/PROGRA~1/R/R-40~1.2
+## R_LIBS_USER         C:/R/win-library/4.0
 ```
 
 ## Check information about programs
@@ -91,9 +99,9 @@ bio::check_installed_programs()
 ``` r
 bio::check_installed_programs("all")
 ## ✔ Program R (4.0.2) is installed (recommended 4.0.2, available 4.0.2)
-## ✔ Program RStudio (1.2.5033) is installed (recommended 1.2.5033, available 1.3.1056)
+## ✔ Program RStudio (1.2.5033) is installed (recommended 1.3.1073, available 1.3.1073)
 ## ✔ Program Rtools is installed.
-## ✖ Program Atom is not detected or configured incorrectly.
+## ✖ Program Atom is either not detected or not configured incorrectly.
 ## ✔ Program Git is installed.
 ## ✔ Program Meld is installed.
 ```
@@ -127,12 +135,12 @@ returned by function `bio::get_pkg_lists_local()` and they include:
 <!-- end list -->
 
 ``` r
-bio::check_packages_by_topic(list_name = "mini")
+bio::check_packages_by_topic("mini")
 ## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.
 ```
 
 ``` r
-bio::check_packages_by_topic(list_name = "mini", include = "newer_on_cran")
+bio::check_packages_by_topic("mini", include = "newer_on_cran")
 ## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.
 ## i Note: 1 package has newer version on CRAN.
 ```
@@ -151,7 +159,7 @@ bio::update_pkg_bio()
 Check if there are updates for **bio** or its dependency packages.
 
 ``` r
-bio::check_updates_bio()
+bio::check_updates_pkg_bio()
 ```
 
     ✔ Minimal required versions of all 24 packages (from list 'bio') are already installed.
@@ -170,28 +178,34 @@ bio::update_pkg_rcmdr_biostat()
 
 ## RStudio settings and user preferences
 
-> Make sure that you understand what you do when you use the functions
-> that reset RStudio key bindings (shortcut keys), settings or snippets.
-> **You may loose all your previous settings.**
+> Make sure that you understand what you are doing when you try using
+> the functions that reset RStudio key bindings (shortcut keys),
+> settings or snippets. **You may loose all your previous settings.**
 
 ### Dictionaries
+
+> The functions in this sub-section may work correctly with the newest
+> versions of RStudio (vesion \> 1.3).
 
 This function downloads or updates **hunspell** spelling checking
 dictionaries dictionaries (including Lithuanian) that can be used by
 RStudio or by tools from **wellspell.addin** package.
 
 ``` r
-bio::download_spellcheck_dictionaries()
+bio::rstudio_download_spellcheck_dictionaries()
 ```
 
 ### Shortcut keys
+
+> The functions in this sub-section may work correctly with the newest
+> versions of RStudio (vesion \> 1.3).
 
 This function changes shortcut keys in RStudio.
 
 Run function without arguments to see the available options.
 
 ``` r
-bio::reset_rstudio_keybindings()
+bio::rstudio_reset_keybindings()
 ```
 
     Error: The set of RStudio shortcut keys is not defined (argument 'to').
@@ -205,18 +219,19 @@ Options:
 <!-- end list -->
 
 ``` r
-bio::reset_rstudio_keybindings(to = "bio-default")
+bio::rstudio_reset_keybindings(to = "bio-default")
 ```
 
 | Shortcut                                                     | Action                                                                                                                        |
 | ------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd> | Check spelling in selected text. Package [**wellspell.addin**](https://github.com/nevrome/wellspell.addin) must be installed. |
 | <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd>                 | Use “Tidyverse” style on selected lines of R code. Package **styler** must be installed (*R code*).                           |
+| <kbd>Ctrl</kbd>+<kbd>ALt</kbd>+<kbd>D</kbd>                  | Document R package (that you are building).                                                                                   |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd>                | Duplicate selected text.                                                                                                      |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>P</kbd> | Align selected lines at pattern.                                                                                              |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>P</kbd> | Align patrs of selected lines at a custom pattern.                                                                            |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd>                | Insert lower opening quotes `„`.                                                                                              |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>’</kbd>                | Insert upper closing quotes `“`.                                                                                              |
-| <kbd>Ctrl</kbd>+<kbd>E</kbd>                                 | Insert/Enclose with R code block (*R Markdown*) **\[\!\]** .                                                                  |
+| <kbd>Ctrl</kbd>+<kbd>E</kbd>                                 | **Insert/Enclose with R code block** (*R Markdown*) **\[\!\]** .                                                              |
 | <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>T</kbd>                  | Insert inline code highlighted as R code (R Markdown).                                                                        |
 | <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>                 | Insert inline LaTeX equation (*R Markdown*).                                                                                  |
 | <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad0</kbd>            | Remove heading/section name (*R Markdown*).                                                                                   |
@@ -225,7 +240,9 @@ bio::reset_rstudio_keybindings(to = "bio-default")
 | <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad3</kbd>            | … of level 3 (*R Markdown*).                                                                                                  |
 | <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad4</kbd>            | … of level 4 (*R Markdown*).                                                                                                  |
 | <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad5</kbd>            | … of level 5 (*R Markdown*).                                                                                                  |
-| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad6</kbd>            | Insert operator `%in%` (*R code*).                                                                                            |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad6</kbd>            | … of level 6 (*R Markdown*).                                                                                                  |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad7</kbd>            | Insert operator `%in%` (*R code*).                                                                                            |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad8</kbd>            | Insert operator `%*%` (*R code*).                                                                                             |
 
 **Table 1.** Some examples of shortcut keys set with option
 `"bio-default"`.
@@ -268,6 +285,9 @@ in RStudio.
 
 ### RStudio settings
 
+> The functions in this sub-section may work correctly with the newest
+> versions of RStudio (vesion \> 1.3).
+
 This function resets RStudio user preferences and settings.
 
 Run function without arguments to see the available options.
@@ -292,6 +312,9 @@ bio::reset_rstudio_user_settings(to = "bio-default")
 
 ### Snippets
 
+> The functions in this sub-section may work correctly with the newest
+> versions of RStudio (vesion \> 1.3).
+
 The function replaces current R code and R Markdown snippets with those
 in package “snippets”.
 
@@ -311,7 +334,7 @@ RStudio. You may use this function, which reloads RStudio without
 closing it:
 
 ``` r
-bio::reload_rstudio()
+bio::rstudio_reload_ui()
 ```
 
 However, in some cases it is recommended to close and reopen RStudio.
@@ -319,7 +342,7 @@ However, in some cases it is recommended to close and reopen RStudio.
 Next, to restart R session without closing RStudio, use:
 
 ``` r
-bio::restart_r()
+bio::rstudio_restart_r()
 ```
 
 Useful to apply before trying to install R packages.
