@@ -2,6 +2,7 @@ Package: bio
 Type: Package
 Title: Resources Manager for BS-2020 and R-2020
 Version: 0.0.7
+Date: 2020-08-26
 Authors@R: 
     person("Vilmantas", "Gegzna", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-9500-5167"),
