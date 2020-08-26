@@ -71,7 +71,7 @@ open_rs_saved_words_dictionary <- function() {
 get_path_rs_system_dictionaries_dir <- function(rstudio_version = "auto") {
 
   if (resolve_rs_version(rstudio_version) > "1.3") {
-    get_path_user_settings_dir_rs1.3("dictionaries", "languages-system")
+    get_path_user_settings_dir_rs_1.3("dictionaries", "languages-system")
 
   } else {
     fs::path(rstudioapi::userDictionariesPath(), "languages-system")
