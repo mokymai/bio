@@ -4,7 +4,7 @@
 \alias{restart_r}
 \title{DEPRECATED. Use \code{rstudio_restart_r()} instead}
 \usage{
-restart_r(...)
+restart_r()
 }
 \arguments{
 \item{...}{Arguments passed to \code{\link[=rstudio_restart_r]{rstudio_restart_r()}}}

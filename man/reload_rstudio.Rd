@@ -2,15 +2,15 @@
 % Please edit documentation in R/DEPRECATED-functions.R
 \name{reload_rstudio}
 \alias{reload_rstudio}
-\title{DEPRECATED. Use \code{rstudio_reload()} instead}
+\title{DEPRECATED. Use \code{rstudio_reload_ui()} instead}
 \usage{
-reload_rstudio(...)
+reload_rstudio()
 }
 \arguments{
-\item{...}{Arguments passed to \code{\link[=rstudio_reload]{rstudio_reload()}}}
+\item{...}{Arguments passed to \code{\link[=rstudio_reload_ui]{rstudio_reload_ui()}}}
 }
 \description{
 DO NOT USE THIS FUNCTION!
-This function was replaced by \code{\link[=rstudio_reload]{rstudio_reload()}} and will be removed soon.
+This function was replaced by \code{\link[=rstudio_reload_ui]{rstudio_reload_ui()}} and will be removed soon.
 }
 \concept{deprecated}
