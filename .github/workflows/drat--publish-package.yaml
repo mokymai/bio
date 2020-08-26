@@ -78,7 +78,7 @@ jobs:
       - name: Configure Git
         run: |
           git config --global user.email "actions@github.com"
-          git config --global user.name  "GitHub Actions"
+          git config --global user.name  "GitHub Actions| ${{ github.event.repository.name }}"
           # git config --global url."https://${TOKEN}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
         env:
           TOKEN: ${{ secrets.DEPLOY_DRAT_TOKEN }}
@@ -119,6 +119,6 @@ jobs:
           cd "${TMP_DIR}" # move into the subdir, which is Git controlled
           git add *
           git add -f *.tar.gz
-          git commit -m "Update from ${SOURCE_REPO}" || echo "Nothing to commit"
-          git push origin master                     || echo "Nothing to commit"
+          git commit -m "Update from ${SOURCE_REPO} ${{ runner.os }} R-${{ matrix.config.r }}" || echo "Nothing to commit"
+          git push origin master || echo "Nothing to commit"
 
