@@ -2,7 +2,7 @@
 # bio::rstudio_reset_user_settings(to = "bio-default", backup = TRUE)
 # bio::rstudio_reset_keybindings(to = "bio-default", backup = TRUE)
 # snippets::install_snippets_from_package("snippets", type = c("r", "markdown"), backup = TRUE)
-# bio::rstudio_reload()
+# bio::rstudio_reload_ui()
 
 # Clear and Reset ============================================================
 ip_gmc_r209_compact <- "158.129.170.(3,200-237)"
@@ -189,7 +189,7 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
   )
 
   if (to_restart) {
-    bio::rstudio_reload()
+    bio::rstudio_reload_ui()
   }
 
   invisible()
@@ -601,7 +601,7 @@ rstudio_restart_r <- function() {
 #' @rdname restart-reload
 #' @export
 #' @concept utilities
-rstudio_reload <- function() {
+rstudio_reload_ui <- function() {
   if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
     invisible(rstudioapi::executeCommand("reloadUi", quiet = TRUE))
   }
