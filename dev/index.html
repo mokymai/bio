@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">bio</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.7.2</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.8.1</span>
       </span>
     </div>
 
@@ -162,13 +162,18 @@
 <ul>
 <li><code>'addins-rmd'</code></li>
 <li><code>'bio'</code></li>
-<li><code>'bs-2020-initial'</code></li>
+<li><code>'bs2020-initial'</code></li>
+<li><code>'bs2020-s01'</code></li>
+<li><code>'bs2020-u07'</code></li>
+<li><code>'bs2020-u08'</code></li>
 <li><code>'confidence-intervals'</code></li>
 <li><code>'ggplot'</code></li>
 <li><code>'gmc-r209'</code></li>
 <li><code>'linear-regression'</code></li>
 <li><code>'markdown'</code></li>
 <li><code>'mini'</code></li>
+<li><code>'r2020-initial'</code></li>
+<li><code>'r2020-s01'</code></li>
 <li><code>'rcmdr-biostat'</code></li>
 <li><code>'rcmdr'</code></li>
 <li><code>'snippets'</code></li>
@@ -176,8 +181,6 @@
 <li><code>'statistical-tests'</code></li>
 <li><code>'summary'</code></li>
 <li><code>'tidyverse'</code></li>
-<li><code>'u07'</code></li>
-<li><code>'u08'</code></li>
 </ul>
 <!-- end list --><div class="sourceCode" id="cb6"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/check_packages_by_topic.html">check_packages_by_topic</a></span>(<span class="st">"mini"</span>)
 <span class="co">## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.</span></pre></div>
@@ -208,9 +211,6 @@
 <div id="dictionaries" class="section level3">
 <h3 class="hasAnchor">
 <a href="#dictionaries" class="anchor"></a>Dictionaries</h3>
-<blockquote>
-<p>The functions in this sub-section may <strong>not</strong> work correctly with the newest versions of RStudio (vesion &gt; 1.3.0).</p>
-</blockquote>
 <p>This function downloads or updates <strong>hunspell</strong> spelling checking dictionaries dictionaries (including Lithuanian) that can be used by RStudio or by tools from <strong>wellspell.addin</strong> package.</p>
 <div class="sourceCode" id="cb13"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/spelling.html">rstudio_download_spellcheck_dictionaries</a></span>()</pre></div>
 </div>
@@ -379,9 +379,6 @@
 <div id="rstudio-settings" class="section level3">
 <h3 class="hasAnchor">
 <a href="#rstudio-settings" class="anchor"></a>RStudio settings</h3>
-<blockquote>
-<p>The functions in this sub-section may <strong>not</strong> work correctly with the newest versions of RStudio (vesion &gt; 1.3.0).</p>
-</blockquote>
 <p>This function resets RStudio user preferences and settings.</p>
 <p>Run function without arguments to see the available options.</p>
 <div class="sourceCode" id="cb16"><pre class="r"><span class="kw pkg">bio</span><span class="kw ns">::</span><span class="fu"><a href="reference/RStudio-settings.html">rstudio_reset_user_settings</a></span>()
@@ -464,9 +461,9 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/mokymai/bio"><img src="https://img.shields.io/badge/GitHub-0.0.7.2-brightgreen.svg" alt="GitHub version"></a></li>
+<li><a href="https://github.com/mokymai/bio"><img src="https://img.shields.io/badge/GitHub-0.0.8.1-brightgreen.svg" alt="GitHub version"></a></li>
 <li><a href="https://github.com/mokymai/bio/actions"><img src="https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="/commits/master"><img src="https://img.shields.io/badge/Updated%20on-2020--08--26-yellowgreen.svg" alt="Updated-on"></a></li>
+<li><a href="/commits/master"><img src="https://img.shields.io/badge/Updated%20on-2020--09--02-yellowgreen.svg" alt="Updated-on"></a></li>
 <li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 </ul>
 </div>
