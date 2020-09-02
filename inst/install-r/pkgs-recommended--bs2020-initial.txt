@@ -1,6 +1,7 @@
 remotes
 fs
 ctv
+magrittr
 purrr
 tibble
 stringr
@@ -23,3 +24,10 @@ addin.tools
 addins.rmd
 addins.rs
 RcmdrPlugin.biostat
+openxlsx
+data.table
+rstatix
+styler
+readxl
+usethis
+rstudioapi
