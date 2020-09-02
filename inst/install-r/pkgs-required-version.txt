@@ -13,7 +13,7 @@ addin.tools                 | 0.0.9            | FALSE  | -
 addins.rmd                  | 0.0.10           | FALSE  | -
 addins.rs                   | 0.0.9            | FALSE  | -
 backup.tools                | 0.0.1            | FALSE  | -
-bio                         | 0.0.8            | FALSE  | -
+bio                         | 0.0.8.1          | FALSE  | -
 blogdown                    | 0.20             | FALSE  | -
 bookdown                    | 0.20             | FALSE  | -
 car                         | 3.0-9            | FALSE  | Rcmdr
@@ -24,7 +24,7 @@ crossref                    | 1.0.0            | FALSE  | -
 data.table                  | 1.13.0           | FALSE  | -
 DescTools                   | 0.99.37          | FALSE  | -
 devtools                    | 2.3.1            | FALSE  | -
-dplyr                       | 1.0.1            | FALSE  | -
+dplyr                       | 1.0.2            | FALSE  | -
 DT                          | 0.15             | FALSE  | -
 effects                     | 4.0-4            | FALSE  | Rcmdr
 effectsize                  | 0.3.2            | FALSE  | -
@@ -52,9 +52,10 @@ LanguageToolR               | 0.1.3            | FALSE  | -
 latex2exp                   | 0.4.0            | FALSE  | -
 lm.beta                     | 1.5-1            | FALSE  | -
 magick                      | 2.4.0            | FALSE  | -
-mlr                         | 2.17.1           | FALSE  | -
+magrittr                    | 1.5              | FALSE  | -
 mlr3                        | 0.5.0            | FALSE  | -
 mlr3verse                   | 0.1.3            | FALSE  | -
+mlr                         | 2.17.1           | FALSE  | -
 multcomp                    | 1.4-13           | FALSE  | Rcmdr
 officer                     | 0.3.12           | FALSE  | -
 openxlsx                    | 4.1.5            | FALSE  | -
@@ -63,8 +64,8 @@ pkgdown                     | 1.5.1            | FALSE  | -
 plotly                      | 4.9.2.1          | FALSE  | -
 purrr                       | 0.3.4            | FALSE  | -
 qqplotr                     | 0.0.4            | FALSE  | -
-Rcmdr                       | 2.6-2            | FALSE  | -
-RcmdrMisc                   | 2.7-0            | FALSE  | -
+Rcmdr                       | 2.7-0            | FALSE  | -
+RcmdrMisc                   | 2.7-1            | FALSE  | -
 RcmdrPlugin.biostat         | 0.0.68           | FALSE  | -
 RcmdrPlugin.EZR.as.menu     | 1.41             | FALSE  | -
 readr                       | 1.3.1            | FALSE  | -
@@ -86,7 +87,7 @@ stringr                     | 1.4.0            | FALSE  | -
 styler                      | 1.3.2            | FALSE  | -
 tcltk2                      | 1.2-11           | FALSE  | Rcmdr
 tibble                      | 3.0.3            | FALSE  | -
-tidyr                       | 1.1.1            | FALSE  | -
+tidyr                       | 1.1.2            | FALSE  | -
 tidyselect                  | 1.1.0            | FALSE  | -
 tidyverse                   | 1.3.0            | FALSE  | -
 tidyxl                      | 1.0.6            | FALSE  | -
