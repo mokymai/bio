@@ -73,7 +73,7 @@ and return package names from these expressions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.8.1</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.8.2</span>
       </span>
     </div>
 
@@ -132,13 +132,13 @@ and return package names from these expressions." />
     </div>
 
     <div class="ref-description">
-    <p>These functions search for <code><a href='https://rdrr.io/pkg/pkg/man'>library(pkg)</a></code>, <code><a href='https://rdrr.io/pkg/pkg/man'>require(pkg)</a></code> or <code>pkg::function()</code>
+    <p>These functions search for <code>library(pkg)</code>, <code>require(pkg)</code> or <code>pkg::function()</code>
 and return package names from these expressions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>list_pkgs_used_in_dir</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>regexp</span> <span class='kw'>=</span> <span class='st'>"(?i)[.](rmd|r)$"</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>list_pkgs_used_in_dir</span>(path = <span class='st'>"."</span>, regexp = <span class='st'>"(?i)[.](rmd|r)$"</span>, <span class='kw'>...</span>)
 
-<span class='fu'>list_pkgs_used_in_files</span>(<span class='no'>files</span>)</pre>
+<span class='fu'>list_pkgs_used_in_files</span>(<span class='kw'>files</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -181,7 +181,7 @@ files.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>
