@@ -12,9 +12,9 @@ styler
 readxl
 DescTools
 tidyverse
-bio
+rstudioapi
 openxlsx
 data.table
 usethis
-rstudioapi
+bio
 plotly
