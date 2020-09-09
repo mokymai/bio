@@ -44,13 +44,13 @@ check_installed_programs <- function(which = "main", skip_online_check = FALSE) 
   # RStudio
   check_rs_version(v_recommended = v_req$RStudio, skip_online_check = skip_online_check)
 
-  # Rtools (on Windows)
+  # R Build Tools (on Windows, they are called 'Rtools')
   if (get_os_type() == "windows") {
     # TODO (SEE ALSO): rstudioapi::buildToolsCheck()
-    check_program_installed("Rtools", pkgbuild::has_build_tools())
+    check_program_installed("'Rtools'", pkgbuild::has_build_tools())
     # check_program_installed("Rtools", is_rtools_installed())
   } else {
-    check_program_installed("Compiler", pkgbuild::has_build_tools())
+    check_program_installed("'R Build Tools'", pkgbuild::has_build_tools())
   }
 
 
@@ -295,7 +295,7 @@ check_program_installed <- function(program = "", condition = NULL) {
     ui_done("Program {blue(program)} is installed.")
 
   } else {
-    ui_oops("Program {red(program)} is ether not detected or not configured incorrectly.")
+    ui_oops("Program {red(program)} is ether missing, not detected or not configured incorrectly.")
   }
 
 }
