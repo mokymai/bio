@@ -17,3 +17,4 @@ openxlsx
 data.table
 usethis
 rstudioapi
+plotly
