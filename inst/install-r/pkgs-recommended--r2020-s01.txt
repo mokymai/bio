@@ -23,7 +23,6 @@ bio
 addin.tools
 addins.rmd
 addins.rs
-RcmdrPlugin.biostat
 openxlsx
 data.table
 rstatix
