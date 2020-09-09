@@ -8,9 +8,9 @@ Package ***bio***
 <!-- badges: start -->
 
 [![GitHub
-version](https://img.shields.io/badge/GitHub-0.0.8-brightgreen.svg)](https://github.com/mokymai/bio)
+version](https://img.shields.io/badge/GitHub-0.0.8.1-brightgreen.svg)](https://github.com/mokymai/bio)
 [![R-CMD-check](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
-[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--08--26-yellowgreen.svg)](/commits/master)
+[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--09--02-yellowgreen.svg)](/commits/master)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
@@ -117,13 +117,18 @@ returned by function `bio::get_pkg_lists_local()` and they include:
 
   - `'addins-rmd'`
   - `'bio'`
-  - `'bs-2020-initial'`
+  - `'bs2020-initial'`
+  - `'bs2020-s01'`
+  - `'bs2020-u07'`
+  - `'bs2020-u08'`
   - `'confidence-intervals'`
   - `'ggplot'`
   - `'gmc-r209'`
   - `'linear-regression'`
   - `'markdown'`
   - `'mini'`
+  - `'r2020-initial'`
+  - `'r2020-s01'`
   - `'rcmdr-biostat'`
   - `'rcmdr'`
   - `'snippets'`
@@ -131,8 +136,6 @@ returned by function `bio::get_pkg_lists_local()` and they include:
   - `'statistical-tests'`
   - `'summary'`
   - `'tidyverse'`
-  - `'u07'`
-  - `'u08'`
 
 <!-- end list -->
 
