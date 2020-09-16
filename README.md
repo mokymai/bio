@@ -8,9 +8,9 @@ Package ***bio***
 <!-- badges: start -->
 
 [![GitHub
-version](https://img.shields.io/badge/GitHub-0.0.8.2-brightgreen.svg)](https://github.com/mokymai/bio)
+version](https://img.shields.io/badge/GitHub-0.0.8.3-brightgreen.svg)](https://github.com/mokymai/bio)
 [![R-CMD-check](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
-[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--09--09-yellowgreen.svg)](/commits/master)
+[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--09--16-yellowgreen.svg)](/commits/master)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
@@ -21,7 +21,7 @@ Convenience functions to facilitate installation and management of
 required resources for course units ***Biostatistics*** (*BS-2020*) and
 ***Introduction to data analysis with R*** (*R-2020*).
 
-<center>
+<!-- <center> -->
 
 <!-- <font color="red" size=6> -->
 
@@ -31,11 +31,19 @@ required resources for course units ***Biostatistics*** (*BS-2020*) and
 
 <!-- </font> -->
 
-<br> <font color="darkred" size=4> This package is tested on <em>Windows
-10</em> (64-bit) with RStudio <b>1.2</b>.5042.<br> Some functions do not
-work correctly with RStudio <b>1.3</b>.0 or newer yet. </font> <br><br>
+<!-- <br> -->
 
-</center>
+<!-- <font color="darkred" size=4> -->
+
+<!-- This package is tested on <em>Windows 10</em> (64-bit) with RStudio <b>1.2</b>.5042.<br> -->
+
+<!-- Some functions do not work correctly with RStudio <b>1.3</b>.0 or newer yet. -->
+
+<!-- </font> -->
+
+<!-- <br><br> -->
+
+<!-- </center> -->
 
 Bug reports and your feedback are welcome at
 <https://github.com/mokymai/bio/issues>. In the report, indicate your
@@ -119,6 +127,7 @@ returned by function `bio::get_pkg_lists_local()` and they include:
   - `'bio'`
   - `'bs2020-initial'`
   - `'bs2020-s01'`
+  - `'bs2020-s02'`
   - `'bs2020-u07'`
   - `'bs2020-u08'`
   - `'confidence-intervals'`
@@ -130,6 +139,7 @@ returned by function `bio::get_pkg_lists_local()` and they include:
   - `'r2020-initial'`
   - `'r2020-s01'`
   - `'r2020-s02'`
+  - `'r2020-s03'`
   - `'rcmdr-biostat'`
   - `'rcmdr'`
   - `'snippets'`
