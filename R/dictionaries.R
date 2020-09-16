@@ -115,6 +115,9 @@ open_user_dictionaries_dir <- function() {
 #' `rstudio_delete_spellcheck_dictionaries()`
 #' deletes RStudio (system) spellchecking dictionaries.
 #'
+#' @param rstudio_version Numeric version of RStudio (the output is different
+#'        for RStudio < 1.3 and 1.3 or newer series). If `"auto"`, the version
+#'        of RStudio will be determined automatically.
 #' @param secure (logical) If `TRUE`, uses "https", if `FALSE`, uses "http".
 #'
 #' @export
@@ -122,19 +125,18 @@ open_user_dictionaries_dir <- function() {
 #' @concept dictionaries
 #'
 #' @examples
-#' if (FALSE) {
-#'
+#' \dontrun{\donttest{
 #' rstudio_delete_spellcheck_dictionaries()
 #' rstudio_download_spellcheck_dictionaries()
-#' }
+#' }}
 
-rstudio_download_spellcheck_dictionaries <- function(secure = TRUE) {
+rstudio_download_spellcheck_dictionaries <- function(rstudio_version = "auto", secure = TRUE) {
   if (rstudioapi::isAvailable()) {
-    if (rstudioapi::isAvailable() && rstudioapi::versionInfo()$version > "1.3") {
-      warning("This function does not work in RStudio 1.3.0 or newer yet.\n")
-      return(FALSE)
-    }
-    dic_dir <- get_path_rs_system_dictionaries_dir()
+    # if (rstudioapi::isAvailable() && rstudioapi::versionInfo()$version > "1.3") {
+    #   warning("This function does not work in RStudio 1.3.0 or newer yet.\n")
+    #   return(FALSE)
+    # }
+    dic_dir <- get_path_rs_system_dictionaries_dir(rstudio_version = rstudio_version)
     .rs.downloadAllDictionaries(targetDir = dic_dir, secure = secure)
 
   } else {
