@@ -224,9 +224,9 @@ Shortcut  | Action
 --------- | -------------------------------------------------------------------------------------------------------------------------------------------
 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>  | Check spelling in selected text. Package [**wellspell.addin**](https://github.com/nevrome/wellspell.addin){target="_blank"} must be installed.
 <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd>                  | Use "Tidyverse" style on selected lines of R code. Package **styler** must be installed (*R code*).
-<kbd>Ctrl</kbd>+<kbd>ALt</kbd>+<kbd>D</kbd>                   | Document R package (that you are building).
+<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>D</kbd>                   | Document R package (that you are building).
 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd>                 | Duplicate selected text.
-<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>P</kbd>  | Align patrs of selected lines at a custom pattern.
+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>P</kbd>  | Align parts of selected lines at a custom pattern.
 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd>                 | Insert lower opening quotes `„`.
 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>'</kbd>                 | Insert upper closing quotes `“`.
 <kbd>Ctrl</kbd>+<kbd>E</kbd>                                  | **Insert/Enclose with R code block** (*R Markdown*) **[!]** .
