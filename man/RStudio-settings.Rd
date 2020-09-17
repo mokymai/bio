@@ -39,6 +39,7 @@ rstudio_reset_user_settings(to = "bio-default")
 rstudio_reset_user_settings(to = "rstudio-default")
 
 }}
+
 }
 \seealso{
 \code{\link[=get_path_rs_user_settings]{get_path_rs_user_settings()}}
