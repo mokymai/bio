@@ -154,7 +154,8 @@ get_pkgs_installed <- function(rm_duplicates = TRUE) {
 #' List of packages of interest
 #'
 #' @inheritParams get_pkgs_installation_status
-#' @param silent (show_message) If `FALSE`, a message with chosen list is printed.
+#' @param show_message (logical)
+#'        If `TRUE`, a message with chosen list is printed.
 #'
 #' @return Data frame with column `"package"`.
 #' @export
@@ -171,7 +172,7 @@ get_pkgs_installed <- function(rm_duplicates = TRUE) {
 #'
 get_pkgs_recommended <- function(list_name,
                                  use_local_list = getOption("bio.use_local_list", FALSE),
-                                 show_message = FASLE) {
+                                 show_message = FALSE) {
 
   checkmate::assert_flag(show_message)
   list_name <- tolower(list_name)
