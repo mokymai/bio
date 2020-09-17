@@ -559,7 +559,7 @@ list_files_on_desktop <- function(type = "file") {
   other <- "3.6.1| 3.6.2|4.0.2|bs-2020|bs-2019|r-2019"
 
   files_to_remove <-
-    stringr::str_subset(present_files, stringr::str_glue("(\\.({exts})$)|({other})"))
+    stringr::str_subset(present_files, glue::glue("(\\.({exts})$)|({other})"))
 
   structure(fs::path_file(files_to_remove), class = "glue")
   invisible(files_to_remove)
@@ -567,7 +567,7 @@ list_files_on_desktop <- function(type = "file") {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 str_to_quotes <- function(x) {
   if (is.character(x)) {
-    x <- stringr::str_glue('"{x}"')
+    x <- glue::glue('"{x}"')
   }
   x
 }

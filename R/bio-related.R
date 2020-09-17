@@ -66,7 +66,7 @@ update_pkg_bio <- function(upgrade = TRUE, force = FALSE, quiet = TRUE) {
     force_str <- if (force) {", force = TRUE"} else {""}
     quiet_str <- if (quiet) {", quiet = TRUE"} else {""}
 
-    command <- stringr::str_glue(
+    command <- glue::glue(
       paste(sep = "\n",
         '# Updating package "bio"...',
         'Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS = "true")',

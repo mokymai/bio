@@ -76,7 +76,7 @@ update_pkg_from_github <- function(pkg = "", github_repo = "", update_list = "",
   if (rstudioapi::isAvailable(version_needed = "1.1.281")) {
 
     command <-
-      stringr::str_glue(
+      glue::glue(
         paste(sep = "\n",
           '# Updating package "{pkg}"...',
           'Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS = "true")',

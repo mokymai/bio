@@ -837,7 +837,7 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
 
     status_msg <-
       if (r_installed < r_available) {
-        stringr::str_glue(
+        glue::glue(
           "Either the package{s} require{ss} a newer version of R ",
           "(installed {yellow(r_installed)}, ",
           "available {green(r_available)}) ",
@@ -845,7 +845,7 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
         )
 
       } else {
-        stringr::str_glue(
+        glue::glue(
           "The package{s} might be recently removed from CRAN. "
         )
       }
@@ -973,7 +973,7 @@ get_pkgs_installation_code_github <- function(x, upgrade = FALSE) {
 
   res <- paste0(
     "remotes::install_github(\n", pkgs, ",\n",
-    stringr::str_glue("dependencies = TRUE, upgrade = {upgrade})")
+    glue::glue("dependencies = TRUE, upgrade = {upgrade})")
   )
   styler::style_text(res)
 }
@@ -1029,7 +1029,7 @@ check_packages_by_topic <- function(list_name = NULL,
       ""
     }
 
-  code_str <- stringr::str_glue(
+  code_str <- glue::glue(
     "bio::get_pkgs_installation_code(to_clipboard = TRUE{upgrade_str})"
   )
 
