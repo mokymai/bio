@@ -298,14 +298,26 @@ rstudio_reset_layout <- function(rs_layout = "left") {
 
 # Settings and Preferences ===================================================
 #' @name RStudio-settings
-#' @title RStudio settings and preferences
-#' @description  Get a list of current RStudio preferences.
+#' @title Reset RStudio settings
+#' @description
+#' Reset RStudio settings. Different algorithms are used for RStudio versions
+#' newer than 1.3 and previous to 1.3.
 #'
-#' @details Find the names of the preferences at:
-#' https://github.com/rstudio/rstudio/blob/5f2b79427ed526e22f78c794a4b5894ebee2de75/src/cpp/session/SessionUserSettings.cpp#L357-L447
+#' @param to The name of set with RStudio settings.
+#'        One of: "rstudio-default" or "bio-default".
+#' @param backup (logical) If `TRUE`, a backup copy of files with settings is
+#'        created.
+#' @param ask (logical) If `TRUE`, user confirmation to reset settings is
+#'       required.
 #'
-#' @return A named list with some of current RStudio preferences.
+#' @details
+#' Settings that can be used in `rstudio-prefs.json` file
+#' (for RStudio 1.3 or newer):
+#' https://docs.rstudio.com/ide/server-pro/session-user-settings.html
+#'
 #' @seealso
+#' [get_path_rs_user_settings()]
+#'
 #' RStudio functions `.rs.readUiPref()`, `.rs.writeUiPref()`.
 #' - https://stackoverflow.com/a/55940249/4783029
 #' - https://stackoverflow.com/a/54982341/4783029
@@ -319,45 +331,14 @@ rstudio_reset_layout <- function(rs_layout = "left") {
 #' # .rs.writeUiPref()
 #'
 #' #-------------------------------------------------
-#' head(rstudio_read_user_settings(), n = 2)
-#'
-#' head(rstudio_read_user_settings("bio-default"), n = 2)
-#'
-#' #-------------------------------------------------
-#' head(rstudio_read_ui_prefs(), n = 2)
-#'
-#' head(rstudio_read_ui_prefs("bio-default"), n = 2)
-#'
-#' #-------------------------------------------------
-#' head(rstudio_get_ui_prefs(), n = 2)
-#'
-#' #-------------------------------------------------
-#' rstudio_get_user_setting_names()
-#'
-#' rstudio_get_ui_pref_names()
-#'
-#' #-------------------------------------------------
 #'
 #' rstudio_reset_user_settings(to = "bio-default")
 #'
 #' rstudio_reset_user_settings(to = "rstudio-default")
 #'
 #' }}
-#' @inheritParams get_path_rs_user_settings
-NULL
-
-# For auto-completion
-user_settings_defaults <- c('bio-default', 'rstudio-default')
-
-
-#' @rdname RStudio-settings
+#'
 #' @export
-#' @param to The set of RStudio user settings.
-#'        One of: "rstudio-default" or "bio-default".
-#' @param backup (logical) If `TRUE`, a backup copy of files with settings is
-#'        created.
-#' @param ask (logical) If `TRUE`, user confirmation to reset settings is
-#'       required.
 rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
 
   if (missing(to)) {
@@ -408,7 +389,6 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
       'Unknown option of user setting defaults: to = {usethis::ui_value(to[1])}. \n',
       "Possible options: {ui_value(user_settings_defaults)}."
     ))
-
   )
 
   if (isTRUE(success)) {
@@ -417,84 +397,18 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
 
   } else {
     usethis::ui_oops("Failure to reset RStudio user settings.")
-
-  }
-
-}
-
-
-#' @rdname RStudio-settings
-#' @export
-rstudio_read_user_settings <- function(which = "current") {
-  file   <- get_path_rs_user_settings(which)
-  liness <- readr::read_lines(file)
-  prefs  <- str_glue_eval('list({stringr::str_c(liness, collapse = ", ")})')
-  prefs
-}
-
-#' @rdname RStudio-settings
-#' @export
-rstudio_read_ui_prefs <- function(which = "current") {
-  prefs <- rstudio_read_user_settings(which)
-  uiPrefs <- jsonlite::parse_json(prefs$uiPrefs)
-  # prefs$uiPrefs <- NULL
-  # list(prefs, uiPrefs)
-  uiPrefs
-}
-
-#' @rdname RStudio-settings
-#' @export
-rstudio_get_ui_prefs <- function() {
-
-  prefs <-
-    c("use_spaces_for_tab",
-      "num_spaces_for_tab",
-      "auto_append_newline",
-      "strip_trailing_whitespace",
-      "default_encoding",
-      "default_sweave_engine",
-      "default_latex_program",
-      "always_enable_concordance",
-      "spelling_dictionary_language",
-      "spelling_custom_dictionaries",
-      "handle_errors_in_user_code_only",
-      "shiny_viewer_type",
-      "plumber_viewer_type",
-      "enable_rstudio_connect",
-      "diagnostics_in_function_calls",
-      "check_arguments_to_r_function_calls",
-      "check_unexpected_assignment_in_function_call",
-      "warn_if_no_such_variable_in_scope",
-      "warn_if_variable_defined_but_not_used",
-      "enable_style_diagnostics",
-      "ansi_console_mode",
-      "terminal_websockets",
-      "terminal_autoclose",
-      "terminal_track_env",
-      "busy_detection",
-      "show_rmd_render_command",
-      "show_publish_diagnostics",
-      "publish_check_certificates",
-      "use_publish_ca_bundle",
-      "publish_ca_bundle"
-    )
-  if (rstudioapi::isAvailable() && exists(".rs.readUiPref")) {
-    vals <- purrr::map(prefs, ~.rs.readUiPref(.))
-    purrr::set_names(vals, prefs)
   }
 }
 
-#' @rdname RStudio-settings
-#' @export
-rstudio_get_user_setting_names <- function(which = "current") {
-  names(rstudio_read_user_settings(which))
-}
 
-#' @rdname RStudio-settings
-#' @export
-rstudio_get_ui_pref_names <- function(which = "current") {
-  names(rstudio_read_ui_prefs(which))
-}
+
+# Find the names of the preferences at:
+# https://github.com/rstudio/rstudio/blob/5f2b79427ed526e22f78c794a4b5894ebee2de75/src/cpp/session/SessionUserSettings.cpp#L357-L447
+NULL
+
+# For auto-completion
+user_settings_defaults <- c('bio-default', 'rstudio-default')
+
 
 
 # Keybindings ================================================================
@@ -645,7 +559,7 @@ list_files_on_desktop <- function(type = "file") {
   other <- "3.6.1| 3.6.2|4.0.2|bs-2020|bs-2019|r-2019"
 
   files_to_remove <-
-    stringr::str_subset(present_files, stringr::str_glue("(\\.({exts})$)|({other})"))
+    stringr::str_subset(present_files, glue::glue("(\\.({exts})$)|({other})"))
 
   structure(fs::path_file(files_to_remove), class = "glue")
   invisible(files_to_remove)
@@ -653,7 +567,7 @@ list_files_on_desktop <- function(type = "file") {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 str_to_quotes <- function(x) {
   if (is.character(x)) {
-    x <- stringr::str_glue('"{x}"')
+    x <- glue::glue('"{x}"')
   }
   x
 }

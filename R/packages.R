@@ -63,15 +63,15 @@ base_r_packages <- function() {
 #'
 compare_version <- function(v_installed, v_required) {
 
-  busena <- numeric(length(v_installed))
+  result <- numeric(length(v_installed))
 
   v_installed <- as.character(v_installed)
   v_required  <- as.character(v_required)
 
-  for (i in seq_along(busena)) {
-    busena[i] <- utils::compareVersion(v_installed[i], v_required[i])
+  for (i in seq_along(result)) {
+    result[i] <- utils::compareVersion(v_installed[i], v_required[i])
   }
-  busena
+  result
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -154,6 +154,8 @@ get_pkgs_installed <- function(rm_duplicates = TRUE) {
 #' List of packages of interest
 #'
 #' @inheritParams get_pkgs_installation_status
+#' @param show_message (logical)
+#'        If `TRUE`, a message with chosen list is printed.
 #'
 #' @return Data frame with column `"package"`.
 #' @export
@@ -169,46 +171,52 @@ get_pkgs_installed <- function(rm_duplicates = TRUE) {
 #' head(get_pkgs_recommended("mini"))
 #'
 get_pkgs_recommended <- function(list_name,
-  use_local_list = getOption("bio.use_local_list", FALSE)) {
+                                 use_local_list = getOption("bio.use_local_list", FALSE),
+                                 show_message = FALSE) {
 
+  checkmate::assert_flag(show_message)
+  list_name <- tolower(list_name)
+  list_name_blue <- usethis::ui_value(list_name)
   file <- get_path_pkgs_recommended(list_name, use_local_list)
 
-  tryCatch({ln <- readLines(file, encoding = "UTF-8")},
+  tryCatch(
+    {
+      ln <- readLines(file, encoding = "UTF-8")
+    },
     # error = function(e) {
     #   if (!pingr::is_online()) {
     #     usethis::ui_stop(paste0(
     #       "No internet connection. The online version of list ",
-    #       "{usethis::ui_value(list_name)} cannot be accessed. "))
+    #       "{list_name_blue} cannot be accessed. "))
     #   } else {
     #     usethis::ui_stop(paste0(
-    #       "It seems that list {usethis::ui_value(list_name)} is not present ",
+    #       "It seems that list {list_name_blue} is not present ",
     #       "online or cannot be accessed. Check if the spelling is correct."))
     #   }
     #   return()
     # },
     warning = function(w) {
-
       if (!pingr::is_online()) {
         usethis::ui_stop(paste0(
           "No internet connection, thus the online version of list ",
-          "{usethis::ui_value(list_name)} cannot be accessed. ")
-        )
-
+          "{list_name_blue} cannot be accessed. "
+        ))
       } else if (stringr::str_detect(w$message, "'404 Not Found'")) {
         usethis::ui_stop(paste0(
           "It seems that there is no online version of list ",
-          "{usethis::ui_value(list_name)} or it cannot be accessed. ",
+          "{list_name_blue} or it cannot be accessed. ",
           "\nCheck if the list name is correct. ",
           "Did you mean one of: \n{usethis::ui_value(bio::get_pkg_lists_local())}, ..."
-          )
-        )
-
+        ))
       } else {
         usethis::ui_stop(w$message)
       }
-
     }
   )
+
+  if (show_message) {
+    usethis::ui_info("Reading packages from list {list_name_blue} ")
+  }
 
   data.frame(
     # Remove R comments and trim whitespace.
@@ -227,7 +235,7 @@ get_path_pkgs_recommended <- function(list_name, use_local_list) {
     file <- path_bio(base_name)
     if (!file.exists(file)) {
       usethis::ui_stop(paste0(
-        "List {usethis::ui_value(list_name)} was not found on your computer. \n",
+        "List {list_name_blue} was not found on your computer. \n",
         "Check if the list name is correct. ",
         "Did you mean one of: \n{usethis::ui_value(bio::get_pkg_lists_local())}, ..."
       ))
@@ -329,7 +337,7 @@ get_pkgs_cran_details <- function() {
 #' Get details about non-CRAN package installation
 #'
 #' Get installation code of packages that either should be installed not from
-#' CRAN or a modified code shold be installed.
+#' CRAN or a modified code should be installed.
 #'
 #' @inheritParams get_pkgs_installation_status
 #'
@@ -397,7 +405,8 @@ get_path_pkgs_non_cran_installation_details <- function(use_local_list) {
 get_pkgs_installation_status_local <- function(list_name,
   use_local_list = getOption("bio.use_local_list", TRUE)) {
 
-  pkgs_rec   <- get_pkgs_recommended(use_local_list = use_local_list, list_name = list_name)
+  pkgs_rec   <- get_pkgs_recommended(use_local_list = use_local_list,
+    list_name = list_name, show_message = TRUE)
   pkgs_inst  <- get_pkgs_installed()
   pkgs_req_v <- get_pkgs_req_version(use_local_list = use_local_list)
 
@@ -793,7 +802,7 @@ process_pkgs_to_install <- function(x, cran = x$install_from$cran,
 #' @param to_clipboard (logical) If `TRUE`, the code is copied to clipboard and
 #'        returned only invisibly.
 get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
-  upgrade = FALSE) {
+  upgrade = TRUE) {
 
   if (is.null(x)) {
     x <- get_last_pkgs_installation_status()
@@ -837,7 +846,7 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
 
     status_msg <-
       if (r_installed < r_available) {
-        stringr::str_glue(
+        glue::glue(
           "Either the package{s} require{ss} a newer version of R ",
           "(installed {yellow(r_installed)}, ",
           "available {green(r_available)}) ",
@@ -845,7 +854,7 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
         )
 
       } else {
-        stringr::str_glue(
+        glue::glue(
           "The package{s} might be recently removed from CRAN. "
         )
       }
@@ -881,13 +890,13 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
   #   # Sys.setenv(GITHUB_PAT = "write your PAT here, if you have it")
   # }
 
-  res <- c(
+  res <- c(glue::glue(
     '
     # To read more on the used options, run code:
     # help("options") # Opens help on options
     options(
       repos = "https://cran.rstudio.com/",
-      pkgType = "both",
+      pkgType = "{ifelse(get_os_type() == "linux", "source", "both")}",
       install.packages.check.source = "yes",
       install.packages.compile.from.source = "always"
     )
@@ -896,7 +905,7 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
     # Read more at: https://remotes.r-lib.org/#environment-variables
     Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS = "true")
 
-    ',
+    '),
     res
   )
   # , Ncpus = max(1, parallel::detectCores() - 1)
@@ -918,7 +927,7 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
     }
 
     usethis::ui_todo(paste0(
-      "But before installation, {underline('close')} RStudio ",
+      "But before the installation, {underline('close')} RStudio ",
       "{underline('project')} and/or {underline('restart R session')}.")
     )
     return(invisible(res))
@@ -944,13 +953,19 @@ get_pkgs_installation_code_cran <- function(x) {
     pkgs <- paste0("c(\n", pkgs ,")")
   }
 
-  res <- paste0("install.packages(", pkgs , ")")
+  if (requireNamespace("remotes", quietly = TRUE)) {
+    res <- paste0("remotes::install_cran(", pkgs , ")")
+
+  } else {
+    res <- paste0("install.packages(", pkgs , ")")
+  }
+
   styler::style_text(res)
 }
 
 #  @rdname get_pkgs_installation_status
 #  @export
-get_pkgs_installation_code_github <- function(x, upgrade = FALSE) {
+get_pkgs_installation_code_github <- function(x, upgrade = TRUE) {
 
   upgrade <- chk_arg_upgrade(upgrade)
   pkgs_vec <- x$install_from_github
@@ -967,7 +982,7 @@ get_pkgs_installation_code_github <- function(x, upgrade = FALSE) {
 
   res <- paste0(
     "remotes::install_github(\n", pkgs, ",\n",
-    stringr::str_glue("dependencies = TRUE, upgrade = {upgrade})")
+    glue::glue("dependencies = TRUE, upgrade = {upgrade})")
   )
   styler::style_text(res)
 }
@@ -1009,8 +1024,10 @@ get_pkgs_installation_code_other <- function(x) {
 #' check_packages_by_topic("mini", include = "always", install = "outdated",
 #'  github = "always", use_local_list = TRUE)
 #' }}
+
+# Sys.getenv("R_REMOTES_UPGRADE")
 check_packages_by_topic <- function(list_name = NULL,
-  use_local_list = getOption("bio.use_local_list", FALSE), upgrade = FALSE,
+  use_local_list = getOption("bio.use_local_list", FALSE), upgrade = TRUE,
   ...) {
 
   status <-
@@ -1023,7 +1040,7 @@ check_packages_by_topic <- function(list_name = NULL,
       ""
     }
 
-  code_str <- stringr::str_glue(
+  code_str <- glue::glue(
     "bio::get_pkgs_installation_code(to_clipboard = TRUE{upgrade_str})"
   )
 

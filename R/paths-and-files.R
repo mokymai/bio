@@ -525,7 +525,7 @@ open_r_environ <- function() {
 str_glue_eval <- function(..., envir = parent.frame(), .sep = "",
   .open = "{", .close = "}", envir_eval = envir,  envir_glue = envir) {
 
-  commands_as_text <- stringr::str_glue(...,
+  commands_as_text <- glue::glue(...,
     .envir = envir_glue,
     .open  = .open,
     .close = .close

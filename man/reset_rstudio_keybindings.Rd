@@ -10,7 +10,7 @@ reset_rstudio_keybindings(...)
 \item{...}{Arguments passed to \code{\link[=rstudio_reset_keybindings]{rstudio_reset_keybindings()}}}
 }
 \description{
-DO NOT USE THIS FUNCTION!
+\strong{DO NOT USE THIS FUNCTION!}
 This function was replaced by \code{\link[=rstudio_reset_keybindings]{rstudio_reset_keybindings()}} and will be removed soon.
 }
 \concept{deprecated}

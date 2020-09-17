@@ -222,7 +222,7 @@ check_program_version  <- function(program = "", r_installed = "", v_recommended
       av_color <- yellow
     }
 
-    if_available <- stringr::str_glue(", available {av_color(r_available)}")
+    if_available <- glue::glue(", available {av_color(r_available)}")
 
   } else {
     if_available <- ""

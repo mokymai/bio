@@ -6,7 +6,8 @@
 \usage{
 get_pkgs_recommended(
   list_name,
-  use_local_list = getOption("bio.use_local_list", FALSE)
+  use_local_list = getOption("bio.use_local_list", FALSE),
+  show_message = FALSE
 )
 }
 \arguments{
@@ -20,6 +21,9 @@ It is recommended  using the online version of the list, as it may
 contain more recent changes.
 Optiom bight be set globally by, e.g.,
 \code{options(bio.use_local_list = TRUE)}.}
+
+\item{show_message}{(logical)
+If \code{TRUE}, a message with chosen list is printed.}
 }
 \value{
 Data frame with column \code{"package"}.

@@ -7,7 +7,7 @@
 reload_rstudio()
 }
 \description{
-DO NOT USE THIS FUNCTION!
+\strong{DO NOT USE THIS FUNCTION!}
 This function was replaced by \code{\link[=rstudio_reload_ui]{rstudio_reload_ui()}} and will be removed soon.
 }
 \concept{deprecated}

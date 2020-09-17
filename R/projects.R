@@ -242,6 +242,17 @@ open_project <- function(pattern = NULL, new_session = TRUE, proj_list = NULL,
     proj_list <- dplyr::filter(proj_list, stringr::str_detect(name, {pattern}, {negate}))
   }
 
+  n_projs <- nrow(proj_list)
+
+  if (n_projs < 1) {
+    negated <- ifelse(negate, " negated", "")
+    usethis::ui_oops(paste0(
+      "No project name matches{negated} regex pattern ",
+      "'{blue(pattern)}'"
+    ))
+    return(invisible())
+  }
+
   if (is.null(name)) {
     if (!interactive()) {
       stop(
@@ -250,12 +261,12 @@ open_project <- function(pattern = NULL, new_session = TRUE, proj_list = NULL,
       )
     }
 
-    cat("\nChoose the name of the project (press 0 to cancel): \n")
+    cat("\nChoose the number of the project (press 0 to cancel): \n")
 
     all_names <- sort(proj_list$name)
     i_name <- utils::menu(all_names)
     if (i_name == 0) {
-      message("Cancelled by user.")
+      usethis::ui_oops("Cancelled by user")
       return(invisible())
 
     } else {
@@ -268,7 +279,7 @@ open_project <- function(pattern = NULL, new_session = TRUE, proj_list = NULL,
 
   if (n_proj < 1) {
     stop(
-      "No project match name '", name, "'. ",
+      "No project named '", name, "'. ",
       "Available projects:\n", paste(proj_list$name, collapse = ", ")
     )
 
@@ -282,12 +293,13 @@ open_project <- function(pattern = NULL, new_session = TRUE, proj_list = NULL,
       )
     }
 
-    cat(sep = "", "\nSeveral projects match name '", name, "'. \n")
-    cat("Choose the path to the project of interest: \n")
-
+    usethis::ui_info(paste0(
+      "\nSeveral projects match name {usethis::ui_value(name)}.\n",
+      "Choose the path to the project of interest: \n"
+    ))
     i_path <- utils::menu(proj$path)
     if (i_path == 0) {
-      message("Cancelled by user.")
+      usethis::ui_oops("Cancelled by user")
       return(invisible())
     }
     proj_path <- proj$path[i_path]
@@ -296,6 +308,7 @@ open_project <- function(pattern = NULL, new_session = TRUE, proj_list = NULL,
     proj_path <- proj$path
   }
 
+  usethis::ui_done("Opening {blue(proj_path)}")
   rstudioapi::openProject(proj_path, newSession = new_session)
 }
 

@@ -5,7 +5,7 @@ make_unique_obj_names <- function(names, prefix = "", suffix = "",
   if (length(names) == 0) {
     return(NULL)
   }
-  initial_names <- stringr::str_glue("{prefix}{names}{suffix}")
+  initial_names <- glue::glue("{prefix}{names}{suffix}")
   n_names <- length(names)
 
   list_to_check <-

@@ -3,27 +3,12 @@
 \name{RStudio-settings}
 \alias{RStudio-settings}
 \alias{rstudio_reset_user_settings}
-\alias{rstudio_read_user_settings}
-\alias{rstudio_read_ui_prefs}
-\alias{rstudio_get_ui_prefs}
-\alias{rstudio_get_user_setting_names}
-\alias{rstudio_get_ui_pref_names}
-\title{RStudio settings and preferences}
+\title{Reset RStudio settings}
 \usage{
 rstudio_reset_user_settings(to, backup = TRUE, ask = TRUE)
-
-rstudio_read_user_settings(which = "current")
-
-rstudio_read_ui_prefs(which = "current")
-
-rstudio_get_ui_prefs()
-
-rstudio_get_user_setting_names(which = "current")
-
-rstudio_get_ui_pref_names(which = "current")
 }
 \arguments{
-\item{to}{The set of RStudio user settings.
+\item{to}{The name of set with RStudio settings.
 One of: "rstudio-default" or "bio-default".}
 
 \item{backup}{(logical) If \code{TRUE}, a backup copy of files with settings is
@@ -31,18 +16,15 @@ created.}
 
 \item{ask}{(logical) If \code{TRUE}, user confirmation to reset settings is
 required.}
-
-\item{which}{(character) type of settings: "current", "bio-default".}
-}
-\value{
-A named list with some of current RStudio preferences.
 }
 \description{
-Get a list of current RStudio preferences.
+Reset RStudio settings. Different algorithms are used for RStudio versions
+newer than 1.3 and previous to 1.3.
 }
 \details{
-Find the names of the preferences at:
-https://github.com/rstudio/rstudio/blob/5f2b79427ed526e22f78c794a4b5894ebee2de75/src/cpp/session/SessionUserSettings.cpp#L357-L447
+Settings that can be used in \code{rstudio-prefs.json} file
+(for RStudio 1.3 or newer):
+https://docs.rstudio.com/ide/server-pro/session-user-settings.html
 }
 \examples{
 \dontrun{\donttest{
@@ -51,32 +33,17 @@ https://github.com/rstudio/rstudio/blob/5f2b79427ed526e22f78c794a4b5894ebee2de75
 # .rs.writeUiPref()
 
 #-------------------------------------------------
-head(rstudio_read_user_settings(), n = 2)
-
-head(rstudio_read_user_settings("bio-default"), n = 2)
-
-#-------------------------------------------------
-head(rstudio_read_ui_prefs(), n = 2)
-
-head(rstudio_read_ui_prefs("bio-default"), n = 2)
-
-#-------------------------------------------------
-head(rstudio_get_ui_prefs(), n = 2)
-
-#-------------------------------------------------
-rstudio_get_user_setting_names()
-
-rstudio_get_ui_pref_names()
-
-#-------------------------------------------------
 
 rstudio_reset_user_settings(to = "bio-default")
 
 rstudio_reset_user_settings(to = "rstudio-default")
 
 }}
+
 }
 \seealso{
+\code{\link[=get_path_rs_user_settings]{get_path_rs_user_settings()}}
+
 RStudio functions \code{.rs.readUiPref()}, \code{.rs.writeUiPref()}.
 \itemize{
 \item https://stackoverflow.com/a/55940249/4783029

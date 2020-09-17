@@ -8,11 +8,11 @@
 check_updates_rcmdr_biostat(
   show_status = "always",
   install = "outdated",
-  upgrade = FALSE,
+  upgrade = TRUE,
   ...
 )
 
-update_pkg_rcmdr_biostat(upgrade = FALSE, force = FALSE, quiet = TRUE)
+update_pkg_rcmdr_biostat(upgrade = TRUE, force = FALSE, quiet = TRUE)
 }
 \arguments{
 \item{show_status}{See argument \code{show_status} in \code{\link[=get_pkgs_installation_status]{get_pkgs_installation_status()}}.}

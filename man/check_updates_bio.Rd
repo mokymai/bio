@@ -7,7 +7,7 @@
 check_updates_bio(
   show_status = "always",
   install = "outdated",
-  upgrade = FALSE,
+  upgrade = TRUE,
   ...
 )
 }
@@ -21,7 +21,7 @@ check_updates_bio(
 \item{...}{See \code{\link[=check_updates_pkg_bio]{check_updates_pkg_bio()}}.}
 }
 \description{
-DO NOT USE THIS FUNCTION!
+\strong{DO NOT USE THIS FUNCTION!}
 This function was replaced by \code{\link[=check_updates_pkg_bio]{check_updates_pkg_bio()}} and will be removed
 soon.
 }

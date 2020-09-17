@@ -12,7 +12,7 @@ get_vesion_pkg_bio()
 check_updates_pkg_bio(
   show_status = "always",
   install = "outdated",
-  upgrade = FALSE,
+  upgrade = TRUE,
   ...
 )
 

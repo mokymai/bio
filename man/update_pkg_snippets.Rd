@@ -4,7 +4,7 @@
 \alias{update_pkg_snippets}
 \title{Update '\pkg{snippets}' and related packages}
 \usage{
-update_pkg_snippets(upgrade = FALSE, force = FALSE, quiet = TRUE)
+update_pkg_snippets(upgrade = TRUE, force = FALSE, quiet = TRUE)
 }
 \arguments{
 \item{upgrade}{Upgrade dependencies.
