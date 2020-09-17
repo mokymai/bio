@@ -15,7 +15,7 @@
 #' check_updates_rcmdr_biostat()
 #'
 #' }}
-check_updates_rcmdr_biostat  <- function(show_status = "always",
+check_updates_rcmdr_biostat <- function(show_status = "always",
   install = "outdated", upgrade = TRUE, ...) {
 
   # get_pkgs_installation_status(list_name = "Rcmdr-biostat", show_status = show_status,
