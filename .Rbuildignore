@@ -13,3 +13,4 @@
 ^\.github$
 ^codecov\.yml$
 ^raw-data$
+^_tmp$
