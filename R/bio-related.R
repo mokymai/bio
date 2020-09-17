@@ -33,7 +33,7 @@ get_vesion_pkg_bio  <- function() {
 #' @export
 #' @concept packages
 check_updates_pkg_bio  <- function(show_status = "always", install = "outdated",
-  upgrade = FALSE, ...) {
+  upgrade = TRUE, ...) {
 
   check_packages_by_topic(list_name = "bio", show_status = show_status,
     install = install, upgrade = upgrade, ...)

@@ -16,7 +16,7 @@
 #'
 #' }}
 check_updates_rcmdr_biostat  <- function(show_status = "always",
-  install = "outdated", upgrade = FALSE, ...) {
+  install = "outdated", upgrade = TRUE, ...) {
 
   # get_pkgs_installation_status(list_name = "Rcmdr-biostat", show_status = show_status,
   #   install = install, ...)
@@ -26,7 +26,7 @@ check_updates_rcmdr_biostat  <- function(show_status = "always",
 
 #' @rdname update_pkg_rcmdr_biostat
 #' @export
-update_pkg_rcmdr_biostat <- function(upgrade = FALSE, force = FALSE, quiet = TRUE) {
+update_pkg_rcmdr_biostat <- function(upgrade = TRUE, force = FALSE, quiet = TRUE) {
   update_pkg_from_github("RcmdrPlugin.biostat", "GegznaV/RcmdrPlugin.biostat",
     "Rcmdr-biostat", upgrade = upgrade, force = force, quiet = quiet)
 }
@@ -44,14 +44,14 @@ update_pkg_rcmdr_biostat <- function(upgrade = FALSE, force = FALSE, quiet = TRU
 #' update_pkg_snippets()
 #'
 #' }}
-update_pkg_snippets <- function(upgrade = FALSE, force = FALSE, quiet = TRUE) {
+update_pkg_snippets <- function(upgrade = TRUE, force = FALSE, quiet = TRUE) {
   update_pkg_from_github("snippets", "GegznaV/snippets", "snippets",
     upgrade = upgrade, force = force, quiet = quiet)
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 update_pkg_from_github <- function(pkg = "", github_repo = "", update_list = "",
-  upgrade = FALSE, force = FALSE, quiet = TRUE) {
+  upgrade = TRUE, force = FALSE, quiet = TRUE) {
   checkmate::assert_string(pkg)
   checkmate::assert_string(github_repo)
   checkmate::assert_string(update_list)

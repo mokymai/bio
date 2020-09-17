@@ -50,7 +50,7 @@ check_installed_packages <- function(...) {
 #' @export
 #' @concept deprecated
 check_updates_bio  <- function(show_status = "always", install = "outdated",
-  upgrade = FALSE, ...) {
+  upgrade = TRUE, ...) {
 
   .Deprecated("bio::check_updates_pkg_bio()")
 

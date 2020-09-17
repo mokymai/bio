@@ -793,7 +793,7 @@ process_pkgs_to_install <- function(x, cran = x$install_from$cran,
 #' @param to_clipboard (logical) If `TRUE`, the code is copied to clipboard and
 #'        returned only invisibly.
 get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
-  upgrade = FALSE) {
+  upgrade = TRUE) {
 
   if (is.null(x)) {
     x <- get_last_pkgs_installation_status()
@@ -956,7 +956,7 @@ get_pkgs_installation_code_cran <- function(x) {
 
 #  @rdname get_pkgs_installation_status
 #  @export
-get_pkgs_installation_code_github <- function(x, upgrade = FALSE) {
+get_pkgs_installation_code_github <- function(x, upgrade = TRUE) {
 
   upgrade <- chk_arg_upgrade(upgrade)
   pkgs_vec <- x$install_from_github
@@ -1018,7 +1018,7 @@ get_pkgs_installation_code_other <- function(x) {
 
 # Sys.getenv("R_REMOTES_UPGRADE")
 check_packages_by_topic <- function(list_name = NULL,
-  use_local_list = getOption("bio.use_local_list", FALSE), upgrade = FALSE,
+  use_local_list = getOption("bio.use_local_list", FALSE), upgrade = TRUE,
   ...) {
 
   status <-
