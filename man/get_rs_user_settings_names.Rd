@@ -10,7 +10,7 @@ get_rs_user_settings_names(...)
 \item{...}{Arguments passed to \code{\link[=rstudio_get_user_setting_names]{rstudio_get_user_setting_names()}}}
 }
 \description{
-DO NOT USE THIS FUNCTION!
+\strong{DO NOT USE THIS FUNCTION!}
 This function was replaced by \code{\link[=rstudio_get_user_setting_names]{rstudio_get_user_setting_names()}} and will be removed soon.
 }
 \concept{deprecated}

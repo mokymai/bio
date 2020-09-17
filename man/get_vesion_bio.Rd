@@ -7,7 +7,7 @@
 get_vesion_bio()
 }
 \description{
-DO NOT USE THIS FUNCTION!
+\strong{DO NOT USE THIS FUNCTION!}
 This function was replaced by \code{\link[=get_vesion_pkg_bio]{get_vesion_pkg_bio()}} and will be removed
 soon.
 }

@@ -10,7 +10,7 @@ open_in_rs(path)
 \item{path}{See \code{\link[=open_in_rstudio]{open_in_rstudio()}}.}
 }
 \description{
-DO NOT USE THIS FUNCTION!
+\strong{DO NOT USE THIS FUNCTION!}
 This function was replaced by \code{\link[=open_in_rstudio]{open_in_rstudio()}} and will be removed soon.
 }
 \concept{deprecated}
