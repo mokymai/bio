@@ -18,8 +18,8 @@ created.}
 required.}
 }
 \description{
-Reset RStudio settings. Different algorithms are used for RStudio versios
-newer than 1.3 and oder than 1.3.
+Reset RStudio settings. Different algorithms are used for RStudio versions
+newer than 1.3 and previous to 1.3.
 }
 \details{
 Settings that can be used in \code{rstudio-prefs.json} file

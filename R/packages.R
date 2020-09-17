@@ -329,7 +329,7 @@ get_pkgs_cran_details <- function() {
 #' Get details about non-CRAN package installation
 #'
 #' Get installation code of packages that either should be installed not from
-#' CRAN or a modified code shold be installed.
+#' CRAN or a modified code should be installed.
 #'
 #' @inheritParams get_pkgs_installation_status
 #'

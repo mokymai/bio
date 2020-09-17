@@ -29,7 +29,7 @@ are "code" and "github"
 }
 \description{
 Get installation code of packages that either should be installed not from
-CRAN or a modified code shold be installed.
+CRAN or a modified code should be installed.
 }
 \details{
 If the file has column \code{ignore} with value \code{TRUE}, the line is not included

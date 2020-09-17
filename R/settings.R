@@ -300,8 +300,8 @@ rstudio_reset_layout <- function(rs_layout = "left") {
 #' @name RStudio-settings
 #' @title Reset RStudio settings
 #' @description
-#' Reset RStudio settings. Different algorithms are used for RStudio versios
-#' newer than 1.3 and oder than 1.3.
+#' Reset RStudio settings. Different algorithms are used for RStudio versions
+#' newer than 1.3 and previous to 1.3.
 #'
 #' @param to The name of set with RStudio settings.
 #'        One of: "rstudio-default" or "bio-default".
@@ -337,7 +337,6 @@ rstudio_reset_layout <- function(rs_layout = "left") {
 #' rstudio_reset_user_settings(to = "rstudio-default")
 #'
 #' }}
-#' @inheritParams get_path_rs_user_settings
 #'
 #' @export
 rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
