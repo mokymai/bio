@@ -7,7 +7,7 @@
 get_pkgs_recommended(
   list_name,
   use_local_list = getOption("bio.use_local_list", FALSE),
-  silent = FALSE
+  show_message = FASLE
 )
 }
 \arguments{
@@ -22,7 +22,7 @@ contain more recent changes.
 Optiom bight be set globally by, e.g.,
 \code{options(bio.use_local_list = TRUE)}.}
 
-\item{silent}{(logical) If \code{FALSE}, a message with chosen list is printed.}
+\item{silent}{(show_message) If \code{FALSE}, a message with chosen list is printed.}
 }
 \value{
 Data frame with column \code{"package"}.

@@ -154,7 +154,7 @@ get_pkgs_installed <- function(rm_duplicates = TRUE) {
 #' List of packages of interest
 #'
 #' @inheritParams get_pkgs_installation_status
-#' @param silent (logical) If `FALSE`, a message with chosen list is printed.
+#' @param silent (show_message) If `FALSE`, a message with chosen list is printed.
 #'
 #' @return Data frame with column `"package"`.
 #' @export
@@ -171,9 +171,9 @@ get_pkgs_installed <- function(rm_duplicates = TRUE) {
 #'
 get_pkgs_recommended <- function(list_name,
                                  use_local_list = getOption("bio.use_local_list", FALSE),
-                                 silent = FALSE) {
+                                 show_message = FASLE) {
 
-  checkmate::assert_flag(silent)
+  checkmate::assert_flag(show_message)
   list_name <- tolower(list_name)
   list_name_blue <- usethis::ui_value(list_name)
   file <- get_path_pkgs_recommended(list_name, use_local_list)
@@ -213,8 +213,8 @@ get_pkgs_recommended <- function(list_name,
     }
   )
 
-  if (!silent) {
-    usethis::ui_info("Checking packages in list {list_name_blue}. ")
+  if (show_message) {
+    usethis::ui_info("Reading packages from list {list_name_blue} ")
   }
 
   data.frame(
@@ -404,7 +404,8 @@ get_path_pkgs_non_cran_installation_details <- function(use_local_list) {
 get_pkgs_installation_status_local <- function(list_name,
   use_local_list = getOption("bio.use_local_list", TRUE)) {
 
-  pkgs_rec   <- get_pkgs_recommended(use_local_list = use_local_list, list_name = list_name)
+  pkgs_rec   <- get_pkgs_recommended(use_local_list = use_local_list,
+    list_name = list_name, show_message = TRUE)
   pkgs_inst  <- get_pkgs_installed()
   pkgs_req_v <- get_pkgs_req_version(use_local_list = use_local_list)
 
