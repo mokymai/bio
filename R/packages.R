@@ -63,15 +63,15 @@ base_r_packages <- function() {
 #'
 compare_version <- function(v_installed, v_required) {
 
-  busena <- numeric(length(v_installed))
+  result <- numeric(length(v_installed))
 
   v_installed <- as.character(v_installed)
   v_required  <- as.character(v_required)
 
-  for (i in seq_along(busena)) {
-    busena[i] <- utils::compareVersion(v_installed[i], v_required[i])
+  for (i in seq_along(result)) {
+    result[i] <- utils::compareVersion(v_installed[i], v_required[i])
   }
-  busena
+  result
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
