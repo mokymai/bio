@@ -944,7 +944,13 @@ get_pkgs_installation_code_cran <- function(x) {
     pkgs <- paste0("c(\n", pkgs ,")")
   }
 
-  res <- paste0("install.packages(", pkgs , ")")
+  if (requireNamespace("remotes", quietly = TRUE)) {
+    res <- paste0("remotes::install_cran(", pkgs , ")")
+
+  } else {
+    res <- paste0("install.packages(", pkgs , ")")
+  }
+
   styler::style_text(res)
 }
 
