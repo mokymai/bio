@@ -1015,6 +1015,8 @@ get_pkgs_installation_code_other <- function(x) {
 #' check_packages_by_topic("mini", include = "always", install = "outdated",
 #'  github = "always", use_local_list = TRUE)
 #' }}
+
+# Sys.getenv("R_REMOTES_UPGRADE")
 check_packages_by_topic <- function(list_name = NULL,
   use_local_list = getOption("bio.use_local_list", FALSE), upgrade = FALSE,
   ...) {
