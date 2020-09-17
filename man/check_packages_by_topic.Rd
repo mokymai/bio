@@ -10,13 +10,6 @@ check_packages_by_topic(
   upgrade = TRUE,
   ...
 )
-
-check_packages_by_topic(
-  list_name = NULL,
-  use_local_list = getOption("bio.use_local_list", FALSE),
-  upgrade = TRUE,
-  ...
-)
 }
 \arguments{
 \item{list_name}{(character) The name of the list with required R packages.
@@ -37,24 +30,12 @@ See \code{upgrade} in \code{\link[remotes:install_cran]{remotes::install_cran()}
 }
 \value{
 Function invisibly returns object with package installation status.
-
-Function invisibly returns object with package installation status.
 }
 \description{
 A user-fiendly version of a function to check if required R packages are
 installed and have minimum required versions.
-
-A user-fiendly version of a function to check if required R packages are
-installed and have minimum required versions.
 }
 \examples{
-\dontrun{\donttest{
-check_packages_by_topic("mini", use_local_list = TRUE)
-
-check_packages_by_topic("mini", include = "always", use_local_list = TRUE)
-check_packages_by_topic("mini", include = "always", install = "outdated",
- github = "always", use_local_list = TRUE)
-}}
 \dontrun{\donttest{
 check_packages_by_topic("mini", use_local_list = TRUE)
 

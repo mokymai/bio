@@ -5,8 +5,6 @@
 \title{Get required version of packages}
 \usage{
 get_pkgs_req_version(use_local_list = getOption("bio.use_local_list", FALSE))
-
-get_pkgs_req_version(use_local_list = getOption("bio.use_local_list", FALSE))
 }
 \arguments{
 \item{use_local_list}{(logical) If \code{TRUE}, the list, which is locally
@@ -19,12 +17,8 @@ Optiom bight be set globally by, e.g.,
 }
 \value{
 Dataframe with columns  "package" and "required_version".
-
-Dataframe with columns  "package" and "required_version".
 }
 \description{
-Get required version of packages from a list in a file.
-
 Get required version of packages from a list in a file.
 }
 \examples{
@@ -33,21 +27,8 @@ options(bio.use_local_list = TRUE)
 
 head(get_pkgs_req_version())
 
-# NOTE: It is not recommended to use the local lists as they might be out of date.
-options(bio.use_local_list = TRUE)
-
-head(get_pkgs_req_version())
-
 }
 \seealso{
-Other R-packages-related functions: 
-\code{\link{compare_version}()},
-\code{\link{get_pkgs_cran_details}()},
-\code{\link{get_pkgs_installation_status_local}()},
-\code{\link{get_pkgs_installed}()},
-\code{\link{get_pkgs_non_cran_installation_details}()},
-\code{\link{get_pkgs_recommended}()}
-
 Other R-packages-related functions: 
 \code{\link{compare_version}()},
 \code{\link{get_pkgs_cran_details}()},

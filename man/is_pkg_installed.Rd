@@ -5,28 +5,17 @@
 \title{Check if packae is installed}
 \usage{
 is_pkg_installed(pkgs)
-
-is_pkg_installed(pkgs)
 }
 \arguments{
 \item{pkgs}{(character) A list of installed packages.}
 }
 \value{
 A logical vector for each input element.
-
-A logical vector for each input element.
 }
 \description{
 Check if packae is installed
-
-Check if packae is installed
 }
 \examples{
-
-is_pkg_installed("bio")
-
-is_pkg_installed(c("bio", "utils", "grugru"))
-
 
 is_pkg_installed("bio")
 

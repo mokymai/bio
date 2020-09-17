@@ -5,17 +5,11 @@
 \title{Get details about package on CRAN}
 \usage{
 get_pkgs_cran_details()
-
-get_pkgs_cran_details()
 }
 \value{
 Data frame with columns "package", "cran_version", "on_cran".
-
-Data frame with columns "package", "cran_version", "on_cran".
 }
 \description{
-Convenience function based on \code{\link[utils:available.packages]{utils::available.packages()}}.
-
 Convenience function based on \code{\link[utils:available.packages]{utils::available.packages()}}.
 }
 \examples{
@@ -25,25 +19,9 @@ Convenience function based on \code{\link[utils:available.packages]{utils::avail
 head(get_pkgs_cran_details())
 
 }}
-\dontrun{\donttest{
-
-# NOTE: Internet connection is needed.
-head(get_pkgs_cran_details())
-
-}}
 }
 \seealso{
 \code{\link[utils:available.packages]{utils::available.packages()}}
-
-\code{\link[utils:available.packages]{utils::available.packages()}}
-
-Other R-packages-related functions: 
-\code{\link{compare_version}()},
-\code{\link{get_pkgs_installation_status_local}()},
-\code{\link{get_pkgs_installed}()},
-\code{\link{get_pkgs_non_cran_installation_details}()},
-\code{\link{get_pkgs_recommended}()},
-\code{\link{get_pkgs_req_version}()}
 
 Other R-packages-related functions: 
 \code{\link{compare_version}()},

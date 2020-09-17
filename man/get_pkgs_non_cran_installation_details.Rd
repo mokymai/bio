@@ -7,10 +7,6 @@
 get_pkgs_non_cran_installation_details(
   use_local_list = getOption("bio.use_local_list", FALSE)
 )
-
-get_pkgs_non_cran_installation_details(
-  use_local_list = getOption("bio.use_local_list", FALSE)
-)
 }
 \arguments{
 \item{use_local_list}{(logical) If \code{TRUE}, the list, which is locally
@@ -30,27 +26,12 @@ are "code" and "github"
 \item \code{"details"} either installation code of repository name
 \item \code{"notes"}  notes for user.
 }
-
-Dataframe with columns:
-\itemize{
-\item \code{"package"} package name,
-\item \code{"install_from"} source to install from. Currently supported values
-are "code" and "github"
-\item \code{"details"} either installation code of repository name
-\item \code{"notes"}  notes for user.
-}
 }
 \description{
 Get installation code of packages that either should be installed not from
 CRAN or a modified code should be installed.
-
-Get installation code of packages that either should be installed not from
-CRAN or a modified code should be installed.
 }
 \details{
-If the file has column \code{ignore} with value \code{TRUE}, the line is not included
-in the output.
-
 If the file has column \code{ignore} with value \code{TRUE}, the line is not included
 in the output.
 }
@@ -59,20 +40,8 @@ in the output.
 options(bio.use_local_list = TRUE)
 
 head(get_pkgs_non_cran_installation_details())
-# NOTE: It is not recommended to use the local lists as they might be out of date.
-options(bio.use_local_list = TRUE)
-
-head(get_pkgs_non_cran_installation_details())
 }
 \seealso{
-Other R-packages-related functions: 
-\code{\link{compare_version}()},
-\code{\link{get_pkgs_cran_details}()},
-\code{\link{get_pkgs_installation_status_local}()},
-\code{\link{get_pkgs_installed}()},
-\code{\link{get_pkgs_recommended}()},
-\code{\link{get_pkgs_req_version}()}
-
 Other R-packages-related functions: 
 \code{\link{compare_version}()},
 \code{\link{get_pkgs_cran_details}()},

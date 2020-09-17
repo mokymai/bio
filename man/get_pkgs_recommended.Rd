@@ -9,12 +9,6 @@ get_pkgs_recommended(
   use_local_list = getOption("bio.use_local_list", FALSE),
   silent = FALSE
 )
-
-get_pkgs_recommended(
-  list_name,
-  use_local_list = getOption("bio.use_local_list", FALSE),
-  silent = FALSE
-)
 }
 \arguments{
 \item{list_name}{(character) The name of the list with required R packages.
@@ -32,12 +26,8 @@ Optiom bight be set globally by, e.g.,
 }
 \value{
 Data frame with column \code{"package"}.
-
-Data frame with column \code{"package"}.
 }
 \description{
-List of packages of interest
-
 List of packages of interest
 }
 \examples{
@@ -47,22 +37,8 @@ options(bio.use_local_list = TRUE)
 
 head(get_pkgs_recommended("mini"))
 
-# NOTE: It is not recommended to use the local lists as they might be out of date.
-# Here it is used for testing purposes only.
-options(bio.use_local_list = TRUE)
-
-head(get_pkgs_recommended("mini"))
-
 }
 \seealso{
-Other R-packages-related functions: 
-\code{\link{compare_version}()},
-\code{\link{get_pkgs_cran_details}()},
-\code{\link{get_pkgs_installation_status_local}()},
-\code{\link{get_pkgs_installed}()},
-\code{\link{get_pkgs_non_cran_installation_details}()},
-\code{\link{get_pkgs_req_version}()}
-
 Other R-packages-related functions: 
 \code{\link{compare_version}()},
 \code{\link{get_pkgs_cran_details}()},
