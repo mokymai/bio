@@ -32,6 +32,30 @@ get_last_pkgs_installation_status()
 \method{print}{pkgs_installation_status}(x, show_status = x$show_status, ...)
 
 get_pkgs_installation_code(x = NULL, ..., to_clipboard = FALSE, upgrade = TRUE)
+
+get_pkgs_installation_status_local(
+  list_name,
+  use_local_list = getOption("bio.use_local_list", TRUE)
+)
+
+get_pkgs_installation_status(
+  list_name = NULL,
+  include = "outdated",
+  show_status = include,
+  install = include,
+  cran = install,
+  github = install,
+  elsewhere = install,
+  use_local_list = getOption("bio.use_local_list", FALSE)
+)
+
+get_pkg_lists_local()
+
+get_last_pkgs_installation_status()
+
+\method{print}{pkgs_installation_status}(x, show_status = x$show_status, ...)
+
+get_pkgs_installation_code(x = NULL, ..., to_clipboard = FALSE, upgrade = TRUE)
 }
 \arguments{
 \item{list_name}{(character) The name of the list with required R packages.
@@ -102,6 +126,9 @@ See \code{upgrade} in \code{\link[remotes:install_cran]{remotes::install_cran()}
 \description{
 Get package installation status (e.g., if packages of interest are installed
 or need to be updated) and package installation code.
+
+Get package installation status (e.g., if packages of interest are installed
+or need to be updated) and package installation code.
 }
 \examples{
 head(get_pkgs_installation_status_local("mini"))
@@ -127,8 +154,39 @@ get_last_pkgs_installation_status()
 get_pkgs_installation_code()
 
 }}
+head(get_pkgs_installation_status_local("mini"))
+\dontrun{\donttest{
+
+# NOTE: It is not recommended to use the local lists as they might be out of date.
+options(bio.use_local_list = TRUE)
+list_name <- "mini"
+
+(status_out <- get_pkgs_installation_status("mini"))
+get_pkgs_installation_code(status_out)
+
+(status_all <- get_pkgs_installation_status("mini", include = "always"))
+get_pkgs_installation_code(status_all)
+
+(status_custom <-
+  get_pkgs_installation_status("mini", include = "always", install = "outdated"))
+get_pkgs_installation_code(status_custom)
+
+# Package "remembers" the last created 'pkgs_installation_status' object
+get_pkgs_installation_status("snippets")
+get_last_pkgs_installation_status()
+get_pkgs_installation_code()
+
+}}
 }
 \seealso{
+Other R-packages-related functions: 
+\code{\link{compare_version}()},
+\code{\link{get_pkgs_cran_details}()},
+\code{\link{get_pkgs_installed}()},
+\code{\link{get_pkgs_non_cran_installation_details}()},
+\code{\link{get_pkgs_recommended}()},
+\code{\link{get_pkgs_req_version}()}
+
 Other R-packages-related functions: 
 \code{\link{compare_version}()},
 \code{\link{get_pkgs_cran_details}()},

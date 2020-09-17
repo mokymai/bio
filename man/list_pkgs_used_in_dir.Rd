@@ -8,6 +8,10 @@
 list_pkgs_used_in_dir(path = ".", regexp = "(?i)[.](rmd|r)$", ...)
 
 list_pkgs_used_in_files(files)
+
+list_pkgs_used_in_dir(path = ".", regexp = "(?i)[.](rmd|r)$", ...)
+
+list_pkgs_used_in_files(files)
 }
 \arguments{
 \item{path}{Path to directory with R and R Markdown files. Defaults to \code{"."}.}
@@ -21,8 +25,13 @@ files.}
 }
 \value{
 Character vector with package names.
+
+Character vector with package names.
 }
 \description{
+These functions search for \code{library(pkg)}, \code{require(pkg)} or \verb{pkg::function()}
+and return package names from these expressions.
+
 These functions search for \code{library(pkg)}, \code{require(pkg)} or \verb{pkg::function()}
 and return package names from these expressions.
 }

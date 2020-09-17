@@ -5,6 +5,8 @@
 \title{Optimize order of packages to install}
 \usage{
 suggest_optimized_order_of_packages(pkgs_vec, recursive_dependencies = FALSE)
+
+suggest_optimized_order_of_packages(pkgs_vec, recursive_dependencies = FALSE)
 }
 \arguments{
 \item{pkgs_vec}{(character) Vector of package names.}
@@ -15,13 +17,22 @@ also checked.
 }
 \value{
 A list with suggestion, which packages should be moved.
+
+A list with suggestion, which packages should be moved.
 }
 \description{
 Helper function that takes a vector of package names and suggests how to
 sort the packages in order not to repeat installation of the same
 package if it can be installed as a dependence of some other package.
+
+Helper function that takes a vector of package names and suggests how to
+sort the packages in order not to repeat installation of the same
+package if it can be installed as a dependence of some other package.
 }
 \examples{
+\dontrun{\donttest{
+suggest_optimized_order_of_packages(c("stringr", "stringi", "glue", "readr"))
+}}
 \dontrun{\donttest{
 suggest_optimized_order_of_packages(c("stringr", "stringi", "glue", "readr"))
 }}
