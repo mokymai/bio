@@ -140,6 +140,9 @@ returned by function `bio::get_pkg_lists_local()` and they include:
   - `'r2020-s01'`
   - `'r2020-s02'`
   - `'r2020-s03'`
+  - `'r2020v-s01'`
+  - `'r2020v-s02'`
+  - `'r2020v-s03'`
   - `'rcmdr-biostat'`
   - `'rcmdr'`
   - `'snippets'`
