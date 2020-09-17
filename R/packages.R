@@ -154,6 +154,7 @@ get_pkgs_installed <- function(rm_duplicates = TRUE) {
 #' List of packages of interest
 #'
 #' @inheritParams get_pkgs_installation_status
+#' @param silent (logical) If `FALSE`, a message with chosen list is printed.
 #'
 #' @return Data frame with column `"package"`.
 #' @export
@@ -169,46 +170,52 @@ get_pkgs_installed <- function(rm_duplicates = TRUE) {
 #' head(get_pkgs_recommended("mini"))
 #'
 get_pkgs_recommended <- function(list_name,
-  use_local_list = getOption("bio.use_local_list", FALSE)) {
+                                 use_local_list = getOption("bio.use_local_list", FALSE),
+                                 silent = FALSE) {
 
+  checkmate::assert_flag(silent)
+  list_name <- tolower(list_name)
+  list_name_blue <- usethis::ui_value(list_name)
   file <- get_path_pkgs_recommended(list_name, use_local_list)
 
-  tryCatch({ln <- readLines(file, encoding = "UTF-8")},
+  tryCatch(
+    {
+      ln <- readLines(file, encoding = "UTF-8")
+    },
     # error = function(e) {
     #   if (!pingr::is_online()) {
     #     usethis::ui_stop(paste0(
     #       "No internet connection. The online version of list ",
-    #       "{usethis::ui_value(list_name)} cannot be accessed. "))
+    #       "{list_name_blue} cannot be accessed. "))
     #   } else {
     #     usethis::ui_stop(paste0(
-    #       "It seems that list {usethis::ui_value(list_name)} is not present ",
+    #       "It seems that list {list_name_blue} is not present ",
     #       "online or cannot be accessed. Check if the spelling is correct."))
     #   }
     #   return()
     # },
     warning = function(w) {
-
       if (!pingr::is_online()) {
         usethis::ui_stop(paste0(
           "No internet connection, thus the online version of list ",
-          "{usethis::ui_value(list_name)} cannot be accessed. ")
-        )
-
+          "{list_name_blue} cannot be accessed. "
+        ))
       } else if (stringr::str_detect(w$message, "'404 Not Found'")) {
         usethis::ui_stop(paste0(
           "It seems that there is no online version of list ",
-          "{usethis::ui_value(list_name)} or it cannot be accessed. ",
+          "{list_name_blue} or it cannot be accessed. ",
           "\nCheck if the list name is correct. ",
           "Did you mean one of: \n{usethis::ui_value(bio::get_pkg_lists_local())}, ..."
-          )
-        )
-
+        ))
       } else {
         usethis::ui_stop(w$message)
       }
-
     }
   )
+
+  if (!silent) {
+    usethis::ui_info("Checking packages in list {list_name_blue}. ")
+  }
 
   data.frame(
     # Remove R comments and trim whitespace.
@@ -227,7 +234,7 @@ get_path_pkgs_recommended <- function(list_name, use_local_list) {
     file <- path_bio(base_name)
     if (!file.exists(file)) {
       usethis::ui_stop(paste0(
-        "List {usethis::ui_value(list_name)} was not found on your computer. \n",
+        "List {list_name_blue} was not found on your computer. \n",
         "Check if the list name is correct. ",
         "Did you mean one of: \n{usethis::ui_value(bio::get_pkg_lists_local())}, ..."
       ))
