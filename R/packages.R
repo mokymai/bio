@@ -881,13 +881,13 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
   #   # Sys.setenv(GITHUB_PAT = "write your PAT here, if you have it")
   # }
 
-  res <- c(
+  res <- c(glue::glue(
     '
     # To read more on the used options, run code:
     # help("options") # Opens help on options
     options(
       repos = "https://cran.rstudio.com/",
-      pkgType = "both",
+      pkgType = "{ifelse(get_os_type() == "linux", "source", "both")}",
       install.packages.check.source = "yes",
       install.packages.compile.from.source = "always"
     )
@@ -896,7 +896,7 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
     # Read more at: https://remotes.r-lib.org/#environment-variables
     Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS = "true")
 
-    ',
+    '),
     res
   )
   # , Ncpus = max(1, parallel::detectCores() - 1)
@@ -918,7 +918,7 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
     }
 
     usethis::ui_todo(paste0(
-      "But before installation, {underline('close')} RStudio ",
+      "But before the installation, {underline('close')} RStudio ",
       "{underline('project')} and/or {underline('restart R session')}.")
     )
     return(invisible(res))
