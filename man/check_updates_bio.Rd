@@ -7,7 +7,7 @@
 check_updates_bio(
   show_status = "always",
   install = "outdated",
-  upgrade = FALSE,
+  upgrade = TRUE,
   ...
 )
 }

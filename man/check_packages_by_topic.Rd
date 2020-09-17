@@ -7,7 +7,7 @@
 check_packages_by_topic(
   list_name = NULL,
   use_local_list = getOption("bio.use_local_list", FALSE),
-  upgrade = FALSE,
+  upgrade = TRUE,
   ...
 )
 }
