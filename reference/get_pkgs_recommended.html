@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.10</span>
       </span>
     </div>
 
@@ -136,7 +136,8 @@
 
     <pre class="usage"><span class='fu'>get_pkgs_recommended</span>(
   <span class='kw'>list_name</span>,
-  use_local_list = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"bio.use_local_list"</span>, <span class='fl'>FALSE</span>)
+  use_local_list = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"bio.use_local_list"</span>, <span class='fl'>FALSE</span>),
+  show_message = <span class='kw'>FASLE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -156,6 +157,10 @@ It is recommended  using the online version of the list, as it may
 contain more recent changes.
 Optiom bight be set globally by, e.g.,
 <code><a href='https://rdrr.io/r/base/options.html'>options(bio.use_local_list = TRUE)</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>silent</th>
+      <td><p>(show_message) If <code>FALSE</code>, a message with chosen list is printed.</p></td>
     </tr>
     </table>
 
@@ -178,13 +183,7 @@ Optiom bight be set globally by, e.g.,
 <span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span>(bio.use_local_list = <span class='fl'>TRUE</span>)
 
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'>get_pkgs_recommended</span>(<span class='st'>"mini"</span>))
-</div><div class='output co'>#&gt;      package
-#&gt; 1    remotes
-#&gt; 2         fs
-#&gt; 3 tidyselect
-#&gt; 4      dplyr
-#&gt; 5      tidyr
-#&gt; 6    ggplot2</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in checkmate::assert_flag(show_message): object 'FASLE' not found</span></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

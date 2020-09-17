@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>RStudio settings and preferences — RStudio-settings • bio</title>
+<title>Reset RStudio settings — RStudio-settings • bio</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,9 @@
 
 
 
-<meta property="og:title" content="RStudio settings and preferences — RStudio-settings" />
-<meta property="og:description" content="Get a list of current RStudio preferences." />
+<meta property="og:title" content="Reset RStudio settings — RStudio-settings" />
+<meta property="og:description" content="Reset RStudio settings. Different algorithms are used for RStudio versions
+newer than 1.3 and previous to 1.3." />
 
 
 
@@ -72,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.9</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.10</span>
       </span>
     </div>
 
@@ -125,33 +126,24 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>RStudio settings and preferences</h1>
+    <h1>Reset RStudio settings</h1>
     <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/settings.R'><code>R/settings.R</code></a></small>
     <div class="hidden name"><code>RStudio-settings.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Get a list of current RStudio preferences.</p>
+    <p>Reset RStudio settings. Different algorithms are used for RStudio versions
+newer than 1.3 and previous to 1.3.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rstudio_reset_user_settings</span>(<span class='kw'>to</span>, backup = <span class='fl'>TRUE</span>, ask = <span class='fl'>TRUE</span>)
-
-<span class='fu'>rstudio_read_user_settings</span>(which = <span class='st'>"current"</span>)
-
-<span class='fu'>rstudio_read_ui_prefs</span>(which = <span class='st'>"current"</span>)
-
-<span class='fu'>rstudio_get_ui_prefs</span>()
-
-<span class='fu'>rstudio_get_user_setting_names</span>(which = <span class='st'>"current"</span>)
-
-<span class='fu'>rstudio_get_ui_pref_names</span>(which = <span class='st'>"current"</span>)</pre>
+    <pre class="usage"><span class='fu'>rstudio_reset_user_settings</span>(<span class='kw'>to</span>, backup = <span class='fl'>TRUE</span>, ask = <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>to</th>
-      <td><p>The set of RStudio user settings.
+      <td><p>The name of set with RStudio settings.
 One of: "rstudio-default" or "bio-default".</p></td>
     </tr>
     <tr>
@@ -164,22 +156,17 @@ created.</p></td>
       <td><p>(logical) If <code>TRUE</code>, user confirmation to reset settings is
 required.</p></td>
     </tr>
-    <tr>
-      <th>which</th>
-      <td><p>(character) type of settings: "current", "bio-default".</p></td>
-    </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A named list with some of current RStudio preferences.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Find the names of the preferences at:
-https://github.com/rstudio/rstudio/blob/5f2b79427ed526e22f78c794a4b5894ebee2de75/src/cpp/session/SessionUserSettings.cpp#L357-L447</p>
+    <p>Settings that can be used in <code>rstudio-prefs.json</code> file
+(for RStudio 1.3 or newer):
+https://docs.rstudio.com/ide/server-pro/session-user-settings.html</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>RStudio functions <code>.rs.readUiPref()</code>, <code>.rs.writeUiPref()</code>.</p><ul>
+    <div class='dont-index'><p><code><a href='open_files.html'>get_path_rs_user_settings()</a></code></p>
+<p>RStudio functions <code>.rs.readUiPref()</code>, <code>.rs.writeUiPref()</code>.</p><ul>
 <li><p>https://stackoverflow.com/a/55940249/4783029</p></li>
 <li><p>https://stackoverflow.com/a/54982341/4783029</p></li>
 </ul>
