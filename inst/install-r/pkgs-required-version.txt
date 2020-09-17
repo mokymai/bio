@@ -13,17 +13,17 @@ addin.tools                 | 0.0.9            | FALSE  | -
 addins.rmd                  | 0.0.10           | FALSE  | -
 addins.rs                   | 0.0.9            | FALSE  | -
 backup.tools                | 0.0.1            | FALSE  | -
-bio                         | 0.0.9            | FALSE  | -
+bio                         | 0.0.10           | FALSE  | -
 blogdown                    | 0.20             | FALSE  | -
 bookdown                    | 0.20             | FALSE  | -
 broom                       | 0.7.0            | FALSE  | -
 car                         | 3.0-9            | FALSE  | Rcmdr
 citr                        | 0.3.2            | FALSE  | -
 correlation                 | 0.3.0            | FALSE  | -
-cowplot                     | 1.0.0            | FALSE  | -
+cowplot                     | 1.1.0            | FALSE  | -
 crossref                    | 1.0.0            | FALSE  | -
 data.table                  | 1.13.0           | FALSE  | -
-DescTools                   | 0.99.37          | FALSE  | -
+DescTools                   | 0.99.38          | FALSE  | -
 devtools                    | 2.3.1            | FALSE  | -
 dplyr                       | 1.0.2            | FALSE  | -
 DT                          | 0.15             | FALSE  | -
@@ -59,7 +59,7 @@ mlr3verse                   | 0.1.3            | FALSE  | -
 mlr                         | 2.17.1           | FALSE  | -
 multcomp                    | 1.4-13           | FALSE  | Rcmdr
 officer                     | 0.3.12           | FALSE  | -
-openxlsx                    | 4.1.5            | FALSE  | -
+openxlsx                    | 4.2.2            | FALSE  | -
 pander                      | 0.6.4            | FALSE  | -
 pkgdown                     | 1.5.1            | FALSE  | -
 plotly                      | 4.9.2.1          | FALSE  | -
@@ -98,4 +98,5 @@ unpivotr                    | 0.6.1            | FALSE  | -
 usethis                     | 1.6.1            | FALSE  | -
 vcd                         | 1.4-7            | FALSE  | -
 wellspell.addin             | 0.5.0            | FALSE  | -
+writexl                     | 1.3.1            | FALSE  | -
 ymlthis                     | 0.1.2            | FALSE  | -
