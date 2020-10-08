@@ -242,6 +242,31 @@ Shortcut  | Action
 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad7</kbd>             | Insert operator `%in%` (*R code*).
 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad8</kbd>             | Insert operator `%*%` (*R code*).
 
+
+<!-- : **Table 1.** Some examples of shortcut keys set with option `"bio-default"`{.r}. -->
+
+<!-- Shortcut  | Action -->
+<!-- --------- | ------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- `r kbd("Ctrl", "Shift", "Alt", "S")`  | Check spelling in selected text. Package [**wellspell.addin**](https://github.com/nevrome/wellspell.addin){target="_blank"} must be installed. -->
+<!-- `r kbd("Shift", "Alt", "A")`          | Use "Tidyverse" style on selected lines of R code. Package **styler** must be installed (*R code*). -->
+<!-- `r kbd("Ctrl", "Alt", "D")`           | Document R package (that you are building). -->
+<!-- `r kbd("Ctrl", "Shift", "D")`         | Duplicate selected text. -->
+<!-- `r kbd("Ctrl", "Shift", "Alt", "P")`  | Align parts of selected lines at a custom pattern. -->
+<!-- `r kbd("Ctrl", "Shift", ";")`         | Insert lower opening quotes `„`. -->
+<!-- `r kbd("Ctrl", "Shift", "'")`         | Insert upper closing quotes `“`. -->
+<!-- `r kbd("Ctrl", "E")`                  | **Insert/Enclose with R code block** (*R Markdown*) **[!]** . -->
+<!-- `r kbd("Ctrl", "Alt", "T")`           | Insert inline code highlighted as R code (R Markdown). -->
+<!-- `r kbd("Shift", "Alt", "S")`          | Insert inline LaTeX equation (*R Markdown*). -->
+<!-- `r kbd("Ctrl", "Alt", "NumPad0")`     | Remove heading/section name (*R Markdown*). -->
+<!-- `r kbd("Ctrl", "Alt", "NumPad1")`     | Replace line into/Insert heading (section name) of level 1 (*R Markdown*). -->
+<!-- `r kbd("Ctrl", "Alt", "NumPad2")`     | ... of level 2 (*R Markdown*). -->
+<!-- `r kbd("Ctrl", "Alt", "NumPad3")`     | ... of level 3 (*R Markdown*). -->
+<!-- `r kbd("Ctrl", "Alt", "NumPad4")`     | ... of level 4 (*R Markdown*). -->
+<!-- `r kbd("Ctrl", "Alt", "NumPad5")`     | ... of level 5 (*R Markdown*). -->
+<!-- `r kbd("Ctrl", "Alt", "NumPad6")`     | ... of level 6 (*R Markdown*). -->
+<!-- `r kbd("Ctrl", "Alt", "NumPad7")`     | Insert operator `%in%` (*R code*). -->
+<!-- `r kbd("Ctrl", "Alt", "NumPad8")`     | Insert operator `%*%` (*R code*). -->
+
 <!-- "addins.rmd::rmd_list_numbered"                : "Ctrl+Shift+Alt+L", -->
 <!-- "addins.rs::rs_align_code_at_arrow"            : "Ctrl+Shift+Alt+[", -->
 <!-- "addins.rs::rs_align_code_at_equal"            : "Ctrl+Shift+Alt+]", -->
