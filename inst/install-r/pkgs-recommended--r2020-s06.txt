@@ -1,0 +1,11 @@
+
+magrittr
+glue
+scales
+tibble
+
+ggplot2
+
+ggmosaic
+tidyverse
+bio
