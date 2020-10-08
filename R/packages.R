@@ -215,7 +215,7 @@ get_pkgs_recommended <- function(list_name,
   )
 
   if (show_message) {
-    usethis::ui_info("Reading packages from list {list_name_blue} ")
+    usethis::ui_info("Reading list {list_name_blue}. ")
   }
 
   data.frame(
