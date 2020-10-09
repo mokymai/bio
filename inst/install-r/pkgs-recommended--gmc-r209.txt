@@ -15,6 +15,7 @@ BiocManager
 conflicted
 pingr
 styler
+lintr
 reprex
 withr
 tictoc
