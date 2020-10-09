@@ -28,6 +28,7 @@ openxlsx
 data.table
 rstatix
 styler
+lintr
 readxl
 usethis
 rstudioapi
