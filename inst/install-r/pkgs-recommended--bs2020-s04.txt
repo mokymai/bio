@@ -1,0 +1,9 @@
+
+magrittr
+tibble
+dplyr
+
+tidyverse
+bio
+
+DescTools
