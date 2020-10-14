@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.11</span>
       </span>
     </div>
 
@@ -134,20 +134,20 @@
     <p>Helper functions for "Meld"</p>
     </div>
 
-    <pre class="usage"><span class='fu'>browse_meld_homepage</span>()
+    <pre class="usage"><span class='fu'>browse_meld_homepage</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>download_meld</span>()
+<span class='fu'>download_meld</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>get_default_path_to_meld</span>()
+<span class='fu'>get_default_path_to_meld</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>is_meld_installed</span>(path_to_meld = <span class='fu'>get_default_path_to_meld</span>())
+<span class='fu'>is_meld_installed</span><span class='op'>(</span>path_to_meld <span class='op'>=</span> <span class='fu'>get_default_path_to_meld</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>set_meld_as_git_difftool_mergetool</span>(
-  path_to_meld = <span class='kw'>NULL</span>,
-  prompt = <span class='fl'>FALSE</span>,
-  keepBackup = <span class='fl'>FALSE</span>,
-  trustExitCode = <span class='fl'>TRUE</span>
-)</pre>
+<span class='fu'>set_meld_as_git_difftool_mergetool</span><span class='op'>(</span>
+  path_to_meld <span class='op'>=</span> <span class='cn'>NULL</span>,
+  prompt <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  keepBackup <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  trustExitCode <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -172,7 +172,7 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>is_meld_installed</span>()
+    <pre class="examples"><div class='input'><span class='fu'>is_meld_installed</span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] FALSE</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -73,7 +73,7 @@ or need to be updated) and package installation code." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.11</span>
       </span>
     </div>
 
@@ -136,30 +136,30 @@ or need to be updated) and package installation code." />
 or need to be updated) and package installation code.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_pkgs_installation_status_local</span>(
-  <span class='kw'>list_name</span>,
-  use_local_list = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"bio.use_local_list"</span>, <span class='fl'>TRUE</span>)
-)
+    <pre class="usage"><span class='fu'>get_pkgs_installation_status_local</span><span class='op'>(</span>
+  <span class='va'>list_name</span>,
+  use_local_list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"bio.use_local_list"</span>, <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='fu'>get_pkgs_installation_status</span>(
-  list_name = <span class='kw'>NULL</span>,
-  include = <span class='st'>"outdated"</span>,
-  show_status = <span class='kw'>include</span>,
-  install = <span class='kw'>include</span>,
-  cran = <span class='kw'>install</span>,
-  github = <span class='kw'>install</span>,
-  elsewhere = <span class='kw'>install</span>,
-  use_local_list = <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"bio.use_local_list"</span>, <span class='fl'>FALSE</span>)
-)
+<span class='fu'>get_pkgs_installation_status</span><span class='op'>(</span>
+  list_name <span class='op'>=</span> <span class='cn'>NULL</span>,
+  include <span class='op'>=</span> <span class='st'>"outdated"</span>,
+  show_status <span class='op'>=</span> <span class='va'>include</span>,
+  install <span class='op'>=</span> <span class='va'>include</span>,
+  cran <span class='op'>=</span> <span class='va'>install</span>,
+  github <span class='op'>=</span> <span class='va'>install</span>,
+  elsewhere <span class='op'>=</span> <span class='va'>install</span>,
+  use_local_list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"bio.use_local_list"</span>, <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='fu'>get_pkg_lists_local</span>()
+<span class='fu'>get_pkg_lists_local</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>get_last_pkgs_installation_status</span>()
+<span class='fu'>get_last_pkgs_installation_status</span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># S3 method for pkgs_installation_status</span>
-<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='kw'>x</span>, show_status = <span class='kw'>x</span><span class='op'>$</span><span class='kw'>show_status</span>, <span class='kw'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span>, show_status <span class='op'>=</span> <span class='va'>x</span><span class='op'>$</span><span class='va'>show_status</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>get_pkgs_installation_code</span>(x = <span class='kw'>NULL</span>, <span class='kw'>...</span>, to_clipboard = <span class='fl'>FALSE</span>, upgrade = <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>get_pkgs_installation_code</span><span class='op'>(</span>x <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span>, to_clipboard <span class='op'>=</span> <span class='cn'>FALSE</span>, upgrade <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
