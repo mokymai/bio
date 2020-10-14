@@ -189,6 +189,7 @@ get_path_rs_desktop_config_dir <- function(...,
   # normalizePath(file.path(base, ...))
 
   rstudio_version <- resolve_rs_version(rstudio_version)
+
   base <-
     switch(get_os_type(),
       "windows" = fs::path(
@@ -449,7 +450,6 @@ get_path_rs_desktop_user_settings_dir <- function() {
 open_rs_desktop_user_settings_dir <- function() {
   fs::file_show(path = get_path_rs_desktop_user_settings_dir())
 }
-
 
 #' @rdname open_files
 #'
