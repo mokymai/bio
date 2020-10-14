@@ -100,7 +100,8 @@ open_rs_dictionaries_dir <- function() {
 #' - [rstudioapi::userDictionariesPath()]
 #' - `open_user_dictionaries_dir()`
 open_user_dictionaries_dir <- function() {
-  # "C:/Users/ViG/AppData/Local/RStudio-Desktop/dictionaries"
+  # "C:/Users/User/AppData/Local/RStudio-Desktop/dictionaries"
+  # "C:/Users/User/AppData/Local/RStudio/dictionaries"
   rstudioapi::userDictionariesPath() %>% fs::file_show()
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
