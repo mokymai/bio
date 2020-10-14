@@ -8,9 +8,9 @@ Package ***bio***
 <!-- badges: start -->
 
 [![GitHub
-version](https://img.shields.io/badge/GitHub-0.0.10-brightgreen.svg)](https://github.com/mokymai/bio)
+version](https://img.shields.io/badge/GitHub-0.0.10.9000-brightgreen.svg)](https://github.com/mokymai/bio)
 [![R-CMD-check](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
-[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--09--17-yellowgreen.svg)](/commits/master)
+[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--10--14-yellowgreen.svg)](/commits/master)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
@@ -128,9 +128,12 @@ returned by function `bio::get_pkg_lists_local()` and they include:
   - `'bs2020-initial'`
   - `'bs2020-s01'`
   - `'bs2020-s02'`
+  - `'bs2020-s04'`
+  - `'bs2020-s05'`
   - `'bs2020-u07'`
   - `'bs2020-u08'`
   - `'confidence-intervals'`
+  - `'ggplot-extra-tools'`
   - `'ggplot'`
   - `'gmc-r209'`
   - `'linear-regression'`
@@ -140,6 +143,10 @@ returned by function `bio::get_pkg_lists_local()` and they include:
   - `'r2020-s01'`
   - `'r2020-s02'`
   - `'r2020-s03'`
+  - `'r2020-s04'`
+  - `'r2020-s05'`
+  - `'r2020-s06'`
+  - `'r2020-s07'`
   - `'r2020v-s01'`
   - `'r2020v-s02'`
   - `'r2020v-s03'`
@@ -258,6 +265,52 @@ bio::rstudio_reset_keybindings(to = "bio-default")
 
 **Table 1.** Some examples of shortcut keys set with option
 `"bio-default"`.
+
+<!-- : **Table 1.** Some examples of shortcut keys set with option `"bio-default"`{.r}. -->
+
+<!--  -->
+
+<!-- Shortcut  | Action -->
+
+<!-- --------- | ------------------------------------------------------------------------------------------------------------------------------------------- -->
+
+<!-- Ctrl Shift Alt S  | Check spelling in selected text. Package [**wellspell.addin**](https://github.com/nevrome/wellspell.addin){target="_blank"} must be installed. -->
+
+<!-- Shift Alt A          | Use "Tidyverse" style on selected lines of R code. Package **styler** must be installed (*R code*). -->
+
+<!-- Ctrl Alt D           | Document R package (that you are building). -->
+
+<!-- Ctrl Shift D         | Duplicate selected text. -->
+
+<!-- Ctrl Shift Alt P  | Align parts of selected lines at a custom pattern. -->
+
+<!-- Ctrl Shift ;         | Insert lower opening quotes `„`. -->
+
+<!-- Ctrl Shift '         | Insert upper closing quotes `“`. -->
+
+<!-- Ctrl E                  | **Insert/Enclose with R code block** (*R Markdown*) **[!]** . -->
+
+<!-- Ctrl Alt T           | Insert inline code highlighted as R code (R Markdown). -->
+
+<!-- Shift Alt S          | Insert inline LaTeX equation (*R Markdown*). -->
+
+<!-- Ctrl Alt NumPad0     | Remove heading/section name (*R Markdown*). -->
+
+<!-- Ctrl Alt NumPad1     | Replace line into/Insert heading (section name) of level 1 (*R Markdown*). -->
+
+<!-- Ctrl Alt NumPad2     | ... of level 2 (*R Markdown*). -->
+
+<!-- Ctrl Alt NumPad3     | ... of level 3 (*R Markdown*). -->
+
+<!-- Ctrl Alt NumPad4     | ... of level 4 (*R Markdown*). -->
+
+<!-- Ctrl Alt NumPad5     | ... of level 5 (*R Markdown*). -->
+
+<!-- Ctrl Alt NumPad6     | ... of level 6 (*R Markdown*). -->
+
+<!-- Ctrl Alt NumPad7     | Insert operator `%in%` (*R code*). -->
+
+<!-- Ctrl Alt NumPad8     | Insert operator `%*%` (*R code*). -->
 
 <!-- "addins.rmd::rmd_list_numbered"                : "Ctrl+Shift+Alt+L", -->
 
