@@ -16,7 +16,7 @@ get_path_rs_config_dir(...)
 
 get_path_user_settings_dir_rs_1.3(...)
 
-get_path_rs_desktop_config_dir(..., .check = FALSE)
+get_path_rs_desktop_config_dir(..., .check = FALSE, rstudio_version = "auto")
 
 get_path_rs_snippets_dir(rstudio_version = "auto")
 

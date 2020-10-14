@@ -58,20 +58,19 @@ saved by user
 }
 }
 \examples{
-if (FALSE) {
+\dontrun{\donttest{
 
 rstudioapi::dictionariesPath()
 
 rstudioapi::userDictionariesPath()
 
 get_path_rs_system_dictionaries_dir()
-}
 
 get_path_rs_desktop_config_dir("dictionaries")
 
 get_path_saved_words_dictionary()
 
-
+}}
 }
 \seealso{
 \link[rstudioapi:dictionaries]{rstudioapi::dictionaries}
