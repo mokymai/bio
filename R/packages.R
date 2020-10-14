@@ -1273,7 +1273,7 @@ optimize_order_to_install <- function(pkgs_vec,
       purrr::set_names(x) %>%
       # imap(~ str_c(.x[.x %in% list_after(.y, list = pkgs_vec)])) %>%
       purrr::imap(~ stringr::str_c(.x[.x %in% x])) %>%
-      purrr::imap_dfr(~tibble::tibble(
+      purrr::imap_dfr(~ tibble::tibble(
         pkg = .y,
         deps = list(.x),
         n_deps = length(.x)
