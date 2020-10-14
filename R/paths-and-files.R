@@ -141,10 +141,10 @@ get_path_user_settings_dir_rs_1.3 <- function(...) {
   fs::path(base_path, ...)
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# If "auto", returns wersion of RStudio or error if RStudio does not run.
+# If "auto", returns version of RStudio or error if RStudio does not run.
 # If character with version number, returns that value as numeric version.
 resolve_rs_version <- function(rstudio_version) {
-  if (rstudio_version == "auto") {
+  if (tolower(rstudio_version) == "auto") {
     rstudioapi::versionInfo()$version
   } else {
     as.numeric_version(rstudio_version)
@@ -177,7 +177,9 @@ resolve_rs_version <- function(rstudio_version) {
 #' get_path_rs_desktop_config_dir("dictionaries")
 #' }}
 
-get_path_rs_desktop_config_dir <- function(..., .check = FALSE) {
+get_path_rs_desktop_config_dir <- function(...,
+                                           .check = FALSE,
+                                           rstudio_version = "auto") {
   # base <-
   #   switch(
   #     get_os_type(),
@@ -185,12 +187,25 @@ get_path_rs_desktop_config_dir <- function(..., .check = FALSE) {
   #     path.expand("~/.rstudio-desktop")
   #   )
   # normalizePath(file.path(base, ...))
+
+  rstudio_version <- resolve_rs_version(rstudio_version)
+
   base <-
     switch(get_os_type(),
-      "windows" = fs::path(Sys.getenv("LOCALAPPDATA"), "RStudio-Desktop"),
+      "windows" = fs::path(
+        Sys.getenv("LOCALAPPDATA"),
+        if (rstudio_version < 1.4) {
+          "RStudio-Desktop"
+        } else {
+          "RStudio"
+        }
+      ),
       # Other OS'es
-      fs::path_expand_r("~/.rstudio-desktop") # FIXME: path_expand_r() or path_expand() ?
+      # FIXME: what is the correct dir in RStudio 1.4 on Unix like OS'es?
+      fs::path_expand("~/.rstudio-desktop")
     )
+
+  base <- Sys.getenv("RSTUDIO_CONFIG_DIR", unset = base)
 
   if (.check) {
     path_construct_and_check(base, ...)
@@ -228,7 +243,6 @@ get_path_rs_snippets_dir <- function(rstudio_version = "auto") {
   } else {
     get_path_r_user_dir("snippets")
   }
-
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -436,7 +450,6 @@ get_path_rs_desktop_user_settings_dir <- function() {
 open_rs_desktop_user_settings_dir <- function() {
   fs::file_show(path = get_path_rs_desktop_user_settings_dir())
 }
-
 
 #' @rdname open_files
 #'

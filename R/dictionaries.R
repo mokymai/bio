@@ -24,20 +24,19 @@
 #'
 #' @seealso [rstudioapi::dictionaries]
 #' @examples
-#' if (FALSE) {
+#' \dontrun{\donttest{
 #'
 #' rstudioapi::dictionariesPath()
 #'
 #' rstudioapi::userDictionariesPath()
 #'
 #' get_path_rs_system_dictionaries_dir()
-#' }
 #'
 #' get_path_rs_desktop_config_dir("dictionaries")
 #'
 #' get_path_saved_words_dictionary()
 #'
-#'
+#' }}
 get_path_saved_words_dictionary <- function() {
   # Path to dictionary of words saved by user
   get_path_rs_desktop_config_dir("monitored/lists/user_dictionary")
@@ -100,7 +99,8 @@ open_rs_dictionaries_dir <- function() {
 #' - [rstudioapi::userDictionariesPath()]
 #' - `open_user_dictionaries_dir()`
 open_user_dictionaries_dir <- function() {
-  # "C:/Users/ViG/AppData/Local/RStudio-Desktop/dictionaries"
+  # "C:/Users/User/AppData/Local/RStudio-Desktop/dictionaries"
+  # "C:/Users/User/AppData/Local/RStudio/dictionaries"
   rstudioapi::userDictionariesPath() %>% fs::file_show()
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

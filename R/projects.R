@@ -342,7 +342,10 @@ open_personal_proj_list <- function() {
 update_personal_proj_list <- function() {
   file_personal <- get_path_personal_proj_list(create = TRUE)
   new_list <- get_projs_all()
-  readr::write_lines(new_list$path, path = file_personal)
-  ui_done("Personal list of projects was updated.")
+  readr::write_lines(new_list$path, file_personal)
+  ui_done(paste0(
+    "Personal list of projects was updated:\n",
+    "{usethis::ui_path(file_personal)}"
+  ))
 }
 

@@ -244,7 +244,7 @@ Shortcut  | Action
 
 
 <!-- : **Table 1.** Some examples of shortcut keys set with option `"bio-default"`{.r}. -->
-
+<!-- `r kbd <- function(...) paste(...)` -->
 <!-- Shortcut  | Action -->
 <!-- --------- | ------------------------------------------------------------------------------------------------------------------------------------------- -->
 <!-- `r kbd("Ctrl", "Shift", "Alt", "S")`  | Check spelling in selected text. Package [**wellspell.addin**](https://github.com/nevrome/wellspell.addin){target="_blank"} must be installed. -->
