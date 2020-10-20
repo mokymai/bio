@@ -23,6 +23,7 @@ files.}
 Character vector with package names.
 }
 \description{
-These functions search for \code{library(pkg)}, \code{require(pkg)} or \verb{pkg::function()}
-and return package names from these expressions.
+These functions search for patterns, such as \code{library(pkg)}, \code{require(pkg)},
+\verb{pkg::function()}, or \code{data(package = "pkg")} and return package names from
+these expressions.
 }
