@@ -1,19 +1,36 @@
+# Main -----------------------------------------------------------------------
 
-magrittr
-glue
-scales
-tibble
+markdown
+knitr
+tinytex
+rmarkdown
+pander
 
-ggplot2
+shiny
 
-tidyverse
+rstudioapi
+addin.tools
+addins.rmd
+addins.rs
+
+whoami
+
+bookdown
+blogdown
+pagedown
+ymlthis
+
+DT
+rcrossref
+citr
+
+latex2exp
+
+wellspell.addin
+
+rticles
+icon
+
+backup.tools
+snippets
 bio
-
-ggmosaic
-cowplot
-ggrepel
-ggpubr
-patchwork
-esquisse
-paletteer
-
