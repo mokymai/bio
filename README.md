@@ -130,6 +130,9 @@ returned by function `bio::get_pkg_lists_local()` and they include:
   - `'bs2020-s02'`
   - `'bs2020-s04'`
   - `'bs2020-s05'`
+  - `'bs2020-s06'`
+  - `'bs2020-s07'`
+  - `'bs2020-s08'`
   - `'bs2020-u07'`
   - `'bs2020-u08'`
   - `'confidence-intervals'`
