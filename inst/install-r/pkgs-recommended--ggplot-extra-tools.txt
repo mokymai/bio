@@ -20,6 +20,11 @@ qqplotr
 ggfortify
 ggedit
 ggmosaic
+plotly
 autoplotly
 paletteer
 ggtext
+
+officer
+rvg
+
