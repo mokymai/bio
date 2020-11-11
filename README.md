@@ -10,7 +10,7 @@ Package ***bio***
 [![GitHub
 version](https://img.shields.io/badge/GitHub-0.0.12-brightgreen.svg)](https://github.com/mokymai/bio)
 [![R-CMD-check](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
-[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--10--20-yellowgreen.svg)](/commits/master)
+[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--11--11-yellowgreen.svg)](/commits/master)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
@@ -150,6 +150,7 @@ returned by function `bio::get_pkg_lists_local()` and they include:
   - `'r2020-s05'`
   - `'r2020-s06'`
   - `'r2020-s07'`
+  - `'r2020-s11'`
   - `'r2020v-s01'`
   - `'r2020v-s02'`
   - `'r2020v-s03'`
