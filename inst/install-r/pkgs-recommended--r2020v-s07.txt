@@ -9,3 +9,15 @@ ggplot2
 ggmosaic
 tidyverse
 bio
+
+ggmosaic
+cowplot
+ggrepel
+ggpubr
+patchwork
+esquisse
+paletteer
+plotly
+
+officer
+rvg
