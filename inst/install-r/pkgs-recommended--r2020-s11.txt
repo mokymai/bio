@@ -21,6 +21,9 @@ moderndive
 janitor
 ggpubr
 
+dendextend
+ggdendro
+
 purrr
 rstatix
 lubridate
