@@ -149,7 +149,7 @@ rstudio_download_spellcheck_dictionaries <- function(rstudio_version = "auto", s
 #' @concept r and rstudio settings
 #' @concept dictionaries
 rstudio_delete_spellcheck_dictionaries <- function() {
-  # FIXME: Ask user permision to prevent accidental deletion.
+  # FIXME: Ask user permission to prevent accidental deletion.
   fs::dir_delete(get_path_rs_system_dictionaries_dir())
 }
 
