@@ -5,7 +5,7 @@
 \alias{get_path_r_user_dir}
 \alias{get_path_rs_config_dir}
 \alias{get_path_user_settings_dir_rs_1.3}
-\alias{get_path_rs_desktop_config_dir}
+\alias{get_path_rstudio_config_dir}
 \alias{get_path_rs_snippets_dir}
 \alias{get_path_rs_keybindings_dir}
 \title{Directories of R and RStudio (desktop) settings, preferences, etc.}
@@ -16,7 +16,7 @@ get_path_rs_config_dir(...)
 
 get_path_user_settings_dir_rs_1.3(...)
 
-get_path_rs_desktop_config_dir(..., .check = FALSE, rstudio_version = "auto")
+get_path_rstudio_config_dir(..., .check = FALSE, rstudio_version = "auto")
 
 get_path_rs_snippets_dir(rstudio_version = "auto")
 
@@ -50,7 +50,7 @@ or its sub-directories.
 }
 
 \itemize{
-\item `get_path_rs_desktop_config_dir()`` - gets path to directory (and its
+\item `get_path_rstudio_config_dir()`` - gets path to directory (and its
 sub-directories) of RStudio desktop user interface settings.
 }
 }
@@ -61,9 +61,9 @@ get_path_r_user_dir()
 get_path_rs_config_dir()
 }}
 \dontrun{\donttest{
-get_path_rs_desktop_config_dir()
+get_path_rstudio_config_dir()
 
-get_path_rs_desktop_config_dir("dictionaries")
+get_path_rstudio_config_dir("dictionaries")
 }}
 \dontrun{\donttest{
 get_path_rs_snippets_dir()
@@ -80,7 +80,7 @@ get_path_rs_keybindings_dir(rstudio_version = "1.3.1073")
 }
 \seealso{
 \itemize{
-\item \code{get_path_rs_desktop_config_dir()}:
+\item \code{get_path_rstudio_config_dir()}:
 https://support.rstudio.com/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State
 }
 }

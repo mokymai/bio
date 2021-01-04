@@ -104,7 +104,7 @@ read_projects <- function(file, sort_by = FALSE) {
 #' }}
 #'
 get_path_recent_proj_list <- function() {
-  get_path_rs_desktop_config_dir("monitored/lists/project_mru")
+  get_path_rstudio_config_dir("monitored/lists/project_mru")
 }
 
 #' @rdname projects

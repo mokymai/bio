@@ -154,7 +154,7 @@ resolve_rs_version <- function(rstudio_version) {
 
 #' @rdname RStudio-config-dir
 #' @description
-#' - `get_path_rs_desktop_config_dir()`` - gets path to directory (and its
+#' - `get_path_rstudio_config_dir()`` - gets path to directory (and its
 #'    sub-directories) of RStudio desktop user interface settings.
 #'
 #' @param .check (logical) If `TRUE`, additionally checks for path existance.
@@ -163,7 +163,7 @@ resolve_rs_version <- function(rstudio_version) {
 #'         When `.check = TRUE`, renturns error, if the path does not exist.
 #'
 #' @seealso
-#' - `get_path_rs_desktop_config_dir()`:
+#' - `get_path_rstudio_config_dir()`:
 #' https://support.rstudio.com/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State
 #'
 #' @concept paths and dirs
@@ -172,12 +172,12 @@ resolve_rs_version <- function(rstudio_version) {
 #'
 #' @examples
 #' \dontrun{\donttest{
-#' get_path_rs_desktop_config_dir()
+#' get_path_rstudio_config_dir()
 #'
-#' get_path_rs_desktop_config_dir("dictionaries")
+#' get_path_rstudio_config_dir("dictionaries")
 #' }}
 
-get_path_rs_desktop_config_dir <- function(...,
+get_path_rstudio_config_dir <- function(...,
                                            .check = FALSE,
                                            rstudio_version = "auto") {
   # base <-
@@ -314,7 +314,7 @@ get_rs_file_ids <- function() {
 #' @concept paths and dirs
 #' @export
 get_rs_file_ids_user <- function() {
-  get_path_rs_desktop_config_dir("notebooks/paths") %>%
+  get_path_rstudio_config_dir("notebooks/paths") %>%
     readr::read_lines() %>%
     tibble::as_tibble() %>%
     dplyr::transmute(
@@ -447,7 +447,7 @@ open_rs_1.3_user_settings_dir <- function() {
 #' @rdname open_files
 #' @export
 get_path_rs_desktop_user_settings_dir <- function() {
-  get_path_rs_desktop_config_dir("monitored/user-settings")
+  get_path_rstudio_config_dir("monitored/user-settings")
 }
 
 #' @rdname open_files
@@ -479,7 +479,7 @@ get_path_rs_user_settings <- function(which = "current", rstudio_version = "auto
       if (rs_version > "1.3") {
         get_path_user_settings_dir_rs_1.3("rstudio-prefs.json")
       } else {
-        get_path_rs_desktop_config_dir("monitored/user-settings/user-settings")
+        get_path_rstudio_config_dir("monitored/user-settings/user-settings")
       },
 
     "bio-default" =
@@ -502,7 +502,7 @@ open_rs_user_settings <- function() {
 #' @rdname open_files
 #' @export
 open_rs_desktop_config_dir <- function() {
-  browseURL(get_path_rs_desktop_config_dir())
+  browseURL(get_path_rstudio_config_dir())
 }
 
 #' @rdname open_files
