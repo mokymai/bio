@@ -52,7 +52,7 @@ check_installed_programs <- function(which = "main", skip_online_check = FALSE) 
       "R Build Tools (compiler)"
     }
   # TODO (SEE ALSO): rstudioapi::buildToolsCheck()
-  check_program_installed(tool_name, pkgbuild::has_build_tools(), "Tool")
+  check_tool_installed(tool_name, pkgbuild::has_build_tools())
 
   # xQuartz (on Mac, OS X)
   if (get_os_type() == "mac") {
@@ -303,13 +303,6 @@ check_program_installed <- function(program = "", condition = NULL,
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 check_tool_installed <- function(name = "", condition = NULL) {
-
-  if (condition) {
-    ui_done("Tool {blue(name)} is installed.")
-
-  } else {
-    ui_oops("Tool {red(name)} is ether missing, not detected or not configured incorrectly.")
-  }
-
+  check_program_installed(name, condition, what = "Tool")
 }
 
