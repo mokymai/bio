@@ -112,17 +112,17 @@ get_path_rs_config_dir  <- function(...) {
   base <-
     switch(get_os_type(),
       "windows" = fs::path(Sys.getenv("LOCALAPPDATA"), "RStudio"),
-      "linux"   = fs::path_expand_r("~/.config/RStudio"), # FIXME: path_expand_r() or path_expand() ?
+      "linux"   = fs::path_expand_r("~/.config/RStudio"),
       "mac"     = {
         # FIXME: Fix for Mac OS X
         # defaults read com.rstudio.desktop > ~/backup-rstudio-prefs
-        warning("Function get_path_rs_config_dir() may give a wrong result in Mac OS X.")
-        fs::path_expand_r("~/.config/RStudio") # FIXME: path_expand_r() or path_expand() ?
+        warning("Function get_path_rs_config_dir() may give a wrong result on Mac OS X.")
+        fs::path_expand_r("~/.config/RStudio")
       },
       # Otherwise:
       {
         warning("Your OS is not supported by get_path_rs_config_dir().")
-        fs::path_expand_r("~/.config/RStudio") # FIXME: path_expand_r() or path_expand() ?
+        fs::path_expand_r("~/.config/RStudio")
       }
     )
   path_construct_and_check(base, ...)
@@ -277,10 +277,12 @@ create_r_user_dir <- function(...) {
 }
 
 create_rs_snippets_dir <- function() {
+  # FIXME: incorrect in RStudio 1.4
   create_r_user_dir("snippets")
 }
 
 create_rs_keybindings_dir <- function() {
+  # FIXME: incorrect in RStudio 1.4
   create_r_user_dir("rstudio", "keybindings")
 }
 
@@ -399,9 +401,12 @@ set_wd_to_project_dir <- function() {
 #'
 #' @export
 open_in_rstudio <- function(path, ...) {
-  rstudioapi::navigateToFile(path, ...)
-  # fs::file_show(path = path, browser = "RStudio")
-  # TODO (SEE ALSO): usethis::edit_file()
+  if (rstudioapi::isAvailable("0.99.719") && rstudioapi::hasFun("navigateToFile")) {
+    rstudioapi::navigateToFile(path, ...)
+  } else {
+    # TODO (SEE ALSO): usethis::edit_file()
+    fs::file_show(path = path, browser = "RStudio")
+  }
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
