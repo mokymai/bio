@@ -53,7 +53,6 @@ check_installed_programs <- function(which = "main", skip_online_check = FALSE) 
     }
   # TODO (SEE ALSO): rstudioapi::buildToolsCheck()
   check_program_installed(tool_name, pkgbuild::has_build_tools(), "Tool")
-  # check_program_installed("Rtools", is_rtools_installed())
 
   # xQuartz (on Mac, OS X)
   if (get_os_type() == "mac") {
