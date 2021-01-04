@@ -45,14 +45,15 @@ check_installed_programs <- function(which = "main", skip_online_check = FALSE) 
   check_rs_version(v_recommended = v_req$RStudio, skip_online_check = skip_online_check)
 
   # R Build Tools (on Windows, they are called 'Rtools')
-  if (get_os_type() == "windows") {
-    # TODO (SEE ALSO): rstudioapi::buildToolsCheck()
-    check_program_installed("Rtools", pkgbuild::has_build_tools())
-    # check_program_installed("Rtools", is_rtools_installed())
-  } else {
-    check_program_installed("'R Build Tools'", pkgbuild::has_build_tools())
-  }
-
+  tool_name <-
+    if (get_os_type() == "windows") {
+      "Rtools"
+    } else {
+      "R Build Tools (compiler)"
+    }
+  check_program_installed(tool_name, pkgbuild::has_build_tools(), "Tool")
+  # TODO (SEE ALSO): rstudioapi::buildToolsCheck()
+  # check_program_installed("Rtools", is_rtools_installed())
 
   # xQuartz (on Mac, OS X)
   if (get_os_type() == "mac") {
