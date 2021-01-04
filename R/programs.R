@@ -77,6 +77,7 @@ check_installed_programs <- function(which = "main", skip_online_check = FALSE) 
       }, silent = TRUE)
     },
 
+    "bs" = ,
     "bs-2020" = {
       check_program_installed("Atom", is_atom_installed())
     },
