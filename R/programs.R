@@ -289,13 +289,14 @@ is_xquartz_installed  <- function(variables) {
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_program_installed <- function(program = "", condition = NULL) {
+check_program_installed <- function(program = "", condition = NULL,
+                                    what = "Program") {
 
   if (condition) {
-    ui_done("Program {blue(program)} is installed.")
+    ui_done("{what} {blue(program)} is installed.")
 
   } else {
-    ui_oops("Program {red(program)} is ether missing, not detected or not configured incorrectly.")
+    ui_oops("{what} {red(program)} is ether missing, not detected or not configured incorrectly.")
   }
 
 }
