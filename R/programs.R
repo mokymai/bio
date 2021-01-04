@@ -1,14 +1,18 @@
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' Check the versions of required programs
+#' Check required programs and user-related information
+#'
+#' Check absence/presence and (in some cases) versions of required programs
+#' and user-related information.
 #'
 #' @param skip_online_check (logical) If `TRUE`, the numbers of newest available
 #'       stable programs are downloaded, when internet connection is connected.
-#' @param which (character) Which programs should be checked? Options:
-#'        `main`, `all`, `BS-2020`.
+#' @param type (character) Which programs should be checked? Options:
+#'        `main`, `all`, `gmc-bs`, `gmc-r`.
 #'
 #' @return
-#' The results of version checking is printed.
+#' Invisible `NULL`.
+#' The results of probram checking are printed.
 #'
 #' @export
 #' @concept programs
@@ -23,14 +27,15 @@
 #'
 #' check_installed_programs("all")
 #'
-#' check_installed_programs("BS-2020")
-#'
 #' }}
-check_installed_programs <- function(which = "main", skip_online_check = FALSE) {
+check_installed_programs <- function(type = "main", skip_online_check = FALSE) {
 
-  # if (user_info) {
-  #   check_user_info()
-  # }
+  type_lwr <- tolower(type)
+
+  if (!type_lwr %in% c("main", "all", "gmc-bs", "gmc-r")) {
+    ui_warn("Unknown value of type = '{type}'")
+  }
+
 
   if (!skip_online_check) {
     skip_online_check <- check_internet_connection()
@@ -49,42 +54,40 @@ check_installed_programs <- function(which = "main", skip_online_check = FALSE) 
     if (get_os_type() == "windows") {
       "Rtools"
     } else {
-      "R Build Tools (compiler)"
+      "Compiler (R Build Tools)"
     }
   # TODO (SEE ALSO): rstudioapi::buildToolsCheck()
   check_tool_installed(tool_name, pkgbuild::has_build_tools())
 
-  # xQuartz (on Mac, OS X)
-  if (get_os_type() == "mac") {
-    # FIXME: on stack overflow it writes, that this functon might hang R session
-    # if XQuartz is missing.
-    # https://stackoverflow.com/questions/37438773/is-it-possible-to-check-if-a-graphics-device-is-available-without-calling-dev-ne
-    check_program_installed("XQuartz", is_xquartz_installed())
+
+  # XQuartz (on Mac)
+  if (type_lwr %in% c("all", "gmc-bs")) {
+    # xQuartz (on Mac, OS X)
+    if (get_os_type() == "mac") {
+      # FIXME: on stack overflow, it writes that this functon might hang R session
+      # if XQuartz is missing.
+      # https://stackoverflow.com/questions/37438773/
+      check_program_installed("XQuartz", is_xquartz_installed())
+    }
   }
 
-  # Additional software
-  switch(tolower(which),
-    "main" = {
-      NULL
-    },
+  # Atom
+  if (type_lwr %in% c("all", "gmc-bs", "gmc-r")) {
+    check_program_installed("Atom", is_atom_installed())
+  }
 
-    "all" = {
-      check_program_installed("Atom", is_atom_installed())
-      check_program_installed("Git",  is_git_installed())
-      # FIXME: Use better algorithm to check if Meld is installed.
-      try({
-        check_program_installed("Meld", is_meld_installed())
-      }, silent = TRUE)
-    },
+  # Git
+  if (type_lwr %in% c("all", "gmc-r")) {
+    check_program_installed("Git",  is_git_installed())
+  }
 
-    "bs" = ,
-    "bs-2020" = {
-      check_program_installed("Atom", is_atom_installed())
-    },
-
-    ui_warn("Unknown value '{which}'")
-  )
-
+  # Meld
+  if (type_lwr %in% c("all")) {
+    # FIXME: Use better algorithm to check if Meld is installed.
+    try({
+      check_program_installed("Meld", is_meld_installed())
+    }, silent = TRUE)
+  }
   invisible()
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -244,7 +247,7 @@ check_program_version  <- function(program = "", r_installed = "", v_recommended
 
   print_fun(paste0(
     "Program {blue(program)} ({v_color(r_installed)}) {install_status} ",
-    "(recommended {r_color(v_recommended)}{if_available})"
+    "(recommended {r_color(v_recommended)}{if_available})."
   ))
 }
 
@@ -290,6 +293,9 @@ is_xquartz_installed  <- function(variables) {
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# program   - string
+# condition - logical
+# string    - what
 check_program_installed <- function(program = "", condition = NULL,
                                     what = "Program") {
 
@@ -303,6 +309,6 @@ check_program_installed <- function(program = "", condition = NULL,
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 check_tool_installed <- function(name = "", condition = NULL) {
-  check_program_installed(name, condition, what = "Tool")
+  check_program_installed(name, condition, what = "   Tool")
 }
 

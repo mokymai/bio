@@ -3,24 +3,26 @@
 \name{check_installed_programs}
 \alias{check_installed_programs}
 \alias{check_user_info}
-\title{Check the versions of required programs}
+\title{Check required programs and user-related information}
 \usage{
-check_installed_programs(which = "main", skip_online_check = FALSE)
+check_installed_programs(type = "main", skip_online_check = FALSE)
 
 check_user_info()
 }
 \arguments{
-\item{which}{(character) Which programs should be checked? Options:
-\code{main}, \code{all}, \code{BS-2020}.}
+\item{type}{(character) Which programs should be checked? Options:
+\code{main}, \code{all}, \code{gmc-bs}, \code{gmc-r}.}
 
 \item{skip_online_check}{(logical) If \code{TRUE}, the numbers of newest available
 stable programs are downloaded, when internet connection is connected.}
 }
 \value{
-The results of version checking is printed.
+Invisible \code{NULL}.
+The results of probram checking are printed.
 }
 \description{
-Check the versions of required programs
+Check absence/presence and (in some cases) versions of required programs
+and user-related information.
 }
 \examples{
 
@@ -31,8 +33,6 @@ check_user_info()
 check_installed_programs()
 
 check_installed_programs("all")
-
-check_installed_programs("BS-2020")
 
 }}
 }
