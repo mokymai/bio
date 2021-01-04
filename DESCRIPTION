@@ -31,7 +31,6 @@ Imports:
   fs,
   glue,
   magrittr,
-  pander,
   pingr,
   pkgbuild,
   purrr,
