@@ -69,13 +69,13 @@ get_path_rstudio_config_dir("dictionaries")
 get_path_rs_snippets_dir()
 }}
 
-get_path_rs_snippets_dir(rstudio_version = "1.3.1073")
+get_path_rs_snippets_dir(rstudio_version = "1.4.1103")
 
 \dontrun{\donttest{
 get_path_rs_keybindings_dir()
 }}
 
-get_path_rs_keybindings_dir(rstudio_version = "1.3.1073")
+get_path_rs_keybindings_dir(rstudio_version = "1.4.1103")
 
 }
 \seealso{
