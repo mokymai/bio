@@ -556,7 +556,7 @@ list_files_on_desktop <- function(type = "file") {
     "txt|data?|csv|tab|tar|tat|",
     "pdf|fas|mdsx|mtsx|mas|meg|gz"
   )
-  other <- "3.6.1| 3.6.2|4.0.2|bs-2020|bs-2019|r-2019"
+  other <- "3.6.1|3.6.2|4.0.2|4.0.3|bs-2021|bs-2020|bs-2019|r-2019"
 
   files_to_remove <-
     stringr::str_subset(present_files, glue::glue("(\\.({exts})$)|({other})"))
