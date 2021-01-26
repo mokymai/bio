@@ -1,5 +1,0 @@
-magrittr
-DescTools
-tidyverse
-
-bio
