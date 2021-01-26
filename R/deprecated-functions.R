@@ -1,5 +1,5 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' DEPRECATED. Use `open_in_rstudio()` instead
+#' DEFUNCT. Use `open_in_rstudio()` instead
 #'
 #' **DO NOT USE THIS FUNCTION!**
 #' This function was replaced by [open_in_rstudio()] and will be removed soon.
@@ -7,14 +7,14 @@
 #' @param path See [open_in_rstudio()].
 #'
 #' @export
-#' @concept deprecated
+#' @concept defunct
 open_in_rs <- function(path) {
-  .Deprecated("bio::open_in_rstudio()")
+  .Defunct("bio::open_in_rstudio()")
   fs::file_show(path = path, browser = "RStudio")
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' DEPRECATED. Use `check_packages_by_topic()` instead
+#' DEFUNCT. Use `check_packages_by_topic()` instead
 #'
 #' **DO NOT USE THIS FUNCTION!**
 #' This function was replaced by  [check_packages_by_topic()] and will be
@@ -22,21 +22,21 @@ open_in_rs <- function(path) {
 #'
 #' @param ... See [check_packages_by_topic()].
 #'
-#' @name check_packages_by_topic-deprecated
+#' @name check_packages_by_topic-defunct
 #'
 #' @export
 #'
-#' @concept deprecated
+#' @concept defunct
 #'
 check_installed_packages <- function(...) {
   # TODO: Create new function `check_installed_packages()` that checks info
   # about package.
-  .Deprecated("bio::check_packages_by_topic()")
+  .Defunct("bio::check_packages_by_topic()")
   check_packages_by_topic(...)
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' DEPRECATED. Use `check_updates_pkg_bio()` instead
+#' DEFUNCT. Use `check_updates_pkg_bio()` instead
 #'
 #' **DO NOT USE THIS FUNCTION!**
 #' This function was replaced by [check_updates_pkg_bio()] and will be removed
@@ -48,11 +48,11 @@ check_installed_packages <- function(...) {
 #' @param ... See [check_updates_pkg_bio()].
 #'
 #' @export
-#' @concept deprecated
+#' @concept defunct
 check_updates_bio  <- function(show_status = "always", install = "outdated",
   upgrade = TRUE, ...) {
 
-  .Deprecated("bio::check_updates_pkg_bio()")
+  .Defunct("bio::check_updates_pkg_bio()")
 
   check_updates_pkg_bio(
     show_status = show_status,
@@ -63,111 +63,111 @@ check_updates_bio  <- function(show_status = "always", install = "outdated",
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' DEPRECATED. Use `get_vesion_pkg_bio()` instead
+#' DEFUNCT. Use `get_vesion_pkg_bio()` instead
 #'
 #' **DO NOT USE THIS FUNCTION!**
 #' This function was replaced by [get_vesion_pkg_bio()] and will be removed
 #' soon.
 #'
 #' @export
-#' @concept deprecated
+#' @concept defunct
 get_vesion_bio  <- function() {
-  .Deprecated("bio::get_vesion_pkg_bio()")
+  .Defunct("bio::get_vesion_pkg_bio()")
   packageVersion("bio")
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' DEPRECATED. Use `rstudio_reset_gmc()` instead
+#' DEFUNCT. Use `rstudio_reset_gmc()` instead
 #'
 #' **DO NOT USE THIS FUNCTION!**
 #' This function was replaced by [rstudio_reset_gmc()] and will be removed soon.
 #' @param ... Arguments passed to [rstudio_reset_gmc()]
 #'
 #' @export
-#' @concept deprecated
+#' @concept defunct
 reset_rstudio_gmc <- function(...) {
-  .Deprecated("bio::rstudio_reset_gmc()")
+  .Defunct("bio::rstudio_reset_gmc()")
   rstudio_reset_gmc(...)
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' DEPRECATED. Use `rstudio_clear_history()` instead
+#' DEFUNCT. Use `rstudio_clear_history()` instead
 #'
 #' **DO NOT USE THIS FUNCTION!**
 #' This function was replaced by [rstudio_clear_history()] and will be removed soon.
 #' @param ... Arguments passed to [rstudio_clear_history()]
 #'
 #' @export
-#' @concept deprecated
+#' @concept defunct
 clear_rs_history <- function(...) {
-  .Deprecated("bio::rstudio_clear_history()")
+  .Defunct("bio::rstudio_clear_history()")
   rstudio_clear_history(...)
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' DEPRECATED. Use `rstudio_reset_layout()` instead
+#' DEFUNCT. Use `rstudio_reset_layout()` instead
 #'
 #' **DO NOT USE THIS FUNCTION!**
 #' This function was replaced by [rstudio_reset_layout()] and will be removed soon.
 #' @param ... Arguments passed to [rstudio_reset_layout()]
 #'
 #' @export
-#' @concept deprecated
+#' @concept defunct
 reset_rstudio_layout <- function(...) {
-  .Deprecated("bio::rstudio_reset_layout()")
+  .Defunct("bio::rstudio_reset_layout()")
   rstudio_reset_layout(...)
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' DEPRECATED. Use `rstudio_reset_user_settings()` instead
+#' DEFUNCT. Use `rstudio_reset_user_settings()` instead
 #'
 #' **DO NOT USE THIS FUNCTION!**
 #' This function was replaced by [rstudio_reset_user_settings()] and will be removed soon.
 #' @param ... Arguments passed to [rstudio_reset_user_settings()]
 #'
 #' @export
-#' @concept deprecated
+#' @concept defunct
 reset_rstudio_user_settings <- function(...) {
-  .Deprecated("bio::rstudio_reset_user_settings()")
+  .Defunct("bio::rstudio_reset_user_settings()")
   rstudio_reset_user_settings(...)
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' DEPRECATED. Use `rstudio_reset_keybindings()` instead
+#' DEFUNCT. Use `rstudio_reset_keybindings()` instead
 #'
 #' **DO NOT USE THIS FUNCTION!**
 #' This function was replaced by [rstudio_reset_keybindings()] and will be removed soon.
 #' @param ... Arguments passed to [rstudio_reset_keybindings()]
 #'
 #' @export
-#' @concept deprecated
+#' @concept defunct
 reset_rstudio_keybindings <- function(...) {
-  .Deprecated("bio::rstudio_reset_keybindings()")
+  .Defunct("bio::rstudio_reset_keybindings()")
   rstudio_reset_keybindings(...)
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' DEPRECATED. Use `rstudio_restart_r()` instead
+#' DEFUNCT. Use `rstudio_restart_r()` instead
 #'
 #' **DO NOT USE THIS FUNCTION!**
 #' This function was replaced by [rstudio_restart_r()] and will be removed soon.
 #'
 #' @export
-#' @concept deprecated
+#' @concept defunct
 restart_r <- function() {
-  .Deprecated("bio::rstudio_restart_r()")
+  .Defunct("bio::rstudio_restart_r()")
   rstudio_restart_r()
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' DEPRECATED. Use `rstudio_reload_ui()` instead
+#' DEFUNCT. Use `rstudio_reload_ui()` instead
 #'
 #' **DO NOT USE THIS FUNCTION!**
 #' This function was replaced by [rstudio_reload_ui()] and will be removed soon.
 #'
 #' @export
-#' @concept deprecated
+#' @concept defunct
 reload_rstudio <- function() {
-  .Deprecated("bio::rstudio_reload_ui()")
+  .Defunct("bio::rstudio_reload_ui()")
   rstudio_reload_ui()
 }
