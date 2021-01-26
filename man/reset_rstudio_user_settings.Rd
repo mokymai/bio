@@ -2,7 +2,7 @@
 % Please edit documentation in R/deprecated-functions.R
 \name{reset_rstudio_user_settings}
 \alias{reset_rstudio_user_settings}
-\title{DEPRECATED. Use \code{rstudio_reset_user_settings()} instead}
+\title{DEFUNCT. Use \code{rstudio_reset_user_settings()} instead}
 \usage{
 reset_rstudio_user_settings(...)
 }
@@ -13,4 +13,4 @@ reset_rstudio_user_settings(...)
 \strong{DO NOT USE THIS FUNCTION!}
 This function was replaced by \code{\link[=rstudio_reset_user_settings]{rstudio_reset_user_settings()}} and will be removed soon.
 }
-\concept{deprecated}
+\concept{defunct}

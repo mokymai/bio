@@ -2,7 +2,7 @@
 % Please edit documentation in R/deprecated-functions.R
 \name{reset_rstudio_gmc}
 \alias{reset_rstudio_gmc}
-\title{DEPRECATED. Use \code{rstudio_reset_gmc()} instead}
+\title{DEFUNCT. Use \code{rstudio_reset_gmc()} instead}
 \usage{
 reset_rstudio_gmc(...)
 }
@@ -13,4 +13,4 @@ reset_rstudio_gmc(...)
 \strong{DO NOT USE THIS FUNCTION!}
 This function was replaced by \code{\link[=rstudio_reset_gmc]{rstudio_reset_gmc()}} and will be removed soon.
 }
-\concept{deprecated}
+\concept{defunct}

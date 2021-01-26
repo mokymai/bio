@@ -2,7 +2,7 @@
 % Please edit documentation in R/deprecated-functions.R
 \name{clear_rs_history}
 \alias{clear_rs_history}
-\title{DEPRECATED. Use \code{rstudio_clear_history()} instead}
+\title{DEFUNCT. Use \code{rstudio_clear_history()} instead}
 \usage{
 clear_rs_history(...)
 }
@@ -13,4 +13,4 @@ clear_rs_history(...)
 \strong{DO NOT USE THIS FUNCTION!}
 This function was replaced by \code{\link[=rstudio_clear_history]{rstudio_clear_history()}} and will be removed soon.
 }
-\concept{deprecated}
+\concept{defunct}

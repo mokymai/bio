@@ -2,7 +2,7 @@
 % Please edit documentation in R/deprecated-functions.R
 \name{reset_rstudio_layout}
 \alias{reset_rstudio_layout}
-\title{DEPRECATED. Use \code{rstudio_reset_layout()} instead}
+\title{DEFUNCT. Use \code{rstudio_reset_layout()} instead}
 \usage{
 reset_rstudio_layout(...)
 }
@@ -13,4 +13,4 @@ reset_rstudio_layout(...)
 \strong{DO NOT USE THIS FUNCTION!}
 This function was replaced by \code{\link[=rstudio_reset_layout]{rstudio_reset_layout()}} and will be removed soon.
 }
-\concept{deprecated}
+\concept{defunct}

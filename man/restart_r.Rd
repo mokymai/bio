@@ -2,7 +2,7 @@
 % Please edit documentation in R/deprecated-functions.R
 \name{restart_r}
 \alias{restart_r}
-\title{DEPRECATED. Use \code{rstudio_restart_r()} instead}
+\title{DEFUNCT. Use \code{rstudio_restart_r()} instead}
 \usage{
 restart_r()
 }
@@ -10,4 +10,4 @@ restart_r()
 \strong{DO NOT USE THIS FUNCTION!}
 This function was replaced by \code{\link[=rstudio_restart_r]{rstudio_restart_r()}} and will be removed soon.
 }
-\concept{deprecated}
+\concept{defunct}

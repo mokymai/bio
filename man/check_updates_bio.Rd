@@ -2,7 +2,7 @@
 % Please edit documentation in R/deprecated-functions.R
 \name{check_updates_bio}
 \alias{check_updates_bio}
-\title{DEPRECATED. Use \code{check_updates_pkg_bio()} instead}
+\title{DEFUNCT. Use \code{check_updates_pkg_bio()} instead}
 \usage{
 check_updates_bio(
   show_status = "always",
@@ -25,4 +25,4 @@ check_updates_bio(
 This function was replaced by \code{\link[=check_updates_pkg_bio]{check_updates_pkg_bio()}} and will be removed
 soon.
 }
-\concept{deprecated}
+\concept{defunct}
