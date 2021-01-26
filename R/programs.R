@@ -253,7 +253,7 @@ check_program_version  <- function(program = "", r_installed = "", v_recommended
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_r_version <- function(v_recommended = "4.0.2", skip_online_check = FALSE) {
+check_r_version <- function(v_recommended = "4.0.3", skip_online_check = FALSE) {
 
   check_program_version(
     program = 'R',
@@ -264,7 +264,7 @@ check_r_version <- function(v_recommended = "4.0.2", skip_online_check = FALSE) 
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_rs_version <- function(v_recommended = "1.3.1073", skip_online_check = FALSE) {
+check_rs_version <- function(v_recommended = "1.4.1103", skip_online_check = FALSE) {
 
   if (!rstudioapi::isAvailable()) {
     ui_oops("Program {red('RStudio')} is not installed or is not running. ")
