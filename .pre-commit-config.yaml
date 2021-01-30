@@ -6,9 +6,9 @@ repos:
     hooks:
     # -   id: style-files
     #     args: [--style_pkg=styler, --style_fun=tidyverse_style]
-    -   id: roxygenize
+    # -   id: roxygenize
     # codemeta must be above use-tidy-description when both are used
-    # -   id: codemeta-description-updated
+    -   id: codemeta-description-updated
     -   id: use-tidy-description
     -   id: spell-check
         exclude: >
