@@ -317,12 +317,18 @@ open_rstudio_keybindings_dir <- function() {
 #'
 #' }}
 get_path_rstudio_config_file <- function(which = "current") {
-  switch(which,
-    "current"     = get_path_rstudio_config_dir("rstudio-prefs.json"),
-    "bio-default" = system.file("rs-settings", "rstudio-prefs.json", package = "bio"),
 
-    stop("unrecognized option: ", which)
-  )
+  if (which == "current") {
+    get_path_rstudio_config_dir("rstudio-prefs.json")
+
+  } else if (stringr::str_detect(which, "^bio$|^bio-")) {
+    system.file(
+      "rs-settings", "rstudio-prefs--bio-default.json", package = "bio"
+    )
+  } else {
+
+    stop("Unknown value: ", which)
+  }
 }
 
 #' @rdname open_files
