@@ -9,7 +9,7 @@ rstudio_reset_user_settings(to, backup = TRUE, ask = TRUE)
 }
 \arguments{
 \item{to}{The name of set with RStudio settings.
-One of: "rstudio-default" or "bio-default".}
+One of: "rstudio-default", "bio-default", or "bio-dark-blue".}
 
 \item{backup}{(logical) If \code{TRUE}, a backup copy of files with settings is
 created.}
@@ -18,8 +18,7 @@ created.}
 required.}
 }
 \description{
-Reset RStudio settings. Different algorithms are used for RStudio versions
-newer than 1.3 and previous to 1.3.
+Reset RStudio settings. Correctly works only with RStudio 1.3 or newer.
 }
 \details{
 Settings that can be used in \code{rstudio-prefs.json} file
@@ -34,9 +33,14 @@ https://docs.rstudio.com/ide/server-pro/session-user-settings.html
 
 #-------------------------------------------------
 
+rstudio_reset_user_settings(to = "rstudio-default")
+
 rstudio_reset_user_settings(to = "bio-default")
 
-rstudio_reset_user_settings(to = "rstudio-default")
+rstudio_reset_user_settings(to = "bio-dark-blue")
+
+rstudio_reset_user_settings(to = "bio-black")
+
 
 }}
 
