@@ -193,6 +193,10 @@ This function downloads or updates **hunspell** spelling checking dictionaries d
 bio::rstudio_download_spellcheck_dictionaries()
 ```
 
+Install improved Lithuanian dictionary.
+```{r eval=FALSE}
+bio::rstudio_download_spellcheck_dictionary_lt()
+```
 
 
 ### Shortcut keys

@@ -182,6 +182,12 @@ RStudio or by tools from **wellspell.addin** package.
 bio::rstudio_download_spellcheck_dictionaries()
 ```
 
+Install improved Lithuanian dictionary.
+
+``` r
+bio::rstudio_download_spellcheck_dictionary_lt()
+```
+
 ### Shortcut keys
 
 This function changes shortcut keys in RStudio.
