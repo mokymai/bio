@@ -156,7 +156,7 @@ deletes RStudio (system) spellchecking dictionaries.</p></li>
 
 <span class='fu'>rstudio_download_spellcheck_dictionary_lt</span><span class='op'>(</span>secure <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'>rstudio_delete_spellcheck_dictionaries</span><span class='op'>(</span><span class='op'>)</span></pre>
+<span class='fu'>rstudio_delete_spellcheck_dictionaries</span><span class='op'>(</span>ask <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -164,6 +164,11 @@ deletes RStudio (system) spellchecking dictionaries.</p></li>
     <tr>
       <th>secure</th>
       <td><p>(logical) If <code>TRUE</code>, uses "https", if <code>FALSE</code>, uses "http".</p></td>
+    </tr>
+    <tr>
+      <th>ask</th>
+      <td><p>(logical) If <code>TRUE</code>, user will have to confirm his/her choice
+interactively.</p></td>
     </tr>
     </table>
 
