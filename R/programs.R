@@ -12,7 +12,7 @@
 #'
 #' @return
 #' Invisible `NULL`.
-#' The results of probram checking are printed.
+#' The results of program checking are printed.
 #'
 #' @export
 #' @concept programs
@@ -88,7 +88,7 @@ check_installed_programs <- function(type = "main", skip_online_check = FALSE) {
       check_program_installed("Meld", is_meld_installed())
     }, silent = TRUE)
   }
-  invisible()
+  invisible(NULL)
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @rdname check_installed_programs

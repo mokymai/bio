@@ -204,7 +204,7 @@ This function changes shortcut keys in RStudio.
 Run function without arguments to see the available options.
 ```{r README-9a, eval=FALSE, error=TRUE}
 bio::rstudio_reset_keybindings()
-#> Error: The set of RStudio shortcut keys is not defined (argument 'to').
+#> Error: The value of argument 'to' is missing.
 #> Possible options: 'bio-default', 'rstudio-default'.
 ```
 
@@ -294,7 +294,7 @@ This function resets RStudio user preferences and settings.
 Run function without arguments to see the available options.
 ```{r README-10a, eval=FALSE, error=TRUE}
 bio::rstudio_reset_user_settings()
-#> Error: The set of RStudio user settings is not defined (argument 'to').
+#> Error: The value of argument 'to' is missing.
 #> Possible choices: 'bio-default', 'rstudio-default'.
 ```
 
@@ -314,7 +314,7 @@ bio::rstudio_reset_user_settings(to = "bio-default")
 The function replaces current R code and R Markdown snippets with those in package "snippets".
 
 ```{r, eval=FALSE}
-snippets::install_snippets_from_package("snippets", type = c("r", "markdown"), backup = TRUE)
+snippets::install_snippets_from_package("snippets", backup = TRUE)
 ```
 
 More information on 

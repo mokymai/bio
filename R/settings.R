@@ -74,7 +74,7 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
   unlink(".Rhistory")
 
   # Dictionaries
-  dict_path <- get_path_rs_system_dictionaries_dir()
+  dict_path <- rstudioapi::userDictionariesPath()
   lt_LT_is_missing <- !any(stringr::str_detect(dir(dict_path), "lt_LT"))
   if (force_update_dictionaries || lt_LT_is_missing) {
     bio::rstudio_download_spellcheck_dictionaries()
@@ -316,7 +316,7 @@ rstudio_reset_layout <- function(rs_layout = "left") {
 #' https://docs.rstudio.com/ide/server-pro/session-user-settings.html
 #'
 #' @seealso
-#' [get_path_rs_user_settings()]
+#' [get_path_rstudio_config_file()]
 #'
 #' RStudio functions `.rs.readUiPref()`, `.rs.writeUiPref()`.
 #' - https://stackoverflow.com/a/55940249/4783029
@@ -342,8 +342,9 @@ rstudio_reset_layout <- function(rs_layout = "left") {
 rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
 
   if (missing(to)) {
+    # If the set of RStudio user settings is not chosen
     ui_stop(paste0(
-      "The set of RStudio user settings is not defined (argument '{yellow('to')}').\n",
+      "The value of argument '{yellow('to')}' is missing.\n",
       'Possible choices: {ui_value(user_settings_defaults)}.'
     ))
   }
@@ -362,7 +363,7 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
     }
   }
 
-  file_current <- get_path_rs_user_settings("current")
+  file_current <- get_path_rstudio_config_file("current")
 
   if (isTRUE(backup)) {
     create_backup_copy(file_current, "user_settings", "RStudio settings")
@@ -377,7 +378,7 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
     },
 
     "bio-default" = {
-      file_default <- get_path_rs_user_settings("bio-default")
+      file_default <- get_path_rstudio_config_file("bio-default")
       fs::dir_create("~/R/Darbinis", recurse = TRUE) # TODO: change this value, when default UI preferences change.
       fs::dir_create(fs::path_dir(file_current), recurse = TRUE)
       fs::file_copy(file_default, file_current, overwrite = TRUE)
@@ -438,7 +439,7 @@ rstudio_reset_keybindings <- function(to, backup = TRUE) {
 
   if (missing(to)) {
     ui_stop(paste0(
-      "The set of RStudio shortcut keys is not defined (argument '{yellow('to')}').\n",
+      "The value of argument '{yellow('to')}' is missing.\n",
       'Possible options: {ui_value(keybindings_defaults)}.'
     ))
   }
@@ -450,14 +451,14 @@ rstudio_reset_keybindings <- function(to, backup = TRUE) {
     "bio-default" = {
       from_files <- fs::dir_ls(path_bio_rs(), regexp = "keybindings--.*?.json$")
       base_names <- stringr::str_extract(from_files, "(?<=keybindings--).*?.json$")
-      current_files <- fs::path(get_path_rs_keybindings_dir(), base_names)
+      current_files <- fs::path(get_path_rstudio_keybindings_dir(), base_names)
     },
 
     "rstudio-default" = {
       current_files <-
-        if (fs::dir_exists(get_path_rs_keybindings_dir())) {
+        if (fs::dir_exists(get_path_rstudio_keybindings_dir())) {
           fs::dir_ls(
-            get_path_rs_keybindings_dir(),
+            get_path_rstudio_keybindings_dir(),
             regexp = "[.]json$"
           )
 
@@ -520,73 +521,3 @@ rstudio_reload_ui <- function() {
     invisible(rstudioapi::executeCommand("reloadUi", quiet = TRUE))
   }
 }
-
-
-# Other ======================================================================
-# @name rs-settings
-# @title RStudio management and settings
-# @export
-rstudio_browse_rs_addins <- function() {
-  invisible(rstudioapi::executeCommand("browseAddins", quiet = TRUE))
-}
-
-rstudio_browse_r_cheat_sheets <- function() {
-  invisible(rstudioapi::executeCommand("browseCheatSheets", quiet = TRUE))
-}
-
-rstudio_show_console <- function() {
-  if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
-    invisible(rstudioapi::executeCommand("activateConsole", quiet = TRUE))
-  }
-}
-
-rstudio_switch_to_tab <- function() {
-  if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
-    invisible(rstudioapi::executeCommand("switchToTab", quiet = TRUE))
-  }
-}
-
-# ============================================================================
-list_files_on_desktop <- function(type = "file") {
-
-  present_files <- fs::dir_ls(fs::path_expand("~/desktop/"), type = type)
-
-  exts <- paste0(
-    "zip|rar|gif|jpg|png|tiff?|docx?|pptx?|xlsx?|r|rmd|rdata|rds|py|",
-    "txt|data?|csv|tab|tar|tat|",
-    "pdf|fas|mdsx|mtsx|mas|meg|gz"
-  )
-  other <- "3.6.1|3.6.2|4.0.2|4.0.3|bs-2021|bs-2020|bs-2019|r-2019"
-
-  files_to_remove <-
-    stringr::str_subset(present_files, glue::glue("(\\.({exts})$)|({other})"))
-
-  structure(fs::path_file(files_to_remove), class = "glue")
-  invisible(files_to_remove)
-}
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-str_to_quotes <- function(x) {
-  if (is.character(x)) {
-    x <- glue::glue('"{x}"')
-  }
-  x
-}
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# If x is string, quotes " are added on both sides of this string to work well
-# with glue().
-chk_arg_upgrade <- function(x) {
-  checkmate::assert_choice(
-    as.character(x),
-    c(TRUE, "default", "ask", "always", "never", FALSE)
-  )
-  str_to_quotes(x)
-}
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-ui_msg_restart_rstudio <- function() {
-  usethis::ui_todo(paste0(
-    "To take effect, {underline('RStudio')} should be ",
-    "{underline('closed and reopened')}."
-  ))
-}
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -3,40 +3,29 @@
 \name{RStudio-config-dir}
 \alias{RStudio-config-dir}
 \alias{get_path_r_user_dir}
-\alias{get_path_rs_config_dir}
-\alias{get_path_user_settings_dir_rs_1.3}
 \alias{get_path_rstudio_config_dir}
-\alias{get_path_rs_snippets_dir}
-\alias{get_path_rs_keybindings_dir}
+\alias{get_path_rstudio_internal_state_dir}
+\alias{get_path_rstudio_snippets_dir}
+\alias{get_path_rstudio_keybindings_dir}
 \title{Directories of R and RStudio (desktop) settings, preferences, etc.}
 \usage{
 get_path_r_user_dir(...)
 
-get_path_rs_config_dir(...)
+get_path_rstudio_config_dir(..., .check = FALSE)
 
-get_path_user_settings_dir_rs_1.3(...)
+get_path_rstudio_internal_state_dir(..., .check = FALSE)
 
-get_path_rstudio_config_dir(..., .check = FALSE, rstudio_version = "auto")
+get_path_rstudio_snippets_dir()
 
-get_path_rs_snippets_dir(rstudio_version = "auto")
-
-get_path_rs_keybindings_dir(rstudio_version = "auto")
+get_path_rstudio_keybindings_dir()
 }
 \arguments{
 \item{...}{(character) Parts of the path. Path to sub-directories.}
 
 \item{.check}{(logical) If \code{TRUE}, additionally checks for path existance.}
-
-\item{rstudio_version}{Numeric version of RStudio (the output is different
-for RStudio < 1.3 and 1.3 or newer series). If \code{"auto"}, the version
-of RStudio will be determined automatically.}
 }
 \value{
-\itemize{
-\item \code{get_path_rs_config_dir()} (string) path, if it exists, or error.
-}
-
-(string) path to RStudio desktop user settings directory.
+(string) path to RStudio configuration directory.
 When \code{.check = TRUE}, renturns error, if the path does not exist.
 }
 \description{
@@ -45,38 +34,24 @@ When \code{.check = TRUE}, renturns error, if the path does not exist.
 }
 
 \itemize{
-\item \code{get_path_rs_config_dir()} -- gets path to RStudio configuration directory
-or its sub-directories.
-}
-
-\itemize{
-\item `get_path_rstudio_config_dir()`` - gets path to directory (and its
-sub-directories) of RStudio desktop user interface settings.
+\item `get_path_rstudio_config_dir()`` - gets path to RStudio configuration
+directory (and its sub-directories).
 }
 }
 \examples{
 get_path_r_user_dir()
 
 \dontrun{\donttest{
-get_path_rs_config_dir()
-}}
-\dontrun{\donttest{
 get_path_rstudio_config_dir()
 
 get_path_rstudio_config_dir("dictionaries")
 }}
 \dontrun{\donttest{
-get_path_rs_snippets_dir()
+get_path_rstudio_snippets_dir()
 }}
-
-get_path_rs_snippets_dir(rstudio_version = "1.4.1103")
-
 \dontrun{\donttest{
-get_path_rs_keybindings_dir()
+get_path_rstudio_keybindings_dir()
 }}
-
-get_path_rs_keybindings_dir(rstudio_version = "1.4.1103")
-
 }
 \seealso{
 \itemize{

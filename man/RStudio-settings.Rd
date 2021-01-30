@@ -42,7 +42,7 @@ rstudio_reset_user_settings(to = "rstudio-default")
 
 }
 \seealso{
-\code{\link[=get_path_rs_user_settings]{get_path_rs_user_settings()}}
+\code{\link[=get_path_rstudio_config_file]{get_path_rstudio_config_file()}}
 
 RStudio functions \code{.rs.readUiPref()}, \code{.rs.writeUiPref()}.
 \itemize{

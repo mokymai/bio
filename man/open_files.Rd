@@ -2,39 +2,33 @@
 % Please edit documentation in R/paths-and-files.R
 \name{open_files}
 \alias{open_files}
+\alias{open_desktop}
 \alias{open_r_user_dir}
-\alias{open_rs_config_dir}
-\alias{open_rs_1.3_user_settings_dir}
-\alias{get_path_rs_desktop_user_settings_dir}
-\alias{open_rs_desktop_user_settings_dir}
-\alias{get_path_rs_user_settings}
-\alias{open_rs_user_settings}
-\alias{open_rs_desktop_config_dir}
-\alias{open_rs_snippets_dir}
-\alias{open_rs_keybindings_dir}
+\alias{open_rstudio_config_dir}
+\alias{open_rstudio_internal_state_dir}
+\alias{open_rstudio_snippets_dir}
+\alias{open_rstudio_keybindings_dir}
+\alias{get_path_rstudio_config_file}
+\alias{open_rstudio_config_file}
 \alias{get_path_r_environ}
 \alias{open_r_environ}
 \title{Open files and directories}
 \usage{
+open_desktop()
+
 open_r_user_dir()
 
-open_rs_config_dir()
+open_rstudio_config_dir()
 
-open_rs_1.3_user_settings_dir()
+open_rstudio_internal_state_dir()
 
-get_path_rs_desktop_user_settings_dir()
+open_rstudio_snippets_dir()
 
-open_rs_desktop_user_settings_dir()
+open_rstudio_keybindings_dir()
 
-get_path_rs_user_settings(which = "current", rstudio_version = "auto")
+get_path_rstudio_config_file(which = "current")
 
-open_rs_user_settings()
-
-open_rs_desktop_config_dir()
-
-open_rs_snippets_dir()
-
-open_rs_keybindings_dir()
+open_rstudio_config_file()
 
 get_path_r_environ(scope = c("user", "project"))
 
@@ -42,10 +36,6 @@ open_r_environ()
 }
 \arguments{
 \item{which}{(character) type of settings: "current", "bio-default".}
-
-\item{rstudio_version}{Numeric version of RStudio (the output is different
-for RStudio < 1.3 and 1.3 or newer series). If \code{"auto"}, the version
-of RStudio will be determined automatically.}
 
 \item{scope}{(character) One of "user" or "project".}
 }
@@ -60,9 +50,9 @@ variables.
 \examples{
 \dontrun{\donttest{
 
-get_path_rs_user_settings()
+get_path_rstudio_config_file()
 
-get_path_rs_user_settings("bio-default")
+get_path_rstudio_config_file("bio-default")
 
 }}
 get_path_r_environ()

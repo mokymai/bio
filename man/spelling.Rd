@@ -6,18 +6,11 @@
 \alias{rstudio_delete_spellcheck_dictionaries}
 \title{Dictionaries to check spelling}
 \usage{
-rstudio_download_spellcheck_dictionaries(
-  rstudio_version = "auto",
-  secure = TRUE
-)
+rstudio_download_spellcheck_dictionaries(secure = TRUE)
 
 rstudio_delete_spellcheck_dictionaries()
 }
 \arguments{
-\item{rstudio_version}{Numeric version of RStudio (the output is different
-for RStudio < 1.3 and 1.3 or newer series). If \code{"auto"}, the version
-of RStudio will be determined automatically.}
-
 \item{secure}{(logical) If \code{TRUE}, uses "https", if \code{FALSE}, uses "http".}
 }
 \description{

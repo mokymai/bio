@@ -18,7 +18,7 @@ stable programs are downloaded, when internet connection is connected.}
 }
 \value{
 Invisible \code{NULL}.
-The results of probram checking are printed.
+The results of program checking are printed.
 }
 \description{
 Check absence/presence and (in some cases) versions of required programs

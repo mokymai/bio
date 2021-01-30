@@ -1,40 +1,5 @@
 # path_npp <- "C:/Program Files (x86)/Notepad++/notepad++.exe"
 
-# RStudio version control ====================================================
-
-#' @name version-control
-#' @title Version control in RStudio
-#' @description
-#' Helper functions for version control system (vcs) in RStudio.
-#' - `open_rs_proj_vcs_opts()` opens version control setup for RStudio project.
-#' - `show_rs_vcs_rsa_key()` shows version RSA key.
-#' - `browse_rs_version_control_help()` opens website with help of version
-#'    control in RStudio.
-#'
-#' @export
-#' @concept programs
-#'
-# open_rs_verion_control_opts <- function() {
-open_rs_proj_vcs_opts <- function() {
-  rstudioapi::executeCommand("versionControlProjectSetup", quiet = TRUE)
-}
-
-#' @name version-control
-#' @export
-#' @concept programs
-show_rs_vcs_rsa_key <- function() {
-  rstudioapi::executeCommand("versionControlShowRsaKey", quiet = TRUE)
-}
-
-#' @name version-control
-#' @export
-#' @concept programs
-browse_rs_version_control_help <- function() {
-  rstudioapi::executeCommand("versionControlHelp", quiet = TRUE)
-}
-
-
-
 # GIT ========================================================================
 
 # ==========================================================================~~
