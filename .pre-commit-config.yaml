@@ -30,7 +30,9 @@ repos:
           .*\.rds|
           .*\.Rds|
           .*\.sh|
-          .*\.RData
+          .*\.RData|
+          inst/.*|
+          _tmp/.*
           )$
     -   id: lintr
     -   id: readme-rmd-rendered
