@@ -49,7 +49,8 @@ restriction_status <- function(ignore_ip = getOption("bio.ignore_ip", FALSE), ..
 #' @param force_update_dictionaries (logical) If `TRUE`, the dictionaries are
 #' forced to be downloaded/updated.
 #'
-#' @export
+# @export
+#' @noRd
 #'
 #' @concept r and rstudio settings
 #'
