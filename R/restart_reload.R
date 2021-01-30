@@ -1,9 +1,9 @@
 # Restart/Reload -------------------------------------------------------------
 #' @name restart-reload
-#' @title Functions that to restart or reload programs
+#' @title Functions That to Restart R and Reload RStudio
 #' @description
-#' `rstudio_restart_r()` restarts R session in RStudio.
-#' `rstudio_reload()` reloads RStudio without closing it.
+#' - `rstudio_restart_r()` restarts R session in RStudio.
+#' - `rstudio_reload()` reloads RStudio without closing it.
 #'
 #' @export
 #'
