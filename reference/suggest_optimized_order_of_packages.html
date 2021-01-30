@@ -42,6 +42,9 @@
 <meta property="og:title" content="Optimize order of packages to install — suggest_optimized_order_of_packages" />
 <meta property="og:description" content="Helper function that takes a vector of package names and suggests how to
 sort the packages in order not to repeat installation of the same
+package if it can be installed as a dependence of some other package.
+Helper function that takes a vector of package names and suggests how to
+sort the packages in order not to repeat installation of the same
 package if it can be installed as a dependence of some other package." />
 
 
@@ -74,7 +77,7 @@ package if it can be installed as a dependence of some other package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.13</span>
       </span>
     </div>
 
@@ -82,13 +85,13 @@ package if it can be installed as a dependence of some other package." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-book"></span>
+    <span class="fas fa-book"></span>
      
      
     <span class="caret"></span>
@@ -110,7 +113,7 @@ package if it can be installed as a dependence of some other package." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/mokymai/bio/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -128,7 +131,7 @@ package if it can be installed as a dependence of some other package." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Optimize order of packages to install</h1>
-    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/packages.R'><code>R/packages.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/packages--check.R'><code>R/packages--check.R</code></a>, <a href='https://github.com/mokymai/bio/blob/master/R/packages--optimize-list.R'><code>R/packages--optimize-list.R</code></a></small>
     <div class="hidden name"><code>suggest_optimized_order_of_packages.Rd</code></div>
     </div>
 
@@ -136,9 +139,14 @@ package if it can be installed as a dependence of some other package." />
     <p>Helper function that takes a vector of package names and suggests how to
 sort the packages in order not to repeat installation of the same
 package if it can be installed as a dependence of some other package.</p>
+<p>Helper function that takes a vector of package names and suggests how to
+sort the packages in order not to repeat installation of the same
+package if it can be installed as a dependence of some other package.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>suggest_optimized_order_of_packages</span><span class='op'>(</span><span class='va'>pkgs_vec</span>, recursive_dependencies <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>suggest_optimized_order_of_packages</span><span class='op'>(</span><span class='va'>pkgs_vec</span>, recursive_dependencies <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+
+<span class='fu'>suggest_optimized_order_of_packages</span><span class='op'>(</span><span class='va'>pkgs_vec</span>, recursive_dependencies <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -158,6 +166,7 @@ also checked.
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A list with suggestion, which packages should be moved.</p>
+<p>A list with suggestion, which packages should be moved.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"></pre>

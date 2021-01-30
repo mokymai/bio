@@ -42,6 +42,9 @@
 <meta property="og:title" content="List packages used in file(s) — list_pkgs_used_in_dir" />
 <meta property="og:description" content="These functions search for patterns, such as library(pkg), require(pkg),
 pkg::function(), or data(package = &quot;pkg&quot;) and return package names from
+these expressions.
+These functions search for patterns, such as library(pkg), require(pkg),
+pkg::function(), or data(package = &quot;pkg&quot;) and return package names from
 these expressions." />
 
 
@@ -74,7 +77,7 @@ these expressions." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.12</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.13</span>
       </span>
     </div>
 
@@ -82,13 +85,13 @@ these expressions." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    <span class="fa fa-book"></span>
+    <span class="fas fa-book"></span>
      
      
     <span class="caret"></span>
@@ -110,7 +113,7 @@ these expressions." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/mokymai/bio/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -128,7 +131,7 @@ these expressions." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>List packages used in file(s)</h1>
-    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/packages.R'><code>R/packages.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/packages--check.R'><code>R/packages--check.R</code></a>, <a href='https://github.com/mokymai/bio/blob/master/R/packages--find.R'><code>R/packages--find.R</code></a></small>
     <div class="hidden name"><code>list_pkgs_used_in_dir.Rd</code></div>
     </div>
 
@@ -136,9 +139,16 @@ these expressions." />
     <p>These functions search for patterns, such as <code><a href='https://rdrr.io/r/base/library.html'>library(pkg)</a></code>, <code><a href='https://rdrr.io/r/base/library.html'>require(pkg)</a></code>,
 <code>pkg::function()</code>, or <code><a href='https://rdrr.io/r/utils/data.html'>data(package = "pkg")</a></code> and return package names from
 these expressions.</p>
+<p>These functions search for patterns, such as <code><a href='https://rdrr.io/r/base/library.html'>library(pkg)</a></code>, <code><a href='https://rdrr.io/r/base/library.html'>require(pkg)</a></code>,
+<code>pkg::function()</code>, or <code><a href='https://rdrr.io/r/utils/data.html'>data(package = "pkg")</a></code> and return package names from
+these expressions.</p>
     </div>
 
     <pre class="usage"><span class='fu'>list_pkgs_used_in_dir</span><span class='op'>(</span>path <span class='op'>=</span> <span class='st'>"."</span>, regexp <span class='op'>=</span> <span class='st'>"(?i)[.](rmd|r)$"</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>list_pkgs_used_in_files</span><span class='op'>(</span><span class='va'>files</span><span class='op'>)</span>
+
+<span class='fu'>list_pkgs_used_in_dir</span><span class='op'>(</span>path <span class='op'>=</span> <span class='st'>"."</span>, regexp <span class='op'>=</span> <span class='st'>"(?i)[.](rmd|r)$"</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='fu'>list_pkgs_used_in_files</span><span class='op'>(</span><span class='va'>files</span><span class='op'>)</span></pre>
 
@@ -167,6 +177,7 @@ files.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Character vector with package names.</p>
+<p>Character vector with package names.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
