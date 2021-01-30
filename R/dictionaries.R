@@ -119,12 +119,25 @@ rstudio_download_spellcheck_dictionary_lt <- function(secure = TRUE) {
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @name spelling
+#' @param ask (logical) If `TRUE`, user will have to confirm his/her choice
+#'        interactively.
 #' @export
 #' @concept r and rstudio settings
 #' @concept dictionaries
-rstudio_delete_spellcheck_dictionaries <- function() {
-  # FIXME: Ask user permission to prevent accidental deletion.
+rstudio_delete_spellcheck_dictionaries <- function(ask = TRUE) {
   dic_dir <- get_path_rstudio_config_dir("dictionaries/languages-system")
+
+  if (isTRUE(ask)) {
+    ans <- usethis::ui_nope(
+      "Do you really want to delete dictionaries in \n{ui_value(dic_dir)}?"
+    )
+    # ans <- usethis::ui_nope("...", yes = "Yes")
+  }
+  if (ans) {
+    usethis::ui_warn("Canceled (no dictionaries were deleted)")
+    return(invisible())
+  }
+
   if (fs::dir_exists(dic_dir)) {
     fs::dir_delete(dic_dir)
   }
