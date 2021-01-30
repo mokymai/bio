@@ -93,19 +93,10 @@
 <!-- badges: start -->
 
 <!-- [![GitHub last commit](https://img.shields.io/github/last-commit/mokymai/bio)](https://github.com/mokymai/bio) -->
-<p>Convenience functions to facilitate installation and management of required resources for course units <strong><em>Biostatistics</em></strong> (<em>BS-2020</em>) and <strong><em>Introduction to data analysis with R</em></strong> (<em>R-2020</em>).</p>
-<!-- <center> -->
-<!-- <font color="red" size=6> -->
-<!-- <br> -->
-<!-- Work is still in progress... -->
-<!-- </font> -->
-<!-- <br> -->
-<!-- <font color="darkred" size=4> -->
-<!-- This package is tested on <em>Windows 10</em> (64-bit) with RStudio <b>1.2</b>.5042.<br> -->
-<!-- Some functions do not work correctly with RStudio <b>1.3</b>.0 or newer yet. -->
-<!-- </font> -->
-<!-- <br><br> -->
-<!-- </center> -->
+<p>Convenience functions to facilitate installation and management of required resources for course units <strong><em>Biostatistics</em></strong> (<em>BS-2021</em>) and <strong><em>Introduction to data analysis with R</em></strong> (<em>R-2021</em>).</p>
+<center>
+<p><br><font color="darkred" size="5"> This package is intended to be used with <b>RStudio 1.4</b> or newer.<br></font> <font color="darkred" size="4"> Functions do not work correctly with the previous versions of RStudio.<br> Tested on <em>Windows 10</em> (64-bit) only. </font> <br><br></p>
+</center>
 <p>Bug reports and your feedback are welcome at <a href="https://github.com/mokymai/bio/issues" class="uri">https://github.com/mokymai/bio/issues</a>. In the report, indicate your operating system.</p>
 </div>
 <div id="install" class="section level1">
@@ -228,13 +219,16 @@
 <p>This function downloads or updates <strong>hunspell</strong> spelling checking dictionaries dictionaries (including Lithuanian) that can be used by RStudio or by tools from <strong>wellspell.addin</strong> package.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/spelling.html">rstudio_download_spellcheck_dictionaries</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p>Install improved Lithuanian dictionary.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/spelling.html">rstudio_download_spellcheck_dictionary_lt</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="shortcut-keys" class="section level3">
 <h3 class="hasAnchor">
 <a href="#shortcut-keys" class="anchor"></a>Shortcut keys</h3>
 <p>This function changes shortcut keys in RStudio.</p>
 <p>Run function without arguments to see the available options.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/rstudio_reset_keybindings.html">rstudio_reset_keybindings</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; Error: The value of argument 'to' is missing.</span>
 <span class="co">#&gt; Possible options: 'bio-default', 'rstudio-default'.</span></code></pre></div>
@@ -245,7 +239,7 @@
 <li>
 <code>"rstudio-default"</code> – RStudio defaults.</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/rstudio_reset_keybindings.html">rstudio_reset_keybindings</a></span><span class="op">(</span>to <span class="op">=</span> <span class="st">"bio-default"</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <colgroup>
@@ -421,25 +415,29 @@
 <a href="#rstudio-settings" class="anchor"></a>RStudio settings</h3>
 <p>This function resets RStudio user preferences and settings.</p>
 <p>Run function without arguments to see the available options.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/RStudio-settings.html">rstudio_reset_user_settings</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; Error: The value of argument 'to' is missing.</span>
-<span class="co">#&gt; Possible choices: 'bio-default', 'rstudio-default'.</span></code></pre></div>
+<span class="co">#&gt; Possible choices: 'bio-default', 'bio-dark-blue', 'bio-black', 'rstudio-default'.</span></code></pre></div>
 <p>The options:</p>
 <ul>
 <li>
-<code>"bio-default"</code> – settings recommended for course BS-2021.</li>
+<code>"bio-default"</code> – settings recommended for course BS-2021 (and light theme “Textmate (default)”);</li>
+<li>
+<code>"bio-dark-blue"</code> – settings recommended for course BS-2021 (and dark blue theme “Cobalt”);</li>
+<li>
+<code>"bio-black"</code> – settings recommended for course BS-2021 (and black theme “Chaos”);</li>
 <li>
 <code>"rstudio-default"</code> – default RStudio settings.</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<!-- end list --><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/RStudio-settings.html">rstudio_reset_user_settings</a></span><span class="op">(</span>to <span class="op">=</span> <span class="st">"bio-default"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="snippets" class="section level3">
 <h3 class="hasAnchor">
 <a href="#snippets" class="anchor"></a>Snippets</h3>
 <p>The function replaces current R code and R Markdown snippets with those in package “snippets”.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">snippets</span><span class="fu">::</span><span class="fu"><a href="https://gegznav.github.io/snippets/reference/install-snippets.html">install_snippets_from_package</a></span><span class="op">(</span><span class="st">"snippets"</span>, backup <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p>More information on <a href="https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets">Code Snippets</a> in RStudio and on package <a href="https://gegznav.github.io/snippets/"><strong>snippets</strong></a>.</p>
 </div>
@@ -447,11 +445,11 @@
 <h3 class="hasAnchor">
 <a href="#restart-r-and-rstudio" class="anchor"></a>Restart R and RStudio</h3>
 <p>If you want to see the effect of changed settings, you should reload RStudio. You may use this function, which reloads RStudio without closing it:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/restart-reload.html">rstudio_reload_ui</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>However, in some cases it is recommended to close and reopen RStudio.</p>
 <p>Next, to restart R session without closing RStudio, use:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/restart-reload.html">rstudio_restart_r</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>Useful to apply before trying to install R packages.</p>
 <!-- ## RStudio projects -->
