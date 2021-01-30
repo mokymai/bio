@@ -30,3 +30,4 @@ lintr
 readxl
 usethis
 rstudioapi
+tinytex
