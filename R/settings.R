@@ -39,7 +39,7 @@ restriction_status <- function(ignore_ip = getOption("bio.ignore_ip", FALSE), ..
 #' 3) Closes unnecessary windows
 #' 4) Resets custom keybindings to "bio-default"
 #' 5) Resets R Markdown and R snippets to defaults in package "snippets"
-#' 6) Creates folder "~/R/Darbinis" and starts using it as working directory
+#' 6) Creates folder "~/R/darbinis" and starts using it as working directory
 #'    when no project is used.
 #' 7) Clears (if possible)/creates folder "BS-2020" on Desktop.
 #'
@@ -84,7 +84,7 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
   rstudioapi::executeCommand("setWorkingDirToProjectDir", quiet = TRUE)
 
   # Create/Clean directories
-  fs::dir_create(fs::path_expand_r("~/R/Darbinis"))
+  fs::dir_create(fs::path_expand_r("~/R/darbinis"))
 
   bs_folder <- fs::path_expand("~/Desktop/BS-2020/")
   try(fs::dir_delete(bs_folder), silent = TRUE)
@@ -300,11 +300,10 @@ rstudio_reset_layout <- function(rs_layout = "left") {
 #' @name RStudio-settings
 #' @title Reset RStudio settings
 #' @description
-#' Reset RStudio settings. Different algorithms are used for RStudio versions
-#' newer than 1.3 and previous to 1.3.
+#' Reset RStudio settings. Correctly works only with RStudio 1.3 or newer.
 #'
 #' @param to The name of set with RStudio settings.
-#'        One of: "rstudio-default" or "bio-default".
+#'        One of: "rstudio-default", "bio-default", or "bio-dark-blue".
 #' @param backup (logical) If `TRUE`, a backup copy of files with settings is
 #'        created.
 #' @param ask (logical) If `TRUE`, user confirmation to reset settings is
@@ -332,9 +331,14 @@ rstudio_reset_layout <- function(rs_layout = "left") {
 #'
 #' #-------------------------------------------------
 #'
+#' rstudio_reset_user_settings(to = "rstudio-default")
+#'
 #' rstudio_reset_user_settings(to = "bio-default")
 #'
-#' rstudio_reset_user_settings(to = "rstudio-default")
+#' rstudio_reset_user_settings(to = "bio-dark-blue")
+#'
+#' rstudio_reset_user_settings(to = "bio-black")
+#'
 #'
 #' }}
 #'
@@ -349,7 +353,7 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
     ))
   }
 
-  checkmate::assert_choice(to, c("rstudio-default", "bio-default"))
+  checkmate::assert_choice(to, user_settings_defaults)
 
   if (isTRUE(ask)) {
     ans <- usethis::ui_nope(
@@ -377,11 +381,14 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
       success <- !fs::file_exists(file_current)
     },
 
-    "bio-default" = {
-      file_default <- get_path_rstudio_config_file("bio-default")
-      fs::dir_create("~/R/Darbinis", recurse = TRUE) # TODO: change this value, when default UI preferences change.
+    "bio-default" = ,
+    "bio-dark-blue" = ,
+    "bio-black" = {
+      file_default <- get_path_rstudio_config_file(which = "bio")
+      # TODO: change this value, when default UI preferences change:
+      fs::dir_create("~/R/darbinis", recurse = TRUE)
       fs::dir_create(fs::path_dir(file_current), recurse = TRUE)
-      fs::file_copy(file_default, file_current, overwrite = TRUE)
+      fs::file_copy(file_default, file_current,  overwrite = TRUE)
       success <-
         unname(tools::md5sum(file_default) == tools::md5sum(file_current))
     },
@@ -392,8 +399,17 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
     ))
   )
 
+  # Adjust 'bio' theme
+  switch(
+    to,
+    "bio-default"   = rstudioapi::applyTheme("Textmate (default)"),
+    "bio-dark-blue" = rstudioapi::applyTheme("Cobalt"),
+    "bio-black"     = rstudioapi::applyTheme("Chaos")
+  )
+
+
   if (isTRUE(success)) {
-    usethis::ui_done("RStudio user settings were reset to {green(to)}.")
+    usethis::ui_done("RStudio user settings were set to {green(to)}.")
     ui_msg_restart_rstudio()
 
   } else {
@@ -408,7 +424,8 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
 NULL
 
 # For auto-completion
-user_settings_defaults <- c('bio-default', 'rstudio-default')
+user_settings_defaults <- c("bio-default", "bio-dark-blue", "bio-black",
+  "rstudio-default")
 
 
 
