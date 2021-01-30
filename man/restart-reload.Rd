@@ -4,14 +4,16 @@
 \alias{restart-reload}
 \alias{rstudio_restart_r}
 \alias{rstudio_reload_ui}
-\title{Functions that to restart or reload programs}
+\title{Functions That to Restart R and Reload RStudio}
 \usage{
 rstudio_restart_r()
 
 rstudio_reload_ui()
 }
 \description{
-\code{rstudio_restart_r()} restarts R session in RStudio.
-\code{rstudio_reload()} reloads RStudio without closing it.
+\itemize{
+\item \code{rstudio_restart_r()} restarts R session in RStudio.
+\item \code{rstudio_reload()} reloads RStudio without closing it.
+}
 }
 \concept{utilities}
