@@ -13,36 +13,37 @@
 #   user.email = "el@pastas.lt"
 # )
 # ==========================================================================~~
-#' @name git
-#' @title Helper functions for "Git"
-#' @description
-#' Helper functions for "Git".
-#' @concept programs
+
+# @name git
+# @title Helper functions for "Git"
+# @description
+# Helper functions for "Git".
+# @concept programs
 NULL
 
 
 # @rdname git
-#' @importFrom usethis edit_git_config
-#' @export
-#' @concept programs
+# @importFrom usethis edit_git_config
+# @export
+# @concept programs
 usethis::edit_git_config
 # usethis::edit_git_config("user")
 
 # @rdname git
-#' @importFrom usethis use_git_config
-#' @export
-#' @concept programs
+# @importFrom usethis use_git_config
+# @export
+# @concept programs
 usethis::use_git_config
 
 
-#' @rdname git
-#'
-#' @param core_editor (character) Name of Git core editor.
+# @rdname git
+#
+# @param core_editor (character) Name of Git core editor.
 # TODO: pasirinkti programą, kuri atidaro git config failus [core] editor
 # https://help.github.com/en/articles/associating-text-editors-with-git
 #
-#' @export
-#' @concept programs
+# @export
+# @concept programs
 
 get_git_core_editor_cmd <- function(core_editor = "atom") {
   # core_editor = "atom"  # "atom", "npp", "GitExtensions"
@@ -59,14 +60,14 @@ get_git_core_editor_cmd <- function(core_editor = "atom") {
 }
 
 
-#' Check if Git is installed
-#'
-#' @return logical value.
-#' @export
-#' @concept programs
-#'
-#' @examples
-#' is_git_installed()
+# Check if Git is installed
+#
+# @return logical value.
+# @export
+# @concept programs
+#
+# @examples
+# is_git_installed()
 is_git_installed <- function() {
   # suppressWarnings(
   #   system("git --version", show.output.on.console = FALSE) == 0
@@ -84,14 +85,14 @@ is_git_installed <- function() {
   )
 }
 
-#' Get path to Git.
-#'
-#' @return Path to Git as string of NULL, if Git is not installed or not configured properly.
-#' @export
-#' @concept programs
-#'
-#' @examples
-#' get_path_to_git()
+# Get path to Git.
+#
+# @return Path to Git as string of NULL, if Git is not installed or not configured properly.
+# @export
+# @concept programs
+#
+# @examples
+# get_path_to_git()
 get_path_to_git <- function() {
   if (is_git_installed()) {
     # cmd <- switch(get_os_type(), "windows" = "where git", "which git")
@@ -109,21 +110,21 @@ get_path_to_git <- function() {
 
 # Meld =======================================================================
 
-#' @name meld
-#' @title Helper functions for "Meld"
-#'
-#' @export
-#' @concept programs
-#'
-#' @examples
-#' is_meld_installed()
+# @name meld
+# @title Helper functions for "Meld"
+#
+# @export
+# @concept programs
+#
+# @examples
+# is_meld_installed()
 browse_meld_homepage <- function() {
   browseURL("https://meldmerge.org/")
 }
 
-#' @rdname meld
-#' @export
-#' @concept programs
+# @rdname meld
+# @export
+# @concept programs
 download_meld <- function() {
   switch(get_os_type(),
     windows = browseURL("https://download.gnome.org/binaries/win32/meld/3.18/Meld-3.18.3-win32.msi"),
@@ -138,9 +139,9 @@ download_meld <- function() {
   )
 }
 
-#' @rdname meld
-#' @export
-#' @concept programs
+# @rdname meld
+# @export
+# @concept programs
 get_default_path_to_meld <- function() {
 
   path_to <-
@@ -179,22 +180,22 @@ get_default_path_to_meld <- function() {
   fs::path(path_to)
 }
 
-#' @rdname meld
-#' @export
-#' @concept programs
+# @rdname meld
+# @export
+# @concept programs
 is_meld_installed <- function(path_to_meld = get_default_path_to_meld()) {
   file.exists(path_to_meld)
 }
 
-#' @rdname meld
-#'
-#' @param path_to_meld (character|`NULL`)
-#' @param prompt (logical)
-#' @param keepBackup (logical)
-#' @param trustExitCode (logical)
-#'
-#' @export
-#' @concept programs
+# @rdname meld
+#
+# @param path_to_meld (character|`NULL`)
+# @param prompt (logical)
+# @param keepBackup (logical)
+# @param trustExitCode (logical)
+#
+# @export
+# @concept programs
 set_meld_as_git_difftool_mergetool <- function(path_to_meld = NULL,
   prompt = FALSE, keepBackup = FALSE, trustExitCode = TRUE) {
 
@@ -246,21 +247,21 @@ git config --global difftool.prompt {tolower(prompt)}
 
 # Atom =======================================================================
 
-#' @name atom
-#' @title Helper functions for "Atom".
-#'
-#' @export
-#' @concept programs
-#'
-#' @examples
-#' is_atom_installed()
+# @name atom
+# @title Helper functions for "Atom".
+#
+# @export
+# @concept programs
+#
+# @examples
+# is_atom_installed()
 browse_atom_homepage <- function() {
   browseURL("https://atom.io/")
 }
 
-#' @rdname atom
-#' @export
-#' @concept programs
+# @rdname atom
+# @export
+# @concept programs
 is_atom_installed <- function() {
   # suppressWarnings(
   #   system("atom --version", show.output.on.console = FALSE, intern = FALSE) == 0
@@ -278,18 +279,18 @@ is_atom_installed <- function() {
   )
 }
 
-#' @rdname atom
-#' @export
-#' @concept programs
+# @rdname atom
+# @export
+# @concept programs
 set_atom_as_git_core_editor <- function() {
   if (is_atom_installed()) {
     glue::glue('git config --global core.editor "atom --wait"')
   }
 }
 
-#' @rdname atom
-#' @export
-#' @concept programs
+# @rdname atom
+# @export
+# @concept programs
 install_atom_meld <- function() {
   # Installs Atom package "atim-meld"
   if (is_atom_installed()) {
