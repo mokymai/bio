@@ -3,10 +3,13 @@
 \name{spelling}
 \alias{spelling}
 \alias{rstudio_download_spellcheck_dictionaries}
+\alias{rstudio_download_spellcheck_dictionary_lt}
 \alias{rstudio_delete_spellcheck_dictionaries}
 \title{Dictionaries to check spelling}
 \usage{
 rstudio_download_spellcheck_dictionaries(secure = TRUE)
+
+rstudio_download_spellcheck_dictionary_lt(secure = TRUE)
 
 rstudio_delete_spellcheck_dictionaries()
 }
@@ -14,15 +17,20 @@ rstudio_delete_spellcheck_dictionaries()
 \item{secure}{(logical) If \code{TRUE}, uses "https", if \code{FALSE}, uses "http".}
 }
 \description{
-\code{rstudio_download_spellcheck_dictionaries()}
+\itemize{
+\item \code{rstudio_download_spellcheck_dictionaries()}
 downloads and updates RStudio (system) spellchecking dictionaries.
-\code{rstudio_delete_spellcheck_dictionaries()}
+\item \code{rstudio_download_spellcheck_dictionaries_lt()}
+installs improved Lithuanian spellchecking dictionary.
+\item \code{rstudio_delete_spellcheck_dictionaries()}
 deletes RStudio (system) spellchecking dictionaries.
+}
 }
 \examples{
 \dontrun{\donttest{
 rstudio_delete_spellcheck_dictionaries()
 rstudio_download_spellcheck_dictionaries()
+rstudio_download_spellcheck_dictionaries_lt()
 }}
 }
 \concept{dictionaries}

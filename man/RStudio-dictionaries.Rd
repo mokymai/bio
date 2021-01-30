@@ -4,11 +4,14 @@
 \alias{RStudio-dictionaries}
 \alias{open_rstudio_system_dictionaries_dir}
 \alias{open_rstudio_user_dictionaries_dir}
+\alias{open_rstudio_internal_dictionaries_dir}
 \title{RStudio dictionaries}
 \usage{
 open_rstudio_system_dictionaries_dir()
 
 open_rstudio_user_dictionaries_dir()
+
+open_rstudio_internal_dictionaries_dir()
 }
 \value{
 String with path.
@@ -18,12 +21,17 @@ Functions to work with RStudio dictionaries.
 
 \itemize{
 \item \code{\link[rstudioapi:dictionaries]{rstudioapi::dictionariesPath()}}
-\item \code{open_rsstudio_system_dictionaries_dir()}
+\item \code{open_rstudio_system_dictionaries_dir()}
 }
 
 \itemize{
 \item \code{\link[rstudioapi:dictionaries]{rstudioapi::userDictionariesPath()}}
 \item \code{open_rstudio_user_dictionaries_dir()}
+}
+
+\itemize{
+\item \code{\link[rstudioapi:dictionaries]{rstudioapi::dictionariesPath()}}
+\item \code{open_rstudio_internal_dictionaries_dir()}
 }
 }
 \examples{
