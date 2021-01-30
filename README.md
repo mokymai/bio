@@ -201,7 +201,7 @@ bio::rstudio_reset_keybindings()
 
 Options:
 
--   `"bio-default"` – shortcut keys recommended for course BS-2020.
+-   `"bio-default"` – shortcut keys recommended for course BS-2021.
 -   `"rstudio-default"` – RStudio defaults.
 
 ``` r
@@ -291,7 +291,7 @@ bio::rstudio_reset_user_settings()
 
 The options:
 
--   `"bio-default"` – settings recommended for course BS-2020.
+-   `"bio-default"` – settings recommended for course BS-2021.
 -   `"rstudio-default"` – default RStudio settings.
 
 ``` r
