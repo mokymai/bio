@@ -15,7 +15,6 @@ DescTools
 knitr
 rmarkdown
 tidyverse
-pander
 esquisse
 backup.tools
 snippets
@@ -23,7 +22,6 @@ bio
 addin.tools
 addins.rmd
 addins.rs
-RcmdrPlugin.biostat
 openxlsx
 data.table
 rstatix
@@ -32,3 +30,4 @@ lintr
 readxl
 usethis
 rstudioapi
+tinytex

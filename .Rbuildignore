@@ -14,3 +14,4 @@
 ^codecov\.yml$
 ^raw-data$
 ^_tmp$
+^\.pre-commit-config\.yaml$

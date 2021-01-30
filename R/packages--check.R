@@ -1417,7 +1417,7 @@ list_pkgs_used_in_files <- function(files) {
     purrr::map(~readr::read_file(.)) %>%
     stringr::str_extract_all(
       paste0(
-        "(?<=(library|require|require2)\\()(.*?)(?=\\))|",   # library(dplyr)
+        "(?<=(library|require|require2)\\()(.*?)(?=\\))|", # library(dplyr)
         "(?<=\\s|\\n|\\(|\\{|\\[)[a-zA-Z0-9.]*?( )*(?=:{2,3})|", # dplyr::select
         "package\\s*=\\s*(\"|')[a-zA-Z0-9.]*?(\"|')" # data(package = "dplyr")
       )

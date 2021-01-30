@@ -1,14 +1,18 @@
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' Check the versions of required programs
+#' Check required programs and user-related information
+#'
+#' Check absence/presence and (in some cases) versions of required programs
+#' and user-related information.
 #'
 #' @param skip_online_check (logical) If `TRUE`, the numbers of newest available
 #'       stable programs are downloaded, when internet connection is connected.
-#' @param which (character) Which programs should be checked? Options:
-#'        `main`, `all`, `BS-2020`.
+#' @param type (character) Which programs should be checked? Options:
+#'        `main`, `all`, `gmc-bs`, `gmc-r`.
 #'
 #' @return
-#' The results of version checking is printed.
+#' Invisible `NULL`.
+#' The results of program checking are printed.
 #'
 #' @export
 #' @concept programs
@@ -23,14 +27,15 @@
 #'
 #' check_installed_programs("all")
 #'
-#' check_installed_programs("BS-2020")
-#'
 #' }}
-check_installed_programs <- function(which = "main", skip_online_check = FALSE) {
+check_installed_programs <- function(type = "main", skip_online_check = FALSE) {
 
-  # if (user_info) {
-  #   check_user_info()
-  # }
+  type_lwr <- tolower(type)
+
+  if (!type_lwr %in% c("main", "all", "gmc-bs", "gmc-r")) {
+    ui_warn("Unknown value of type = '{type}'")
+  }
+
 
   if (!skip_online_check) {
     skip_online_check <- check_internet_connection()
@@ -45,46 +50,45 @@ check_installed_programs <- function(which = "main", skip_online_check = FALSE) 
   check_rs_version(v_recommended = v_req$RStudio, skip_online_check = skip_online_check)
 
   # R Build Tools (on Windows, they are called 'Rtools')
-  if (get_os_type() == "windows") {
-    # TODO (SEE ALSO): rstudioapi::buildToolsCheck()
-    check_program_installed("Rtools", pkgbuild::has_build_tools())
-    # check_program_installed("Rtools", is_rtools_installed())
-  } else {
-    check_program_installed("'R Build Tools'", pkgbuild::has_build_tools())
+  tool_name <-
+    if (get_os_type() == "windows") {
+      "Rtools"
+    } else {
+      "Compiler (R Build Tools)"
+    }
+  # TODO (SEE ALSO): rstudioapi::buildToolsCheck()
+  check_tool_installed(tool_name, pkgbuild::has_build_tools())
+
+
+  # XQuartz (on Mac)
+  if (type_lwr %in% c("all", "gmc-bs")) {
+    # xQuartz (on Mac, OS X)
+    if (get_os_type() == "mac") {
+      # FIXME: on stack overflow, it writes that this functon might hang R session
+      # if XQuartz is missing.
+      # https://stackoverflow.com/questions/37438773/
+      check_program_installed("XQuartz", is_xquartz_installed())
+    }
   }
 
-
-  # xQuartz (on Mac, OS X)
-  if (get_os_type() == "mac") {
-    # FIXME: on stack overflow it writes, that this functon might hang R session
-    # if XQuartz is missing.
-    # https://stackoverflow.com/questions/37438773/is-it-possible-to-check-if-a-graphics-device-is-available-without-calling-dev-ne
-    check_program_installed("XQuartz", is_xquartz_installed())
+  # Atom
+  if (type_lwr %in% c("all", "gmc-bs", "gmc-r")) {
+    check_program_installed("Atom", is_atom_installed())
   }
 
-  # Additional software
-  switch(tolower(which),
-    "main" = {
-      NULL
-    },
+  # Git
+  if (type_lwr %in% c("all", "gmc-r")) {
+    check_program_installed("Git",  is_git_installed())
+  }
 
-    "all" = {
-      check_program_installed("Atom", is_atom_installed())
-      check_program_installed("Git",  is_git_installed())
-      # FIXME: Use better algorithm to check if Meld is installed.
-      try({
-        check_program_installed("Meld", is_meld_installed())
-      }, silent = TRUE)
-    },
-
-    "bs-2020" = {
-      check_program_installed("Atom", is_atom_installed())
-    },
-
-    ui_warn("Unknown value '{which}'")
-  )
-
-  invisible()
+  # Meld
+  if (type_lwr %in% c("all")) {
+    # FIXME: Use better algorithm to check if Meld is installed.
+    try({
+      check_program_installed("Meld", is_meld_installed())
+    }, silent = TRUE)
+  }
+  invisible(NULL)
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @rdname check_installed_programs
@@ -243,13 +247,13 @@ check_program_version  <- function(program = "", r_installed = "", v_recommended
 
   print_fun(paste0(
     "Program {blue(program)} ({v_color(r_installed)}) {install_status} ",
-    "(recommended {r_color(v_recommended)}{if_available})"
+    "(recommended {r_color(v_recommended)}{if_available})."
   ))
 }
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_r_version <- function(v_recommended = "4.0.2", skip_online_check = FALSE) {
+check_r_version <- function(v_recommended = "4.0.3", skip_online_check = FALSE) {
 
   check_program_version(
     program = 'R',
@@ -260,7 +264,7 @@ check_r_version <- function(v_recommended = "4.0.2", skip_online_check = FALSE) 
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_rs_version <- function(v_recommended = "1.3.1073", skip_online_check = FALSE) {
+check_rs_version <- function(v_recommended = "1.4.1103", skip_online_check = FALSE) {
 
   if (!rstudioapi::isAvailable()) {
     ui_oops("Program {red('RStudio')} is not installed or is not running. ")
@@ -289,25 +293,22 @@ is_xquartz_installed  <- function(variables) {
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_program_installed <- function(program = "", condition = NULL) {
+# program   - string
+# condition - logical
+# string    - what
+check_program_installed <- function(program = "", condition = NULL,
+                                    what = "Program") {
 
   if (condition) {
-    ui_done("Program {blue(program)} is installed.")
+    ui_done("{what} {blue(program)} is installed.")
 
   } else {
-    ui_oops("Program {red(program)} is ether missing, not detected or not configured incorrectly.")
+    ui_oops("{what} {red(program)} is ether missing, not detected or not configured incorrectly.")
   }
 
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 check_tool_installed <- function(name = "", condition = NULL) {
-
-  if (condition) {
-    ui_done("Tool {blue(name)} is installed.")
-
-  } else {
-    ui_oops("Tool {red(name)} is ether missing, not detected or not configured incorrectly.")
-  }
-
+  check_program_installed(name, condition, what = "   Tool")
 }
 

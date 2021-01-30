@@ -20,9 +20,9 @@ This function:
 \item Closes unnecessary windows
 \item Resets custom keybindings to "bio-default"
 \item Resets R Markdown and R snippets to defaults in package "snippets"
-\item Creates folder "~/R/Darbinis" and starts using it as working directory
+\item Creates folder "~/R/darbinis" and starts using it as working directory
 when no project is used.
-\item Clears (if possible)/creates folder "BS-2020" on Desktop.
+\item Clears (if possible)/creates folder "BS-pratybos" on Desktop.
 }
 }
 \details{

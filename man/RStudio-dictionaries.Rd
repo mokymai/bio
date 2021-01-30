@@ -2,33 +2,16 @@
 % Please edit documentation in R/dictionaries.R
 \name{RStudio-dictionaries}
 \alias{RStudio-dictionaries}
-\alias{get_path_saved_words_dictionary}
-\alias{get_path_rs_saved_words_dictionary}
-\alias{open_rs_saved_words_dictionary}
-\alias{get_path_rs_system_dictionaries_dir}
-\alias{open_rs_system_dictionaries_dir}
-\alias{open_rs_dictionaries_dir}
-\alias{open_user_dictionaries_dir}
+\alias{open_rstudio_system_dictionaries_dir}
+\alias{open_rstudio_user_dictionaries_dir}
+\alias{open_rstudio_internal_dictionaries_dir}
 \title{RStudio dictionaries}
 \usage{
-get_path_saved_words_dictionary()
+open_rstudio_system_dictionaries_dir()
 
-get_path_rs_saved_words_dictionary()
+open_rstudio_user_dictionaries_dir()
 
-open_rs_saved_words_dictionary()
-
-get_path_rs_system_dictionaries_dir(rstudio_version = "auto")
-
-open_rs_system_dictionaries_dir()
-
-open_rs_dictionaries_dir()
-
-open_user_dictionaries_dir()
-}
-\arguments{
-\item{rstudio_version}{Numeric version of RStudio (the output is different
-for RStudio < 1.3 and 1.3 or newer series). If \code{"auto"}, the version
-of RStudio will be determined automatically.}
+open_rstudio_internal_dictionaries_dir()
 }
 \value{
 String with path.
@@ -37,24 +20,18 @@ String with path.
 Functions to work with RStudio dictionaries.
 
 \itemize{
-\item \code{get_path_rs_saved_words_dictionary()} -- Path to dictionary of words
-saved by user
-\item \code{open_rs_saved_words_dictionary()}
-}
-
-\itemize{
-\item \code{get_path_rs_system_dictionaries_dir()}
-\item \code{open_rs_system_dictionaries_dir()}
-}
-
-\itemize{
 \item \code{\link[rstudioapi:dictionaries]{rstudioapi::dictionariesPath()}}
-\item \code{open_rs_dictionaries_dir()}
+\item \code{open_rstudio_system_dictionaries_dir()}
 }
 
 \itemize{
 \item \code{\link[rstudioapi:dictionaries]{rstudioapi::userDictionariesPath()}}
-\item \code{open_user_dictionaries_dir()}
+\item \code{open_rstudio_user_dictionaries_dir()}
+}
+
+\itemize{
+\item \code{\link[rstudioapi:dictionaries]{rstudioapi::dictionariesPath()}}
+\item \code{open_rstudio_internal_dictionaries_dir()}
 }
 }
 \examples{
@@ -64,11 +41,7 @@ rstudioapi::dictionariesPath()
 
 rstudioapi::userDictionariesPath()
 
-get_path_rs_system_dictionaries_dir()
-
-get_path_rs_desktop_config_dir("dictionaries")
-
-get_path_saved_words_dictionary()
+get_path_rstudio_config_dir("dictionaries")
 
 }}
 }

@@ -8,9 +8,9 @@ Package ***bio***
 <!-- badges: start -->
 
 [![GitHub
-version](https://img.shields.io/badge/GitHub-0.0.12-brightgreen.svg)](https://github.com/mokymai/bio)
+version](https://img.shields.io/badge/GitHub-0.0.13-brightgreen.svg)](https://github.com/mokymai/bio)
 [![R-CMD-check](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
-[![Updated-on](https://img.shields.io/badge/Updated%20on-2020--11--11-yellowgreen.svg)](/commits/master)
+[![Updated-on](https://img.shields.io/badge/Updated%20on-2021--01--30-yellowgreen.svg)](/commits/master)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
@@ -18,32 +18,18 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 <!-- [![GitHub last commit](https://img.shields.io/github/last-commit/mokymai/bio)](https://github.com/mokymai/bio) -->
 
 Convenience functions to facilitate installation and management of
-required resources for course units ***Biostatistics*** (*BS-2020*) and
-***Introduction to data analysis with R*** (*R-2020*).
+required resources for course units ***Biostatistics*** (*BS-2021*) and
+***Introduction to data analysis with R*** (*R-2021*).
 
-<!-- <center> -->
+<center>
 
-<!-- <font color="red" size=6> -->
+<br> <font color="darkred" size=5> This package is intended to be used
+with <b>RStudio 1.4</b> or newer.<br> </font>
+<font color="darkred" size=4> Functions do not work correctly with the
+previous versions of RStudio.<br> Tested on <em>Windows 10</em> (64-bit)
+only. </font> <br><br>
 
-<!-- <br> -->
-
-<!-- Work is still in progress... -->
-
-<!-- </font> -->
-
-<!-- <br> -->
-
-<!-- <font color="darkred" size=4> -->
-
-<!-- This package is tested on <em>Windows 10</em> (64-bit) with RStudio <b>1.2</b>.5042.<br> -->
-
-<!-- Some functions do not work correctly with RStudio <b>1.3</b>.0 or newer yet. -->
-
-<!-- </font> -->
-
-<!-- <br><br> -->
-
-<!-- </center> -->
+</center>
 
 Bug reports and your feedback are welcome at
 <https://github.com/mokymai/bio/issues>. In the report, indicate your
@@ -101,16 +87,16 @@ Options:
 
 ``` r
 bio::check_installed_programs()
-## ✔ Program R (4.0.2) is installed (recommended 4.0.2, available 4.0.2)
+## ✔ Program R (4.0.3) is installed (recommended 4.0.3, available 4.0.3)
 ## ✖ Program RStudio is not installed or is not running.
-## ✔ Program Rtools is installed.
+## ✔    Tool Rtools is installed.
 ```
 
 ``` r
 bio::check_installed_programs("all")
-## ✔ Program R (4.0.2) is installed (recommended 4.0.2, available 4.0.2)
-## ✔ Program RStudio (1.2.5033) is installed (recommended 1.3.1073, available 1.3.1073)
-## ✔ Program Rtools is installed.
+## ✔ Program R (4.0.3) is installed (recommended 4.0.3, available 4.0.3)
+## ✔ Program RStudio (1.2.5033) is installed (recommended 1.4.1103, available 1.4.1103)
+## ✔    Tool Rtools is installed.
 ## ✖ Program Atom is either not detected or not configured incorrectly.
 ## ✔ Program Git is installed.
 ## ✔ Program Meld is installed.
@@ -125,16 +111,7 @@ returned by function `bio::get_pkg_lists_local()` and they include:
 
   - `'addins-rmd'`
   - `'bio'`
-  - `'bs2020-initial'`
-  - `'bs2020-s01'`
-  - `'bs2020-s02'`
-  - `'bs2020-s04'`
-  - `'bs2020-s05'`
-  - `'bs2020-s06'`
-  - `'bs2020-s07'`
-  - `'bs2020-s08'`
-  - `'bs2020-u07'`
-  - `'bs2020-u08'`
+  - `'bs2021-initial'`
   - `'confidence-intervals'`
   - `'ggplot-extra-tools'`
   - `'ggplot'`
@@ -142,20 +119,9 @@ returned by function `bio::get_pkg_lists_local()` and they include:
   - `'linear-regression'`
   - `'markdown'`
   - `'mini'`
-  - `'r2020-initial'`
-  - `'r2020-s01'`
-  - `'r2020-s02'`
-  - `'r2020-s03'`
-  - `'r2020-s04'`
-  - `'r2020-s05'`
-  - `'r2020-s06'`
-  - `'r2020-s07'`
   - `'r2020-s11'`
-  - `'r2020v-s01'`
-  - `'r2020v-s02'`
-  - `'r2020v-s03'`
-  - `'r2020v-s07'`
-  - `'r2020v-s08'`
+  - `'r2020v-s11'`
+  - `'r2020v-s12'`
   - `'rcmdr-biostat'`
   - `'rcmdr'`
   - `'snippets'`
@@ -224,6 +190,12 @@ RStudio or by tools from **wellspell.addin** package.
 bio::rstudio_download_spellcheck_dictionaries()
 ```
 
+Install improved Lithuanian dictionary.
+
+``` r
+bio::rstudio_download_spellcheck_dictionary_lt()
+```
+
 ### Shortcut keys
 
 This function changes shortcut keys in RStudio.
@@ -232,13 +204,13 @@ Run function without arguments to see the available options.
 
 ``` r
 bio::rstudio_reset_keybindings()
-#> Error: The set of RStudio shortcut keys is not defined (argument 'to').
+#> Error: The value of argument 'to' is missing.
 #> Possible options: 'bio-default', 'rstudio-default'.
 ```
 
 Options:
 
-  - `"bio-default"` – shortcut keys recommended for course BS-2020.
+  - `"bio-default"` – shortcut keys recommended for course BS-2021.
   - `"rstudio-default"` – RStudio defaults.
 
 <!-- end list -->
@@ -362,13 +334,18 @@ Run function without arguments to see the available options.
 
 ``` r
 bio::rstudio_reset_user_settings()
-#> Error: The set of RStudio user settings is not defined (argument 'to').
-#> Possible choices: 'bio-default', 'rstudio-default'.
+#> Error: The value of argument 'to' is missing.
+#> Possible choices: 'bio-default', 'bio-dark-blue', 'bio-black', 'rstudio-default'.
 ```
 
 The options:
 
-  - `"bio-default"` – settings recommended for course BS-2020.
+  - `"bio-default"` – settings recommended for course BS-2021 (and light
+    theme “Textmate (default)”);
+  - `"bio-dark-blue"` – settings recommended for course BS-2021 (and
+    dark blue theme “Cobalt”);
+  - `"bio-black"` – settings recommended for course BS-2021 (and black
+    theme “Chaos”);
   - `"rstudio-default"` – default RStudio settings.
 
 <!-- end list -->
@@ -383,7 +360,7 @@ The function replaces current R code and R Markdown snippets with those
 in package “snippets”.
 
 ``` r
-snippets::install_snippets_from_package("snippets", type = c("r", "markdown"), backup = TRUE)
+snippets::install_snippets_from_package("snippets", backup = TRUE)
 ```
 
 More information on [Code
