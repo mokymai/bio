@@ -1,9 +1,42 @@
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' Get User-Related Information
+#'
+#' Get user-related information.
+#'
+#' @concept check
+#' @concept check-user-info
+#'
+#' @export
+#' @examples
+#' \dontrun{\donttest{
+#' check_user_info()
+#' }}
+#
+# @concept utilities
+check_user_info <- function() {
+
+  os_info <-
+    c(
+      "Operating system   " = sessionInfo()$running,
+      "Platform "           = sessionInfo()$platform,
+      Sys.getenv(c(
+        "LOGNAME", "USERNAME", "USERPROFILE", "HOME", "R_USER", "R_HOME", "R_LIBS_USER"))
+    ) %>%
+    as.data.frame()
+
+  os_info$. = fs::path(os_info$.)
+  os_info <- setNames(os_info, c("  "))
+
+  print(os_info, right = FALSE)
+  cat("\n")
+
+  invisible(os_info)
+}
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' Check required programs and user-related information
+#' Check Required Programs
 #'
-#' Check absence/presence and (in some cases) versions of required programs
-#' and user-related information.
+#' Check absence/presence and (in some cases) versions of required programs.
 #'
 #' @param skip_online_check (logical) If `TRUE`, the numbers of newest available
 #'       stable programs are downloaded, when internet connection is connected.
@@ -15,13 +48,12 @@
 #' The results of program checking are printed.
 #'
 #' @export
-#' @concept programs
+#' @concept check
+#' @concept check-programs
 #'
 #' @examples
 #'
 #' \dontrun{\donttest{
-#'
-#' check_user_info()
 #'
 #' check_installed_programs()
 #'
@@ -89,29 +121,6 @@ check_installed_programs <- function(type = "main", skip_online_check = FALSE) {
     }, silent = TRUE)
   }
   invisible(NULL)
-}
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' @rdname check_installed_programs
-#' @export
-# @concept utilities
-check_user_info <- function() {
-
-  os_info <-
-    c(
-      "Operating system   " = sessionInfo()$running,
-      "Platform "           = sessionInfo()$platform,
-      Sys.getenv(c(
-        "LOGNAME", "USERNAME", "USERPROFILE", "HOME", "R_USER", "R_HOME", "R_LIBS_USER"))
-    ) %>%
-    as.data.frame()
-
-  os_info$. = fs::path(os_info$.)
-  os_info <- setNames(os_info, c("  "))
-
-  print(os_info, right = FALSE)
-  cat("\n")
-
-  invisible(os_info)
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~ ======================================================
@@ -305,10 +314,10 @@ check_program_installed <- function(program = "", condition = NULL,
   } else {
     ui_oops("{what} {red(program)} is ether missing, not detected or not configured incorrectly.")
   }
-
 }
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 check_tool_installed <- function(name = "", condition = NULL) {
-  check_program_installed(name, condition, what = "   Tool")
+  check_program_installed(name, condition, what = "Tool")
 }
 
