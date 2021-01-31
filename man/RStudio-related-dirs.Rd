@@ -2,20 +2,16 @@
 % Please edit documentation in R/paths-and-files.R
 \name{RStudio-related-dirs}
 \alias{RStudio-related-dirs}
-\alias{get_path_r_user_dir}
 \alias{get_path_rstudio_config_dir}
 \alias{get_path_rstudio_internal_state_dir}
 \alias{get_path_rstudio_snippets_dir}
 \alias{get_path_rstudio_keybindings_dir}
-\alias{open_r_user_dir}
 \alias{open_rstudio_config_dir}
 \alias{open_rstudio_internal_state_dir}
 \alias{open_rstudio_snippets_dir}
 \alias{open_rstudio_keybindings_dir}
-\title{Directories of R and RStudio Related Files}
+\title{Directories of RStudio-Related Files}
 \usage{
-get_path_r_user_dir(...)
-
 get_path_rstudio_config_dir(..., .check = FALSE)
 
 get_path_rstudio_internal_state_dir(..., .check = FALSE)
@@ -23,8 +19,6 @@ get_path_rstudio_internal_state_dir(..., .check = FALSE)
 get_path_rstudio_snippets_dir()
 
 get_path_rstudio_keybindings_dir()
-
-open_r_user_dir()
 
 open_rstudio_config_dir()
 
@@ -44,10 +38,7 @@ open_rstudio_keybindings_dir()
 When \code{.check = TRUE}, renturns error, if the path does not exist.
 }
 \description{
-Directories of R and RStudio (desktop) settings, preferences and other files.
-\itemize{
-\item \code{get_path_r_user_dir()}-- gets path to the main R user directory.
-}
+Directories of RStudio (desktop) settings, preferences and other files.
 
 \itemize{
 \item `get_path_rstudio_config_dir()`` - gets path to RStudio configuration
@@ -55,8 +46,6 @@ directory (and its sub-directories).
 }
 }
 \examples{
-get_path_r_user_dir()
-
 \dontrun{\donttest{
 get_path_rstudio_config_dir()
 
@@ -71,6 +60,7 @@ get_path_rstudio_keybindings_dir()
 }
 \seealso{
 \itemize{
+\item \code{\link[=open_r_user_dir]{open_r_user_dir()}},
 \item \code{\link[fs:file_show]{fs::file_show()}}, \code{\link[=browseURL]{browseURL()}},
 \item \code{\link[rstudioapi:navigateToFile]{rstudioapi::navigateToFile()}},
 \item \code{\link[utils:file.edit]{utils::file.edit()}}

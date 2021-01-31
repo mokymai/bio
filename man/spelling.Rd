@@ -3,13 +3,13 @@
 \name{spelling}
 \alias{spelling}
 \alias{rstudio_download_spellcheck_dictionaries}
-\alias{rstudio_download_spellcheck_dictionary_lt}
+\alias{rstudio_install_spellcheck_dictionary_lt}
 \alias{rstudio_delete_spellcheck_dictionaries}
 \title{Dictionaries to check spelling}
 \usage{
 rstudio_download_spellcheck_dictionaries(secure = TRUE)
 
-rstudio_download_spellcheck_dictionary_lt(secure = TRUE)
+rstudio_install_spellcheck_dictionary_lt(secure = TRUE)
 
 rstudio_delete_spellcheck_dictionaries(ask = TRUE)
 }
@@ -33,7 +33,7 @@ deletes RStudio (system) spellchecking dictionaries.
 \dontrun{\donttest{
 rstudio_delete_spellcheck_dictionaries()
 rstudio_download_spellcheck_dictionaries()
-rstudio_download_spellcheck_dictionaries_lt()
+rstudio_install_spellcheck_dictionary_lt()
 }}
 }
 \concept{dictionaries}
