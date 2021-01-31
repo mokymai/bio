@@ -308,6 +308,7 @@ open_rstudio_keybindings_dir <- function() {
 #' @param which (character) type of settings: "current", "bio-default".
 #'
 #' @export
+#' @concept paths and dirs
 #'
 #' @seealso
 #' - [get_path_rstudio_config_dir()]
