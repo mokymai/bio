@@ -90,6 +90,11 @@ open_desktop <- function() {
 #'
 #' @export
 #'
+#' @seealso
+#' - [fs::file_show()], [browseURL()],
+#' - [rstudioapi::navigateToFile()],
+#' - [utils::file.edit()]
+#'
 #' @examples
 #' get_path_r_user_dir()
 #'
@@ -254,17 +259,6 @@ get_path_rstudio_keybindings_dir <- function() {
 # ===========================================================================~
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' @name open_files
-#' @seealso
-#' - [fs::file_show()], [browseURL()],
-#' - [rstudioapi::navigateToFile()],
-#' - [utils::file.edit()]
-#'
-#' @concept paths and dirs
-
-# @param path (sting) Path to file.
-NULL
-
 
 #' @rdname RStudio-related-dirs
 #' @export
@@ -347,6 +341,7 @@ open_rstudio_config_file <- function() {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @name open_r_environ
 #' @export
+#' @title Open `.Renviron` File
 #' @description
 #' Functions to get path to and open `.Renviron` file that contains
 #' definitions of R environment variables.
