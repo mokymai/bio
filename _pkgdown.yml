@@ -66,14 +66,12 @@ reference:
 - contents:
   - has_concept("check")
 
-- title: 'Settings' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- subtitle: 'Change Settings' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- title: 'Change Settings' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - contents:
   - has_concept("r and rstudio settings")
   - has_concept("settings")
 
-- subtitle: 'Paths and Directories' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- title: 'Paths and Directories' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - contents:
   - has_concept("paths and dirs")
 
