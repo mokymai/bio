@@ -618,8 +618,8 @@ get_pkgs_installation_status <- function(list_name = NULL, include = "outdated",
 # =~~~ methods ---------------------------------------------------------------
 
 
-# @rdname get_pkgs_installation_status
-# @export
+#' @rdname get_pkgs_installation_status
+#' @export
 get_pkg_lists_local <- function() {
   path_bio() %>%
     fs::dir_ls(regexp = "pkgs-recommended") %>%

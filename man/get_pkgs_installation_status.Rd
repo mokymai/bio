@@ -2,6 +2,7 @@
 % Please edit documentation in R/packages--check.R
 \name{get_pkgs_installation_status}
 \alias{get_pkgs_installation_status}
+\alias{get_pkg_lists_local}
 \alias{get_last_pkgs_installation_status}
 \alias{print.pkgs_installation_status}
 \alias{get_pkgs_installation_code}
@@ -17,6 +18,8 @@ get_pkgs_installation_status(
   elsewhere = install,
   use_local_list = getOption("bio.use_local_list", FALSE)
 )
+
+get_pkg_lists_local()
 
 get_last_pkgs_installation_status()
 
