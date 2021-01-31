@@ -73,16 +73,12 @@ open_desktop <- function() {
 }
 
 
-# Get paths ==================================================================
+# R-related-dirs ============================================================
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Get path to RStudio configuration directory.
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-#' @name RStudio-related-dirs
-#' @title Directories of R and RStudio Related Files
+#' @name R-related-dirs
+#' @title Directories of R-Related Files
 #' @description
-#' Directories of R and RStudio (desktop) settings, preferences and other files.
+#' Directories of R-Related files.
 #'
 #' - `get_path_r_user_dir()`-- gets path to the main R user directory.
 #'
@@ -107,6 +103,33 @@ open_desktop <- function() {
 get_path_r_user_dir <- function(...) {
   fs::path_home_r(".R", ...)
 }
+
+#' @rdname R-related-dirs
+#' @export
+open_r_user_dir <- function() {
+  browseURL(get_path_r_user_dir())
+}
+
+
+# RStudio-related-dirs =======================================================
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Get path to RStudio configuration directory.
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#' @name RStudio-related-dirs
+#' @title Directories of RStudio-Related Files
+#' @description
+#' Directories of RStudio (desktop) settings, preferences and other files.
+#'
+#' @concept paths and dirs
+#' @seealso
+#' - [open_r_user_dir()],
+#' - [fs::file_show()], [browseURL()],
+#' - [rstudioapi::navigateToFile()],
+#' - [utils::file.edit()]
+
+NULL
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @rdname RStudio-related-dirs
@@ -259,12 +282,6 @@ get_path_rstudio_keybindings_dir <- function() {
 # ===========================================================================~
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-#' @rdname RStudio-related-dirs
-#' @export
-open_r_user_dir <- function() {
-  browseURL(get_path_r_user_dir())
-}
 
 #' @rdname RStudio-related-dirs
 #' @export
