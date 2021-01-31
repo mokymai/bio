@@ -32,7 +32,6 @@ Imports:
   glue,
   magrittr,
   pingr,
-  pkgbuild,
   purrr,
   readr,
   remotes,
@@ -46,4 +45,6 @@ Imports:
   withr
 Suggests: 
   covr,
+  pkgbuild,
   spelling
+
