@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Determine Operating System (OS) — get_os_type • bio</title>
+<title>Open .Renviron File — open_r_environ • bio</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,11 @@
 
 
 
-<meta property="og:title" content="Determine Operating System (OS) — get_os_type" />
-<meta property="og:description" content="Determine the operating system (OS) of your machine." />
+<meta property="og:title" content="Open .Renviron File — open_r_environ" />
+<meta property="og:description" content="Functions to get path to and open .Renviron file that contains
+definitions of R environment variables.
+Compared to  usethis::edit_r_environ(), open_r_environ() does not create
+file if it does not exist." />
 
 
 <meta name="robots" content="noindex">
@@ -125,35 +128,43 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Determine Operating System (OS)</h1>
-    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/get_os.R'><code>R/get_os.R</code></a></small>
-    <div class="hidden name"><code>get_os_type.Rd</code></div>
+    <h1>Open <code>.Renviron</code> File</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/paths-and-files.R'><code>R/paths-and-files.R</code></a></small>
+    <div class="hidden name"><code>open_r_environ.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Determine the operating system (OS) of your machine.</p>
+    <p>Functions to get path to and open <code>.Renviron</code> file that contains
+definitions of R environment variables.</p>
+<p>Compared to  <code><a href='https://usethis.r-lib.org/reference/edit.html'>usethis::edit_r_environ()</a></code>, <code>open_r_environ()</code> does not create
+file if it does not exist.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_os_type</span><span class='op'>(</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>get_path_r_environ</span><span class='op'>(</span>scope <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"user"</span>, <span class='st'>"project"</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='fu'>is_32bit_os</span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'>open_r_environ</span><span class='op'>(</span><span class='op'>)</span></pre>
 
-<span class='fu'>is_64bit_os</span><span class='op'>(</span><span class='op'>)</span></pre>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>scope</th>
+      <td><p>(character) The scope of file. One of "user" or "project".</p></td>
+    </tr>
+    </table>
 
-
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>OS name in lower case: windows, mac, linux, etc.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>https://www.r-bloggers.com/identifying-the-os-from-r/</p></div>
-    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
-
-    <p>The code is based on https://www.r-bloggers.com/identifying-the-os-from-r/</p>
+    <div class='dont-index'>
+<ul>
+<li><p><code><a href='https://usethis.r-lib.org/reference/edit.html'>usethis::edit_r_environ()</a></code></p></li>
+</ul>
+</div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>get_os_type</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] "mac"</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>get_path_r_environ</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; /Users/runner/.Renviron</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

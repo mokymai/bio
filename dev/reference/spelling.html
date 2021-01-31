@@ -40,10 +40,16 @@
 
 
 <meta property="og:title" content="Dictionaries to check spelling — spelling" />
-<meta property="og:description" content="rstudio_download_spellcheck_dictionaries()
+<meta property="og:description" content="
+
+rstudio_download_spellcheck_dictionaries()
 downloads and updates RStudio (system) spellchecking dictionaries.
+rstudio_download_spellcheck_dictionaries_lt()
+installs improved Lithuanian spellchecking dictionary.
 rstudio_delete_spellcheck_dictionaries()
-deletes RStudio (system) spellchecking dictionaries." />
+deletes RStudio (system) spellchecking dictionaries.
+
+" />
 
 
 <meta name="robots" content="noindex">
@@ -75,7 +81,7 @@ deletes RStudio (system) spellchecking dictionaries." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.12.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.13.9000</span>
       </span>
     </div>
 
@@ -134,31 +140,35 @@ deletes RStudio (system) spellchecking dictionaries." />
     </div>
 
     <div class="ref-description">
-    <p><code>rstudio_download_spellcheck_dictionaries()</code>
-downloads and updates RStudio (system) spellchecking dictionaries.
-<code>rstudio_delete_spellcheck_dictionaries()</code>
-deletes RStudio (system) spellchecking dictionaries.</p>
+    
+<ul>
+<li><p><code>rstudio_download_spellcheck_dictionaries()</code>
+downloads and updates RStudio (system) spellchecking dictionaries.</p></li>
+<li><p><code>rstudio_download_spellcheck_dictionaries_lt()</code>
+installs improved Lithuanian spellchecking dictionary.</p></li>
+<li><p><code>rstudio_delete_spellcheck_dictionaries()</code>
+deletes RStudio (system) spellchecking dictionaries.</p></li>
+</ul>
+
     </div>
 
-    <pre class="usage"><span class='fu'>rstudio_download_spellcheck_dictionaries</span><span class='op'>(</span>
-  rstudio_version <span class='op'>=</span> <span class='st'>"auto"</span>,
-  secure <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span>
+    <pre class="usage"><span class='fu'>rstudio_download_spellcheck_dictionaries</span><span class='op'>(</span>secure <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'>rstudio_delete_spellcheck_dictionaries</span><span class='op'>(</span><span class='op'>)</span></pre>
+<span class='fu'>rstudio_install_spellcheck_dictionary_lt</span><span class='op'>(</span>secure <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+
+<span class='fu'>rstudio_delete_spellcheck_dictionaries</span><span class='op'>(</span>ask <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>rstudio_version</th>
-      <td><p>Numeric version of RStudio (the output is different
-for RStudio &lt; 1.3 and 1.3 or newer series). If <code>"auto"</code>, the version
-of RStudio will be determined automatically.</p></td>
-    </tr>
-    <tr>
       <th>secure</th>
       <td><p>(logical) If <code>TRUE</code>, uses "https", if <code>FALSE</code>, uses "http".</p></td>
+    </tr>
+    <tr>
+      <th>ask</th>
+      <td><p>(logical) If <code>TRUE</code>, user will have to confirm his/her choice
+interactively.</p></td>
     </tr>
     </table>
 

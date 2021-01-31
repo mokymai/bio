@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Manage RStudio projects — projects • bio</title>
+<title>Manage RStudio Projects — projects • bio</title>
 
 
 <!-- jquery -->
@@ -39,28 +39,10 @@
 
 
 
-<meta property="og:title" content="Manage RStudio projects — projects" />
+<meta property="og:title" content="Manage RStudio Projects — projects" />
 <meta property="og:description" content="
 
 read_projects() - reads file with projects and list their names and paths.
-
-
-
-get_path_recent_proj_list() -- gets path to the file with the list of
-recent RStudio projects.
-get_path_personal_proj_list() -- gets path to the file with the list of
-personal RStudio projects.
-
-
-
-get_projs_recent() -- lists recent RStudio projects.
-get_projs_personal() -- lists personal RStudio projects.
-get_projs_all() -- lists both recent and personal RStudio projects.
-
-
-
-get_proj_names() -- lists RStudio projects names (as a character
-vector)
 
 " />
 
@@ -94,7 +76,7 @@ vector)
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.12.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.0.13.9000</span>
       </span>
     </div>
 
@@ -147,7 +129,7 @@ vector)
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Manage RStudio projects</h1>
+    <h1>Manage RStudio Projects</h1>
     <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/projects.R'><code>R/projects.R</code></a></small>
     <div class="hidden name"><code>projects.Rd</code></div>
     </div>
@@ -158,39 +140,9 @@ vector)
 <li><p><code>read_projects()</code> - reads file with projects and list their names and paths.</p></li>
 </ul>
 
-<ul>
-<li><p><code>get_path_recent_proj_list()</code> -- gets path to the file with the list of
-recent RStudio projects.</p></li>
-<li><p><code>get_path_personal_proj_list()</code> -- gets path to the file with the list of
-personal RStudio projects.</p></li>
-</ul>
-
-<ul>
-<li><p><code>get_projs_recent()</code> -- lists recent RStudio projects.</p></li>
-<li><p><code>get_projs_personal()</code> -- lists personal RStudio projects.</p></li>
-<li><p><code>get_projs_all()</code> -- lists both recent and personal RStudio projects.</p></li>
-</ul>
-
-<ul>
-<li><p><code>get_proj_names()</code> -- lists RStudio projects names (as a character
-vector)</p></li>
-</ul>
-
     </div>
 
-    <pre class="usage"><span class='fu'>read_projects</span><span class='op'>(</span><span class='va'>file</span>, sort_by <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='fu'>get_path_recent_proj_list</span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='fu'>get_path_personal_proj_list</span><span class='op'>(</span>create <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='fu'>get_projs_recent</span><span class='op'>(</span>sort_by <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='fu'>get_projs_personal</span><span class='op'>(</span>sort_by <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-
-<span class='fu'>get_projs_all</span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='fu'>get_proj_names</span><span class='op'>(</span>file <span class='op'>=</span> <span class='fu'>get_path_recent_proj_list</span><span class='op'>(</span><span class='op'>)</span>, sort_by <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>read_projects</span><span class='op'>(</span><span class='va'>file</span>, sort_by <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -202,10 +154,6 @@ vector)</p></li>
     <tr>
       <th>sort_by</th>
       <td><p>(<code>"name"</code>|<code>"path"</code>|<code><a href='https://rdrr.io/r/base/logical.html'>FALSE</a></code>)</p></td>
-    </tr>
-    <tr>
-      <th>create</th>
-      <td><p>(logical) If <code>TRUE</code> and file does not exist, the file is created.</p></td>
     </tr>
     </table>
 
