@@ -14,7 +14,8 @@
 #'
 #' @return
 #' A list with suggestion, which packages should be moved.
-#' @export
+#'
+#' @noRd
 #'
 #' @concept packages
 #'

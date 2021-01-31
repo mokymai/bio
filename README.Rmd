@@ -37,14 +37,14 @@ Convenience functions to facilitate installation and management of required reso
 
 <center>
 <br>
-<font color="darkred" size=5>
+<font color="darkred" size=4>
 This package is intended to be used with <b>RStudio 1.4</b> or newer.<br>
 </font>
-<font color="darkred" size=4>
+<font color="darkred" size=3>
 Functions do not work correctly with the previous versions of RStudio.<br>
 Tested on <em>Windows 10</em> (64-bit) only.
 </font>
-<br><br>
+<br><br><br>
 </center>
 
 Bug reports and your feedback are welcome at https://github.com/mokymai/bio/issues.
@@ -103,7 +103,7 @@ Options:
 bio::check_installed_programs()
 ## ✔ Program R (4.0.3) is installed (recommended 4.0.3, available 4.0.3)
 ## ✖ Program RStudio is not installed or is not running.
-## ✔    Tool Rtools is installed.
+## ✔ Tool Rtools is installed.
 ```
 
 
@@ -112,8 +112,8 @@ bio::check_installed_programs()
 bio::check_installed_programs("all")
 ## ✔ Program R (4.0.3) is installed (recommended 4.0.3, available 4.0.3)
 ## ✔ Program RStudio (1.2.5033) is installed (recommended 1.4.1103, available 1.4.1103)
-## ✔    Tool Rtools is installed.
-## ✖ Program Atom is either not detected or not configured incorrectly.
+## ✔ Tool Rtools is installed.
+## ✖ Program Atom is either not detected or configured incorrectly.
 ## ✔ Program Git is installed.
 ## ✔ Program Meld is installed.
 ```
@@ -128,7 +128,7 @@ Currently available lists can be returned by function `bio::get_pkg_lists_local(
 ```{r echo=FALSE, results='asis'}
 res <- paste0(
   "\n",
-  paste0("- `'", bio::get_pkg_lists_local(), "'`", collapse = "\n"),
+  paste0("- `'", bio:::get_pkg_lists_local(), "'`", collapse = "\n"),
   "\n\n"
 )
 cat(res)
@@ -195,7 +195,7 @@ bio::rstudio_download_spellcheck_dictionaries()
 
 Install improved Lithuanian dictionary.
 ```{r eval=FALSE}
-bio::rstudio_download_spellcheck_dictionary_lt()
+bio::rstudio_install_spellcheck_dictionary_lt()
 ```
 
 

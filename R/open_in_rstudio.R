@@ -8,6 +8,7 @@
 #'
 #' @concept open
 #' @concept open files
+#' @concept paths and dirs
 #'
 #' @seealso
 #' - [rstudioapi::navigateToFile()],

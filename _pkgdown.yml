@@ -56,46 +56,45 @@ navbar:
 
 reference:
 
-- title: "Programs" # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-- contents:
-  - check_installed_programs
-  - has_concept("programs")
+- title: 'Check' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+# - subtitle: 'R and RStudio settings (main)' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# - contents:
+#   - has_concept("r and rstudio settings")
+#
+# - subtitle: 'Other settings' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- contents:
+  - has_concept("check")
+
+- title: 'Change Settings' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- contents:
+  - has_concept("r and rstudio settings")
+  - has_concept("settings")
+
+- title: 'Paths and Directories' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- contents:
+  - has_concept("paths and dirs")
+
+
+- title: "RStudio Projects" # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- contents:
+  - has_concept("rstudio projects")
 
 - title: "Packages" # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - contents:
   - has_concept("packages")
 
-
-- title: "RStudio projects" # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-- contents:
-  - has_concept("rstudio projects")
-
-
-- title: 'Settings' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-- subtitle: 'R and RStudio settings' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-- contents:
-  - has_concept("r and rstudio settings")
-
-- subtitle: 'Other settings' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-- contents:
-  - has_concept("settings")
-
-
-- title: 'Utilities and helper functions' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- title: 'Utilities and Helper Functions' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - contents:
   - has_concept("utilities")
 
-- subtitle: 'Paths and directories' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-- contents:
-  - has_concept("paths and dirs")
 
-
-- title: 'Other functions' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- title: 'Other Functions' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   desc: "Functions not mentioned above."
 - contents:
   - lacks_concepts(c(
+    "main",
+    "check",
     "programs",
     "packages",
     "rstudio projects",
@@ -107,10 +106,10 @@ reference:
     ))
 
 
-- title: 'Deprecated functions' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  desc: "You should **not** use these functions any more."
-- contents:
-  - has_concept("deprecated", internal = TRUE)
+# - title: 'Deprecated Functions' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#   desc: "You should **not** use these functions any more."
+# - contents:
+#   - has_concept("deprecated", internal = TRUE)
 
 
 

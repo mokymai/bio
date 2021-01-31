@@ -5,7 +5,7 @@
 #' @return Data frame with columns `id` (for IDs) and `path` (for file paths).
 #'
 #' @concept paths and dirs
-#' @export
+#' @noRd
 #'
 #' @examples
 #' \dontrun{\donttest{
@@ -18,9 +18,9 @@ get_rstudio_file_ids <- function() {
   )
 }
 
-#' @rdname get_rstudio_file_ids
-#' @concept paths and dirs
-#' @export
+# @rdname get_rstudio_file_ids
+# @concept paths and dirs
+# @export
 get_rstudio_file_ids_user <- function() {
   get_path_rstudio_internal_state_dir("notebooks/paths") %>%
     readr::read_lines() %>%
@@ -31,9 +31,9 @@ get_rstudio_file_ids_user <- function() {
     )
 }
 
-#' @rdname get_rstudio_file_ids
-#' @concept paths and dirs
-#' @export
+# @rdname get_rstudio_file_ids
+# @concept paths and dirs
+# @export
 get_rstudio_file_ids_project <- function() {
   # TODO: Not implemented yet
   NULL

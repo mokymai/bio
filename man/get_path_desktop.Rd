@@ -2,9 +2,12 @@
 % Please edit documentation in R/paths-and-files.R
 \name{get_path_desktop}
 \alias{get_path_desktop}
-\title{Get path to desktop folder}
+\alias{open_desktop}
+\title{Path to Desktop Folder}
 \usage{
 get_path_desktop(...)
+
+open_desktop()
 }
 \arguments{
 \item{...}{(character) file or folder name on desktop.}
@@ -13,7 +16,7 @@ get_path_desktop(...)
 String with path to desktop or path to file or folder on a desktop.
 }
 \description{
-Get path to desktop folder of current user.
+Get path to desktop folder of current user and open it.
 }
 \examples{
 get_path_desktop()

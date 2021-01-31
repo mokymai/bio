@@ -2,7 +2,7 @@
 % Please edit documentation in R/packages--check.R
 \name{check_packages_by_topic}
 \alias{check_packages_by_topic}
-\title{Check installed packages by topic}
+\title{Check Installed Packages by Topic}
 \usage{
 check_packages_by_topic(
   list_name = NULL,
@@ -44,4 +44,6 @@ check_packages_by_topic("mini", include = "always", install = "outdated",
  github = "always", use_local_list = TRUE)
 }}
 }
+\concept{check}
+\concept{check-packages}
 \concept{packages}

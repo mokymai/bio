@@ -1,6 +1,6 @@
 # List packages --------------------------------------------------------------
 
-#' List packages used in file(s)
+#' List Packages Used in File(s)
 #'
 #' These functions search for patterns, such as `library(pkg)`, `require(pkg)`,
 #' `pkg::function()`, or `data(package = "pkg")` and return package names from
@@ -11,6 +11,8 @@
 #' @param regexp Regular expression to filter file names. Defaults to R and Rmd
 #'        files.
 #' @param ... Further arguments to [fs::dir_ls].
+#'
+#' @concept utilities
 #'
 #' @return Character vector with package names.
 #' @export
@@ -83,3 +85,4 @@ list_pkgs_used_in_files_code <- function(files) {
     purrr::reduce(c) %>%
     unique()
 }
+

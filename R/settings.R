@@ -49,9 +49,10 @@ restriction_status <- function(ignore_ip = getOption("bio.ignore_ip", FALSE), ..
 #' @param force_update_dictionaries (logical) If `TRUE`, the dictionaries are
 #' forced to be downloaded/updated.
 #'
-#' @export
+# @export
+#' @noRd
 #'
-#' @concept r and rstudio settings
+#' @concept settings
 #'
 #' @examples
 #' \dontrun{\donttest{
@@ -110,10 +111,10 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
   rstudioapi::executeCommand("clearRecentProjects", quiet = TRUE)
 
   # Tab Environment
-  bio::clear_r_workspace() # clearWorkspace
+  clear_r_workspace() # clearWorkspace
 
   # Layout
-  bio::rstudio_reset_layout()
+  rstudio_reset_layout()
   rstudioapi::executeCommand("zoomActualSize",  quiet = TRUE)
   rstudioapi::executeCommand("zoomIn",          quiet = TRUE)
   rstudioapi::executeCommand("zoomIn",          quiet = TRUE)
@@ -228,6 +229,7 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
 #'
 #' @param backup (logical) If `TRUE`, a backup copy is created.
 #'
+#' @noRd
 #' @concept r and rstudio settings
 
 NULL
@@ -252,8 +254,8 @@ clear_r_history <- function(backup = TRUE) {
   unlink(tmp_file, recursive = TRUE, force = TRUE)
 }
 
-#' @rdname clear_and_reset
-#' @export
+# @rdname clear_and_reset
+# @noRd
 rstudio_clear_history <- function(backup = FALSE) {
   if (isTRUE(backup)) {
     rstudioapi::executeCommand("saveHistory", quiet = TRUE)
@@ -264,8 +266,8 @@ rstudio_clear_history <- function(backup = FALSE) {
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' @rdname clear_and_reset
-#' @export
+# @rdname clear_and_reset
+# @noRd
 clear_r_workspace <- function() {
   # Clear R workspace
   object_names <- ls(all.names = TRUE, envir = .GlobalEnv)
@@ -273,9 +275,9 @@ clear_r_workspace <- function() {
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' @rdname clear_and_reset
-#' @param rs_layout (`"left"`|`"right"`) Type of RStudio panes layout.
-#' @export
+# @rdname clear_and_reset
+# @param rs_layout (`"left"`|`"right"`) Type of RStudio panes layout.
+# @export
 rstudio_reset_layout <- function(rs_layout = "left") {
   if (rstudioapi::isAvailable() && rstudioapi::hasFun("executeCommand")) {
     # Set opened RS tabs

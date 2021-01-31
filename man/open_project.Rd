@@ -2,11 +2,7 @@
 % Please edit documentation in R/projects.R
 \name{open_project}
 \alias{open_project}
-\alias{open_project_from_personal_list}
-\alias{open_recent_proj_list}
-\alias{open_personal_proj_list}
-\alias{update_personal_proj_list}
-\title{Open RStudio project}
+\title{Open RStudio Project}
 \usage{
 open_project(
   pattern = NULL,
@@ -17,20 +13,6 @@ open_project(
   name = NULL,
   negate = FALSE
 )
-
-open_project_from_personal_list(
-  pattern = NULL,
-  new_session = TRUE,
-  only_available = TRUE,
-  name = NULL,
-  ...
-)
-
-open_recent_proj_list()
-
-open_personal_proj_list()
-
-update_personal_proj_list()
 }
 \arguments{
 \item{pattern}{(character) regular expression to narrow down the list of
@@ -54,19 +36,13 @@ a project interactively.}
 
 \item{negate}{(logical) If \code{TRUE}, then the options defined by  \code{pattern} are
 excluded.}
-
-\item{...}{Further arguments.}
 }
 \value{
 Opens the indicated project.
 }
 \description{
-Open RStudio project by name or interactively.
-
-\itemize{
-\item \code{open_recent_proj_list()} -- opens the file with the list of
-recent RStudio projects.
-}
+Open RStudio project by name or interactively. The projects list is read from
+files that contain project lists.
 }
 \examples{
 \dontrun{\donttest{
@@ -81,6 +57,7 @@ open_project("R-2019-project")
 }
 \seealso{
 \itemize{
+\item \code{\link[=update_personal_proj_list]{update_personal_proj_list()}}
 \item \code{\link[rstudioapi:projects]{rstudioapi::openProject()}}
 \item \code{\link[rstudioapi:projects]{rstudioapi::initializeProject()}}
 }

@@ -8,9 +8,9 @@ Package ***bio***
 <!-- badges: start -->
 
 [![GitHub
-version](https://img.shields.io/badge/GitHub-0.0.13-brightgreen.svg)](https://github.com/mokymai/bio)
+version](https://img.shields.io/badge/GitHub-0.0.14-brightgreen.svg)](https://github.com/mokymai/bio)
 [![R-CMD-check](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
-[![Updated-on](https://img.shields.io/badge/Updated%20on-2021--01--30-yellowgreen.svg)](/commits/master)
+[![Updated-on](https://img.shields.io/badge/Updated%20on-2021--01--31-yellowgreen.svg)](/commits/master)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
@@ -23,11 +23,11 @@ required resources for course units ***Biostatistics*** (*BS-2021*) and
 
 <center>
 
-<br> <font color="darkred" size=5> This package is intended to be used
+<br> <font color="darkred" size=4> This package is intended to be used
 with <b>RStudio 1.4</b> or newer.<br> </font>
-<font color="darkred" size=4> Functions do not work correctly with the
+<font color="darkred" size=3> Functions do not work correctly with the
 previous versions of RStudio.<br> Tested on <em>Windows 10</em> (64-bit)
-only. </font> <br><br>
+only. </font> <br><br><br>
 
 </center>
 
@@ -89,15 +89,15 @@ Options:
 bio::check_installed_programs()
 ## ✔ Program R (4.0.3) is installed (recommended 4.0.3, available 4.0.3)
 ## ✖ Program RStudio is not installed or is not running.
-## ✔    Tool Rtools is installed.
+## ✔ Tool Rtools is installed.
 ```
 
 ``` r
 bio::check_installed_programs("all")
 ## ✔ Program R (4.0.3) is installed (recommended 4.0.3, available 4.0.3)
 ## ✔ Program RStudio (1.2.5033) is installed (recommended 1.4.1103, available 1.4.1103)
-## ✔    Tool Rtools is installed.
-## ✖ Program Atom is either not detected or not configured incorrectly.
+## ✔ Tool Rtools is installed.
+## ✖ Program Atom is either not detected or configured incorrectly.
 ## ✔ Program Git is installed.
 ## ✔ Program Meld is installed.
 ```
@@ -193,7 +193,7 @@ bio::rstudio_download_spellcheck_dictionaries()
 Install improved Lithuanian dictionary.
 
 ``` r
-bio::rstudio_download_spellcheck_dictionary_lt()
+bio::rstudio_install_spellcheck_dictionary_lt()
 ```
 
 ### Shortcut keys

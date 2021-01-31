@@ -1,6 +1,6 @@
 
 #' @name bio_version
-#' @title Version management of package '\pkg{bio}'
+#' @title Manage Package '\pkg{bio}'
 #' @description
 #' `get_vesion_pkg_bio()` returns version number of package \pkg{bio}.
 #' `check_updates_pkg_bio()` checks if package \pkg{bio} has a recommended version.

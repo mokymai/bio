@@ -1,7 +1,7 @@
 Package: bio
 Type: Package
 Title: Resources Manager for BS-2021 and R-2021
-Version: 0.0.13
+Version: 0.0.14
 Date: 2020-01-30
 Authors@R: 
     person("Vilmantas", "Gegzna", role = c("aut", "cre"),
@@ -32,7 +32,6 @@ Imports:
   glue,
   magrittr,
   pingr,
-  pkgbuild,
   purrr,
   readr,
   remotes,
@@ -46,4 +45,6 @@ Imports:
   withr
 Suggests: 
   covr,
+  pkgbuild,
   spelling
+

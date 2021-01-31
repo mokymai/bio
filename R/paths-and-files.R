@@ -47,12 +47,10 @@ scoped_path_r <- function(scope = c("user", "project"), ..., envvar = NULL) {
 }
 
 
+# Path to Desktop ============================================================
 
-# Get paths ==================================================================
-
-#' Get path to desktop folder
-#'
-#' Get path to desktop folder of current user.
+#' @title Path to Desktop Folder
+#' @description Get path to desktop folder of current user and open it.
 #'
 #' @param ... (character) file or folder name on desktop.
 #'
@@ -68,18 +66,33 @@ get_path_desktop <- function(...) {
   fs::path(fs::path_expand("~/Desktop"), ...)
 }
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# Get path to RStudio configuration directory.
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' @rdname get_path_desktop
+#' @export
+open_desktop <- function() {
+  browseURL(get_path_desktop())
+}
 
-#' @name RStudio-config-dir
-#' @title Directories of R and RStudio (desktop) settings, preferences, etc.
+
+# R-related-dirs ============================================================
+
+#' @name R-related-dirs
+#' @title Directories of R-Related Files
 #' @description
+#' Directories of R-Related files.
+#'
 #' - `get_path_r_user_dir()`-- gets path to the main R user directory.
+#'
+#' @param ... (string) Parts of path passed to [fs::path_home_r()], [fs::path()]
+#'        and similar functions.
 #'
 #' @concept paths and dirs
 #'
 #' @export
+#'
+#' @seealso
+#' - [fs::file_show()], [browseURL()],
+#' - [rstudioapi::navigateToFile()],
+#' - [utils::file.edit()]
 #'
 #' @examples
 #' get_path_r_user_dir()
@@ -94,8 +107,35 @@ get_path_r_user_dir <- function(...) {
   fs::path_home_r(".R", ...)
 }
 
+#' @rdname R-related-dirs
+#' @export
+open_r_user_dir <- function() {
+  browseURL(get_path_r_user_dir())
+}
+
+
+# RStudio-related-dirs =======================================================
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' @rdname RStudio-config-dir
+# Get path to RStudio configuration directory.
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#' @name RStudio-related-dirs
+#' @title Directories of RStudio-Related Files
+#' @description
+#' Directories of RStudio (desktop) settings, preferences and other files.
+#'
+#' @concept paths and dirs
+#' @seealso
+#' - [open_r_user_dir()],
+#' - [fs::file_show()], [browseURL()],
+#' - [rstudioapi::navigateToFile()],
+#' - [utils::file.edit()]
+
+NULL
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' @rdname RStudio-related-dirs
 #' @description
 #' - `get_path_rstudio_config_dir()`` - gets path to RStudio configuration
 #'   directory (and its sub-directories).
@@ -185,7 +225,7 @@ get_path_rstudio_config_dir <- function(..., .check = FALSE) {
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' @rdname RStudio-config-dir
+#' @rdname RStudio-related-dirs
 #' @export
 get_path_rstudio_internal_state_dir <- function(..., .check = FALSE) {
   # https://support.rstudio.com/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State
@@ -214,7 +254,7 @@ get_path_rstudio_internal_state_dir <- function(..., .check = FALSE) {
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' @rdname RStudio-config-dir
+#' @rdname RStudio-related-dirs
 #'
 #' @concept paths and dirs
 #' @export
@@ -228,7 +268,7 @@ get_path_rstudio_snippets_dir <- function() {
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' @rdname RStudio-config-dir
+#' @rdname RStudio-related-dirs
 #' @concept paths and dirs
 #' @export
 #' @examples
@@ -245,53 +285,26 @@ get_path_rstudio_keybindings_dir <- function() {
 # ===========================================================================~
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' @name open_files
-#'
-#' @title Open files and directories
-#' @description
-#' Open RStudio related files and directories.
-#'
-#' @seealso
-#' - [fs::file_show()], [browseURL()],
-#' - [rstudioapi::navigateToFile()],
-#' - [utils::file.edit()]
-#'
-#' @concept paths and dirs
 
-# @param path (sting) Path to file.
-NULL
-
-#' @rdname open_files
-#' @export
-open_desktop <- function() {
-  browseURL(get_path_desktop())
-}
-
-#' @rdname open_files
-#' @export
-open_r_user_dir <- function() {
-  browseURL(get_path_r_user_dir())
-}
-
-#' @rdname open_files
+#' @rdname RStudio-related-dirs
 #' @export
 open_rstudio_config_dir <- function() {
   browseURL(get_path_rstudio_config_dir())
 }
 
-#' @rdname open_files
+#' @rdname RStudio-related-dirs
 #' @export
 open_rstudio_internal_state_dir <- function() {
   browseURL(get_path_rstudio_internal_state_dir())
 }
 
-#' @rdname open_files
+#' @rdname RStudio-related-dirs
 #' @export
 open_rstudio_snippets_dir <- function() {
   browseURL(get_path_rstudio_snippets_dir())
 }
 
-#' @rdname open_files
+#' @rdname RStudio-related-dirs
 #' @export
 open_rstudio_keybindings_dir <- function() {
   browseURL(get_path_rstudio_keybindings_dir())
@@ -303,11 +316,17 @@ open_rstudio_keybindings_dir <- function() {
 # Open files ================================================================
 # ===========================================================================~
 
-#' @rdname open_files
-#'
+#' @name RStudio-config-file
+#' @title Manage RStudio Configuration (Preferences) File
+#' @description Manage file with RStudio configuration (user preferences).
 #' @param which (character) type of settings: "current", "bio-default".
 #'
 #' @export
+#' @concept paths and dirs
+#'
+#' @seealso
+#' - [get_path_rstudio_config_dir()]
+#'
 #' @examples
 #' \dontrun{\donttest{
 #'
@@ -331,20 +350,30 @@ get_path_rstudio_config_file <- function(which = "current") {
   }
 }
 
-#' @rdname open_files
+#' @rdname RStudio-config-file
 #' @export
 open_rstudio_config_file <- function() {
   open_in_rstudio(path = get_path_rstudio_config_file())
 }
 
-
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' @rdname open_files
+# Open r_environ =============================================================
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' @name open_r_environ
 #' @export
+#' @title Open `.Renviron` File
 #' @description
-#' - `get_path_r_environ()`-- gets path to file `.Renviron` with R environment
-#'   variables.
-#' @param scope (character) One of "user" or "project".
+#' Functions to get path to and open `.Renviron` file that contains
+#' definitions of R environment variables.
+#'
+#' Compared to  [usethis::edit_r_environ()], `open_r_environ()` does not create
+#' file if it does not exist.
+#'
+#' @param scope (character) The scope of file. One of "user" or "project".
+#'
+#' @concept paths and dirs
+#' @seealso
+#' - [usethis::edit_r_environ()]
 #'
 #' @examples
 #' get_path_r_environ()
@@ -353,7 +382,7 @@ get_path_r_environ <- function(scope = c("user", "project")) {
   scoped_path_r(scope, ".Renviron", envvar = "R_ENVIRON_USER")
 }
 
-#' @rdname open_files
+#' @rdname open_r_environ
 #' @export
 open_r_environ <- function() {
   browseURL(get_path_r_environ())
