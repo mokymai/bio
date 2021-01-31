@@ -28,3 +28,4 @@ get_path_r_environ()
 \item \code{\link[usethis:edit]{usethis::edit_r_environ()}}
 }
 }
+\concept{paths and dirs}

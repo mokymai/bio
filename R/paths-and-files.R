@@ -368,6 +368,7 @@ open_rstudio_config_file <- function() {
 #'
 #' @param scope (character) The scope of file. One of "user" or "project".
 #'
+#' @concept paths and dirs
 #' @seealso
 #' - [usethis::edit_r_environ()]
 #'

@@ -172,6 +172,7 @@ get_proj_names <- function(file = get_path_recent_proj_list(),
 #' @concept rstudio projects
 #'
 #' @seealso
+#' - [update_personal_proj_list()]
 #' - [rstudioapi::openProject()]
 #' - [rstudioapi::initializeProject()]
 #' @examples

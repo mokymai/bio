@@ -23,4 +23,4 @@ Function tries opening a file in RStudio.
 }
 \concept{open}
 \concept{open files}
-\concept{utilities}
+\concept{paths and dirs}
