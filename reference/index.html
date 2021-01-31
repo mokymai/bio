@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.13</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.14</span>
       </span>
     </div>
 
@@ -138,7 +138,7 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-programs" class="hasAnchor"><a href="#section-programs" class="anchor"></a>Programs</h2>
+          <h2 id="section-check" class="hasAnchor"><a href="#section-check" class="anchor"></a>Check</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -150,39 +150,138 @@
       <tr>
         
         <td>
-          <p><code><a href="check_installed_programs.html">check_installed_programs()</a></code> <code><a href="check_installed_programs.html">check_user_info()</a></code> </p>
+          <p><code><a href="check_installed_programs.html">check_installed_programs()</a></code> </p>
         </td>
-        <td><p>Check required programs and user-related information</p></td>
+        <td><p>Check Required Programs</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="atom.html">browse_atom_homepage()</a></code> <code><a href="atom.html">is_atom_installed()</a></code> <code><a href="atom.html">set_atom_as_git_core_editor()</a></code> <code><a href="atom.html">install_atom_meld()</a></code> </p>
+          <p><code><a href="check_packages_by_topic.html">check_packages_by_topic()</a></code> </p>
         </td>
-        <td><p>Helper functions for "Atom".</p></td>
+        <td><p>Check Installed Packages by Topic</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="get_path_to_git.html">get_path_to_git()</a></code> </p>
+          <p><code><a href="check_user_info.html">check_user_info()</a></code> </p>
         </td>
-        <td><p>Get path to Git.</p></td>
+        <td><p>Get User-Related Information</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-change-settings" class="hasAnchor"><a href="#section-change-settings" class="anchor"></a>Change Settings</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="RStudio-settings.html">rstudio_reset_user_settings()</a></code> </p>
+        </td>
+        <td><p>Reset RStudio settings</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="git.html">get_git_core_editor_cmd()</a></code> </p>
+          <p><code><a href="rstudio_reset_keybindings.html">rstudio_reset_keybindings()</a></code> </p>
         </td>
-        <td><p>Helper functions for "Git"</p></td>
+        <td><p>Set RStudio keybindings</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="is_git_installed.html">is_git_installed()</a></code> </p>
+          <p><code><a href="spelling.html">rstudio_download_spellcheck_dictionaries()</a></code> <code><a href="spelling.html">rstudio_install_spellcheck_dictionary_lt()</a></code> <code><a href="spelling.html">rstudio_delete_spellcheck_dictionaries()</a></code> </p>
         </td>
-        <td><p>Check if Git is installed</p></td>
+        <td><p>Dictionaries to check spelling</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-paths-and-directories" class="hasAnchor"><a href="#section-paths-and-directories" class="anchor"></a>Paths and Directories</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="R-related-dirs.html">get_path_r_user_dir()</a></code> <code><a href="R-related-dirs.html">open_r_user_dir()</a></code> </p>
+        </td>
+        <td><p>Directories of R-Related Files</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="meld.html">browse_meld_homepage()</a></code> <code><a href="meld.html">download_meld()</a></code> <code><a href="meld.html">get_default_path_to_meld()</a></code> <code><a href="meld.html">is_meld_installed()</a></code> <code><a href="meld.html">set_meld_as_git_difftool_mergetool()</a></code> </p>
+          <p><code><a href="RStudio-config-file.html">get_path_rstudio_config_file()</a></code> <code><a href="RStudio-config-file.html">open_rstudio_config_file()</a></code> </p>
         </td>
-        <td><p>Helper functions for "Meld"</p></td>
+        <td><p>Manage RStudio Configuration (Preferences) File</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="RStudio-dictionaries.html">open_rstudio_system_dictionaries_dir()</a></code> <code><a href="RStudio-dictionaries.html">open_rstudio_user_dictionaries_dir()</a></code> <code><a href="RStudio-dictionaries.html">open_rstudio_internal_dictionaries_dir()</a></code> </p>
+        </td>
+        <td><p>RStudio Dictionaries</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="RStudio-related-dirs.html">get_path_rstudio_config_dir()</a></code> <code><a href="RStudio-related-dirs.html">get_path_rstudio_internal_state_dir()</a></code> <code><a href="RStudio-related-dirs.html">get_path_rstudio_snippets_dir()</a></code> <code><a href="RStudio-related-dirs.html">get_path_rstudio_keybindings_dir()</a></code> <code><a href="RStudio-related-dirs.html">open_rstudio_config_dir()</a></code> <code><a href="RStudio-related-dirs.html">open_rstudio_internal_state_dir()</a></code> <code><a href="RStudio-related-dirs.html">open_rstudio_snippets_dir()</a></code> <code><a href="RStudio-related-dirs.html">open_rstudio_keybindings_dir()</a></code> </p>
+        </td>
+        <td><p>Directories of RStudio-Related Files</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_path_desktop.html">get_path_desktop()</a></code> <code><a href="get_path_desktop.html">open_desktop()</a></code> </p>
+        </td>
+        <td><p>Path to Desktop Folder</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="open_in_rstudio.html">open_in_rstudio()</a></code> </p>
+        </td>
+        <td><p>Open file in RStudio</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="open_r_environ.html">get_path_r_environ()</a></code> <code><a href="open_r_environ.html">open_r_environ()</a></code> </p>
+        </td>
+        <td><p>Open <code>.Renviron</code> File</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-rstudio-projects" class="hasAnchor"><a href="#section-rstudio-projects" class="anchor"></a>RStudio Projects</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="open_project.html">open_project()</a></code> </p>
+        </td>
+        <td><p>Open RStudio Project</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="project-lists.html">get_path_recent_proj_list()</a></code> <code><a href="project-lists.html">get_path_personal_proj_list()</a></code> <code><a href="project-lists.html">open_recent_proj_list()</a></code> <code><a href="project-lists.html">open_personal_proj_list()</a></code> <code><a href="project-lists.html">update_personal_proj_list()</a></code> </p>
+        </td>
+        <td><p>Manage Project Lists</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="projects.html">read_projects()</a></code> </p>
+        </td>
+        <td><p>Manage RStudio Projects</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -201,25 +300,19 @@
         <td>
           <p><code><a href="bio_version.html">get_vesion_pkg_bio()</a></code> <code><a href="bio_version.html">check_updates_pkg_bio()</a></code> <code><a href="bio_version.html">update_pkg_bio()</a></code> </p>
         </td>
-        <td><p>Version management of package '<span class="pkg">bio</span>'</p></td>
+        <td><p>Manage Package '<span class="pkg">bio</span>'</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="check_packages_by_topic.html">check_packages_by_topic()</a></code> </p>
         </td>
-        <td><p>Check installed packages by topic</p></td>
+        <td><p>Check Installed Packages by Topic</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="get_pkgs_cran_details.html">get_pkgs_cran_details()</a></code> </p>
+          <p><code><a href="get_pkgs_installation_status.html">get_pkgs_installation_status()</a></code> <code><a href="get_pkgs_installation_status.html">get_last_pkgs_installation_status()</a></code> <code><a href="get_pkgs_installation_status.html">print(<i>&lt;pkgs_installation_status&gt;</i>)</a></code> <code><a href="get_pkgs_installation_status.html">get_pkgs_installation_code()</a></code> </p>
         </td>
-        <td><p>Get details about package on CRAN</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_pkgs_installation_status.html">get_pkgs_installation_status_local()</a></code> <code><a href="get_pkgs_installation_status.html">get_pkgs_installation_status()</a></code> <code><a href="get_pkgs_installation_status.html">get_pkg_lists_local()</a></code> <code><a href="get_pkgs_installation_status.html">get_last_pkgs_installation_status()</a></code> <code><a href="get_pkgs_installation_status.html">print(<i>&lt;pkgs_installation_status&gt;</i>)</a></code> <code><a href="get_pkgs_installation_status.html">get_pkgs_installation_code()</a></code> </p>
-        </td>
-        <td><p>Get package installation status and code</p></td>
+        <td><p>Get Package Installation Status and Code</p></td>
       </tr><tr>
         
         <td>
@@ -229,33 +322,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="get_pkgs_non_cran_installation_details.html">get_pkgs_non_cran_installation_details()</a></code> </p>
-        </td>
-        <td><p>Get details about non-CRAN package installation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_pkgs_recommended.html">get_pkgs_recommended()</a></code> </p>
-        </td>
-        <td><p>List of packages of interest</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_pkgs_req_version.html">get_pkgs_req_version()</a></code> </p>
-        </td>
-        <td><p>Get required version of packages</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="is_pkg_installed.html">is_pkg_installed()</a></code> </p>
         </td>
         <td><p>Check if packae is installed</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="suggest_optimized_order_of_packages.html">suggest_optimized_order_of_packages()</a></code> <code><a href="suggest_optimized_order_of_packages.html">suggest_optimized_order_of_packages()</a></code> </p>
-        </td>
-        <td><p>Optimize order of packages to install</p></td>
       </tr><tr>
         
         <td>
@@ -272,103 +341,7 @@
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-rstudio-projects" class="hasAnchor"><a href="#section-rstudio-projects" class="anchor"></a>RStudio projects</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="open_project.html">open_project()</a></code> <code><a href="open_project.html">open_project_from_personal_list()</a></code> <code><a href="open_project.html">open_recent_proj_list()</a></code> <code><a href="open_project.html">open_personal_proj_list()</a></code> <code><a href="open_project.html">update_personal_proj_list()</a></code> </p>
-        </td>
-        <td><p>Open RStudio project</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="parse_proj_path.html">parse_proj_path()</a></code> <code><a href="parse_proj_path.html">extract_proj_name()</a></code> </p>
-        </td>
-        <td><p>Parse project's path</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="projects.html">read_projects()</a></code> <code><a href="projects.html">get_path_recent_proj_list()</a></code> <code><a href="projects.html">get_path_personal_proj_list()</a></code> <code><a href="projects.html">get_projs_recent()</a></code> <code><a href="projects.html">get_projs_personal()</a></code> <code><a href="projects.html">get_projs_all()</a></code> <code><a href="projects.html">get_proj_names()</a></code> </p>
-        </td>
-        <td><p>Manage RStudio projects</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-settings" class="hasAnchor"><a href="#section-settings" class="anchor"></a>Settings</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      <tr>
-        <th colspan="2">
-          <h3 id="section-r-and-rstudio-settings" class="hasAnchor"><a href="#section-r-and-rstudio-settings" class="anchor"></a>R and RStudio settings</h3>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="RStudio-settings.html">rstudio_reset_user_settings()</a></code> </p>
-        </td>
-        <td><p>Reset RStudio settings</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="clear_and_reset.html">rstudio_clear_history()</a></code> <code><a href="clear_and_reset.html">clear_r_workspace()</a></code> <code><a href="clear_and_reset.html">rstudio_reset_layout()</a></code> </p>
-        </td>
-        <td><p>Clear and Reset R and RStudio</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rstudio_reset_gmc.html">rstudio_reset_gmc()</a></code> </p>
-        </td>
-        <td><p>Reset RStudio state in GMC R209 and clear environment</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rstudio_reset_keybindings.html">rstudio_reset_keybindings()</a></code> </p>
-        </td>
-        <td><p>Set RStudio keybindings</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="spelling.html">rstudio_download_spellcheck_dictionaries()</a></code> <code><a href="spelling.html">rstudio_download_spellcheck_dictionary_lt()</a></code> <code><a href="spelling.html">rstudio_delete_spellcheck_dictionaries()</a></code> </p>
-        </td>
-        <td><p>Dictionaries to check spelling</p></td>
-      </tr>
-    </tbody><tbody>
-      
-      <tr>
-        <th colspan="2">
-          <h3 id="section-other-settings" class="hasAnchor"><a href="#section-other-settings" class="anchor"></a>Other settings</h3>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-    </tbody><tbody>
-      
-      
-      
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-utilities-and-helper-functions" class="hasAnchor"><a href="#section-utilities-and-helper-functions" class="anchor"></a>Utilities and helper functions</h2>
+          <h2 id="section-utilities-and-helper-functions" class="hasAnchor"><a href="#section-utilities-and-helper-functions" class="anchor"></a>Utilities and Helper Functions</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -382,99 +355,31 @@
         <td>
           <p><code><a href="compare_version.html">compare_version()</a></code> </p>
         </td>
-        <td><p>Compare version numbers</p></td>
+        <td><p>Compare Version Numbers</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="get_os_type.html">get_os_type()</a></code> <code><a href="get_os_type.html">is_32bit_os()</a></code> <code><a href="get_os_type.html">is_64bit_os()</a></code> </p>
         </td>
-        <td><p>Determine operating system (OS).</p></td>
+        <td><p>Determine Operating System (OS)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="list_pkgs_used_in_dir.html">list_pkgs_used_in_dir()</a></code> <code><a href="list_pkgs_used_in_dir.html">list_pkgs_used_in_files()</a></code> </p>
+        </td>
+        <td><p>List Packages Used in File(s)</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="restart-reload.html">rstudio_restart_r()</a></code> <code><a href="restart-reload.html">rstudio_reload_ui()</a></code> </p>
         </td>
-        <td><p>Functions that to restart or reload programs</p></td>
-      </tr>
-    </tbody><tbody>
-      
-      <tr>
-        <th colspan="2">
-          <h3 id="section-paths-and-directories" class="hasAnchor"><a href="#section-paths-and-directories" class="anchor"></a>Paths and directories</h3>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="RStudio-config-dir.html">get_path_r_user_dir()</a></code> <code><a href="RStudio-config-dir.html">get_path_rstudio_config_dir()</a></code> <code><a href="RStudio-config-dir.html">get_path_rstudio_internal_state_dir()</a></code> <code><a href="RStudio-config-dir.html">get_path_rstudio_snippets_dir()</a></code> <code><a href="RStudio-config-dir.html">get_path_rstudio_keybindings_dir()</a></code> </p>
-        </td>
-        <td><p>Directories of R and RStudio (desktop) settings, preferences, etc.</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="RStudio-dictionaries.html">open_rstudio_system_dictionaries_dir()</a></code> <code><a href="RStudio-dictionaries.html">open_rstudio_user_dictionaries_dir()</a></code> <code><a href="RStudio-dictionaries.html">open_rstudio_internal_dictionaries_dir()</a></code> </p>
-        </td>
-        <td><p>RStudio dictionaries</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_path_desktop.html">get_path_desktop()</a></code> </p>
-        </td>
-        <td><p>Get path to desktop folder</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_rstudio_file_ids.html">get_rstudio_file_ids()</a></code> <code><a href="get_rstudio_file_ids.html">get_rstudio_file_ids_user()</a></code> <code><a href="get_rstudio_file_ids.html">get_rstudio_file_ids_project()</a></code> </p>
-        </td>
-        <td><p>Get RStudio document IDs and paths</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="open_files.html">open_desktop()</a></code> <code><a href="open_files.html">open_r_user_dir()</a></code> <code><a href="open_files.html">open_rstudio_config_dir()</a></code> <code><a href="open_files.html">open_rstudio_internal_state_dir()</a></code> <code><a href="open_files.html">open_rstudio_snippets_dir()</a></code> <code><a href="open_files.html">open_rstudio_keybindings_dir()</a></code> <code><a href="open_files.html">get_path_rstudio_config_file()</a></code> <code><a href="open_files.html">open_rstudio_config_file()</a></code> <code><a href="open_files.html">get_path_r_environ()</a></code> <code><a href="open_files.html">open_r_environ()</a></code> </p>
-        </td>
-        <td><p>Open files and directories</p></td>
+        <td><p>Functions to Restart R and Reload RStudio</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-other-functions" class="hasAnchor"><a href="#section-other-functions" class="anchor"></a>Other functions</h2>
+          <h2 id="section-other-functions" class="hasAnchor"><a href="#section-other-functions" class="anchor"></a>Other Functions</h2>
           <p class="section-desc"><p>Functions not mentioned above.</p></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="list_pkgs_used_in_dir.html">list_pkgs_used_in_dir()</a></code> <code><a href="list_pkgs_used_in_dir.html">list_pkgs_used_in_files()</a></code> <code><a href="list_pkgs_used_in_dir.html">list_pkgs_used_in_dir()</a></code> <code><a href="list_pkgs_used_in_dir.html">list_pkgs_used_in_files()</a></code> </p>
-        </td>
-        <td><p>List packages used in file(s)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="open_in_rstudio.html">open_in_rstudio()</a></code> </p>
-        </td>
-        <td><p>Open file in RStudio</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="str_move.html">str_move_before()</a></code> <code><a href="str_move.html">str_move_after()</a></code> </p>
-        </td>
-        <td><p>Change the position of a string in a vector</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-deprecated-functions" class="hasAnchor"><a href="#section-deprecated-functions" class="anchor"></a>Deprecated functions</h2>
-          <p class="section-desc"><p>You should <strong>not</strong> use these functions any more.</p></p>
         </th>
       </tr>
       

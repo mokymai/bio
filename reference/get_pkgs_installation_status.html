@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get package installation status and code — get_pkgs_installation_status_local • bio</title>
+<title>Get Package Installation Status and Code — get_pkgs_installation_status • bio</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Get package installation status and code — get_pkgs_installation_status_local" />
+<meta property="og:title" content="Get Package Installation Status and Code — get_pkgs_installation_status" />
 <meta property="og:description" content="Get package installation status (e.g., if packages of interest are installed
 or need to be updated) and package installation code." />
 
@@ -73,7 +73,7 @@ or need to be updated) and package installation code." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.13</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.14</span>
       </span>
     </div>
 
@@ -126,7 +126,7 @@ or need to be updated) and package installation code." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get package installation status and code</h1>
+    <h1>Get Package Installation Status and Code</h1>
     <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/packages--check.R'><code>R/packages--check.R</code></a></small>
     <div class="hidden name"><code>get_pkgs_installation_status.Rd</code></div>
     </div>
@@ -136,12 +136,7 @@ or need to be updated) and package installation code." />
 or need to be updated) and package installation code.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_pkgs_installation_status_local</span><span class='op'>(</span>
-  <span class='va'>list_name</span>,
-  use_local_list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"bio.use_local_list"</span>, <span class='cn'>TRUE</span><span class='op'>)</span>
-<span class='op'>)</span>
-
-<span class='fu'>get_pkgs_installation_status</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>get_pkgs_installation_status</span><span class='op'>(</span>
   list_name <span class='op'>=</span> <span class='cn'>NULL</span>,
   include <span class='op'>=</span> <span class='st'>"outdated"</span>,
   show_status <span class='op'>=</span> <span class='va'>include</span>,
@@ -151,8 +146,6 @@ or need to be updated) and package installation code.</p>
   elsewhere <span class='op'>=</span> <span class='va'>install</span>,
   use_local_list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"bio.use_local_list"</span>, <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='op'>)</span>
-
-<span class='fu'>get_pkg_lists_local</span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='fu'>get_last_pkgs_installation_status</span><span class='op'>(</span><span class='op'>)</span>
 
@@ -168,16 +161,6 @@ or need to be updated) and package installation code.</p>
       <th>list_name</th>
       <td><p>(character) The name of the list with required R packages.
 E.g., "mini", "Rcmdr", "Rcmdr-biostat", "bio", etc.</p></td>
-    </tr>
-    <tr>
-      <th>use_local_list</th>
-      <td><p>(logical) If <code>TRUE</code>, the list, which is locally
-installed in the folder of package <span class="pkg">bio</span> ("local list"), is used.
-If <code>FALSE</code>, the list on "GitHub" repository of the package is used.
-It is recommended  using the online version of the list, as it may
-contain more recent changes.
-Optiom bight be set globally by, e.g.,
-<code><a href='https://rdrr.io/r/base/options.html'>options(bio.use_local_list = TRUE)</a></code>.</p></td>
     </tr>
     <tr>
       <th>include</th>
@@ -234,6 +217,16 @@ See options of <code>include</code> plus value <code>"required"</code>.
 Defaults to the value of <code>install</code>.</p></td>
     </tr>
     <tr>
+      <th>use_local_list</th>
+      <td><p>(logical) If <code>TRUE</code>, the list, which is locally
+installed in the folder of package <span class="pkg">bio</span> ("local list"), is used.
+If <code>FALSE</code>, the list on "GitHub" repository of the package is used.
+It is recommended  using the online version of the list, as it may
+contain more recent changes.
+Optiom bight be set globally by, e.g.,
+<code><a href='https://rdrr.io/r/base/options.html'>options(bio.use_local_list = TRUE)</a></code>.</p></td>
+    </tr>
+    <tr>
       <th>x</th>
       <td><p>Object of interest.</p></td>
     </tr>
@@ -257,11 +250,7 @@ See <code>upgrade</code> in <code><a href='https://remotes.r-lib.org/reference/i
 
     <div class='dont-index'><p>Other R-packages-related functions: 
 <code><a href='compare_version.html'>compare_version</a>()</code>,
-<code><a href='get_pkgs_cran_details.html'>get_pkgs_cran_details</a>()</code>,
-<code><a href='get_pkgs_installed.html'>get_pkgs_installed</a>()</code>,
-<code><a href='get_pkgs_non_cran_installation_details.html'>get_pkgs_non_cran_installation_details</a>()</code>,
-<code><a href='get_pkgs_recommended.html'>get_pkgs_recommended</a>()</code>,
-<code><a href='get_pkgs_req_version.html'>get_pkgs_req_version</a>()</code></p></div>
+<code><a href='get_pkgs_installed.html'>get_pkgs_installed</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"></pre>

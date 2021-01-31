@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.13</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.14</span>
       </span>
     </div>
 
@@ -95,7 +95,7 @@
 <!-- [![GitHub last commit](https://img.shields.io/github/last-commit/mokymai/bio)](https://github.com/mokymai/bio) -->
 <p>Convenience functions to facilitate installation and management of required resources for course units <strong><em>Biostatistics</em></strong> (<em>BS-2021</em>) and <strong><em>Introduction to data analysis with R</em></strong> (<em>R-2021</em>).</p>
 <center>
-<p><br><font color="darkred" size="5"> This package is intended to be used with <b>RStudio 1.4</b> or newer.<br></font> <font color="darkred" size="4"> Functions do not work correctly with the previous versions of RStudio.<br> Tested on <em>Windows 10</em> (64-bit) only. </font> <br><br></p>
+<p><br><font color="darkred" size="4"> This package is intended to be used with <b>RStudio 1.4</b> or newer.<br></font> <font color="darkred" size="3"> Functions do not work correctly with the previous versions of RStudio.<br> Tested on <em>Windows 10</em> (64-bit) only. </font> <br><br><br></p>
 </center>
 <p>Bug reports and your feedback are welcome at <a href="https://github.com/mokymai/bio/issues" class="uri">https://github.com/mokymai/bio/issues</a>. In the report, indicate your operating system.</p>
 </div>
@@ -119,7 +119,7 @@
 <a href="#check-information-about-os-and-user" class="anchor"></a>Check information about OS and user</h2>
 <p>Check information about operating system (OS) and R-related user information.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/check_installed_programs.html">check_user_info</a></span><span class="op">(</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/check_user_info.html">check_user_info</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">## Operating system    Windows 10 x64 (build 18363)</span>
 <span class="co">## Platform            x86_64-w64-mingw32/x64 (64-bit)</span>
 <span class="co">## LOGNAME</span>
@@ -145,20 +145,20 @@
 <code class="sourceCode R"><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/check_installed_programs.html">check_installed_programs</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">## ✔ Program R (4.0.3) is installed (recommended 4.0.3, available 4.0.3)</span>
 <span class="co">## ✖ Program RStudio is not installed or is not running.</span>
-<span class="co">## ✔    Tool Rtools is installed.</span></code></pre></div>
+<span class="co">## ✔ Tool Rtools is installed.</span></code></pre></div>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/check_installed_programs.html">check_installed_programs</a></span><span class="op">(</span><span class="st">"all"</span><span class="op">)</span>
 <span class="co">## ✔ Program R (4.0.3) is installed (recommended 4.0.3, available 4.0.3)</span>
 <span class="co">## ✔ Program RStudio (1.2.5033) is installed (recommended 1.4.1103, available 1.4.1103)</span>
-<span class="co">## ✔    Tool Rtools is installed.</span>
-<span class="co">## ✖ Program Atom is either not detected or not configured incorrectly.</span>
+<span class="co">## ✔ Tool Rtools is installed.</span>
+<span class="co">## ✖ Program Atom is either not detected or configured incorrectly.</span>
 <span class="co">## ✔ Program Git is installed.</span>
 <span class="co">## ✔ Program Meld is installed.</span></code></pre></div>
 </div>
 <div id="check-information-about-r-packages" class="section level2">
 <h2 class="hasAnchor">
 <a href="#check-information-about-r-packages" class="anchor"></a>Check information about “R” packages</h2>
-<p>The following functions may be used to check installed packages by topic. By default, only missing packages or packages with lower versions than recommended are displayed. Currently available lists can be returned by function <code><a href="reference/get_pkgs_installation_status_local.html">bio::get_pkg_lists_local()</a></code> and they include:</p>
+<p>The following functions may be used to check installed packages by topic. By default, only missing packages or packages with lower versions than recommended are displayed. Currently available lists can be returned by function <code>bio::get_pkg_lists_local()</code> and they include:</p>
 <ul>
 <li><code>'addins-rmd'</code></li>
 <li><code>'bio'</code></li>
@@ -221,7 +221,7 @@
 <code class="sourceCode R"><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/spelling.html">rstudio_download_spellcheck_dictionaries</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>Install improved Lithuanian dictionary.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/spelling.html">rstudio_download_spellcheck_dictionary_lt</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/spelling.html">rstudio_install_spellcheck_dictionary_lt</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="shortcut-keys" class="section level3">
 <h3 class="hasAnchor">
@@ -504,9 +504,9 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/mokymai/bio"><img src="https://img.shields.io/badge/GitHub-0.0.13-brightgreen.svg" alt="GitHub version"></a></li>
+<li><a href="https://github.com/mokymai/bio"><img src="https://img.shields.io/badge/GitHub-0.0.14-brightgreen.svg" alt="GitHub version"></a></li>
 <li><a href="https://github.com/mokymai/bio/actions"><img src="https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="/commits/master"><img src="https://img.shields.io/badge/Updated%20on-2021--01--30-yellowgreen.svg" alt="Updated-on"></a></li>
+<li><a href="/commits/master"><img src="https://img.shields.io/badge/Updated%20on-2021--01--31-yellowgreen.svg" alt="Updated-on"></a></li>
 <li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
 </ul>
 </div>

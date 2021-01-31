@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Open RStudio project — open_project • bio</title>
+<title>Open RStudio Project — open_project • bio</title>
 
 
 <!-- jquery -->
@@ -39,13 +39,9 @@
 
 
 
-<meta property="og:title" content="Open RStudio project — open_project" />
-<meta property="og:description" content="Open RStudio project by name or interactively.
-
-open_recent_proj_list() -- opens the file with the list of
-recent RStudio projects.
-
-" />
+<meta property="og:title" content="Open RStudio Project — open_project" />
+<meta property="og:description" content="Open RStudio project by name or interactively. The projects list is read from
+files that contain project lists." />
 
 
 
@@ -77,7 +73,7 @@ recent RStudio projects.
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.13</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.14</span>
       </span>
     </div>
 
@@ -130,18 +126,14 @@ recent RStudio projects.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Open RStudio project</h1>
+    <h1>Open RStudio Project</h1>
     <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/projects.R'><code>R/projects.R</code></a></small>
     <div class="hidden name"><code>open_project.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Open RStudio project by name or interactively.</p>
-<ul>
-<li><p><code>open_recent_proj_list()</code> -- opens the file with the list of
-recent RStudio projects.</p></li>
-</ul>
-
+    <p>Open RStudio project by name or interactively. The projects list is read from
+files that contain project lists.</p>
     </div>
 
     <pre class="usage"><span class='fu'>open_project</span><span class='op'>(</span>
@@ -152,21 +144,7 @@ recent RStudio projects.</p></li>
   only_available <span class='op'>=</span> <span class='cn'>TRUE</span>,
   name <span class='op'>=</span> <span class='cn'>NULL</span>,
   negate <span class='op'>=</span> <span class='cn'>FALSE</span>
-<span class='op'>)</span>
-
-<span class='fu'>open_project_from_personal_list</span><span class='op'>(</span>
-  pattern <span class='op'>=</span> <span class='cn'>NULL</span>,
-  new_session <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  only_available <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  name <span class='op'>=</span> <span class='cn'>NULL</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span>
-
-<span class='fu'>open_recent_proj_list</span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='fu'>open_personal_proj_list</span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='fu'>update_personal_proj_list</span><span class='op'>(</span><span class='op'>)</span></pre>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -207,10 +185,6 @@ a project interactively.</p></td>
       <td><p>(logical) If <code>TRUE</code>, then the options defined by  <code>pattern</code> are
 excluded.</p></td>
     </tr>
-    <tr>
-      <th>...</th>
-      <td><p>Further arguments.</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -220,6 +194,7 @@ excluded.</p></td>
 
     <div class='dont-index'>
 <ul>
+<li><p><code><a href='project-lists.html'>update_personal_proj_list()</a></code></p></li>
 <li><p><code><a href='https://rdrr.io/pkg/rstudioapi/man/projects.html'>rstudioapi::openProject()</a></code></p></li>
 <li><p><code><a href='https://rdrr.io/pkg/rstudioapi/man/projects.html'>rstudioapi::initializeProject()</a></code></p></li>
 </ul>

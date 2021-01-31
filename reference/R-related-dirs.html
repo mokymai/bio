@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check if packae is installed — is_pkg_installed • bio</title>
+<title>Directories of R-Related Files — R-related-dirs • bio</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,11 @@
 
 
 
-<meta property="og:title" content="Check if packae is installed — is_pkg_installed" />
-<meta property="og:description" content="Check if packae is installed" />
+<meta property="og:title" content="Directories of R-Related Files — R-related-dirs" />
+<meta property="og:description" content="Directories of R-Related files.
+get_path_r_user_dir()-- gets path to the main R user directory.
+
+" />
 
 
 
@@ -125,37 +128,37 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Check if packae is installed</h1>
-    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/packages--check.R'><code>R/packages--check.R</code></a></small>
-    <div class="hidden name"><code>is_pkg_installed.Rd</code></div>
+    <h1>Directories of R-Related Files</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/paths-and-files.R'><code>R/paths-and-files.R</code></a></small>
+    <div class="hidden name"><code>R-related-dirs.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Check if packae is installed</p>
+    <p>Directories of R-Related files.</p><ul>
+<li><p><code>get_path_r_user_dir()</code>-- gets path to the main R user directory.</p></li>
+</ul>
+
     </div>
 
-    <pre class="usage"><span class='fu'>is_pkg_installed</span><span class='op'>(</span><span class='va'>pkgs</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>get_path_r_user_dir</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>pkgs</th>
-      <td><p>(character) A list of installed packages.</p></td>
-    </tr>
-    </table>
+<span class='fu'>open_r_user_dir</span><span class='op'>(</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A logical vector for each input element.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'>
+<ul>
+<li><p><code><a href='http://fs.r-lib.org/reference/file_show.html'>fs::file_show()</a></code>, <code><a href='https://rdrr.io/r/utils/browseURL.html'>browseURL()</a></code>,</p></li>
+<li><p><code><a href='https://rdrr.io/pkg/rstudioapi/man/navigateToFile.html'>rstudioapi::navigateToFile()</a></code>,</p></li>
+<li><p><code><a href='https://rdrr.io/r/utils/file.edit.html'>utils::file.edit()</a></code></p></li>
+</ul>
+</div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'>is_pkg_installed</span><span class='op'>(</span><span class='st'>"bio"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='fu'>is_pkg_installed</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"bio"</span>, <span class='st'>"utils"</span>, <span class='st'>"grugru"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1]  TRUE  TRUE FALSE</div><div class='input'>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>get_path_r_user_dir</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #00BB00;'>/Users/runner/.R</span><span></div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

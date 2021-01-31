@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check if packae is installed — is_pkg_installed • bio</title>
+<title>Manage Project Lists — project-lists • bio</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,20 @@
 
 
 
-<meta property="og:title" content="Check if packae is installed — is_pkg_installed" />
-<meta property="og:description" content="Check if packae is installed" />
+<meta property="og:title" content="Manage Project Lists — project-lists" />
+<meta property="og:description" content="Manage project lists.
+
+get_path_recent_proj_list() -- gets path to the file with the list of
+recent RStudio projects.
+get_path_personal_proj_list() -- gets path to the file with the list of
+personal RStudio projects.
+
+
+
+open_recent_proj_list() -- opens the file with the list of
+recent RStudio projects.
+
+" />
 
 
 
@@ -125,37 +137,49 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Check if packae is installed</h1>
-    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/packages--check.R'><code>R/packages--check.R</code></a></small>
-    <div class="hidden name"><code>is_pkg_installed.Rd</code></div>
+    <h1>Manage Project Lists</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/projects.R'><code>R/projects.R</code></a></small>
+    <div class="hidden name"><code>project-lists.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Check if packae is installed</p>
+    <p>Manage project lists.</p>
+<ul>
+<li><p><code>get_path_recent_proj_list()</code> -- gets path to the file with the list of
+recent RStudio projects.</p></li>
+<li><p><code>get_path_personal_proj_list()</code> -- gets path to the file with the list of
+personal RStudio projects.</p></li>
+</ul>
+
+<ul>
+<li><p><code>open_recent_proj_list()</code> -- opens the file with the list of
+recent RStudio projects.</p></li>
+</ul>
+
     </div>
 
-    <pre class="usage"><span class='fu'>is_pkg_installed</span><span class='op'>(</span><span class='va'>pkgs</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>get_path_recent_proj_list</span><span class='op'>(</span><span class='op'>)</span>
+
+<span class='fu'>get_path_personal_proj_list</span><span class='op'>(</span>create <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+
+<span class='fu'>open_recent_proj_list</span><span class='op'>(</span><span class='op'>)</span>
+
+<span class='fu'>open_personal_proj_list</span><span class='op'>(</span><span class='op'>)</span>
+
+<span class='fu'>update_personal_proj_list</span><span class='op'>(</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>pkgs</th>
-      <td><p>(character) A list of installed packages.</p></td>
+      <th>create</th>
+      <td><p>(logical) If <code>TRUE</code> and file does not exist, the file is created.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>A logical vector for each input element.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'>is_pkg_installed</span><span class='op'>(</span><span class='st'>"bio"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='fu'>is_pkg_installed</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"bio"</span>, <span class='st'>"utils"</span>, <span class='st'>"grugru"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1]  TRUE  TRUE FALSE</div><div class='input'>
-</div></pre>
+    <pre class="examples"></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

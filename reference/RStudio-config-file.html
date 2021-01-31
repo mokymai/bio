@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check if packae is installed — is_pkg_installed • bio</title>
+<title>Manage RStudio Configuration (Preferences) File — RStudio-config-file • bio</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Check if packae is installed — is_pkg_installed" />
-<meta property="og:description" content="Check if packae is installed" />
+<meta property="og:title" content="Manage RStudio Configuration (Preferences) File — RStudio-config-file" />
+<meta property="og:description" content="Manage file with RStudio configuration (user preferences)." />
 
 
 
@@ -125,37 +125,38 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Check if packae is installed</h1>
-    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/packages--check.R'><code>R/packages--check.R</code></a></small>
-    <div class="hidden name"><code>is_pkg_installed.Rd</code></div>
+    <h1>Manage RStudio Configuration (Preferences) File</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/paths-and-files.R'><code>R/paths-and-files.R</code></a></small>
+    <div class="hidden name"><code>RStudio-config-file.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Check if packae is installed</p>
+    <p>Manage file with RStudio configuration (user preferences).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>is_pkg_installed</span><span class='op'>(</span><span class='va'>pkgs</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>get_path_rstudio_config_file</span><span class='op'>(</span>which <span class='op'>=</span> <span class='st'>"current"</span><span class='op'>)</span>
+
+<span class='fu'>open_rstudio_config_file</span><span class='op'>(</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>pkgs</th>
-      <td><p>(character) A list of installed packages.</p></td>
+      <th>which</th>
+      <td><p>(character) type of settings: "current", "bio-default".</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <p>A logical vector for each input element.</p>
+    <div class='dont-index'>
+<ul>
+<li><p><code><a href='RStudio-related-dirs.html'>get_path_rstudio_config_dir()</a></code></p></li>
+</ul>
+</div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'>is_pkg_installed</span><span class='op'>(</span><span class='st'>"bio"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='fu'>is_pkg_installed</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"bio"</span>, <span class='st'>"utils"</span>, <span class='st'>"grugru"</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1]  TRUE  TRUE FALSE</div><div class='input'>
-</div></pre>
+    <pre class="examples"></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
