@@ -111,10 +111,10 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
   rstudioapi::executeCommand("clearRecentProjects", quiet = TRUE)
 
   # Tab Environment
-  bio::clear_r_workspace() # clearWorkspace
+  clear_r_workspace() # clearWorkspace
 
   # Layout
-  bio::rstudio_reset_layout()
+  rstudio_reset_layout()
   rstudioapi::executeCommand("zoomActualSize",  quiet = TRUE)
   rstudioapi::executeCommand("zoomIn",          quiet = TRUE)
   rstudioapi::executeCommand("zoomIn",          quiet = TRUE)
