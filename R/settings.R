@@ -52,7 +52,7 @@ restriction_status <- function(ignore_ip = getOption("bio.ignore_ip", FALSE), ..
 # @export
 #' @noRd
 #'
-#' @concept r and rstudio settings
+#' @concept settings
 #'
 #' @examples
 #' \dontrun{\donttest{
@@ -229,6 +229,7 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
 #'
 #' @param backup (logical) If `TRUE`, a backup copy is created.
 #'
+#' @noRd
 #' @concept r and rstudio settings
 
 NULL
@@ -265,8 +266,8 @@ rstudio_clear_history <- function(backup = FALSE) {
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' @rdname clear_and_reset
-#' @export
+# @rdname clear_and_reset
+# @export
 clear_r_workspace <- function() {
   # Clear R workspace
   object_names <- ls(all.names = TRUE, envir = .GlobalEnv)
@@ -274,9 +275,9 @@ clear_r_workspace <- function() {
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' @rdname clear_and_reset
-#' @param rs_layout (`"left"`|`"right"`) Type of RStudio panes layout.
-#' @export
+# @rdname clear_and_reset
+# @param rs_layout (`"left"`|`"right"`) Type of RStudio panes layout.
+# @export
 rstudio_reset_layout <- function(rs_layout = "left") {
   if (rstudioapi::isAvailable() && rstudioapi::hasFun("executeCommand")) {
     # Set opened RS tabs
