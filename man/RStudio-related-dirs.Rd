@@ -71,6 +71,12 @@ get_path_rstudio_keybindings_dir()
 }
 \seealso{
 \itemize{
+\item \code{\link[fs:file_show]{fs::file_show()}}, \code{\link[=browseURL]{browseURL()}},
+\item \code{\link[rstudioapi:navigateToFile]{rstudioapi::navigateToFile()}},
+\item \code{\link[utils:file.edit]{utils::file.edit()}}
+}
+
+\itemize{
 \item \code{get_path_rstudio_config_dir()}:
 https://support.rstudio.com/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State
 }
