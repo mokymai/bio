@@ -4,7 +4,7 @@
 \alias{restart-reload}
 \alias{rstudio_restart_r}
 \alias{rstudio_reload_ui}
-\title{Functions That to Restart R and Reload RStudio}
+\title{Functions to Restart R and Reload RStudio}
 \usage{
 rstudio_restart_r()
 

@@ -5,7 +5,7 @@
 \alias{open_rstudio_system_dictionaries_dir}
 \alias{open_rstudio_user_dictionaries_dir}
 \alias{open_rstudio_internal_dictionaries_dir}
-\title{RStudio dictionaries}
+\title{RStudio Dictionaries}
 \usage{
 open_rstudio_system_dictionaries_dir()
 

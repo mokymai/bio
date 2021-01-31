@@ -2,12 +2,9 @@
 % Please edit documentation in R/programs.R
 \name{check_installed_programs}
 \alias{check_installed_programs}
-\alias{check_user_info}
-\title{Check required programs and user-related information}
+\title{Check Required Programs}
 \usage{
 check_installed_programs(type = "main", skip_online_check = FALSE)
-
-check_user_info()
 }
 \arguments{
 \item{type}{(character) Which programs should be checked? Options:
@@ -21,14 +18,11 @@ Invisible \code{NULL}.
 The results of program checking are printed.
 }
 \description{
-Check absence/presence and (in some cases) versions of required programs
-and user-related information.
+Check absence/presence and (in some cases) versions of required programs.
 }
 \examples{
 
 \dontrun{\donttest{
-
-check_user_info()
 
 check_installed_programs()
 
@@ -36,4 +30,5 @@ check_installed_programs("all")
 
 }}
 }
-\concept{programs}
+\concept{check}
+\concept{check-programs}

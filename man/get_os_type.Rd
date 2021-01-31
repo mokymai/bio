@@ -4,7 +4,7 @@
 \alias{get_os_type}
 \alias{is_32bit_os}
 \alias{is_64bit_os}
-\title{Determine operating system (OS).}
+\title{Determine Operating System (OS)}
 \usage{
 get_os_type()
 

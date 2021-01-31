@@ -30,3 +30,4 @@ get_path_rstudio_config_file("bio-default")
 \item \code{\link[=get_path_rstudio_config_dir]{get_path_rstudio_config_dir()}}
 }
 }
+\concept{paths and dirs}

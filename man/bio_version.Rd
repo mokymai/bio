@@ -5,7 +5,7 @@
 \alias{get_vesion_pkg_bio}
 \alias{check_updates_pkg_bio}
 \alias{update_pkg_bio}
-\title{Version management of package '\pkg{bio}'}
+\title{Manage Package '\pkg{bio}'}
 \usage{
 get_vesion_pkg_bio()
 
