@@ -185,7 +185,7 @@ bio::rstudio_download_spellcheck_dictionaries()
 Install improved Lithuanian dictionary.
 
 ``` r
-bio::rstudio_download_spellcheck_dictionary_lt()
+bio::rstudio_install_spellcheck_dictionary_lt()
 ```
 
 ### Shortcut keys
