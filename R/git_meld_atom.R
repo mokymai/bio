@@ -87,7 +87,7 @@ is_git_installed <- function() {
 
 # Get path to Git.
 #
-# @return Path to Git as string of NULL, if Git is not installed or not configured properly.
+# @return Path to Git as string of NULL, if Git is not installed or not properly configured.
 # @export
 # @concept programs
 #
@@ -205,7 +205,7 @@ set_meld_as_git_difftool_mergetool <- function(path_to_meld = NULL,
   checkmate::assert_flag(trustExitCode)
 
   if (!is_git_installed()) {
-    stop("Git is either not installed or is not configured properly.")
+    stop("Git is either not installed or is not properly configured.")
   }
 
   if (is.null(path_to_meld)) {

@@ -312,7 +312,7 @@ check_program_installed <- function(program = "", condition = NULL,
     ui_done("{what} {blue(program)} is installed.")
 
   } else {
-    ui_oops("{what} {red(program)} is ether missing, not detected or not configured incorrectly.")
+    ui_oops("{what} {red(program)} is ether missing, not detected or configured incorrectly.")
   }
 }
 
