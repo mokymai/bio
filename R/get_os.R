@@ -1,4 +1,4 @@
-#' Determine operating system (OS).
+#' Determine Operating System (OS)
 #'
 #' Determine the operating system (OS) of your machine.
 #'
