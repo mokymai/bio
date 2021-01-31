@@ -36,15 +36,13 @@ a project interactively.}
 
 \item{negate}{(logical) If \code{TRUE}, then the options defined by  \code{pattern} are
 excluded.}
-
-\item{...}{Further arguments.}
 }
 \value{
 Opens the indicated project.
 }
 \description{
 Open RStudio project by name or interactively. The projects list is read from
-files that contain projeect lists.
+files that contain project lists.
 }
 \examples{
 \dontrun{\donttest{

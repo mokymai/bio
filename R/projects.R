@@ -64,7 +64,7 @@ extract_proj_name <- function(proj_path) {
 #' @param file (character) Path to file with RStudio projects.
 #' @param sort_by (`"name"`|`"path"`|[`FALSE`])
 #'
-#' @noRd
+#' @export
 #'
 #' @concept rstudio projects
 #'
@@ -148,7 +148,7 @@ get_proj_names <- function(file = get_path_recent_proj_list(),
 #' Open RStudio Project
 #'
 #' Open RStudio project by name or interactively. The projects list is read from
-#' files that contain projeect lists.
+#' files that contain project lists.
 #'
 #' @param name (string|`NULL`) The name of the project or `NULL` to choose
 #'       a project interactively.
@@ -165,7 +165,6 @@ get_proj_names <- function(file = get_path_recent_proj_list(),
 #'        possible options.
 #' @param negate (logical) If `TRUE`, then the options defined by  `pattern` are
 #'        excluded.
-#' @param ... Further arguments.
 #'
 #' @return Opens the indicated project.
 #' @export
