@@ -15,7 +15,7 @@
 
 
 #' @name RStudio-dictionaries
-#' @title RStudio dictionaries
+#' @title RStudio Dictionaries
 #' @description
 #' Functions to work with RStudio dictionaries.
 #'
