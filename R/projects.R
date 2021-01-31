@@ -28,7 +28,7 @@
 NULL
 
 #' @rdname parse_proj_path
-#' @export
+#' @noRd
 parse_proj_path <- function(proj_path) {
   tibble::tibble(
     name   = extract_proj_name(proj_path = proj_path),
