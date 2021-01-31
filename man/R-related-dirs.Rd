@@ -10,6 +10,10 @@ get_path_r_user_dir(...)
 
 open_r_user_dir()
 }
+\arguments{
+\item{...}{(string) Parts of path passed to \code{\link[fs:path_expand]{fs::path_home_r()}}, \code{\link[fs:path]{fs::path()}}
+and similar functions.}
+}
 \description{
 Directories of R-Related files.
 \itemize{
