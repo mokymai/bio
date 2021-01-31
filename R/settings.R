@@ -254,8 +254,8 @@ clear_r_history <- function(backup = TRUE) {
   unlink(tmp_file, recursive = TRUE, force = TRUE)
 }
 
-#' @rdname clear_and_reset
-#' @export
+# @rdname clear_and_reset
+# @noRd
 rstudio_clear_history <- function(backup = FALSE) {
   if (isTRUE(backup)) {
     rstudioapi::executeCommand("saveHistory", quiet = TRUE)
@@ -267,7 +267,7 @@ rstudio_clear_history <- function(backup = FALSE) {
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # @rdname clear_and_reset
-# @export
+# @noRd
 clear_r_workspace <- function() {
   # Clear R workspace
   object_names <- ls(all.names = TRUE, envir = .GlobalEnv)
