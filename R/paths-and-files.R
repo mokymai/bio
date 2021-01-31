@@ -82,6 +82,9 @@ open_desktop <- function() {
 #'
 #' - `get_path_r_user_dir()`-- gets path to the main R user directory.
 #'
+#' @param ... (string) Parts of path passed to [fs::path_home_r()], [fs::path()]
+#'        and similar functions.
+#'
 #' @concept paths and dirs
 #'
 #' @export
