@@ -8,6 +8,8 @@
 #' @param move_before (string)
 #' @param move_after (sting)
 #'
+#' @noRd
+#'
 #' @examples
 #' x <- c("a", "b", "d", "e", "c", "f")
 #' str_move_before(x, what = "c", move_before = "d")
@@ -22,8 +24,8 @@
 #' str_move_after(x, what = "c", move_after = "d")
 NULL
 
-#' @rdname str_move
-#' @export
+# @rdname str_move
+# @export
 str_move_before <- function(x, what, move_before) {
   checkmate::assert_string(what)
   checkmate::assert_string(move_before)
@@ -49,8 +51,8 @@ str_move_before <- function(x, what, move_before) {
 }
 
 
-#' @rdname str_move
-#' @export
+# @rdname str_move
+# @export
 str_move_after <- function(x, what, move_after) {
   checkmate::assert_string(what)
   checkmate::assert_string(move_after)
