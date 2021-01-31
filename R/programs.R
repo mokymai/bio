@@ -88,8 +88,9 @@ check_installed_programs <- function(type = "main", skip_online_check = FALSE) {
     } else {
       "Compiler (R Build Tools)"
     }
-  # TODO (SEE ALSO): rstudioapi::buildToolsCheck()
-  check_tool_installed(tool_name, pkgbuild::has_build_tools())
+  # TODO (SEE ALSO): rstudioapi::buildToolsCheck(); pkgbuild::has_build_tools()
+  # FIXME: Might not work properly if RStudio is not running
+  check_tool_installed(tool_name, rstudioapi::buildToolsCheck())
 
 
   # XQuartz (on Mac)
