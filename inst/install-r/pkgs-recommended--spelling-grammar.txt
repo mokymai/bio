@@ -1,2 +1,3 @@
+hunspell
 LanguageToolR
 wellspell.addin
