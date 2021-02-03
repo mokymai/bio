@@ -1,4 +1,5 @@
 DescTools
-summarytools
 dplyr
+summarytools
+gtsummary
 tidyverse
