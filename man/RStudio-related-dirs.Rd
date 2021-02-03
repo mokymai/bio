@@ -4,11 +4,9 @@
 \alias{RStudio-related-dirs}
 \alias{get_path_rstudio_config_dir}
 \alias{get_path_rstudio_internal_state_dir}
-\alias{get_path_rstudio_snippets_dir}
 \alias{get_path_rstudio_keybindings_dir}
 \alias{open_rstudio_config_dir}
 \alias{open_rstudio_internal_state_dir}
-\alias{open_rstudio_snippets_dir}
 \alias{open_rstudio_keybindings_dir}
 \title{Directories of RStudio-Related Files}
 \usage{
@@ -16,15 +14,11 @@ get_path_rstudio_config_dir(..., .check = FALSE)
 
 get_path_rstudio_internal_state_dir(..., .check = FALSE)
 
-get_path_rstudio_snippets_dir()
-
 get_path_rstudio_keybindings_dir()
 
 open_rstudio_config_dir()
 
 open_rstudio_internal_state_dir()
-
-open_rstudio_snippets_dir()
 
 open_rstudio_keybindings_dir()
 }
@@ -50,9 +44,6 @@ directory (and its sub-directories).
 get_path_rstudio_config_dir()
 
 get_path_rstudio_config_dir("dictionaries")
-}}
-\dontrun{\donttest{
-get_path_rstudio_snippets_dir()
 }}
 \dontrun{\donttest{
 get_path_rstudio_keybindings_dir()

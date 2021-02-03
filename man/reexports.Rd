@@ -4,6 +4,8 @@
 \name{reexports}
 \alias{reexports}
 \alias{open_backup_dir}
+\alias{get_path_rstudio_snippets_dir}
+\alias{open_rstudio_snippets_dir}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -12,5 +14,7 @@ below to see their documentation.
 
 \describe{
   \item{backup.tools}{\code{\link[backup.tools:get_path_backup_dir]{open_backup_dir}}}
+
+  \item{snippets}{\code{\link[snippets]{get_path_rstudio_snippets_dir}}, \code{\link[snippets]{open_rstudio_snippets_dir}}}
 }}
 
