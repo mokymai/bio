@@ -41,18 +41,16 @@ Convenience functions to facilitate installation and management of required reso
 This package is intended to be used with <b>RStudio 1.4</b> or newer.<br>
 </font>
 <font color="darkred" size=3>
-Functions do not work correctly with the previous versions of RStudio.<br>
-Tested on <em>Windows 10</em> (64-bit) only.
+Functions do not work correctly with the previous versions of RStudio.
 </font>
 <br><br><br>
 </center>
 
 Bug reports and your feedback are welcome at https://github.com/mokymai/bio/issues.
-In the report, indicate your operating system.
+In the report, indicate what operating system you are using.
 
 
 # Install
-
 
 To install this package from CRAN-like repository, use code (recommended):
 
