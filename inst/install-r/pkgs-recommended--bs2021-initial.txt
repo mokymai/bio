@@ -31,3 +31,5 @@ readxl
 usethis
 rstudioapi
 tinytex
+hunspell
+wellspell.addin
