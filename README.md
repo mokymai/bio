@@ -119,9 +119,6 @@ returned by function `bio::get_pkg_lists_local()` and they include:
   - `'linear-regression'`
   - `'markdown'`
   - `'mini'`
-  - `'r2020-s11'`
-  - `'r2020v-s11'`
-  - `'r2020v-s12'`
   - `'rcmdr-biostat'`
   - `'rcmdr'`
   - `'snippets'`
