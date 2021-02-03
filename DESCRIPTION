@@ -36,7 +36,7 @@ Imports:
   readr,
   remotes,
   rstudioapi (>= 0.13),
-  snippets (>= 0.0.5),
+  snippets (>= 0.0.9),
   stringr,
   styler,
   tibble,
