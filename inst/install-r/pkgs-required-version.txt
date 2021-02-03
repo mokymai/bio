@@ -24,7 +24,7 @@ cowplot                     | 1.1.1            | FALSE  | -
 data.table                  | 1.13.6           | FALSE  | -
 DescTools                   | 0.99.39          | FALSE  | -
 devtools                    | 2.3.2            | FALSE  | -
-dplyr                       | 1.0.3            | FALSE  | -
+dplyr                       | 1.0.4            | FALSE  | -
 DT                          | 0.17             | FALSE  | -
 effects                     | 4.2-0            | FALSE  | Rcmdr
 effectsize                  | 0.4.3            | FALSE  | -
