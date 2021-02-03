@@ -252,22 +252,6 @@ get_path_rstudio_internal_state_dir <- function(..., .check = FALSE) {
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' @rdname RStudio-related-dirs
-#'
-#' @concept paths and dirs
-#' @export
-#' @examples
-#' \dontrun{\donttest{
-#' get_path_rstudio_snippets_dir()
-#' }}
-
-get_path_rstudio_snippets_dir <- function() {
-  get_path_rstudio_config_dir("snippets")
-}
-
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @rdname RStudio-related-dirs
 #' @concept paths and dirs
@@ -297,12 +281,6 @@ open_rstudio_config_dir <- function() {
 #' @export
 open_rstudio_internal_state_dir <- function() {
   browseURL(get_path_rstudio_internal_state_dir())
-}
-
-#' @rdname RStudio-related-dirs
-#' @export
-open_rstudio_snippets_dir <- function() {
-  browseURL(get_path_rstudio_snippets_dir())
 }
 
 #' @rdname RStudio-related-dirs
