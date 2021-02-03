@@ -371,7 +371,8 @@ get_pkgs_non_cran_installation_details <- function(
   file <- get_path_pkgs_non_cran_installation_details(use_local_list)
   # text <- download_from_github_with_curl(file)
   tbl <- read.table(file, skip = 10, header = TRUE, sep = "|",
-    strip.white = TRUE, na.strings = c("NA", "-"), stringsAsFactors = FALSE)
+    strip.white = TRUE, na.strings = c("NA", "-"), stringsAsFactors = FALSE,
+    comment.char = "")
 
   remove_ignored_rows(tbl)
 }
