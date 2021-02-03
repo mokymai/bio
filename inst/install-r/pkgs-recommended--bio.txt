@@ -9,7 +9,6 @@ dplyr
 desc
 fs
 jsonlite
-pander
 pingr
 purrr
 readr

@@ -212,8 +212,10 @@ get_path_rstudio_config_dir <- function(..., .check = FALSE) {
                   fs::path_expand_r("~/.config/rstudio")    # Other OS'es
     )
 
-  base <- Sys.getenv("XDG_CONFIG_DIRS",    unset = base)
-  base <- Sys.getenv("RSTUDIO_CONFIG_DIR", unset = base)
+  base <- Sys.getenv("XDG_CONFIG_DIRS",     unset = base) # Scope: system
+  base <- Sys.getenv("XDG_CONFIG_HOME",     unset = base) # Scope: user
+  base <- Sys.getenv("RSTUDIO_CONFIG_DIR",  unset = base) # Scope: system
+  base <- Sys.getenv("RSTUDIO_CONFIG_HOME", unset = base) # Scope: user
 
   if (.check) {
     path_construct_and_check(base, ...)

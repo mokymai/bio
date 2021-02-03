@@ -111,7 +111,7 @@ rstudio_download_spellcheck_dictionaries <- function(secure = TRUE) {
 #' @export
 #' @concept r and rstudio settings
 #' @concept dictionaries
-rstudio_install_spellcheck_dictionary_lt <- function(secure = TRUE) {
+rstudio_install_spellcheck_dictionary_lt <- function() {
   dic_dir <- get_path_rstudio_config_dir("dictionaries/languages-system")
   zipped_dict <- system.file("dictionaries/lt_LT.zip", package = "bio")
   unzip(zipped_dict, exdir = dic_dir)

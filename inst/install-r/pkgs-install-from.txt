@@ -22,6 +22,7 @@ ggmosaic                | github        | haleyjeppson/ggmosaic                 
 ggpie                   | github        | rkabacoff/ggpie                        | FALSE  | -
 ggtext                  | github        | clauswilke/ggtext                      | TRUE   | -
 gridtext                | github        | clauswilke/gridtext                    | TRUE   | -
+hunspell                | github        | ropensci/hunspell#48                   | FALSE  | -
 icon                    | github        | ropenscilabs/icon                      | FALSE  | -
 LanguageToolR           | github        | nevrome/LanguageToolR                  | FALSE  | -
 latex2exp               | github        | stefano-meschiari/latex2exp            | FALSE  | -

@@ -9,7 +9,7 @@
 \usage{
 rstudio_download_spellcheck_dictionaries(secure = TRUE)
 
-rstudio_install_spellcheck_dictionary_lt(secure = TRUE)
+rstudio_install_spellcheck_dictionary_lt()
 
 rstudio_delete_spellcheck_dictionaries(ask = TRUE)
 }
