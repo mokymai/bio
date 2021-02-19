@@ -236,12 +236,26 @@ get_path_rstudio_internal_state_dir <- function(..., .check = FALSE) {
   # Windows:       %localappdata%\RStudio-Desktop
   # Linux/Mac:     ~/.rstudio-desktop
 
-  base <-
-    switch(get_os_type(),
-      "windows" = fs::path(Sys.getenv("LOCALAPPDATA"), "RStudio-Desktop"),
-      # Linux / Mac OS X:
-      fs::path_expand("~/.rstudio-desktop")
-    )
+
+  if (rstudioapi::isAvailable() && rstudioapi::versionInfo()$version >= 1.4) {
+    # RStudio 1.4
+    base <-
+      switch(get_os_type(),
+        "windows" = fs::path(Sys.getenv("LOCALAPPDATA"), "RStudio"),
+        # Linux / Mac OS X:
+        # FIXME: not sure if this is the correct path
+        fs::path_expand("~/.rstudio")
+      )
+
+  } else {
+    # RStudio 1.3 or older
+    base <-
+      switch(get_os_type(),
+        "windows" = fs::path(Sys.getenv("LOCALAPPDATA"), "RStudio-Desktop"),
+        # Linux / Mac OS X:
+        fs::path_expand("~/.rstudio-desktop")
+      )
+  }
 
   if (.check) {
     path_construct_and_check(base, ...)
@@ -331,8 +345,8 @@ get_path_rstudio_config_file <- function(which = "current") {
 
 #' @rdname RStudio-config-file
 #' @export
-open_rstudio_config_file <- function() {
-  open_in_rstudio(path = get_path_rstudio_config_file())
+open_rstudio_config_file <- function(which = "current") {
+  open_in_rstudio(path = get_path_rstudio_config_file(which = which))
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
