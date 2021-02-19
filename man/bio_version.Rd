@@ -26,7 +26,7 @@ update_pkg_bio(upgrade = TRUE, force = FALSE, quiet = TRUE)
 \item{upgrade}{Upgrade dependencies.
 See \code{upgrade} in \code{\link[remotes:install_cran]{remotes::install_cran()}}.}
 
-\item{...}{Arguments to further methods.}
+\item{...}{Further arguments passed to \code{\link[remotes:install_cran]{remotes::install_cran()}}.}
 
 \item{force}{(logical) \code{TRUE} or \code{FALSE}.
 Force to update.
