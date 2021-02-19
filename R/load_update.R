@@ -18,17 +18,22 @@
 check_updates_rcmdr_biostat <- function(show_status = "always",
   install = "outdated", upgrade = TRUE, ...) {
 
-  # get_pkgs_installation_status(list_name = "Rcmdr-biostat", show_status = show_status,
-  #   install = install, ...)
-  check_packages_by_topic(list_name = "Rcmdr-biostat", show_status = show_status,
-    install = install, upgrade = upgrade, ...)
+  check_packages_by_topic(
+    list_name = "Rcmdr-biostat",
+    show_status = show_status,
+    install = install,
+    upgrade = upgrade,
+    ...
+  )
 }
 
 #' @rdname update_pkg_rcmdr_biostat
 #' @export
-update_pkg_rcmdr_biostat <- function(upgrade = TRUE, force = FALSE, quiet = TRUE) {
-  update_pkg_from_github("RcmdrPlugin.biostat", "GegznaV/RcmdrPlugin.biostat",
-    "Rcmdr-biostat", upgrade = upgrade, force = force, quiet = quiet)
+update_pkg_rcmdr_biostat <- function(upgrade = TRUE, force = FALSE, ...) {
+  repos <- c("https://mokymai.github.io/download/", getOption("repos"))
+  remotes::install_cran(
+    "RcmdrPlugin.biostat", repos = repos, upgrade = upgrade, force = force, ...
+  )
 }
 
 #' Update '\pkg{snippets}' and related packages
@@ -44,12 +49,16 @@ update_pkg_rcmdr_biostat <- function(upgrade = TRUE, force = FALSE, quiet = TRUE
 #' update_pkg_snippets()
 #'
 #' }}
-update_pkg_snippets <- function(upgrade = TRUE, force = FALSE, quiet = TRUE) {
-  update_pkg_from_github("snippets", "GegznaV/snippets", "snippets",
-    upgrade = upgrade, force = force, quiet = quiet)
+update_pkg_snippets <- function(upgrade = TRUE, force = FALSE, ...) {
+  repos <- c("https://mokymai.github.io/download/", getOption("repos"))
+  remotes::install_cran(
+    "snippets", repos = repos, upgrade = upgrade, force = force, ...
+  )
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# FIXME: This function is not used anymore
+#
 update_pkg_from_github <- function(pkg = "", github_repo = "", update_list = "",
   upgrade = TRUE, force = FALSE, quiet = TRUE) {
   checkmate::assert_string(pkg)
@@ -59,19 +68,8 @@ update_pkg_from_github <- function(pkg = "", github_repo = "", update_list = "",
   checkmate::assert_flag(quiet)
   upgrade_str <- chk_arg_upgrade(upgrade)
 
-  force_str <-
-    if (force) {
-      ", force = TRUE"
-    } else {
-      ""
-    }
-
-  quiet_str <-
-    if (quiet) {
-      ", quiet = TRUE"
-    } else {
-      ""
-    }
+  force_str <- if (force) {", force = TRUE"} else {""}
+  quiet_str <- if (quiet) {", quiet = TRUE"} else {""}
 
   if (rstudioapi::isAvailable(version_needed = "1.1.281")) {
 

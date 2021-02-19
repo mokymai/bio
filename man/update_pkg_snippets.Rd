@@ -4,7 +4,7 @@
 \alias{update_pkg_snippets}
 \title{Update '\pkg{snippets}' and related packages}
 \usage{
-update_pkg_snippets(upgrade = TRUE, force = FALSE, quiet = TRUE)
+update_pkg_snippets(upgrade = TRUE, force = FALSE, ...)
 }
 \arguments{
 \item{upgrade}{Upgrade dependencies.
@@ -14,9 +14,7 @@ See \code{upgrade} in \code{\link[remotes:install_cran]{remotes::install_cran()}
 Force to update.
 See \code{force} in \code{\link[remotes:install_cran]{remotes::install_cran()}}.}
 
-\item{quiet}{(logical) \code{TRUE} or \code{FALSE}.
-Should installation messages be printed?
-See \code{quiet} in \code{\link[remotes:install_cran]{remotes::install_cran()}}.}
+\item{...}{Further arguments passed to \code{\link[remotes:install_cran]{remotes::install_cran()}}.}
 }
 \description{
 Update '\pkg{snippets}' and related packages

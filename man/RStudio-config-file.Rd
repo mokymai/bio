@@ -8,7 +8,7 @@
 \usage{
 get_path_rstudio_config_file(which = "current")
 
-open_rstudio_config_file()
+open_rstudio_config_file(which = "current")
 }
 \arguments{
 \item{which}{(character) type of settings: "current", "bio-default".}

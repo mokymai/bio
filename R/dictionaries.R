@@ -2,7 +2,6 @@
 
 # Dictionaries:
 # https://github.com/wooorm/dictionaries
-#
 
 # Language spelling checking tools
 # https://github.com/nevrome/wellspell.addin

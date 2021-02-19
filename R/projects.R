@@ -70,6 +70,11 @@ extract_proj_name <- function(proj_path) {
 #'
 read_projects <- function(file, sort_by = FALSE) {
 
+  if (is.null(file) || !file.exists(file)) {
+    warning("File was not found: ", file)
+    return(NULL)
+  }
+
   projs   <- readr::read_lines(file)
   projs   <- stringr::str_subset(projs, "^\\s*$", negate = TRUE)
   proj_df <- parse_proj_path(projs)
