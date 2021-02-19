@@ -71,7 +71,7 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
 
     if (ans) {
       usethis::ui_warn("Cancelled.")
-      return(invisible())
+      return(invisible(NULL))
     }
   }
 
