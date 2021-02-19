@@ -64,10 +64,22 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
   checkmate::assert_choice(to, user_settings_defaults)
 
   if (isTRUE(ask)) {
-    ans <- usethis::ui_nope(
-      "Do you want to reset RStudio user settings to {ui_value(to)}?"
-    )
-    # ans <- usethis::ui_nope("...", yes = "Yes")
+    rstudio_clear_console_ask()
+
+    if (rstudioapi::isAvailable(version_needed = "1.1.67")) {
+      ans <-
+        rstudioapi::showQuestion(
+          "Change User Settings",
+          glue::glue("Do you want to set RStudio user settings to '{to}'?"),
+          "No", "Yes"
+        )
+
+    } else {
+      ans <- usethis::ui_nope(
+        "Do you want to set RStudio user settings to {ui_value(to)}?",
+        yes = "Yes"
+      )
+    }
 
     if (ans) {
       usethis::ui_warn("Cancelled.")
@@ -92,13 +104,15 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
     "bio-default" = ,
     "bio-dark-blue" = ,
     "bio-black" = {
-      file_default <- get_path_rstudio_config_file(which = "bio")
-      # TODO: change this value, when default UI preferences change:
+      # Change default dir if dfault UI preferences change
       fs::dir_create("~/R/darbinis", recurse = TRUE)
-      fs::dir_create(fs::path_dir(file_current), recurse = TRUE)
-      fs::file_copy(file_default, file_current,  overwrite = TRUE)
-      success <-
-        unname(tools::md5sum(file_default) == tools::md5sum(file_current))
+
+      file_default <- get_path_rstudio_config_file(which = "bio")
+      success <- set_rstudio_preferences(file_default)
+      # fs::dir_create(fs::path_dir(file_current), recurse = TRUE)
+      # fs::file_copy(file_default, file_current,  overwrite = TRUE)
+      # success <-
+      #   unname(tools::md5sum(file_default) == tools::md5sum(file_current))
     },
 
     usethis::ui_stop(paste0(
@@ -118,6 +132,7 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
 
   if (isTRUE(success)) {
     usethis::ui_done("RStudio user settings were set to {green(to)}.")
+    rstudio_reload_ui()
     ui_msg_restart_rstudio()
 
   } else {
@@ -125,6 +140,23 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
   }
 }
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Read preferencef from JSON file and set them in RStudio
+set_rstudio_preferences <- function(file) {
+  pref <-
+    readr::read_lines(file) %>%
+    jsonlite::parse_json() %>%
+    purrr::map_chr(~ {
+      if (is.character(.)) paste0("'", ., "'") else as.character(.)
+    })
+
+  fun <- "rstudioapi::writeRStudioPreference"
+  txt <- glue::glue("{fun}('{names(pref)}', {unname(pref)})\n")
+
+  eval(parse(text = txt))
+
+  TRUE
+}
 
 
 # Find the names of the preferences at:
