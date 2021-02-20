@@ -1,8 +1,8 @@
 Package: bio
 Type: Package
 Title: Resources Manager for BS-2021 and R-2021
-Version: 0.1.0
-Date: 2020-02-03
+Version: 0.1.1
+Date: 2020-02-19
 Authors@R: 
     person("Vilmantas", "Gegzna", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-9500-5167"),
@@ -30,6 +30,7 @@ Imports:
   dplyr,
   fs,
   glue,
+  jsonlite,
   magrittr,
   pingr,
   purrr,
@@ -41,7 +42,7 @@ Imports:
   styler,
   tibble,
   tidyr,
-  usethis,
+  usethis (>= 2.0.1),
   withr
 Suggests: 
   covr,

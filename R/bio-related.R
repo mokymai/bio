@@ -40,8 +40,8 @@ check_updates_pkg_bio  <- function(show_status = "always", install = "outdated",
 
   # get_pkgs_installation_status(list_name = "bio", show_status = show_status,
   # install = install, ...)
-
 }
+
 
 #' @rdname bio_version
 #'
@@ -54,6 +54,7 @@ check_updates_pkg_bio  <- function(show_status = "always", install = "outdated",
 #' @param quiet (logical) `TRUE` or `FALSE`.
 #'        Should installation messages be printed?
 #'        See `quiet` in [remotes::install_cran()].
+#' @param ... Further arguments passed to [remotes::install_cran()].
 #'
 #' @export
 #' @concept packages
@@ -84,10 +85,13 @@ update_pkg_bio <- function(upgrade = TRUE, force = FALSE, quiet = TRUE) {
 
   } else {
     repos <- c("https://mokymai.github.io/download/", getOption("repos"))
-    remotes::install_cran(c("backup.tools", "snippets", "bio"), repos = repos,
-      dependencies = TRUE, upgrade = upgrade, force = force, quiet = quiet)
+    remotes::install_cran(
+      c("backup.tools", "snippets", "bio"), repos = repos,
+      dependencies = TRUE, upgrade = upgrade, force = force, quiet = quiet
+    )
     bio::get_vesion_pkg_bio()
-    bio::check_packages_by_topic("bio", show_status = "newer_on_cran",
-      upgrade = upgrade)
+    bio::check_packages_by_topic(
+      "bio", show_status = "newer_on_cran", upgrade = upgrade
+    )
   }
 }

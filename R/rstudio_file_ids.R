@@ -22,7 +22,13 @@ get_rstudio_file_ids <- function() {
 # @concept paths and dirs
 # @export
 get_rstudio_file_ids_user <- function() {
-  get_path_rstudio_internal_state_dir("notebooks/paths") %>%
+  f_dir <- get_path_rstudio_internal_state_dir("notebooks/paths")
+
+  if (!dir.exists(f_dir)) {
+    return(NULL)
+  }
+
+  f_dir %>%
     readr::read_lines() %>%
     tibble::as_tibble() %>%
     dplyr::transmute(

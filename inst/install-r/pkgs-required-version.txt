@@ -1,6 +1,6 @@
 ---
 title: "Minimal required versions of packages"
-date:  2021-02-03
+date:  2021-02-19
 notes: ""
 
 
@@ -13,7 +13,7 @@ addin.tools                 | 0.0.9            | FALSE  | -
 addins.rmd                  | 0.0.10           | FALSE  | -
 addins.rs                   | 0.0.9            | FALSE  | -
 backup.tools                | 0.0.1            | FALSE  | -
-bio                         | 0.1.0            | FALSE  | -
+bio                         | 0.1.1            | FALSE  | -
 blogdown                    | 1.1              | FALSE  | -
 bookdown                    | 0.21             | FALSE  | -
 broom                       | 0.7.3            | FALSE  | -

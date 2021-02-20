@@ -34,3 +34,4 @@ tinytex
 hunspell
 wellspell.addin
 gtsummary
+pacman
