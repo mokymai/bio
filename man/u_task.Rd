@@ -9,10 +9,10 @@
 \usage{
 u_create_filename(
   uzduoties_nr,
-  varianto_nr = NULL,
-  specialybe = NULL,
-  pavarde = NULL,
-  vardas = NULL,
+  varianto_nr,
+  specialybe,
+  pavarde,
+  vardas,
   patikslinimas = "",
   dokumento_formatas = NULL
 )
