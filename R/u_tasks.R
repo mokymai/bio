@@ -20,7 +20,7 @@ decode_speciality <- function(code) {
     "molbio"  = "molekuline biologija" ,
     "neurbf"  = "neurobiofizika"       ,
     # stop("Unknown code = '", code, "'")
-    "(?) UNIDENTIFIED"
+    paste0("(?) UNIDENTIFIED VALUE [ ", code ," ]")
   )
 }
 
@@ -84,11 +84,11 @@ encode_speciality <- function(specialybe) {
 #' u_parse_filename("U03-v000-[molekuline]-[Pavarde3]-[Vardas].zip")
 u_create_filename <- function(
   uzduoties_nr,
-  varianto_nr        = NULL,
-  specialybe         = NULL,
-  pavarde            = NULL,
-  vardas             = NULL,
-  patikslinimas    = "",
+  varianto_nr,
+  specialybe,
+  pavarde,
+  vardas,
+  patikslinimas = "",
   dokumento_formatas = NULL
 ) {
 
@@ -124,7 +124,7 @@ u_parse_filename <- function(x) {
       "-\\[(?<pavarde>[A-Za-z-]*?)\\]",
       "-\\[(?<vardas>[A-Za-z-]*?)\\]",
       "(-(?<patikslinimas>[a-z]*?))?",
-      "[.](?<dokumento_formatas>[a-z]*?)$"
+      "[.](?<dokumento_formatas>[A-Za-z]*?)$"
     )) %>%
     {purrr::quietly(tibble::as_tibble)}(.name_repair = "unique") %>%
     .$result %>%
@@ -133,6 +133,18 @@ u_parse_filename <- function(x) {
       specialybe = decode_speciality(specialybe),
       pavarde = stringr::str_replace_all(pavarde, "-", " "),
       vardas  = stringr::str_replace_all(vardas, "-", " "),
+      patikslinimas =
+        dplyr::if_else(
+          !tolower(patikslinimas) %in% c("", "sertifikatas", "konspektas"),
+          paste("(?) UNIDENTIFIED VALUE [ ", patikslinimas, " ]"),
+          patikslinimas
+        ),
+      dokumento_formatas =
+        dplyr::if_else(
+          !tolower(dokumento_formatas) %in% c("pdf", "zip"),
+          paste("(?) UNSUPPORTED EXTENSION [ ", dokumento_formatas, " ]"),
+          dokumento_formatas
+        )
     ) %>%
     as.matrix() %>%
     t() %>%
@@ -153,3 +165,4 @@ u_check_filename <- function(x) {
       "(-[a-z]*?)?[.][a-z]*?" # additional info and extension
     ))
 }
+
