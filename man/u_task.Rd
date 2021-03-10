@@ -63,10 +63,22 @@ u_create_filename(
   dokumento_formatas = "pdf"
 )
 
+u_create_filename(
+  uzduoties_nr       = 10,
+  varianto_nr        = 000,
+  specialybe         = "molekuline biologija",
+  pavarde            = "Pavarde",
+  vardas             = "Vardas Antras"
+)
+
 u_check_filename("U01-v000-[molbio]-[Pavarde]-[Vardas-Antras]-sertifikatas.pdf")
 u_parse_filename("U01-v000-[molbio]-[Pavarde]-[Vardas-Antras]-sertifikatas.pdf")
 
+u_check_filename("U03-v000-[molekuline]-[Pavarde]-[Vardas].zip")
 u_parse_filename("U03-v000-[molekuline]-[Pavarde]-[Vardas].zip")
+
+u_check_filename("U03-v000-[biofiz]-[Pavarde]-[Vardas]")
+u_parse_filename("U03-v000-[biofiz]-[Pavarde]-[Vardas]")
 
 # Incorrect family name:
 u_parse_filename("U03-v000-[molekuline]-[Pavarde3]-[Vardas].zip")

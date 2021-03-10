@@ -75,10 +75,22 @@ encode_speciality <- function(specialybe) {
 #'   dokumento_formatas = "pdf"
 #' )
 #'
+#' u_create_filename(
+#'   uzduoties_nr       = 10,
+#'   varianto_nr        = 000,
+#'   specialybe         = "molekuline biologija",
+#'   pavarde            = "Pavarde",
+#'   vardas             = "Vardas Antras"
+#' )
+#'
 #' u_check_filename("U01-v000-[molbio]-[Pavarde]-[Vardas-Antras]-sertifikatas.pdf")
 #' u_parse_filename("U01-v000-[molbio]-[Pavarde]-[Vardas-Antras]-sertifikatas.pdf")
 #'
+#' u_check_filename("U03-v000-[molekuline]-[Pavarde]-[Vardas].zip")
 #' u_parse_filename("U03-v000-[molekuline]-[Pavarde]-[Vardas].zip")
+#'
+#' u_check_filename("U03-v000-[biofiz]-[Pavarde]-[Vardas]")
+#' u_parse_filename("U03-v000-[biofiz]-[Pavarde]-[Vardas]")
 #'
 #' # Incorrect family name:
 #' u_parse_filename("U03-v000-[molekuline]-[Pavarde3]-[Vardas].zip")
@@ -98,7 +110,7 @@ u_create_filename <- function(
   checkmate::assert_string(pavarde)
   checkmate::assert_string(vardas)
   checkmate::assert_string(patikslinimas)
-  checkmate::assert_string(dokumento_formatas)
+  checkmate::assert_string(dokumento_formatas, null.ok = TRUE)
 
   task <- sprintf("%02i", uzduoties_nr)
   vers <- sprintf("%03i", varianto_nr)
@@ -107,10 +119,16 @@ u_create_filename <- function(
   vard    <- format_name(vardas)
   more    <- to_ascii_lower(patikslinimas)
   more    <- if (more == "") "" else paste0("-", more)
-  ext     <- to_ascii_lower(dokumento_formatas)
+
+  if (is.null(dokumento_formatas)) {
+    ext <- ""
+  } else {
+    ext <- paste0(".", to_ascii_lower(dokumento_formatas))
+  }
+
   spec    <- encode_speciality(specialybe)
 
-  stringr::str_glue("U{task}-v{vers}-[{spec}]-[{pavarde}]-[{vard}]{more}.{ext}")
+  stringr::str_glue("U{task}-v{vers}-[{spec}]-[{pavarde}]-[{vard}]{more}{ext}")
 }
 
 #' @rdname u_task
@@ -124,11 +142,11 @@ u_parse_filename <- function(x) {
       "-\\[(?<pavarde>[A-Za-z-]*?)\\]",
       "-\\[(?<vardas>[A-Za-z-]*?)\\]",
       "(-(?<patikslinimas>[a-z]*?))?",
-      "[.](?<dokumento_formatas>[A-Za-z]*?)$"
+      "([.](?<dokumento_formatas>[A-Za-z]*?))?$"
     )) %>%
     {purrr::quietly(tibble::as_tibble)}(.name_repair = "unique") %>%
     .$result %>%
-    dplyr::select(-...6, -.text, -.match) %>%
+    dplyr::select(-...6, -...8, -.text, -.match) %>%
     dplyr::mutate(
       specialybe = decode_speciality(specialybe),
       pavarde = stringr::str_replace_all(pavarde, "-", " "),
@@ -140,10 +158,10 @@ u_parse_filename <- function(x) {
           patikslinimas
         ),
       dokumento_formatas =
-        dplyr::if_else(
-          !tolower(dokumento_formatas) %in% c("pdf", "zip"),
-          paste("(?) UNSUPPORTED EXTENSION [ ", dokumento_formatas, " ]"),
-          dokumento_formatas
+        dplyr::case_when(
+          dokumento_formatas == ""                          ~ "[ FOLDER ]",
+          tolower(dokumento_formatas) %in% c("pdf", "zip")  ~ dokumento_formatas,
+          TRUE ~ paste("(?) UNSUPPORTED EXTENSION [ ", dokumento_formatas, " ]")
         )
     ) %>%
     as.matrix() %>%
@@ -162,7 +180,7 @@ u_check_filename <- function(x) {
     paste0(
       "U(\\d{2})-v(\\d{3})", # technical info
       "-\\[[a-z]*?\\]-\\[([A-Za-z-]*?)\\]-\\[([A-Za-z-]*?)\\]", # user name info
-      "(-[a-z]*?)?[.][a-z]*?" # additional info and extension
+      "(-[a-z]*?)?([.][a-z]*?)?$" # additional info and extension
     ))
 }
 
