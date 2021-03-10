@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
       </span>
     </div>
 
@@ -210,6 +210,14 @@ correct and <code>FALSE</code> otherwise.</p></li>
   dokumento_formatas <span class='op'>=</span> <span class='st'>"pdf"</span>
 <span class='op'>)</span>
 </div><div class='output co'>#&gt; U01-v000-[molbio]-[Pavarde]-[Vardas-Antras]-sertifikatas.pdf</div><div class='input'>
+<span class='fu'>u_create_filename</span><span class='op'>(</span>
+  uzduoties_nr       <span class='op'>=</span> <span class='fl'>10</span>,
+  varianto_nr        <span class='op'>=</span> <span class='fl'>000</span>,
+  specialybe         <span class='op'>=</span> <span class='st'>"molekuline biologija"</span>,
+  pavarde            <span class='op'>=</span> <span class='st'>"Pavarde"</span>,
+  vardas             <span class='op'>=</span> <span class='st'>"Vardas Antras"</span>
+<span class='op'>)</span>
+</div><div class='output co'>#&gt; U10-v000-[molbio]-[Pavarde]-[Vardas-Antras]</div><div class='input'>
 <span class='fu'>u_check_filename</span><span class='op'>(</span><span class='st'>"U01-v000-[molbio]-[Pavarde]-[Vardas-Antras]-sertifikatas.pdf"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>u_parse_filename</span><span class='op'>(</span><span class='st'>"U01-v000-[molbio]-[Pavarde]-[Vardas-Antras]-sertifikatas.pdf"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;             Kategorija              Reiksme
@@ -220,7 +228,8 @@ correct and <code>FALSE</code> otherwise.</p></li>
 #&gt; 5             vardas:         Vardas Antras
 #&gt; 6      patikslinimas:          sertifikatas
 #&gt; 7 dokumento_formatas:                   pdf</div><div class='input'>
-<span class='fu'>u_parse_filename</span><span class='op'>(</span><span class='st'>"U03-v000-[molekuline]-[Pavarde]-[Vardas].zip"</span><span class='op'>)</span>
+<span class='fu'>u_check_filename</span><span class='op'>(</span><span class='st'>"U03-v000-[molekuline]-[Pavarde]-[Vardas].zip"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>u_parse_filename</span><span class='op'>(</span><span class='st'>"U03-v000-[molekuline]-[Pavarde]-[Vardas].zip"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;             Kategorija                               Reiksme
 #&gt; 1       uzduoties_nr:                                    U03
 #&gt; 2        varianto_nr:                                    000
@@ -229,6 +238,16 @@ correct and <code>FALSE</code> otherwise.</p></li>
 #&gt; 5             vardas:                                 Vardas
 #&gt; 6      patikslinimas:                                       
 #&gt; 7 dokumento_formatas:                                    zip</div><div class='input'>
+<span class='fu'>u_check_filename</span><span class='op'>(</span><span class='st'>"U03-v000-[biofiz]-[Pavarde]-[Vardas]"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>u_parse_filename</span><span class='op'>(</span><span class='st'>"U03-v000-[biofiz]-[Pavarde]-[Vardas]"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;             Kategorija    Reiksme
+#&gt; 1       uzduoties_nr:         U03
+#&gt; 2        varianto_nr:         000
+#&gt; 3         specialybe:   biofizika
+#&gt; 4            pavarde:     Pavarde
+#&gt; 5             vardas:      Vardas
+#&gt; 6      patikslinimas:            
+#&gt; 7 dokumento_formatas:  [ FOLDER ]</div><div class='input'>
 <span class='co'># Incorrect family name:</span>
 <span class='fu'>u_parse_filename</span><span class='op'>(</span><span class='st'>"U03-v000-[molekuline]-[Pavarde3]-[Vardas].zip"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;             Kategorija                            Reiksme
