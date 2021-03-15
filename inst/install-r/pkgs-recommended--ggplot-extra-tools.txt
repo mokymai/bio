@@ -25,6 +25,8 @@ autoplotly
 paletteer
 ggtext
 
+latex2exp
+
 officer
 rvg
 
