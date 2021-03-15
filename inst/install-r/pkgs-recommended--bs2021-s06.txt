@@ -21,7 +21,7 @@ ymlthis
 
 DT
 
-latex2exp
+janitor
 
 wellspell.addin
 
