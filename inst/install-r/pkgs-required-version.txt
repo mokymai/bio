@@ -1,6 +1,6 @@
 ---
 title: "Minimal required versions of packages"
-date:  2021-03-07
+date:  2021-03-15
 notes: ""
 
 
@@ -13,7 +13,7 @@ addin.tools                 | 0.0.9            | FALSE  | -
 addins.rmd                  | 0.0.10           | FALSE  | -
 addins.rs                   | 0.0.9            | FALSE  | -
 backup.tools                | 0.0.1            | FALSE  | -
-bio                         | 0.1.2            | FALSE  | -
+bio                         | 0.1.3            | FALSE  | -
 blogdown                    | 1.1              | FALSE  | -
 bookdown                    | 0.21             | FALSE  | -
 broom                       | 0.7.3            | FALSE  | -
@@ -22,24 +22,24 @@ citr                        | 0.3.2            | FALSE  | -
 correlation                 | 0.5.0            | FALSE  | -
 cowplot                     | 1.1.1            | FALSE  | -
 data.table                  | 1.13.6           | FALSE  | -
-DescTools                   | 0.99.39          | FALSE  | -
+DescTools                   | 0.99.40          | FALSE  | -
 devtools                    | 2.3.2            | FALSE  | -
-dplyr                       | 1.0.4            | FALSE  | -
+dplyr                       | 1.0.5            | FALSE  | -
 DT                          | 0.17             | FALSE  | -
 effects                     | 4.2-0            | FALSE  | Rcmdr
-effectsize                  | 0.4.3            | FALSE  | -
+effectsize                  | 0.4.4            | FALSE  | -
 effsize                     | 0.8.1            | FALSE  | -
 esquisse                    | 0.3.1            | FALSE  | -
 factoextra                  | 1.0.7            | FALSE  | -
 flextable                   | 0.6.2            | FALSE  | -
-forcats                     | 0.5.0            | FALSE  | -
+forcats                     | 0.5.1            | FALSE  | -
 fs                          | 1.5.0            | FALSE  | -
 ggforce                     | 0.3.2            | FALSE  | -
 gghighlight                 | 0.3.1            | FALSE  | -
-ggmosaic                    | 0.3.0            | FALSE  | -
+ggmosaic                    | 0.3.3            | FALSE  | -
 ggplot2                     | 3.3.3            | FALSE  | -
 ggpubr                      | 0.4.0            | FALSE  | -
-ggstatsplot                 | 0.6.8            | FALSE  | -
+ggstatsplot                 | 0.7.1            | FALSE  | -
 ggtext                      | 0.1.1            | FALSE  | -
 glue                        | 1.4.2            | FALSE  | -
 gt                          | 0.2.2            | FALSE  | -
@@ -54,15 +54,16 @@ knitr                       | 1.31             | FALSE  | -
 LanguageToolR               | 0.1.3            | FALSE  | -
 latex2exp                   | 0.4.0            | FALSE  | -
 lm.beta                     | 1.5-1            | FALSE  | -
-magick                      | 2.6.0            | FALSE  | -
+magick                      | 2.7.0            | FALSE  | -
 magrittr                    | 2.0.1            | FALSE  | -
-mlr3                        | 0.9.0            | FALSE  | -
+mlr3                        | 0.11.0           | FALSE  | -
 mlr3verse                   | 0.1.3            | FALSE  | -
-mlr                         | 2.18.0           | FALSE  | -
+mlr                         | 2.19.0           | FALSE  | -
 multcomp                    | 1.4-15           | FALSE  | Rcmdr
-officer                     | 0.3.16           | FALSE  | -
+officer                     | 0.3.17           | FALSE  | -
 openxlsx                    | 4.2.3            | FALSE  | -
 pander                      | 0.6.4            | FALSE  | -
+patchwork                   | 1.1.1            | FALSE  | -
 pkgdown                     | 1.6.1            | FALSE  | -
 plotly                      | 4.9.3            | FALSE  | -
 purrr                       | 0.3.4            | FALSE  | -
@@ -77,29 +78,29 @@ readxl                      | 1.3.1            | FALSE  | -
 relimp                      | 1.0-5            | FALSE  | Rcmdr
 remotes                     | 2.2.0            | FALSE  | -
 rgl                         | 0.96.0           | FALSE  | Rcmdr
-rlang                       | 0.4.7            | FALSE  | -
-rmarkdown                   | 2.6              | FALSE  | -
+rlang                       | 0.4.10           | FALSE  | -
+rmarkdown                   | 2.7              | FALSE  | -
 roxygen2                    | 7.1.1            | FALSE  | -
-rstatix                     | 0.6.0            | FALSE  | -
+rstatix                     | 0.7.0            | FALSE  | -
 rvg                         | 0.2.5            | FALSE  | -
 scales                      | 1.1.1            | FALSE  | -
 sem                         | 3.1-11           | FALSE  | Rcmdr
 shiny                       | 1.6.0            | FALSE  | -
 skimr                       | 2.1.2            | FALSE  | -
-snippets                    | 0.0.9            | FALSE  | -
+snippets                    | 0.0.10           | FALSE  | -
 stringr                     | 1.4.0            | FALSE  | -
 styler                      | 1.3.2            | FALSE  | -
 summarytools                | 0.9.8            | FALSE  | -
 tcltk2                      | 1.2-11           | FALSE  | Rcmdr
-tibble                      | 3.0.5            | FALSE  | -
-tidyr                       | 1.1.2            | FALSE  | -
+tibble                      | 3.1.0            | FALSE  | -
+tidyr                       | 1.1.3            | FALSE  | -
 tidyselect                  | 1.1.0            | FALSE  | -
 tidyverse                   | 1.3.0            | FALSE  | -
 tidyxl                      | 1.0.7            | FALSE  | -
-tinytex                     | 0.29             | FALSE  | -
+tinytex                     | 0.30             | FALSE  | -
 todor                       | 0.1.1            | FALSE  | -
 unpivotr                    | 0.6.1            | FALSE  | -
-usethis                     | 2.0.0            | FALSE  | -
+usethis                     | 2.0.1            | FALSE  | -
 vcd                         | 1.4-8            | FALSE  | -
 wellspell.addin             | 0.5.0            | FALSE  | -
 writexl                     | 1.3.1            | FALSE  | -
