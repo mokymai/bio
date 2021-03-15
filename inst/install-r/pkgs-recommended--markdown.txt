@@ -21,8 +21,6 @@ pagedown
 ymlthis
 
 DT
-rcrossref
-citr
 
 latex2exp
 
