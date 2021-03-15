@@ -28,10 +28,6 @@ wellspell.addin
 rticles
 icon
 
-VIM
-carData
-datarium
-
 backup.tools
 snippets
 bio
