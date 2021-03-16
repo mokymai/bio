@@ -27,7 +27,7 @@ latex2exp
 wellspell.addin
 
 rticles
-icon
+icons
 
 backup.tools
 snippets

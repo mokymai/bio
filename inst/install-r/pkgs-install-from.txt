@@ -24,6 +24,7 @@ ggtext                  | github        | clauswilke/ggtext                     
 gridtext                | github        | clauswilke/gridtext                    | TRUE   | -
 hunspell                | github        | ropensci/hunspell                      | FALSE  | -
 icon                    | github        | ropenscilabs/icon                      | FALSE  | -
+icons                   | github        |  mitchelloharawild/icons               | FALSE  | -
 LanguageToolR           | github        | nevrome/LanguageToolR                  | FALSE  | -
 latex2exp               | github        | stefano-meschiari/latex2exp            | FALSE  | -
 pander                  | github        | Rapporter/pander                       | FALSE  | -
