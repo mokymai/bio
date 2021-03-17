@@ -87,7 +87,7 @@ scales                      | 1.1.1            | FALSE  | -
 sem                         | 3.1-11           | FALSE  | Rcmdr
 shiny                       | 1.6.0            | FALSE  | -
 skimr                       | 2.1.2            | FALSE  | -
-snippets                    | 0.0.10           | FALSE  | -
+snippets                    | 0.0.11           | FALSE  | -
 stringr                     | 1.4.0            | FALSE  | -
 styler                      | 1.3.2            | FALSE  | -
 summarytools                | 0.9.8            | FALSE  | -
