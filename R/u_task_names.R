@@ -1,3 +1,12 @@
+#' Transliterate to ASCII Lower-case Symbol
+#'
+#' @param x
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' to_ascii_lower("AbD")
 to_ascii_lower <- function(x) {
   x <- stringi::stri_trans_general(x, id = "Any-Latin;Greek-Latin;Latin-ASCII")
   tolower(x)
@@ -182,5 +191,25 @@ u_check_filename <- function(x) {
       "-\\[[a-z]*?\\]-\\[([A-Za-z-]*?)\\]-\\[([A-Za-z-]*?)\\]", # user name info
       "(-[a-z]*?)?([.][a-z]*?)?$" # additional info and extension
     ))
+}
+
+
+#' Open Resouce on Emokymai
+#'
+#' @name emokymai
+#' @param id Resource ID.
+#'
+#' @export
+emokymai_browse_assingment <- function(id) {
+  e_url <- paste0("https://emokymai.vu.lt/mod/assign/view.php?id=", id)
+  browseURL(e_url)
+}
+
+#' @rdname emokymai
+#' @export
+emokymai_submit_assingment <- function(id) {
+  e_url <- paste0("https://emokymai.vu.lt/mod/assign/view.php?id=", id,
+    "&action=editsubmission")
+  browseURL(e_url)
 }
 
