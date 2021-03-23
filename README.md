@@ -116,6 +116,8 @@ returned by function `bio::get_pkg_lists_local()` and they include:
   - `'bs2021-s06'`
   - `'bs2021-s07'`
   - `'bs2021-s08'`
+  - `'bs2021-s09'`
+  - `'bs2021-s10'`
   - `'confidence-intervals'`
   - `'ggplot-extra-tools'`
   - `'ggplot'`
