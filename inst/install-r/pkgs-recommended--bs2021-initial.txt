@@ -33,4 +33,7 @@ rstudioapi
 tinytex
 hunspell
 wellspell.addin
+withr
+zip
 gtsummary
+
