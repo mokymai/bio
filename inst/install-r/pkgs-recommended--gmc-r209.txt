@@ -34,7 +34,7 @@ bookdown
 blogdown
 pkgdown
 namer
-icon
+icons
 # emo
 pander
 DT

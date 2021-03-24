@@ -1,6 +1,6 @@
 ---
 title: "Non-CRAN repositories to install packages from"
-date:  2020-05-06
+date:  2021-03-15
 notes: ""
 
 
@@ -18,12 +18,13 @@ bio                     | github        | mokymai/bio                           
 car                     | repos         | http://R-Forge.R-project.org           | TRUE   | dependencies = TRUE
 emo                     | github        | hadley/emo                             | FALSE  | -
 gghighlight             | github        | yutannihilation/gghighlight            | TRUE   | -
-ggmosaic                | github        | haleyjeppson/ggmosaic                  | FALSE  | -
+ggmosaic                | github        | haleyjeppson/ggmosaic                  | TRUE   | -
 ggpie                   | github        | rkabacoff/ggpie                        | FALSE  | -
 ggtext                  | github        | clauswilke/ggtext                      | TRUE   | -
 gridtext                | github        | clauswilke/gridtext                    | TRUE   | -
 hunspell                | github        | ropensci/hunspell                      | FALSE  | -
 icon                    | github        | ropenscilabs/icon                      | FALSE  | -
+icons                   | github        |  mitchelloharawild/icons               | FALSE  | -
 LanguageToolR           | github        | nevrome/LanguageToolR                  | FALSE  | -
 latex2exp               | github        | stefano-meschiari/latex2exp            | FALSE  | -
 pander                  | github        | Rapporter/pander                       | FALSE  | -

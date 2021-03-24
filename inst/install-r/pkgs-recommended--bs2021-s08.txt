@@ -1,10 +1,25 @@
 
 glue
+
+digest
+grDevices
+gtable
+isoband
+MASS
+mgcv
+rlang
 scales
-tibble
 withr
 
+magrittr
+pillar
+dplyr
+tibble
+readr
+readxl
+writexl
 ggplot2
+tidyverse
 
 cowplot
 ggrepel
@@ -24,9 +39,17 @@ plotly
 autoplotly
 paletteer
 ggtext
-
 latex2exp
+
 
 officer
 rvg
+
+knitr
+
+backup.tools
+snippets
+bio
+styler
+lintr
 
