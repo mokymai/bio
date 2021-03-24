@@ -1,8 +1,8 @@
 Package: bio
 Type: Package
 Title: Resources Manager for BS-2021 and R-2021
-Version: 0.1.1
-Date: 2020-02-19
+Version: 0.1.5
+Date: 2020-03-24
 Authors@R: 
     person("Vilmantas", "Gegzna", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-9500-5167"),
@@ -35,9 +35,11 @@ Imports:
   pingr,
   purrr,
   readr,
+  rematch2,
   remotes,
   rstudioapi (>= 0.13),
   snippets (>= 0.0.9),
+  stringi,
   stringr,
   styler,
   tibble,
