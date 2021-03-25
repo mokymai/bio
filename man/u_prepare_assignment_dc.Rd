@@ -12,7 +12,7 @@ u_prepare_assignment_dc(
   vardas,
   sertifikatas,
   konspektas,
-  dir_open = TRUE,
+  open_dir = TRUE,
   emokymai_id = NULL
 )
 }
@@ -32,9 +32,9 @@ u_prepare_assignment_dc(
 
 \item{konspektas}{(string) Path to PDF file.}
 
-\item{emokymai_id}{(integer) Open the directory with submission files.}
-
 \item{open_dir}{(\strong{\code{TRUE}}|\code{FALSE}) Open the directory with submission files.}
+
+\item{emokymai_id}{(integer) Open the directory with submission files.}
 }
 \description{
 The function creates a folder (e.g.,\code{pateikti-uzduoti-U00}) and copies files
