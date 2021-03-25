@@ -221,7 +221,7 @@ u_check_filename <- function(x) {
 #' @param sertifikatas (string) Path to PDF file
 #'        (certificate issued by DataCamp).
 #' @param konspektas (string) Path to PDF file.
-#' @param open_dir (**`TRUE`**|`FALSE`) Open the directory with submission files.
+#' @param open_dir (`TRUE`|`FALSE`) Open the directory with submission files.
 #' @param emokymai_id (integer) Open the directory with submission files.
 #'
 #' @export
@@ -240,7 +240,7 @@ u_check_filename <- function(x) {
 #' }}
 u_prepare_assignment_dc <- function(uzduoties_nr, varianto_nr, specialybe,
                                     pavarde, vardas, sertifikatas, konspektas,
-                                    dir_open = TRUE, emokymai_id = NULL) {
+                                    open_dir = FALSE, emokymai_id = NULL) {
 
   f_name_s <- bio::u_create_filename(
     uzduoties_nr       = uzduoties_nr,
@@ -270,7 +270,7 @@ u_prepare_assignment_dc <- function(uzduoties_nr, varianto_nr, specialybe,
   # Create directory
   n_dir <- sprintf("pateikti-uzduoti-U%02d", uzduoties_nr)
   fs::dir_create(n_dir)
-  if (isTRUE(dir_open)) {
+  if (isTRUE(open_dir)) {
     browseURL(n_dir)
   }
 
