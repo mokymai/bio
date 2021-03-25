@@ -12,7 +12,7 @@ u_prepare_assignment_dc(
   vardas,
   sertifikatas,
   konspektas,
-  open_dir = TRUE,
+  open_dir = FALSE,
   emokymai_id = NULL
 )
 }
@@ -32,7 +32,7 @@ u_prepare_assignment_dc(
 
 \item{konspektas}{(string) Path to PDF file.}
 
-\item{open_dir}{(\strong{\code{TRUE}}|\code{FALSE}) Open the directory with submission files.}
+\item{open_dir}{(\code{TRUE}|\code{FALSE}) Open the directory with submission files.}
 
 \item{emokymai_id}{(integer) Open the directory with submission files.}
 }
