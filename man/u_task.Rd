@@ -50,7 +50,7 @@ correct and \code{FALSE} otherwise.
 }
 }
 \description{
-Create Filename for Type U Task
+Create a name for a file or folder which should be submitted as a "U" task.
 }
 \examples{
 u_create_filename(
@@ -70,6 +70,8 @@ u_create_filename(
   pavarde            = "Pavarde",
   vardas             = "Vardas Antras"
 )
+
+x <- "U01-v000-[molbio]-[Pavarde]-[Vardas-Antras]-sertifikatas.pdf"
 
 u_check_filename("U01-v000-[molbio]-[Pavarde]-[Vardas-Antras]-sertifikatas.pdf")
 u_parse_filename("U01-v000-[molbio]-[Pavarde]-[Vardas-Antras]-sertifikatas.pdf")
