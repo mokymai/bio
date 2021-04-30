@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Open .Renviron File — open_r_environ • bio</title>
+<title>Prepare Files For Submission (DataCamp Task) — u_prepare_assignment_dc • bio</title>
 
 
 <!-- jquery -->
@@ -39,11 +39,11 @@
 
 
 
-<meta property="og:title" content="Open .Renviron File — open_r_environ" />
-<meta property="og:description" content="Functions to get path to and open .Renviron file that contains
-definitions of R environment variables.
-Compared to  usethis::edit_r_environ(), open_r_environ() does not create
-file if it does not exist." />
+<meta property="og:title" content="Prepare Files For Submission (DataCamp Task) — u_prepare_assignment_dc" />
+<meta property="og:description" content="The function creates a folder (e.g.,U00-atsakymai-ikelimui) and copies files
+indicated in sertifikatas and konspektas to that folder.
+The copied files are properly renamed.
+If needed, the function opens the folder and assignment submission webpage." />
 
 
 <meta name="robots" content="noindex">
@@ -128,42 +128,85 @@ file if it does not exist." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Open <code>.Renviron</code> File</h1>
-    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/paths-and-files.R'><code>R/paths-and-files.R</code></a></small>
-    <div class="hidden name"><code>open_r_environ.Rd</code></div>
+    <h1>Prepare Files For Submission (DataCamp Task)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/u_task_names.R'><code>R/u_task_names.R</code></a></small>
+    <div class="hidden name"><code>u_prepare_assignment_dc.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Functions to get path to and open <code>.Renviron</code> file that contains
-definitions of R environment variables.</p>
-<p>Compared to  <code><a href='https://usethis.r-lib.org/reference/edit.html'>usethis::edit_r_environ()</a></code>, <code>open_r_environ()</code> does not create
-file if it does not exist.</p>
+    <p>The function creates a folder (e.g.,<code>U00-atsakymai-ikelimui</code>) and copies files
+indicated in <code>sertifikatas</code> and <code>konspektas</code> to that folder.
+The copied files are properly renamed.
+If needed, the function opens the folder and assignment submission webpage.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_path_r_environ</span><span class='op'>(</span>scope <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"user"</span>, <span class='st'>"project"</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='fu'>open_r_environ</span><span class='op'>(</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>u_prepare_assignment_dc</span><span class='op'>(</span>
+  <span class='va'>uzduoties_nr</span>,
+  <span class='va'>varianto_nr</span>,
+  <span class='va'>specialybe</span>,
+  <span class='va'>pavarde</span>,
+  <span class='va'>vardas</span>,
+  <span class='va'>sertifikatas</span>,
+  <span class='va'>konspektas</span>,
+  open_dir <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  emokymai_id <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>scope</th>
-      <td><p>(character) The scope of file. One of "user" or "project".</p></td>
+      <th>uzduoties_nr</th>
+      <td><p>(integer)</p></td>
+    </tr>
+    <tr>
+      <th>varianto_nr</th>
+      <td><p>(integer)</p></td>
+    </tr>
+    <tr>
+      <th>specialybe</th>
+      <td><p>(string)</p></td>
+    </tr>
+    <tr>
+      <th>pavarde</th>
+      <td><p>(string)</p></td>
+    </tr>
+    <tr>
+      <th>vardas</th>
+      <td><p>(string)</p></td>
+    </tr>
+    <tr>
+      <th>sertifikatas</th>
+      <td><p>(string) Path to PDF file
+(certificate issued by DataCamp).</p></td>
+    </tr>
+    <tr>
+      <th>konspektas</th>
+      <td><p>(string) Path to PDF file.</p></td>
+    </tr>
+    <tr>
+      <th>open_dir</th>
+      <td><p>(<code>TRUE</code>|<code>FALSE</code>) Open the directory with submission files.</p></td>
+    </tr>
+    <tr>
+      <th>emokymai_id</th>
+      <td><p>(integer) Open the directory with submission files.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'>
-<ul>
-<li><p><code><a href='https://usethis.r-lib.org/reference/edit.html'>usethis::edit_r_environ()</a></code></p></li>
-</ul>
-</div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>get_path_r_environ</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; /Users/runner/.Renviron</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>u_prepare_assignment_dc</span><span class='op'>(</span>
+  uzduoties_nr <span class='op'>=</span> <span class='fl'>1</span>,
+  varianto_nr  <span class='op'>=</span> <span class='fl'>000</span>,
+  specialybe   <span class='op'>=</span> <span class='st'>"molekuline biologija"</span>,
+  pavarde      <span class='op'>=</span> <span class='st'>"Pavarde"</span>,
+  vardas       <span class='op'>=</span> <span class='st'>"Vardas Antras"</span>,
+  sertifikatas <span class='op'>=</span> <span class='st'>"pratybos/certificate.pdf"</span>,
+  konspektas   <span class='op'>=</span> <span class='st'>"pratybos/konspektas.pdf"</span>
+<span class='op'>)</span>
+<span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

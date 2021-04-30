@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="Create Filename for Type U Task — u_task" />
-<meta property="og:description" content="Create Filename for Type U Task" />
+<meta property="og:description" content="Create a name for a file or folder which should be submitted as a &quot;U&quot; task." />
 
 
 <meta name="robots" content="noindex">
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.1.1</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.4.9000</span>
       </span>
     </div>
 
@@ -126,20 +126,20 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create Filename for Type U Task</h1>
-    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/u_tasks.R'><code>R/u_tasks.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/u_task_names.R'><code>R/u_task_names.R</code></a></small>
     <div class="hidden name"><code>u_task.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Create Filename for Type U Task</p>
+    <p>Create a name for a file or folder which should be submitted as a "U" task.</p>
     </div>
 
     <pre class="usage"><span class='fu'>u_create_filename</span><span class='op'>(</span>
   <span class='va'>uzduoties_nr</span>,
-  varianto_nr <span class='op'>=</span> <span class='cn'>NULL</span>,
-  specialybe <span class='op'>=</span> <span class='cn'>NULL</span>,
-  pavarde <span class='op'>=</span> <span class='cn'>NULL</span>,
-  vardas <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>varianto_nr</span>,
+  <span class='va'>specialybe</span>,
+  <span class='va'>pavarde</span>,
+  <span class='va'>vardas</span>,
   patikslinimas <span class='op'>=</span> <span class='st'>""</span>,
   dokumento_formatas <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span>
@@ -210,6 +210,16 @@ correct and <code>FALSE</code> otherwise.</p></li>
   dokumento_formatas <span class='op'>=</span> <span class='st'>"pdf"</span>
 <span class='op'>)</span>
 </div><div class='output co'>#&gt; U01-v000-[molbio]-[Pavarde]-[Vardas-Antras]-sertifikatas.pdf</div><div class='input'>
+<span class='fu'>u_create_filename</span><span class='op'>(</span>
+  uzduoties_nr       <span class='op'>=</span> <span class='fl'>10</span>,
+  varianto_nr        <span class='op'>=</span> <span class='fl'>000</span>,
+  specialybe         <span class='op'>=</span> <span class='st'>"molekuline biologija"</span>,
+  pavarde            <span class='op'>=</span> <span class='st'>"Pavarde"</span>,
+  vardas             <span class='op'>=</span> <span class='st'>"Vardas Antras"</span>
+<span class='op'>)</span>
+</div><div class='output co'>#&gt; U10-v000-[molbio]-[Pavarde]-[Vardas-Antras]</div><div class='input'>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='st'>"U01-v000-[molbio]-[Pavarde]-[Vardas-Antras]-sertifikatas.pdf"</span>
+
 <span class='fu'>u_check_filename</span><span class='op'>(</span><span class='st'>"U01-v000-[molbio]-[Pavarde]-[Vardas-Antras]-sertifikatas.pdf"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>u_parse_filename</span><span class='op'>(</span><span class='st'>"U01-v000-[molbio]-[Pavarde]-[Vardas-Antras]-sertifikatas.pdf"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;             Kategorija              Reiksme
@@ -220,25 +230,36 @@ correct and <code>FALSE</code> otherwise.</p></li>
 #&gt; 5             vardas:         Vardas Antras
 #&gt; 6      patikslinimas:          sertifikatas
 #&gt; 7 dokumento_formatas:                   pdf</div><div class='input'>
-<span class='fu'>u_parse_filename</span><span class='op'>(</span><span class='st'>"U03-v000-[molekuline]-[Pavarde]-[Vardas].zip"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;             Kategorija          Reiksme
-#&gt; 1       uzduoties_nr:               U03
-#&gt; 2        varianto_nr:               000
-#&gt; 3         specialybe:  (?) UNIDENTIFIED
-#&gt; 4            pavarde:           Pavarde
-#&gt; 5             vardas:            Vardas
-#&gt; 6      patikslinimas:                  
-#&gt; 7 dokumento_formatas:               zip</div><div class='input'>
+<span class='fu'>u_check_filename</span><span class='op'>(</span><span class='st'>"U03-v000-[molekuline]-[Pavarde]-[Vardas].zip"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>u_parse_filename</span><span class='op'>(</span><span class='st'>"U03-v000-[molekuline]-[Pavarde]-[Vardas].zip"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;             Kategorija              Reiksme
+#&gt; 1       uzduoties_nr:                   U03
+#&gt; 2        varianto_nr:                   000
+#&gt; 3         specialybe:  molekuline biologija
+#&gt; 4            pavarde:               Pavarde
+#&gt; 5             vardas:                Vardas
+#&gt; 6      patikslinimas:                      
+#&gt; 7 dokumento_formatas:                   zip</div><div class='input'>
+<span class='fu'>u_check_filename</span><span class='op'>(</span><span class='st'>"U03-v000-[biofiz]-[Pavarde]-[Vardas]"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'><span class='fu'>u_parse_filename</span><span class='op'>(</span><span class='st'>"U03-v000-[biofiz]-[Pavarde]-[Vardas]"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;             Kategorija    Reiksme
+#&gt; 1       uzduoties_nr:         U03
+#&gt; 2        varianto_nr:         000
+#&gt; 3         specialybe:   biofizika
+#&gt; 4            pavarde:     Pavarde
+#&gt; 5             vardas:      Vardas
+#&gt; 6      patikslinimas:            
+#&gt; 7 dokumento_formatas:  { FOLDER }</div><div class='input'>
 <span class='co'># Incorrect family name:</span>
 <span class='fu'>u_parse_filename</span><span class='op'>(</span><span class='st'>"U03-v000-[molekuline]-[Pavarde3]-[Vardas].zip"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;             Kategorija          Reiksme
-#&gt; 1       uzduoties_nr:              &lt;NA&gt;
-#&gt; 2        varianto_nr:              &lt;NA&gt;
-#&gt; 3         specialybe:  (?) UNIDENTIFIED
-#&gt; 4            pavarde:              &lt;NA&gt;
-#&gt; 5             vardas:              &lt;NA&gt;
-#&gt; 6      patikslinimas:              &lt;NA&gt;
-#&gt; 7 dokumento_formatas:              &lt;NA&gt;</div></pre>
+</div><div class='output co'>#&gt;             Kategorija                          Reiksme
+#&gt; 1       uzduoties_nr:                              &lt;NA&gt;
+#&gt; 2        varianto_nr:                              &lt;NA&gt;
+#&gt; 3         specialybe:     (?) UNIDENTIFIED VALUE { NA }
+#&gt; 4            pavarde:                              &lt;NA&gt;
+#&gt; 5             vardas:                              &lt;NA&gt;
+#&gt; 6      patikslinimas:     (?) UNIDENTIFIED VALUE { NA }
+#&gt; 7 dokumento_formatas:  (?) UNSUPPORTED EXTENSION { NA }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
