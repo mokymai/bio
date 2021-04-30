@@ -94,6 +94,9 @@ xlsx
 XML
 tidycells
 
+cheatsheet
+
+
 # Markdown | Citation --------------------------------------------------------
 citr
 rcrossref
