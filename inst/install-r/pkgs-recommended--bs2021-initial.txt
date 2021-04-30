@@ -36,4 +36,4 @@ wellspell.addin
 withr
 zip
 gtsummary
-
+cheatsheet
