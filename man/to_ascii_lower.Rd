@@ -2,19 +2,21 @@
 % Please edit documentation in R/u_task_names.R
 \name{to_ascii_lower}
 \alias{to_ascii_lower}
-\title{Transliterate to ASCII Lower-case Symbol}
+\title{Transliterate to ASCII Lower-Case Symbol}
 \usage{
 to_ascii_lower(x)
 }
 \arguments{
-\item{x}{}
+\item{x}{A string or a character vector.}
 }
 \value{
-
+A modified string or character vector.
 }
 \description{
-Transliterate to ASCII Lower-case Symbol
+Transliterate all symbols in a string into lower-case ASCII symbols.
 }
 \examples{
 to_ascii_lower("AbD")
+to_ascii_lower(c("AAA", "BbB"))
+
 }
