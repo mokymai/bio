@@ -73,7 +73,7 @@ files that contain project lists." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.4.9000</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">0.1.5.9000</span>
       </span>
     </div>
 
@@ -138,7 +138,7 @@ files that contain project lists.</p>
 
     <pre class="usage"><span class='fu'>open_project</span><span class='op'>(</span>
   pattern <span class='op'>=</span> <span class='cn'>NULL</span>,
-  new_session <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  new_session <span class='op'>=</span> <span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='cn'>NULL</span> <span class='kw'>else</span> <span class='cn'>TRUE</span>,
   proj_list <span class='op'>=</span> <span class='cn'>NULL</span>,
   proj_list_path <span class='op'>=</span> <span class='cn'>NULL</span>,
   only_available <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -156,10 +156,11 @@ possible options.</p></td>
     </tr>
     <tr>
       <th>new_session</th>
-      <td><p>(logical) should the project be opened in a new session,
-or should the current RStudio session switch to that project? Note
-that <code>TRUE</code> values are only supported with RStudio Desktop and RStudio
-Server Pro.</p></td>
+      <td><p>(logical|<code>NULL</code>) should the project be opened in a new
+session, or should the current RStudio session switch to that project?
+Note that <code>TRUE</code> values are only supported with RStudio Desktop and
+RStudio Server Pro.
+If <code>NULL</code>, user will have to choose interactively.</p></td>
     </tr>
     <tr>
       <th>proj_list</th>
