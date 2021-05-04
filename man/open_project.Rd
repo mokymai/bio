@@ -6,7 +6,7 @@
 \usage{
 open_project(
   pattern = NULL,
-  new_session = TRUE,
+  new_session = if (interactive()) NULL else TRUE,
   proj_list = NULL,
   proj_list_path = NULL,
   only_available = TRUE,
@@ -18,10 +18,11 @@ open_project(
 \item{pattern}{(character) regular expression to narrow down the list of
 possible options.}
 
-\item{new_session}{(logical) should the project be opened in a new session,
-or should the current RStudio session switch to that project? Note
-that \code{TRUE} values are only supported with RStudio Desktop and RStudio
-Server Pro.}
+\item{new_session}{(logical|\code{NULL}) should the project be opened in a new
+session, or should the current RStudio session switch to that project?
+Note that \code{TRUE} values are only supported with RStudio Desktop and
+RStudio Server Pro.
+If \code{NULL}, user will have to choose interactively.}
 
 \item{proj_list}{(data frame) The result of \code{\link[=read_projects]{read_projects()}} or \code{NULL}.}
 
