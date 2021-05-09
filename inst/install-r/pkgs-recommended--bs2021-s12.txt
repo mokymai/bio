@@ -13,6 +13,7 @@ data.table
 ggpubr
 janitor
 readxl
+readr
 forcats
 dplyr
 
@@ -21,16 +22,12 @@ MASS
 broom
 rstatix
 
-MVN
+
 skimr
-qqplotr
-ggstatsplot
 patchwork
 conflicted
 
 XNomial
-readxl
-readr
 
 writexl
 rcompanion
