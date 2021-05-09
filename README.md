@@ -8,9 +8,9 @@ Package ***bio***
 <!-- badges: start -->
 
 [![GitHub
-version](https://img.shields.io/badge/GitHub-0.1.5-brightgreen.svg)](https://github.com/mokymai/bio)
+version](https://img.shields.io/badge/GitHub-0.1.5.9000-brightgreen.svg)](https://github.com/mokymai/bio)
 [![R-CMD-check](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
-[![Updated-on](https://img.shields.io/badge/Updated%20on-2021--05--03-yellowgreen.svg)](/commits/master)
+[![Updated-on](https://img.shields.io/badge/Updated%20on-2021--05--09-yellowgreen.svg)](/commits/master)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
@@ -120,6 +120,7 @@ returned by function `bio::get_pkg_lists_local()` and they include:
   - `'bs2021-s10'`
   - `'bs2021-s11'`
   - `'bs2021-s12'`
+  - `'bs2021-s13'`
   - `'confidence-intervals'`
   - `'ggplot-extra-tools'`
   - `'ggplot'`

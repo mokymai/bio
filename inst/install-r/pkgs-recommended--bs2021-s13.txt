@@ -22,12 +22,13 @@ MASS
 broom
 rstatix
 
-
+MVN
 skimr
+qqplotr
+ggstatsplot
 patchwork
 conflicted
 
-XNomial
 
 writexl
 rcompanion

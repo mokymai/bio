@@ -17,17 +17,20 @@ readr
 forcats
 dplyr
 
+
+effectsize
+tibble
+
 MASS
 
 broom
 rstatix
 
-
 skimr
+qqplotr
 patchwork
 conflicted
 
-XNomial
 
 writexl
 rcompanion

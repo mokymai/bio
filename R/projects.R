@@ -160,10 +160,11 @@ get_proj_names <- function(file = get_path_recent_proj_list(),
 #' @param proj_list (data frame) The result of [read_projects()] or `NULL`.
 #' @param proj_list_path (string) The path to the file with the list of project
 #'        paths. If `proj_list` is not `NULL`, then `proj_list_path` is ignored.
-#' @param new_session (logical) should the project be opened in a new session,
-#'        or should the current RStudio session switch to that project? Note
-#'        that `TRUE` values are only supported with RStudio Desktop and RStudio
-#'        Server Pro.
+#' @param new_session (logical|`NULL`) should the project be opened in a new
+#'        session, or should the current RStudio session switch to that project?
+#'        Note that `TRUE` values are only supported with RStudio Desktop and
+#'        RStudio Server Pro.
+#'        If `NULL`, user will have to choose interactively.
 #' @param only_available (logical) If `TRUE`, non-existing projects and projects
 #'        with broken paths are removed from the list of choices.
 #' @param pattern (character) regular expression to narrow down the list of
@@ -191,9 +192,13 @@ get_proj_names <- function(file = get_path_recent_proj_list(),
 #'
 #' }}
 #
-open_project <- function(pattern = NULL, new_session = TRUE, proj_list = NULL,
-  proj_list_path = NULL, only_available = TRUE,
-  name = NULL, negate = FALSE) {
+open_project <- function(pattern = NULL,
+                         new_session = if (interactive()) NULL else TRUE,
+                         proj_list = NULL,
+                         proj_list_path = NULL,
+                         only_available = TRUE,
+                         name = NULL,
+                         negate = FALSE) {
 
   if (is.null(proj_list) && is.null(proj_list_path)) {
     # No projec lists are provided
@@ -202,7 +207,9 @@ open_project <- function(pattern = NULL, new_session = TRUE, proj_list = NULL,
   } else {
     if (!is.null(proj_list_path)) {
       if (!fs::file_exists(proj_list_path)) {
-        usethis::ui_stop("The file {usethis::ui_path(proj_list_path)} was not found.")
+        usethis::ui_stop(
+          "The file {usethis::ui_path(proj_list_path)} was not found."
+        )
       }
       proj_list_2 <- read_projects(proj_list_path)
     }
@@ -215,7 +222,8 @@ open_project <- function(pattern = NULL, new_session = TRUE, proj_list = NULL,
   }
 
   if (!is.null(pattern)) {
-    proj_list <- dplyr::filter(proj_list, stringr::str_detect(name, {pattern}, {negate}))
+    proj_list <-
+      dplyr::filter(proj_list, stringr::str_detect(name, pattern, negate))
   }
 
   n_projs <- nrow(proj_list)
@@ -237,7 +245,7 @@ open_project <- function(pattern = NULL, new_session = TRUE, proj_list = NULL,
       )
     }
 
-    cat("\nChoose the number of the project (press 0 to cancel): \n")
+    cat("\nChoose the number of the project (or enter 0 to cancel): \n")
 
     all_names <- sort(proj_list$name)
     i_name <- utils::menu(all_names)
@@ -260,7 +268,6 @@ open_project <- function(pattern = NULL, new_session = TRUE, proj_list = NULL,
     )
 
   } else if (n_proj > 1) {
-
     if (!interactive()) {
       stop(
         "Several projects match name '", name, "'. ",
@@ -274,6 +281,7 @@ open_project <- function(pattern = NULL, new_session = TRUE, proj_list = NULL,
       "Choose the path to the project of interest: \n"
     ))
     i_path <- utils::menu(proj$path)
+
     if (i_path == 0) {
       usethis::ui_oops("Cancelled by user")
       return(invisible())
@@ -282,6 +290,17 @@ open_project <- function(pattern = NULL, new_session = TRUE, proj_list = NULL,
 
   } else {
     proj_path <- proj$path
+  }
+
+  if (is.null(new_session)) {
+    cat("\n")
+    usethis::ui_info("Close current project: \n")
+    i_close <- utils::menu(c("Yes, close", "No, keep open (default)"))
+    new_session <- ifelse(i_close == 1, FALSE, TRUE)
+  }
+
+  if (!new_session) {
+    usethis::ui_oops("Closing current project...")
   }
 
   usethis::ui_done("Opening {blue(proj_path)}")

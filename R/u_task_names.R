@@ -32,7 +32,9 @@ decode_speciality <- function(code) {
     code %in% c("geneti", "genet", "genetika") ~ "genetika"             ,
     code %in% c("mikrob", "mikrobiologija")    ~ "mikrobiologija"       ,
     code %in% c("molbio", "molekuline")        ~ "molekuline biologija" ,
+    code %in% c("molbti")                      ~ "molekuline biotechnologija",
     code %in% c("neurbf", "neurobiofizika")    ~ "neurobiofizika"       ,
+    code %in% c("neurbl", "neurobiologija")    ~ "neurobiologija"       ,
     # stop("Unknown code = '", code, "'")
     TRUE ~ paste0("(?) UNIDENTIFIED VALUE { ", code ," }")
   )
@@ -58,7 +60,9 @@ encode_speciality <- function(specialybe) {
     specialybe == "mikrobiologija"             ~ "mikrob",
     specialybe %in%
       c("molekuline", "molekuline biologija")  ~ "molbio",
+    specialybe == "molekuline biotechnologija" ~ "molbti",
     specialybe == "neurobiofizika"             ~ "neurbf",
+    specialybe == "neurobiologija"             ~ "neurbl",
     TRUE ~ paste0("(?) UNKNOWN { ", specialybe ," }")
     # TRUE ~ stop("Unknown value: specialybe = '", specialybe, "'")
   )
