@@ -918,11 +918,6 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
     return(invisible(res))
   }
 
-  # if (Sys.getenv("GITHUB_PAT") == "") {
-  #   # usethis::browse_github_pat()
-  #   # Sys.setenv(GITHUB_PAT = "write your PAT here, if you have it")
-  # }
-
   res <- c(glue::glue(
     '
     # To read more on the used options, run code:
