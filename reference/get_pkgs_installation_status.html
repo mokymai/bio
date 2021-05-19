@@ -143,7 +143,8 @@ or need to be updated) and package installation code.</p>
   install <span class='op'>=</span> <span class='va'>include</span>,
   cran <span class='op'>=</span> <span class='va'>install</span>,
   github <span class='op'>=</span> <span class='va'>install</span>,
-  elsewhere <span class='op'>=</span> <span class='va'>install</span>,
+  other_repos <span class='op'>=</span> <span class='va'>install</span>,
+  using_code <span class='op'>=</span> <span class='va'>install</span>,
   use_local_list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"bio.use_local_list"</span>, <span class='cn'>FALSE</span><span class='op'>)</span>
 <span class='op'>)</span>
 
@@ -212,7 +213,15 @@ See options of <code>include</code> plus value <code>"required"</code>.
 Defaults to the value of <code>install</code>.</p></td>
     </tr>
     <tr>
-      <th>elsewhere</th>
+      <th>other_repos</th>
+      <td><p>(character) Condition to filter packages that should be
+included in code that installs packages from other CRAN-like
+repositories.
+See options of <code>include</code> plus value <code>"required"</code>.
+Defaults to the value of <code>install</code>.</p></td>
+    </tr>
+    <tr>
+      <th>using_code</th>
       <td><p>(character) Condition to filter packages that should
 be included in code that installs packages from other sources.
 See options of <code>include</code> plus value <code>"required"</code>.
