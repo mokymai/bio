@@ -33,6 +33,8 @@ bookdown
 # bookdownplus
 blogdown
 pkgdown
+pagedown
+rticles
 namer
 icons
 # emo
@@ -70,6 +72,7 @@ RCurl
 alr4
 openxlsx
 readxl
+wtitexl
 forcats
 hms
 
@@ -96,6 +99,7 @@ tidycells
 
 cheatsheet
 
+pretty
 
 # Markdown | Citation --------------------------------------------------------
 citr
@@ -150,6 +154,7 @@ ggplotify
 
 ggmosaic
 ggimage
+patchwork
 
 # To PowerPoint, etc. --------------------------------------------------------
 officer
@@ -188,9 +193,17 @@ rcompanion
 # descriptr
 summarytools
 AMR
+MVN
 RVAideMemoire
 # EMT  # dependency of rcompanion
 XNomial
+rstatix
+factoextra
+NMF
+gt
+gtsummary
+
+# NNLM
 
 # Lessons --------------------------------------------------------------------
 adventr
@@ -217,12 +230,6 @@ dplyrAssist
 
 janitor
 
-# Stat analizė ----------------------------------------------------------------
-rstatix
-factoextra
-NMF
-
-# NNLM
 
 # Kita ------------------------------------------------------------------------
 snippets
@@ -230,3 +237,7 @@ bio
 extrafont
 import
 remedy
+
+
+# Data -----------------------------------------------------------------------
+datarium
