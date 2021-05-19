@@ -15,7 +15,8 @@ get_pkgs_installation_status(
   install = include,
   cran = install,
   github = install,
-  elsewhere = install,
+  other_repos = install,
+  using_code = install,
   use_local_list = getOption("bio.use_local_list", FALSE)
 )
 
@@ -70,7 +71,13 @@ included in code that installs packages from GitHub.
 See options of \code{include} plus value \code{"required"}.
 Defaults to the value of \code{install}.}
 
-\item{elsewhere}{(character) Condition to filter packages that should
+\item{other_repos}{(character) Condition to filter packages that should be
+included in code that installs packages from other CRAN-like
+repositories.
+See options of \code{include} plus value \code{"required"}.
+Defaults to the value of \code{install}.}
+
+\item{using_code}{(character) Condition to filter packages that should
 be included in code that installs packages from other sources.
 See options of \code{include} plus value \code{"required"}.
 Defaults to the value of \code{install}.}
