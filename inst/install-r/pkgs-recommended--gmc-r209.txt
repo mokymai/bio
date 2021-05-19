@@ -180,7 +180,7 @@ vcd
 vcdExtra
 fitdistrplus
 chemCal
-userfriendlyscience
+ufs
 DescTools
 rcompanion
 # skimr
