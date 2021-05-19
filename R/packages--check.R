@@ -935,10 +935,6 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
       install.packages.compile.from.source = "always"
     )
 
-    # For installation from GitHub
-    # Read more at: https://remotes.r-lib.org/#environment-variables
-    Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS = "true")
-
     '),
     res
   )
