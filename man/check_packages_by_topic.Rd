@@ -32,7 +32,7 @@ See \code{upgrade} in \code{\link[remotes:install_cran]{remotes::install_cran()}
 Function invisibly returns object with package installation status.
 }
 \description{
-A user-fiendly version of a function to check if required R packages are
+A user-friendly version of a function to check if required R packages are
 installed and have minimum required versions.
 }
 \examples{
