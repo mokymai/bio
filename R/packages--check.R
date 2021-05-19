@@ -906,7 +906,7 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
   # Print installation code, if present
   res <-
     c(
-      get_pkgs_installation_code_cran(x),
+      get_pkgs_installation_code_cran(x,   upgrade = upgrade),
       get_pkgs_installation_code_github(x, upgrade = upgrade),
       get_pkgs_installation_code_other(x)
     )
@@ -965,12 +965,16 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
 
 #  @rdname get_pkgs_installation_status
 #  @export
-get_pkgs_installation_code_cran <- function(x) {
+get_pkgs_installation_code_cran <- function(x, upgrade = TRUE) {
+
   # Install from CRAN only if the version of package is newer on CRAN
   pkgs_vec <- x$install_from_cran
   if (length(pkgs_vec) == 0) {
     return("")
   }
+
+  upgrade_str <- get_upgrade_str(upgrade)
+  dependencies_str <- ", dependencies = TRUE"
 
   default_repos <- options("repos")
   repos_vec     <- unique(x$repos, default_repos)
@@ -1007,7 +1011,7 @@ get_pkgs_installation_code_cran <- function(x) {
 
   res <- paste0(
     repos_code,
-    install_fun, "(", pkgs, repos_arg, ", dependencies = TRUE)"
+    install_fun, "(", pkgs, repos_arg, dependencies_str, upgrade_str, ")"
   )
 
   styler::style_text(res)
@@ -1017,7 +1021,8 @@ get_pkgs_installation_code_cran <- function(x) {
 #  @export
 get_pkgs_installation_code_github <- function(x, upgrade = TRUE) {
 
-  upgrade <- chk_arg_upgrade(upgrade)
+  upgrade_str <- get_upgrade_str(upgrade)
+
   pkgs_vec <- x$install_from_github
 
   if (length(pkgs_vec) == 0) {
@@ -1032,7 +1037,7 @@ get_pkgs_installation_code_github <- function(x, upgrade = TRUE) {
 
   res <- paste0(
     "remotes::install_github(\n", pkgs, ",\n",
-    glue::glue("dependencies = TRUE, upgrade = {upgrade})")
+    glue::glue("dependencies = TRUE{upgrade_str})")
   )
   styler::style_text(res)
 }
@@ -1085,12 +1090,7 @@ check_packages_by_topic <- function(list_name = NULL,
   status <-
     get_pkgs_installation_status(list_name, use_local_list = use_local_list, ...)
 
-  upgrade_str <-
-    if (isTRUE(upgrade)) {
-      ", upgrade = TRUE"
-    } else {
-      ""
-    }
+  upgrade_str <- get_upgrade_str(upgrade)
 
   code_str <- glue::glue(
     "bio::get_pkgs_installation_code(to_clipboard = TRUE{upgrade_str})"
