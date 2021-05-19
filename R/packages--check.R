@@ -906,7 +906,6 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
   # Print installation code, if present
   res <-
     c(
-      "\n",
       get_pkgs_installation_code_cran(x),
       get_pkgs_installation_code_github(x, upgrade = upgrade),
       get_pkgs_installation_code_other(x)
@@ -936,6 +935,7 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
     )
 
     '),
+    "\n",
     res
   )
   # , Ncpus = max(1, parallel::detectCores() - 1)
