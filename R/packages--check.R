@@ -302,6 +302,9 @@ get_path_pkgs_req_version <- function(use_local_list) {
 #' Get Details About Packages on CRAN
 #'
 #' Convenience function based on [utils::available.packages()].
+#'
+#' @param repos Additional repos to check.
+#'
 #' @return
 #' Data frame with columns "package", "cran_version", "on_cran".
 #'
@@ -320,8 +323,8 @@ get_path_pkgs_req_version <- function(use_local_list) {
 #' head(get_pkgs_cran_details())
 #'
 #' }}
-get_pkgs_cran_details <- function() {
-  repos <- unique(c("https://mokymai.github.io/download/" , getOption("repos")))
+get_pkgs_cran_details <- function(repos = NULL) {
+  repos <- unique(c(repos , getOption("repos")))
 
   cran_all <-
     data.frame(
@@ -479,7 +482,13 @@ get_pkgs_installation_status_local <- function(list_name,
 #'        See options of `include` plus value `"required"`.
 #'        Defaults to the value of `install`.
 #'
-#' @param elsewhere (character) Condition to filter packages that should
+#' @param other_repos (character) Condition to filter packages that should be
+#'        included in code that installs packages from other CRAN-like
+#'        repositories.
+#'        See options of `include` plus value `"required"`.
+#'        Defaults to the value of `install`.
+#'
+#' @param using_code (character) Condition to filter packages that should
 #'        be included in code that installs packages from other sources.
 #'        See options of `include` plus value `"required"`.
 #'        Defaults to the value of `install`.
@@ -534,7 +543,7 @@ get_pkgs_installation_status_local <- function(list_name,
 # ========================================================================== ~
 get_pkgs_installation_status <- function(list_name = NULL, include = "outdated",
   show_status = include, install = include, cran = install,
-  github = install, elsewhere = install,
+  github = install, other_repos = install, using_code = install,
   use_local_list = getOption("bio.use_local_list", FALSE)) {
 
   if (is.null(list_name)) {
@@ -553,15 +562,19 @@ get_pkgs_installation_status <- function(list_name = NULL, include = "outdated",
   install     <- match.arg(as.character(install),     choices)
   cran        <- match.arg(as.character(cran),      c(choices, "required"))
   github      <- match.arg(as.character(github),      choices)
-  elsewhere   <- match.arg(as.character(elsewhere),   choices)
+  other_repos <- match.arg(as.character(other_repos), choices)
+  using_code  <- match.arg(as.character(using_code),  choices)
 
-  github      <- ifelse(github    == "newer_on_cran", "outdated", github)
-  elsewhere   <- ifelse(elsewhere == "newer_on_cran", "outdated", elsewhere)
+  github      <- ifelse(github      == "newer_on_cran", "outdated", github)
+  using_code  <- ifelse(using_code  == "newer_on_cran", "outdated", using_code)
 
   status_0  <- get_pkgs_installation_status_local(list_name = list_name,
     use_local_list = use_local_list)
-  pkgs_cran  <- get_pkgs_cran_details()
+
   pkgs_other <- get_pkgs_non_cran_installation_details(use_local_list = use_local_list)
+  additional_repos <- pkgs_other$details[pkgs_other$install_from %in% "repos"]
+
+  pkgs_cran  <- get_pkgs_cran_details(repos = additional_repos)
 
   first_cols <- c("package", "is_installed", "current_version",
     "required_version", "update_is_required", "cran_version", "newer_on_cran")
@@ -580,9 +593,8 @@ get_pkgs_installation_status <- function(list_name = NULL, include = "outdated",
 
   # Unknown options of `install_from`
   # TODO: this part of code is not finished:
-  install_from_unknown <-
-    unique(status$install_from[!status$install_from %in% c("github", "code", NA)])
-
+  is_unknown_source <- !status$install_from %in% c("github", "repos", "code", NA)
+  install_from_unknown <- unique(status$install_from[is_unknown_source])
 
   # missing_installation_code = status[status$missing_installation_code, ]$package
   # n_to_install_or_update    = sum(status$update_is_required)
@@ -590,13 +602,15 @@ get_pkgs_installation_status <- function(list_name = NULL, include = "outdated",
 
   # Output structure
   out <- list(
-    list_name    = list_name,      # stirng
+    list_name    = list_name,      # string
     status       = status,         # data frame
     show_status  = show_status,
-    install_from = tibble::tibble(cran, github, elsewhere),
+    install_from = tibble::tibble(cran, github, other_repos, using_code),
     missing_installation_code = status[status$missing_installation_code, ]$package,
     n_to_install_or_update    = sum(status$update_is_required),
-    n_newer_on_cran           = sum(status$newer_on_cran)
+    n_newer_on_cran           = sum(status$newer_on_cran),
+    repos = unique(c(additional_repos , getOption("repos")))
+
 
     # missing_installation_code = missing_installation_code,
     # pkgs_to_install_or_update = pkgs_to_install_or_update,
@@ -740,7 +754,8 @@ print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) 
 
 
 process_pkgs_to_install <- function(x, cran = x$install_from$cran,
-  github = x$install_from$github, elsewhere = x$install_from$elsewhere
+  github = x$install_from$github, other_repos = x$install_from$other_repos,
+  using_code = x$install_from$using_code
 ) {
 
   st <- x$status
@@ -759,6 +774,20 @@ process_pkgs_to_install <- function(x, cran = x$install_from$cran,
       stop("Unknown value of `cran`: ", x$install_from$cran)
     )
 
+  # From other repositories
+  on_other_repos <- purrr::map_lgl(st$install_from == "repos", isTRUE)
+
+  from_repos_cond <-
+    switch(as.character(other_repos),
+      "TRUE"     = ,
+      "always"   = on_other_repos,
+      "outdated" = on_other_repos &  st$update_is_required,
+      "missing"  = on_other_repos & !st$is_installed,
+      "never"    = ,
+      "FALSE"    = rep(FALSE, nrow(st)),
+      stop("Unknown value of `other_repos`: ", other_repos)
+    )
+
   # From GitHub code
   on_github <- purrr::map_lgl(st$install_from == "github", isTRUE)
 
@@ -773,26 +802,27 @@ process_pkgs_to_install <- function(x, cran = x$install_from$cran,
       stop("Unknown value of `github`: ", github)
     )
 
-  # Custom instalation code
+  # Custom installation code
   from_code <- purrr::map_lgl(st$install_from == "code", isTRUE)
 
   from_code_cond <-
-    switch(as.character(elsewhere),
+    switch(as.character(using_code),
       "TRUE"     = ,
       "always"   = from_code,
       "outdated" = from_code &  st$update_is_required,
       "missing"  = from_code & !st$is_installed,
       "never"    = ,
       "FALSE"    = rep(FALSE, nrow(st)),
-      stop("Unknown value of `elsewhere`: ", elsewhere)
+      stop("Unknown value of `using_code`: ", using_code)
     )
 
-  c(
+  modifyList(
     x,
     list(
-      install_from_cran      = st[from_cran_cond,   ]$package,
-      install_from_github    = st[from_github_cond, ]$details,
-      install_from_elsewhere = st[from_code_cond,   ]$details
+      install_from_cran        = unique(st[from_cran_cond,   ]$package),
+      install_from_github      = unique(st[from_github_cond, ]$details),
+      install_from_other_repos = unique(st[from_repos_cond,  ]$package),
+      install_using_code       = unique(st[from_code_cond,   ]$details)
     )
   )
 }
@@ -876,6 +906,7 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
   # Print installation code, if present
   res <-
     c(
+      "\n",
       get_pkgs_installation_code_cran(x),
       get_pkgs_installation_code_github(x, upgrade = upgrade),
       get_pkgs_installation_code_other(x)
@@ -950,18 +981,43 @@ get_pkgs_installation_code_cran <- function(x) {
     return("")
   }
 
-  pkgs <- to_str_vector(pkgs_vec, collapse = ",\n")
+  default_repos <- options("repos")
+  repos_vec     <- unique(x$repos, default_repos)
+
+  if (all(repos_vec %in% default_repos)) {
+    repos_code <- ""
+    repos_arg  <- ""
+
+  } else {
+    repos <- to_str_vector(repos_vec, collapse = ",\n")
+
+    if (length(repos_vec) > 1) {
+      repos <- paste0("c(\n", repos ,")")
+    }
+
+    repos_code <- paste0("repos <- ", repos, "\n\n")
+    repos_arg  <- ", repos = repos"
+  }
+
+
+  pkgs <- to_str_vector(pkgs_vec,  collapse = ",\n")
 
   if (length(pkgs_vec) > 1) {
     pkgs <- paste0("c(\n", pkgs ,")")
   }
 
-  if (requireNamespace("remotes", quietly = TRUE)) {
-    res <- paste0("remotes::install_cran(", pkgs , ")")
 
-  } else {
-    res <- paste0("install.packages(", pkgs , ")")
-  }
+  install_fun <-
+    if (requireNamespace("remotes", quietly = TRUE)) {
+      "remotes::install_cran"
+    } else {
+      "install.packages"
+    }
+
+  res <- paste0(
+    repos_code,
+    install_fun, "(", pkgs, repos_arg, ", dependencies = TRUE)"
+  )
 
   styler::style_text(res)
 }
@@ -993,7 +1049,7 @@ get_pkgs_installation_code_github <- function(x, upgrade = TRUE) {
 #  @rdname get_pkgs_installation_status
 #  @export
 get_pkgs_installation_code_other <- function(x) {
-  codes_vec <- x$install_from_elsewhere
+  codes_vec <- x$install_using_code
   if (length(codes_vec) == 0) {
     return("")
   }
@@ -1007,7 +1063,7 @@ get_pkgs_installation_code_other <- function(x) {
 
 #' Check Installed Packages by Topic
 #'
-#' A user-fiendly version of a function to check if required R packages are
+#' A user-friendly version of a function to check if required R packages are
 #' installed and have minimum required versions.
 #'
 #' @inheritParams get_pkgs_installation_status
