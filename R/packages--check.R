@@ -1001,17 +1001,9 @@ get_pkgs_installation_code_cran <- function(x, upgrade = TRUE) {
     pkgs <- paste0("c(\n", pkgs ,")")
   }
 
-
-  install_fun <-
-    if (requireNamespace("remotes", quietly = TRUE)) {
-      "remotes::install_cran"
-    } else {
-      "install.packages"
-    }
-
   res <- paste0(
     repos_code,
-    install_fun, "(", pkgs, repos_arg, dependencies_str, upgrade_str, ")"
+    "remotes::install_cran(", pkgs, repos_arg, dependencies_str, upgrade_str, ")"
   )
 
   styler::style_text(res)
