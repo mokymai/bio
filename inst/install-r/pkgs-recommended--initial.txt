@@ -35,3 +35,4 @@ hunspell
 wellspell.addin
 gtsummary
 pacman
+patchwork
