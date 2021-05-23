@@ -33,6 +33,13 @@ rstudioapi
 tinytex
 hunspell
 wellspell.addin
+withr
+zip
+gt
 gtsummary
 pacman
 patchwork
+here
+cheatsheet
+
+
