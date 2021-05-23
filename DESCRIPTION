@@ -1,8 +1,8 @@
 Package: bio
 Type: Package
 Title: Resources Manager for BS-2021 and R-2021
-Version: 0.1.6
-Date: 2020-05-16
+Version: 0.1.7
+Date: 2020-05-24
 Authors@R: 
     person("Vilmantas", "Gegzna", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-9500-5167"),
