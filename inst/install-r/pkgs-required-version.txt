@@ -1,6 +1,6 @@
 ---
 title: "Minimal required versions of packages"
-date:  2021-05-19
+date:  2021-05-23
 notes: ""
 
 
@@ -18,6 +18,7 @@ blogdown                    | 1.1              | FALSE  | -
 bookdown                    | 0.21             | FALSE  | -
 broom                       | 0.7.3            | FALSE  | -
 car                         | 3.0-10           | FALSE  | Rcmdr
+chemCal                     | 0.2.2            | FALSE  | -
 citr                        | 0.3.2            | FALSE  | -
 correlation                 | 0.5.0            | FALSE  | -
 cowplot                     | 1.1.1            | FALSE  | -
