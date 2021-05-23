@@ -22,7 +22,7 @@ bio
 addin.tools
 addins.rmd
 addins.rs
-openxlsx
+writexl
 data.table
 rstatix
 styler
@@ -35,5 +35,9 @@ hunspell
 wellspell.addin
 withr
 zip
+gt
 gtsummary
+pacman
+patchwork
+here
 cheatsheet

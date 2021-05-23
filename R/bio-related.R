@@ -70,13 +70,12 @@ update_pkg_bio <- function(upgrade = TRUE, force = FALSE, quiet = TRUE) {
     command <- glue::glue(
       paste(sep = "\n",
         '# Updating package "bio"...',
-        'Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS = "true")',
         '',
         'repos <- c("https://mokymai.github.io/download/", getOption("repos"))',
         'remotes::install_cran(c("backup.tools", "snippets", "bio"), repos = repos, ',
         '  dependencies = TRUE, upgrade = {upgrade_str}{force_str}{quiet_str})',
         '',
-        'bio::get_vesion_pkg_bio()',
+        'packageVersion("bio")',
         '',
         'bio::check_packages_by_topic("bio", show_status = "newer_on_cran", upgrade = {upgrade_str})'
       )

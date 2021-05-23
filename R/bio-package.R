@@ -13,7 +13,7 @@
 #' @importFrom usethis ui_done ui_todo ui_oops ui_info ui_code ui_field ui_path
 #'                     ui_stop ui_warn ui_value ui_line
 #' @importFrom stats setNames
-#' @importFrom utils available.packages packageVersion sessionInfo
+#' @importFrom utils available.packages packageVersion sessionInfo modifyList
 ## usethis namespace: end
 NULL
 
@@ -27,5 +27,7 @@ bio_envir <- new.env()
 globalVariables(c(
   ".", ".rs.downloadAllDictionaries", "bowse_meld_homepage", "cran_version",
   "current_version", "deps_below", "install_from",
-  "n_deps", "name", "on_cran", "package", "pkg", "value"
+  "n_deps", "name", "on_cran", "package", "pkg", "value",
+  "...6", "...8", ".text", ".match", "specialybe", "pavarde", "vardas",
+  "patikslinimas", "Kategorija"
 ))

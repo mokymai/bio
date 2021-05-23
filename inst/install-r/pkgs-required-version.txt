@@ -1,6 +1,6 @@
 ---
 title: "Minimal required versions of packages"
-date:  2021-03-15
+date:  2021-05-23
 notes: ""
 
 
@@ -13,11 +13,12 @@ addin.tools                 | 0.0.9            | FALSE  | -
 addins.rmd                  | 0.0.10           | FALSE  | -
 addins.rs                   | 0.0.9            | FALSE  | -
 backup.tools                | 0.0.1            | FALSE  | -
-bio                         | 0.1.6            | FALSE  | -
+bio                         | 0.1.7            | FALSE  | -
 blogdown                    | 1.1              | FALSE  | -
 bookdown                    | 0.21             | FALSE  | -
 broom                       | 0.7.3            | FALSE  | -
 car                         | 3.0-10           | FALSE  | Rcmdr
+chemCal                     | 0.2.2            | FALSE  | -
 citr                        | 0.3.2            | FALSE  | -
 correlation                 | 0.5.0            | FALSE  | -
 cowplot                     | 1.1.1            | FALSE  | -

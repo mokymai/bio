@@ -77,7 +77,6 @@ update_pkg_from_github <- function(pkg = "", github_repo = "", update_list = "",
       glue::glue(
         paste(sep = "\n",
           '# Updating package "{pkg}"...',
-          'Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS = "true")',
           'remotes::install_github(',
           '  "{github_repo}",',
           '  dependencies = TRUE, upgrade = {upgrade_str}{force_str}{quiet_str}',
@@ -91,7 +90,6 @@ update_pkg_from_github <- function(pkg = "", github_repo = "", update_list = "",
     rstudioapi::restartSession(command)
 
   } else {
-    Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS = "true")
     remotes::install_github(github_repo, dependencies = TRUE, force = force,
       upgrade = upgrade, quiet = quiet)
     bio::check_packages_by_topic(update_list, show_status = "newer_on_cran",

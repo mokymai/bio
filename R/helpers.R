@@ -17,6 +17,14 @@ chk_arg_upgrade <- function(x) {
   str_to_quotes(x)
 }
 
+get_upgrade_str <- function(upgrade) {
+  if (upgrade == "default") {
+    ""
+  } else {
+    paste0(", upgrade = ", chk_arg_upgrade(upgrade))
+  }
+}
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ui_msg_restart_rstudio <- function() {
   usethis::ui_todo(paste0(
