@@ -25,6 +25,7 @@ dplyr
 tidyr
 broom
 pacman
+pak
 
 # Markdown -------------------------------------------------------------------
 knitr
@@ -96,13 +97,15 @@ tidyxl
 xlsx
 XML
 tidycells
+rematch2
+xfun
 
 cheatsheet
 
 pretty
 
 # Markdown | Citation --------------------------------------------------------
-citr
+# citr
 rcrossref
 ymlthis
 
