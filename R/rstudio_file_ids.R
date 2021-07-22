@@ -29,7 +29,7 @@ get_rstudio_file_ids_user <- function() {
   }
 
   f_dir %>%
-    readr::read_lines() %>%
+    readr::read_lines(lazy = FALSE) %>%
     tibble::as_tibble() %>%
     dplyr::transmute(
       id   = stringr::str_extract(value, '(?<=").*?(?="$)'),
