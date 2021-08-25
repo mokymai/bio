@@ -95,7 +95,7 @@ open_rstudio_internal_dictionaries_dir <- function() {
 #' rstudio_install_spellcheck_dictionary_lt()
 #' }}
 
-rstudio_download_spellcheck_dictionaries <- function(secure = TRUE) {
+rstudio_install_spellcheck_dictionaries <- function(secure = TRUE) {
 
   if (rstudioapi::isAvailable(version_needed = 1.3)) {
     dic_dir <- get_path_rstudio_config_dir("dictionaries/languages-system")
@@ -104,6 +104,9 @@ rstudio_download_spellcheck_dictionaries <- function(secure = TRUE) {
     FALSE
   }
 }
+#' @rdname spelling
+#' @export
+rstudio_download_spellcheck_dictionaries <- rstudio_install_spellcheck_dictionaries
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @name spelling
