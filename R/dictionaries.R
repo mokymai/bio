@@ -111,9 +111,22 @@ rstudio_download_spellcheck_dictionaries <- function(secure = TRUE) {
 #' @concept r and rstudio settings
 #' @concept dictionaries
 rstudio_install_spellcheck_dictionary_lt <- function() {
-  dic_dir <- get_path_rstudio_config_dir("dictionaries/languages-system")
-  zipped_dict <- system.file("dictionaries/lt_LT.zip", package = "bio")
-  unzip(zipped_dict, exdir = dic_dir)
+
+  tryCatch({
+    dic_dir <- get_path_rstudio_config_dir("dictionaries/languages-system")
+    zipped_dict <- system.file("dictionaries/lt_LT.zip", package = "bio")
+    dic_paths <- unzip(zipped_dict, exdir = dic_dir)
+    usethis::ui_done(paste0(
+      "lt_LT dictionary installed. \n",
+      "{usethis::ui_path(dic_paths[2])}"
+    ))
+
+    invisible(dic_paths)
+
+  }, error = function(e) {
+    usethis::ui_oops("Fail to install lt_LT dictionary. ")
+    print(e)
+  })
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
