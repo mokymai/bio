@@ -2,6 +2,7 @@
 
 S3method(print,pkgs_installation_status)
 export(check_installed_programs)
+export(check_packages_by_name)
 export(check_packages_by_topic)
 export(check_updates_pkg_bio)
 export(check_updates_rcmdr_biostat)

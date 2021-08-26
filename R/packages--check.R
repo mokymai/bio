@@ -1103,10 +1103,12 @@ get_pkgs_installation_code_other <- function(x) {
 # # @rdname get_pkgs_installation_status
 #  @export
 
-#' Check Installed Packages by Topic
+#' Check Installed Packages by Topic and by Name
 #'
-#' A user-friendly version of a function to check if required R packages are
+#' A user-friendly version of functions to check if required R packages are
 #' installed and have minimum required versions.
+#'
+#' @name check_packages
 #'
 #' @inheritParams get_pkgs_installation_status
 #' @inheritParams get_pkgs_installation_code
@@ -1120,13 +1122,19 @@ get_pkgs_installation_code_other <- function(x) {
 #' @concept check-packages
 #'
 #' @examples
-#' \dontrun{\donttest{
-#' check_packages_by_topic("mini", use_local_list = TRUE)
+#' if (FALSE) {
+#'   check_packages_by_topic("mini", use_local_list = TRUE)
 #'
-#' check_packages_by_topic("mini", include = "always", use_local_list = TRUE)
-#' check_packages_by_topic("mini", include = "always", install = "outdated",
-#'  github = "always", use_local_list = TRUE)
-#' }}
+#'   check_packages_by_topic("mini", include = "always", use_local_list = TRUE)
+#'
+#'   check_packages_by_topic("mini", include = "always", install = "outdated",
+#'    github = "always", use_local_list = TRUE)
+#'
+#'
+#'   check_packages_by_name("bio")
+#'
+#'   check_packages_by_name(c("bio", "usethis", "ggplot1"))
+#' }
 
 # Sys.getenv("R_REMOTES_UPGRADE")
 check_packages_by_topic <- function(list_name = NULL,
@@ -1163,13 +1171,14 @@ check_packages_by_topic <- function(list_name = NULL,
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-check_packages_by_name <- function(list_name = NULL,
+#' @rdname check_packages
+#' @export
+check_packages_by_name <- function(pkgs = NULL,
   use_local_list = getOption("bio.use_local_list", FALSE), upgrade = TRUE,
   ...) {
 
   status <-
-    get_pkgs_installation_status(list_name, use_local_list = use_local_list)
+    get_pkgs_installation_status(pkgs = pkgs, use_local_list = use_local_list, ...)
 
   upgrade_str <- get_upgrade_str(upgrade)
 
