@@ -550,14 +550,14 @@ get_pkgs_installation_status_raw <- function(list_name = NULL, pkgs = NULL,
 #' options(bio.use_local_list = TRUE)
 #' list_name <- "mini"
 #'
+#' # Use package name
+#' (status_out <- get_pkgs_installation_status(pkgs = "bio"))
+#'
+#' (status_out <- get_pkgs_installation_status(pkgs = "bio", include = "always"))
+#'
 #' # Use list name
 #' (status_out <- get_pkgs_installation_status("mini"))
 #' get_pkgs_installation_code(status_out)
-#'
-#' # Use package name
-#' (status_out <- get_pkgs_installation_status(pkgs = "bio"))
-#' get_pkgs_installation_code(status_out)
-#'
 #'
 #' (status_all <- get_pkgs_installation_status("mini", include = "always"))
 #' get_pkgs_installation_code(status_all)
