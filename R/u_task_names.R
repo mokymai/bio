@@ -241,17 +241,17 @@ u_check_filename <- function(x) {
 #' @export
 #'
 #' @examples
-#' \donttest{\dontrun{
-#' u_prepare_assignment_dc(
-#'   uzduoties_nr = 1,
-#'   varianto_nr  = 000,
-#'   specialybe   = "molekuline biologija",
-#'   pavarde      = "Pavarde",
-#'   vardas       = "Vardas Antras",
-#'   sertifikatas = "pratybos/certificate.pdf",
-#'   konspektas   = "pratybos/konspektas.pdf"
-#' )
-#' }}
+#' if (FALSE) {
+#'   u_prepare_assignment_dc(
+#'     uzduoties_nr = 1,
+#'     varianto_nr  = 000,
+#'     specialybe   = "molekuline biologija",
+#'     pavarde      = "Pavarde",
+#'     vardas       = "Vardas Antras",
+#'     sertifikatas = "pratybos/certificate.pdf",
+#'     konspektas   = "pratybos/konspektas.pdf"
+#'   )
+#' }
 u_prepare_assignment_dc <- function(uzduoties_nr, varianto_nr, specialybe,
                                     pavarde, vardas, sertifikatas, konspektas,
                                     open_dir = FALSE, emokymai_id = NULL) {
@@ -339,7 +339,7 @@ u_prepare_assignment_dc <- function(uzduoties_nr, varianto_nr, specialybe,
 
 
 
-#' Open Resouce on Emokymai
+#' Open Resource on Emokymai
 #'
 #' @name emokymai
 #' @param id Resource ID.

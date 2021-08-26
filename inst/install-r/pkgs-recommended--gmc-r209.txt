@@ -73,7 +73,7 @@ RCurl
 alr4
 openxlsx
 readxl
-wtitexl
+writexl
 forcats
 hms
 
@@ -102,7 +102,7 @@ xfun
 
 cheatsheet
 
-pretty
+prettyR
 
 # Markdown | Citation --------------------------------------------------------
 # citr
@@ -222,7 +222,7 @@ RcmdrMisc
 Rcmdr
 RcmdrPlugin.EZR
 RcmdrPlugin.KMggplot2
-RcmdrPlugin.EZR.as.menu
+# RcmdrPlugin.EZR.as.menu
 RcmdrPlugin.biostat
 
 DataEntry

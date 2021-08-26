@@ -1,6 +1,6 @@
 ---
 title: "Minimal required versions of packages"
-date:  2021-08-26
+date:  2021-08-27
 notes: ""
 
 
@@ -13,7 +13,7 @@ addin.tools                 | 0.0.9            | FALSE  | -
 addins.rmd                  | 0.0.10           | FALSE  | -
 addins.rs                   | 0.0.9            | FALSE  | -
 backup.tools                | 0.0.1            | FALSE  | -
-bio                         | 0.1.8            | FALSE  | -
+bio                         | 0.1.9            | FALSE  | -
 BiocManager                 | 1.30.16          | FALSE  | -
 blogdown                    | 1.4              | FALSE  | -
 bookdown                    | 0.23             | FALSE  | -

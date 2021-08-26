@@ -43,15 +43,15 @@ The copied files are properly renamed.
 If needed, the function opens the folder and assignment submission webpage.
 }
 \examples{
-\donttest{\dontrun{
-u_prepare_assignment_dc(
-  uzduoties_nr = 1,
-  varianto_nr  = 000,
-  specialybe   = "molekuline biologija",
-  pavarde      = "Pavarde",
-  vardas       = "Vardas Antras",
-  sertifikatas = "pratybos/certificate.pdf",
-  konspektas   = "pratybos/konspektas.pdf"
-)
-}}
+if (FALSE) {
+  u_prepare_assignment_dc(
+    uzduoties_nr = 1,
+    varianto_nr  = 000,
+    specialybe   = "molekuline biologija",
+    pavarde      = "Pavarde",
+    vardas       = "Vardas Antras",
+    sertifikatas = "pratybos/certificate.pdf",
+    konspektas   = "pratybos/konspektas.pdf"
+  )
+}
 }

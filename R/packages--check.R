@@ -164,20 +164,20 @@ get_pkgs_installed <- function(rm_duplicates = TRUE) {
 #' @concept packages
 #'
 #' @examples
-#' # NOTE: It is not recommended to use the local lists as they might be out of date.
+#' # NOTE: It is not recommended to use local lists as they might be out of date.
 #' # Here it is used for testing purposes only.
 #' options(bio.use_local_list = TRUE)
 #'
-#' head(get_pkgs_recommended("mini"))
+#' head(read_pkgs_list("mini"))
 #'
-get_pkgs_recommended <- function(list_name,
+read_pkgs_list <- function(list_name,
                                  use_local_list = getOption("bio.use_local_list", FALSE),
                                  show_message = FALSE) {
 
   checkmate::assert_flag(show_message)
   list_name <- tolower(list_name)
   list_name_blue <- usethis::ui_value(list_name)
-  file <- get_path_pkgs_recommended(list_name, use_local_list)
+  file <- get_path_pkgs_list(list_name, use_local_list)
 
   tryCatch(
     {
@@ -225,9 +225,9 @@ get_pkgs_recommended <- function(list_name,
   )
 }
 
-# get_path_pkgs_recommended("gmc-r209", TRUE)
-# get_path_pkgs_recommended("gmc-r209", FALSE)
-get_path_pkgs_recommended <- function(list_name, use_local_list) {
+# get_path_pkgs_list("gmc-r209", TRUE)
+# get_path_pkgs_list("gmc-r209", FALSE)
+get_path_pkgs_list <- function(list_name, use_local_list) {
   list_name <- tolower(list_name)
   base_name <- paste0("pkgs-recommended--", list_name, ".txt")
 
@@ -398,25 +398,13 @@ get_path_pkgs_non_cran_installation_details <- function(use_local_list) {
 }
 
 # ===========================================================================~
-# Instalation status (local) -------------------------------------------------
+# Installation status (local) ------------------------------------------------
 
-# @rdname get_pkgs_installation_status
-#' @noRd
-#'
-#' @concept packages
-#'
-#' @examples
-#' head(get_pkgs_installation_status_local("mini"))
+merge_pkgs_status_lists <- function(pkgs_list, pkgs_installed, pkgs_required_versions) {
+  pkgs_inst  <- pkgs_installed
+  pkgs_req_v <- pkgs_required_versions
 
-get_pkgs_installation_status_local <- function(list_name,
-  use_local_list = getOption("bio.use_local_list", TRUE)) {
-
-  pkgs_rec   <- get_pkgs_recommended(use_local_list = use_local_list,
-    list_name = list_name, show_message = TRUE)
-  pkgs_inst  <- get_pkgs_installed()
-  pkgs_req_v <- get_pkgs_req_version(use_local_list = use_local_list)
-
-  pkgs_init <- dplyr::left_join(pkgs_rec,   pkgs_inst, by = "package")
+  pkgs_init <- dplyr::left_join(pkgs_list, pkgs_inst,  by = "package")
   pkgs_init <- dplyr::left_join(pkgs_init, pkgs_req_v, by = "package")
 
   pkgs_init$is_installed <- !is.na(pkgs_init$current_version)
@@ -432,7 +420,53 @@ get_pkgs_installation_status_local <- function(list_name,
   pkgs_init
 }
 
-# Instalation status ---------------------------------------------------------
+
+# @rdname get_pkgs_installation_status
+#' @noRd
+#'
+#' @concept packages
+#'
+#' @examples
+#' head(get_pkgs_installation_status_raw("mini"))
+
+
+get_pkgs_installation_status_raw <- function(list_name = NULL, pkgs = NULL,
+  use_local_list = getOption("bio.use_local_list", TRUE)) {
+
+  checkmate::assert_character(list_name, null.ok = TRUE)
+  checkmate::assert_character(pkgs, null.ok = TRUE)
+  if (is.null(list_name) && is.null(pkgs)) {
+    stop("Either 'list_name' or 'pkgs' must be provided.")
+  }
+  if (!is.null(list_name) && !is.null(pkgs)) {
+    stop("Only either 'list_name' or 'pkgs' must be entered but not both.")
+  }
+
+  # Get list of packages of interest
+  if (!is.null(list_name)) {
+    pkgs_list <-
+      read_pkgs_list(
+        list_name = list_name,
+        use_local_list = use_local_list,
+        show_message = TRUE
+      )
+  } else {
+    pkgs_list <- data.frame(package = pkgs)
+  }
+
+  # Get other lists
+  pkgs_inst  <- get_pkgs_installed()
+  pkgs_req_v <- get_pkgs_req_version(use_local_list = use_local_list)
+
+
+  merge_pkgs_status_lists(pkgs_list, pkgs_inst, pkgs_req_v)
+}
+
+
+
+
+
+# Installation status --------------------------------------------------------
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
 #' @name get_pkgs_installation_status
@@ -444,6 +478,9 @@ get_pkgs_installation_status_local <- function(list_name,
 #'
 #' @param list_name (character) The name of the list with required R packages.
 #'        E.g., "mini", "Rcmdr", "Rcmdr-biostat", "bio", etc.
+#'
+#' @param pkgs (character) The name (vector of names) of R packages.
+#'        Either `list_name` or `pkgs` must be `NULL`.
 #'
 #' @param include (character) Which packages from the list (indicated in `list_name`)
 #'        must be included in the results.
@@ -507,12 +544,18 @@ get_pkgs_installation_status_local <- function(list_name,
 #' @concept packages
 #'
 #' @examples
-#' \dontrun{\donttest{
+#' if (FALSE) {
 #'
 #' # NOTE: It is not recommended to use the local lists as they might be out of date.
 #' options(bio.use_local_list = TRUE)
 #' list_name <- "mini"
 #'
+#' # Use package name
+#' (status_out <- get_pkgs_installation_status(pkgs = "bio"))
+#'
+#' (status_out <- get_pkgs_installation_status(pkgs = "bio", include = "always"))
+#'
+#' # Use list name
 #' (status_out <- get_pkgs_installation_status("mini"))
 #' get_pkgs_installation_code(status_out)
 #'
@@ -528,7 +571,7 @@ get_pkgs_installation_status_local <- function(list_name,
 #' get_last_pkgs_installation_status()
 #' get_pkgs_installation_code()
 #'
-#' }}
+#' }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # list_name <- "gmc-r209"
@@ -544,9 +587,9 @@ get_pkgs_installation_status_local <- function(list_name,
 get_pkgs_installation_status <- function(list_name = NULL, include = "outdated",
   show_status = include, install = include, cran = install,
   github = install, other_repos = install, using_code = install,
-  use_local_list = getOption("bio.use_local_list", FALSE)) {
+  use_local_list = getOption("bio.use_local_list", FALSE), pkgs = NULL) {
 
-  if (is.null(list_name)) {
+  if (is.null(list_name) && is.null(pkgs)) {
     ui_stop(paste0(
       "The {green('list_name')} is missing. ",
       "Currently available lists include: ",
@@ -568,8 +611,11 @@ get_pkgs_installation_status <- function(list_name = NULL, include = "outdated",
   github      <- ifelse(github      == "newer_on_cran", "outdated", github)
   using_code  <- ifelse(using_code  == "newer_on_cran", "outdated", using_code)
 
-  status_0  <- get_pkgs_installation_status_local(list_name = list_name,
-    use_local_list = use_local_list)
+  status_0  <- get_pkgs_installation_status_raw(
+    list_name = list_name,
+    use_local_list = use_local_list,
+    pkgs = pkgs
+  )
 
   pkgs_other <- get_pkgs_non_cran_installation_details(use_local_list = use_local_list)
   additional_repos <- pkgs_other$details[pkgs_other$install_from %in% "repos"]
@@ -603,6 +649,7 @@ get_pkgs_installation_status <- function(list_name = NULL, include = "outdated",
   # Output structure
   out <- list(
     list_name    = list_name,      # string
+    pkgs         = pkgs,
     status       = status,         # data frame
     show_status  = show_status,
     install_from = tibble::tibble(cran, github, other_repos, using_code),
@@ -655,7 +702,14 @@ get_last_pkgs_installation_status <- function() {
 #' @export
 print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) {
 
-  list_name <- ui_value(x$list_name)
+  if (!is.null(x$list_name)) {
+    list_name <- ui_value(x$list_name)
+    list_str <- stringr::str_glue("(from list {list_name}) ")
+    spc <- " "
+  } else {
+    list_name <- list_str <- spc <- ""
+  }
+
   st <- x$status
   n     <- nrow(st)
   n_old <- x$n_to_install_or_update
@@ -685,7 +739,7 @@ print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) 
       "v_cran", "update_is_required")
     cat("\n")
     ui_info("{silver('Abbreviations:')} {yellow('v \u2014 version')}\n\n")
-    print(tibble::as_tibble(st2), n = Inf, width = Inf, n_extra = Inf)
+    print(tibble::as_tibble(st2), n = Inf, width = Inf, max_extra_cols = Inf)
   }
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   cat("\n")
@@ -696,12 +750,12 @@ print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) 
     msg <-
       if (n == 1) {
         pkg <- green(st$package)
-        "Minimal required version of package {pkg} (from list {list_name}) is installed."
+        "Minimal required version of package {pkg} {list_str}is installed."
 
       } else {
         paste0(
           "Minimal required versions of all {green(n)} packages ",
-          "(from list {list_name}) are already installed."
+          "{list_str}are already installed."
         )
       }
 
@@ -718,13 +772,13 @@ print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) 
       if (n == 1) {
         pkg <- red(st$package)
         paste0(
-          "Package {pkg} (from list {list_name}) should be ",
+          "Package {pkg} {list_str}should be ",
           "{red('installed')} or {red('updated')}."
         )
 
       } else {
         paste0(
-          "List {list_name} contains {red(n_old)} package{s} (out of {n}) ",
+          "List {list_name}{spc}contains {red(n_old)} package{s} (out of {n}) ",
           "that should be {red('installed')} or {red('updated')}."
         )
       }
@@ -1049,10 +1103,12 @@ get_pkgs_installation_code_other <- function(x) {
 # # @rdname get_pkgs_installation_status
 #  @export
 
-#' Check Installed Packages by Topic
+#' Check Installed Packages by Topic and by Name
 #'
-#' A user-friendly version of a function to check if required R packages are
+#' A user-friendly version of functions to check if required R packages are
 #' installed and have minimum required versions.
+#'
+#' @name check_packages
 #'
 #' @inheritParams get_pkgs_installation_status
 #' @inheritParams get_pkgs_installation_code
@@ -1066,13 +1122,19 @@ get_pkgs_installation_code_other <- function(x) {
 #' @concept check-packages
 #'
 #' @examples
-#' \dontrun{\donttest{
-#' check_packages_by_topic("mini", use_local_list = TRUE)
+#' if (FALSE) {
+#'   check_packages_by_topic("mini", use_local_list = TRUE)
 #'
-#' check_packages_by_topic("mini", include = "always", use_local_list = TRUE)
-#' check_packages_by_topic("mini", include = "always", install = "outdated",
-#'  github = "always", use_local_list = TRUE)
-#' }}
+#'   check_packages_by_topic("mini", include = "always", use_local_list = TRUE)
+#'
+#'   check_packages_by_topic("mini", include = "always", install = "outdated",
+#'    github = "always", use_local_list = TRUE)
+#'
+#'
+#'   check_packages_by_name("bio")
+#'
+#'   check_packages_by_name(c("bio", "usethis", "ggplot1"))
+#' }
 
 # Sys.getenv("R_REMOTES_UPGRADE")
 check_packages_by_topic <- function(list_name = NULL,
@@ -1081,6 +1143,42 @@ check_packages_by_topic <- function(list_name = NULL,
 
   status <-
     get_pkgs_installation_status(list_name, use_local_list = use_local_list, ...)
+
+  upgrade_str <- get_upgrade_str(upgrade)
+
+  code_str <- glue::glue(
+    "bio::get_pkgs_installation_code(to_clipboard = TRUE{upgrade_str})"
+  )
+
+  print(status)
+
+  if (status$n_to_install_or_update > 0) {
+    assign("last_installation_status", status, envir = bio_envir)
+
+    cat("\n")
+    usethis::ui_todo(paste0(
+      "To get package installation code, type:\n{usethis::ui_field(code_str)} ")
+      )
+    cat("\n")
+
+    if (rstudioapi::isAvailable("0.99.787")) {
+      rstudioapi::sendToConsole(code_str, execute = FALSE)
+    }
+  }
+
+  invisible(status)
+}
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' @rdname check_packages
+#' @export
+check_packages_by_name <- function(pkgs = NULL,
+  use_local_list = getOption("bio.use_local_list", FALSE), upgrade = TRUE,
+  ...) {
+
+  status <-
+    get_pkgs_installation_status(pkgs = pkgs, use_local_list = use_local_list, ...)
 
   upgrade_str <- get_upgrade_str(upgrade)
 

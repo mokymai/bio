@@ -4,7 +4,7 @@
 \alias{emokymai}
 \alias{emokymai_browse_assingment}
 \alias{emokymai_submit_assingment}
-\title{Open Resouce on Emokymai}
+\title{Open Resource on Emokymai}
 \usage{
 emokymai_browse_assingment(id)
 
@@ -14,5 +14,5 @@ emokymai_submit_assingment(id)
 \item{id}{Resource ID.}
 }
 \description{
-Open Resouce on Emokymai
+Open Resource on Emokymai
 }
