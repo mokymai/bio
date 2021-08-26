@@ -705,8 +705,9 @@ print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) 
   if (!is.null(x$list_name)) {
     list_name <- ui_value(x$list_name)
     list_str <- stringr::str_glue("(from list {list_name}) ")
+    spc <- " "
   } else {
-    list_name <- list_str <- ""
+    list_name <- list_str <- spc <- ""
   }
 
   st <- x$status
@@ -777,7 +778,7 @@ print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) 
 
       } else {
         paste0(
-          "List {list_name} contains {red(n_old)} package{s} (out of {n}) ",
+          "List {list_name}{spc}contains {red(n_old)} package{s} (out of {n}) ",
           "that should be {red('installed')} or {red('updated')}."
         )
       }
