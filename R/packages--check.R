@@ -738,7 +738,7 @@ print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) 
       "v_cran", "update_is_required")
     cat("\n")
     ui_info("{silver('Abbreviations:')} {yellow('v \u2014 version')}\n\n")
-    print(tibble::as_tibble(st2), n = Inf, width = Inf, n_extra = Inf)
+    print(tibble::as_tibble(st2), n = Inf, width = Inf, max_extra_cols = Inf)
   }
   # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   cat("\n")
