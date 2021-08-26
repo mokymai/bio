@@ -28,6 +28,7 @@ rstatix
 styler
 lintr
 readxl
+openxlsx
 usethis
 rstudioapi
 tinytex
@@ -41,5 +42,5 @@ pacman
 patchwork
 here
 cheatsheet
-
-
+shiny
+plotly
