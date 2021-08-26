@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Prepare Files For Submission (DataCamp Task) — u_prepare_assignment_dc • bio</title>
+<title>Check Installed Packages by Topic and by Name — check_packages • bio</title>
 
 
 <!-- jquery -->
@@ -39,11 +39,9 @@
 
 
 
-<meta property="og:title" content="Prepare Files For Submission (DataCamp Task) — u_prepare_assignment_dc" />
-<meta property="og:description" content="The function creates a folder (e.g.,U00-atsakymai-ikelimui) and copies files
-indicated in sertifikatas and konspektas to that folder.
-The copied files are properly renamed.
-If needed, the function opens the folder and assignment submission webpage." />
+<meta property="og:title" content="Check Installed Packages by Topic and by Name — check_packages" />
+<meta property="og:description" content="A user-friendly version of functions to check if required R packages are
+installed and have minimum required versions." />
 
 
 
@@ -128,84 +126,81 @@ If needed, the function opens the folder and assignment submission webpage." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Prepare Files For Submission (DataCamp Task)</h1>
-    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/u_task_names.R'><code>R/u_task_names.R</code></a></small>
-    <div class="hidden name"><code>u_prepare_assignment_dc.Rd</code></div>
+    <h1>Check Installed Packages by Topic and by Name</h1>
+    <small class="dont-index">Source: <a href='https://github.com/mokymai/bio/blob/master/R/packages--check.R'><code>R/packages--check.R</code></a></small>
+    <div class="hidden name"><code>check_packages.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The function creates a folder (e.g.,<code>U00-atsakymai-ikelimui</code>) and copies files
-indicated in <code>sertifikatas</code> and <code>konspektas</code> to that folder.
-The copied files are properly renamed.
-If needed, the function opens the folder and assignment submission webpage.</p>
+    <p>A user-friendly version of functions to check if required R packages are
+installed and have minimum required versions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>u_prepare_assignment_dc</span><span class='op'>(</span>
-  <span class='va'>uzduoties_nr</span>,
-  <span class='va'>varianto_nr</span>,
-  <span class='va'>specialybe</span>,
-  <span class='va'>pavarde</span>,
-  <span class='va'>vardas</span>,
-  <span class='va'>sertifikatas</span>,
-  <span class='va'>konspektas</span>,
-  open_dir <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  emokymai_id <span class='op'>=</span> <span class='cn'>NULL</span>
+    <pre class="usage"><span class='fu'>check_packages_by_topic</span><span class='op'>(</span>
+  list_name <span class='op'>=</span> <span class='cn'>NULL</span>,
+  use_local_list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"bio.use_local_list"</span>, <span class='cn'>FALSE</span><span class='op'>)</span>,
+  upgrade <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
+
+<span class='fu'>check_packages_by_name</span><span class='op'>(</span>
+  pkgs <span class='op'>=</span> <span class='cn'>NULL</span>,
+  use_local_list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"bio.use_local_list"</span>, <span class='cn'>FALSE</span><span class='op'>)</span>,
+  upgrade <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>uzduoties_nr</th>
-      <td><p>(integer)</p></td>
+      <th>list_name</th>
+      <td><p>(character) The name of the list with required R packages.
+E.g., "mini", "Rcmdr", "Rcmdr-biostat", "bio", etc.</p></td>
     </tr>
     <tr>
-      <th>varianto_nr</th>
-      <td><p>(integer)</p></td>
+      <th>use_local_list</th>
+      <td><p>(logical) If <code>TRUE</code>, the list, which is locally
+installed in the folder of package <span class="pkg">bio</span> ("local list"), is used.
+If <code>FALSE</code>, the list on "GitHub" repository of the package is used.
+It is recommended  using the online version of the list, as it may
+contain more recent changes.
+Optiom bight be set globally by, e.g.,
+<code><a href='https://rdrr.io/r/base/options.html'>options(bio.use_local_list = TRUE)</a></code>.</p></td>
     </tr>
     <tr>
-      <th>specialybe</th>
-      <td><p>(string)</p></td>
+      <th>upgrade</th>
+      <td><p>Upgrade dependencies.
+See <code>upgrade</code> in <code><a href='https://remotes.r-lib.org/reference/install_cran.html'>remotes::install_cran()</a></code>.</p></td>
     </tr>
     <tr>
-      <th>pavarde</th>
-      <td><p>(string)</p></td>
+      <th>...</th>
+      <td><p>Further arguments to <code><a href='get_pkgs_installation_status.html'>get_pkgs_installation_status()</a></code>.</p></td>
     </tr>
     <tr>
-      <th>vardas</th>
-      <td><p>(string)</p></td>
-    </tr>
-    <tr>
-      <th>sertifikatas</th>
-      <td><p>(string) Path to PDF file
-(certificate issued by DataCamp).</p></td>
-    </tr>
-    <tr>
-      <th>konspektas</th>
-      <td><p>(string) Path to PDF file.</p></td>
-    </tr>
-    <tr>
-      <th>open_dir</th>
-      <td><p>(<code>TRUE</code>|<code>FALSE</code>) Open the directory with submission files.</p></td>
-    </tr>
-    <tr>
-      <th>emokymai_id</th>
-      <td><p>(integer) Open the directory with submission files.</p></td>
+      <th>pkgs</th>
+      <td><p>(character) The name (vector of names) of R packages.
+Either <code>list_name</code> or <code>pkgs</code> must be <code>NULL</code>.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>Function invisibly returns object with package installation status.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='fu'>u_prepare_assignment_dc</span><span class='op'>(</span>
-    uzduoties_nr <span class='op'>=</span> <span class='fl'>1</span>,
-    varianto_nr  <span class='op'>=</span> <span class='fl'>000</span>,
-    specialybe   <span class='op'>=</span> <span class='st'>"molekuline biologija"</span>,
-    pavarde      <span class='op'>=</span> <span class='st'>"Pavarde"</span>,
-    vardas       <span class='op'>=</span> <span class='st'>"Vardas Antras"</span>,
-    sertifikatas <span class='op'>=</span> <span class='st'>"pratybos/certificate.pdf"</span>,
-    konspektas   <span class='op'>=</span> <span class='st'>"pratybos/konspektas.pdf"</span>
-  <span class='op'>)</span>
+  <span class='fu'>check_packages_by_topic</span><span class='op'>(</span><span class='st'>"mini"</span>, use_local_list <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+
+  <span class='fu'>check_packages_by_topic</span><span class='op'>(</span><span class='st'>"mini"</span>, include <span class='op'>=</span> <span class='st'>"always"</span>, use_local_list <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+
+  <span class='fu'>check_packages_by_topic</span><span class='op'>(</span><span class='st'>"mini"</span>, include <span class='op'>=</span> <span class='st'>"always"</span>, install <span class='op'>=</span> <span class='st'>"outdated"</span>,
+   github <span class='op'>=</span> <span class='st'>"always"</span>, use_local_list <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+
+
+  <span class='fu'>check_packages_by_name</span><span class='op'>(</span><span class='st'>"bio"</span><span class='op'>)</span>
+
+  <span class='fu'>check_packages_by_name</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"bio"</span>, <span class='st'>"usethis"</span>, <span class='st'>"ggplot1"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>

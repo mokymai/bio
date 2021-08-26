@@ -145,7 +145,8 @@ or need to be updated) and package installation code.</p>
   github <span class='op'>=</span> <span class='va'>install</span>,
   other_repos <span class='op'>=</span> <span class='va'>install</span>,
   using_code <span class='op'>=</span> <span class='va'>install</span>,
-  use_local_list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"bio.use_local_list"</span>, <span class='cn'>FALSE</span><span class='op'>)</span>
+  use_local_list <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span><span class='op'>(</span><span class='st'>"bio.use_local_list"</span>, <span class='cn'>FALSE</span><span class='op'>)</span>,
+  pkgs <span class='op'>=</span> <span class='cn'>NULL</span>
 <span class='op'>)</span>
 
 <span class='fu'>get_pkg_lists_local</span><span class='op'>(</span><span class='op'>)</span>
@@ -238,6 +239,11 @@ Optiom bight be set globally by, e.g.,
 <code><a href='https://rdrr.io/r/base/options.html'>options(bio.use_local_list = TRUE)</a></code>.</p></td>
     </tr>
     <tr>
+      <th>pkgs</th>
+      <td><p>(character) The name (vector of names) of R packages.
+Either <code>list_name</code> or <code>pkgs</code> must be <code>NULL</code>.</p></td>
+    </tr>
+    <tr>
       <th>x</th>
       <td><p>Object of interest.</p></td>
     </tr>
@@ -264,7 +270,35 @@ See <code>upgrade</code> in <code><a href='https://remotes.r-lib.org/reference/i
 <code><a href='get_pkgs_installed.html'>get_pkgs_installed</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+
+<span class='co'># NOTE: It is not recommended to use the local lists as they might be out of date.</span>
+<span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span><span class='op'>(</span>bio.use_local_list <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='va'>list_name</span> <span class='op'>&lt;-</span> <span class='st'>"mini"</span>
+
+<span class='co'># Use package name</span>
+<span class='op'>(</span><span class='va'>status_out</span> <span class='op'>&lt;-</span> <span class='fu'>get_pkgs_installation_status</span><span class='op'>(</span>pkgs <span class='op'>=</span> <span class='st'>"bio"</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='op'>(</span><span class='va'>status_out</span> <span class='op'>&lt;-</span> <span class='fu'>get_pkgs_installation_status</span><span class='op'>(</span>pkgs <span class='op'>=</span> <span class='st'>"bio"</span>, include <span class='op'>=</span> <span class='st'>"always"</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'># Use list name</span>
+<span class='op'>(</span><span class='va'>status_out</span> <span class='op'>&lt;-</span> <span class='fu'>get_pkgs_installation_status</span><span class='op'>(</span><span class='st'>"mini"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>get_pkgs_installation_code</span><span class='op'>(</span><span class='va'>status_out</span><span class='op'>)</span>
+
+<span class='op'>(</span><span class='va'>status_all</span> <span class='op'>&lt;-</span> <span class='fu'>get_pkgs_installation_status</span><span class='op'>(</span><span class='st'>"mini"</span>, include <span class='op'>=</span> <span class='st'>"always"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>get_pkgs_installation_code</span><span class='op'>(</span><span class='va'>status_all</span><span class='op'>)</span>
+
+<span class='op'>(</span><span class='va'>status_custom</span> <span class='op'>&lt;-</span>
+  <span class='fu'>get_pkgs_installation_status</span><span class='op'>(</span><span class='st'>"mini"</span>, include <span class='op'>=</span> <span class='st'>"always"</span>, install <span class='op'>=</span> <span class='st'>"outdated"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>get_pkgs_installation_code</span><span class='op'>(</span><span class='va'>status_custom</span><span class='op'>)</span>
+
+<span class='co'># Package "remembers" the last created 'pkgs_installation_status' object</span>
+<span class='fu'>get_pkgs_installation_status</span><span class='op'>(</span><span class='st'>"snippets"</span><span class='op'>)</span>
+<span class='fu'>get_last_pkgs_installation_status</span><span class='op'>(</span><span class='op'>)</span>
+<span class='fu'>get_pkgs_installation_code</span><span class='op'>(</span><span class='op'>)</span>
+
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
