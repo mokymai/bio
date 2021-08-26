@@ -8,9 +8,9 @@ Package ***bio***
 <!-- badges: start -->
 
 [![GitHub
-version](https://img.shields.io/badge/GitHub-0.1.7-brightgreen.svg)](https://github.com/mokymai/bio)
+version](https://img.shields.io/badge/GitHub-0.1.8-brightgreen.svg)](https://github.com/mokymai/bio)
 [![R-CMD-check](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
-[![Updated-on](https://img.shields.io/badge/Updated%20on-2021--05--23-yellowgreen.svg)](/commits/master)
+[![Updated-on](https://img.shields.io/badge/Updated%20on-2021--08--26-yellowgreen.svg)](/commits/master)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
@@ -197,7 +197,7 @@ dictionaries dictionaries (including Lithuanian) that can be used by
 RStudio or by tools from **wellspell.addin** package.
 
 ``` r
-bio::rstudio_download_spellcheck_dictionaries()
+bio::rstudio_install_spellcheck_dictionaries()
 ```
 
 Install improved Lithuanian dictionary.

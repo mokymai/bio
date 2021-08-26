@@ -75,7 +75,7 @@ read_projects <- function(file, sort_by = FALSE) {
     return(NULL)
   }
 
-  projs   <- readr::read_lines(file)
+  projs   <- readr::read_lines(file, lazy = FALSE)
   projs   <- stringr::str_subset(projs, "^\\s*$", negate = TRUE)
   proj_df <- parse_proj_path(projs)
 

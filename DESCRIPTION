@@ -1,14 +1,14 @@
 Package: bio
 Type: Package
 Title: Resources Manager for BS-2021 and R-2021
-Version: 0.1.7
-Date: 2020-05-24
+Version: 0.1.8
+Date: 2020-08-26
 Authors@R: 
     person("Vilmantas", "Gegzna", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-9500-5167"),
            email = "GegznaV@gmail.com"
     )
-Description: Resources manager for course units BS-2020 and R-2020.
+Description: Resources manager for course units BS-2021 and R-2021.
 URL: 
     https://mokymai.github.io/bio/,
     https://github.com/mokymai/bio/
@@ -34,7 +34,7 @@ Imports:
   magrittr,
   pingr,
   purrr,
-  readr,
+  readr (>= 2.0.0),
   rematch2,
   remotes,
   rstudioapi (>= 0.13),

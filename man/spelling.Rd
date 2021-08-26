@@ -2,11 +2,14 @@
 % Please edit documentation in R/dictionaries.R
 \name{spelling}
 \alias{spelling}
+\alias{rstudio_install_spellcheck_dictionaries}
 \alias{rstudio_download_spellcheck_dictionaries}
 \alias{rstudio_install_spellcheck_dictionary_lt}
 \alias{rstudio_delete_spellcheck_dictionaries}
 \title{Dictionaries to check spelling}
 \usage{
+rstudio_install_spellcheck_dictionaries(secure = TRUE)
+
 rstudio_download_spellcheck_dictionaries(secure = TRUE)
 
 rstudio_install_spellcheck_dictionary_lt()
