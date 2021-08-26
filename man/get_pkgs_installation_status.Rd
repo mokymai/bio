@@ -17,7 +17,8 @@ get_pkgs_installation_status(
   github = install,
   other_repos = install,
   using_code = install,
-  use_local_list = getOption("bio.use_local_list", FALSE)
+  use_local_list = getOption("bio.use_local_list", FALSE),
+  pkgs = NULL
 )
 
 get_pkg_lists_local()
@@ -90,6 +91,9 @@ contain more recent changes.
 Optiom bight be set globally by, e.g.,
 \code{options(bio.use_local_list = TRUE)}.}
 
+\item{pkgs}{(character) The name (vector of names) of R packages.
+Either \code{list_name} or \code{pkgs} must be \code{NULL}.}
+
 \item{x}{Object of interest.}
 
 \item{...}{Arguments to other methods.}
@@ -105,14 +109,20 @@ Get package installation status (e.g., if packages of interest are installed
 or need to be updated) and package installation code.
 }
 \examples{
-\dontrun{\donttest{
+if (FALSE) {
 
 # NOTE: It is not recommended to use the local lists as they might be out of date.
 options(bio.use_local_list = TRUE)
 list_name <- "mini"
 
+# Use list name
 (status_out <- get_pkgs_installation_status("mini"))
 get_pkgs_installation_code(status_out)
+
+# Use package name
+(status_out <- get_pkgs_installation_status(pkgs = "bio"))
+get_pkgs_installation_code(status_out)
+
 
 (status_all <- get_pkgs_installation_status("mini", include = "always"))
 get_pkgs_installation_code(status_all)
@@ -126,7 +136,7 @@ get_pkgs_installation_status("snippets")
 get_last_pkgs_installation_status()
 get_pkgs_installation_code()
 
-}}
+}
 }
 \seealso{
 Other R-packages-related functions: 
