@@ -164,13 +164,13 @@ get_pkgs_installed <- function(rm_duplicates = TRUE) {
 #' @concept packages
 #'
 #' @examples
-#' # NOTE: It is not recommended to use the local lists as they might be out of date.
+#' # NOTE: It is not recommended to use local lists as they might be out of date.
 #' # Here it is used for testing purposes only.
 #' options(bio.use_local_list = TRUE)
 #'
-#' head(get_pkgs_recommended("mini"))
+#' head(read_pkgs_list("mini"))
 #'
-get_pkgs_recommended <- function(list_name,
+read_pkgs_list <- function(list_name,
                                  use_local_list = getOption("bio.use_local_list", FALSE),
                                  show_message = FALSE) {
 
@@ -411,7 +411,7 @@ get_path_pkgs_non_cran_installation_details <- function(use_local_list) {
 get_pkgs_installation_status_local <- function(list_name,
   use_local_list = getOption("bio.use_local_list", TRUE)) {
 
-  pkgs_rec   <- get_pkgs_recommended(use_local_list = use_local_list,
+  pkgs_rec   <- read_pkgs_list(use_local_list = use_local_list,
     list_name = list_name, show_message = TRUE)
   pkgs_inst  <- get_pkgs_installed()
   pkgs_req_v <- get_pkgs_req_version(use_local_list = use_local_list)
@@ -1076,6 +1076,41 @@ get_pkgs_installation_code_other <- function(x) {
 
 # Sys.getenv("R_REMOTES_UPGRADE")
 check_packages_by_topic <- function(list_name = NULL,
+  use_local_list = getOption("bio.use_local_list", FALSE), upgrade = TRUE,
+  ...) {
+
+  status <-
+    get_pkgs_installation_status(list_name, use_local_list = use_local_list, ...)
+
+  upgrade_str <- get_upgrade_str(upgrade)
+
+  code_str <- glue::glue(
+    "bio::get_pkgs_installation_code(to_clipboard = TRUE{upgrade_str})"
+  )
+
+  print(status)
+
+  if (status$n_to_install_or_update > 0) {
+    assign("last_installation_status", status, envir = bio_envir)
+
+    cat("\n")
+    usethis::ui_todo(paste0(
+      "To get package installation code, type:\n{usethis::ui_field(code_str)} ")
+      )
+    cat("\n")
+
+    if (rstudioapi::isAvailable("0.99.787")) {
+      rstudioapi::sendToConsole(code_str, execute = FALSE)
+    }
+  }
+
+  invisible(status)
+}
+
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+check_packages_by_name <- function(list_name = NULL,
   use_local_list = getOption("bio.use_local_list", FALSE), upgrade = TRUE,
   ...) {
 
