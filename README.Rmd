@@ -188,7 +188,7 @@ bio::update_pkg_rcmdr_biostat()
 This function downloads or updates **hunspell** spelling checking dictionaries dictionaries (including Lithuanian) that can be used by RStudio or by tools from **wellspell.addin** package.
 
 ```{r eval=FALSE}
-bio::rstudio_download_spellcheck_dictionaries()
+bio::rstudio_install_spellcheck_dictionaries()
 ```
 
 Install improved Lithuanian dictionary.
