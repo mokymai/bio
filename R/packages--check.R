@@ -649,6 +649,7 @@ get_pkgs_installation_status <- function(list_name = NULL, include = "outdated",
   # Output structure
   out <- list(
     list_name    = list_name,      # string
+    pkgs         = pkgs,
     status       = status,         # data frame
     show_status  = show_status,
     install_from = tibble::tibble(cran, github, other_repos, using_code),
@@ -701,7 +702,13 @@ get_last_pkgs_installation_status <- function() {
 #' @export
 print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) {
 
-  list_name <- ui_value(x$list_name)
+  if (!is.null(x$list_name)) {
+    list_name <- ui_value(x$list_name)
+    list_str <- stringr::str_glue("(from list {list_name}) ")
+  } else {
+    list_name <- list_str <- ""
+  }
+
   st <- x$status
   n     <- nrow(st)
   n_old <- x$n_to_install_or_update
@@ -742,12 +749,12 @@ print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) 
     msg <-
       if (n == 1) {
         pkg <- green(st$package)
-        "Minimal required version of package {pkg} (from list {list_name}) is installed."
+        "Minimal required version of package {pkg} {list_str}is installed."
 
       } else {
         paste0(
           "Minimal required versions of all {green(n)} packages ",
-          "(from list {list_name}) are already installed."
+          "{list_str}are already installed."
         )
       }
 
@@ -764,7 +771,7 @@ print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) 
       if (n == 1) {
         pkg <- red(st$package)
         paste0(
-          "Package {pkg} (from list {list_name}) should be ",
+          "Package {pkg} {list_str}should be ",
           "{red('installed')} or {red('updated')}."
         )
 
