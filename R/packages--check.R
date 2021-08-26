@@ -427,10 +427,10 @@ merge_pkgs_status_lists <- function(pkgs_list, pkgs_installed, pkgs_required_ver
 #' @concept packages
 #'
 #' @examples
-#' head(get_pkgs_installation_status_local("mini"))
+#' head(get_pkgs_installation_status_raw("mini"))
 
 
-get_pkgs_installation_status_local <- function(list_name = NULL, pkgs = NULL,
+get_pkgs_installation_status_raw <- function(list_name = NULL, pkgs = NULL,
   use_local_list = getOption("bio.use_local_list", TRUE)) {
 
   checkmate::assert_character(list_name, null.ok = TRUE)
@@ -611,7 +611,7 @@ get_pkgs_installation_status <- function(list_name = NULL, include = "outdated",
   github      <- ifelse(github      == "newer_on_cran", "outdated", github)
   using_code  <- ifelse(using_code  == "newer_on_cran", "outdated", using_code)
 
-  status_0  <- get_pkgs_installation_status_local(
+  status_0  <- get_pkgs_installation_status_raw(
     list_name = list_name,
     use_local_list = use_local_list,
     pkgs = pkgs
