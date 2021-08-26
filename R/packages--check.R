@@ -177,7 +177,7 @@ read_pkgs_list <- function(list_name,
   checkmate::assert_flag(show_message)
   list_name <- tolower(list_name)
   list_name_blue <- usethis::ui_value(list_name)
-  file <- get_path_pkgs_recommended(list_name, use_local_list)
+  file <- get_path_pkgs_list(list_name, use_local_list)
 
   tryCatch(
     {
@@ -225,9 +225,9 @@ read_pkgs_list <- function(list_name,
   )
 }
 
-# get_path_pkgs_recommended("gmc-r209", TRUE)
-# get_path_pkgs_recommended("gmc-r209", FALSE)
-get_path_pkgs_recommended <- function(list_name, use_local_list) {
+# get_path_pkgs_list("gmc-r209", TRUE)
+# get_path_pkgs_list("gmc-r209", FALSE)
+get_path_pkgs_list <- function(list_name, use_local_list) {
   list_name <- tolower(list_name)
   base_name <- paste0("pkgs-recommended--", list_name, ".txt")
 
