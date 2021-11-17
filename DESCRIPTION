@@ -1,7 +1,7 @@
 Package: bio
 Type: Package
 Title: Resources Manager for BS-2021 and R-2021
-Version: 0.1.9
+Version: 0.1.10
 Date: 2020-08-27
 Authors@R: 
     person("Vilmantas", "Gegzna", role = c("aut", "cre"),
@@ -18,7 +18,7 @@ Language: en-US
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Additional_repositories:
   https://mokymai.github.io/download/
 Imports:
@@ -50,4 +50,3 @@ Suggests:
   covr,
   pkgbuild,
   spelling
-
