@@ -13,7 +13,7 @@ addin.tools                 | 0.0.9            | FALSE  | -
 addins.rmd                  | 0.0.10           | FALSE  | -
 addins.rs                   | 0.0.9            | FALSE  | -
 backup.tools                | 0.0.1            | FALSE  | -
-bio                         | 0.1.9            | FALSE  | -
+bio                         | 0.1.10           | FALSE  | -
 BiocManager                 | 1.30.16          | FALSE  | -
 blogdown                    | 1.4              | FALSE  | -
 bookdown                    | 0.23             | FALSE  | -
@@ -25,7 +25,7 @@ citr                        | 0.3.2            | FALSE  | -
 correlation                 | 0.6.1            | FALSE  | -
 cowplot                     | 1.1.1            | FALSE  | -
 data.table                  | 1.14.0           | FALSE  | -
-DescTools                   | 0.99.42          | FALSE  | -
+DescTools                   | 0.99.43          | FALSE  | -
 devtools                    | 2.4.2            | FALSE  | -
 dplyr                       | 1.0.7            | FALSE  | -
 DT                          | 0.18             | FALSE  | -
@@ -76,7 +76,7 @@ RcmdrMisc                   | 2.7-1            | FALSE  | -
 RcmdrPlugin.biostat         | 0.0.70           | FALSE  | -
 RcmdrPlugin.EZR.as.menu     | 1.41             | FALSE  | -
 rcrossref                   | 1.1.0            | FALSE  | -
-readr                       | 2.0.1            | FALSE  | -
+readr                       | 2.1.0            | FALSE  | -
 readxl                      | 1.3.1            | FALSE  | -
 relimp                      | 1.0-5            | FALSE  | Rcmdr
 remotes                     | 2.4.0            | FALSE  | -
@@ -100,10 +100,10 @@ tidyr                       | 1.1.3            | FALSE  | -
 tidyselect                  | 1.1.1            | FALSE  | -
 tidyverse                   | 1.3.1            | FALSE  | -
 tidyxl                      | 1.0.7            | FALSE  | -
-tinytex                     | 0.33             | FALSE  | -
+tinytex                     | 0.35             | FALSE  | -
 todor                       | 0.1.2            | FALSE  | -
 unpivotr                    | 0.6.2            | FALSE  | -
-usethis                     | 2.0.1            | FALSE  | -
+usethis                     | 2.1.3            | FALSE  | -
 vcd                         | 1.4-8            | FALSE  | -
 wellspell.addin             | 0.5.0            | FALSE  | -
 writexl                     | 1.4.0            | FALSE  | -
