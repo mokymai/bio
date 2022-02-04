@@ -170,7 +170,7 @@ get_available_r_version <- function(force = FALSE, skip = FALSE) {
       purrr::map(readr::read_lines) %>%
       purrr::reduce(c) %>%
       stringr::str_extract("(?<=R-).\\d*[.].\\d*[.]\\d*(?=.tar.gz)") %>%
-      tidyr::replace_na(0) %>%
+      .[!is.na(.)] %>%
       numeric_version() %>%
       max()
 
