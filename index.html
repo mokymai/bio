@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Resources Manager for BS-2021 and R-2021 • bio</title>
+<title>Resources Manager for BS-2022 and R-2022 • bio</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="Resources Manager for BS-2021 and R-2021">
+<script src="pkgdown.js"></script><meta property="og:title" content="Resources Manager for BS-2022 and R-2022">
 <meta property="og:description" content="Resources manager for course units BS-2021 and R-2021.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.10</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.11</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
     <span class="fa fa-book"></span>
@@ -53,10 +49,10 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Documentation for version of package:</li>
     <li>
-      <a href="https://mokymai.github.io/bio/">Released</a>
+      <a href="https://mokymai.github.io/bio/" class="external-link">Released</a>
     </li>
     <li>
-      <a href="https://mokymai.github.io/bio/dev/">In-development</a>
+      <a href="https://mokymai.github.io/bio/dev/" class="external-link">In-development</a>
     </li>
   </ul>
 </li>
@@ -66,7 +62,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/mokymai/bio/">
+  <a href="https://github.com/mokymai/bio/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -84,9 +80,9 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<div id="package-bio" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#package-bio" class="anchor"></a>Package <strong><em>bio</em></strong>
+<div class="section level1">
+<div class="page-header"><h1 id="package-bio">Package <strong><em>bio</em></strong>
+<a class="anchor" aria-label="anchor" href="#package-bio"></a>
 </h1></div>
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- # Package **_bio_** -->
@@ -97,26 +93,26 @@
 <center>
 <p><br><font color="darkred" size="4"> This package is intended to be used with <b>RStudio 1.4</b> or newer.<br></font> <font color="darkred" size="3"> Functions do not work correctly with the previous versions of RStudio. </font> <br><br><br></p>
 </center>
-<p>Bug reports and your feedback are welcome at <a href="https://github.com/mokymai/bio/issues" class="uri">https://github.com/mokymai/bio/issues</a>. In the report, indicate what operating system you are using.</p>
+<p>Bug reports and your feedback are welcome at <a href="https://github.com/mokymai/bio/issues" class="external-link uri">https://github.com/mokymai/bio/issues</a>. In the report, indicate what operating system you are using.</p>
 </div>
-<div id="install" class="section level1">
-<h1 class="hasAnchor">
-<a href="#install" class="anchor"></a>Install</h1>
+<div class="section level1">
+<h1 id="install">Install<a class="anchor" aria-label="anchor" href="#install"></a>
+</h1>
 <p>To install this package from CRAN-like repository, use code (recommended):</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">repos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"https://mokymai.github.io/download/"</span>, <span class="fu"><a href="https://rdrr.io/r/base/options.html">getOption</a></span><span class="op">(</span><span class="st">"repos"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"bio"</span>, repos <span class="op">=</span> <span class="va">repos</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">repos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"https://mokymai.github.io/download/"</span>, <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"repos"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"bio"</span>, repos <span class="op">=</span> <span class="va">repos</span><span class="op">)</span></code></pre></div>
 <p>To install this package from GitHub:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org">remotes</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span><span class="op">}</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"mokymai/bio"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org" class="external-link">remotes</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span><span class="op">}</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"mokymai/bio"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="examples" class="section level1">
-<h1 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h1>
-<div id="check-information-about-os-and-user" class="section level2">
-<h2 class="hasAnchor">
-<a href="#check-information-about-os-and-user" class="anchor"></a>Check information about OS and user</h2>
+<div class="section level1">
+<h1 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+</h1>
+<div class="section level2">
+<h2 id="check-information-about-os-and-user">Check information about OS and user<a class="anchor" aria-label="anchor" href="#check-information-about-os-and-user"></a>
+</h2>
 <p>Check information about operating system (OS) and R-related user information.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/check_user_info.html">check_user_info</a></span><span class="op">(</span><span class="op">)</span>
@@ -130,9 +126,9 @@
 <span class="co">## R_HOME              C:/PROGRA~1/R/R-40~1.2</span>
 <span class="co">## R_LIBS_USER         C:/R/win-library/4.0</span></code></pre></div>
 </div>
-<div id="check-information-about-programs" class="section level2">
-<h2 class="hasAnchor">
-<a href="#check-information-about-programs" class="anchor"></a>Check information about programs</h2>
+<div class="section level2">
+<h2 id="check-information-about-programs">Check information about programs<a class="anchor" aria-label="anchor" href="#check-information-about-programs"></a>
+</h2>
 <p>Check versions of presence of installed R-related and other programs. Options:</p>
 <ul>
 <li>
@@ -155,9 +151,9 @@
 <span class="co">## ✔ Program Git is installed.</span>
 <span class="co">## ✔ Program Meld is installed.</span></code></pre></div>
 </div>
-<div id="check-information-about-r-packages" class="section level2">
-<h2 class="hasAnchor">
-<a href="#check-information-about-r-packages" class="anchor"></a>Check information about “R” packages</h2>
+<div class="section level2">
+<h2 id="check-information-about-r-packages">Check information about “R” packages<a class="anchor" aria-label="anchor" href="#check-information-about-r-packages"></a>
+</h2>
 <p>The following functions may be used to check installed packages by topic. By default, only missing packages or packages with lower versions than recommended are displayed. Currently available lists can be returned by function <code><a href="reference/get_pkgs_installation_status.html">bio::get_pkg_lists_local()</a></code> and they include:</p>
 <ul>
 <li><code>'addins-rmd'</code></li>
@@ -200,9 +196,9 @@
 <span class="co">## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.</span>
 <span class="co">## i Note: 1 package has newer version on CRAN.</span></code></pre></div>
 </div>
-<div id="update-packages" class="section level2">
-<h2 class="hasAnchor">
-<a href="#update-packages" class="anchor"></a>Update packages</h2>
+<div class="section level2">
+<h2 id="update-packages">Update packages<a class="anchor" aria-label="anchor" href="#update-packages"></a>
+</h2>
 <p>These are the convenience functions to update certain R packages. The functions restart R before installation if used in RStudio.</p>
 <p>Update package <strong>bio</strong>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -218,15 +214,15 @@
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/update_pkg_rcmdr_biostat.html">update_pkg_rcmdr_biostat</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="rstudio-settings-and-user-preferences" class="section level2">
-<h2 class="hasAnchor">
-<a href="#rstudio-settings-and-user-preferences" class="anchor"></a>RStudio settings and user preferences</h2>
+<div class="section level2">
+<h2 id="rstudio-settings-and-user-preferences">RStudio settings and user preferences<a class="anchor" aria-label="anchor" href="#rstudio-settings-and-user-preferences"></a>
+</h2>
 <blockquote>
 <p>Make sure that you understand what you are doing when you try using the functions that reset RStudio key bindings (shortcut keys), settings or snippets. <strong>You may loose <em>all</em> your previous settings.</strong></p>
 </blockquote>
-<div id="dictionaries" class="section level3">
-<h3 class="hasAnchor">
-<a href="#dictionaries" class="anchor"></a>Dictionaries</h3>
+<div class="section level3">
+<h3 id="dictionaries">Dictionaries<a class="anchor" aria-label="anchor" href="#dictionaries"></a>
+</h3>
 <p>This function downloads or updates <strong>hunspell</strong> spelling checking dictionaries dictionaries (including Lithuanian) that can be used by RStudio or by tools from <strong>wellspell.addin</strong> package.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/spelling.html">rstudio_install_spellcheck_dictionaries</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -234,9 +230,9 @@
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/spelling.html">rstudio_install_spellcheck_dictionary_lt</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="shortcut-keys" class="section level3">
-<h3 class="hasAnchor">
-<a href="#shortcut-keys" class="anchor"></a>Shortcut keys</h3>
+<div class="section level3">
+<h3 id="shortcut-keys">Shortcut keys<a class="anchor" aria-label="anchor" href="#shortcut-keys"></a>
+</h3>
 <p>This function changes shortcut keys in RStudio.</p>
 <p>Run function without arguments to see the available options.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
@@ -266,7 +262,7 @@
 <td>
 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>
 </td>
-<td>Check spelling in selected text. Package <a href="https://github.com/nevrome/wellspell.addin"><strong>wellspell.addin</strong></a> must be installed.</td>
+<td>Check spelling in selected text. Package <a href="https://github.com/nevrome/wellspell.addin" class="external-link"><strong>wellspell.addin</strong></a> must be installed.</td>
 </tr>
 <tr class="even">
 <td>
@@ -309,7 +305,7 @@
 <kbd>Ctrl</kbd>+<kbd>E</kbd>
 </td>
 <td>
-<strong>Insert/Enclose with R code block</strong> (<em>R Markdown</em>) <strong><br><span class="math display">​</span><br></strong> .</td>
+<strong>Insert/Enclose with R code block</strong> (<em>R Markdown</em>) <strong>[!]</strong> .</td>
 </tr>
 <tr class="odd">
 <td>
@@ -419,11 +415,11 @@
 <!-- "addins.rs::rs_replace_slash_bs2d"             : "Ctrl+Alt+\\", -->
 <!-- "addins.rs::rs_replace_slash_fw2b"             : "Ctrl+Shift+Alt+/", -->
 <!-- "bookdown::mathquill"                          : "Ctrl+Alt+NumPad9", -->
-<p>More on <a href="https://support.rstudio.com/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts">Customizing Keyboard Shortcuts</a> in RStudio.</p>
+<p>More on <a href="https://support.rstudio.com/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts" class="external-link">Customizing Keyboard Shortcuts</a> in RStudio.</p>
 </div>
-<div id="rstudio-settings" class="section level3">
-<h3 class="hasAnchor">
-<a href="#rstudio-settings" class="anchor"></a>RStudio settings</h3>
+<div class="section level3">
+<h3 id="rstudio-settings">RStudio settings<a class="anchor" aria-label="anchor" href="#rstudio-settings"></a>
+</h3>
 <p>This function resets RStudio user preferences and settings.</p>
 <p>Run function without arguments to see the available options.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
@@ -444,17 +440,17 @@
 <!-- end list --><div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/RStudio-settings.html">rstudio_reset_user_settings</a></span><span class="op">(</span>to <span class="op">=</span> <span class="st">"bio-default"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="snippets" class="section level3">
-<h3 class="hasAnchor">
-<a href="#snippets" class="anchor"></a>Snippets</h3>
+<div class="section level3">
+<h3 id="snippets">Snippets<a class="anchor" aria-label="anchor" href="#snippets"></a>
+</h3>
 <p>The function replaces current R code and R Markdown snippets with those in package “snippets”.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">snippets</span><span class="fu">::</span><span class="fu"><a href="https://gegznav.github.io/snippets/reference/install-snippets.html">install_snippets_from_package</a></span><span class="op">(</span><span class="st">"snippets"</span>, backup <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<p>More information on <a href="https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets">Code Snippets</a> in RStudio and on package <a href="https://gegznav.github.io/snippets/"><strong>snippets</strong></a>.</p>
+<code class="sourceCode R"><span class="fu">snippets</span><span class="fu">::</span><span class="fu"><a href="https://gegznav.github.io/snippets/reference/install-snippets.html" class="external-link">install_snippets_from_package</a></span><span class="op">(</span><span class="st">"snippets"</span>, backup <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<p>More information on <a href="https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets" class="external-link">Code Snippets</a> in RStudio and on package <a href="https://gegznav.github.io/snippets/" class="external-link"><strong>snippets</strong></a>.</p>
 </div>
-<div id="restart-r-and-rstudio" class="section level3">
-<h3 class="hasAnchor">
-<a href="#restart-r-and-rstudio" class="anchor"></a>Restart R and RStudio</h3>
+<div class="section level3">
+<h3 id="restart-r-and-rstudio">Restart R and RStudio<a class="anchor" aria-label="anchor" href="#restart-r-and-rstudio"></a>
+</h3>
 <p>If you want to see the effect of changed settings, you should reload RStudio. You may use this function, which reloads RStudio without closing it:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/restart-reload.html">rstudio_reload_ui</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -489,48 +485,59 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/mokymai/bio/">https://​github.com/​mokymai/​bio/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/mokymai/bio/issues">https://​github.com/​mokymai/​bio/​issues</a>
-</li>
-</ul>
-</div>
-<div class="license">
-<h2>License</h2>
-<ul class="list-unstyled">
-<li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
-</ul>
-</div>
-<div class="developers">
-<h2>Developers</h2>
-<ul class="list-unstyled">
-<li>
-<a href="https://orcid.org/0000-0002-9500-5167">Vilmantas Gegzna</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-9500-5167" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="https://github.com/mokymai/bio/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/mokymai/bio/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="license">
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/mokymai/bio"><img src="https://img.shields.io/badge/GitHub-0.1.10-brightgreen.svg" alt="GitHub version"></a></li>
-<li><a href="https://github.com/mokymai/bio/actions"><img src="https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="/commits/master"><img src="https://img.shields.io/badge/Updated%20on-2021--11--29-yellowgreen.svg" alt="Updated-on"></a></li>
-<li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
+<ul class="list-unstyled">
+<li><a href="authors.html#citation">Citing bio</a></li>
+</ul>
 </div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>
+<a href="https://orcid.org/0000-0002-9500-5167" class="external-link">Vilmantas Gegzna</a> <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-9500-5167" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+</ul>
+</div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/mokymai/bio" class="external-link"><img src="https://img.shields.io/badge/GitHub-0.1.11-brightgreen.svg" alt="GitHub version"></a></li>
+<li><a href="https://github.com/mokymai/bio/actions" class="external-link"><img src="https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="/commits/master"><img src="https://img.shields.io/badge/Updated%20on-2022--02--04-yellowgreen.svg" alt="Updated-on"></a></li>
+<li><a href="https://www.tidyverse.org/lifecycle/#experimental" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
+</ul>
+</div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://orcid.org/0000-0002-9500-5167">Vilmantas Gegzna</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://orcid.org/0000-0002-9500-5167" class="external-link">Vilmantas Gegzna</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -538,6 +545,8 @@
 
   
 
+
+  
 
   </body>
 </html>
