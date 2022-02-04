@@ -1,6 +1,6 @@
 ---
 title: "Minimal required versions of packages"
-date:  2021-08-27
+date:  2022-02-04
 notes: ""
 
 
@@ -13,7 +13,7 @@ addin.tools                 | 0.0.9            | FALSE  | -
 addins.rmd                  | 0.0.10           | FALSE  | -
 addins.rs                   | 0.0.9            | FALSE  | -
 backup.tools                | 0.0.1            | FALSE  | -
-bio                         | 0.1.10           | FALSE  | -
+bio                         | 0.1.11           | FALSE  | -
 BiocManager                 | 1.30.16          | FALSE  | -
 blogdown                    | 1.4              | FALSE  | -
 bookdown                    | 0.23             | FALSE  | -
@@ -25,14 +25,14 @@ citr                        | 0.3.2            | FALSE  | -
 correlation                 | 0.6.1            | FALSE  | -
 cowplot                     | 1.1.1            | FALSE  | -
 data.table                  | 1.14.0           | FALSE  | -
-DescTools                   | 0.99.43          | FALSE  | -
+DescTools                   | 0.99.44          | FALSE  | -
 devtools                    | 2.4.2            | FALSE  | -
 dplyr                       | 1.0.7            | FALSE  | -
 DT                          | 0.18             | FALSE  | -
 effects                     | 4.2-0            | FALSE  | Rcmdr
 effectsize                  | 0.4.5            | FALSE  | -
 effsize                     | 0.8.1            | FALSE  | -
-esquisse                    | 1.0.2            | FALSE  | -
+esquisse                    | 1.1.0            | FALSE  | -
 factoextra                  | 1.0.7            | FALSE  | -
 flextable                   | 0.6.7            | FALSE  | -
 forcats                     | 0.5.1            | FALSE  | -
@@ -81,7 +81,7 @@ readxl                      | 1.3.1            | FALSE  | -
 relimp                      | 1.0-5            | FALSE  | Rcmdr
 remotes                     | 2.4.0            | FALSE  | -
 rgl                         | 0.96.0           | FALSE  | Rcmdr
-rlang                       | 0.4.11           | FALSE  | -
+rlang                       | 1.0.1            | FALSE  | -
 rmarkdown                   | 2.9              | FALSE  | -
 roxygen2                    | 7.1.1            | FALSE  | -
 rstatix                     | 0.7.0            | FALSE  | -
