@@ -18,13 +18,13 @@
 #' @export
 list_pkgs_used_in_dir <- function(path = ".", regexp = "(?i)[.](rmd|r)$", ...) {
   path %>%
-    fs::dir_ls(regexp = regexp) %>%
+    fs::dir_ls(regexp = regexp, ...) %>%
     list_pkgs_used_in_files()
 }
 
 list_pkgs_used_in_dir_code <- function(path = ".", regexp = "(?i)[.](rmd|r)$", ...) {
   path %>%
-    fs::dir_ls(regexp = regexp) %>%
+    fs::dir_ls(regexp = regexp, ...) %>%
     list_pkgs_used_in_files_code()
 }
 
