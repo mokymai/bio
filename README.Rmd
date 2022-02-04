@@ -32,7 +32,7 @@ Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS = "true")
 
 
 
-Convenience functions to facilitate installation and management of required resources for course units __*Biostatistics*__  (*BS-2021*) and __*Introduction to data analysis with R*__ (*R-2021*).
+Convenience functions to facilitate installation and management of required resources for course units __*Biostatistics*__  (*BS-2022*) and __*Introduction to data analysis with R*__ (*R-2022*).
 
 
 <center>
@@ -99,7 +99,7 @@ Options:
 
 ```{r README-7a, eval=FALSE}
 bio::check_installed_programs()
-## ✔ Program R (4.0.3) is installed (recommended 4.0.3, available 4.0.3)
+## ✔ Program R (4.1.2 is installed (recommended 4.1.2, available 4.1.2)
 ## ✖ Program RStudio is not installed or is not running.
 ## ✔ Tool Rtools is installed.
 ```

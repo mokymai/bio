@@ -8,9 +8,9 @@ Package ***bio***
 <!-- badges: start -->
 
 [![GitHub
-version](https://img.shields.io/badge/GitHub-0.1.10-brightgreen.svg)](https://github.com/mokymai/bio)
+version](https://img.shields.io/badge/GitHub-0.1.11-brightgreen.svg)](https://github.com/mokymai/bio)
 [![R-CMD-check](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
-[![Updated-on](https://img.shields.io/badge/Updated%20on-2021--11--17-yellowgreen.svg)](/commits/master)
+[![Updated-on](https://img.shields.io/badge/Updated%20on-2022--02--04-yellowgreen.svg)](/commits/master)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
@@ -18,8 +18,8 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 <!-- [![GitHub last commit](https://img.shields.io/github/last-commit/mokymai/bio)](https://github.com/mokymai/bio) -->
 
 Convenience functions to facilitate installation and management of
-required resources for course units ***Biostatistics*** (*BS-2021*) and
-***Introduction to data analysis with R*** (*R-2021*).
+required resources for course units ***Biostatistics*** (*BS-2022*) and
+***Introduction to data analysis with R*** (*R-2022*).
 
 <center>
 
@@ -86,7 +86,7 @@ Options:
 
 ``` r
 bio::check_installed_programs()
-## ✔ Program R (4.0.3) is installed (recommended 4.0.3, available 4.0.3)
+## ✔ Program R (4.1.2 is installed (recommended 4.1.2, available 4.1.2)
 ## ✖ Program RStudio is not installed or is not running.
 ## ✔ Tool Rtools is installed.
 ```
