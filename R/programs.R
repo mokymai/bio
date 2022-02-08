@@ -199,8 +199,8 @@ get_available_rs_version <- function(force = FALSE, skip = FALSE) {
       max()
 
   } else {
-    ui_warn(paste0(
-      "To get the newest available RStudio version, ",
+    ui_warn(paste(
+      "To get the newest available RStudio version,",
       "network connection is required. You are offline. "
     ))
   }
