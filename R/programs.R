@@ -284,7 +284,14 @@ check_rs_version <- function(v_recommended = "1.4.1103", skip_online_check = FAL
     check_program_version(
       program = 'RStudio',
       r_installed = rstudioapi::versionInfo()$version,
-      r_available = get_available_rs_version(skip = skip_online_check),
+      r_available =
+        tryCatch(
+          get_available_rs_version(skip = skip_online_check),
+          error = function(e) {
+            warning(e)
+            NULL
+          }
+      ),
       v_recommended = v_recommended
     )
   }
