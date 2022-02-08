@@ -1,7 +1,7 @@
 Package: bio
 Type: Package
 Title: Resources Manager for BS-2022 and R-2022
-Version: 0.1.11
+Version: 0.1.12
 Date: 2022-02-04
 Authors@R: 
     person("Vilmantas", "Gegzna", role = c("aut", "cre"),
