@@ -190,32 +190,33 @@ get_available_rs_version <- function(force = FALSE, skip = FALSE) {
   }
 
   if (force || pingr::is_online()) {
-    suppressWarnings({
-      "https://rstudio.com/products/rstudio/download/" %>%
-        purrr::map(readr::read_lines) %>%
-        stringr::str_extract("(?<=RStudio-).*?(?=.exe)")
-    }) %>%
-      numeric_version()
 
+    "https://rstudio.com/products/rstudio/download/" %>%
+      readr::read_lines() %>%
+      stringr::str_extract("(?<=RStudio-).*?(?=.exe)") %>%
+      .[!is.na(.)] %>%
+      numeric_version() %>%
+      max()
 
   } else {
-    ui_warn(
-      "To get the newest available RStudio version, network connection is required. You are offline. "
-    )
+    ui_warn(paste(
+      "To get the newest available RStudio version,",
+      "network connection is required. You are offline. "
+    ))
   }
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 check_internet_connection <- function() {
   if (pingr::is_online()) {
-    FALSE # Skip
+    FALSE # Online
 
   } else {
     ui_warn(paste0(
       "To get the newest available versions, network connection is required. ",
       "You are offline. "
     ))
-    TRUE # Skip
+    TRUE # Offline
   }
 }
 
@@ -263,7 +264,7 @@ check_program_version  <- function(program = "", r_installed = "", v_recommended
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_r_version <- function(v_recommended = "4.0.3", skip_online_check = FALSE) {
+check_r_version <- function(v_recommended = "4.1.2", skip_online_check = FALSE) {
 
   check_program_version(
     program = 'R',
@@ -274,7 +275,7 @@ check_r_version <- function(v_recommended = "4.0.3", skip_online_check = FALSE) 
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_rs_version <- function(v_recommended = "1.4.1103", skip_online_check = FALSE) {
+check_rs_version <- function(v_recommended = "2021.9.2", skip_online_check = FALSE) {
 
   if (!rstudioapi::isAvailable()) {
     ui_oops("Program {red('RStudio')} is not installed or is not running. ")
@@ -283,7 +284,14 @@ check_rs_version <- function(v_recommended = "1.4.1103", skip_online_check = FAL
     check_program_version(
       program = 'RStudio',
       r_installed = rstudioapi::versionInfo()$version,
-      r_available = get_available_rs_version(skip = skip_online_check),
+      r_available =
+        tryCatch(
+          get_available_rs_version(skip = skip_online_check),
+          error = function(e) {
+            warning(e)
+            NULL
+          }
+      ),
       v_recommended = v_recommended
     )
   }
