@@ -190,18 +190,19 @@ get_available_rs_version <- function(force = FALSE, skip = FALSE) {
   }
 
   if (force || pingr::is_online()) {
-    suppressWarnings({
-      "https://rstudio.com/products/rstudio/download/" %>%
-        purrr::map(readr::read_lines) %>%
-        stringr::str_extract("(?<=RStudio-).*?(?=.exe)")
-    }) %>%
-      numeric_version()
 
+    "https://rstudio.com/products/rstudio/download/" %>%
+      readr::read_lines() %>%
+      stringr::str_extract("(?<=RStudio-).*?(?=.exe)") %>%
+      .[!is.na(.)] %>%
+      numeric_version() %>%
+      max()
 
   } else {
-    ui_warn(
-      "To get the newest available RStudio version, network connection is required. You are offline. "
-    )
+    ui_warn(paste0(
+      "To get the newest available RStudio version, ",
+      "network connection is required. You are offline. "
+    ))
   }
 }
 
