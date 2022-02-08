@@ -209,14 +209,14 @@ get_available_rs_version <- function(force = FALSE, skip = FALSE) {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 check_internet_connection <- function() {
   if (pingr::is_online()) {
-    FALSE # Skip
+    FALSE # Online
 
   } else {
     ui_warn(paste0(
       "To get the newest available versions, network connection is required. ",
       "You are offline. "
     ))
-    TRUE # Skip
+    TRUE # Offline
   }
 }
 
