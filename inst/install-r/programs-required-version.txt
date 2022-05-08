@@ -10,5 +10,5 @@ notes: ""
 # This text must be in line 10 -----------------------------------------------
 program                     | required_version | ignore | notes_version
 R                           | 4.1.2            | FALSE  |
-RStudio                     | 2021.9.2         | FALSE  | For 32-bit systems v 1.1.463
+RStudio                     | 2022.2.2.485     | FALSE  | For 32-bit systems v 1.1.463
 
