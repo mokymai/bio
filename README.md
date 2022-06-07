@@ -78,8 +78,6 @@ Options:
     (sometimes) “Meld”.
     <!-- This check may not work properly on "Mac" and "Linux". -->
 
-<!-- end list -->
-
 ``` r
 bio::check_installed_programs()
 ## ✔ Program R (4.2.0 is installed (recommended 4.2.0, available 4.2.0)
@@ -216,7 +214,6 @@ Options:
 
 -   `"bio-default"` – shortcut keys recommended for course BS-2021.
 -   `"rstudio-default"` – RStudio defaults.
-<!-- end list -->
 
 ``` r
 bio::rstudio_reset_keybindings(to = "bio-default")
