@@ -64,7 +64,7 @@ str_move_after <- function(x, what, move_after) {
   i_from <- i[x == what]        # smaller number
   i_to   <- i[x == move_after]  # larger number
 
-  # If no need to re-arrenge
+  # If no need to re-arrange
   if (i_to < i_from) {
     return(x)
   }
