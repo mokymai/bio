@@ -256,7 +256,7 @@ open_project <- function(pattern = NULL,
 
     cat("\nChoose the number of the project (or enter 0 to cancel): \n")
 
-    all_names <- sort(proj_list$name)
+    all_names <- sort(unique(proj_list$name))
     i_name <- utils::menu(all_names)
     if (i_name == 0) {
       usethis::ui_oops("Cancelled by user")
