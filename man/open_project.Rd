@@ -58,7 +58,7 @@ open_project("R-2019-project")
 }
 \seealso{
 \itemize{
-\item \code{\link[=update_personal_proj_list]{update_personal_proj_list()}}
+\item \code{\link[=update_rstudio_proj_list_user]{update_rstudio_proj_list_user()}}
 \item \code{\link[rstudioapi:projects]{rstudioapi::openProject()}}
 \item \code{\link[rstudioapi:projects]{rstudioapi::initializeProject()}}
 }

@@ -426,10 +426,10 @@ Useful to apply before trying to install R packages.
 
 <!-- ``` -->
 
-<!-- Copy the recent projects to your personal project list. -->
+<!-- Copy the recent projects to your user project list. -->
 
 <!-- ```{r README-12, eval=FALSE} -->
 
-<!-- bio::update_personal_proj_list() -->
+<!-- bio::update_rstudio_proj_list_user() -->
 
 <!-- ``` -->

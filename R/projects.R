@@ -10,9 +10,14 @@
 #' @param proj_path (character) Path to `*.Rproj` file.
 #'
 #' @return
-#'  - `parse_proj_path()` returns data frame with columns `name` (with project
-#'     name, i.e., folder name) and `path` to *.Rproj file.
-#' - `extract_proj_name()` (character) a vector of extracted character names.
+#'  - `parse_proj_path()` returns data frame with columns
+#'     `name` (with project name, i.e., folder name),
+#'     `path` to *.Rproj file,
+#'     `exists` flag if .Rproj file exists, and
+#'     `dir_exists` flag if dir with .Rproj file exists
+#'     (sometimes file is renamed and directory still exists).
+#' - `extract_proj_name()` (character) a vector of extracted project names.
+#'                        A project name is a directory name.
 #'
 #' @noRd
 #'
@@ -33,7 +38,8 @@ parse_proj_path <- function(proj_path) {
   tibble::tibble(
     name   = extract_proj_name(proj_path = proj_path),
     path   = proj_path,
-    exists = file.exists(proj_path)
+    exists = fs::file_exists(proj_path),
+    dir_exists = fs::dir_exists(fs::path_dir(proj_path))
   )
 }
 
@@ -61,7 +67,7 @@ extract_proj_name <- function(proj_path) {
 #' read_projects(get_path_recent_proj_list())
 #' }}
 #'
-#' @param file (character) Path to file with RStudio projects.
+#' @param file (character) Path to file with RStudio project names.
 #' @param sort_by (`"name"`|`"path"`|[`FALSE`])
 #'
 #' @export
@@ -76,6 +82,7 @@ read_projects <- function(file, sort_by = FALSE) {
   }
 
   projs   <- readr::read_lines(file, lazy = FALSE)
+  projs   <- stringr::str_trim(projs)
   projs   <- stringr::str_subset(projs, "^\\s*$", negate = TRUE)
   proj_df <- parse_proj_path(projs)
 
@@ -83,11 +90,11 @@ read_projects <- function(file, sort_by = FALSE) {
     tolower(sort_by),
 
     "name" = , "names" = {
-      dplyr::arrange(proj_df, proj_df)
+      dplyr::arrange(proj_df, name)
     },
 
     "path" = , "paths" = {
-      dplyr::arrange(proj_df, name)
+      dplyr::arrange(proj_df, path)
     },
     # else
     proj_df
@@ -98,13 +105,13 @@ read_projects <- function(file, sort_by = FALSE) {
 #' @name projects
 #' @noRd
 #' @description
-#' - `get_projs_recent()` -- lists recent RStudio projects.
-#' - `get_projs_personal()` -- lists personal RStudio projects.
-#' - `get_projs_all()` -- lists both recent and personal RStudio projects.
+#' - `get_projs_recent()` -- lists RStudio projects from the recent project list.
+#' - `get_projs_user()` -- lists RStudio projects from a user-defined list.
+#' - `get_projs_all()` -- lists RStudio projects from recent project and user-defined project lists.
 #' @examples
 #' \dontrun{\donttest{
 #' get_projs_recent()
-#' get_projs_personal()
+#' get_projs_user()
 #' get_projs_all()
 #' }}
 #'
@@ -114,21 +121,21 @@ get_projs_recent <- function(sort_by = FALSE) {
 
 #' @name projects
 #' @noRd
-get_projs_personal <- function(sort_by = FALSE) {
-  read_projects(file = get_path_personal_proj_list(create = TRUE), sort_by = sort_by)
+get_projs_user <- function(sort_by = FALSE) {
+  read_projects(file = get_path_user_proj_list(create = TRUE), sort_by = sort_by)
 }
 
 #' @name projects
 #' @noRd
 get_projs_all <- function() {
 
-  file_recent   <- get_path_recent_proj_list()
-  file_personal <- get_path_personal_proj_list(create = TRUE)
+  file_with_recent_list <- get_path_recent_proj_list()
+  file_with_users_list  <- get_path_user_proj_list(create = TRUE)
 
   new_list <-
     dplyr::bind_rows(
-      read_projects(file = file_recent),
-      read_projects(file = file_personal)
+      read_projects(file = file_with_recent_list),
+      read_projects(file = file_with_users_list)
     ) %>%
     dplyr::distinct()
 
@@ -178,7 +185,7 @@ get_proj_names <- function(file = get_path_recent_proj_list(),
 #' @concept rstudio projects
 #'
 #' @seealso
-#' - [update_personal_proj_list()]
+#' - [update_rstudio_proj_list_user()]
 #' - [rstudioapi::openProject()]
 #' - [rstudioapi::initializeProject()]
 #' @examples
@@ -201,7 +208,7 @@ open_project <- function(pattern = NULL,
                          negate = FALSE) {
 
   if (is.null(proj_list) && is.null(proj_list_path)) {
-    # No projec lists are provided
+    # No project lists are provided
     proj_list <- get_projs_all()
 
   } else {
@@ -217,8 +224,10 @@ open_project <- function(pattern = NULL,
     proj_list <- dplyr::bind_rows(proj_list, proj_list_2)
   }
 
-  if (isTRUE(only_available)) {
+  if (isTRUE(only_available) || only_available == "rproj") {
     proj_list <- dplyr::filter(proj_list, exists == TRUE)
+  } else if (only_available %in% c("dir", "proj dir", "project dir")) {
+    proj_list <- dplyr::filter(proj_list, dir_exists == TRUE)
   }
 
   if (!is.null(pattern)) {
@@ -247,7 +256,7 @@ open_project <- function(pattern = NULL,
 
     cat("\nChoose the number of the project (or enter 0 to cancel): \n")
 
-    all_names <- sort(proj_list$name)
+    all_names <- sort(unique(proj_list$name))
     i_name <- utils::menu(all_names)
     if (i_name == 0) {
       usethis::ui_oops("Cancelled by user")
@@ -309,10 +318,10 @@ open_project <- function(pattern = NULL,
 
 # @rdname open_project
 # @export
-open_project_from_personal_list <- function(pattern = NULL, new_session = TRUE,
+open_project_from_user_list <- function(pattern = NULL, new_session = TRUE,
   only_available = TRUE, name = NULL, ...) {
 
-  new_list <- get_projs_personal()
+  new_list <- get_projs_user()
   open_project(pattern = pattern, new_session = new_session, proj_list = new_list,
     only_available = only_available, name = name, ...)
 }
@@ -333,12 +342,12 @@ NULL
 #' @description
 #' - `get_path_recent_proj_list()` -- gets path to the file with the list of
 #'    recent RStudio projects.
-#' - `get_path_personal_proj_list()` -- gets path to the file with the list of
+#' - `get_path_user_proj_list()` -- gets path to the file with the list of
 #'    personal RStudio projects.
 #' @examples
 #' \dontrun{\donttest{
 #' get_path_recent_proj_list()
-#' get_path_personal_proj_list()
+#' get_path_user_proj_list()
 #' }}
 #'
 get_path_recent_proj_list <- function() {
@@ -348,14 +357,14 @@ get_path_recent_proj_list <- function() {
 #' @rdname project-lists
 #' @param create (logical) If `TRUE` and file does not exist, the file is created.
 #' @export
-get_path_personal_proj_list <- function(create = FALSE) {
-  file_personal <- fs::path(get_path_r_user_dir(), "personal-list-of-rstudio-projects")
-  if (create && !fs::file_exists(file_personal)) {
-    fs::dir_create(fs::path_dir(file_personal))
-    fs::file_create(file_personal)
-    ui_done("File for projects' list was created: {ui_path(file_personal)}")
+get_path_user_proj_list <- function(create = FALSE) {
+  file_with_users_list <- fs::path(get_path_r_user_dir(), "rstudio-proj-list--user")
+  if (create && !fs::file_exists(file_with_users_list)) {
+    fs::dir_create(fs::path_dir(file_with_users_list))
+    fs::file_create(file_with_users_list)
+    ui_done("File for RStudio project list was created: {ui_path(file_with_users_list)}")
   }
-  file_personal
+  file_with_users_list
 }
 
 
@@ -370,19 +379,19 @@ open_recent_proj_list <- function() {
 
 #' @rdname project-lists
 #' @export
-open_personal_proj_list <- function() {
-  open_in_rstudio(path = get_path_personal_proj_list())
+open_user_proj_list <- function() {
+  open_in_rstudio(path = get_path_user_proj_list())
 }
 
 #' @rdname project-lists
 #' @export
-update_personal_proj_list <- function() {
-  file_personal <- get_path_personal_proj_list(create = TRUE)
+update_rstudio_proj_list_user <- function() {
+  file_with_users_list <- get_path_user_proj_list(create = TRUE)
   new_list <- get_projs_all()
-  readr::write_lines(new_list$path, file_personal)
+  readr::write_lines(new_list$path, file_with_users_list)
   ui_done(paste0(
-    "Personal list of projects was updated:\n",
-    "{usethis::ui_path(file_personal)}"
+    "User's list of RStudio projects was updated:\n",
+    "{usethis::ui_path(file_with_users_list)}"
   ))
 }
 
