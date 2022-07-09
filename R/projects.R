@@ -310,7 +310,7 @@ open_project <- function(pattern = NULL,
 
 # @rdname open_project
 # @export
-open_project_from_personal_list <- function(pattern = NULL, new_session = TRUE,
+open_project_from_user_list <- function(pattern = NULL, new_session = TRUE,
   only_available = TRUE, name = NULL, ...) {
 
   new_list <- get_projs_user()
