@@ -20,7 +20,7 @@ If needed, the function opens the folder and assignment submission webpage."><!-
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.15</span>
       </span>
     </div>
 
@@ -71,55 +71,72 @@ If needed, the function opens the folder and assignment submission webpage.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">u_prepare_assignment_dc</span><span class="op">(</span>
-  <span class="va">uzduoties_nr</span>,
-  <span class="va">varianto_nr</span>,
-  <span class="va">specialybe</span>,
-  <span class="va">pavarde</span>,
-  <span class="va">vardas</span>,
-  <span class="va">sertifikatas</span>,
-  <span class="va">konspektas</span>,
-  open_dir <span class="op">=</span> <span class="cn">FALSE</span>,
-  emokymai_id <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">u_prepare_assignment_dc</span><span class="op">(</span></span>
+<span>  <span class="va">uzduoties_nr</span>,</span>
+<span>  <span class="va">varianto_nr</span>,</span>
+<span>  <span class="va">specialybe</span>,</span>
+<span>  <span class="va">pavarde</span>,</span>
+<span>  <span class="va">vardas</span>,</span>
+<span>  <span class="va">sertifikatas</span>,</span>
+<span>  <span class="va">konspektas</span>,</span>
+<span>  open_dir <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  emokymai_id <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>uzduoties_nr</dt>
 <dd><p>(integer)</p></dd>
+
+
 <dt>varianto_nr</dt>
 <dd><p>(integer)</p></dd>
+
+
 <dt>specialybe</dt>
 <dd><p>(string)</p></dd>
+
+
 <dt>pavarde</dt>
 <dd><p>(string)</p></dd>
+
+
 <dt>vardas</dt>
 <dd><p>(string)</p></dd>
+
+
 <dt>sertifikatas</dt>
 <dd><p>(string) Path to PDF file
 (certificate issued by DataCamp).</p></dd>
+
+
 <dt>konspektas</dt>
 <dd><p>(string) Path to PDF file.</p></dd>
+
+
 <dt>open_dir</dt>
 <dd><p>(<code>TRUE</code>|<code>FALSE</code>) Open the directory with submission files.</p></dd>
+
+
 <dt>emokymai_id</dt>
 <dd><p>(integer) Open the directory with submission files.</p></dd>
+
 </dl></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="fu">u_prepare_assignment_dc</span><span class="op">(</span></span>
-<span class="r-in">    uzduoties_nr <span class="op">=</span> <span class="fl">1</span>,</span>
-<span class="r-in">    varianto_nr  <span class="op">=</span> <span class="fl">000</span>,</span>
-<span class="r-in">    specialybe   <span class="op">=</span> <span class="st">"molekuline biologija"</span>,</span>
-<span class="r-in">    pavarde      <span class="op">=</span> <span class="st">"Pavarde"</span>,</span>
-<span class="r-in">    vardas       <span class="op">=</span> <span class="st">"Vardas Antras"</span>,</span>
-<span class="r-in">    sertifikatas <span class="op">=</span> <span class="st">"pratybos/certificate.pdf"</span>,</span>
-<span class="r-in">    konspektas   <span class="op">=</span> <span class="st">"pratybos/konspektas.pdf"</span></span>
-<span class="r-in">  <span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="fu">u_prepare_assignment_dc</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    uzduoties_nr <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>    varianto_nr  <span class="op">=</span> <span class="fl">000</span>,</span></span>
+<span class="r-in"><span>    specialybe   <span class="op">=</span> <span class="st">"molekuline biologija"</span>,</span></span>
+<span class="r-in"><span>    pavarde      <span class="op">=</span> <span class="st">"Pavarde"</span>,</span></span>
+<span class="r-in"><span>    vardas       <span class="op">=</span> <span class="st">"Vardas Antras"</span>,</span></span>
+<span class="r-in"><span>    sertifikatas <span class="op">=</span> <span class="st">"pratybos/certificate.pdf"</span>,</span></span>
+<span class="r-in"><span>    konspektas   <span class="op">=</span> <span class="st">"pratybos/konspektas.pdf"</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -134,7 +151,7 @@ If needed, the function opens the folder and assignment submission webpage.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

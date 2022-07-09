@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.15</span>
       </span>
     </div>
 
@@ -65,45 +65,62 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">u_create_filename</span><span class="op">(</span>
-  <span class="va">uzduoties_nr</span>,
-  <span class="va">varianto_nr</span>,
-  <span class="va">specialybe</span>,
-  <span class="va">pavarde</span>,
-  <span class="va">vardas</span>,
-  patikslinimas <span class="op">=</span> <span class="st">""</span>,
-  dokumento_formatas <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span>
-
-<span class="fu">u_parse_filename</span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-
-<span class="fu">u_check_filename</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">u_create_filename</span><span class="op">(</span></span>
+<span>  <span class="va">uzduoties_nr</span>,</span>
+<span>  <span class="va">varianto_nr</span>,</span>
+<span>  <span class="va">specialybe</span>,</span>
+<span>  <span class="va">pavarde</span>,</span>
+<span>  <span class="va">vardas</span>,</span>
+<span>  patikslinimas <span class="op">=</span> <span class="st">""</span>,</span>
+<span>  dokumento_formatas <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">u_parse_filename</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">u_check_filename</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>uzduoties_nr</dt>
 <dd><p>(integer) The number of U task.</p></dd>
+
+
 <dt>varianto_nr</dt>
 <dd><p>(integer) The variant of the task.
 Each student has a unique personal variant number.</p></dd>
+
+
 <dt>specialybe</dt>
 <dd><p>(character) Name of study programme.</p></dd>
+
+
 <dt>pavarde</dt>
 <dd><p>(character) Family name (names).</p></dd>
+
+
 <dt>vardas</dt>
 <dd><p>(character) Sure name (names).</p></dd>
+
+
 <dt>patikslinimas</dt>
 <dd><p>(character) Additional information.</p></dd>
+
+
 <dt>dokumento_formatas</dt>
 <dd><p>(character) File name extension.</p></dd>
+
+
 <dt>x</dt>
 <dd><p>(character) A file name to parse or to check if it's structure
 is correct.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <ul><li><p><code>u_create_filename()</code> returns sting with formatted file name.</p></li>
+    
+
+<ul><li><p><code>u_create_filename()</code> returns sting with formatted file name.</p></li>
 <li><p><code>u_parse_filename()</code> returns data frame with details extracted from
 the filename.</p></li>
 <li><p><code>u_check_filename()</code> returns <code>TRUE</code> if the structure of file name is
@@ -112,31 +129,31 @@ correct and <code>FALSE</code> otherwise.</p></li>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">u_create_filename</span><span class="op">(</span></span>
-<span class="r-in">  uzduoties_nr       <span class="op">=</span> <span class="fl">1</span>,</span>
-<span class="r-in">  varianto_nr        <span class="op">=</span> <span class="fl">000</span>,</span>
-<span class="r-in">  specialybe         <span class="op">=</span> <span class="st">"molekuline biologija"</span>,</span>
-<span class="r-in">  pavarde            <span class="op">=</span> <span class="st">"Pavarde"</span>,</span>
-<span class="r-in">  vardas             <span class="op">=</span> <span class="st">"Vardas Antras"</span>,</span>
-<span class="r-in">  patikslinimas      <span class="op">=</span> <span class="st">"sertifikatas"</span>,</span>
-<span class="r-in">  dokumento_formatas <span class="op">=</span> <span class="st">"pdf"</span></span>
-<span class="r-in"><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">u_create_filename</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  uzduoties_nr       <span class="op">=</span> <span class="fl">1</span>,</span></span>
+<span class="r-in"><span>  varianto_nr        <span class="op">=</span> <span class="fl">000</span>,</span></span>
+<span class="r-in"><span>  specialybe         <span class="op">=</span> <span class="st">"molekuline biologija"</span>,</span></span>
+<span class="r-in"><span>  pavarde            <span class="op">=</span> <span class="st">"Pavarde"</span>,</span></span>
+<span class="r-in"><span>  vardas             <span class="op">=</span> <span class="st">"Vardas Antras"</span>,</span></span>
+<span class="r-in"><span>  patikslinimas      <span class="op">=</span> <span class="st">"sertifikatas"</span>,</span></span>
+<span class="r-in"><span>  dokumento_formatas <span class="op">=</span> <span class="st">"pdf"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> U01-v000-[molbio]-[Pavarde]-[Vardas-Antras]-sertifikatas.pdf</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">u_create_filename</span><span class="op">(</span></span>
-<span class="r-in">  uzduoties_nr       <span class="op">=</span> <span class="fl">10</span>,</span>
-<span class="r-in">  varianto_nr        <span class="op">=</span> <span class="fl">000</span>,</span>
-<span class="r-in">  specialybe         <span class="op">=</span> <span class="st">"molekuline biologija"</span>,</span>
-<span class="r-in">  pavarde            <span class="op">=</span> <span class="st">"Pavarde"</span>,</span>
-<span class="r-in">  vardas             <span class="op">=</span> <span class="st">"Vardas Antras"</span></span>
-<span class="r-in"><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">u_create_filename</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  uzduoties_nr       <span class="op">=</span> <span class="fl">10</span>,</span></span>
+<span class="r-in"><span>  varianto_nr        <span class="op">=</span> <span class="fl">000</span>,</span></span>
+<span class="r-in"><span>  specialybe         <span class="op">=</span> <span class="st">"molekuline biologija"</span>,</span></span>
+<span class="r-in"><span>  pavarde            <span class="op">=</span> <span class="st">"Pavarde"</span>,</span></span>
+<span class="r-in"><span>  vardas             <span class="op">=</span> <span class="st">"Vardas Antras"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> U10-v000-[molbio]-[Pavarde]-[Vardas-Antras]</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"U01-v000-[molbio]-[Pavarde]-[Vardas-Antras]-sertifikatas.pdf"</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">u_check_filename</span><span class="op">(</span><span class="st">"U01-v000-[molbio]-[Pavarde]-[Vardas-Antras]-sertifikatas.pdf"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="st">"U01-v000-[molbio]-[Pavarde]-[Vardas-Antras]-sertifikatas.pdf"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">u_check_filename</span><span class="op">(</span><span class="st">"U01-v000-[molbio]-[Pavarde]-[Vardas-Antras]-sertifikatas.pdf"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="fu">u_parse_filename</span><span class="op">(</span><span class="st">"U01-v000-[molbio]-[Pavarde]-[Vardas-Antras]-sertifikatas.pdf"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">u_parse_filename</span><span class="op">(</span><span class="st">"U01-v000-[molbio]-[Pavarde]-[Vardas-Antras]-sertifikatas.pdf"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             Kategorija              Reiksme</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1       uzduoties_nr:                   U01</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2        varianto_nr:                   000</span>
@@ -145,10 +162,10 @@ correct and <code>FALSE</code> otherwise.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5             vardas:         Vardas Antras</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6      patikslinimas:          sertifikatas</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7 dokumento_formatas:                   pdf</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">u_check_filename</span><span class="op">(</span><span class="st">"U03-v000-[molekuline]-[Pavarde]-[Vardas].zip"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">u_check_filename</span><span class="op">(</span><span class="st">"U03-v000-[molekuline]-[Pavarde]-[Vardas].zip"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="fu">u_parse_filename</span><span class="op">(</span><span class="st">"U03-v000-[molekuline]-[Pavarde]-[Vardas].zip"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">u_parse_filename</span><span class="op">(</span><span class="st">"U03-v000-[molekuline]-[Pavarde]-[Vardas].zip"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             Kategorija              Reiksme</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1       uzduoties_nr:                   U03</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2        varianto_nr:                   000</span>
@@ -157,10 +174,10 @@ correct and <code>FALSE</code> otherwise.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5             vardas:                Vardas</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6      patikslinimas:                      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7 dokumento_formatas:                   zip</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu">u_check_filename</span><span class="op">(</span><span class="st">"U03-v000-[biofiz]-[Pavarde]-[Vardas]"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">u_check_filename</span><span class="op">(</span><span class="st">"U03-v000-[biofiz]-[Pavarde]-[Vardas]"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
-<span class="r-in"><span class="fu">u_parse_filename</span><span class="op">(</span><span class="st">"U03-v000-[biofiz]-[Pavarde]-[Vardas]"</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu">u_parse_filename</span><span class="op">(</span><span class="st">"U03-v000-[biofiz]-[Pavarde]-[Vardas]"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             Kategorija    Reiksme</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1       uzduoties_nr:         U03</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2        varianto_nr:         000</span>
@@ -169,9 +186,9 @@ correct and <code>FALSE</code> otherwise.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5             vardas:      Vardas</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6      patikslinimas:            </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7 dokumento_formatas:  { FOLDER }</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Incorrect family name:</span></span>
-<span class="r-in"><span class="fu">u_parse_filename</span><span class="op">(</span><span class="st">"U03-v000-[molekuline]-[Pavarde3]-[Vardas].zip"</span><span class="op">)</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Incorrect family name:</span></span></span>
+<span class="r-in"><span><span class="fu">u_parse_filename</span><span class="op">(</span><span class="st">"U03-v000-[molekuline]-[Pavarde3]-[Vardas].zip"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>             Kategorija                          Reiksme</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1       uzduoties_nr:                              &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2        varianto_nr:                              &lt;NA&gt;</span>
@@ -194,7 +211,7 @@ correct and <code>FALSE</code> otherwise.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

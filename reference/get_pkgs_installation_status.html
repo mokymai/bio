@@ -18,7 +18,7 @@ or need to be updated) and package installation code."><!-- mathjax --><script s
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.15</span>
       </span>
     </div>
 
@@ -67,27 +67,27 @@ or need to be updated) and package installation code.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">get_pkgs_installation_status</span><span class="op">(</span>
-  list_name <span class="op">=</span> <span class="cn">NULL</span>,
-  include <span class="op">=</span> <span class="st">"outdated"</span>,
-  show_status <span class="op">=</span> <span class="va">include</span>,
-  install <span class="op">=</span> <span class="va">include</span>,
-  cran <span class="op">=</span> <span class="va">install</span>,
-  github <span class="op">=</span> <span class="va">install</span>,
-  other_repos <span class="op">=</span> <span class="va">install</span>,
-  using_code <span class="op">=</span> <span class="va">install</span>,
-  use_local_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"bio.use_local_list"</span>, <span class="cn">FALSE</span><span class="op">)</span>,
-  pkgs <span class="op">=</span> <span class="cn">NULL</span>
-<span class="op">)</span>
-
-<span class="fu">get_pkg_lists_local</span><span class="op">(</span><span class="op">)</span>
-
-<span class="fu">get_last_pkgs_installation_status</span><span class="op">(</span><span class="op">)</span>
-
-<span class="co"># S3 method for pkgs_installation_status</span>
-<span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, show_status <span class="op">=</span> <span class="va">x</span><span class="op">$</span><span class="va">show_status</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">get_pkgs_installation_code</span><span class="op">(</span>x <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span>, to_clipboard <span class="op">=</span> <span class="cn">FALSE</span>, upgrade <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_pkgs_installation_status</span><span class="op">(</span></span>
+<span>  list_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  include <span class="op">=</span> <span class="st">"outdated"</span>,</span>
+<span>  show_status <span class="op">=</span> <span class="va">include</span>,</span>
+<span>  install <span class="op">=</span> <span class="va">include</span>,</span>
+<span>  cran <span class="op">=</span> <span class="va">install</span>,</span>
+<span>  github <span class="op">=</span> <span class="va">install</span>,</span>
+<span>  other_repos <span class="op">=</span> <span class="va">install</span>,</span>
+<span>  using_code <span class="op">=</span> <span class="va">install</span>,</span>
+<span>  use_local_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"bio.use_local_list"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  pkgs <span class="op">=</span> <span class="cn">NULL</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">get_pkg_lists_local</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">get_last_pkgs_installation_status</span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for pkgs_installation_status</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">x</span>, show_status <span class="op">=</span> <span class="va">x</span><span class="op">$</span><span class="va">show_status</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">get_pkgs_installation_code</span><span class="op">(</span>x <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span>, to_clipboard <span class="op">=</span> <span class="cn">FALSE</span>, upgrade <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -95,6 +95,8 @@ or need to be updated) and package installation code.</p>
     <dl><dt>list_name</dt>
 <dd><p>(character) The name of the list with required R packages.
 E.g., "mini", "Rcmdr", "Rcmdr-biostat", "bio", etc.</p></dd>
+
+
 <dt>include</dt>
 <dd><p>(character) Which packages from the list (indicated in <code>list_name</code>)
 must be included in the results.
@@ -107,17 +109,23 @@ or do not have a minimum required version installed.</p></li>
 <li><p><code>"missing"</code>: only the packages that are not installed.</p></li>
 <li><p><code>"never"</code> or <code>FALSE</code>: none.</p></li>
 </ul></dd>
+
+
 <dt>show_status</dt>
 <dd><p>(character) Which packages should be included in the
 package installation status summary.
 See options of <code>include</code>.
 Defaults to the value of <code>include</code>.</p></dd>
+
+
 <dt>install</dt>
 <dd><p>(character) Which packages should be included in the
 package installation code.
 See options of <code>include</code>.
 Defaults to the value of <code>include</code>.
 Sets the default value for <code>cran</code>, <code>github</code>, and <code>elsewhere</code>.</p></dd>
+
+
 <dt>cran</dt>
 <dd><p>(character) Condition to filter packages that should be
 included in code that installs packages from CRAN.
@@ -125,22 +133,30 @@ See options of <code>include</code> plus value <code>"required"</code>.
 Defaults to the value of <code>install</code>.</p><ul><li><p><code>"required"</code> -- packages that do not have a minimum required version
 installed even if the required version is not on CRAN.</p></li>
 </ul></dd>
+
+
 <dt>github</dt>
 <dd><p>(character) Condition to filter packages that should be
 included in code that installs packages from GitHub.
 See options of <code>include</code> plus value <code>"required"</code>.
 Defaults to the value of <code>install</code>.</p></dd>
+
+
 <dt>other_repos</dt>
 <dd><p>(character) Condition to filter packages that should be
 included in code that installs packages from other CRAN-like
 repositories.
 See options of <code>include</code> plus value <code>"required"</code>.
 Defaults to the value of <code>install</code>.</p></dd>
+
+
 <dt>using_code</dt>
 <dd><p>(character) Condition to filter packages that should
 be included in code that installs packages from other sources.
 See options of <code>include</code> plus value <code>"required"</code>.
 Defaults to the value of <code>install</code>.</p></dd>
+
+
 <dt>use_local_list</dt>
 <dd><p>(logical) If <code>TRUE</code>, the list, which is locally
 installed in the folder of package <span class="pkg">bio</span> ("local list"), is used.
@@ -149,19 +165,30 @@ It is recommended  using the online version of the list, as it may
 contain more recent changes.
 Optiom bight be set globally by, e.g.,
 <code>options(bio.use_local_list = TRUE)</code>.</p></dd>
+
+
 <dt>pkgs</dt>
 <dd><p>(character) The name (vector of names) of R packages.
 Either <code>list_name</code> or <code>pkgs</code> must be <code>NULL</code>.</p></dd>
+
+
 <dt>x</dt>
 <dd><p>Object of interest.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Arguments to other methods.</p></dd>
+
+
 <dt>to_clipboard</dt>
 <dd><p>(logical) If <code>TRUE</code>, the code is copied to clipboard and
 returned only invisibly.</p></dd>
+
+
 <dt>upgrade</dt>
 <dd><p>Upgrade dependencies.
 See <code>upgrade</code> in <code><a href="https://remotes.r-lib.org/reference/install_cran.html" class="external-link">remotes::install_cran()</a></code>.</p></dd>
+
 </dl></div>
     <div id="see-also">
     <h2>See also</h2>
@@ -172,34 +199,34 @@ See <code>upgrade</code> in <code><a href="https://remotes.r-lib.org/reference/i
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># NOTE: It is not recommended to use the local lists as they might be out of date.</span></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>bio.use_local_list <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">list_name</span> <span class="op">&lt;-</span> <span class="st">"mini"</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Use package name</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">status_out</span> <span class="op">&lt;-</span> <span class="fu">get_pkgs_installation_status</span><span class="op">(</span>pkgs <span class="op">=</span> <span class="st">"bio"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="op">(</span><span class="va">status_out</span> <span class="op">&lt;-</span> <span class="fu">get_pkgs_installation_status</span><span class="op">(</span>pkgs <span class="op">=</span> <span class="st">"bio"</span>, include <span class="op">=</span> <span class="st">"always"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Use list name</span></span>
-<span class="r-in"><span class="op">(</span><span class="va">status_out</span> <span class="op">&lt;-</span> <span class="fu">get_pkgs_installation_status</span><span class="op">(</span><span class="st">"mini"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">get_pkgs_installation_code</span><span class="op">(</span><span class="va">status_out</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="op">(</span><span class="va">status_all</span> <span class="op">&lt;-</span> <span class="fu">get_pkgs_installation_status</span><span class="op">(</span><span class="st">"mini"</span>, include <span class="op">=</span> <span class="st">"always"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">get_pkgs_installation_code</span><span class="op">(</span><span class="va">status_all</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="op">(</span><span class="va">status_custom</span> <span class="op">&lt;-</span></span>
-<span class="r-in">  <span class="fu">get_pkgs_installation_status</span><span class="op">(</span><span class="st">"mini"</span>, include <span class="op">=</span> <span class="st">"always"</span>, install <span class="op">=</span> <span class="st">"outdated"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">get_pkgs_installation_code</span><span class="op">(</span><span class="va">status_custom</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Package "remembers" the last created 'pkgs_installation_status' object</span></span>
-<span class="r-in"><span class="fu">get_pkgs_installation_status</span><span class="op">(</span><span class="st">"snippets"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">get_last_pkgs_installation_status</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">get_pkgs_installation_code</span><span class="op">(</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># NOTE: It is not recommended to use the local lists as they might be out of date.</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>bio.use_local_list <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">list_name</span> <span class="op">&lt;-</span> <span class="st">"mini"</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Use package name</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">status_out</span> <span class="op">&lt;-</span> <span class="fu">get_pkgs_installation_status</span><span class="op">(</span>pkgs <span class="op">=</span> <span class="st">"bio"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">status_out</span> <span class="op">&lt;-</span> <span class="fu">get_pkgs_installation_status</span><span class="op">(</span>pkgs <span class="op">=</span> <span class="st">"bio"</span>, include <span class="op">=</span> <span class="st">"always"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Use list name</span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">status_out</span> <span class="op">&lt;-</span> <span class="fu">get_pkgs_installation_status</span><span class="op">(</span><span class="st">"mini"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">get_pkgs_installation_code</span><span class="op">(</span><span class="va">status_out</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">status_all</span> <span class="op">&lt;-</span> <span class="fu">get_pkgs_installation_status</span><span class="op">(</span><span class="st">"mini"</span>, include <span class="op">=</span> <span class="st">"always"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">get_pkgs_installation_code</span><span class="op">(</span><span class="va">status_all</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">(</span><span class="va">status_custom</span> <span class="op">&lt;-</span></span></span>
+<span class="r-in"><span>  <span class="fu">get_pkgs_installation_status</span><span class="op">(</span><span class="st">"mini"</span>, include <span class="op">=</span> <span class="st">"always"</span>, install <span class="op">=</span> <span class="st">"outdated"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">get_pkgs_installation_code</span><span class="op">(</span><span class="va">status_custom</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Package "remembers" the last created 'pkgs_installation_status' object</span></span></span>
+<span class="r-in"><span><span class="fu">get_pkgs_installation_status</span><span class="op">(</span><span class="st">"snippets"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">get_last_pkgs_installation_status</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">get_pkgs_installation_code</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -214,7 +241,7 @@ See <code>upgrade</code> in <code><a href="https://remotes.r-lib.org/reference/i
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

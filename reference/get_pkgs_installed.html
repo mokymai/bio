@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.15</span>
       </span>
     </div>
 
@@ -65,7 +65,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">get_pkgs_installed</span><span class="op">(</span>rm_duplicates <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">get_pkgs_installed</span><span class="op">(</span>rm_duplicates <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -75,10 +75,13 @@
 If <code>TRUE</code>, when several packages are found, only the one with the
 highest version is returned. If <code>FALSE</code>, no packages are removed
 from the list.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Data frame with columns <code>"package"</code> and <code>"current_version"</code>.</p>
+    
+
+<p>Data frame with columns <code>"package"</code> and <code>"current_version"</code>.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -89,21 +92,21 @@ from the list.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">get_pkgs_installed</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">get_pkgs_installed</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       package current_version</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  KernSmooth         2.23-20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        MASS          7.3-56</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        MASS          7.3-57</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3      Matrix           1.4-1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4     R.cache          0.15.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 R.methodsS3           1.8.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6        R.oo          1.24.0</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="fu">get_pkgs_installed</span><span class="op">(</span>rm_duplicates <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 R.methodsS3           1.8.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6        R.oo          1.25.0</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="fu">get_pkgs_installed</span><span class="op">(</span>rm_duplicates <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 140</span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="fu">get_pkgs_installed</span><span class="op">(</span>rm_duplicates <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="fu">get_pkgs_installed</span><span class="op">(</span>rm_duplicates <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] 140</span>
-<span class="r-in"></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -118,7 +121,7 @@ from the list.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

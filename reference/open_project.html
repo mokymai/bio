@@ -18,7 +18,7 @@ files that contain project lists."><!-- mathjax --><script src="https://cdnjs.cl
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.14</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.15</span>
       </span>
     </div>
 
@@ -67,15 +67,15 @@ files that contain project lists.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">open_project</span><span class="op">(</span>
-  pattern <span class="op">=</span> <span class="cn">NULL</span>,
-  new_session <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="cn">NULL</span> <span class="kw">else</span> <span class="cn">TRUE</span>,
-  proj_list <span class="op">=</span> <span class="cn">NULL</span>,
-  proj_list_path <span class="op">=</span> <span class="cn">NULL</span>,
-  only_available <span class="op">=</span> <span class="cn">TRUE</span>,
-  name <span class="op">=</span> <span class="cn">NULL</span>,
-  negate <span class="op">=</span> <span class="cn">FALSE</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">open_project</span><span class="op">(</span></span>
+<span>  pattern <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  new_session <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="cn">NULL</span> <span class="kw">else</span> <span class="cn">TRUE</span>,</span>
+<span>  proj_list <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  proj_list_path <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  only_available <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  name <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  negate <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -83,35 +83,50 @@ files that contain project lists.</p>
     <dl><dt>pattern</dt>
 <dd><p>(character) regular expression to narrow down the list of
 possible options.</p></dd>
+
+
 <dt>new_session</dt>
 <dd><p>(logical|<code>NULL</code>) should the project be opened in a new
 session, or should the current RStudio session switch to that project?
 Note that <code>TRUE</code> values are only supported with RStudio Desktop and
 RStudio Server Pro.
 If <code>NULL</code>, user will have to choose interactively.</p></dd>
+
+
 <dt>proj_list</dt>
 <dd><p>(data frame) The result of <code><a href="projects.html">read_projects()</a></code> or <code>NULL</code>.</p></dd>
+
+
 <dt>proj_list_path</dt>
 <dd><p>(string) The path to the file with the list of project
 paths. If <code>proj_list</code> is not <code>NULL</code>, then <code>proj_list_path</code> is ignored.</p></dd>
+
+
 <dt>only_available</dt>
 <dd><p>(logical) If <code>TRUE</code>, non-existing projects and projects
 with broken paths are removed from the list of choices.</p></dd>
+
+
 <dt>name</dt>
 <dd><p>(string|<code>NULL</code>) The name of the project or <code>NULL</code> to choose
 a project interactively.</p></dd>
+
+
 <dt>negate</dt>
 <dd><p>(logical) If <code>TRUE</code>, then the options defined by  <code>pattern</code> are
 excluded.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Opens the indicated project.</p>
+    
+
+<p>Opens the indicated project.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
     <div class="dont-index">
-<ul><li><p><code><a href="project-lists.html">update_personal_proj_list()</a></code></p></li>
+<ul><li><p><code><a href="project-lists.html">update_rstudio_proj_list_user()</a></code></p></li>
 <li><p><code><a href="https://rdrr.io/pkg/rstudioapi/man/projects.html" class="external-link">rstudioapi::openProject()</a></code></p></li>
 <li><p><code><a href="https://rdrr.io/pkg/rstudioapi/man/projects.html" class="external-link">rstudioapi::initializeProject()</a></code></p></li>
 </ul></div>
@@ -133,7 +148,7 @@ excluded.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>
