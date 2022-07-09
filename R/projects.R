@@ -202,7 +202,7 @@ open_project <- function(pattern = NULL,
                          negate = FALSE) {
 
   if (is.null(proj_list) && is.null(proj_list_path)) {
-    # No projec lists are provided
+    # No project lists are provided
     proj_list <- get_projs_all()
 
   } else {
