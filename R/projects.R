@@ -84,11 +84,11 @@ read_projects <- function(file, sort_by = FALSE) {
     tolower(sort_by),
 
     "name" = , "names" = {
-      dplyr::arrange(proj_df, proj_df)
+      dplyr::arrange(proj_df, name)
     },
 
     "path" = , "paths" = {
-      dplyr::arrange(proj_df, name)
+      dplyr::arrange(proj_df, path)
     },
     # else
     proj_df
