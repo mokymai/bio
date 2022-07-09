@@ -115,7 +115,7 @@ get_projs_recent <- function(sort_by = FALSE) {
 #' @name projects
 #' @noRd
 get_projs_user <- function(sort_by = FALSE) {
-  read_projects(file = get_path_personal_proj_list(create = TRUE), sort_by = sort_by)
+  read_projects(file = get_path_user_proj_list(create = TRUE), sort_by = sort_by)
 }
 
 #' @name projects
@@ -123,7 +123,7 @@ get_projs_user <- function(sort_by = FALSE) {
 get_projs_all <- function() {
 
   file_recent   <- get_path_recent_proj_list()
-  file_personal <- get_path_personal_proj_list(create = TRUE)
+  file_personal <- get_path_user_proj_list(create = TRUE)
 
   new_list <-
     dplyr::bind_rows(
@@ -333,12 +333,12 @@ NULL
 #' @description
 #' - `get_path_recent_proj_list()` -- gets path to the file with the list of
 #'    recent RStudio projects.
-#' - `get_path_personal_proj_list()` -- gets path to the file with the list of
+#' - `get_path_user_proj_list()` -- gets path to the file with the list of
 #'    personal RStudio projects.
 #' @examples
 #' \dontrun{\donttest{
 #' get_path_recent_proj_list()
-#' get_path_personal_proj_list()
+#' get_path_user_proj_list()
 #' }}
 #'
 get_path_recent_proj_list <- function() {
@@ -348,7 +348,7 @@ get_path_recent_proj_list <- function() {
 #' @rdname project-lists
 #' @param create (logical) If `TRUE` and file does not exist, the file is created.
 #' @export
-get_path_personal_proj_list <- function(create = FALSE) {
+get_path_user_proj_list <- function(create = FALSE) {
   file_personal <- fs::path(get_path_r_user_dir(), "personal-list-of-rstudio-projects")
   if (create && !fs::file_exists(file_personal)) {
     fs::dir_create(fs::path_dir(file_personal))
@@ -371,13 +371,13 @@ open_recent_proj_list <- function() {
 #' @rdname project-lists
 #' @export
 open_personal_proj_list <- function() {
-  open_in_rstudio(path = get_path_personal_proj_list())
+  open_in_rstudio(path = get_path_user_proj_list())
 }
 
 #' @rdname project-lists
 #' @export
 update_personal_proj_list <- function() {
-  file_personal <- get_path_personal_proj_list(create = TRUE)
+  file_personal <- get_path_user_proj_list(create = TRUE)
   new_list <- get_projs_all()
   readr::write_lines(new_list$path, file_personal)
   ui_done(paste0(
