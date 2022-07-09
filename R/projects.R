@@ -354,7 +354,7 @@ get_path_user_proj_list <- function(create = FALSE) {
   if (create && !fs::file_exists(file_with_users_list)) {
     fs::dir_create(fs::path_dir(file_with_users_list))
     fs::file_create(file_with_users_list)
-    ui_done("File for projects' list was created: {ui_path(file_with_users_list)}")
+    ui_done("File for RStudio project list was created: {ui_path(file_with_users_list)}")
   }
   file_with_users_list
 }
