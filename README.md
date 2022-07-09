@@ -426,7 +426,7 @@ Useful to apply before trying to install R packages.
 
 <!-- ``` -->
 
-<!-- Copy the recent projects to your personal project list. -->
+<!-- Copy the recent projects to your user project list. -->
 
 <!-- ```{r README-12, eval=FALSE} -->
 
