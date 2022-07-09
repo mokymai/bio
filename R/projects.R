@@ -371,7 +371,7 @@ open_recent_proj_list <- function() {
 
 #' @rdname project-lists
 #' @export
-open_personal_proj_list <- function() {
+open_user_proj_list <- function() {
   open_in_rstudio(path = get_path_user_proj_list())
 }
 
