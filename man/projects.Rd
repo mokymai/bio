@@ -8,7 +8,7 @@
 read_projects(file, sort_by = FALSE)
 }
 \arguments{
-\item{file}{(character) Path to file with RStudio projects.}
+\item{file}{(character) Path to file with RStudio project names.}
 
 \item{sort_by}{(\code{"name"}|\code{"path"}|\code{\link{FALSE}})}
 }

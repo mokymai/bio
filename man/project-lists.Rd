@@ -3,21 +3,21 @@
 \name{project-lists}
 \alias{project-lists}
 \alias{get_path_recent_proj_list}
-\alias{get_path_personal_proj_list}
+\alias{get_path_user_proj_list}
 \alias{open_recent_proj_list}
-\alias{open_personal_proj_list}
-\alias{update_personal_proj_list}
+\alias{open_user_proj_list}
+\alias{update_rstudio_proj_list_user}
 \title{Manage Project Lists}
 \usage{
 get_path_recent_proj_list()
 
-get_path_personal_proj_list(create = FALSE)
+get_path_user_proj_list(create = FALSE)
 
 open_recent_proj_list()
 
-open_personal_proj_list()
+open_user_proj_list()
 
-update_personal_proj_list()
+update_rstudio_proj_list_user()
 }
 \arguments{
 \item{create}{(logical) If \code{TRUE} and file does not exist, the file is created.}
@@ -28,7 +28,7 @@ Manage project lists.
 \itemize{
 \item \code{get_path_recent_proj_list()} -- gets path to the file with the list of
 recent RStudio projects.
-\item \code{get_path_personal_proj_list()} -- gets path to the file with the list of
+\item \code{get_path_user_proj_list()} -- gets path to the file with the list of
 personal RStudio projects.
 }
 
@@ -40,7 +40,7 @@ recent RStudio projects.
 \examples{
 \dontrun{\donttest{
 get_path_recent_proj_list()
-get_path_personal_proj_list()
+get_path_user_proj_list()
 }}
 
 }
