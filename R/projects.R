@@ -10,9 +10,14 @@
 #' @param proj_path (character) Path to `*.Rproj` file.
 #'
 #' @return
-#'  - `parse_proj_path()` returns data frame with columns `name` (with project
-#'     name, i.e., folder name) and `path` to *.Rproj file.
-#' - `extract_proj_name()` (character) a vector of extracted character names.
+#'  - `parse_proj_path()` returns data frame with columns
+#'     `name` (with project name, i.e., folder name),
+#'     `path` to *.Rproj file,
+#'     `exists` flag if .Rproj file exists, and
+#'     `dir_exists` flag if dir with .Rproj file exists
+#'     (sometimes file is renamed and directory still exists).
+#' - `extract_proj_name()` (character) a vector of extracted project names.
+#'                        A project name is a directory name.
 #'
 #' @noRd
 #'
@@ -33,7 +38,8 @@ parse_proj_path <- function(proj_path) {
   tibble::tibble(
     name   = extract_proj_name(proj_path = proj_path),
     path   = proj_path,
-    exists = file.exists(proj_path)
+    exists = fs::file_exists(proj_path),
+    dir_exists = fs::dir_exists(fs::path_dir(proj_path))
   )
 }
 
@@ -218,7 +224,9 @@ open_project <- function(pattern = NULL,
     proj_list <- dplyr::bind_rows(proj_list, proj_list_2)
   }
 
-  if (isTRUE(only_available)) {
+  if (isTRUE(only_available) || only_available == "rproj") {
+    proj_list <- dplyr::filter(proj_list, exists == TRUE)
+  } else if (only_available %in% c("dir", "proj dir", "project dir")) {
     proj_list <- dplyr::filter(proj_list, exists == TRUE)
   }
 
