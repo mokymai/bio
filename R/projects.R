@@ -99,12 +99,12 @@ read_projects <- function(file, sort_by = FALSE) {
 #' @noRd
 #' @description
 #' - `get_projs_recent()` -- lists recent RStudio projects.
-#' - `get_projs_personal()` -- lists personal RStudio projects.
+#' - `get_projs_user()` -- lists RStudio projects from user-defined list.
 #' - `get_projs_all()` -- lists both recent and personal RStudio projects.
 #' @examples
 #' \dontrun{\donttest{
 #' get_projs_recent()
-#' get_projs_personal()
+#' get_projs_user()
 #' get_projs_all()
 #' }}
 #'
@@ -114,7 +114,7 @@ get_projs_recent <- function(sort_by = FALSE) {
 
 #' @name projects
 #' @noRd
-get_projs_personal <- function(sort_by = FALSE) {
+get_projs_user <- function(sort_by = FALSE) {
   read_projects(file = get_path_personal_proj_list(create = TRUE), sort_by = sort_by)
 }
 
@@ -312,7 +312,7 @@ open_project <- function(pattern = NULL,
 open_project_from_personal_list <- function(pattern = NULL, new_session = TRUE,
   only_available = TRUE, name = NULL, ...) {
 
-  new_list <- get_projs_personal()
+  new_list <- get_projs_user()
   open_project(pattern = pattern, new_session = new_session, proj_list = new_list,
     only_available = only_available, name = name, ...)
 }
