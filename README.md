@@ -430,6 +430,6 @@ Useful to apply before trying to install R packages.
 
 <!-- ```{r README-12, eval=FALSE} -->
 
-<!-- bio::update_personal_proj_list() -->
+<!-- bio::update_rstudio_proj_list_user() -->
 
 <!-- ``` -->

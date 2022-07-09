@@ -179,7 +179,7 @@ get_proj_names <- function(file = get_path_recent_proj_list(),
 #' @concept rstudio projects
 #'
 #' @seealso
-#' - [update_personal_proj_list()]
+#' - [update_rstudio_proj_list_user()]
 #' - [rstudioapi::openProject()]
 #' - [rstudioapi::initializeProject()]
 #' @examples
@@ -377,7 +377,7 @@ open_personal_proj_list <- function() {
 
 #' @rdname project-lists
 #' @export
-update_personal_proj_list <- function() {
+update_rstudio_proj_list_user <- function() {
   file_with_users_list <- get_path_user_proj_list(create = TRUE)
   new_list <- get_projs_all()
   readr::write_lines(new_list$path, file_with_users_list)
