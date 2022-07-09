@@ -227,7 +227,7 @@ open_project <- function(pattern = NULL,
   if (isTRUE(only_available) || only_available == "rproj") {
     proj_list <- dplyr::filter(proj_list, exists == TRUE)
   } else if (only_available %in% c("dir", "proj dir", "project dir")) {
-    proj_list <- dplyr::filter(proj_list, exists == TRUE)
+    proj_list <- dplyr::filter(proj_list, dir_exists == TRUE)
   }
 
   if (!is.null(pattern)) {
