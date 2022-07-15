@@ -1,4 +1,4 @@
-# Get details about RStudio projects from its path ============================
+# Get details about RStudio project from its path ============================
 
 #' @name parse_proj_path
 #' @title Parse project's path
@@ -49,7 +49,7 @@ extract_proj_name <- function(proj_path) {
   proj_path <- fs::path(proj_path)
   ext       <- fs::path_ext(proj_path)
   if (any(!tolower(ext) %in% c("Rproj", "rproj"))) {
-    warning('The result is incorrect as the extension in some strings are not ".Rproj".')
+    warning('The result is incorrect as the extension in some strings is not ".Rproj".')
   }
   stringr::str_replace(proj_path, "(.*/)?([^/]*?)(/[^/]*?\\.[Rr]proj$)", "\\2")
 }
