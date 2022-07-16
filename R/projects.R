@@ -54,8 +54,6 @@ extract_proj_name <- function(proj_path) {
   stringr::str_replace(proj_path, "(.*/)?([^/]*?)(/[^/]*?\\.[Rr]proj$)", "\\2")
 }
 
-
-
 # Manage RStudio projects ====================================================
 #' @name projects
 #' @title Manage RStudio Projects
@@ -293,7 +291,7 @@ open_project <- function(pattern = NULL,
 
     if (i_path == 0) {
       usethis::ui_oops("Cancelled by user")
-      return(invisible())
+      return(invisible(NULL))
     }
     proj_path <- proj$path[i_path]
 
@@ -302,9 +300,15 @@ open_project <- function(pattern = NULL,
   }
 
   if (is.null(new_session)) {
-    cat("\n")
+    proj_path_i <- usethis::ui_path(proj_path)
+    usethis::ui_info("Selection: \n{proj_path_i}\n\n")
+
     usethis::ui_info("Close current project: \n")
     i_close <- utils::menu(c("Yes, close", "No, keep open (default)"))
+    if (i_close == 0) {
+      usethis::ui_oops("Cancelled by user")
+      return(invisible(NULL))
+    }
     new_session <- ifelse(i_close == 1, FALSE, TRUE)
   }
 
