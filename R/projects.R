@@ -336,7 +336,7 @@ open_project <- function(pattern = NULL,
     usethis::ui_oops("Closing current project...")
   }
 
-  usethis::ui_done("Opening {blue(proj_path)}")
+  usethis::ui_done("Opening {highlight_proj_name(proj_path)}")
   rstudioapi::openProject(proj_path, newSession = new_session)
 }
 
