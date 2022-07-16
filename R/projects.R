@@ -319,11 +319,12 @@ open_project <- function(pattern = NULL,
   }
 
   if (is.null(new_session)) {
-    proj_path_i <- usethis::ui_path(proj_path)
-    usethis::ui_info("Selection: \n{proj_path_i}\n\n")
+    proj_path_i <- highlight_proj_name(proj_path)
+    usethis::ui_done("{proj_path_i}\n\n")
 
-    usethis::ui_info("Close current project: \n")
+    usethis::ui_info("Close current project:")
     i_close <- utils::menu(c("Yes, close", "No, keep open (default)"))
+
     if (i_close == 0) {
       usethis::ui_oops("Cancelled by user")
       return(invisible(NULL))
