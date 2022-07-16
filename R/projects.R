@@ -54,6 +54,25 @@ extract_proj_name <- function(proj_path) {
   stringr::str_replace(proj_path, "(.*/)?([^/]*?)(/[^/]*?\\.[Rr]proj$)", "\\2")
 }
 
+
+#' @rdname parse_proj_path
+#' @noRd
+#' @examples
+#' highlight_proj_name("D:/bio/proj.Rproj")
+#' highlight_proj_name("bio/proj.Rproj")
+highlight_proj_name <- function(proj_path) {
+  proj_dir <- fs::path_dir(proj_path)
+  glue::glue(
+    crayon::blue(sep = "",
+      fs::path(
+        paste0("'", fs::path_dir(proj_dir)),
+        crayon::yellow(fs::path_file(proj_dir)),
+        paste0(fs::path_file(proj_path), "'")
+      )
+    )
+  )
+}
+
 # Manage RStudio projects ====================================================
 #' @name projects
 #' @title Manage RStudio Projects
