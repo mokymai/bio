@@ -45,13 +45,11 @@ usethis::use_git_config
 # @export
 # @concept programs
 
-get_git_core_editor_cmd <- function(core_editor = "atom") {
-  # core_editor = "atom"  # "atom", "npp", "GitExtensions"
+get_git_core_editor_cmd <- function(core_editor) {
   core_editor_cmd <- switch(
     get_os_type(),
     windows = switch(
       core_editor,
-      atom = 'atom --wait',
       npp  = "'C:/Program Files (x86)/Notepad++/notepad++.exe' -multiInst -notabbar -nosession -noPlugin",
       GitExtensions = "'C:/Program Files (x86)/GitExtensions/GitExtensions.exe' fileeditor"
     )
@@ -244,57 +242,3 @@ git config --global difftool.prompt {tolower(prompt)}
   rstudioapi::terminalActivate(terminal_id, show = TRUE)
   rstudioapi::terminalSend(terminal_id, terminal_commands)
 }
-
-# Atom =======================================================================
-
-# @name atom
-# @title Helper functions for "Atom".
-#
-# @export
-# @concept programs
-#
-# @examples
-# is_atom_installed()
-browse_atom_homepage <- function() {
-  browseURL("https://atom.io/")
-}
-
-# @rdname atom
-# @export
-# @concept programs
-is_atom_installed <- function() {
-  # suppressWarnings(
-  #   system("atom --version", show.output.on.console = FALSE, intern = FALSE) == 0
-  # )
-  tryCatch(
-    {
-      system2("atom", "--version", stdout = TRUE, stderr = TRUE)
-      # If no error occurs in system2(), TRUE is returned.
-      TRUE
-    },
-
-    error = function(e) {
-      FALSE
-    }
-  )
-}
-
-# @rdname atom
-# @export
-# @concept programs
-set_atom_as_git_core_editor <- function() {
-  if (is_atom_installed()) {
-    glue::glue('git config --global core.editor "atom --wait"')
-  }
-}
-
-# @rdname atom
-# @export
-# @concept programs
-install_atom_meld <- function() {
-  # Installs Atom package "atim-meld"
-  if (is_atom_installed()) {
-    system("apm install atom-meld")
-  }
-}
-
