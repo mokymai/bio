@@ -1,114 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/LICENSE-text.html</loc>
+    <loc>https://mokymai.github.io/bio/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/LICENSE.html</loc>
+    <loc>https://mokymai.github.io/bio/LICENSE.html</loc>
   </url>
   <url>
-    <loc>/authors.html</loc>
+    <loc>https://mokymai.github.io/bio/authors.html</loc>
   </url>
   <url>
-    <loc>/index.html</loc>
+    <loc>https://mokymai.github.io/bio/index.html</loc>
   </url>
   <url>
-    <loc>/reference/R-related-dirs.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/RStudio-config-file.html</loc>
   </url>
   <url>
-    <loc>/reference/RStudio-config-file.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/RStudio-dictionaries.html</loc>
   </url>
   <url>
-    <loc>/reference/RStudio-dictionaries.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/RStudio-related-dirs.html</loc>
   </url>
   <url>
-    <loc>/reference/RStudio-related-dirs.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/RStudio-settings.html</loc>
   </url>
   <url>
-    <loc>/reference/RStudio-settings.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/bio-package.html</loc>
   </url>
   <url>
-    <loc>/reference/bio-package.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/bio_version.html</loc>
   </url>
   <url>
-    <loc>/reference/bio_version.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/check_installed_programs.html</loc>
   </url>
   <url>
-    <loc>/reference/check_installed_programs.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/check_packages.html</loc>
   </url>
   <url>
-    <loc>/reference/check_packages.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/check_user_info.html</loc>
   </url>
   <url>
-    <loc>/reference/check_user_info.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/compare_version.html</loc>
   </url>
   <url>
-    <loc>/reference/compare_version.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/emokymai.html</loc>
   </url>
   <url>
-    <loc>/reference/emokymai.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/get_os_type.html</loc>
   </url>
   <url>
-    <loc>/reference/get_os_type.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/get_path_desktop.html</loc>
   </url>
   <url>
-    <loc>/reference/get_path_desktop.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/get_pkgs_installation_status.html</loc>
   </url>
   <url>
-    <loc>/reference/get_pkgs_installation_status.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/get_pkgs_installed.html</loc>
   </url>
   <url>
-    <loc>/reference/get_pkgs_installed.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/index.html</loc>
   </url>
   <url>
-    <loc>/reference/index.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/is_pkg_installed.html</loc>
   </url>
   <url>
-    <loc>/reference/is_pkg_installed.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/list_pkgs_used_in_dir.html</loc>
   </url>
   <url>
-    <loc>/reference/list_pkgs_used_in_dir.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/open_in_rstudio.html</loc>
   </url>
   <url>
-    <loc>/reference/open_in_rstudio.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/open_project.html</loc>
   </url>
   <url>
-    <loc>/reference/open_project.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/open_r_environ.html</loc>
   </url>
   <url>
-    <loc>/reference/open_r_environ.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/project-lists.html</loc>
   </url>
   <url>
-    <loc>/reference/project-lists.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/projects.html</loc>
   </url>
   <url>
-    <loc>/reference/projects.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/reexports.html</loc>
   </url>
   <url>
-    <loc>/reference/reexports.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/restart-reload.html</loc>
   </url>
   <url>
-    <loc>/reference/restart-reload.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/rstudio_reset_keybindings.html</loc>
   </url>
   <url>
-    <loc>/reference/rstudio_reset_keybindings.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/spelling.html</loc>
   </url>
   <url>
-    <loc>/reference/spelling.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/to_ascii_lower.html</loc>
   </url>
   <url>
-    <loc>/reference/to_ascii_lower.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/u_prepare_assignment_dc.html</loc>
   </url>
   <url>
-    <loc>/reference/u_prepare_assignment_dc.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/u_task.html</loc>
   </url>
   <url>
-    <loc>/reference/u_task.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/update_pkg_rcmdr_biostat.html</loc>
   </url>
   <url>
-    <loc>/reference/update_pkg_rcmdr_biostat.html</loc>
-  </url>
-  <url>
-    <loc>/reference/update_pkg_snippets.html</loc>
+    <loc>https://mokymai.github.io/bio/reference/update_pkg_snippets.html</loc>
   </url>
 </urlset>
