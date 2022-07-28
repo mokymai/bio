@@ -27,7 +27,7 @@ u_check_filename(x)
 \item{varianto_nr}{(integer) The variant of the task.
 Each student has a unique personal variant number.}
 
-\item{specialybe}{(character) Name of study programme.}
+\item{specialybe}{(character) Name of study program.}
 
 \item{pavarde}{(character) Family name (names).}
 
