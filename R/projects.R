@@ -382,7 +382,7 @@ get_path_recent_proj_list <- function() {
 #' @param create (logical) If `TRUE` and file does not exist, the file is created.
 #' @export
 get_path_user_proj_list <- function(create = FALSE) {
-  file_with_users_list <- fs::path(get_path_r_user_dir(), "rstudio-proj-list--user")
+  file_with_users_list <- fs::path(get_path_rstudio_config_dir(), "rstudio-proj-list--user")
   if (create && !fs::file_exists(file_with_users_list)) {
     fs::dir_create(fs::path_dir(file_with_users_list))
     fs::file_create(file_with_users_list)
