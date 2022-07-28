@@ -28,7 +28,11 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::pkgdown, local::.
+          extra-packages:
+              any::pkgdown
+              local::.
+              github::GegznaV/backup.tools
+              github::GegznaV/snippets
           needs: website
 
       - name: Render README
