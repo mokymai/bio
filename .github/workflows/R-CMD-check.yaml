@@ -41,10 +41,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages:
-              any::rcmdcheck
-              github::GegznaV/backup.tools
-              github::GegznaV/snippets
+          extra-packages: any::rcmdcheck, GegznaV/backup.tools, GegznaV/snippets
           needs: check
 
       - uses: r-lib/actions/check-r-package@v2
