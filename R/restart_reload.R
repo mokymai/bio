@@ -24,7 +24,11 @@ rstudio_reload_ui <- function() {
   }
 }
 
-
+#' @name restart-reload
+#' @export
+restart_r <- function() {
+  rstudio_restart_r()
+}
 
 #' @name restart-reload
 #' @export
@@ -32,21 +36,3 @@ restart_rstudio <- function() {
   rstudio_restart_r()
 }
 
-
-rstudio_activate_console <- function() {
-  if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
-    invisible(rstudioapi::executeCommand("activateConsole", quiet = TRUE))
-  }
-}
-
-rstudio_clear_console_ask <- function() {
-  if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
-    ans <-
-      rstudioapi::showQuestion(
-        "Clear console", "Do you want to clear console?", "No", "Yes"
-      )
-    if (!ans) {
-      invisible(rstudioapi::executeCommand("consoleClear", quiet = TRUE))
-    }
-  }
-}
