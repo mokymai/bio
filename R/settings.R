@@ -57,7 +57,7 @@ restriction_status <- function(ignore_ip = getOption("bio.ignore_ip", FALSE), ..
 #' @examples
 #' \dontrun{\donttest{
 #'
-#' bio::rstudio_reset_in_gmc()
+#' bio::rstudio_reset_gmc()
 #'
 #' }}
 rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
