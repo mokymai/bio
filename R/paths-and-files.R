@@ -73,47 +73,6 @@ open_desktop <- function() {
 }
 
 
-# R-related-dirs ============================================================
-
-#' @name R-related-dirs
-#' @title Directories of R-Related Files
-#' @description
-#' Directories of R-Related files.
-#'
-#' - `get_path_r_user_dir()`-- gets path to the main R user directory.
-#'
-#' @param ... (string) Parts of path passed to [fs::path_home_r()], [fs::path()]
-#'        and similar functions.
-#'
-#' @concept paths and dirs
-#'
-#' @export
-#'
-#' @seealso
-#' - [fs::file_show()], [browseURL()],
-#' - [rstudioapi::navigateToFile()],
-#' - [utils::file.edit()]
-#'
-#' @examples
-#' get_path_r_user_dir()
-#'
-
-# fs::path_home_r()
-# # For Windows only:
-# Sys.getenv("R_USER")
-# fs::path(Sys.getenv("R_USER"), ".R", ...)
-
-get_path_r_user_dir <- function(...) {
-  fs::path_home_r(".R", ...)
-}
-
-#' @rdname R-related-dirs
-#' @export
-open_r_user_dir <- function() {
-  browseURL(get_path_r_user_dir())
-}
-
-
 # RStudio-related-dirs =======================================================
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -127,7 +86,6 @@ open_r_user_dir <- function() {
 #'
 #' @concept paths and dirs
 #' @seealso
-#' - [open_r_user_dir()],
 #' - [fs::file_show()], [browseURL()],
 #' - [rstudioapi::navigateToFile()],
 #' - [utils::file.edit()]

@@ -104,11 +104,6 @@ check_installed_programs <- function(type = "main", skip_online_check = FALSE) {
     }
   }
 
-  # Atom
-  if (type_lwr %in% c("all", "gmc-bs", "gmc-r")) {
-    check_program_installed("Atom", is_atom_installed())
-  }
-
   # Git
   if (type_lwr %in% c("all", "gmc-r")) {
     check_program_installed("Git",  is_git_installed())

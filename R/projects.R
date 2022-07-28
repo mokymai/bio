@@ -55,6 +55,23 @@ extract_proj_name <- function(proj_path) {
 }
 
 
+#' @rdname parse_proj_path
+#' @noRd
+#' @examples
+#' highlight_proj_name("D:/bio/proj.Rproj")
+#' highlight_proj_name("bio/proj.Rproj")
+highlight_proj_name <- function(proj_path) {
+  proj_dir <- fs::path_dir(proj_path)
+  glue::glue(
+    crayon::blue(sep = "",
+      fs::path(
+        paste0("'", fs::path_dir(proj_dir)),
+        crayon::yellow(fs::path_file(proj_dir)),
+        paste0(fs::path_file(proj_path), "'")
+      )
+    )
+  )
+}
 
 # Manage RStudio projects ====================================================
 #' @name projects
@@ -90,11 +107,11 @@ read_projects <- function(file, sort_by = FALSE) {
     tolower(sort_by),
 
     "name" = , "names" = {
-      dplyr::arrange(proj_df, name)
+      dplyr::arrange(proj_df, .data$name)
     },
 
     "path" = , "paths" = {
-      dplyr::arrange(proj_df, path)
+      dplyr::arrange(proj_df, .data$path)
     },
     # else
     proj_df
@@ -227,7 +244,7 @@ open_project <- function(pattern = NULL,
   if (isTRUE(only_available) || only_available == "rproj") {
     proj_list <- dplyr::filter(proj_list, exists == TRUE)
   } else if (only_available %in% c("dir", "proj dir", "project dir")) {
-    proj_list <- dplyr::filter(proj_list, dir_exists == TRUE)
+    proj_list <- dplyr::filter(proj_list, .data$dir_exists == TRUE)
   }
 
   if (!is.null(pattern)) {
@@ -293,7 +310,7 @@ open_project <- function(pattern = NULL,
 
     if (i_path == 0) {
       usethis::ui_oops("Cancelled by user")
-      return(invisible())
+      return(invisible(NULL))
     }
     proj_path <- proj$path[i_path]
 
@@ -302,9 +319,16 @@ open_project <- function(pattern = NULL,
   }
 
   if (is.null(new_session)) {
-    cat("\n")
-    usethis::ui_info("Close current project: \n")
+    proj_path_i <- highlight_proj_name(proj_path)
+    usethis::ui_done("{proj_path_i}\n\n")
+
+    usethis::ui_info("Close current project:")
     i_close <- utils::menu(c("Yes, close", "No, keep open (default)"))
+
+    if (i_close == 0) {
+      usethis::ui_oops("Cancelled by user")
+      return(invisible(NULL))
+    }
     new_session <- ifelse(i_close == 1, FALSE, TRUE)
   }
 
@@ -312,7 +336,7 @@ open_project <- function(pattern = NULL,
     usethis::ui_oops("Closing current project...")
   }
 
-  usethis::ui_done("Opening {blue(proj_path)}")
+  usethis::ui_done("Opening {highlight_proj_name(proj_path)}")
   rstudioapi::openProject(proj_path, newSession = new_session)
 }
 
@@ -358,7 +382,7 @@ get_path_recent_proj_list <- function() {
 #' @param create (logical) If `TRUE` and file does not exist, the file is created.
 #' @export
 get_path_user_proj_list <- function(create = FALSE) {
-  file_with_users_list <- fs::path(get_path_r_user_dir(), "rstudio-proj-list--user")
+  file_with_users_list <- fs::path(get_path_rstudio_config_dir(), "rstudio-proj-list--user")
   if (create && !fs::file_exists(file_with_users_list)) {
     fs::dir_create(fs::path_dir(file_with_users_list))
     fs::file_create(file_with_users_list)

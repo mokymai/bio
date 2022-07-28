@@ -51,7 +51,6 @@ get_path_rstudio_keybindings_dir()
 }
 \seealso{
 \itemize{
-\item \code{\link[=open_r_user_dir]{open_r_user_dir()}},
 \item \code{\link[fs:file_show]{fs::file_show()}}, \code{\link[=browseURL]{browseURL()}},
 \item \code{\link[rstudioapi:navigateToFile]{rstudioapi::navigateToFile()}},
 \item \code{\link[utils:file.edit]{utils::file.edit()}}

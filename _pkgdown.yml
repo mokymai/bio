@@ -1,6 +1,13 @@
 # ----------------------------------------------------------------------------
 
+url: https://mokymai.github.io/bio
+
 destination: docs
+
+template:
+  bootstrap: 3
+  params:
+    bootswatch: sandstone
 
 # ----------------------------------------------------------------------------
 
@@ -56,9 +63,9 @@ navbar:
 
 reference:
 
-- title: 'Check' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- title: 'Check' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# - subtitle: 'R and RStudio settings (main)' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# - subtitle: 'R and RStudio settings (main)' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # - contents:
 #   - has_concept("r and rstudio settings")
 #

@@ -55,7 +55,7 @@ rstudio_reset_keybindings <- function(to, backup = TRUE) {
 
     usethis::ui_stop(paste0(
       'Unknown type of keybidings: to = {usethis::ui_value(to[1])}. \n',
-      "Possible options: {ui_value(user_settings_defaults)}."
+      "Possible options: {ui_value(user_setting_set_names)}."
     ))
   )
 

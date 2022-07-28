@@ -4,11 +4,17 @@
 \alias{restart-reload}
 \alias{rstudio_restart_r}
 \alias{rstudio_reload_ui}
+\alias{restart_r}
+\alias{restart_rstudio}
 \title{Functions to Restart R and Reload RStudio}
 \usage{
 rstudio_restart_r()
 
 rstudio_reload_ui()
+
+restart_r()
+
+restart_rstudio()
 }
 \description{
 \itemize{

@@ -1,8 +1,8 @@
 Package: bio
 Type: Package
 Title: Resources Manager for BS-2022 and R-2022
-Version: 0.1.15
-Date: 2022-07-09
+Version: 0.1.16
+Date: 2022-07-28
 Authors@R: 
     person("Vilmantas", "Gegzna", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-9500-5167"),
@@ -18,7 +18,7 @@ Language: en-US
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1
 Additional_repositories:
   https://mokymai.github.io/download/
 Imports:
@@ -38,12 +38,12 @@ Imports:
   rematch2,
   remotes,
   rstudioapi (>= 0.13),
+  rlang,
   snippets (>= 0.0.9),
   stringi,
   stringr,
   styler,
   tibble (>= 3.1.4),
-  tidyr,
   usethis (>= 2.0.1),
   withr
 Suggests: 

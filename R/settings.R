@@ -9,25 +9,33 @@ ip_gmc_r209_compact <- "158.129.170.(3,200-237)"
 ip_gmc_r209  <- paste0("158.129.170.", c(3, 200:237))
 
 ip_gmc_c255_compact <- "158.129.170.240-253"
-ip_gmc_c255  <- paste0("158.129.170.", 240:253)
+ip_gmc_c255 <-  paste0("158.129.170.", 240:253)
 
-ip_ec_108_compact <-
-  "158.129.129.151-249, 158.129.136.241, 158.129.136.57, 158.129.136.61, 158.129.159.234"
+ip_ec_108_main <- "158.129.136.241"
+
+ip_ec_108_compact <- paste(sep = ", ",
+  "158.129.136.57",
+  "158.129.136.61",
+  "158.129.159.234",
+  ip_ec_108_main,
+  "158.129.129.151-249"
+)
 
 ip_ec_108 <-
   c(
-    paste0("158.129.129.", 151:249),
     "158.129.136.57",
     "158.129.136.61",
-    "158.129.136.241",
-    "158.129.159.234"
+    ip_ec_108_main,
+    "158.129.159.234",
+    paste0("158.129.129.", 151:249)
   )
 
 is_classroom_ip <- function() {
   pingr::my_ip(method = "https") %in% c(ip_gmc_r209, ip_gmc_c255, ip_ec_108)
 }
 
-restriction_status <- function(ignore_ip = getOption("bio.ignore_ip", FALSE), ...) {
+restriction_status <- function(ignore_ip = getOption("bio.ignore_ip", FALSE),
+                               ...) {
   isTRUE(ignore_ip)
 }
 
@@ -57,7 +65,7 @@ restriction_status <- function(ignore_ip = getOption("bio.ignore_ip", FALSE), ..
 #' @examples
 #' \dontrun{\donttest{
 #'
-#' bio::rstudio_reset_in_gmc()
+#' bio::rstudio_reset_gmc()
 #'
 #' }}
 rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
@@ -65,7 +73,9 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
   status <- restriction_status(...)
 
   if (!(status || is_classroom_ip())) {
-    usethis::ui_oops("Unfortunately, this function does not work on this computer.")
+    usethis::ui_oops(
+      "Unfortunately, this function does not work on this computer."
+    )
     return(invisible())
   }
 
@@ -190,7 +200,7 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
   )
 
   if (to_restart) {
-    bio::rstudio_reload_ui()
+    bio::restart_rstudio()
   }
 
   invisible()
@@ -236,7 +246,7 @@ NULL
 
 # Clear R history
 clear_r_history <- function(backup = TRUE) {
-  # FIXME: jei Windows + RStudio, tai ši funkcija neveikia
+  # FIXME: if Windows + RStudio, then this function does not work
 
   if (isTRUE(backup)) {
 
@@ -295,3 +305,23 @@ rstudio_reset_layout <- function(rs_layout = "left") {
   }
   invisible()
 }
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+rstudio_activate_console <- function() {
+  if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
+    invisible(rstudioapi::executeCommand("activateConsole", quiet = TRUE))
+  }
+}
+
+rstudio_clear_console_ask <- function() {
+  if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
+    ans <-
+      rstudioapi::showQuestion(
+        "Clear console", "Do you want to clear console?", "No", "Yes"
+      )
+    if (!ans) {
+      invisible(rstudioapi::executeCommand("consoleClear", quiet = TRUE))
+    }
+  }
+}
+

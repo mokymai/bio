@@ -44,12 +44,12 @@ encode_speciality <- function(specialybe) {
   spec <- to_ascii_lower(specialybe)
 
   supported <- c("biochemija", "biofizika", "biologija", "genetika",
-    "mikrobiologija", "molekuline", "molekuline biologija",
-    "neurobiofizika")
+    "mikrobiologija", "molekuline biologija", "molekuline biotechnologija",
+    "neurobiofizika", "neurobiologija")
 
   not_supported <- specialybe[!spec %in% supported]
   if (length(not_supported) > 0) {
-    stop("Unknown values of 'specialybe': ", paste(not_supported, sep = ","))
+    stop("Unsupported value of 'specialybe': ", paste(not_supported, sep = ","))
   }
 
   dplyr::case_when(
@@ -58,8 +58,7 @@ encode_speciality <- function(specialybe) {
     specialybe == "biologija"                  ~ "biolog",
     specialybe == "genetika"                   ~ "geneti",
     specialybe == "mikrobiologija"             ~ "mikrob",
-    specialybe %in%
-      c("molekuline", "molekuline biologija")  ~ "molbio",
+    specialybe == "molekuline biologija"       ~ "molbio",
     specialybe == "molekuline biotechnologija" ~ "molbti",
     specialybe == "neurobiofizika"             ~ "neurbf",
     specialybe == "neurobiologija"             ~ "neurbl",
@@ -77,7 +76,7 @@ encode_speciality <- function(specialybe) {
 #' @param uzduoties_nr (integer) The number of U task.
 #' @param varianto_nr (integer) The variant of the task.
 #'        Each student has a unique personal variant number.
-#' @param specialybe (character) Name of study programme.
+#' @param specialybe (character) Name of study program.
 #' @param pavarde (character) Family name (names).
 #' @param vardas (character) Sure name (names).
 #' @param patikslinimas (character) Additional information.
