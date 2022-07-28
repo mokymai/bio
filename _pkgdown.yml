@@ -56,9 +56,9 @@ navbar:
 
 reference:
 
-- title: 'Check' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- title: 'Check' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-# - subtitle: 'R and RStudio settings (main)' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# - subtitle: 'R and RStudio settings (main)' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # - contents:
 #   - has_concept("r and rstudio settings")
 #
