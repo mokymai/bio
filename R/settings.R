@@ -200,7 +200,7 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
   )
 
   if (to_restart) {
-    bio::rstudio_reload_ui()
+    bio::restart_rstudio()
   }
 
   invisible()

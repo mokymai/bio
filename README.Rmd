@@ -349,13 +349,13 @@ If you want to see the effect of changed settings, you should reload RStudio.
 You may use this function, which reloads RStudio without closing it:
 
 ```{r, eval=FALSE}
-bio::rstudio_reload_ui()
+bio::restart_rstudio()
 ```
 However, in some cases it is recommended to close and reopen RStudio.
 
 Next, to restart R session without closing RStudio, use: 
 ```{r, eval=FALSE}
-bio::rstudio_restart_r()
+bio::restart_r()
 ```
 Useful to apply before trying to install R packages.
 

@@ -24,6 +24,15 @@ rstudio_reload_ui <- function() {
   }
 }
 
+
+
+#' @name restart-reload
+#' @export
+restart_rstudio <- function() {
+  rstudio_restart_r()
+}
+
+
 rstudio_activate_console <- function() {
   if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
     invisible(rstudioapi::executeCommand("activateConsole", quiet = TRUE))
