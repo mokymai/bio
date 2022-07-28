@@ -1,6 +1,13 @@
 # ----------------------------------------------------------------------------
 
+url: https://mokymai.github.io/bio
+
 destination: docs
+
+template:
+  bootstrap: 3
+  params:
+    bootswatch: sandstone
 
 # ----------------------------------------------------------------------------
 
