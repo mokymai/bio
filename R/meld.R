@@ -17,7 +17,7 @@ browse_meld_homepage <- function() {
 # @concept programs
 download_meld <- function() {
   switch(get_os_type(),
-    windows = browseURL("https://download.gnome.org/binaries/win32/meld/3.18/Meld-3.18.3-win32.msi"),
+    windows = browseURL("https://download.gnome.org/binaries/win32/meld/3.20/Meld-3.20.4-mingw.msi"),
     # Otherwise
     {
       warning(
