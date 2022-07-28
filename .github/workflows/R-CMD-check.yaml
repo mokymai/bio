@@ -4,7 +4,7 @@ on:
   push:
     branches: [main, master, devel]
   pull_request:
-    branches: [main, master, devel
+    branches: [main, master, devel]
 
 name: R-CMD-check
 
@@ -41,7 +41,10 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck
+          extra-packages:
+              any::rcmdcheck
+              github::GegznaV/backup.tools
+              github::GegznaV/snippets
           needs: check
 
       - uses: r-lib/actions/check-r-package@v2
