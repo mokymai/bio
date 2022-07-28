@@ -41,7 +41,8 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck, GegznaV/backup.tools, GegznaV/snippets
+          extra-packages: any::rcmdcheck
+          extra-repositories: https://mokymai.github.io/download/
           needs: check
 
       - uses: r-lib/actions/check-r-package@v2

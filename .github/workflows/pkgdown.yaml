@@ -28,7 +28,8 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::pkgdown, local::., github::GegznaV/backup.tools, github::GegznaV/snippets
+          extra-packages: any::pkgdown, local::.
+          extra-repositories: https://mokymai.github.io/download/
           needs: website
 
       - name: Render README
