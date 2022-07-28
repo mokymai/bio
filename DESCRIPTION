@@ -38,6 +38,7 @@ Imports:
   rematch2,
   remotes,
   rstudioapi (>= 0.13),
+  rlang,
   snippets (>= 0.0.9),
   stringi,
   stringr,
