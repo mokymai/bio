@@ -109,7 +109,12 @@ bio::check_installed_programs("all")
 The following functions may be used to check installed packages by
 topic. By default, only missing packages or packages with lower versions
 than recommended are displayed. Currently available lists can be
-returned by function `bio::get_pkg_lists_local()` and they include:
+returned by function `bio::get_pkg_lists_local()`.
+
+<details>
+<summary>
+Details
+</summary>
 
 -   `'addins-rmd'`
 -   `'bio'`
@@ -142,6 +147,8 @@ returned by function `bio::get_pkg_lists_local()` and they include:
 -   `'statistical-tests'`
 -   `'summary'`
 -   `'tidyverse'`
+
+</details>
 
 ``` r
 bio::check_packages_by_topic("mini")

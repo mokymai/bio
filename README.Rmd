@@ -126,7 +126,10 @@ bio::check_installed_programs("all")
 
 The following functions may be used to check installed packages by topic.
 By default, only missing packages or packages with lower versions than recommended are displayed.
-Currently available lists can be returned by function `bio::get_pkg_lists_local()`{.r} and they include:
+Currently available lists can be returned by function `bio::get_pkg_lists_local()`{.r}.
+
+<details>
+<summary>Details</summary>
 
 ```{r echo=FALSE, results='asis'}
 res <- paste0(
@@ -136,6 +139,9 @@ res <- paste0(
 )
 cat(res)
 ```
+
+</details>
+
 
 ```{r README-8a, eval=FALSE, paged.print=FALSE}
 bio::check_packages_by_topic("mini")
