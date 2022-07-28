@@ -25,51 +25,33 @@ jobs:
         with:
           use-public-rspm: true
           r-version: 'release'
+          extra-repositories: "https://mokymai.github.io/download/"
 
-      - name: Query dependencies
-        run: |
-          install.packages('remotes')
-          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
-          writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
-        shell: Rscript {0}
-
-      - name: Cache R packages
-        uses: actions/cache@v2
+      - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
-
-      - name: Install dependencies
-        run: |
-          remotes::install_cran(c("rmarkdown", "devtools", "pkgdown", "ps"))
-          remotes::install_deps(dependencies = TRUE)
-        shell: Rscript {0}
+          extra-packages: any::pkgdown, any::devtools, local::.
+          needs: website
 
       - name: Configure Git
         run: |
            git config --global user.email "actions@github.com"
            git config --global user.name  "GitHub Actions"
 
-      - name: Roxygenize
-        # The vignettes will be built in step "Deploy package"
+      - name: Update Rd files
         run: |
           devtools::document(roclets = c('rd', 'collate', 'namespace'))
         shell: Rscript {0}
 
-      - name: Commit documentation updates
+      - name: Commit documentation updates (if any)
         run: |
           git add --all
           git commit -m 'Re-build documentation' || echo "No changes to commit"
           git push origin || echo "No changes to commit (documentation)"
 
-      - name: Install package
-        run: R CMD INSTALL .
-
       - name: Render README
         run: Rscript -e 'rmarkdown::render("README.Rmd")'
 
-      - name: Commit README (if README was changed)
+      - name: Commit README (if changed)
         run: |
            git commit README.md -m 'Re-build README.Rmd before pkgdown' || echo "No changes to commit (README)"
            git push origin || echo "No changes to commit (README)"
