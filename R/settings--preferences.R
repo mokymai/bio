@@ -1,8 +1,9 @@
 # Settings and Preferences ===================================================
 
 # For auto-completion
-user_setting_set_names <- c("bio-default", "bio-dark-blue", "bio-black",
-  "rstudio-default")
+user_setting_set_names <- c(
+  "bio-default", "bio-dark-blue", "bio-black", "rstudio-default"
+)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @name RStudio-settings
@@ -16,8 +17,7 @@ user_setting_set_names <- c("bio-default", "bio-dark-blue", "bio-black",
 #'        Options: "rstudio-default",
 #'                 "bio-default",
 #'                 "bio-dark-blue",
-#'                 "bio-black",
-#'                 etc.
+#'                 "bio-black".
 #' @param backup (logical)
 #'        If `TRUE`, a backup copy of files with settings is created.
 #' @param ask (logical)
@@ -63,6 +63,7 @@ user_setting_set_names <- c("bio-default", "bio-dark-blue", "bio-black",
 #' @export
 rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
 
+  # Check arguments
   if (missing(to)) {
     # If the set of RStudio user settings is not chosen
     ui_stop(paste0(
@@ -73,6 +74,7 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
 
   checkmate::assert_choice(to, user_setting_set_names)
 
+  # Take user inputs
   if (isTRUE(ask)) {
     rstudio_clear_console_ask()
 
@@ -97,24 +99,27 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
     }
   }
 
+  # Change settings
   file_current <- get_path_rstudio_config_file("current")
 
   if (isTRUE(backup)) {
     create_backup_copy(file_current, "user_settings", "RStudio settings")
   }
 
+  # Delete current settings (use RStudio defaults)
+  fs::file_delete(file_current)
+
   switch(
     to,
 
     "rstudio-default" = {
-      fs::file_delete(file_current)
       success <- !fs::file_exists(file_current)
     },
 
     "bio-default" = ,
     "bio-dark-blue" = ,
     "bio-black" = {
-      # Change default dir if default UI preferences change
+      # Change the default dir, if default UI preferences change
       fs::dir_create("~/R/darbinis", recurse = TRUE)
 
       file_default <- get_path_rstudio_config_file(which = "bio")
@@ -127,14 +132,13 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
     ))
   )
 
-  # Adjust 'bio' theme
+  # Change RStudio theme
   switch(
     to,
     "bio-default"   = rstudioapi::applyTheme("Textmate (default)"),
     "bio-dark-blue" = rstudioapi::applyTheme("Cobalt"),
     "bio-black"     = rstudioapi::applyTheme("Chaos")
   )
-
 
   if (isTRUE(success)) {
     usethis::ui_done("RStudio user settings were set to {green(to)}.")

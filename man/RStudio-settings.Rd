@@ -12,8 +12,7 @@ rstudio_reset_user_settings(to, backup = TRUE, ask = TRUE)
 Options: "rstudio-default",
 "bio-default",
 "bio-dark-blue",
-"bio-black",
-etc.}
+"bio-black".}
 
 \item{backup}{(logical)
 If \code{TRUE}, a backup copy of files with settings is created.}
