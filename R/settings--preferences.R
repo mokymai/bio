@@ -1,7 +1,7 @@
 # Settings and Preferences ===================================================
 
 # For auto-completion
-user_settings_defaults <- c("bio-default", "bio-dark-blue", "bio-black",
+user_setting_set_names <- c("bio-default", "bio-dark-blue", "bio-black",
   "rstudio-default")
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -67,11 +67,11 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
     # If the set of RStudio user settings is not chosen
     ui_stop(paste0(
       "The value of argument '{yellow('to')}' is missing.\n",
-      'Possible choices: {ui_value(user_settings_defaults)}.'
+      'Possible choices: {ui_value(user_setting_set_names)}.'
     ))
   }
 
-  checkmate::assert_choice(to, user_settings_defaults)
+  checkmate::assert_choice(to, user_setting_set_names)
 
   if (isTRUE(ask)) {
     rstudio_clear_console_ask()
@@ -123,7 +123,7 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
 
     usethis::ui_stop(paste0(
       'Unknown option of user setting defaults: to = {usethis::ui_value(to[1])}. \n',
-      "Possible options: {ui_value(user_settings_defaults)}."
+      "Possible options: {ui_value(user_setting_set_names)}."
     ))
   )
 
