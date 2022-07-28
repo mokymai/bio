@@ -36,7 +36,7 @@ jobs:
       - name: Render README
         run: Rscript -e 'rmarkdown::render("README.Rmd")'
 
-      - name: Commit if README was changed
+      - name: Commit (if README was changed)
         run: |
            git commit README.md -m 'Re-build README.Rmd before pkgdown' || echo "No changes to commit (README)"
            git push origin || echo "No changes to commit (README)"
