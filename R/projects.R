@@ -107,11 +107,11 @@ read_projects <- function(file, sort_by = FALSE) {
     tolower(sort_by),
 
     "name" = , "names" = {
-      dplyr::arrange(proj_df, name)
+      dplyr::arrange(proj_df, .data$name)
     },
 
     "path" = , "paths" = {
-      dplyr::arrange(proj_df, path)
+      dplyr::arrange(proj_df, .data$path)
     },
     # else
     proj_df
@@ -244,7 +244,7 @@ open_project <- function(pattern = NULL,
   if (isTRUE(only_available) || only_available == "rproj") {
     proj_list <- dplyr::filter(proj_list, exists == TRUE)
   } else if (only_available %in% c("dir", "proj dir", "project dir")) {
-    proj_list <- dplyr::filter(proj_list, dir_exists == TRUE)
+    proj_list <- dplyr::filter(proj_list, .data$dir_exists == TRUE)
   }
 
   if (!is.null(pattern)) {
