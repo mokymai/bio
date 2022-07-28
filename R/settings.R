@@ -9,7 +9,7 @@ ip_gmc_r209_compact <- "158.129.170.(3,200-237)"
 ip_gmc_r209  <- paste0("158.129.170.", c(3, 200:237))
 
 ip_gmc_c255_compact <- "158.129.170.240-253"
-ip_gmc_c255  <- paste0("158.129.170.", 240:253)
+ip_gmc_c255 <-  paste0("158.129.170.", 240:253)
 
 ip_ec_108_main <- "158.129.136.241"
 
@@ -34,7 +34,8 @@ is_classroom_ip <- function() {
   pingr::my_ip(method = "https") %in% c(ip_gmc_r209, ip_gmc_c255, ip_ec_108)
 }
 
-restriction_status <- function(ignore_ip = getOption("bio.ignore_ip", FALSE), ...) {
+restriction_status <- function(ignore_ip = getOption("bio.ignore_ip", FALSE),
+                               ...) {
   isTRUE(ignore_ip)
 }
 
@@ -72,7 +73,9 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
   status <- restriction_status(...)
 
   if (!(status || is_classroom_ip())) {
-    usethis::ui_oops("Unfortunately, this function does not work on this computer.")
+    usethis::ui_oops(
+      "Unfortunately, this function does not work on this computer."
+    )
     return(invisible())
   }
 
