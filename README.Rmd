@@ -38,10 +38,11 @@ Convenience functions to facilitate installation and management of required reso
 <center>
 <br>
 <font color="darkred" size=4>
-This package is intended to be used with <b>RStudio 1.4</b> or newer.<br>
+This package is intended to be used with <b>RStudio 2022.07.1</b> or newer<br>
+and <b>R 4.2.1</b> or newer.<br>
 </font>
 <font color="darkred" size=3>
-Functions do not work correctly with the previous versions of RStudio.
+Functions may not work correctly with the previous versions of RStudio and R.
 </font>
 <br><br><br>
 </center>
@@ -60,13 +61,19 @@ install.packages("bio", repos = repos)
 ```
 
 
+<details>
+<summary>Install form GitHub</summary>
+
 To install this package from GitHub:
 
 ```{r README-2, eval=FALSE}
-if (!require(remotes)) {install.packages("remotes")}
+if (!require(remotes)) install.packages("remotes")
 remotes::install_github("mokymai/bio", dependencies = TRUE)
 ```
 
+Note: installation from *GitHub* requires *RTools* on *Windows*.
+
+</details>
 
 # Examples
 
@@ -76,16 +83,17 @@ Check information about operating system (OS) and R-related user information.
 
 ```{r README-6, paged.print=FALSE, eval=FALSE}
 bio::check_user_info()
-## Operating system    Windows 10 x64 (build 18363)
+## Operating system    Windows 10 x64 (build 19044)
 ## Platform            x86_64-w64-mingw32/x64 (64-bit)
 ## LOGNAME
 ## USERNAME            User
 ## USERPROFILE         C:/Users/User
-## HOME                C:/Users/User/Documents
-## R_USER              C:/Users/User/Documents
-## R_HOME              C:/PROGRA~1/R/R-40~1.2
-## R_LIBS_USER         C:/R/win-library/4.0
+## HOME                C:/Users/User
+## R_USER              C:/Users/User
+## R_HOME              C:/PROGRA~1/R/R-4.2.1
+## R_LIBS_USER         C:/Users/User/AppData/Local/R/win-library/4.2
 ```
+
 
 ## Check information about programs
 
@@ -99,19 +107,16 @@ Options:
 
 ```{r README-7a, eval=FALSE}
 bio::check_installed_programs()
-## ✔ Program R (4.2.0 is installed (recommended 4.2.0, available 4.2.0)
+## ✔ Program R (4.2.1) is installed (recommended 4.2.1, available 4.2.1).
 ## ✖ Program RStudio is not installed or is not running.
 ## ✔ Tool Rtools is installed.
 ```
 
-
-
 ```{r README-7b, eval=FALSE}
 bio::check_installed_programs("all")
-## ✔ Program R (4.2.0) is installed (recommended 4.2.0 available 4.2.0)
-## ✔ Program RStudio (2022.2.3.492) is installed (recommended 2022.2.3.492, available 2022.2.3.492)
+## ✔ Program R (4.2.1) is installed (recommended 4.2.1, available 4.2.1).
+## ✔ Program RStudio (2022.7.0.548) is installed (recommended 2022.7.0, available 2022.7.1.554).
 ## ✔ Tool Rtools is installed.
-## ✖ Program Atom is either not detected or configured incorrectly.
 ## ✔ Program Git is installed.
 ## ✔ Program Meld is installed.
 ```
@@ -134,13 +139,15 @@ cat(res)
 
 ```{r README-8a, eval=FALSE, paged.print=FALSE}
 bio::check_packages_by_topic("mini")
+## ℹ Reading list 'mini' 
 ## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.
 ```
 
 ```{r README-8b, eval=FALSE, paged.print=FALSE}
 bio::check_packages_by_topic("mini", include = "newer_on_cran")
+## ℹ Reading list 'mini' 
 ## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.
-## i Note: 1 package has newer version on CRAN.
+## ℹ Note: 1 package has newer version on CRAN.
 ```
 
 
@@ -158,9 +165,11 @@ bio::update_pkg_bio()
 Check if there are updates for **bio** or its dependency packages.
 ```{r README-3b, eval=FALSE, paged.print=FALSE}
 bio::check_updates_pkg_bio()
-```
-```
-✔ Minimal required versions of all 24 packages (from list 'bio') are already installed.
+## ℹ Reading list 'bio'
+## 
+## [... truncated ...]
+## 
+## ✔ Minimal required versions of all 23 packages (from list 'bio') are already installed.
 ```
 
 Update package **snippets**.
@@ -194,7 +203,10 @@ bio::rstudio_install_spellcheck_dictionaries()
 Install improved Lithuanian dictionary.
 ```{r eval=FALSE}
 bio::rstudio_install_spellcheck_dictionary_lt()
+## ✔ lt_LT dictionary installed. 
+##   'C:/Users/ViG/AppData/Roaming/RStudio/dictionaries/languages-system/lt_LT.dic'
 ```
+
 
 
 ### Shortcut keys
@@ -205,8 +217,8 @@ This function changes shortcut keys in RStudio.
 Run function without arguments to see the available options.
 ```{r README-9a, eval=FALSE, error=TRUE}
 bio::rstudio_reset_keybindings()
-#> Error: The value of argument 'to' is missing.
-#> Possible options: 'bio-default', 'rstudio-default'.
+## Error: The value of argument 'to' is missing.
+## Possible options: 'bio-default', 'rstudio-default'.
 ```
 
 
@@ -302,9 +314,9 @@ bio::rstudio_reset_user_settings()
 
 The options:
 
-- `"bio-default"`{.r} -- settings recommended for course BS-2021 (and light theme "Textmate (default)");
-- `"bio-dark-blue"`{.r} -- settings recommended for course BS-2021 (and dark blue theme "Cobalt");
-- `"bio-black"`{.r} -- settings recommended for course BS-2021 (and black theme "Chaos");
+- `"bio-default"`{.r} --  recommended BS-2022 and R-2022 settings (and light theme "Textmate (default)");
+- `"bio-dark-blue"`{.r} -- recommended BS-2022 and R-2022 settings (and dark blue theme "Cobalt");
+- `"bio-black"`{.r} -- recommended BS-2022 and R-2022 settings (and black theme "Chaos");
 - `"rstudio-default"`{.r} -- default RStudio settings.
 
 ```{r README-10b, eval=FALSE}
