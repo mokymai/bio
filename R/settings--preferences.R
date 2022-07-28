@@ -8,24 +8,41 @@ user_settings_defaults <- c("bio-default", "bio-dark-blue", "bio-black",
 #' @name RStudio-settings
 #' @title Reset RStudio settings
 #' @description
-#' Reset RStudio settings. Correctly works only with RStudio 1.3 or newer.
+#' Reset RStudio to use predefined set of settings/preferences.
+#' Correctly works only with RStudio 1.3 or newer.
+#' Recommended to use with RStudio 2022.07.1 or newer.
 #'
-#' @param to The name of set with RStudio settings.
-#'        One of: "rstudio-default", "bio-default", or "bio-dark-blue".
-#' @param backup (logical) If `TRUE`, a backup copy of files with settings is
-#'        created.
-#' @param ask (logical) If `TRUE`, user confirmation to reset settings is
-#'       required.
+#' @param to The name of pre-defined set of RStudio settings/preferences.
+#'        Options: "rstudio-default",
+#'                 "bio-default",
+#'                 "bio-dark-blue",
+#'                 "bio-black",
+#'                 etc.
+#' @param backup (logical)
+#'        If `TRUE`, a backup copy of files with settings is created.
+#' @param ask (logical)
+#'       If `TRUE`, additional confirmation to reset settings is required.
 #'
 #' @details
-#' Settings that can be used in `rstudio-prefs.json` file
-#' (for RStudio 1.3 or newer):
+#' Settings that can be used in `rstudio-prefs.json` file:
 #' https://docs.rstudio.com/ide/server-pro/session-user-settings.html
 #'
 #' @seealso
 #' [get_path_rstudio_config_file()]
 #'
-#' RStudio functions `.rs.readUiPref()`, `.rs.writeUiPref()`.
+#'
+#' On [Customizing RStudio](https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-the-RStudio-IDE) using point-and-click method.
+#'
+#' On [Configuration and Settings](https://www.rstudio.com/blog/rstudio-1-3-preview-configuration/).
+#'
+#' A list of [Session User Settings](https://docs.rstudio.com/ide/server-pro/session_user_settings/session_user_settings.html) to be used with
+#' [rstudioapi::writeRStudioPreference()].
+#'
+#' On [RStudio setting locations](https://docs.rstudio.com/ide/desktop-pro/settings/settings.html).
+#'
+#' On [Resetting RStudio Desktop's State](https://support.rstudio.com/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State).
+#'
+#' StackOverflow threads on export/import RStudio of user preferences:
 #' - https://stackoverflow.com/a/55940249/4783029
 #' - https://stackoverflow.com/a/54982341/4783029
 #'
@@ -33,11 +50,6 @@ user_settings_defaults <- c("bio-default", "bio-dark-blue", "bio-black",
 #'
 #' @examples
 #' \dontrun{\donttest{
-#' #-------------------------------------------------
-#' # .rs.readUiPref()
-#' # .rs.writeUiPref()
-#'
-#' #-------------------------------------------------
 #'
 #' rstudio_reset_user_settings(to = "rstudio-default")
 #'
@@ -47,9 +59,7 @@ user_settings_defaults <- c("bio-default", "bio-dark-blue", "bio-black",
 #'
 #' rstudio_reset_user_settings(to = "bio-black")
 #'
-#'
 #' }}
-#'
 #' @export
 rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
 
@@ -109,10 +119,6 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
 
       file_default <- get_path_rstudio_config_file(which = "bio")
       success <- set_rstudio_preferences(file_default)
-      # fs::dir_create(fs::path_dir(file_current), recurse = TRUE)
-      # fs::file_copy(file_default, file_current,  overwrite = TRUE)
-      # success <-
-      #   unname(tools::md5sum(file_default) == tools::md5sum(file_current))
     },
 
     usethis::ui_stop(paste0(
@@ -147,19 +153,15 @@ set_rstudio_preferences <- function(file) {
     readr::read_lines(file, lazy = FALSE) %>%
     jsonlite::parse_json() %>%
     purrr::map_chr(~ {
-      if (is.character(.)) paste0("'", ., "'") else as.character(.)
+      if (is.character(.)) glue::glue("'{.}'") else as.character(.)
     })
 
-  fun <- "rstudioapi::writeRStudioPreference"
-  txt <- glue::glue("{fun}('{names(pref)}', {unname(pref)})\n")
+  txt <- glue::glue(
+    "rstudioapi::writeRStudioPreference('{names(pref)}', {unname(pref)})\n"
+  )
 
   eval(parse(text = txt))
 
   TRUE
 }
-
-
-# Find the names of the preferences at:
-# https://github.com/rstudio/rstudio/blob/5f2b79427ed526e22f78c794a4b5894ebee2de75/src/cpp/session/SessionUserSettings.cpp#L357-L447
-NULL
 

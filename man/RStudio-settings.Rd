@@ -8,30 +8,30 @@
 rstudio_reset_user_settings(to, backup = TRUE, ask = TRUE)
 }
 \arguments{
-\item{to}{The name of set with RStudio settings.
-One of: "rstudio-default", "bio-default", or "bio-dark-blue".}
+\item{to}{The name of pre-defined set of RStudio settings/preferences.
+Options: "rstudio-default",
+"bio-default",
+"bio-dark-blue",
+"bio-black",
+etc.}
 
-\item{backup}{(logical) If \code{TRUE}, a backup copy of files with settings is
-created.}
+\item{backup}{(logical)
+If \code{TRUE}, a backup copy of files with settings is created.}
 
-\item{ask}{(logical) If \code{TRUE}, user confirmation to reset settings is
-required.}
+\item{ask}{(logical)
+If \code{TRUE}, additional confirmation to reset settings is required.}
 }
 \description{
-Reset RStudio settings. Correctly works only with RStudio 1.3 or newer.
+Reset RStudio to use predefined set of settings/preferences.
+Correctly works only with RStudio 1.3 or newer.
+Recommended to use with RStudio 2022.07.1 or newer.
 }
 \details{
-Settings that can be used in \code{rstudio-prefs.json} file
-(for RStudio 1.3 or newer):
+Settings that can be used in \code{rstudio-prefs.json} file:
 https://docs.rstudio.com/ide/server-pro/session-user-settings.html
 }
 \examples{
 \dontrun{\donttest{
-#-------------------------------------------------
-# .rs.readUiPref()
-# .rs.writeUiPref()
-
-#-------------------------------------------------
 
 rstudio_reset_user_settings(to = "rstudio-default")
 
@@ -41,14 +41,23 @@ rstudio_reset_user_settings(to = "bio-dark-blue")
 
 rstudio_reset_user_settings(to = "bio-black")
 
-
 }}
-
 }
 \seealso{
 \code{\link[=get_path_rstudio_config_file]{get_path_rstudio_config_file()}}
 
-RStudio functions \code{.rs.readUiPref()}, \code{.rs.writeUiPref()}.
+On \href{https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-the-RStudio-IDE}{Customizing RStudio} using point-and-click method.
+
+On \href{https://www.rstudio.com/blog/rstudio-1-3-preview-configuration/}{Configuration and Settings}.
+
+A list of \href{https://docs.rstudio.com/ide/server-pro/session_user_settings/session_user_settings.html}{Session User Settings} to be used with
+\code{\link[rstudioapi:writeRStudioPreference]{rstudioapi::writeRStudioPreference()}}.
+
+On \href{https://docs.rstudio.com/ide/desktop-pro/settings/settings.html}{RStudio setting locations}.
+
+On \href{https://support.rstudio.com/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State}{Resetting RStudio Desktop's State}.
+
+StackOverflow threads on export/import RStudio of user preferences:
 \itemize{
 \item https://stackoverflow.com/a/55940249/4783029
 \item https://stackoverflow.com/a/54982341/4783029
