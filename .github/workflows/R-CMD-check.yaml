@@ -38,11 +38,12 @@ jobs:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
+          extra-repositories: "https://mokymai.github.io/download/"
+
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::rcmdcheck
-          extra-repositories: https://mokymai.github.io/download/
           needs: check
 
       - uses: r-lib/actions/check-r-package@v2
