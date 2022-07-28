@@ -246,7 +246,7 @@ NULL
 
 # Clear R history
 clear_r_history <- function(backup = TRUE) {
-  # FIXME: jei Windows + RStudio, tai ši funkcija neveikia
+  # FIXME: if Windows + RStudio, then this function does not work
 
   if (isTRUE(backup)) {
 
