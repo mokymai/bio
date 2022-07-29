@@ -49,7 +49,7 @@ gt                          | 0.6.0            | FALSE  | -
 gtsummary                   | 1.6.1            | FALSE  | -
 haven                       | 2.5.0            | FALSE  | -
 hms                         | 1.1.1            | FALSE  | -
-hunspell                    | 3.0.2            | FALSE  | -
+hunspell                    | 3.0.1            | FALSE  | On GithHub 3.0.2
 inspectdf                   | 0.0.11           | FALSE  | -
 janitor                     | 2.1.0            | FALSE  | -
 jsonlite                    | 1.8.0            | FALSE  | -
