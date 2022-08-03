@@ -11,7 +11,13 @@ get_path_rstudio_config_file(which = "current")
 open_rstudio_config_file(which = "current")
 }
 \arguments{
-\item{which}{(character) type of settings: "current", "bio-default".}
+\item{which}{(character) type of settings:
+\itemize{
+\item "current": file with current RStudio settings (that differ from the defaults);
+\item "bio-default": file with setting from "bio-default" list (except theme);
+\item "rstudio-default": file with most of default RStudio settings listed at
+https://docs.rstudio.com/ide/server-pro/session_user_settings/session_user_settings.html (downloaded on 2022-08-03).
+}}
 }
 \description{
 Manage file with RStudio configuration (user preferences).

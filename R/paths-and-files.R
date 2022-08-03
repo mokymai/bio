@@ -270,7 +270,11 @@ open_rstudio_keybindings_dir <- function() {
 #' @name RStudio-config-file
 #' @title Manage RStudio Configuration (Preferences) File
 #' @description Manage file with RStudio configuration (user preferences).
-#' @param which (character) type of settings: "current", "bio-default".
+#' @param which (character) type of settings:
+#'  - "current": file with current RStudio settings (that differ from the defaults);
+#'  - "bio-default": file with setting from "bio-default" list (except theme);
+#'  - "rstudio-default": file with most of default RStudio settings listed at
+#'    https://docs.rstudio.com/ide/server-pro/session_user_settings/session_user_settings.html (downloaded on 2022-08-03).
 #'
 #' @export
 #' @concept paths and dirs
@@ -294,6 +298,10 @@ get_path_rstudio_config_file <- function(which = "current") {
   } else if (stringr::str_detect(which, "^bio$|^bio-")) {
     system.file(
       "rs-settings", "rstudio-prefs--bio-default.json", package = "bio"
+    )
+  } else if (stringr::str_detect(which, "^rstudio$|^rstudio-")) {
+    system.file(
+      "rs-settings", "rstudio-prefs--rstudio-default.json", package = "bio"
     )
   } else {
 
