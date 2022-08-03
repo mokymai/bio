@@ -123,9 +123,17 @@ bio::check_installed_programs("all")
 ```
 
 
-## Check information about "R" packages
+## Check installation status of "R" packages
 
-The following functions may be used to check installed packages by topic.
+It is recommended to check installation status and version of required packages by name:
+
+```{r README-8-by-name, eval=FALSE, paged.print=FALSE}
+bio::check_packages_by_name(c("bio", "remotes", "tidyverse"))
+## ✔ Minimal required versions of all 3 packages are already installed.
+```
+
+
+There is a less recommended way (due to lower transparency) to check installation status of packages by topic.
 By default, only missing packages or packages with lower versions than recommended are displayed.
 Currently available lists can be returned by function `bio::get_pkg_lists_local()`{.r}.
 
@@ -158,6 +166,8 @@ bio::check_packages_by_topic("mini", include = "newer_on_cran")
 ```
 
 
+
+
 ## Update packages
 
 These are the convenience functions to update certain R packages.
@@ -172,11 +182,11 @@ bio::update_pkg_bio()
 Check if there are updates for **bio** or its dependency packages.
 ```{r README-3b, eval=FALSE, paged.print=FALSE}
 bio::check_updates_pkg_bio()
-## ℹ Reading list 'bio'
+## ℹ Analyzing dependencies of package bio
 ## 
 ## [... truncated ...]
 ## 
-## ✔ Minimal required versions of all 23 packages (from list 'bio') are already installed.
+## ✔ Minimal required versions of all 26 packages (from list 'bio') are already installed.
 ```
 
 Update package **snippets**.
@@ -195,8 +205,6 @@ bio::update_pkg_snippets()
 > Make sure that you understand what you are doing when you try using the functions 
   that reset RStudio key bindings (shortcut keys), settings or snippets. 
 > **You may loose _all_ your previous settings.**
-
-
 
 
 ### Dictionaries
@@ -236,6 +244,8 @@ Options:
 
 ```{r README-9b, eval=FALSE}
 bio::rstudio_reset_keybindings(to = "bio-default")
+## ✔ Back up copy of shortcut keys was created in 'C:/Users/User/.R/_backup/keybindings/'
+## ✔ Shortcut keys were reset to bio-default.
 ```
 
 
@@ -309,6 +319,18 @@ The options:
 bio::rstudio_reset_user_settings(to = "bio-default")
 ```
 
+To check, how your settings differ from the defaults in a certain list, use:
+
+```{r README-10c, eval=FALSE}
+bio::rstudio_compare_user_settings(to = "bio-default")
+## ℹ Show differences between current and bio-default setting lists.
+## ✔ No differences
+```
+
+The settings that are not in the list will not be displayed.
+Available options of `to` are "bio-default" and "rstudio-default".
+
+
 
 ### Snippets
 
@@ -316,6 +338,12 @@ The function replaces current R code and R Markdown snippets with those in packa
 
 ```{r, eval=FALSE}
 snippets::install_snippets_from_package("snippets", backup = TRUE)
+## ✔ File with markdown snippets was updated:
+##   'C:/Users/User/AppData/Roaming/RStudio/snippets/markdown.snippets'
+## ✔ File with r snippets was updated:
+##   'C:/Users/User/AppData/Roaming/RStudio/snippets/r.snippets'
+## 
+## ℹ You will be able to use the snippets after RStudio is closed and reopened.
 ```
 
 More information on 
