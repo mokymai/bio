@@ -187,3 +187,39 @@ rstudio_set_preferences <- function(file) {
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+#' Show differences in sets of settings
+#'
+#' @param to One of: "bio-default", "rstudio-default"
+#'        (or an unambiguous abbreviation of these).
+#'
+#' @return Nothing. But prints the set differences between `to` list and
+#'         current settings. Settings, which are not in `to` list, will
+#'         not be displayed at all.
+#' @export
+#'
+#' @examples
+#' \dontrun{\donttest{
+#' rstudio_compare_user_settings(to = "bio-default")
+#' rstudio_compare_user_settings(to = "rstudio-default")
+#' }}
+rstudio_compare_user_settings <- function(to = "bio-default") {
+  to <- match.arg(to, c("bio-default", "rstudio-default"))
+  file <- get_path_rstudio_config_file(which = to)
+  default_prefs <-
+    jsonlite::fromJSON(file) %>%
+    purrr::map_if(is.integer, as.numeric)
+
+  pref_names <- names(default_prefs) %>% purrr::set_names(., .)
+  current_prefs <-
+    purrr::map(pref_names, ~rstudioapi::readRStudioPreference(.,  NULL)) %>%
+    purrr::map_if(is.integer, as.numeric)
+
+  usethis::ui_info(
+    "Show differences between {green('current')} and {green(to)} setting lists.\n"
+  )
+  waldo::compare(
+    default_prefs, current_prefs,
+    x_arg = to, y_arg = "current",
+    max_diffs = Inf
+  )
+}
