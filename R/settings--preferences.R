@@ -163,7 +163,21 @@ rstudio_set_preferences <- function(file) {
     pref <- jsonlite::fromJSON(file)
     purrr::walk2(
       names(pref), unname(pref),
-      ~rstudioapi::writeRStudioPreference(.x, .y)
+      ~{
+        tryCatch(
+          rstudioapi::writeRStudioPreference(.x, .y),
+          error = function(e) {
+            e_msg <- e$message
+            if (stringr::str_detect(e_msg, "expected <Integer>")) {
+              rstudioapi::writeRStudioPreference(.x, as.integer(.y))
+            } else if (stringr::str_detect(e_msg, "expected <Real>")) {
+              rstudioapi::writeRStudioPreference(.x, as.numeric(.y))
+            } else {
+              print(glue::glue("'In {.x}' = {.y}\n{e}:\n"))
+            }
+          }
+        )
+      }
     )
     TRUE
 
@@ -171,3 +185,5 @@ rstudio_set_preferences <- function(file) {
     FALSE
   }
 }
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
