@@ -1,5 +1,8 @@
 # Main -----------------------------------------------------------------------
 remotes
+rlang
+pillar
+magrittr
 fs
 curl
 stringi
@@ -18,50 +21,56 @@ styler
 lintr
 reprex
 withr
-tictoc
-
+readr
+purrr
+lubridate
 tidyselect
+tibble
 dplyr
 tidyr
 broom
-pacman
-pak
+ggplot2
+data.table
+openxlsx
+readxl
+writexl
+forcats
+hms
+
+tidyverse
+
 
 # Markdown -------------------------------------------------------------------
 knitr
 rmarkdown
 bookdown
-# bookdownplus
 blogdown
 pkgdown
 pagedown
-rticles
-namer
-icons
-# emo
 pander
 DT
 tinytex
 
+
+# Markdown | Citation --------------------------------------------------------
+citr
+rcrossref
+ymlthis
+
+
+# RS add-ins -----------------------------------------------------------------
 addin.tools
 addins.rmd
 addins.rs
+todor
+ViewPipeSteps
 
-# Kiti -----------------------------------------------------------------------
-ggplot2
-data.table
-checkmate
-BBmisc
+esquisse
+
+
+# Other ----------------------------------------------------------------------
 infer
-aplpack
-coda
-arm
-leaps
 lmtest
-matrixcalc
-mi
-sem
-TH.data
 sigr
 raster
 mvtnorm
@@ -70,14 +79,6 @@ multcompView
 carData
 car
 RCurl
-alr4
-openxlsx
-readxl
-writexl
-forcats
-hms
-
-tidyverse
 
 PMCMR
 PMCMRplus
@@ -88,100 +89,90 @@ rgl
 parallelMap
 
 covr
-# docxtractr
+
 miniUI
 shinytest
 stringdist
-# tabulizer
+
 tidyxl
 xlsx
 XML
-tidycells
 rematch2
+
+janitor
+
+
+# Utils ----------------------------------------------------------------------
+checkmate
+BBmisc
+tictoc
+pacman
+pak
+
+jsonlite
 xfun
 
 cheatsheet
 
-prettyR
+here
+whoami
+zip
 
-# Markdown | Citation --------------------------------------------------------
-citr
-rcrossref
-ymlthis
-
-# RS add-ins -----------------------------------------------------------------
-rsam
-todor
-
-# Utils ----------------------------------------------------------------------
-ViewPipeSteps
 
 # RS | Spelling, Grammar -----------------------------------------------------
 hunspell
+spelling
 LanguageToolR
 wellspell.addin
+
 
 # Strings --------------------------------------------------------------------
 # regexplain
 
 # ggplot | Vizualizavimui, grafikams -----------------------------------------
 # ggplot2
+ggmosaic
+patchwork
+paletteer
 ggrepel
 cowplot
 ggsci
 ggpubr
 ggthemes
+gghighlight
+
 ggpval
 qqplotr
 ggdendro
 ggfittext
-ggformula
 ggridges
 ggfortify
 ggforce
-gghighlight
-# ggalluvial
-# gggenes
-lemon
-ggQQunif
 ggpmisc
 gginnards
-gglogo
 ggtext
 treemapify
 ggpie
+ggcorrplot
+GGally
+
+ggimage
+ggstatsplot
 
 plotly
 autoplotly
 ggplotify
 
-ggmosaic
-ggimage
-patchwork
+latex2exp
+
+dendextend
+
 
 # To PowerPoint, etc. --------------------------------------------------------
 officer
 flextable
 rvg
 
-# ggplot | RS add-ins --------------------------------------------------------
-esquisse
-ggedit
-ggplotAssist
-
-# plot | utils ---------------------------------------------------------------
-latex2exp
-
-# ML -------------------------------------------------------------------------
-# ranger
-# pls
-# caret
-# mlr
-# mlr3
-# mlr3verse
-# DALEX
-# iml
-# tuneRanger
 
 # Statistical analysis -------------------------------------------------------
 vcd
@@ -191,31 +182,31 @@ chemCal
 ufs
 DescTools
 rcompanion
-# skimr
-# report
-# descriptr
-summarytools
-AMR
-MVN
-RVAideMemoire
-# EMT  # dependency of rcompanion
+report
+
 XNomial
 rstatix
 factoextra
-NMF
+
+summarytools
+
+MVN
+RVAideMemoire
 gt
 gtsummary
+effsize
+effectsize
+correlation
 
-# NNLM
+modelr
+naniar
+
 
 # Lessons --------------------------------------------------------------------
 adventr
 swirl
 learnr
 
-# Kita -----------------------------------------------------------------------
-# Package 'ggstatsplot' has a lot of dependencies
-ggstatsplot
 
 # R Commander ----------------------------------------------------------------
 RcmdrMisc
@@ -225,22 +216,17 @@ RcmdrPlugin.KMggplot2
 # RcmdrPlugin.EZR.as.menu
 RcmdrPlugin.biostat
 
-DataEntry
 
-# Add-ins ---------------------------------------------------------------------
-datapasta
-dplyrAssist
-
-janitor
-
-
-# Kita ------------------------------------------------------------------------
+# Other ----------------------------------------------------------------------
+backup.tools
 snippets
 bio
 extrafont
 import
-remedy
-here
+
 
 # Data -----------------------------------------------------------------------
 datarium
+alr4
+VIM
+
