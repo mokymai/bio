@@ -6,7 +6,7 @@
 \alias{bio-package}
 \title{bio: Resources Manager for BS-2022 and R-2022}
 \description{
-Resources manager for course units BS-2021 and R-2021.
+Resources manager for course units BS-2022 and R-2022.
 }
 \seealso{
 Useful links:
