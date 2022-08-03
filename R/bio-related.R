@@ -77,7 +77,7 @@ update_pkg_bio <- function(upgrade = TRUE, force = FALSE, quiet = TRUE) {
         '',
         'packageVersion("bio")',
         '',
-        'bio::check_packages_by_topic("bio", show_status = "newer_on_cran", upgrade = {upgrade_str})'
+        'bio::check_updates_pkg_bio(show_status = "newer_on_cran", upgrade = {upgrade_str})'
       )
     )
     rstudioapi::restartSession(command)
@@ -89,8 +89,6 @@ update_pkg_bio <- function(upgrade = TRUE, force = FALSE, quiet = TRUE) {
       dependencies = TRUE, upgrade = upgrade, force = force, quiet = quiet
     )
     bio::get_vesion_pkg_bio()
-    bio::check_packages_by_topic(
-      "bio", show_status = "newer_on_cran", upgrade = upgrade
-    )
+    bio::check_updates_pkg_bio(show_status = "newer_on_cran", upgrade = upgrade)
   }
 }
