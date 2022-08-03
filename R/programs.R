@@ -145,7 +145,7 @@ get_prgm_req_version <- function(local_list = getOption("bio.local_list", FALSE)
   # text <- download_from_github_with_curl(file)
 
   tbl <- read.table(file, skip = 10, header = TRUE, sep = "|",
-      na.strings = c("NA", "-"), strip.white = TRUE, stringsAsFactors = FALSE)
+    na.strings = c("NA", "-"), strip.white = TRUE, stringsAsFactors = FALSE)
 
   tbl <- remove_ignored_rows(tbl)
   as.list(setNames(tbl$required_version, tbl$program))
@@ -286,7 +286,7 @@ check_rs_version <- function(v_recommended = "2022.2.3.492", skip_online_check =
             warning(e)
             NULL
           }
-      ),
+        ),
       v_recommended = v_recommended
     )
   }
@@ -301,22 +301,42 @@ check_rs_version <- function(v_recommended = "2022.2.3.492", skip_online_check =
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-is_xquartz_installed  <- function(variables) {
-  isTRUE(unname(capabilities("aqua")))
+get_default_path_to_meld <- function() {
+  path_to <-  switch(
+    get_os_type(),
+
+    "windows" =
+      suppressWarnings({
+        out <- system2("where", "meld", stdout = TRUE)
+        if (is.null(attr(out, "status"))) {
+          out
+        } else {
+          # Default directory
+          "C:/Program Files (x86)/Meld/meld.exe"
+        }
+      }),
+    "linux"   = "/usr/bin/meld",
+    "mac"     = "/usr/bin/meld",
+
+    # NOTE: Might not work if Meld is not installed
+    suppressWarnings({
+      out <- system2("which", "meld", stdout = TRUE)
+      if (is.null(attr(out, "status"))) {
+        out
+      } else {
+        ""
+      }
+    })
+  )
+
+  fs::path(path_to)
 }
 
-# Check if Git is installed
-#
-# @return logical value.
-# @export
-# @concept programs
-#
-# @examples
-# is_git_installed()
+is_meld_installed <- function(path_to_meld = get_default_path_to_meld()) {
+  file.exists(path_to_meld)
+}
+
 is_git_installed <- function() {
-  # suppressWarnings(
-  #   system("git --version", show.output.on.console = FALSE) == 0
-  # )
   tryCatch(
     {
       system2("git", "--version", stdout = TRUE, stderr = TRUE)
@@ -330,6 +350,9 @@ is_git_installed <- function() {
   )
 }
 
+is_xquartz_installed  <- function(variables) {
+  isTRUE(unname(capabilities("aqua")))
+}
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # program   - string
