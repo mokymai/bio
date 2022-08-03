@@ -18,7 +18,7 @@ installed and have minimum required versions."><!-- mathjax --><script src="http
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -69,14 +69,14 @@ installed and have minimum required versions.</p>
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">check_packages_by_topic</span><span class="op">(</span></span>
 <span>  list_name <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  use_local_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"bio.use_local_list"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  local_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"bio.local_list"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
 <span>  upgrade <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">check_packages_by_name</span><span class="op">(</span></span>
 <span>  pkgs <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  use_local_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"bio.use_local_list"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  local_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"bio.local_list"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
 <span>  upgrade <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -89,14 +89,14 @@ installed and have minimum required versions.</p>
 E.g., "mini", "Rcmdr", "Rcmdr-biostat", "bio", etc.</p></dd>
 
 
-<dt>use_local_list</dt>
+<dt>local_list</dt>
 <dd><p>(logical) If <code>TRUE</code>, the list, which is locally
 installed in the folder of package <span class="pkg">bio</span> ("local list"), is used.
 If <code>FALSE</code>, the list on "GitHub" repository of the package is used.
 It is recommended  using the online version of the list, as it may
 contain more recent changes.
 Optiom bight be set globally by, e.g.,
-<code>options(bio.use_local_list = TRUE)</code>.</p></dd>
+<code>options(bio.local_list = TRUE)</code>.</p></dd>
 
 
 <dt>upgrade</dt>
@@ -123,12 +123,12 @@ Either <code>list_name</code> or <code>pkgs</code> must be <code>NULL</code>.</p
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span>  <span class="fu">check_packages_by_topic</span><span class="op">(</span><span class="st">"mini"</span>, use_local_list <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">check_packages_by_topic</span><span class="op">(</span><span class="st">"mini"</span>, local_list <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span>  <span class="fu">check_packages_by_topic</span><span class="op">(</span><span class="st">"mini"</span>, include <span class="op">=</span> <span class="st">"always"</span>, use_local_list <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu">check_packages_by_topic</span><span class="op">(</span><span class="st">"mini"</span>, include <span class="op">=</span> <span class="st">"always"</span>, local_list <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="fu">check_packages_by_topic</span><span class="op">(</span><span class="st">"mini"</span>, include <span class="op">=</span> <span class="st">"always"</span>, install <span class="op">=</span> <span class="st">"outdated"</span>,</span></span>
-<span class="r-in"><span>   github <span class="op">=</span> <span class="st">"always"</span>, use_local_list <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span>   github <span class="op">=</span> <span class="st">"always"</span>, local_list <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span>  <span class="fu">check_packages_by_name</span><span class="op">(</span><span class="st">"bio"</span><span class="op">)</span></span></span>

@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Resources Manager for BS-2022 and R-2022">
-<meta property="og:description" content="Resources manager for course units BS-2021 and R-2021.">
+<meta property="og:description" content="Resources manager for course units BS-2022 and R-2022.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.16</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -129,9 +129,9 @@
 <p>Check versions of presence of installed R-related and other programs. Options:</p>
 <ul>
 <li>
-<code>"main"</code> (default) – checks for “R”, “RStudio”, “Rtools” (“Windows” only) or “Compiler” (non-“Windows” only) and “XQuartz” (“Mac” only).</li>
+<code>"main"</code> (default) – checks for “R”, “RStudio”, and “Rtools” (“Windows” only) or “Compiler” (non-“Windows” only).</li>
 <li>
-<code>"all"</code> – additionally checks for presence of “Atom”, “Git” and (sometimes) “Meld”. <!-- This check may not work properly on "Mac" and "Linux". -->
+<code>"all"</code> – additionally checks for presence of “XQuartz” (“Mac” only), “Git” (all systems), and (sometimes) “Meld”. <!-- This check may not work properly on "Mac" and "Linux". -->
 </li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -148,26 +148,16 @@
 <span><span class="co">## ✔ Program Meld is installed.</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="check-information-about-r-packages">Check information about “R” packages<a class="anchor" aria-label="anchor" href="#check-information-about-r-packages"></a>
+<h2 id="check-installation-status-of-r-packages">Check installation status of “R” packages<a class="anchor" aria-label="anchor" href="#check-installation-status-of-r-packages"></a>
 </h2>
-<p>The following functions may be used to check installed packages by topic. By default, only missing packages or packages with lower versions than recommended are displayed. Currently available lists can be returned by function <code><a href="reference/get_pkgs_installation_status.html">bio::get_pkg_lists_local()</a></code>.</p>
+<p>It is recommended to check installation status and version of required packages by name:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/check_packages.html">check_packages_by_name</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bio"</span>, <span class="st">"remotes"</span>, <span class="st">"tidyverse"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">## ✔ Minimal required versions of all 3 packages are already installed.</span></span></code></pre></div>
+<p>There is a less recommended way (due to lower transparency) to check installation status of packages by topic. By default, only missing packages or packages with lower versions than recommended are displayed. Currently available lists can be returned by function <code><a href="reference/get_pkgs_installation_status.html">bio::get_pkg_lists_local()</a></code>.</p>
 <details><summary>Details</summary><ul>
 <li><code>'addins-rmd'</code></li>
 <li><code>'bio'</code></li>
-<li><code>'bs2021-initial'</code></li>
-<li><code>'bs2021-s04'</code></li>
-<li><code>'bs2021-s05'</code></li>
-<li><code>'bs2021-s06'</code></li>
-<li><code>'bs2021-s07'</code></li>
-<li><code>'bs2021-s08'</code></li>
-<li><code>'bs2021-s09'</code></li>
-<li><code>'bs2021-s10'</code></li>
-<li><code>'bs2021-s11'</code></li>
-<li><code>'bs2021-s12'</code></li>
-<li><code>'bs2021-s13'</code></li>
-<li><code>'bs2021-s14'</code></li>
-<li><code>'bs2021-s15'</code></li>
-<li><code>'bs2021-s16'</code></li>
 <li><code>'confidence-intervals'</code></li>
 <li><code>'ggplot-extra-tools'</code></li>
 <li><code>'ggplot'</code></li>
@@ -183,11 +173,11 @@
 <li><code>'statistical-tests'</code></li>
 <li><code>'summary'</code></li>
 <li><code>'tidyverse'</code></li>
-</ul></details><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+</ul></details><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/check_packages.html">check_packages_by_topic</a></span><span class="op">(</span><span class="st">"mini"</span><span class="op">)</span></span>
 <span><span class="co">## ℹ Reading list 'mini' </span></span>
 <span><span class="co">## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.</span></span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/check_packages.html">check_packages_by_topic</a></span><span class="op">(</span><span class="st">"mini"</span>, include <span class="op">=</span> <span class="st">"newer_on_cran"</span><span class="op">)</span></span>
 <span><span class="co">## ℹ Reading list 'mini' </span></span>
 <span><span class="co">## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.</span></span>
@@ -198,22 +188,20 @@
 </h2>
 <p>These are the convenience functions to update certain R packages. The functions restart R before installation if used in RStudio.</p>
 <p>Update package <strong>bio</strong>.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/bio_version.html">update_pkg_bio</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Check if there are updates for <strong>bio</strong> or its dependency packages.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/bio_version.html">check_updates_pkg_bio</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">## ℹ Reading list 'bio'</span></span>
+<span><span class="co">## ℹ Analyzing dependencies of package bio</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## [... truncated ...]</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## ✔ Minimal required versions of all 23 packages (from list 'bio') are already installed.</span></span></code></pre></div>
+<span><span class="co">## ✔ Minimal required versions of all 26 packages (from list 'bio') are already installed.</span></span></code></pre></div>
 <p>Update package <strong>snippets</strong>.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/update_pkg_snippets.html">update_pkg_snippets</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>Update package <strong>RcmdrPlugin.biostat</strong>.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/update_pkg_rcmdr_biostat.html">update_pkg_rcmdr_biostat</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/update_pkg_snippets.html">update_pkg_snippets</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<!-- Update package **RcmdrPlugin.biostat**. --><!-- ```{r README-5a, eval=FALSE} --><!-- bio::update_pkg_rcmdr_biostat() --><!-- ``` -->
 </div>
 <div class="section level2">
 <h2 id="rstudio-settings-and-user-preferences">RStudio settings and user preferences<a class="anchor" aria-label="anchor" href="#rstudio-settings-and-user-preferences"></a>
@@ -243,12 +231,14 @@
 <p>Options:</p>
 <ul>
 <li>
-<code>"bio-default"</code> – shortcut keys recommended for course BS-2021.</li>
+<code>"bio-default"</code> – shortcut keys recommended for courses BS-2022 and R-2022.</li>
 <li>
 <code>"rstudio-default"</code> – RStudio defaults.</li>
 </ul>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/rstudio_reset_keybindings.html">rstudio_reset_keybindings</a></span><span class="op">(</span>to <span class="op">=</span> <span class="st">"bio-default"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/rstudio_reset_keybindings.html">rstudio_reset_keybindings</a></span><span class="op">(</span>to <span class="op">=</span> <span class="st">"bio-default"</span><span class="op">)</span></span>
+<span><span class="co">## ✔ Back up copy of shortcut keys was created in 'C:/Users/User/.R/_backup/keybindings/'</span></span>
+<span><span class="co">## ✔ Shortcut keys were reset to bio-default.</span></span></code></pre></div>
 <table class="table">
 <colgroup>
 <col width="27%">
@@ -261,9 +251,9 @@
 <tbody>
 <tr class="odd">
 <td>
-<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>
+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>
 </td>
-<td>Check spelling in selected text. Package <a href="https://github.com/nevrome/wellspell.addin" target="_blank" class="external-link"><strong>wellspell.addin</strong></a> must be installed.</td>
+<td>Insert inline LaTeX equation (<em>R Markdown</em>).</td>
 </tr>
 <tr class="even">
 <td>
@@ -273,21 +263,33 @@
 </tr>
 <tr class="odd">
 <td>
-<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>D</kbd>
-</td>
-<td>Document R package (that you are building).</td>
-</tr>
-<tr class="even">
-<td>
 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd>
 </td>
 <td>Duplicate selected text.</td>
+</tr>
+<tr class="even">
+<td>
+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>
+</td>
+<td>Check spelling in selected text. Package <a href="https://github.com/nevrome/wellspell.addin" target="_blank" class="external-link"><strong>wellspell.addin</strong></a> must be installed.</td>
 </tr>
 <tr class="odd">
 <td>
 <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>P</kbd>
 </td>
 <td>Align parts of selected lines at a custom pattern.</td>
+</tr>
+<tr class="even">
+<td>
+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>]</kbd>
+</td>
+<td>Change heading one level down (<em>R Markdown</em>) <strong>[!]</strong>.</td>
+</tr>
+<tr class="odd">
+<td>
+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>[</kbd>
+</td>
+<td>Change heading one level up or remove heading (<em>R Markdown</em>) <strong>[!]</strong>.</td>
 </tr>
 <tr class="even">
 <td>
@@ -316,68 +318,26 @@
 </tr>
 <tr class="even">
 <td>
-<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>
+<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad8</kbd>
 </td>
-<td>Insert inline LaTeX equation (<em>R Markdown</em>).</td>
+<td>Insert operator <code>%*%</code> (<em>R code</em>).</td>
 </tr>
 <tr class="odd">
-<td>
-<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad0</kbd>
-</td>
-<td>Remove heading/section name (<em>R Markdown</em>).</td>
-</tr>
-<tr class="even">
-<td>
-<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad1</kbd>
-</td>
-<td>Replace line into/Insert heading (section name) of level 1 (<em>R Markdown</em>).</td>
-</tr>
-<tr class="odd">
-<td>
-<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad2</kbd>
-</td>
-<td>… of level 2 (<em>R Markdown</em>).</td>
-</tr>
-<tr class="even">
-<td>
-<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad3</kbd>
-</td>
-<td>… of level 3 (<em>R Markdown</em>).</td>
-</tr>
-<tr class="odd">
-<td>
-<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad4</kbd>
-</td>
-<td>… of level 4 (<em>R Markdown</em>).</td>
-</tr>
-<tr class="even">
-<td>
-<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad5</kbd>
-</td>
-<td>… of level 5 (<em>R Markdown</em>).</td>
-</tr>
-<tr class="odd">
-<td>
-<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad6</kbd>
-</td>
-<td>… of level 6 (<em>R Markdown</em>).</td>
-</tr>
-<tr class="even">
 <td>
 <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad7</kbd>
 </td>
 <td>Insert operator <code>%in%</code> (<em>R code</em>).</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>
-<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad8</kbd>
+<kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>D</kbd>
 </td>
-<td>Insert operator <code>%*%</code> (<em>R code</em>).</td>
+<td>Document R package (that you are building).</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Table 1.</strong> Some examples of shortcut keys set with option <code>"bio-default"</code>.</p>
-<!-- : **Table 1.** Some examples of shortcut keys set with option `"bio-default"`{.r}. --><!--  --><!-- Shortcut  | Action --><!-- --------- | ------------------------------------------------------------------------------------------------------------------------------------------- --><!-- Ctrl Shift Alt S  | Check spelling in selected text. Package [**wellspell.addin**](https://github.com/nevrome/wellspell.addin){target="_blank"} must be installed. --><!-- Shift Alt A          | Use "Tidyverse" style on selected lines of R code. Package **styler** must be installed (*R code*). --><!-- Ctrl Alt D           | Document R package (that you are building). --><!-- Ctrl Shift D         | Duplicate selected text. --><!-- Ctrl Shift Alt P  | Align parts of selected lines at a custom pattern. --><!-- Ctrl Shift ;         | Insert lower opening quotes `„`. --><!-- Ctrl Shift '         | Insert upper closing quotes `“`. --><!-- Ctrl E                  | **Insert/Enclose with R code block** (*R Markdown*) **[!]** . --><!-- Ctrl Alt T           | Insert inline code highlighted as R code (R Markdown). --><!-- Shift Alt S          | Insert inline LaTeX equation (*R Markdown*). --><!-- Ctrl Alt NumPad0     | Remove heading/section name (*R Markdown*). --><!-- Ctrl Alt NumPad1     | Replace line into/Insert heading (section name) of level 1 (*R Markdown*). --><!-- Ctrl Alt NumPad2     | ... of level 2 (*R Markdown*). --><!-- Ctrl Alt NumPad3     | ... of level 3 (*R Markdown*). --><!-- Ctrl Alt NumPad4     | ... of level 4 (*R Markdown*). --><!-- Ctrl Alt NumPad5     | ... of level 5 (*R Markdown*). --><!-- Ctrl Alt NumPad6     | ... of level 6 (*R Markdown*). --><!-- Ctrl Alt NumPad7     | Insert operator `%in%` (*R code*). --><!-- Ctrl Alt NumPad8     | Insert operator `%*%` (*R code*). --><!-- "addins.rmd::rmd_list_numbered"                : "Ctrl+Shift+Alt+L", --><!-- "addins.rs::rs_align_code_at_arrow"            : "Ctrl+Shift+Alt+[", --><!-- "addins.rs::rs_align_code_at_equal"            : "Ctrl+Shift+Alt+]", --><!-- "addins.rs::rs_insert_exposition_pipe"         : "Ctrl+Alt+S", --><!-- "addins.rs::rs_insert_infix_in"                : "Ctrl+Alt+NumPad6", --><!-- "addins.rs::rs_insert_line_ds"                 : "Ctrl+Shift+Alt+Q", --><!-- "addins.rs::rs_insert_line_ss"                 : "Shift+Alt+Q", --><!-- "addins.rs::rs_insert_line_sw"                 : "Ctrl+Shift+Q", --><!-- "addins.rs::rs_insert_matrix_multiplication"   : "Ctrl+Alt+NumPad8", --><!-- "addins.rs::rs_insert_tee_pipe"                : "Ctrl+Alt+.", --><!-- "addins.rs::rs_insert_update_pipe"             : "Ctrl+Alt+,", --><!-- "addins.rs::rs_replace_slash_b2fw"             : "Ctrl+Alt+/", --><!-- "addins.rs::rs_replace_slash_bd2s"             : "Ctrl+Shift+Alt+\\", --><!-- "addins.rs::rs_replace_slash_bs2d"             : "Ctrl+Alt+\\", --><!-- "addins.rs::rs_replace_slash_fw2b"             : "Ctrl+Shift+Alt+/", --><!-- "bookdown::mathquill"                          : "Ctrl+Alt+NumPad9", --><p>More on <a href="https://support.rstudio.com/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts" target="_blank" class="external-link">Customizing Keyboard Shortcuts</a> in RStudio.</p>
+<!-- : **Table 1.** Some examples of shortcut keys set with option `"bio-default"`{.r}. --><!--  --><!-- Shortcut  | Action --><!-- --------- | ------------------------------------------------------------------------------------------------------------------------------------------- --><!-- Ctrl Shift Alt S  | Check spelling in selected text. Package [**wellspell.addin**](https://github.com/nevrome/wellspell.addin){target="_blank"} must be installed. --><!-- Shift Alt A          | Use "Tidyverse" style on selected lines of R code. Package **styler** must be installed (*R code*). --><!-- Ctrl Alt D           | Document R package (that you are building). --><!-- Ctrl Shift D         | Duplicate selected text. --><!-- Ctrl Shift Alt P  | Align parts of selected lines at a custom pattern. --><!-- Ctrl Shift ;         | Insert lower opening quotes `„`. --><!-- Ctrl Shift '         | Insert upper closing quotes `“`. --><!-- Ctrl E                  | **Insert/Enclose with R code block** (*R Markdown*) **[!]** . --><!-- Ctrl Alt T           | Insert inline code highlighted as R code (R Markdown). --><!-- Shift Alt S          | Insert inline LaTeX equation (*R Markdown*). --><!-- Ctrl Alt NumPad0     | Remove heading/section name (*R Markdown*). --><!-- Ctrl Alt NumPad1     | Replace line into/Insert heading (section name) of level 1 (*R Markdown*). --><!-- Ctrl Alt NumPad2     | ... of level 2 (*R Markdown*). --><!-- Ctrl Alt NumPad3     | ... of level 3 (*R Markdown*). --><!-- Ctrl Alt NumPad4     | ... of level 4 (*R Markdown*). --><!-- Ctrl Alt NumPad5     | ... of level 5 (*R Markdown*). --><!-- Ctrl Alt NumPad6     | ... of level 6 (*R Markdown*). --><!-- Ctrl Alt NumPad7     | Insert operator `%in%` (*R code*). --><!-- Ctrl Alt NumPad8     | Insert operator `%*%` (*R code*). --><p>More on <a href="https://support.rstudio.com/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts" target="_blank" class="external-link">Customizing Keyboard Shortcuts</a> in RStudio.</p>
 </div>
 <div class="section level3">
 <h3 id="rstudio-settings">RStudio settings<a class="anchor" aria-label="anchor" href="#rstudio-settings"></a>
@@ -401,24 +361,36 @@
 </ul>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/RStudio-settings.html">rstudio_reset_user_settings</a></span><span class="op">(</span>to <span class="op">=</span> <span class="st">"bio-default"</span><span class="op">)</span></span></code></pre></div>
+<p>To check, how your settings differ from the defaults in a certain list, use:</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/rstudio_compare_user_settings.html">rstudio_compare_user_settings</a></span><span class="op">(</span>to <span class="op">=</span> <span class="st">"bio-default"</span><span class="op">)</span></span>
+<span><span class="co">## ℹ Show differences between current and bio-default setting lists.</span></span>
+<span><span class="co">## ✔ No differences</span></span></code></pre></div>
+<p>The settings that are not in the list will not be displayed. Available options of <code>to</code> are “bio-default” and “rstudio-default”.</p>
 </div>
 <div class="section level3">
 <h3 id="snippets">Snippets<a class="anchor" aria-label="anchor" href="#snippets"></a>
 </h3>
 <p>The function replaces current R code and R Markdown snippets with those in package “snippets”.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">snippets</span><span class="fu">::</span><span class="fu"><a href="https://gegznav.github.io/snippets/reference/install-snippets.html" class="external-link">install_snippets_from_package</a></span><span class="op">(</span><span class="st">"snippets"</span>, backup <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">snippets</span><span class="fu">::</span><span class="fu"><a href="https://gegznav.github.io/snippets/reference/install-snippets.html" class="external-link">install_snippets_from_package</a></span><span class="op">(</span><span class="st">"snippets"</span>, backup <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">## ✔ File with markdown snippets was updated:</span></span>
+<span><span class="co">##   'C:/Users/User/AppData/Roaming/RStudio/snippets/markdown.snippets'</span></span>
+<span><span class="co">## ✔ File with r snippets was updated:</span></span>
+<span><span class="co">##   'C:/Users/User/AppData/Roaming/RStudio/snippets/r.snippets'</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## ℹ You will be able to use the snippets after RStudio is closed and reopened.</span></span></code></pre></div>
 <p>More information on <a href="https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets" target="_blank" class="external-link">Code Snippets</a> in RStudio and on package <a href="https://gegznav.github.io/snippets/" target="_blank" class="external-link"><strong>snippets</strong></a>.</p>
 </div>
 <div class="section level3">
 <h3 id="restart-r-and-rstudio">Restart R and RStudio<a class="anchor" aria-label="anchor" href="#restart-r-and-rstudio"></a>
 </h3>
 <p>If you want to see the effect of changed settings, you should reload RStudio. You may use this function, which reloads RStudio without closing it:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/restart-reload.html">restart_rstudio</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>However, in some cases it is recommended to close and reopen RStudio.</p>
 <p>Next, to restart R session without closing RStudio, use:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/restart-reload.html">restart_r</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Useful to apply before trying to install R packages.</p>
 <!-- ## RStudio projects --><!-- Open (recently used) RStudio project. --><!-- ```{r README-11, eval=FALSE} --><!-- bio::open_project() --><!-- ##  --><!-- ## Choose the name of the project (press 0 to cancel):  --><!-- ##  --><!-- ##  1: project-1  --><!-- ##  2: _learn --><!-- ##  3: biostatistics --><!-- ##   --><!-- ##  Selection: 0 --><!-- ##  Cancelled by user. --><!-- ``` --><!-- Copy the recent projects to your personal project list. --><!-- ```{r README-12, eval=FALSE} --><!-- bio::update_rstudio_proj_list_user() --><!-- ``` -->
