@@ -299,12 +299,13 @@ get_path_rstudio_config_file <- function(which = "current") {
     system.file(
       "rs-settings", "rstudio-prefs--bio-default.json", package = "bio"
     )
+
   } else if (stringr::str_detect(which, "^rstudio$|^rstudio-")) {
     system.file(
       "rs-settings", "rstudio-prefs--rstudio-default.json", package = "bio"
     )
-  } else {
 
+  } else {
     stop("Unknown value: ", which)
   }
 }
