@@ -18,10 +18,11 @@ tidyverse
 DescTools
 data.table
 rstatix
-shiny
-esquisse
+ggpubr
 patchwork
 plotly
+shiny
+esquisse
 usethis
 rstudioapi
 tinytex
