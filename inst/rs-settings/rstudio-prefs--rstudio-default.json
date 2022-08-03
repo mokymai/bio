@@ -1,5 +1,4 @@
 {
-  "Property"                                      : "Default",
   "allow_source_columns"                          : true,
   "always_enable_rnw_concordance"                 : true,
   "always_save_history"                           : true,
