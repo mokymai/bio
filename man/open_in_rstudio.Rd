@@ -19,6 +19,7 @@ Function tries opening a file in RStudio.
 \item \code{\link[rstudioapi:navigateToFile]{rstudioapi::navigateToFile()}},
 \item \code{\link[fs:file_show]{fs::file_show()}}, \code{\link[=browseURL]{browseURL()}},
 \item \code{\link[utils:file.edit]{utils::file.edit()}}
+\item \code{\link[usethis:edit_file]{usethis::edit_file()}}
 }
 }
 \concept{open}
