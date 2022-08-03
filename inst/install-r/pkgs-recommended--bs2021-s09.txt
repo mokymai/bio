@@ -1,7 +1,0 @@
-
-magrittr
-tidyverse
-knitr
-bio
-styler
-lintr
