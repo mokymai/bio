@@ -149,9 +149,13 @@
 <span><span class="co">## ✔ Program Meld is installed.</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="check-information-about-r-packages">Check information about “R” packages<a class="anchor" aria-label="anchor" href="#check-information-about-r-packages"></a>
+<h2 id="check-installation-status-of-r-packages">Check installation status of “R” packages<a class="anchor" aria-label="anchor" href="#check-installation-status-of-r-packages"></a>
 </h2>
-<p>The following functions may be used to check installed packages by topic. By default, only missing packages or packages with lower versions than recommended are displayed. Currently available lists can be returned by function <code><a href="reference/get_pkgs_installation_status.html">bio::get_pkg_lists_local()</a></code>.</p>
+<p>It is recommended to check installation status and version of required packages by name:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/check_packages.html">check_packages_by_name</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bio"</span>, <span class="st">"remotes"</span>, <span class="st">"tidyverse"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">## ✔ Minimal required versions of all 3 packages are already installed.</span></span></code></pre></div>
+<p>There is a less recommended way (due to lower transparency) to check installation status of packages by topic. By default, only missing packages or packages with lower versions than recommended are displayed. Currently available lists can be returned by function <code><a href="reference/get_pkgs_installation_status.html">bio::get_pkg_lists_local()</a></code>.</p>
 <details><summary>Details</summary><ul>
 <li><code>'addins-rmd'</code></li>
 <li><code>'bio'</code></li>
@@ -170,11 +174,11 @@
 <li><code>'statistical-tests'</code></li>
 <li><code>'summary'</code></li>
 <li><code>'tidyverse'</code></li>
-</ul></details><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+</ul></details><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/check_packages.html">check_packages_by_topic</a></span><span class="op">(</span><span class="st">"mini"</span><span class="op">)</span></span>
 <span><span class="co">## ℹ Reading list 'mini' </span></span>
 <span><span class="co">## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.</span></span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/check_packages.html">check_packages_by_topic</a></span><span class="op">(</span><span class="st">"mini"</span>, include <span class="op">=</span> <span class="st">"newer_on_cran"</span><span class="op">)</span></span>
 <span><span class="co">## ℹ Reading list 'mini' </span></span>
 <span><span class="co">## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.</span></span>
@@ -185,18 +189,18 @@
 </h2>
 <p>These are the convenience functions to update certain R packages. The functions restart R before installation if used in RStudio.</p>
 <p>Update package <strong>bio</strong>.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/bio_version.html">update_pkg_bio</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Check if there are updates for <strong>bio</strong> or its dependency packages.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/bio_version.html">check_updates_pkg_bio</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">## ℹ Reading list 'bio'</span></span>
+<span><span class="co">## ℹ Analyzing dependencies of package bio</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## [... truncated ...]</span></span>
 <span><span class="co">## </span></span>
-<span><span class="co">## ✔ Minimal required versions of all 23 packages (from list 'bio') are already installed.</span></span></code></pre></div>
+<span><span class="co">## ✔ Minimal required versions of all 26 packages (from list 'bio') are already installed.</span></span></code></pre></div>
 <p>Update package <strong>snippets</strong>.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/update_pkg_snippets.html">update_pkg_snippets</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <!-- Update package **RcmdrPlugin.biostat**. --><!-- ```{r README-5a, eval=FALSE} --><!-- bio::update_pkg_rcmdr_biostat() --><!-- ``` -->
 </div>
@@ -208,10 +212,10 @@
 <h3 id="dictionaries">Dictionaries<a class="anchor" aria-label="anchor" href="#dictionaries"></a>
 </h3>
 <p>This function downloads or updates <strong>hunspell</strong> spelling checking dictionaries dictionaries (including Lithuanian) that can be used by RStudio or by tools from <strong>wellspell.addin</strong> package.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/spelling.html">rstudio_install_spellcheck_dictionaries</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Install improved Lithuanian dictionary.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/spelling.html">rstudio_install_spellcheck_dictionary_lt</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">## ✔ lt_LT dictionary installed. </span></span>
 <span><span class="co">##   'C:/Users/ViG/AppData/Roaming/RStudio/dictionaries/languages-system/lt_LT.dic'</span></span></code></pre></div>
@@ -221,7 +225,7 @@
 </h3>
 <p>This function changes shortcut keys in RStudio.</p>
 <p>Run function without arguments to see the available options.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/rstudio_reset_keybindings.html">rstudio_reset_keybindings</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">## Error: The value of argument 'to' is missing.</span></span>
 <span><span class="co">## Possible options: 'bio-default', 'rstudio-default'.</span></span></code></pre></div>
@@ -232,8 +236,10 @@
 <li>
 <code>"rstudio-default"</code> – RStudio defaults.</li>
 </ul>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/rstudio_reset_keybindings.html">rstudio_reset_keybindings</a></span><span class="op">(</span>to <span class="op">=</span> <span class="st">"bio-default"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/rstudio_reset_keybindings.html">rstudio_reset_keybindings</a></span><span class="op">(</span>to <span class="op">=</span> <span class="st">"bio-default"</span><span class="op">)</span></span>
+<span><span class="co">## ✔ Back up copy of shortcut keys was created in 'C:/Users/User/.R/_backup/keybindings/'</span></span>
+<span><span class="co">## ✔ Shortcut keys were reset to bio-default.</span></span></code></pre></div>
 <table class="table">
 <colgroup>
 <col width="27%">
@@ -339,7 +345,7 @@
 </h3>
 <p>This function resets RStudio user preferences and settings.</p>
 <p>Run function without arguments to see the available options.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/RStudio-settings.html">rstudio_reset_user_settings</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Error: The value of argument 'to' is missing.</span></span>
 <span><span class="co">#&gt; Possible choices: 'bio-default', 'bio-dark-blue', 'bio-black', 'rstudio-default'.</span></span></code></pre></div>
@@ -354,26 +360,38 @@
 <li>
 <code>"rstudio-default"</code> – default RStudio settings.</li>
 </ul>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/RStudio-settings.html">rstudio_reset_user_settings</a></span><span class="op">(</span>to <span class="op">=</span> <span class="st">"bio-default"</span><span class="op">)</span></span></code></pre></div>
+<p>To check, how your settings differ from the defaults in a certain list, use:</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/rstudio_compare_user_settings.html">rstudio_compare_user_settings</a></span><span class="op">(</span>to <span class="op">=</span> <span class="st">"bio-default"</span><span class="op">)</span></span>
+<span><span class="co">## ℹ Show differences between current and bio-default setting lists.</span></span>
+<span><span class="co">## ✔ No differences</span></span></code></pre></div>
+<p>The settings that are not in the list will not be displayed. Available options of <code>to</code> are “bio-default” and “rstudio-default”.</p>
 </div>
 <div class="section level3">
 <h3 id="snippets">Snippets<a class="anchor" aria-label="anchor" href="#snippets"></a>
 </h3>
 <p>The function replaces current R code and R Markdown snippets with those in package “snippets”.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu">snippets</span><span class="fu">::</span><span class="fu"><a href="https://gegznav.github.io/snippets/reference/install-snippets.html" class="external-link">install_snippets_from_package</a></span><span class="op">(</span><span class="st">"snippets"</span>, backup <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">snippets</span><span class="fu">::</span><span class="fu"><a href="https://gegznav.github.io/snippets/reference/install-snippets.html" class="external-link">install_snippets_from_package</a></span><span class="op">(</span><span class="st">"snippets"</span>, backup <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">## ✔ File with markdown snippets was updated:</span></span>
+<span><span class="co">##   'C:/Users/User/AppData/Roaming/RStudio/snippets/markdown.snippets'</span></span>
+<span><span class="co">## ✔ File with r snippets was updated:</span></span>
+<span><span class="co">##   'C:/Users/User/AppData/Roaming/RStudio/snippets/r.snippets'</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## ℹ You will be able to use the snippets after RStudio is closed and reopened.</span></span></code></pre></div>
 <p>More information on <a href="https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets" target="_blank" class="external-link">Code Snippets</a> in RStudio and on package <a href="https://gegznav.github.io/snippets/" target="_blank" class="external-link"><strong>snippets</strong></a>.</p>
 </div>
 <div class="section level3">
 <h3 id="restart-r-and-rstudio">Restart R and RStudio<a class="anchor" aria-label="anchor" href="#restart-r-and-rstudio"></a>
 </h3>
 <p>If you want to see the effect of changed settings, you should reload RStudio. You may use this function, which reloads RStudio without closing it:</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/restart-reload.html">restart_rstudio</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>However, in some cases it is recommended to close and reopen RStudio.</p>
 <p>Next, to restart R session without closing RStudio, use:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/restart-reload.html">restart_r</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Useful to apply before trying to install R packages.</p>
 <!-- ## RStudio projects --><!-- Open (recently used) RStudio project. --><!-- ```{r README-11, eval=FALSE} --><!-- bio::open_project() --><!-- ##  --><!-- ## Choose the name of the project (press 0 to cancel):  --><!-- ##  --><!-- ##  1: project-1  --><!-- ##  2: _learn --><!-- ##  3: biostatistics --><!-- ##   --><!-- ##  Selection: 0 --><!-- ##  Cancelled by user. --><!-- ``` --><!-- Copy the recent projects to your personal project list. --><!-- ```{r README-12, eval=FALSE} --><!-- bio::update_rstudio_proj_list_user() --><!-- ``` -->
