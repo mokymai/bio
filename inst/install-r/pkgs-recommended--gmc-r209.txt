@@ -117,6 +117,7 @@ cheatsheet
 here
 whoami
 zip
+waldo
 
 
 # RS | Spelling, Grammar -----------------------------------------------------
