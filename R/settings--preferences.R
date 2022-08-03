@@ -112,7 +112,7 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
 
   # All other setup files contain differences from the default settings
   rs_default <- get_path_rstudio_config_file(which = "rstudio-default")
-  success <- set_rstudio_preferences(rs_default)
+  success <- rstudio_set_preferences(rs_default)
 
   # Change what is different from the defaults
   switch(
@@ -127,7 +127,7 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
       fs::dir_create("~/R/darbinis", recurse = TRUE)
 
       file_default <- get_path_rstudio_config_file(which = "bio")
-      success <- set_rstudio_preferences(file_default)
+      success <- rstudio_set_preferences(file_default)
 
     },
 
@@ -158,7 +158,7 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Read preference from JSON file and set them in RStudio
-set_rstudio_preferences <- function(file) {
+rstudio_set_preferences <- function(file) {
   if (rstudioapi::isAvailable("1.3.387")) {
     pref <- jsonlite::fromJSON(file)
     purrr::walk2(
