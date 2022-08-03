@@ -4,7 +4,10 @@
 
 # Base of URL for files of "bio" repository on GitHub
 url_bio <- function(file = NULL) {
-  paste0("https://raw.githubusercontent.com/mokymai/bio/master/inst/install-r/", file)
+  paste0(
+    "https://raw.githubusercontent.com/mokymai/bio/master/inst/install-r/",
+    file
+  )
 }
 
 # Path to files of installed "bio" package on your machine
@@ -171,9 +174,8 @@ get_pkgs_installed <- function(rm_duplicates = TRUE) {
 #' head(read_pkgs_list("mini"))
 #'
 read_pkgs_list <- function(list_name,
-                                 local_list = getOption("bio.local_list", FALSE),
-                                 show_message = FALSE) {
-
+                           local_list = getOption("bio.local_list", FALSE),
+                           show_message = FALSE) {
   checkmate::assert_flag(show_message)
   list_name <- tolower(list_name)
   list_name_blue <- usethis::ui_value(list_name)
@@ -368,21 +370,22 @@ get_pkgs_cran_details <- function(repos = NULL) {
 #'
 #' head(get_pkgs_non_cran_installation_details())
 
-get_pkgs_non_cran_installation_details <- function(
-  local_list = getOption("bio.local_list", FALSE)) {
+get_pkgs_non_cran_installation_details <-
+  function(local_list = getOption("bio.local_list", FALSE)) {
 
   file <- get_path_pkgs_non_cran_installation_details(local_list)
   # text <- download_from_github_with_curl(file)
-  tbl <- read.table(file, skip = 10, header = TRUE, sep = "|",
+  tbl <- read.table(file,
+    skip = 10, header = TRUE, sep = "|",
     strip.white = TRUE, na.strings = c("NA", "-"), stringsAsFactors = FALSE,
-    comment.char = "")
+    comment.char = ""
+  )
 
   remove_ignored_rows(tbl)
 }
 
 
 get_path_pkgs_non_cran_installation_details <- function(local_list) {
-
   base_name <- "pkgs-install-from.txt"
 
   if (isTRUE(local_list)) {
@@ -390,7 +393,6 @@ get_path_pkgs_non_cran_installation_details <- function(local_list) {
     if (!file.exists(file)) {
       stop("File '", base_name, "' was not found.")
     }
-
   } else {
     file <- url_bio(base_name)
   }
@@ -400,7 +402,8 @@ get_path_pkgs_non_cran_installation_details <- function(local_list) {
 # ===========================================================================~
 # Installation status (local) ------------------------------------------------
 
-merge_pkgs_status_lists <- function(pkgs_list, pkgs_installed, pkgs_required_versions) {
+merge_pkgs_status_lists <- function(pkgs_list, pkgs_installed,
+                                    pkgs_required_versions) {
   pkgs_inst  <- pkgs_installed
   pkgs_req_v <- pkgs_required_versions
 
@@ -428,11 +431,9 @@ merge_pkgs_status_lists <- function(pkgs_list, pkgs_installed, pkgs_required_ver
 #'
 #' @examples
 #' head(get_pkgs_installation_status_raw("mini"))
-
-
 get_pkgs_installation_status_raw <- function(list_name = NULL, pkgs = NULL,
-  local_list = getOption("bio.local_list", TRUE)) {
-
+                                             local_list = getOption(
+                                               "bio.local_list", TRUE)) {
   checkmate::assert_character(list_name, null.ok = TRUE)
   checkmate::assert_character(pkgs, null.ok = TRUE)
   if (is.null(list_name) && is.null(pkgs)) {
@@ -455,7 +456,7 @@ get_pkgs_installation_status_raw <- function(list_name = NULL, pkgs = NULL,
   }
 
   # Get other lists
-  pkgs_inst  <- get_pkgs_installed()
+  pkgs_inst <- get_pkgs_installed()
   pkgs_req_v <- get_pkgs_req_version(local_list = local_list)
 
 
@@ -584,10 +585,17 @@ get_pkgs_installation_status_raw <- function(list_name = NULL, pkgs = NULL,
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # ========================================================================== ~
-get_pkgs_installation_status <- function(list_name = NULL, include = "outdated",
-  show_status = include, install = include, cran = install,
-  github = install, other_repos = install, using_code = install,
-  local_list = getOption("bio.local_list", FALSE), pkgs = NULL) {
+get_pkgs_installation_status <- function(list_name = NULL,
+                                         include = "outdated",
+                                         show_status = include,
+                                         install = include,
+                                         cran = install,
+                                         github = install,
+                                         other_repos = install,
+                                         using_code = install,
+                                         local_list = getOption("bio.local_list",
+                                                                FALSE),
+                                         pkgs = NULL) {
 
   if (is.null(list_name) && is.null(pkgs)) {
     ui_stop(paste0(
@@ -731,9 +739,11 @@ print.pkgs_installation_status <- function(x, show_status = x$show_status, ...) 
   if (any(pkg_to_show)) {
     st2 <-
       st[pkg_to_show , c("package", "is_installed", "current_version",
-        "required_version", "cran_version", "update_is_required")] # , "cran_version", "newer_on_cran"
-    st2$current_version  <- ifelse(is.na(st2$current_version), "-", st2$current_version)
-    st2$required_version <- ifelse(st2$required_version == "", "-", st2$required_version )
+        "required_version", "cran_version", "update_is_required")]
+    st2$current_version  <- ifelse(
+      is.na(st2$current_version), "-", st2$current_version)
+    st2$required_version <- ifelse(
+      st2$required_version == "", "-", st2$required_version )
     rownames(st2) <- NULL
     colnames(st2) <- c("package", "is_installed", "v_current", "v_required",
       "v_cran", "update_is_required")
@@ -889,8 +899,7 @@ process_pkgs_to_install <- function(x, cran = x$install_from$cran,
 #' @param to_clipboard (logical) If `TRUE`, the code is copied to clipboard and
 #'        returned only invisibly.
 get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
-  upgrade = TRUE) {
-
+                                       upgrade = TRUE) {
   if (is.null(x)) {
     x <- get_last_pkgs_installation_status()
   }
@@ -914,20 +923,18 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
   pkgs_miss_code <- x$missing_installation_code
 
   if (length(pkgs_miss_code) > 0) {
-
     r_installed <- getRversion()
     r_available <- get_available_r_version()
 
     if (length(pkgs_miss_code) > 1) {
       # Plural
-      s    <- "s"
-      ss   <- ""
+      s <- "s"
+      ss <- ""
       each <- "each"
-
     } else {
       # Singular
-      s    <- ""
-      ss   <- "s"
+      s <- ""
+      ss <- "s"
       each <- "the"
     }
 
@@ -939,7 +946,6 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
           "available {green(r_available)}) ",
           "or the package{s} might be recently removed from CRAN. "
         )
-
       } else {
         glue::glue(
           "The package{s} might be recently removed from CRAN. "
@@ -960,7 +966,7 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
   # Print installation code, if present
   res <-
     c(
-      get_pkgs_installation_code_cran(x,   upgrade = upgrade),
+      get_pkgs_installation_code_cran(x, upgrade = upgrade),
       get_pkgs_installation_code_github(x, upgrade = upgrade),
       get_pkgs_installation_code_other(x)
     )
@@ -972,8 +978,9 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
     return(invisible(res))
   }
 
-  res <- c(glue::glue(
-    '
+  res <- c(
+    glue::glue(
+      '
     # To read more on the used options, run code:
     # help("options") # Opens help on options
     options(
@@ -983,7 +990,8 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
       install.packages.compile.from.source = "always"
     )
 
-    '),
+    '
+    ),
     "\n",
     res
   )
@@ -999,7 +1007,6 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
     if (get_os_type() == "mac") {
       # Mac
       usethis::ui_info("Use {yellow('Cmd+V')} to paste it.")
-
     } else {
       # Windows / Linux
       usethis::ui_info("Use {yellow('Ctrl+V')} to paste it.")
@@ -1007,13 +1014,11 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
 
     usethis::ui_todo(paste0(
       "But before the installation, {underline('close')} RStudio ",
-      "{underline('project')} and/or {underline('restart R session')}.")
-    )
+      "{underline('project')} and/or {underline('restart R session')}."
+    ))
     return(invisible(res))
-
   } else {
     return(res)
-
   }
 }
 
@@ -1031,28 +1036,26 @@ get_pkgs_installation_code_cran <- function(x, upgrade = TRUE) {
   dependencies_str <- ", dependencies = TRUE"
 
   default_repos <- options("repos")
-  repos_vec     <- unique(x$repos, default_repos)
+  repos_vec <- unique(x$repos, default_repos)
 
   if (all(repos_vec %in% default_repos)) {
     repos_code <- ""
-    repos_arg  <- ""
-
+    repos_arg <- ""
   } else {
     repos <- to_str_vector(repos_vec, collapse = ",\n")
 
     if (length(repos_vec) > 1) {
-      repos <- paste0("c(\n", repos ,")")
+      repos <- paste0("c(\n", repos, ")")
     }
 
     repos_code <- paste0("repos <- ", repos, "\n\n")
-    repos_arg  <- ", repos = repos"
+    repos_arg <- ", repos = repos"
   }
 
-
-  pkgs <- to_str_vector(pkgs_vec,  collapse = ",\n")
+  pkgs <- to_str_vector(pkgs_vec, collapse = ",\n")
 
   if (length(pkgs_vec) > 1) {
-    pkgs <- paste0("c(\n", pkgs ,")")
+    pkgs <- paste0("c(\n", pkgs, ")")
   }
 
   res <- paste0(
@@ -1066,7 +1069,6 @@ get_pkgs_installation_code_cran <- function(x, upgrade = TRUE) {
 #  @rdname get_pkgs_installation_status
 #  @export
 get_pkgs_installation_code_github <- function(x, upgrade = TRUE) {
-
   upgrade_str <- get_upgrade_str(upgrade)
 
   pkgs_vec <- x$install_from_github
@@ -1078,7 +1080,7 @@ get_pkgs_installation_code_github <- function(x, upgrade = TRUE) {
   pkgs <- to_str_vector(pkgs_vec, collapse = ",\n")
 
   if (length(pkgs_vec) > 1) {
-    pkgs <- paste0("c(\n", pkgs ,")")
+    pkgs <- paste0("c(\n", pkgs, ")")
   }
 
   res <- paste0(
@@ -1100,8 +1102,6 @@ get_pkgs_installation_code_other <- function(x) {
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # [!] Check installed packages ===============================================
-# # @rdname get_pkgs_installation_status
-#  @export
 
 #' Check Installed Packages by Topic and by Name
 #'
@@ -1135,12 +1135,10 @@ get_pkgs_installation_code_other <- function(x) {
 #'
 #'   check_packages_by_name(c("bio", "usethis", "ggplot1"))
 #' }
-
-# Sys.getenv("R_REMOTES_UPGRADE")
 check_packages_by_topic <- function(list_name = NULL,
-  local_list = getOption("bio.local_list", FALSE), upgrade = TRUE,
-  ...) {
-
+                                    local_list = getOption("bio.local_list", FALSE),
+                                    upgrade = TRUE,
+                                    ...) {
   status <-
     get_pkgs_installation_status(list_name, local_list = local_list, ...)
 
@@ -1157,8 +1155,8 @@ check_packages_by_topic <- function(list_name = NULL,
 
     cat("\n")
     usethis::ui_todo(paste0(
-      "To get package installation code, type:\n{usethis::ui_field(code_str)} ")
-      )
+      "To get package installation code, type:\n{usethis::ui_field(code_str)} "
+    ))
     cat("\n")
 
     if (rstudioapi::isAvailable("0.99.787")) {
@@ -1174,9 +1172,8 @@ check_packages_by_topic <- function(list_name = NULL,
 #' @rdname check_packages
 #' @export
 check_packages_by_name <- function(pkgs = NULL,
-  local_list = getOption("bio.local_list", FALSE), upgrade = TRUE,
-  ...) {
-
+                                   local_list = getOption("bio.local_list", FALSE),
+                                   upgrade = TRUE, ...) {
   status <-
     get_pkgs_installation_status(pkgs = pkgs, local_list = local_list, ...)
 
@@ -1193,8 +1190,8 @@ check_packages_by_name <- function(pkgs = NULL,
 
     cat("\n")
     usethis::ui_todo(paste0(
-      "To get package installation code, type:\n{usethis::ui_field(code_str)} ")
-      )
+      "To get package installation code, type:\n{usethis::ui_field(code_str)} "
+    ))
     cat("\n")
 
     if (rstudioapi::isAvailable("0.99.787")) {
