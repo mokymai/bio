@@ -76,7 +76,7 @@ or need to be updated) and package installation code.</p>
 <span>  github <span class="op">=</span> <span class="va">install</span>,</span>
 <span>  other_repos <span class="op">=</span> <span class="va">install</span>,</span>
 <span>  using_code <span class="op">=</span> <span class="va">install</span>,</span>
-<span>  use_local_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"bio.use_local_list"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
+<span>  local_list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"bio.local_list"</span>, <span class="cn">FALSE</span><span class="op">)</span>,</span>
 <span>  pkgs <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -157,14 +157,14 @@ See options of <code>include</code> plus value <code>"required"</code>.
 Defaults to the value of <code>install</code>.</p></dd>
 
 
-<dt>use_local_list</dt>
+<dt>local_list</dt>
 <dd><p>(logical) If <code>TRUE</code>, the list, which is locally
 installed in the folder of package <span class="pkg">bio</span> ("local list"), is used.
 If <code>FALSE</code>, the list on "GitHub" repository of the package is used.
 It is recommended  using the online version of the list, as it may
 contain more recent changes.
 Optiom bight be set globally by, e.g.,
-<code>options(bio.use_local_list = TRUE)</code>.</p></dd>
+<code>options(bio.local_list = TRUE)</code>.</p></dd>
 
 
 <dt>pkgs</dt>
@@ -202,7 +202,7 @@ See <code>upgrade</code> in <code><a href="https://remotes.r-lib.org/reference/i
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># NOTE: It is not recommended to use the local lists as they might be out of date.</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>bio.use_local_list <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>bio.local_list <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">list_name</span> <span class="op">&lt;-</span> <span class="st">"mini"</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Use package name</span></span></span>
