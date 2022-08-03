@@ -86,3 +86,11 @@ list_pkgs_used_in_files_code <- function(files) {
     unique()
 }
 
+
+get_pkg_dependencies <- function(pkg) {
+  pkg <- stringr::str_replace(pkg, "[.]", "[.]")
+  desc::desc_get_deps(fs::dir_ls(.libPaths(), regexp = glue::glue("/{pkg}$"))) %>%
+      dplyr::filter(.data$type %in% c("Depends", "Imports")) %>%
+      dplyr::pull(.data$package)
+}
+
