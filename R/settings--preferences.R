@@ -102,6 +102,7 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
   # Change settings
   file_current <- get_path_rstudio_config_file("current")
 
+  # Backup
   if (isTRUE(backup)) {
     create_backup_copy(file_current, "user_settings", "RStudio settings")
   }
@@ -109,12 +110,15 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
   # Delete current settings (use RStudio defaults)
   fs::file_delete(file_current)
 
+  # All other setup files contain differences from the default settings
+  rs_default <- get_path_rstudio_config_file(which = "rstudio-default")
+  success <- set_rstudio_preferences(rs_default)
+
+  # Change what is different from the defaults
   switch(
     to,
 
-    "rstudio-default" = {
-      success <- !fs::file_exists(file_current)
-    },
+    "rstudio-default" = NULL,
 
     "bio-default" = ,
     "bio-dark-blue" = ,
@@ -124,6 +128,7 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
 
       file_default <- get_path_rstudio_config_file(which = "bio")
       success <- set_rstudio_preferences(file_default)
+
     },
 
     usethis::ui_stop(paste0(
@@ -131,6 +136,7 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
       "Possible options: {ui_value(user_setting_set_names)}."
     ))
   )
+
 
   # Change RStudio theme
   switch(
