@@ -35,11 +35,11 @@ get_vesion_pkg_bio  <- function() {
 check_updates_pkg_bio  <- function(show_status = "always", install = "outdated",
   upgrade = TRUE, ...) {
 
-  check_packages_by_topic(list_name = "bio", show_status = show_status,
-    install = install, upgrade = upgrade, ...)
+  usethis::ui_info("Analyzing dependencies of package {blue('bio')}")
+  pkgs <- c(get_pkg_dependencies("bio"), "bio")
 
-  # get_pkgs_installation_status(list_name = "bio", show_status = show_status,
-  # install = install, ...)
+  check_packages_by_name(pkgs, show_status = show_status, install = install,
+    upgrade = upgrade, ...)
 }
 
 
