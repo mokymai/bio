@@ -41,7 +41,7 @@
   "default_sweave_engine"                         : "Sweave",
   "diagnostics_in_r_function_calls"               : true,
   "diagnostics_on_save"                           : true,
-  "disabled_aria_live_announcements"              : "Empty",
+  "disabled_aria_live_announcements"              : [],
   "doc_outline_show"                              : "sections_only",
   "document_load_lint_delay"                      : 5000,
   "editor_keybindings"                            : "default",
@@ -51,7 +51,7 @@
   "enable_snippets"                               : true,
   "enable_text_drag"                              : true,
   "execution_behavior"                            : "statement",
-  "file_monitor_ignored_components"               : "Empty",
+  "file_monitor_ignored_components"               : [],
   "find_panel_legacy_tab_sequence"                : false,
   "focus_console_after_exec"                      : false,
   "fold_style"                                    : "begin-and-end",
@@ -153,7 +153,7 @@
   "soft_wrap_rmd_files"                           : true,
   "sort_file_names_naturally"                     : true,
   "source_with_echo"                              : false,
-  "spelling_custom_dictionaries"                  : "Empty",
+  "spelling_custom_dictionaries"                  : [],
   "spelling_dictionary_language"                  : "en_US",
   "ssh_key_type"                                  : "ed25519",
   "strip_trailing_whitespace"                     : false,
@@ -204,5 +204,5 @@
   "warn_if_no_such_variable_in_scope"             : false,
   "warn_variable_defined_but_not_used"            : false,
   "windows_terminal_shell"                        : "default",
-  "wrap_tab_navigation"                           : 0
+  "wrap_tab_navigation"                           : true
 }
