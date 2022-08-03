@@ -32,6 +32,7 @@ zip
 pacman
 here
 cheatsheet
+waldo
 styler
 lintr
 backup.tools
