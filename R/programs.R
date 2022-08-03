@@ -305,6 +305,32 @@ is_xquartz_installed  <- function(variables) {
   isTRUE(unname(capabilities("aqua")))
 }
 
+# Check if Git is installed
+#
+# @return logical value.
+# @export
+# @concept programs
+#
+# @examples
+# is_git_installed()
+is_git_installed <- function() {
+  # suppressWarnings(
+  #   system("git --version", show.output.on.console = FALSE) == 0
+  # )
+  tryCatch(
+    {
+      system2("git", "--version", stdout = TRUE, stderr = TRUE)
+      # If no error occurs in system2(), TRUE is returned.
+      TRUE
+    },
+
+    error = function(e) {
+      FALSE
+    }
+  )
+}
+
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # program   - string
 # condition - logical
