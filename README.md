@@ -6,7 +6,7 @@ Package ***bio***
 <!-- badges: start -->
 
 [![GitHub
-version](https://img.shields.io/badge/GitHub-0.1.16.9000-brightgreen.svg)](https://github.com/mokymai/bio)
+version](https://img.shields.io/badge/GitHub-0.2.0-brightgreen.svg)](https://github.com/mokymai/bio)
 [![R-CMD-check](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
 [![Updated-on](https://img.shields.io/badge/Updated%20on-2022--08--03-yellowgreen.svg)](/commits/master)
 [![Lifecycle:
@@ -104,12 +104,21 @@ bio::check_installed_programs("all")
 ## ✔ Program Meld is installed.
 ```
 
-## Check information about “R” packages
+## Check installation status of “R” packages
 
-The following functions may be used to check installed packages by
-topic. By default, only missing packages or packages with lower versions
-than recommended are displayed. Currently available lists can be
-returned by function `bio::get_pkg_lists_local()`.
+It is recommended to check installation status and version of required
+packages by name:
+
+``` r
+bio::check_packages_by_name(c("bio", "remotes", "tidyverse"))
+## ✔ Minimal required versions of all 3 packages are already installed.
+```
+
+There is a less recommended way (due to lower transparency) to check
+installation status of packages by topic. By default, only missing
+packages or packages with lower versions than recommended are displayed.
+Currently available lists can be returned by function
+`bio::get_pkg_lists_local()`.
 
 <details>
 <summary>
@@ -164,11 +173,11 @@ Check if there are updates for **bio** or its dependency packages.
 
 ``` r
 bio::check_updates_pkg_bio()
-## ℹ Reading list 'bio'
+## ℹ Analyzing dependencies of package bio
 ## 
 ## [... truncated ...]
 ## 
-## ✔ Minimal required versions of all 23 packages (from list 'bio') are already installed.
+## ✔ Minimal required versions of all 26 packages (from list 'bio') are already installed.
 ```
 
 Update package **snippets**.
@@ -226,6 +235,8 @@ Options:
 
 ``` r
 bio::rstudio_reset_keybindings(to = "bio-default")
+## ✔ Back up copy of shortcut keys was created in 'C:/Users/User/.R/_backup/keybindings/'
+## ✔ Shortcut keys were reset to bio-default.
 ```
 
 | Shortcut                                                     | Action                                                                                                                                                                |
@@ -302,6 +313,18 @@ The options:
 bio::rstudio_reset_user_settings(to = "bio-default")
 ```
 
+To check, how your settings differ from the defaults in a certain list,
+use:
+
+``` r
+bio::rstudio_compare_user_settings(to = "bio-default")
+## ℹ Show differences between current and bio-default setting lists.
+## ✔ No differences
+```
+
+The settings that are not in the list will not be displayed. Available
+options of `to` are “bio-default” and “rstudio-default”.
+
 ### Snippets
 
 The function replaces current R code and R Markdown snippets with those
@@ -309,6 +332,12 @@ in package “snippets”.
 
 ``` r
 snippets::install_snippets_from_package("snippets", backup = TRUE)
+## ✔ File with markdown snippets was updated:
+##   'C:/Users/User/AppData/Roaming/RStudio/snippets/markdown.snippets'
+## ✔ File with r snippets was updated:
+##   'C:/Users/User/AppData/Roaming/RStudio/snippets/r.snippets'
+## 
+## ℹ You will be able to use the snippets after RStudio is closed and reopened.
 ```
 
 More information on
