@@ -153,19 +153,15 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Read preference from JSON file and set them in RStudio
 set_rstudio_preferences <- function(file) {
-  pref <-
-    readr::read_lines(file, lazy = FALSE) %>%
-    jsonlite::parse_json() %>%
-    purrr::map_chr(~ {
-      if (is.character(.)) glue::glue("'{.}'") else as.character(.)
-    })
+  if (rstudioapi::isAvailable("1.3.387")) {
+    pref <- jsonlite::fromJSON(file)
+    purrr::walk2(
+      names(pref), unname(pref),
+      ~rstudioapi::writeRStudioPreference(.x, .y)
+    )
+    TRUE
 
-  txt <- glue::glue(
-    "rstudioapi::writeRStudioPreference('{names(pref)}', {unname(pref)})\n"
-  )
-
-  eval(parse(text = txt))
-
-  TRUE
+  } else {
+    FALSE
+  }
 }
-
