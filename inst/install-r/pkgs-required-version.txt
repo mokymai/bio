@@ -1,6 +1,6 @@
 ---
 title: "Minimal required versions of packages"
-date:  2022-08-23
+date:  2022-08-03
 notes: ""
 
 
@@ -90,7 +90,7 @@ scales                      | 1.2.0            | FALSE  | -
 sem                         | 3.1-15           | FALSE  | Rcmdr
 shiny                       | 1.7.2            | FALSE  | -
 skimr                       | 2.1.4            | FALSE  | -
-snippets                    | 0.0.14           | FALSE  | -
+snippets                    | 0.0.15           | FALSE  | -
 stringr                     | 1.4.0            | FALSE  | -
 styler                      | 1.7.0            | FALSE  | -
 summarytools                | 1.0.1            | FALSE  | -
