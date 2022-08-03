@@ -166,18 +166,18 @@ get_pkgs_installed <- function(rm_duplicates = TRUE) {
 #' @examples
 #' # NOTE: It is not recommended to use local lists as they might be out of date.
 #' # Here it is used for testing purposes only.
-#' options(bio.use_local_list = TRUE)
+#' options(bio.local_list = TRUE)
 #'
 #' head(read_pkgs_list("mini"))
 #'
 read_pkgs_list <- function(list_name,
-                                 use_local_list = getOption("bio.use_local_list", FALSE),
+                                 local_list = getOption("bio.local_list", FALSE),
                                  show_message = FALSE) {
 
   checkmate::assert_flag(show_message)
   list_name <- tolower(list_name)
   list_name_blue <- usethis::ui_value(list_name)
-  file <- get_path_pkgs_list(list_name, use_local_list)
+  file <- get_path_pkgs_list(list_name, local_list)
 
   tryCatch(
     {
@@ -227,11 +227,11 @@ read_pkgs_list <- function(list_name,
 
 # get_path_pkgs_list("gmc-r209", TRUE)
 # get_path_pkgs_list("gmc-r209", FALSE)
-get_path_pkgs_list <- function(list_name, use_local_list) {
+get_path_pkgs_list <- function(list_name, local_list) {
   list_name <- tolower(list_name)
   base_name <- paste0("pkgs-recommended--", list_name, ".txt")
 
-  if (isTRUE(use_local_list)) {
+  if (isTRUE(local_list)) {
     file <- path_bio(base_name)
     if (!file.exists(file)) {
       usethis::ui_stop(paste0(
@@ -264,14 +264,14 @@ get_path_pkgs_list <- function(list_name, use_local_list) {
 #'
 #' @examples
 #' # NOTE: It is not recommended to use the local lists as they might be out of date.
-#' options(bio.use_local_list = TRUE)
+#' options(bio.local_list = TRUE)
 #'
 #' head(get_pkgs_req_version())
 #'
 get_pkgs_req_version <- function(
-  use_local_list = getOption("bio.use_local_list", FALSE)) {
+  local_list = getOption("bio.local_list", FALSE)) {
 
-  file <- get_path_pkgs_req_version(use_local_list)
+  file <- get_path_pkgs_req_version(local_list)
   # text <- download_from_github_with_curl(file)
   tbl <- read.table(file, skip = 10, header = TRUE, sep = "|",
     na.strings = c("NA", "-"), strip.white = TRUE, stringsAsFactors = FALSE)
@@ -282,10 +282,10 @@ get_pkgs_req_version <- function(
 # (file <- get_path_pkgs_req_version(TRUE))
 # rmarkdown::yaml_front_matter(file)
 # get_path_pkgs_req_version(FALSE)
-get_path_pkgs_req_version <- function(use_local_list) {
+get_path_pkgs_req_version <- function(local_list) {
   base_name <- "pkgs-required-version.txt"
 
-  if (isTRUE(use_local_list)) {
+  if (isTRUE(local_list)) {
     file <- path_bio(base_name)
     if (!file.exists(file)) {
       stop("File '", base_name, "' was not found.")
@@ -364,14 +364,14 @@ get_pkgs_cran_details <- function(repos = NULL) {
 #'
 #' @examples
 #' # NOTE: It is not recommended to use the local lists as they might be out of date.
-#' options(bio.use_local_list = TRUE)
+#' options(bio.local_list = TRUE)
 #'
 #' head(get_pkgs_non_cran_installation_details())
 
 get_pkgs_non_cran_installation_details <- function(
-  use_local_list = getOption("bio.use_local_list", FALSE)) {
+  local_list = getOption("bio.local_list", FALSE)) {
 
-  file <- get_path_pkgs_non_cran_installation_details(use_local_list)
+  file <- get_path_pkgs_non_cran_installation_details(local_list)
   # text <- download_from_github_with_curl(file)
   tbl <- read.table(file, skip = 10, header = TRUE, sep = "|",
     strip.white = TRUE, na.strings = c("NA", "-"), stringsAsFactors = FALSE,
@@ -381,11 +381,11 @@ get_pkgs_non_cran_installation_details <- function(
 }
 
 
-get_path_pkgs_non_cran_installation_details <- function(use_local_list) {
+get_path_pkgs_non_cran_installation_details <- function(local_list) {
 
   base_name <- "pkgs-install-from.txt"
 
-  if (isTRUE(use_local_list)) {
+  if (isTRUE(local_list)) {
     file <- path_bio(base_name)
     if (!file.exists(file)) {
       stop("File '", base_name, "' was not found.")
@@ -431,7 +431,7 @@ merge_pkgs_status_lists <- function(pkgs_list, pkgs_installed, pkgs_required_ver
 
 
 get_pkgs_installation_status_raw <- function(list_name = NULL, pkgs = NULL,
-  use_local_list = getOption("bio.use_local_list", TRUE)) {
+  local_list = getOption("bio.local_list", TRUE)) {
 
   checkmate::assert_character(list_name, null.ok = TRUE)
   checkmate::assert_character(pkgs, null.ok = TRUE)
@@ -447,7 +447,7 @@ get_pkgs_installation_status_raw <- function(list_name = NULL, pkgs = NULL,
     pkgs_list <-
       read_pkgs_list(
         list_name = list_name,
-        use_local_list = use_local_list,
+        local_list = local_list,
         show_message = TRUE
       )
   } else {
@@ -456,7 +456,7 @@ get_pkgs_installation_status_raw <- function(list_name = NULL, pkgs = NULL,
 
   # Get other lists
   pkgs_inst  <- get_pkgs_installed()
-  pkgs_req_v <- get_pkgs_req_version(use_local_list = use_local_list)
+  pkgs_req_v <- get_pkgs_req_version(local_list = local_list)
 
 
   merge_pkgs_status_lists(pkgs_list, pkgs_inst, pkgs_req_v)
@@ -530,13 +530,13 @@ get_pkgs_installation_status_raw <- function(list_name = NULL, pkgs = NULL,
 #'        See options of `include` plus value `"required"`.
 #'        Defaults to the value of `install`.
 #'
-#' @param use_local_list (logical) If `TRUE`, the list, which is locally
+#' @param local_list (logical) If `TRUE`, the list, which is locally
 #'        installed in the folder of package \pkg{bio} ("local list"), is used.
 #'         If `FALSE`, the list on "GitHub" repository of the package is used.
 #'         It is recommended  using the online version of the list, as it may
 #'         contain more recent changes.
 #'         Optiom bight be set globally by, e.g.,
-#'          `options(bio.use_local_list = TRUE)`.
+#'          `options(bio.local_list = TRUE)`.
 #'
 #' @export
 #' @family R-packages-related functions
@@ -547,7 +547,7 @@ get_pkgs_installation_status_raw <- function(list_name = NULL, pkgs = NULL,
 #' if (FALSE) {
 #'
 #' # NOTE: It is not recommended to use the local lists as they might be out of date.
-#' options(bio.use_local_list = TRUE)
+#' options(bio.local_list = TRUE)
 #' list_name <- "mini"
 #'
 #' # Use package name
@@ -580,14 +580,14 @@ get_pkgs_installation_status_raw <- function(list_name = NULL, pkgs = NULL,
 #
 # include <- show_status <- install <- cran <- github <- elsewhere <- "outdated"
 #
-# use_local_list <- TRUE
+# local_list <- TRUE
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # ========================================================================== ~
 get_pkgs_installation_status <- function(list_name = NULL, include = "outdated",
   show_status = include, install = include, cran = install,
   github = install, other_repos = install, using_code = install,
-  use_local_list = getOption("bio.use_local_list", FALSE), pkgs = NULL) {
+  local_list = getOption("bio.local_list", FALSE), pkgs = NULL) {
 
   if (is.null(list_name) && is.null(pkgs)) {
     ui_stop(paste0(
@@ -613,11 +613,11 @@ get_pkgs_installation_status <- function(list_name = NULL, include = "outdated",
 
   status_0  <- get_pkgs_installation_status_raw(
     list_name = list_name,
-    use_local_list = use_local_list,
+    local_list = local_list,
     pkgs = pkgs
   )
 
-  pkgs_other <- get_pkgs_non_cran_installation_details(use_local_list = use_local_list)
+  pkgs_other <- get_pkgs_non_cran_installation_details(local_list = local_list)
   additional_repos <- pkgs_other$details[pkgs_other$install_from %in% "repos"]
 
   pkgs_cran  <- get_pkgs_cran_details(repos = additional_repos)
@@ -1123,12 +1123,12 @@ get_pkgs_installation_code_other <- function(x) {
 #'
 #' @examples
 #' if (FALSE) {
-#'   check_packages_by_topic("mini", use_local_list = TRUE)
+#'   check_packages_by_topic("mini", local_list = TRUE)
 #'
-#'   check_packages_by_topic("mini", include = "always", use_local_list = TRUE)
+#'   check_packages_by_topic("mini", include = "always", local_list = TRUE)
 #'
 #'   check_packages_by_topic("mini", include = "always", install = "outdated",
-#'    github = "always", use_local_list = TRUE)
+#'    github = "always", local_list = TRUE)
 #'
 #'
 #'   check_packages_by_name("bio")
@@ -1138,11 +1138,11 @@ get_pkgs_installation_code_other <- function(x) {
 
 # Sys.getenv("R_REMOTES_UPGRADE")
 check_packages_by_topic <- function(list_name = NULL,
-  use_local_list = getOption("bio.use_local_list", FALSE), upgrade = TRUE,
+  local_list = getOption("bio.local_list", FALSE), upgrade = TRUE,
   ...) {
 
   status <-
-    get_pkgs_installation_status(list_name, use_local_list = use_local_list, ...)
+    get_pkgs_installation_status(list_name, local_list = local_list, ...)
 
   upgrade_str <- get_upgrade_str(upgrade)
 
@@ -1174,11 +1174,11 @@ check_packages_by_topic <- function(list_name = NULL,
 #' @rdname check_packages
 #' @export
 check_packages_by_name <- function(pkgs = NULL,
-  use_local_list = getOption("bio.use_local_list", FALSE), upgrade = TRUE,
+  local_list = getOption("bio.local_list", FALSE), upgrade = TRUE,
   ...) {
 
   status <-
-    get_pkgs_installation_status(pkgs = pkgs, use_local_list = use_local_list, ...)
+    get_pkgs_installation_status(pkgs = pkgs, local_list = local_list, ...)
 
   upgrade_str <- get_upgrade_str(upgrade)
 

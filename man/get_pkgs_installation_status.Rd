@@ -17,7 +17,7 @@ get_pkgs_installation_status(
   github = install,
   other_repos = install,
   using_code = install,
-  use_local_list = getOption("bio.use_local_list", FALSE),
+  local_list = getOption("bio.local_list", FALSE),
   pkgs = NULL
 )
 
@@ -83,13 +83,13 @@ be included in code that installs packages from other sources.
 See options of \code{include} plus value \code{"required"}.
 Defaults to the value of \code{install}.}
 
-\item{use_local_list}{(logical) If \code{TRUE}, the list, which is locally
+\item{local_list}{(logical) If \code{TRUE}, the list, which is locally
 installed in the folder of package \pkg{bio} ("local list"), is used.
 If \code{FALSE}, the list on "GitHub" repository of the package is used.
 It is recommended  using the online version of the list, as it may
 contain more recent changes.
 Optiom bight be set globally by, e.g.,
-\code{options(bio.use_local_list = TRUE)}.}
+\code{options(bio.local_list = TRUE)}.}
 
 \item{pkgs}{(character) The name (vector of names) of R packages.
 Either \code{list_name} or \code{pkgs} must be \code{NULL}.}
@@ -112,7 +112,7 @@ or need to be updated) and package installation code.
 if (FALSE) {
 
 # NOTE: It is not recommended to use the local lists as they might be out of date.
-options(bio.use_local_list = TRUE)
+options(bio.local_list = TRUE)
 list_name <- "mini"
 
 # Use package name

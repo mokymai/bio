@@ -8,7 +8,7 @@ output: github_document
 <!-- # Package **_bio_** -->
 
 ```{r README-0, include=FALSE}
-options(bio.use_local_list = TRUE)
+options(bio.local_list = TRUE)
 
 options(
   repos = "https://cran.rstudio.com/",

@@ -73,7 +73,7 @@ check_installed_programs <- function(type = "main", skip_online_check = FALSE) {
     skip_online_check <- check_internet_connection()
   }
 
-  v_req <- get_prgm_req_version(use_local_list = skip_online_check)
+  v_req <- get_prgm_req_version(local_list = skip_online_check)
 
   # R
   check_r_version(v_recommended = v_req$R, skip_online_check = skip_online_check)
@@ -122,10 +122,10 @@ check_installed_programs <- function(type = "main", skip_online_check = FALSE) {
 # ~~~~~~~~~~~~~~~~~~~~~ ======================================================
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-get_path_program_req_version <- function(use_local_list) {
+get_path_program_req_version <- function(local_list) {
   base_name <- "programs-required-version.txt"
 
-  if (isTRUE(use_local_list)) {
+  if (isTRUE(local_list)) {
     file <- path_bio(base_name)
     if (!file.exists(file)) {
       stop("File '", base_name, "' was not found.")
@@ -138,9 +138,9 @@ get_path_program_req_version <- function(use_local_list) {
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-get_prgm_req_version <- function(use_local_list = getOption("bio.use_local_list", FALSE)) {
+get_prgm_req_version <- function(local_list = getOption("bio.local_list", FALSE)) {
 
-  file <- get_path_program_req_version(use_local_list)
+  file <- get_path_program_req_version(local_list)
 
   # text <- download_from_github_with_curl(file)
 

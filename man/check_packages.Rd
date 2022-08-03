@@ -8,14 +8,14 @@
 \usage{
 check_packages_by_topic(
   list_name = NULL,
-  use_local_list = getOption("bio.use_local_list", FALSE),
+  local_list = getOption("bio.local_list", FALSE),
   upgrade = TRUE,
   ...
 )
 
 check_packages_by_name(
   pkgs = NULL,
-  use_local_list = getOption("bio.use_local_list", FALSE),
+  local_list = getOption("bio.local_list", FALSE),
   upgrade = TRUE,
   ...
 )
@@ -24,13 +24,13 @@ check_packages_by_name(
 \item{list_name}{(character) The name of the list with required R packages.
 E.g., "mini", "Rcmdr", "Rcmdr-biostat", "bio", etc.}
 
-\item{use_local_list}{(logical) If \code{TRUE}, the list, which is locally
+\item{local_list}{(logical) If \code{TRUE}, the list, which is locally
 installed in the folder of package \pkg{bio} ("local list"), is used.
 If \code{FALSE}, the list on "GitHub" repository of the package is used.
 It is recommended  using the online version of the list, as it may
 contain more recent changes.
 Optiom bight be set globally by, e.g.,
-\code{options(bio.use_local_list = TRUE)}.}
+\code{options(bio.local_list = TRUE)}.}
 
 \item{upgrade}{Upgrade dependencies.
 See \code{upgrade} in \code{\link[remotes:install_cran]{remotes::install_cran()}}.}
@@ -49,12 +49,12 @@ installed and have minimum required versions.
 }
 \examples{
 if (FALSE) {
-  check_packages_by_topic("mini", use_local_list = TRUE)
+  check_packages_by_topic("mini", local_list = TRUE)
 
-  check_packages_by_topic("mini", include = "always", use_local_list = TRUE)
+  check_packages_by_topic("mini", include = "always", local_list = TRUE)
 
   check_packages_by_topic("mini", include = "always", install = "outdated",
-   github = "always", use_local_list = TRUE)
+   github = "always", local_list = TRUE)
 
 
   check_packages_by_name("bio")
