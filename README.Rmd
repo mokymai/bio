@@ -101,7 +101,7 @@ bio::check_user_info()
 Check versions of presence of installed R-related and other programs. 
 Options:
 
-- `"main"`{.r} (default) -- checks for "R", "RStudio", and "Rtools" ("Windows" only) or "Compiler" (non-"Windows" only).
+- `"main"`{.r} (default) -- checks for "R", "RStudio", and "Rtools" ("Windows" only) or "Compiler (R Build Tools)" (non-"Windows" only).
 - `"all"`{.r} -- additionally checks for presence of "XQuartz" ("Mac" only), "Git" (all systems), and (sometimes) "Meld". 
   <!-- This check may not work properly on "Mac" and "Linux". -->
 
