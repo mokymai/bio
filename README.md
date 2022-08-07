@@ -8,7 +8,7 @@ Package ***bio***
 [![GitHub
 version](https://img.shields.io/badge/GitHub-0.2.0-brightgreen.svg)](https://github.com/mokymai/bio)
 [![R-CMD-check](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
-[![Updated-on](https://img.shields.io/badge/Updated%20on-2022--08--03-yellowgreen.svg)](/commits/master)
+[![Updated-on](https://img.shields.io/badge/Updated%20on-2022--08--07-yellowgreen.svg)](/commits/master)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
@@ -83,7 +83,7 @@ Check versions of presence of installed R-related and other programs.
 Options:
 
 -   `"main"` (default) – checks for “R”, “RStudio”, and “Rtools”
-    (“Windows” only) or “Compiler” (non-“Windows” only).
+    (“Windows” only) or “Compiler (R Build Tools)” (non-“Windows” only).
 -   `"all"` – additionally checks for presence of “XQuartz” (“Mac”
     only), “Git” (all systems), and (sometimes) “Meld”.
     <!-- This check may not work properly on "Mac" and "Linux". -->
