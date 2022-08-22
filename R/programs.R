@@ -86,7 +86,7 @@ check_installed_programs <- function(type = "main", skip_online_check = FALSE) {
     if (get_os_type() == "windows") {
       "Rtools"
     } else {
-      "Compiler (R Build Tools)"
+      "R Build Tools"
     }
   # TODO (SEE ALSO): rstudioapi::buildToolsCheck(); pkgbuild::has_build_tools()
   # FIXME: Might not work properly if RStudio is not running
@@ -259,7 +259,7 @@ check_program_version  <- function(program = "", r_installed = "", v_recommended
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_r_version <- function(v_recommended = "4.2.0", skip_online_check = FALSE) {
+check_r_version <- function(v_recommended = "4.2.1", skip_online_check = FALSE) {
 
   check_program_version(
     program = 'R',
@@ -270,7 +270,7 @@ check_r_version <- function(v_recommended = "4.2.0", skip_online_check = FALSE) 
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_rs_version <- function(v_recommended = "2022.2.3.492", skip_online_check = FALSE) {
+check_rs_version <- function(v_recommended = "2022.7.1", skip_online_check = FALSE) {
 
   if (!rstudioapi::isAvailable()) {
     ui_oops("Program {red('RStudio')} is not installed or is not running. ")
