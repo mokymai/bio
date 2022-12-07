@@ -84,8 +84,12 @@
 <div class="page-header"><h1 id="package-bio">Package <strong><em>bio</em></strong>
 <a class="anchor" aria-label="anchor" href="#package-bio"></a>
 </h1></div>
-<!-- README.md is generated from README.Rmd. Please edit that file --><!-- # Package **_bio_** --><!-- badges: start -->
-<!-- [![GitHub last commit](https://img.shields.io/github/last-commit/mokymai/bio)](https://github.com/mokymai/bio) --><p>Convenience functions to facilitate installation and management of required resources for course units <strong><em>Biostatistics</em></strong> (<em>BS-2022</em>) and <strong><em>Introduction to data analysis with R</em></strong> (<em>R-2022</em>).</p>
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+<!-- # Package **_bio_** -->
+<!-- badges: start -->
+
+<!-- [![GitHub last commit](https://img.shields.io/github/last-commit/mokymai/bio)](https://github.com/mokymai/bio) -->
+<p>Convenience functions to facilitate installation and management of required resources for course units <strong><em>Biostatistics</em></strong> (<em>BS-2022</em>) and <strong><em>Introduction to data analysis with R</em></strong> (<em>R-2022</em>).</p>
 <center>
 <br><font color="darkred" size="4"> This package is intended to be used with <b>RStudio 2022.07.1</b> or newer<br> and <b>R 4.2.1</b> or newer.<br></font> <font color="darkred" size="3"> Functions may not work correctly with the previous versions of RStudio and R. </font> <br><br><br>
 </center>
@@ -98,11 +102,14 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">repos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"https://mokymai.github.io/download/"</span>, <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">getOption</a></span><span class="op">(</span><span class="st">"repos"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"bio"</span>, repos <span class="op">=</span> <span class="va">repos</span><span class="op">)</span></span></code></pre></div>
-<details><summary>Install form GitHub</summary><p>To install this package from GitHub:</p>
+<details><summary>
+Install form GitHub
+</summary><p>To install this package from GitHub:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org" class="external-link">remotes</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"mokymai/bio"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p>Note: installation from <em>GitHub</em> requires <em>RTools</em> on <em>Windows</em>.</p></details>
+<p>Note: installation from <em>GitHub</em> requires <em>RTools</em> on <em>Windows</em>.</p>
+</details>
 </div>
 <div class="section level1">
 <h1 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
@@ -155,7 +162,9 @@
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/check_packages.html">check_packages_by_name</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"bio"</span>, <span class="st">"remotes"</span>, <span class="st">"tidyverse"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">## ✔ Minimal required versions of all 3 packages are already installed.</span></span></code></pre></div>
 <p>There is a less recommended way (due to lower transparency) to check installation status of packages by topic. By default, only missing packages or packages with lower versions than recommended are displayed. Currently available lists can be returned by function <code><a href="reference/get_pkgs_installation_status.html">bio::get_pkg_lists_local()</a></code>.</p>
-<details><summary>Details</summary><ul>
+<details><summary>
+Details
+</summary><ul>
 <li><code>'addins-rmd'</code></li>
 <li><code>'bio'</code></li>
 <li><code>'confidence-intervals'</code></li>
@@ -201,12 +210,17 @@
 <p>Update package <strong>snippets</strong>.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/update_pkg_snippets.html">update_pkg_snippets</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<!-- Update package **RcmdrPlugin.biostat**. --><!-- ```{r README-5a, eval=FALSE} --><!-- bio::update_pkg_rcmdr_biostat() --><!-- ``` -->
+<!-- Update package **RcmdrPlugin.biostat**. -->
+<!-- ```{r README-5a, eval=FALSE} -->
+<!-- bio::update_pkg_rcmdr_biostat() -->
+<!-- ``` -->
 </div>
 <div class="section level2">
 <h2 id="rstudio-settings-and-user-preferences">RStudio settings and user preferences<a class="anchor" aria-label="anchor" href="#rstudio-settings-and-user-preferences"></a>
 </h2>
-<blockquote><p>Make sure that you understand what you are doing when you try using the functions that reset RStudio key bindings (shortcut keys), settings or snippets. <strong>You may loose <em>all</em> your previous settings.</strong></p></blockquote>
+<blockquote>
+<p>Make sure that you understand what you are doing when you try using the functions that reset RStudio key bindings (shortcut keys), settings or snippets. <strong>You may loose <em>all</em> your previous settings.</strong></p>
+</blockquote>
 <div class="section level3">
 <h3 id="dictionaries">Dictionaries<a class="anchor" aria-label="anchor" href="#dictionaries"></a>
 </h3>
@@ -241,8 +255,8 @@
 <span><span class="co">## ✔ Shortcut keys were reset to bio-default.</span></span></code></pre></div>
 <table class="table">
 <colgroup>
-<col width="27%">
-<col width="72%">
+<col width="38%">
+<col width="61%">
 </colgroup>
 <thead><tr class="header">
 <th>Shortcut</th>
@@ -337,7 +351,30 @@
 </tbody>
 </table>
 <p><strong>Table 1.</strong> Some examples of shortcut keys set with option <code>"bio-default"</code>.</p>
-<!-- : **Table 1.** Some examples of shortcut keys set with option `"bio-default"`{.r}. --><!--  --><!-- Shortcut  | Action --><!-- --------- | ------------------------------------------------------------------------------------------------------------------------------------------- --><!-- Ctrl Shift Alt S  | Check spelling in selected text. Package [**wellspell.addin**](https://github.com/nevrome/wellspell.addin){target="_blank"} must be installed. --><!-- Shift Alt A          | Use "Tidyverse" style on selected lines of R code. Package **styler** must be installed (*R code*). --><!-- Ctrl Alt D           | Document R package (that you are building). --><!-- Ctrl Shift D         | Duplicate selected text. --><!-- Ctrl Shift Alt P  | Align parts of selected lines at a custom pattern. --><!-- Ctrl Shift ;         | Insert lower opening quotes `„`. --><!-- Ctrl Shift '         | Insert upper closing quotes `“`. --><!-- Ctrl E                  | **Insert/Enclose with R code block** (*R Markdown*) **[!]** . --><!-- Ctrl Alt T           | Insert inline code highlighted as R code (R Markdown). --><!-- Shift Alt S          | Insert inline LaTeX equation (*R Markdown*). --><!-- Ctrl Alt NumPad0     | Remove heading/section name (*R Markdown*). --><!-- Ctrl Alt NumPad1     | Replace line into/Insert heading (section name) of level 1 (*R Markdown*). --><!-- Ctrl Alt NumPad2     | ... of level 2 (*R Markdown*). --><!-- Ctrl Alt NumPad3     | ... of level 3 (*R Markdown*). --><!-- Ctrl Alt NumPad4     | ... of level 4 (*R Markdown*). --><!-- Ctrl Alt NumPad5     | ... of level 5 (*R Markdown*). --><!-- Ctrl Alt NumPad6     | ... of level 6 (*R Markdown*). --><!-- Ctrl Alt NumPad7     | Insert operator `%in%` (*R code*). --><!-- Ctrl Alt NumPad8     | Insert operator `%*%` (*R code*). --><p>More on <a href="https://support.rstudio.com/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts" target="_blank" class="external-link">Customizing Keyboard Shortcuts</a> in RStudio.</p>
+<!-- : **Table 1.** Some examples of shortcut keys set with option `"bio-default"`{.r}. -->
+<!--  -->
+<!-- Shortcut  | Action -->
+<!-- --------- | ------------------------------------------------------------------------------------------------------------------------------------------- -->
+<!-- Ctrl Shift Alt S  | Check spelling in selected text. Package [**wellspell.addin**](https://github.com/nevrome/wellspell.addin){target="_blank"} must be installed. -->
+<!-- Shift Alt A          | Use "Tidyverse" style on selected lines of R code. Package **styler** must be installed (*R code*). -->
+<!-- Ctrl Alt D           | Document R package (that you are building). -->
+<!-- Ctrl Shift D         | Duplicate selected text. -->
+<!-- Ctrl Shift Alt P  | Align parts of selected lines at a custom pattern. -->
+<!-- Ctrl Shift ;         | Insert lower opening quotes `„`. -->
+<!-- Ctrl Shift '         | Insert upper closing quotes `“`. -->
+<!-- Ctrl E                  | **Insert/Enclose with R code block** (*R Markdown*) **[!]** . -->
+<!-- Ctrl Alt T           | Insert inline code highlighted as R code (R Markdown). -->
+<!-- Shift Alt S          | Insert inline LaTeX equation (*R Markdown*). -->
+<!-- Ctrl Alt NumPad0     | Remove heading/section name (*R Markdown*). -->
+<!-- Ctrl Alt NumPad1     | Replace line into/Insert heading (section name) of level 1 (*R Markdown*). -->
+<!-- Ctrl Alt NumPad2     | ... of level 2 (*R Markdown*). -->
+<!-- Ctrl Alt NumPad3     | ... of level 3 (*R Markdown*). -->
+<!-- Ctrl Alt NumPad4     | ... of level 4 (*R Markdown*). -->
+<!-- Ctrl Alt NumPad5     | ... of level 5 (*R Markdown*). -->
+<!-- Ctrl Alt NumPad6     | ... of level 6 (*R Markdown*). -->
+<!-- Ctrl Alt NumPad7     | Insert operator `%in%` (*R code*). -->
+<!-- Ctrl Alt NumPad8     | Insert operator `%*%` (*R code*). -->
+<p>More on <a href="https://support.rstudio.com/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts" target="_blank" class="external-link">Customizing Keyboard Shortcuts</a> in RStudio.</p>
 </div>
 <div class="section level3">
 <h3 id="rstudio-settings">RStudio settings<a class="anchor" aria-label="anchor" href="#rstudio-settings"></a>
@@ -393,7 +430,24 @@
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/restart-reload.html">restart_r</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Useful to apply before trying to install R packages.</p>
-<!-- ## RStudio projects --><!-- Open (recently used) RStudio project. --><!-- ```{r README-11, eval=FALSE} --><!-- bio::open_project() --><!-- ##  --><!-- ## Choose the name of the project (press 0 to cancel):  --><!-- ##  --><!-- ##  1: project-1  --><!-- ##  2: _learn --><!-- ##  3: biostatistics --><!-- ##   --><!-- ##  Selection: 0 --><!-- ##  Cancelled by user. --><!-- ``` --><!-- Copy the recent projects to your personal project list. --><!-- ```{r README-12, eval=FALSE} --><!-- bio::update_rstudio_proj_list_user() --><!-- ``` -->
+<!-- ## RStudio projects -->
+<!-- Open (recently used) RStudio project. -->
+<!-- ```{r README-11, eval=FALSE} -->
+<!-- bio::open_project() -->
+<!-- ##  -->
+<!-- ## Choose the name of the project (press 0 to cancel):  -->
+<!-- ##  -->
+<!-- ##  1: project-1  -->
+<!-- ##  2: _learn -->
+<!-- ##  3: biostatistics -->
+<!-- ##   -->
+<!-- ##  Selection: 0 -->
+<!-- ##  Cancelled by user. -->
+<!-- ``` -->
+<!-- Copy the recent projects to your personal project list. -->
+<!-- ```{r README-12, eval=FALSE} -->
+<!-- bio::update_rstudio_proj_list_user() -->
+<!-- ``` -->
 </div>
 </div>
 </div>
