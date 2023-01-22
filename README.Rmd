@@ -32,14 +32,14 @@ Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS = "true")
 
 
 
-Convenience functions to facilitate installation and management of required resources for course units __*Biostatistics*__  (*BS-2022*) and __*Introduction to data analysis with R*__ (*R-2022*).
+Convenience functions to facilitate installation and management of required resources for course units __*Biostatistics*__  (*BS-2023*) and __*Introduction to data analysis with R*__.
 
 
 <center>
 <br>
 <font color="darkred" size=4>
-This package is intended to be used with <b>RStudio 2022.07.1</b> or newer<br>
-and <b>R 4.2.1</b> or newer.<br>
+This package is intended to be used with <b>RStudio 2022.12.0</b> or newer<br>
+and <b>R 4.2.2</b> or newer.<br>
 </font>
 <font color="darkred" size=3>
 Functions may not work correctly with the previous versions of RStudio and R.
@@ -91,7 +91,7 @@ bio::check_user_info()
 ## USERPROFILE         C:/Users/User
 ## HOME                C:/Users/User
 ## R_USER              C:/Users/User
-## R_HOME              C:/PROGRA~1/R/R-4.2.1
+## R_HOME              C:/PROGRA~1/R/R-4.2.2
 ## R_LIBS_USER         C:/Users/User/AppData/Local/R/win-library/4.2
 ```
 
@@ -101,22 +101,24 @@ bio::check_user_info()
 Check versions of presence of installed R-related and other programs. 
 Options:
 
-- `"main"`{.r} (default) -- checks for "R", "RStudio", and "Rtools" ("Windows" only) or "Compiler (R Build Tools)" (non-"Windows" only).
+- `"main"`{.r} (default) -- checks for "R", "RStudio", "Quarto", and "Rtools" ("Windows" only) or "R Build Tools" (non-"Windows" only).
 - `"all"`{.r} -- additionally checks for presence of "XQuartz" ("Mac" only), "Git" (all systems), and (sometimes) "Meld". 
   <!-- This check may not work properly on "Mac" and "Linux". -->
 
 
 ```{r README-7a, eval=FALSE}
 bio::check_installed_programs()
-## ✔ Program R (4.2.1) is installed (recommended 4.2.1, available 4.2.1).
-## ✖ Program RStudio is not installed or is not running.
+## ✔ Program R (4.2.2) is installed (recommended >= 4.2.2).
+## ✖ Program RStudio is not installed or is not running. 
+## ✔ Tool Quarto (1.2.313) is installed (recommended >= 1.2.313).
 ## ✔ Tool Rtools is installed.
 ```
 
 ```{r README-7b, eval=FALSE}
 bio::check_installed_programs("all")
-## ✔ Program R (4.2.1) is installed (recommended 4.2.1, available 4.2.1).
+## ✔ Program R (4.2.2) is installed (recommended 4.2.2, available 4.2.2).
 ## ✔ Program RStudio (2022.7.0.548) is installed (recommended 2022.7.0, available 2022.7.1.554).
+## ✔ Tool Quarto (1.2.313) is installed (recommended >= 1.2.313).
 ## ✔ Tool Rtools is installed.
 ## ✔ Program Git is installed.
 ## ✔ Program Meld is installed.
@@ -239,7 +241,7 @@ bio::rstudio_reset_keybindings()
 
 Options:
 
-- `"bio-default"`{.r} -- shortcut keys recommended for courses BS-2022 and R-2022.
+- `"bio-default"`{.r} -- shortcut keys recommended for course BS-2023.
 - `"rstudio-default"`{.r} -- RStudio defaults.
 
 ```{r README-9b, eval=FALSE}
@@ -310,9 +312,9 @@ bio::rstudio_reset_user_settings()
 
 The options:
 
-- `"bio-default"`{.r} --  recommended BS-2022 and R-2022 settings (and light theme "Textmate (default)");
-- `"bio-dark-blue"`{.r} -- recommended BS-2022 and R-2022 settings (and dark blue theme "Cobalt");
-- `"bio-black"`{.r} -- recommended BS-2022 and R-2022 settings (and black theme "Chaos");
+- `"bio-default"`{.r} --  recommended `bio` settings (and light theme "Textmate (default)");
+- `"bio-dark-blue"`{.r} -- recommended `bio` settings (and dark blue theme "Cobalt");
+- `"bio-black"`{.r} -- recommended `bio` settings (and black theme "Chaos");
 - `"rstudio-default"`{.r} -- default RStudio settings.
 
 ```{r README-10b, eval=FALSE}

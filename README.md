@@ -6,9 +6,9 @@ Package ***bio***
 <!-- badges: start -->
 
 [![GitHub
-version](https://img.shields.io/badge/GitHub-0.2.0-brightgreen.svg)](https://github.com/mokymai/bio)
+version](https://img.shields.io/badge/GitHub-0.2.1-brightgreen.svg)](https://github.com/mokymai/bio)
 [![R-CMD-check](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
-[![Updated-on](https://img.shields.io/badge/Updated%20on-2022--12--07-yellowgreen.svg)](/commits/master)
+[![Updated-on](https://img.shields.io/badge/Updated%20on-2023--01--22-yellowgreen.svg)](/commits/master)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
@@ -16,12 +16,12 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 <!-- [![GitHub last commit](https://img.shields.io/github/last-commit/mokymai/bio)](https://github.com/mokymai/bio) -->
 
 Convenience functions to facilitate installation and management of
-required resources for course units ***Biostatistics*** (*BS-2022*) and
-***Introduction to data analysis with R*** (*R-2022*).
+required resources for course units ***Biostatistics*** (*BS-2023*) and
+***Introduction to data analysis with R***.
 
 <center>
 <br> <font color="darkred" size=4> This package is intended to be used
-with <b>RStudio 2022.07.1</b> or newer<br> and <b>R 4.2.1</b> or
+with <b>RStudio 2022.12.0</b> or newer<br> and <b>R 4.2.2</b> or
 newer.<br> </font> <font color="darkred" size=3> Functions may not work
 correctly with the previous versions of RStudio and R. </font>
 <br><br><br>
@@ -73,7 +73,7 @@ bio::check_user_info()
 ## USERPROFILE         C:/Users/User
 ## HOME                C:/Users/User
 ## R_USER              C:/Users/User
-## R_HOME              C:/PROGRA~1/R/R-4.2.1
+## R_HOME              C:/PROGRA~1/R/R-4.2.2
 ## R_LIBS_USER         C:/Users/User/AppData/Local/R/win-library/4.2
 ```
 
@@ -82,23 +82,25 @@ bio::check_user_info()
 Check versions of presence of installed R-related and other programs.
 Options:
 
-- `"main"` (default) – checks for “R”, “RStudio”, and “Rtools”
-  (“Windows” only) or “Compiler (R Build Tools)” (non-“Windows” only).
+- `"main"` (default) – checks for “R”, “RStudio”, “Quarto”, and “Rtools”
+  (“Windows” only) or “R Build Tools” (non-“Windows” only).
 - `"all"` – additionally checks for presence of “XQuartz” (“Mac” only),
   “Git” (all systems), and (sometimes) “Meld”.
   <!-- This check may not work properly on "Mac" and "Linux". -->
 
 ``` r
 bio::check_installed_programs()
-## ✔ Program R (4.2.1) is installed (recommended 4.2.1, available 4.2.1).
-## ✖ Program RStudio is not installed or is not running.
+## ✔ Program R (4.2.2) is installed (recommended >= 4.2.2).
+## ✖ Program RStudio is not installed or is not running. 
+## ✔ Tool Quarto (1.2.313) is installed (recommended >= 1.2.313).
 ## ✔ Tool Rtools is installed.
 ```
 
 ``` r
 bio::check_installed_programs("all")
-## ✔ Program R (4.2.1) is installed (recommended 4.2.1, available 4.2.1).
+## ✔ Program R (4.2.2) is installed (recommended 4.2.2, available 4.2.2).
 ## ✔ Program RStudio (2022.7.0.548) is installed (recommended 2022.7.0, available 2022.7.1.554).
+## ✔ Tool Quarto (1.2.313) is installed (recommended >= 1.2.313).
 ## ✔ Tool Rtools is installed.
 ## ✔ Program Git is installed.
 ## ✔ Program Meld is installed.
@@ -229,8 +231,7 @@ bio::rstudio_reset_keybindings()
 
 Options:
 
-- `"bio-default"` – shortcut keys recommended for courses BS-2022 and
-  R-2022.
+- `"bio-default"` – shortcut keys recommended for course BS-2023.
 - `"rstudio-default"` – RStudio defaults.
 
 ``` r
@@ -302,12 +303,11 @@ bio::rstudio_reset_user_settings()
 
 The options:
 
-- `"bio-default"` – recommended BS-2022 and R-2022 settings (and light
-  theme “Textmate (default)”);
-- `"bio-dark-blue"` – recommended BS-2022 and R-2022 settings (and dark
-  blue theme “Cobalt”);
-- `"bio-black"` – recommended BS-2022 and R-2022 settings (and black
-  theme “Chaos”);
+- `"bio-default"` – recommended `bio` settings (and light theme
+  “Textmate (default)”);
+- `"bio-dark-blue"` – recommended `bio` settings (and dark blue theme
+  “Cobalt”);
+- `"bio-black"` – recommended `bio` settings (and black theme “Chaos”);
 - `"rstudio-default"` – default RStudio settings.
 
 ``` r
