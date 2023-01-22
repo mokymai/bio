@@ -82,7 +82,7 @@ check_installed_programs <- function(type = "main", skip_online_check = FALSE) {
   check_rs_version(v_recommended = v_req$RStudio, skip_online_check = skip_online_check)
 
   # Quarto
-    check_tool_installed("Quarto", quarto::quarto_version())
+  check_quarto_version(v_recommended = v_req$Quarto)
 
   # R Build Tools (on Windows, they are called 'Rtools')
   tool_name <-
@@ -197,7 +197,8 @@ get_available_rs_version <- function(force = FALSE, skip = FALSE) {
 
   if (force || pingr::is_online()) {
 
-    "https://rstudio.com/products/rstudio/download/" %>%
+    # "https://rstudio.com/products/rstudio/download/" %>%
+    "https://posit.co/download/rstudio-desktop/" %>%
       readr::read_lines() %>%
       stringr::str_extract("(?<=RStudio-).*?(?=.exe)") %>%
       .[!is.na(.)] %>%
@@ -211,6 +212,7 @@ get_available_rs_version <- function(force = FALSE, skip = FALSE) {
     ))
   }
 }
+
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 check_internet_connection <- function() {
@@ -228,8 +230,13 @@ check_internet_connection <- function() {
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_program_version  <- function(name = "", v_installed = "",
-  v_recommended = "", v_available = NULL, type = "Program") {
+check_program_version  <- function(name = "", v_installed = NULL,
+  v_recommended = NULL, v_available = NULL, type = "Program") {
+
+  print_fun <- ui_info
+  v_color   <- red
+  r_color   <- red
+  install_status <- ""
 
   v_recommended <- numeric_version(v_recommended)
   v_installed   <- numeric_version(v_installed)
@@ -264,13 +271,14 @@ check_program_version  <- function(name = "", v_installed = "",
 
   print_fun(paste0(
     "{type} {blue(name)} ({v_color(v_installed)}) {install_status} ",
-    "(recommended {r_color(v_recommended)}{if_available})."
+    "(recommended >= {r_color(v_recommended)}{if_available})."
   ))
 }
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_r_version <- function(v_recommended = "4.2.1", skip_online_check = FALSE) {
+check_r_version <- function(v_recommended = "4.2.1",
+                            skip_online_check = FALSE) {
 
   check_program_version(
     name = 'R',
@@ -284,10 +292,11 @@ check_quarto_version <- function(v_recommended = "1.2.313",
                                  skip_online_check = FALSE) {
 
   check_program_version(
-    name = 'R',
-    v_installed = getRversion(),
-    v_available = get_available_r_version(skip = skip_online_check),
-    v_recommended = v_recommended
+    name = 'Quarto',
+    v_installed = quarto::quarto_version(),
+    v_available = NULL,
+    v_recommended = v_recommended,
+    type = "Tool"
   )
 }
 
