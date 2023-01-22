@@ -1,6 +1,6 @@
 ---
 title: "Minimal required versions of packages"
-date:  2022-08-03
+date:  2023-01-22
 notes: ""
 
 
@@ -16,7 +16,7 @@ backup.tools                | 0.0.1            | FALSE  | -
 bio                         | 0.2.0            | FALSE  | -
 BiocManager                 | 1.30.18          | FALSE  | -
 blogdown                    | 1.9              | FALSE  | -
-bookdown                    | 0.27             | FALSE  | -
+bookdown                    | 0.32             | FALSE  | -
 broom                       | 1.0.0            | FALSE  | -
 bslib                       | 0.4.0            | FALSE  | -
 car                         | 3.1-0            | FALSE  | Rcmdr
@@ -40,8 +40,8 @@ fs                          | 1.5.2            | FALSE  | -
 ggforce                     | 0.3.3            | FALSE  | -
 gghighlight                 | 0.3.3            | FALSE  | -
 ggmosaic                    | 0.3.3            | FALSE  | -
-ggplot2                     | 3.3.6            | FALSE  | -
-ggpubr                      | 0.4.0            | FALSE  | -
+ggplot2                     | 3.4.0            | FALSE  | -
+ggpubr                      | 0.5.0            | FALSE  | -
 ggstatsplot                 | 0.9.3            | FALSE  | -
 ggtext                      | 0.1.1            | FALSE  | -
 glue                        | 1.6.2            | FALSE  | -
@@ -49,13 +49,13 @@ gt                          | 0.6.0            | FALSE  | -
 gtsummary                   | 1.6.1            | FALSE  | -
 haven                       | 2.5.0            | FALSE  | -
 hms                         | 1.1.1            | FALSE  | -
-hunspell                    | 3.0.1            | FALSE  | On GithHub 3.0.2
+hunspell                    | 3.0.2            | FALSE  | -
 inspectdf                   | 0.0.11           | FALSE  | -
 janitor                     | 2.1.0            | FALSE  | -
 jsonlite                    | 1.8.0            | FALSE  | -
 knitr                       | 1.39             | FALSE  | -
 LanguageToolR               | 0.1.3            | FALSE  | -
-latex2exp                   | 0.9.4            | FALSE  | -
+latex2exp                   | 0.9.6            | FALSE  | -
 lm.beta                     | 1.6-2            | FALSE  | -
 magick                      | 2.7.3            | FALSE  | -
 magrittr                    | 2.0.3            | FALSE  | -
@@ -71,6 +71,7 @@ pkgdown                     | 2.0.6            | FALSE  | -
 plotly                      | 4.9.4.1          | FALSE  | -
 purrr                       | 0.3.4            | FALSE  | -
 qqplotr                     | 0.0.5            | FALSE  | -
+quarto                      | 1.2              | FALSE  | -
 Rcmdr                       | 2.7-2            | FALSE  | -
 RcmdrMisc                   | 2.7-2            | FALSE  | -
 RcmdrPlugin.biostat         | 0.0.70           | FALSE  | -

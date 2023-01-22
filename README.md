@@ -6,9 +6,9 @@ Package ***bio***
 <!-- badges: start -->
 
 [![GitHub
-version](https://img.shields.io/badge/GitHub-0.2.0-brightgreen.svg)](https://github.com/mokymai/bio)
+version](https://img.shields.io/badge/GitHub-0.2.1-brightgreen.svg)](https://github.com/mokymai/bio)
 [![R-CMD-check](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
-[![Updated-on](https://img.shields.io/badge/Updated%20on-2022--08--07-yellowgreen.svg)](/commits/master)
+[![Updated-on](https://img.shields.io/badge/Updated%20on-2023--01--22-yellowgreen.svg)](/commits/master)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
@@ -16,12 +16,12 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 <!-- [![GitHub last commit](https://img.shields.io/github/last-commit/mokymai/bio)](https://github.com/mokymai/bio) -->
 
 Convenience functions to facilitate installation and management of
-required resources for course units ***Biostatistics*** (*BS-2022*) and
-***Introduction to data analysis with R*** (*R-2022*).
+required resources for course units ***Biostatistics*** (*BS-2023*) and
+***Introduction to data analysis with R***.
 
 <center>
 <br> <font color="darkred" size=4> This package is intended to be used
-with <b>RStudio 2022.07.1</b> or newer<br> and <b>R 4.2.1</b> or
+with <b>RStudio 2022.12.0</b> or newer<br> and <b>R 4.2.2</b> or
 newer.<br> </font> <font color="darkred" size=3> Functions may not work
 correctly with the previous versions of RStudio and R. </font>
 <br><br><br>
@@ -73,7 +73,7 @@ bio::check_user_info()
 ## USERPROFILE         C:/Users/User
 ## HOME                C:/Users/User
 ## R_USER              C:/Users/User
-## R_HOME              C:/PROGRA~1/R/R-4.2.1
+## R_HOME              C:/PROGRA~1/R/R-4.2.2
 ## R_LIBS_USER         C:/Users/User/AppData/Local/R/win-library/4.2
 ```
 
@@ -82,23 +82,25 @@ bio::check_user_info()
 Check versions of presence of installed R-related and other programs.
 Options:
 
--   `"main"` (default) – checks for “R”, “RStudio”, and “Rtools”
-    (“Windows” only) or “Compiler (R Build Tools)” (non-“Windows” only).
--   `"all"` – additionally checks for presence of “XQuartz” (“Mac”
-    only), “Git” (all systems), and (sometimes) “Meld”.
-    <!-- This check may not work properly on "Mac" and "Linux". -->
+- `"main"` (default) – checks for “R”, “RStudio”, “Quarto”, and “Rtools”
+  (“Windows” only) or “R Build Tools” (non-“Windows” only).
+- `"all"` – additionally checks for presence of “XQuartz” (“Mac” only),
+  “Git” (all systems), and (sometimes) “Meld”.
+  <!-- This check may not work properly on "Mac" and "Linux". -->
 
 ``` r
 bio::check_installed_programs()
-## ✔ Program R (4.2.1) is installed (recommended 4.2.1, available 4.2.1).
-## ✖ Program RStudio is not installed or is not running.
+## ✔ Program R (4.2.2) is installed (recommended >= 4.2.2).
+## ✖ Program RStudio is not installed or is not running. 
+## ✔ Tool Quarto (1.2.313) is installed (recommended >= 1.2.313).
 ## ✔ Tool Rtools is installed.
 ```
 
 ``` r
 bio::check_installed_programs("all")
-## ✔ Program R (4.2.1) is installed (recommended 4.2.1, available 4.2.1).
+## ✔ Program R (4.2.2) is installed (recommended 4.2.2, available 4.2.2).
 ## ✔ Program RStudio (2022.7.0.548) is installed (recommended 2022.7.0, available 2022.7.1.554).
+## ✔ Tool Quarto (1.2.313) is installed (recommended >= 1.2.313).
 ## ✔ Tool Rtools is installed.
 ## ✔ Program Git is installed.
 ## ✔ Program Meld is installed.
@@ -125,23 +127,23 @@ Currently available lists can be returned by function
 Details
 </summary>
 
--   `'addins-rmd'`
--   `'bio'`
--   `'confidence-intervals'`
--   `'ggplot-extra-tools'`
--   `'ggplot'`
--   `'gmc-r209'`
--   `'initial'`
--   `'linear-regression'`
--   `'markdown'`
--   `'mini'`
--   `'rcmdr-biostat'`
--   `'rcmdr'`
--   `'snippets'`
--   `'spelling-grammar'`
--   `'statistical-tests'`
--   `'summary'`
--   `'tidyverse'`
+- `'addins-rmd'`
+- `'bio'`
+- `'confidence-intervals'`
+- `'ggplot-extra-tools'`
+- `'ggplot'`
+- `'gmc-r209'`
+- `'initial'`
+- `'linear-regression'`
+- `'markdown'`
+- `'mini'`
+- `'rcmdr-biostat'`
+- `'rcmdr'`
+- `'snippets'`
+- `'spelling-grammar'`
+- `'statistical-tests'`
+- `'summary'`
+- `'tidyverse'`
 
 </details>
 
@@ -229,9 +231,8 @@ bio::rstudio_reset_keybindings()
 
 Options:
 
--   `"bio-default"` – shortcut keys recommended for courses BS-2022 and
-    R-2022.
--   `"rstudio-default"` – RStudio defaults.
+- `"bio-default"` – shortcut keys recommended for course BS-2023.
+- `"rstudio-default"` – RStudio defaults.
 
 ``` r
 bio::rstudio_reset_keybindings(to = "bio-default")
@@ -239,22 +240,23 @@ bio::rstudio_reset_keybindings(to = "bio-default")
 ## ✔ Shortcut keys were reset to bio-default.
 ```
 
-| Shortcut                                                     | Action                                                                                                                                                                |
-|--------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>                 | Insert inline LaTeX equation (*R Markdown*).                                                                                                                          |
-| <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd>                 | Use “Tidyverse” style on selected lines of R code. Package **styler** must be installed (*R code*).                                                                   |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd>                | Duplicate selected text.                                                                                                                                              |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd> | Check spelling in selected text. Package <a href="https://github.com/nevrome/wellspell.addin" target="_blank"><strong>wellspell.addin</strong></a> must be installed. |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>P</kbd> | Align parts of selected lines at a custom pattern.                                                                                                                    |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>\]</kbd>               | Change heading one level down (*R Markdown*) **\[!\]**.                                                                                                               |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>\[</kbd>               | Change heading one level up or remove heading (*R Markdown*) **\[!\]**.                                                                                               |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd>                | Insert lower opening quotes `„`.                                                                                                                                      |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>’</kbd>                | Insert upper closing quotes `“`.                                                                                                                                      |
-| <kbd>Ctrl</kbd>+<kbd>E</kbd>                                 | **Insert/Enclose with R code block** (*R Markdown*) **\[!\]** .                                                                                                       |
-| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>T</kbd>                  | Insert inline code highlighted as R code (R Markdown).                                                                                                                |
-| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad8</kbd>            | Insert operator `%*%` (*R code*).                                                                                                                                     |
-| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad7</kbd>            | Insert operator `%in%` (*R code*).                                                                                                                                    |
-| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>D</kbd>                  | Document R package (that you are building).                                                                                                                           |
+| Shortcut                                                     | Action                                                                                              |
+|--------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
+| <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd>                 | Insert inline LaTeX equation (*R Markdown*).                                                        |
+| <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd>                 | Use “Tidyverse” style on selected lines of R code. Package **styler** must be installed (*R code*). |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd>                | Duplicate selected text.                                                                            |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd> | Check spelling in selected text. Package <a href="https://github.com/nevrome/wellspell.addin"       
+                                                                target="_blank"><strong>wellspell.addin</strong></a> must be installed.                              |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>P</kbd> | Align parts of selected lines at a custom pattern.                                                  |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>\]</kbd>               | Change heading one level down (*R Markdown*) **\[!\]**.                                             |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>\[</kbd>               | Change heading one level up or remove heading (*R Markdown*) **\[!\]**.                             |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd>                | Insert lower opening quotes `„`.                                                                    |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>’</kbd>                | Insert upper closing quotes `“`.                                                                    |
+| <kbd>Ctrl</kbd>+<kbd>E</kbd>                                 | **Insert/Enclose with R code block** (*R Markdown*) **\[!\]** .                                     |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>T</kbd>                  | Insert inline code highlighted as R code (R Markdown).                                              |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad8</kbd>            | Insert operator `%*%` (*R code*).                                                                   |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad7</kbd>            | Insert operator `%in%` (*R code*).                                                                  |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>D</kbd>                  | Document R package (that you are building).                                                         |
 
 **Table 1.** Some examples of shortcut keys set with option
 `"bio-default"`.
@@ -283,9 +285,9 @@ bio::rstudio_reset_keybindings(to = "bio-default")
 <!-- Ctrl Alt NumPad7     | Insert operator `%in%` (*R code*). -->
 <!-- Ctrl Alt NumPad8     | Insert operator `%*%` (*R code*). -->
 
-More on
-<a href="https://support.rstudio.com/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts" target="_blank">Customizing Keyboard Shortcuts</a>
-in RStudio.
+More on <a
+href="https://support.rstudio.com/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts"
+target="_blank">Customizing Keyboard Shortcuts</a> in RStudio.
 
 ### RStudio settings
 
@@ -301,13 +303,12 @@ bio::rstudio_reset_user_settings()
 
 The options:
 
--   `"bio-default"` – recommended BS-2022 and R-2022 settings (and light
-    theme “Textmate (default)”);
--   `"bio-dark-blue"` – recommended BS-2022 and R-2022 settings (and
-    dark blue theme “Cobalt”);
--   `"bio-black"` – recommended BS-2022 and R-2022 settings (and black
-    theme “Chaos”);
--   `"rstudio-default"` – default RStudio settings.
+- `"bio-default"` – recommended `bio` settings (and light theme
+  “Textmate (default)”);
+- `"bio-dark-blue"` – recommended `bio` settings (and dark blue theme
+  “Cobalt”);
+- `"bio-black"` – recommended `bio` settings (and black theme “Chaos”);
+- `"rstudio-default"` – default RStudio settings.
 
 ``` r
 bio::rstudio_reset_user_settings(to = "bio-default")
@@ -340,10 +341,11 @@ snippets::install_snippets_from_package("snippets", backup = TRUE)
 ## ℹ You will be able to use the snippets after RStudio is closed and reopened.
 ```
 
-More information on
-<a href="https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets" target="_blank">Code Snippets</a>
-in RStudio and on package
-<a href="https://gegznav.github.io/snippets/" target="_blank"><strong>snippets</strong></a>.
+More information on <a
+href="https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets"
+target="_blank">Code Snippets</a> in RStudio and on package
+<a href="https://gegznav.github.io/snippets/"
+target="_blank"><strong>snippets</strong></a>.
 
 ### Restart R and RStudio
 

@@ -57,6 +57,7 @@
     "initial_working_directory"                   : "~/R/darbinis",
     "insert_matching"                             : true,
     "insert_native_pipe_operator"                 : false,
+    "insert_native_pipe_operator"                 : true,
     "insert_parens_after_function_completion"     : true,
     "insert_spaces_around_equals"                 : true,
     "jobs_tab_visibility"                         : "shown",

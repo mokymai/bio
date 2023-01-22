@@ -333,7 +333,7 @@ open_project <- function(pattern = NULL,
   }
 
   if (!new_session) {
-    usethis::ui_oops("Closing current project...")
+    usethis::ui_info("Closing current project...")
   }
 
   usethis::ui_done("Opening {highlight_proj_name(proj_path)}")

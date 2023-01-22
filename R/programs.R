@@ -81,16 +81,27 @@ check_installed_programs <- function(type = "main", skip_online_check = FALSE) {
   # RStudio
   check_rs_version(v_recommended = v_req$RStudio, skip_online_check = skip_online_check)
 
+  # Quarto
+  check_quarto_version(v_recommended = v_req$Quarto)
+
   # R Build Tools (on Windows, they are called 'Rtools')
   tool_name <-
     if (get_os_type() == "windows") {
       "Rtools"
     } else {
-      "Compiler (R Build Tools)"
+      "R Build Tools"
     }
-  # TODO (SEE ALSO): rstudioapi::buildToolsCheck(); pkgbuild::has_build_tools()
-  # FIXME: Might not work properly if RStudio is not running
-  check_tool_installed(tool_name, rstudioapi::buildToolsCheck())
+
+  check_tool_installed(
+    tool_name,
+    if (rstudioapi::isAvailable()) {
+      # Requires RStudio to be running
+      rstudioapi::buildToolsCheck()
+    } else {
+      pkgbuild::has_build_tools()
+    }
+  )
+
 
 
   # XQuartz (on Mac)
@@ -186,7 +197,8 @@ get_available_rs_version <- function(force = FALSE, skip = FALSE) {
 
   if (force || pingr::is_online()) {
 
-    "https://rstudio.com/products/rstudio/download/" %>%
+    # "https://rstudio.com/products/rstudio/download/" %>%
+    "https://posit.co/download/rstudio-desktop/" %>%
       readr::read_lines() %>%
       stringr::str_extract("(?<=RStudio-).*?(?=.exe)") %>%
       .[!is.na(.)] %>%
@@ -200,6 +212,7 @@ get_available_rs_version <- function(force = FALSE, skip = FALSE) {
     ))
   }
 }
+
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 check_internet_connection <- function() {
@@ -217,28 +230,33 @@ check_internet_connection <- function() {
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_program_version  <- function(program = "", r_installed = "", v_recommended = "",
-  r_available = NULL) {
+check_program_version  <- function(name = "", v_installed = NULL,
+  v_recommended = NULL, v_available = NULL, type = "Program") {
+
+  print_fun <- ui_info
+  v_color   <- red
+  r_color   <- red
+  install_status <- ""
 
   v_recommended <- numeric_version(v_recommended)
-  r_installed   <- numeric_version(r_installed)
+  v_installed   <- numeric_version(v_installed)
 
-  if (!is.null(r_available)) {
+  if (!is.null(v_available)) {
 
-    if (r_installed < r_available) {
+    if (v_installed < v_available) {
       av_color <- green
 
     } else {
       av_color <- yellow
     }
 
-    if_available <- glue::glue(", available {av_color(r_available)}")
+    if_available <- glue::glue(", available {av_color(v_available)}")
 
   } else {
     if_available <- ""
   }
 
-  if (r_installed < v_recommended) {
+  if (v_installed < v_recommended) {
     print_fun <- ui_todo
     v_color   <- red
     r_color   <- green
@@ -252,34 +270,47 @@ check_program_version  <- function(program = "", r_installed = "", v_recommended
   }
 
   print_fun(paste0(
-    "Program {blue(program)} ({v_color(r_installed)}) {install_status} ",
-    "(recommended {r_color(v_recommended)}{if_available})."
+    "{type} {blue(name)} ({v_color(v_installed)}) {install_status} ",
+    "(recommended >= {r_color(v_recommended)}{if_available})."
   ))
 }
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_r_version <- function(v_recommended = "4.2.0", skip_online_check = FALSE) {
+check_r_version <- function(v_recommended = "4.2.1",
+                            skip_online_check = FALSE) {
 
   check_program_version(
-    program = 'R',
-    r_installed = getRversion(),
-    r_available = get_available_r_version(skip = skip_online_check),
+    name = 'R',
+    v_installed = getRversion(),
+    v_available = get_available_r_version(skip = skip_online_check),
     v_recommended = v_recommended
+  )
+}
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+check_quarto_version <- function(v_recommended = "1.2.313",
+                                 skip_online_check = FALSE) {
+
+  check_program_version(
+    name = 'Quarto',
+    v_installed = quarto::quarto_version(),
+    v_available = NULL,
+    v_recommended = v_recommended,
+    type = "Tool"
   )
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_rs_version <- function(v_recommended = "2022.2.3.492", skip_online_check = FALSE) {
+check_rs_version <- function(v_recommended = "2022.7.1", skip_online_check = FALSE) {
 
   if (!rstudioapi::isAvailable()) {
     ui_oops("Program {red('RStudio')} is not installed or is not running. ")
 
   } else {
     check_program_version(
-      program = 'RStudio',
-      r_installed = rstudioapi::versionInfo()$version,
-      r_available =
+      name = 'RStudio',
+      v_installed = rstudioapi::versionInfo()$version,
+      v_available =
         tryCatch(
           get_available_rs_version(skip = skip_online_check),
           error = function(e) {
@@ -359,13 +390,13 @@ is_xquartz_installed  <- function(variables) {
 # condition - logical
 # string    - what
 check_program_installed <- function(program = "", condition = NULL,
-                                    what = "Program") {
+  what = "Program") {
 
   if (condition) {
     ui_done("{what} {blue(program)} is installed.")
 
   } else {
-    ui_oops("{what} {red(program)} is ether missing, not detected or configured incorrectly.")
+    ui_oops("{what} {red(program)} is not detected.")
   }
 }
 
