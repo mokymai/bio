@@ -217,9 +217,19 @@ rstudio_compare_user_settings <- function(to = "bio-default") {
   usethis::ui_info(
     "Show differences between {green('current')} and {green(to)} setting lists.\n"
   )
+
+  # Unify names and number of fields
+  all_names <- unique(names(current_prefs), names(default_prefs))
+  named_list <- setNames(vector("list", length(all_names)), all_names)
+
+  default_prefs <- modifyList(named_list, default_prefs, keep.null = TRUE)
+  current_prefs <- modifyList(named_list, current_prefs, keep.null = TRUE)
+
+  # Compare
   waldo::compare(
     default_prefs, current_prefs,
     x_arg = to, y_arg = "current",
-    max_diffs = Inf
+    max_diffs = Inf,
+    list_as_map = TRUE
   )
 }

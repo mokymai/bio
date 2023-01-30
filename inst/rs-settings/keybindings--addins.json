@@ -18,6 +18,7 @@
     "addins.rs::rs_align_code_at_arrow"            : "Ctrl+Shift+Alt+[",
     "addins.rs::rs_align_code_at_equal"            : "Ctrl+Shift+Alt+]",
     "addins.rs::rs_align_code_at_pattern"          : "Ctrl+Shift+Alt+P",
+    "addins.rs::rs_comment_uncomment"              : "Ctrl+/",
     "addins.rs::rs_insert_exposition_pipe"         : "Ctrl+Alt+S",
     "addins.rs::rs_insert_infix_in"                : "Ctrl+Alt+NumPad7",
     "addins.rs::rs_insert_line_ds"                 : "Ctrl+Shift+Alt+Q",
