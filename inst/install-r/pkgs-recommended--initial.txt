@@ -12,6 +12,7 @@ readr
 forcats
 knitr
 rmarkdown
+quarto
 readxl
 writexl
 tidyverse
