@@ -277,7 +277,7 @@ check_program_version  <- function(name = "", v_installed = NULL,
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_r_version <- function(v_recommended = "4.2.1",
+check_r_version <- function(v_recommended = "4.3.0",
                             skip_online_check = FALSE) {
 
   check_program_version(
