@@ -58,7 +58,7 @@ jobs:
       - name: Install dependencies
         shell: Rscript {0}
         run: |
-          remotes::install_cran(c("roxygen2", "devtools", "drat"))
+          remotes::install_cran(c("roxygen2", "devtools", "drat", "styler"))
           remotes::install_deps(dependencies = TRUE)
 
       - name: Roxygenize
