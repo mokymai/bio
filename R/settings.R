@@ -45,7 +45,7 @@ restriction_status <- function(ignore_ip = getOption("bio.ignore_ip", FALSE),
 #' 1) Resets RStudio state and user preferences (incl. color scheme)
 #' 2) Clears function history, plot history, console, recent project list, etc.
 #' 3) Closes unnecessary windows
-#' 4) Resets custom keybindings to "bio-default"
+#' 4) Resets custom key bindings to "bio-default"
 #' 5) Resets R Markdown and R snippets to defaults in package "snippets"
 #' 6) Creates folder "~/R/darbinis" and starts using it as working directory
 #'    when no project is used.

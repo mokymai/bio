@@ -339,6 +339,48 @@ get_pkgs_cran_details <- function(repos = NULL) {
   cran_all
 }
 
+#' Get previous package versions available on CRAN
+#'
+#' Function to scrape the CRAN website and retrieve archived (old) package versions
+#'
+#' @param package (character)
+#'        Package name.
+#'
+#' @return Vector with version numbers (the current version is not present).
+#' @export
+#'
+#' @importFrom stats na.omit
+#'
+#' @examples
+#' pkg_list_archived_versions("ggplot2")
+#'
+#' pkg_list_archived_versions("none")
+pkg_list_archived_versions <- function(package) {
+
+  # Base URL of archived packages on CRAN
+  url <- "https://cran.r-project.org/src/contrib/Archive/"
+
+  # Create the complete URL for the package
+  package_url <- paste0(url, package)
+
+  # Extract the webpage table rows containing the package versions
+  rows <- try(
+    suppressWarnings(readLines(package_url, warn = FALSE)),
+    silent = TRUE
+  )
+
+  if (inherits(rows, "try-error")) {
+    return(as.numeric_version(NULL))
+  }
+
+  # Extract the archived versions
+  rows |>
+    stringr::str_extract(stringr::str_glue("{package}_(.*?)[.]tar[.]gz"), 1) |>
+    na.omit() |>
+    as.numeric_version() |>
+    sort(decreasing = TRUE)
+}
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' Get Details About Non-CRAN Package Installation
 #'

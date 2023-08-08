@@ -1,8 +1,8 @@
 Package: bio
 Type: Package
 Title: Resources Manager for BS-2023
-Version: 0.2.2.1
-Date: 2023-04-23
+Version: 0.2.2.2
+Date: 2023-08-08
 Authors@R: 
     person("Vilmantas", "Gegzna", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-9500-5167"),
@@ -22,7 +22,7 @@ RoxygenNote: 7.2.3
 Additional_repositories:
   https://mokymai.github.io/download/
 Imports:
-  backup.tools (>= 0.0.1),
+  backup.tools,
   checkmate,
   clipr,
   crayon,
@@ -37,12 +37,10 @@ Imports:
   purrr,
   quarto,
   readr (>= 2.0.0),
-  rematch2,
   remotes,
   rlang,
   rstudioapi (>= 0.13),
-  snippets (>= 0.0.9),
-  stringi,
+  snippets,
   stringr,
   styler,
   tibble (>= 3.1.4),

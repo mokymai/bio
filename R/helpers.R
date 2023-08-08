@@ -28,8 +28,8 @@ get_upgrade_str <- function(upgrade) {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ui_msg_restart_rstudio <- function() {
   usethis::ui_todo(paste0(
-    "To take effect, {underline('RStudio')} should be ",
-    "{underline('closed and reopened')}."
+    "To apply all changes, {underline('close and reopen')} ",
+    "{underline('RStudio')}."
   ))
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

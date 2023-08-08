@@ -5,12 +5,26 @@ on:
     branches: [main, master, devel]
   pull_request:
     branches: [main, master, devel]
+  schedule:
+    # (see https://crontab.guru)
+    - cron: "30 3 * */2 TUE"
+  workflow_dispatch:
 
 name: R-CMD-check
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
+
+    concurrency:
+      group: >
+        ${{ github.workflow }}-${{ matrix.config.os }}-${{ matrix.config.r }})-
+        ${{ github.event_name != 'pull_request' || github.run_id }}
+      cancel-in-progress: true
 
     name: ${{ matrix.config.os }} (R-${{ matrix.config.r }})
 
@@ -18,11 +32,9 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: macOS-latest,   r: 'release'}
+          - {os: macos-latest,   r: 'release'}
           - {os: windows-latest, r: 'release'}
-          # - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
-          - {os: ubuntu-latest,   r: 'release'}
-          # - {os: ubuntu-latest,   r: 'oldrel-1'}
+          - {os: ubuntu-latest,  r: 'release'}
 
     env:
       R_KEEP_PKG_SOURCE: yes
@@ -36,10 +48,8 @@ jobs:
       - uses: r-lib/actions/setup-r@v2
         with:
           r-version: ${{ matrix.config.r }}
-          http-user-agent: ${{ matrix.config.http-user-agent }}
           use-public-rspm: true
           extra-repositories: "https://mokymai.github.io/download/"
-
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
