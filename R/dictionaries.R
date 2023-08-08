@@ -77,8 +77,6 @@ open_rstudio_internal_dictionaries_dir <- function() {
 #' @description
 #' - `rstudio_download_spellcheck_dictionaries()`
 #'  downloads and updates RStudio (system) spellchecking dictionaries.
-#' - `rstudio_download_spellcheck_dictionaries_lt()`
-#'  installs improved Lithuanian spellchecking dictionary.
 #' - `rstudio_delete_spellcheck_dictionaries()`
 #'  deletes RStudio (system) spellchecking dictionaries.
 #'
@@ -92,7 +90,6 @@ open_rstudio_internal_dictionaries_dir <- function() {
 #' \dontrun{\donttest{
 #' rstudio_delete_spellcheck_dictionaries()
 #' rstudio_download_spellcheck_dictionaries()
-#' rstudio_install_spellcheck_dictionary_lt()
 #' }}
 
 rstudio_install_spellcheck_dictionaries <- function(secure = TRUE) {
@@ -109,10 +106,7 @@ rstudio_install_spellcheck_dictionaries <- function(secure = TRUE) {
 rstudio_download_spellcheck_dictionaries <- rstudio_install_spellcheck_dictionaries
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' @name spelling
-#' @export
-#' @concept r and rstudio settings
-#' @concept dictionaries
+
 rstudio_install_spellcheck_dictionary_lt <- function() {
 
   tryCatch({

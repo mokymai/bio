@@ -4,15 +4,12 @@
 \alias{spelling}
 \alias{rstudio_install_spellcheck_dictionaries}
 \alias{rstudio_download_spellcheck_dictionaries}
-\alias{rstudio_install_spellcheck_dictionary_lt}
 \alias{rstudio_delete_spellcheck_dictionaries}
 \title{Dictionaries to check spelling}
 \usage{
 rstudio_install_spellcheck_dictionaries(secure = TRUE)
 
 rstudio_download_spellcheck_dictionaries(secure = TRUE)
-
-rstudio_install_spellcheck_dictionary_lt()
 
 rstudio_delete_spellcheck_dictionaries(ask = TRUE)
 }
@@ -26,8 +23,6 @@ interactively.}
 \itemize{
 \item \code{rstudio_download_spellcheck_dictionaries()}
 downloads and updates RStudio (system) spellchecking dictionaries.
-\item \code{rstudio_download_spellcheck_dictionaries_lt()}
-installs improved Lithuanian spellchecking dictionary.
 \item \code{rstudio_delete_spellcheck_dictionaries()}
 deletes RStudio (system) spellchecking dictionaries.
 }
@@ -36,7 +31,6 @@ deletes RStudio (system) spellchecking dictionaries.
 \dontrun{\donttest{
 rstudio_delete_spellcheck_dictionaries()
 rstudio_download_spellcheck_dictionaries()
-rstudio_install_spellcheck_dictionary_lt()
 }}
 }
 \concept{dictionaries}
