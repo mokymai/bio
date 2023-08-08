@@ -1,6 +1,6 @@
 ---
 title: "Minimal required versions of packages"
-date:  2023-04-29
+date:  2023-08-08
 notes: ""
 
 
@@ -28,7 +28,7 @@ data.table                  | 1.14.2           | FALSE  | -
 DescTools                   | 0.99.48          | FALSE  | -
 devtools                    | 2.4.4            | FALSE  | -
 dplyr                       | 1.1.2            | FALSE  | -
-DT                          | 0.23             | FALSE  | -
+DT                          | 0.28             | FALSE  | -
 effects                     | 4.2-2            | FALSE  | Rcmdr
 effectsize                  | 0.7.0            | FALSE  | -
 effsize                     | 0.8.1            | FALSE  | -
@@ -46,7 +46,7 @@ ggstatsplot                 | 0.10.            | FALSE  | -
 ggtext                      | 0.1.1            | FALSE  | -
 glue                        | 1.6.2            | FALSE  | -
 gt                          | 0.8.0            | FALSE  | -
-gtsummary                   | 1.7.0            | FALSE  | -
+gtsummary                   | 1.7.2            | FALSE  | -
 haven                       | 2.5.0            | FALSE  | -
 hms                         | 1.1.1            | FALSE  | -
 hunspell                    | 3.0.2            | FALSE  | -
@@ -72,7 +72,7 @@ plotly                      | 4.9.4.1          | FALSE  | -
 purrr                       | 0.3.4            | FALSE  | -
 qqplotr                     | 0.0.6            | FALSE  | -
 quarto                      | 1.2              | FALSE  | -
-Rcmdr                       | 2.7-2            | FALSE  | -
+Rcmdr                       | 2.8-1            | FALSE  | -
 RcmdrMisc                   | 2.7-2            | FALSE  | -
 RcmdrPlugin.biostat         | 0.0.70           | FALSE  | -
 RcmdrPlugin.EZR.as.menu     | 1.55             | FALSE  | -
