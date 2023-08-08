@@ -7,30 +7,41 @@ on:
     branches: [main, master, devel]
   schedule:
     # (see https://crontab.guru)
-    - cron: "10 3 * */2 TUE"
+    - cron: "30 3 * */2 TUE"
   workflow_dispatch:
 
 name: R-CMD-check
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   R-CMD-check:
     runs-on: ${{ matrix.config.os }}
 
+    concurrency:
+      group: >
+        ${{ github.workflow }}-${{ matrix.config.os }}-${{ matrix.config.r }})-
+        ${{ github.event_name != 'pull_request' || github.run_id }}
+      cancel-in-progress: true
+
     name: ${{ matrix.config.os }} (R-${{ matrix.config.r }})
+
 
     strategy:
       fail-fast: false
       matrix:
         config:
-          - {os: macOS-latest,   r: 'release'}
+          - {os: macos-latest,   r: 'release'}
           - {os: windows-latest, r: 'release'}
           # - {os: ubuntu-latest,   r: 'devel', http-user-agent: 'release'}
           - {os: ubuntu-latest,   r: 'release'}
           # - {os: ubuntu-latest,   r: 'oldrel-1'}
 
     env:
-      R_KEEP_PKG_SOURCE: yes
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_KEEP_PKG_SOURCE: yes
 
     steps:
       - uses: actions/checkout@v3
@@ -47,9 +58,10 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck, any::styler
+          extra-packages: any::rcmdcheck
           needs: check
 
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true
+
