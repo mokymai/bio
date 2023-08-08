@@ -51,16 +51,19 @@ jobs:
           use-public-rspm: true
           extra-repositories: "https://mokymai.github.io/download/"
 
-      - name: Info
-        run: |
-          getOption("repos")
+      - name: Set additional repo explicitly
         shell: Rscript {0}
+        run: |
+          options(repos = c(
+            "https://mokymai.github.io/download/",
+            getOption("repos")
+          ))
+          # Print repos
+          getOption("repos")
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          cache-version: 2
-          extra-packages: |
-            any::rcmdcheck
+          extra-packages: any::rcmdcheck
           needs: check
 
       - uses: r-lib/actions/check-r-package@v2
