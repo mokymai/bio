@@ -11,6 +11,7 @@ version](https://img.shields.io/badge/GitHub-0.2.2.2-brightgreen.svg)](https://g
 [![Updated-on](https://img.shields.io/badge/Updated%20on-2023--08--08-yellowgreen.svg)](/commits/master)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![R-CMD-check](https://github.com/mokymai/bio/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mokymai/bio/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 <!-- [![GitHub last commit](https://img.shields.io/github/last-commit/mokymai/bio)](https://github.com/mokymai/bio) -->
