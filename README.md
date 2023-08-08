@@ -16,12 +16,11 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 <!-- [![GitHub last commit](https://img.shields.io/github/last-commit/mokymai/bio)](https://github.com/mokymai/bio) -->
 
 Convenience functions to facilitate installation and management of
-required resources for course units ***Biostatistics*** (*BS-2023*) and
-***Introduction to data analysis with R***.
+required resources for course unit ***Biostatistics*** (*BS-2023*).
 
 <center>
 <br> <font color="darkred" size=4> This package is intended to be used
-with <b>RStudio 2022.12.0</b> or newer<br> and <b>R 4.2.2</b> or
+with <b>RStudio 2022.06.0</b> or newer<br> and <b>R 4.3.1</b> or
 newer.<br> </font> <font color="darkred" size=3> Functions may not work
 correctly with the previous versions of RStudio and R. </font>
 <br><br><br>
@@ -90,17 +89,17 @@ Options:
 
 ``` r
 bio::check_installed_programs()
-## ✔ Program R (4.2.2) is installed (recommended >= 4.2.2).
+## ✔ Program R (4.3.1) is installed (recommended >= 4.3.1).
 ## ✖ Program RStudio is not installed or is not running. 
-## ✔ Tool Quarto (1.2.313) is installed (recommended >= 1.2.313).
+## ✔ Tool Quarto (1.4.268) is installed (recommended >= 1.3.336).
 ## ✔ Tool Rtools is installed.
 ```
 
 ``` r
 bio::check_installed_programs("all")
-## ✔ Program R (4.2.2) is installed (recommended 4.2.2, available 4.2.2).
-## ✔ Program RStudio (2022.7.0.548) is installed (recommended 2022.7.0, available 2022.7.1.554).
-## ✔ Tool Quarto (1.2.313) is installed (recommended >= 1.2.313).
+## ✔ Program R (4.3.1) is installed (recommended >= 4.2.2, available 4.3.1).
+## ✔ Program RStudio (2023.6.1.524) is installed (recommended >= 2023.3.0, available 2023.6.1.524).
+## ✔ Tool Quarto (1.4.268) is installed (recommended >= 1.3.336).
 ## ✔ Tool Rtools is installed.
 ## ✔ Program Git is installed.
 ## ✔ Program Meld is installed.
