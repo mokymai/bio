@@ -17,7 +17,7 @@ Vector with version numbers (the current version is not present).
 Function to scrape the CRAN website and retrieve archived (old) package versions
 }
 \examples{
-list_archived_package_versions("ggplot2")
+pkg_list_archived_versions("ggplot2")
 
-list_archived_package_versions("none")
+pkg_list_archived_versions("none")
 }

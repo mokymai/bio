@@ -349,10 +349,12 @@ get_pkgs_cran_details <- function(repos = NULL) {
 #' @return Vector with version numbers (the current version is not present).
 #' @export
 #'
-#' @examples
-#' list_archived_package_versions("ggplot2")
+#' @importFrom stats na.omit
 #'
-#' list_archived_package_versions("none")
+#' @examples
+#' pkg_list_archived_versions("ggplot2")
+#'
+#' pkg_list_archived_versions("none")
 pkg_list_archived_versions <- function(package) {
 
   # Base URL of archived packages on CRAN
