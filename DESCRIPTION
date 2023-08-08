@@ -22,7 +22,7 @@ RoxygenNote: 7.2.3
 Additional_repositories:
   https://mokymai.github.io/download/
 Imports:
-  backup.tools (>= 0.0.1),
+  backup.tools,
   checkmate,
   clipr,
   crayon,
@@ -40,7 +40,7 @@ Imports:
   remotes,
   rlang,
   rstudioapi (>= 0.13),
-  snippets (>= 0.0.9),
+  snippets,
   stringi,
   stringr,
   styler,
