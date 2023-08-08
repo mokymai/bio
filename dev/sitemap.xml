@@ -43,9 +43,6 @@
     <loc>https://mokymai.github.io/bio/reference/compare_version.html</loc>
   </url>
   <url>
-    <loc>https://mokymai.github.io/bio/reference/emokymai.html</loc>
-  </url>
-  <url>
     <loc>https://mokymai.github.io/bio/reference/get_os_type.html</loc>
   </url>
   <url>
@@ -76,6 +73,9 @@
     <loc>https://mokymai.github.io/bio/reference/open_r_environ.html</loc>
   </url>
   <url>
+    <loc>https://mokymai.github.io/bio/reference/pkg_list_archived_versions.html</loc>
+  </url>
+  <url>
     <loc>https://mokymai.github.io/bio/reference/project-lists.html</loc>
   </url>
   <url>
@@ -95,15 +95,6 @@
   </url>
   <url>
     <loc>https://mokymai.github.io/bio/reference/spelling.html</loc>
-  </url>
-  <url>
-    <loc>https://mokymai.github.io/bio/reference/to_ascii_lower.html</loc>
-  </url>
-  <url>
-    <loc>https://mokymai.github.io/bio/reference/u_prepare_assignment_dc.html</loc>
-  </url>
-  <url>
-    <loc>https://mokymai.github.io/bio/reference/u_task.html</loc>
   </url>
   <url>
     <loc>https://mokymai.github.io/bio/reference/update_pkg_rcmdr_biostat.html</loc>
