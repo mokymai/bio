@@ -37,7 +37,6 @@ Imports:
   purrr,
   quarto,
   readr (>= 2.0.0),
-  rematch2,
   remotes,
   rlang,
   rstudioapi (>= 0.13),
