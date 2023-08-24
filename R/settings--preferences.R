@@ -124,7 +124,7 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
     "bio-dark-blue" = ,
     "bio-black" = {
       # Change the default dir, if default UI preferences change
-      fs::dir_create("~/R/darbinis", recurse = TRUE)
+      fs::dir_create("~/R/main", recurse = TRUE)
 
       file_default <- get_path_rstudio_config_file(which = "bio")
       success <- rstudio_set_preferences(file_default)
