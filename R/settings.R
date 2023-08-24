@@ -47,7 +47,7 @@ restriction_status <- function(ignore_ip = getOption("bio.ignore_ip", FALSE),
 #' 3) Closes unnecessary windows
 #' 4) Resets custom key bindings to "bio-default"
 #' 5) Resets R Markdown and R snippets to defaults in package "snippets"
-#' 6) Creates folder "~/R/darbinis" and starts using it as working directory
+#' 6) Creates folder "~/R/default" and starts using it as working directory
 #'    when no project is used.
 #' 7) Clears (if possible)/creates folder "BS-pratybos" on Desktop.
 #'
@@ -95,7 +95,7 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
   rstudioapi::executeCommand("setWorkingDirToProjectDir", quiet = TRUE)
 
   # Create/Clean directories
-  fs::dir_create(fs::path_expand_r("~/R/darbinis"))
+  fs::dir_create(fs::path_expand_r("~/R/main"))
 
   bs_folder <- fs::path_expand("~/Desktop/BS-pratybos/")
   try(fs::dir_delete(bs_folder), silent = TRUE)
