@@ -1,6 +1,8 @@
 make_unique_obj_names <- function(names, prefix = "", suffix = "",
-                                  list_of_choices = objects(all.names = TRUE,
-                                                            envir = .GlobalEnv),
+                                  list_of_choices = objects(
+                                    all.names = TRUE,
+                                    envir = .GlobalEnv
+                                  ),
                                   all_numbered = TRUE) {
   if (length(names) == 0) {
     return(NULL)
