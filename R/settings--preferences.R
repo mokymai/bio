@@ -163,7 +163,7 @@ rstudio_set_preferences <- function(file) {
     pref <- jsonlite::fromJSON(file)
     purrr::walk2(
       names(pref), unname(pref),
-      ~{
+      ~ {
         tryCatch(
           rstudioapi::writeRStudioPreference(.x, .y),
           error = function(e) {
@@ -206,14 +206,16 @@ rstudio_set_preferences <- function(file) {
 #' }}
 rstudio_compare_user_settings <- function(to = "bio-default") {
   to <- match.arg(to, c("bio-default", "rstudio-default"))
+
   file <- get_path_rstudio_config_file(which = to)
   default_prefs <-
     jsonlite::fromJSON(file) %>%
-    purrr::map_if(is.integer, as.numeric)
+    purrr::map_if(is.integer, as.numeric) |>
+    purrr::map_at("busy_exclusion_list", as.list)
 
   pref_names <- names(default_prefs) %>% purrr::set_names(., .)
   current_prefs <-
-    purrr::map(pref_names, ~rstudioapi::readRStudioPreference(.,  NULL)) %>%
+    purrr::map(pref_names, ~rstudioapi::readRStudioPreference(., NULL)) %>%
     purrr::map_if(is.integer, as.numeric)
 
   usethis::ui_info(
