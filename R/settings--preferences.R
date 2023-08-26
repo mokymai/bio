@@ -172,8 +172,10 @@ rstudio_set_preferences <- function(file) {
               rstudioapi::writeRStudioPreference(.x, as.integer(.y))
             } else if (stringr::str_detect(e_msg, "expected <Real>")) {
               rstudioapi::writeRStudioPreference(.x, as.numeric(.y))
+            } else if (stringr::str_detect(e_msg, "expected <Array>")) {
+              rstudioapi::writeRStudioPreference(.x, as.list(.y))
             } else {
-              print(glue::glue("'In {.x}' = {.y}\n{e}:\n"))
+              print(glue::glue("'In {.x}' = {.y}\n{e}\n"))
             }
           }
         )
