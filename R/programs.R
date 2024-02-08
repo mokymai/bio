@@ -288,7 +288,7 @@ check_r_version <- function(v_recommended = "4.3.0",
   )
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_quarto_version <- function(v_recommended = "1.2.313",
+check_quarto_version <- function(v_recommended = "1.4.549",
                                  skip_online_check = FALSE) {
 
   check_program_version(
@@ -301,7 +301,7 @@ check_quarto_version <- function(v_recommended = "1.2.313",
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_rs_version <- function(v_recommended = "2022.7.1", skip_online_check = FALSE) {
+check_rs_version <- function(v_recommended = "2023.12.1", skip_online_check = FALSE) {
 
   if (!rstudioapi::isAvailable()) {
     ui_oops("Program {red('RStudio')} is not installed or is not running. ")
