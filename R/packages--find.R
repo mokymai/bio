@@ -57,7 +57,7 @@ list_pkgs_used_in_dir_code <- function(path = ".", regexp = "(?i)[.](rmd|r)$", .
 # TODO: ignore code in comments
 list_pkgs_used_in_files <- function(files) {
   files %>%
-    purrr::map(~readr::read_file(.)) %>%
+    purrr::map(~ readr::read_file(.)) %>%
     stringr::str_extract_all(
       paste0(
         "(?<=(library|require|require2)\\()(.*?)(?=\\))|", # library(dplyr)
@@ -74,10 +74,10 @@ list_pkgs_used_in_files <- function(files) {
 
 list_pkgs_used_in_files_code <- function(files) {
   files %>%
-    purrr::map(~readr::read_file(.)) %>%
+    purrr::map(~ readr::read_file(.)) %>%
     stringr::str_extract_all(
       paste0(
-        "(library|require|require2)\\((.*?)\\)|",   # library(dplyr)
+        "(library|require|require2)\\((.*?)\\)|", # library(dplyr)
         "(\\s|\\n|\\(|\\{|\\[)[a-zA-Z0-9.]*?( )*:{2,3}[a-zA-Z0-9._]*|", # dplyr::select
         "package\\s*=\\s*(\"|')[a-zA-Z0-9.]*?(\"|')" # data(package = "dplyr")
       )
@@ -90,7 +90,6 @@ list_pkgs_used_in_files_code <- function(files) {
 get_pkg_dependencies <- function(pkg) {
   pkg <- stringr::str_replace(pkg, "[.]", "[.]")
   desc::desc_get_deps(fs::dir_ls(.libPaths(), regexp = glue::glue("/{pkg}$"))) %>%
-      dplyr::filter(.data$type %in% c("Depends", "Imports")) %>%
-      dplyr::pull(.data$package)
+    dplyr::filter(.data$type %in% c("Depends", "Imports")) %>%
+    dplyr::pull(.data$package)
 }
-

@@ -4,7 +4,7 @@
 \name{bio-package}
 \alias{bio}
 \alias{bio-package}
-\title{bio: Resources Manager for BS-2023}
+\title{bio: Resources Manager for R, RStudio and Related Software}
 \description{
 Resources manager for course unit BS-2023.
 }

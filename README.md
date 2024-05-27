@@ -6,9 +6,9 @@ Package ***bio***
 <!-- badges: start -->
 
 [![GitHub
-version](https://img.shields.io/badge/GitHub-0.2.2.3-brightgreen.svg)](https://github.com/mokymai/bio)
+version](https://img.shields.io/badge/GitHub-0.2.4-brightgreen.svg)](https://github.com/mokymai/bio)
 [![R-CMD-check](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
-[![Updated-on](https://img.shields.io/badge/Updated%20on-2023--08--24-yellowgreen.svg)](/commits/master)
+[![Updated-on](https://img.shields.io/badge/Updated%20on-2024--02--08-yellowgreen.svg)](/commits/master)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![R-CMD-check](https://github.com/mokymai/bio/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mokymai/bio/actions/workflows/R-CMD-check.yaml)
@@ -91,7 +91,7 @@ Options:
 ``` r
 bio::check_installed_programs()
 ## ✔ Program R (4.3.1) is installed (recommended >= 4.3.1).
-## ✖ Program RStudio is not installed or is not running. 
+## ✖ Program RStudio is not installed or is not running.
 ## ✔ Tool Quarto (1.4.268) is installed (recommended >= 1.3.336).
 ## ✔ Tool Rtools is installed.
 ```
@@ -149,13 +149,13 @@ Details
 
 ``` r
 bio::check_packages_by_topic("mini")
-## ℹ Reading list 'mini' 
+## ℹ Reading list 'mini'
 ## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.
 ```
 
 ``` r
 bio::check_packages_by_topic("mini", include = "newer_on_cran")
-## ℹ Reading list 'mini' 
+## ℹ Reading list 'mini'
 ## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.
 ## ℹ Note: 1 package has newer version on CRAN.
 ```
@@ -176,9 +176,9 @@ Check if there are updates for **bio** or its dependency packages.
 ``` r
 bio::check_updates_pkg_bio()
 ## ℹ Analyzing dependencies of package bio
-## 
+##
 ## [... truncated ...]
-## 
+##
 ## ✔ Minimal required versions of all 26 packages (from list 'bio') are already installed.
 ```
 
@@ -213,7 +213,7 @@ Install improved Lithuanian dictionary.
 
 ``` r
 bio::rstudio_install_spellcheck_dictionary_lt()
-## ✔ lt_LT dictionary installed. 
+## ✔ lt_LT dictionary installed.
 ##   'C:/Users/ViG/AppData/Roaming/RStudio/dictionaries/languages-system/lt_LT.dic'
 ```
 
@@ -336,7 +336,7 @@ snippets::install_snippets_from_package("snippets", backup = TRUE)
 ##   'C:/Users/User/AppData/Roaming/RStudio/snippets/markdown.snippets'
 ## ✔ File with r snippets was updated:
 ##   'C:/Users/User/AppData/Roaming/RStudio/snippets/r.snippets'
-## 
+##
 ## ℹ You will be able to use the snippets after RStudio is closed and reopened.
 ```
 

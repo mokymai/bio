@@ -1027,7 +1027,7 @@ get_pkgs_installation_code <- function(x = NULL, ..., to_clipboard = FALSE,
     # help("options") # Opens help on options
     options(
       repos = "https://cran.rstudio.com/",
-      pkgType = "{ifelse(get_os_type() == "linux", "source", "both")}",
+      pkgType = "{ifelse(get_os_type() == "windows", "both", "source")}",
       install.packages.check.source = "yes",
       install.packages.compile.from.source = "always"
     )

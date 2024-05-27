@@ -10,7 +10,7 @@
 #' @concept utilities
 #'
 rstudio_restart_r <- function() {
-  if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
+  if (rstudioapi::isAvailable(version_needed = "1.2.1261")) {
     invisible(rstudioapi::executeCommand("restartR", quiet = TRUE))
   }
 }
@@ -19,7 +19,7 @@ rstudio_restart_r <- function() {
 #' @export
 #' @concept utilities
 rstudio_reload_ui <- function() {
-  if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
+  if (rstudioapi::isAvailable(version_needed = "1.2.1261")) {
     invisible(rstudioapi::executeCommand("reloadUi", quiet = TRUE))
   }
 }
@@ -35,4 +35,3 @@ restart_r <- function() {
 restart_rstudio <- function() {
   rstudio_restart_r()
 }
-

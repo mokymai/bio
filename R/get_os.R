@@ -20,8 +20,8 @@ get_os_type <- function() {
     if (os == "Darwin") {os <- "mac"}
   } else {
     os <- .Platform$OS.type
-    if (grepl("^darwin",   R.version$os)) {os <- "mac"}
-    if (grepl("linux-gnu", R.version$os)) {os <- "linux"}
+    if (grepl("^darwin",   R.version$os, useBytes = TRUE)) {os <- "mac"}
+    if (grepl("linux-gnu", R.version$os, useBytes = TRUE)) {os <- "linux"}
   }
   unname(tolower(os))
 }
