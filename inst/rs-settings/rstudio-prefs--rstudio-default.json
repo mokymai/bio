@@ -146,9 +146,7 @@
     "latex_shell_escape"                           : false,
     "launcher_jobs_sort"                           : "recorded",
     "limit_visible_console"                        : false,
-```{python}
     "line_ending_conversion"                       : "native",
-```
     "load_workspace"                               : true,
     "margin_column"                                : 80,
     "memory_query_interval_seconds"                : 10,
