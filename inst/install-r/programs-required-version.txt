@@ -1,6 +1,6 @@
 ---
 title: "Minimal required versions of programs"
-date:  2024-02-08
+date:  2024-05-27
 notes: ""
 
 
@@ -9,7 +9,8 @@ notes: ""
 ---
 # This text must be in line 10 -----------------------------------------------
 program                     | required_version | ignore | notes_version
-R                           | 4.3.2            | FALSE  |
+R                           | 4.3.3            | FALSE  |
 RStudio                     | 2023.12.1        | FALSE  | For 32-bit systems v 1.1.463
-Quarto                      | 1.4.549          | FALSE  |
+Quarto                      | 1.4.554          | FALSE  |
+
 
