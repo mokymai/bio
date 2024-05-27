@@ -146,7 +146,9 @@
     "latex_shell_escape"                           : false,
     "launcher_jobs_sort"                           : "recorded",
     "limit_visible_console"                        : false,
+```{python}
     "line_ending_conversion"                       : "native",
+```
     "load_workspace"                               : true,
     "margin_column"                                : 80,
     "memory_query_interval_seconds"                : 10,
@@ -249,7 +251,6 @@
     "ui_language"                                  : "en",
     "use_dataimport"                               : true,
     "use_devtools"                                 : true,
-    "use_internet2"                                : true,
     "use_newlines_in_makefiles"                    : true,
     "use_publish_ca_bundle"                        : false,
     "use_roxygen"                                  : false,
