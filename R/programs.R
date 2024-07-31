@@ -177,7 +177,7 @@ get_available_r_version <- function(force = FALSE, skip = FALSE) {
       purrr::reduce(c) %>%
       stringr::str_extract("(?<=R-).\\d*[.].\\d*[.]\\d*(?=.tar.gz)") %>%
       .[!is.na(.)] %>%
-      numeric_version() %>%
+      as.numeric_version() %>%
       max()
 
   } else {
@@ -199,7 +199,7 @@ get_available_rs_version <- function(force = FALSE, skip = FALSE) {
       readr::read_lines() %>%
       stringr::str_extract("(?<=RStudio-).*?(?=.exe)") %>%
       .[!is.na(.)] %>%
-      numeric_version() %>%
+      as.numeric_version() %>%
       max()
 
   } else {
