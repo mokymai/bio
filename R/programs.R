@@ -41,7 +41,7 @@ check_user_info <- function() {
 #' @param skip_online_check (logical) If `TRUE`, the numbers of newest available
 #'       stable programs are downloaded, when internet connection is connected.
 #' @param type (character) Which programs should be checked? Options:
-#'        `main`, `all`, `gmc-bs`, `gmc-r`.
+#'        `main`, `all`, `dev`, `gmc-bs`, `gmc-r`.
 #'
 #' @return
 #' Invisible `NULL`.
@@ -64,7 +64,7 @@ check_installed_programs <- function(type = "main", skip_online_check = FALSE) {
 
   type_lwr <- tolower(type)
 
-  if (!type_lwr %in% c("main", "all", "gmc-bs", "gmc-r")) {
+  if (!type_lwr %in% c("main", "dev", "all", "gmc-bs", "gmc-r")) {
     cli::cli_warn("Unknown value of type = '{type}'")
   }
 
@@ -92,17 +92,17 @@ check_installed_programs <- function(type = "main", skip_online_check = FALSE) {
       "R Build Tools"
     }
 
-  check_tool_installed(
-    tool_name,
-    if (rstudioapi::isAvailable()) {
-      # Requires RStudio to be running
-      rstudioapi::buildToolsCheck()
-    } else {
-      pkgbuild::has_build_tools()
-    }
-  )
-
-
+  if (type_lwr %in% c("all", "dev")) {
+    check_tool_installed(
+      tool_name,
+      if (rstudioapi::isAvailable()) {
+        # Requires RStudio to be running
+        rstudioapi::buildToolsCheck()
+      } else {
+        pkgbuild::has_build_tools()
+      }
+    )
+  }
 
   # XQuartz (on Mac)
   if (type_lwr %in% c("all", "gmc-bs")) {
