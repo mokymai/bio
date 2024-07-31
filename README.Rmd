@@ -39,8 +39,8 @@ Convenience functions to facilitate installation and management of required reso
 <center>
 <br>
 <font color="darkred" size=4>
-This package is intended to be used with <b>RStudio 2022.06.0</b> or newer<br>
-and <b>R 4.3.1</b> or newer.<br>
+This package is intended to be used with <b>RStudio 2024.04</b> or newer<br>
+and <b>R 4.4.0</b> or newer.<br>
 </font>
 <font color="darkred" size=3>
 Functions may not work correctly with the previous versions of RStudio and R.

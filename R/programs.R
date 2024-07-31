@@ -41,7 +41,7 @@ check_user_info <- function() {
 #' @param skip_online_check (logical) If `TRUE`, the numbers of newest available
 #'       stable programs are downloaded, when internet connection is connected.
 #' @param type (character) Which programs should be checked? Options:
-#'        `main`, `all`, `gmc-bs`, `gmc-r`.
+#'        `main`, `all`, `dev`, `gmc-bs`, `gmc-r`.
 #'
 #' @return
 #' Invisible `NULL`.
@@ -64,7 +64,7 @@ check_installed_programs <- function(type = "main", skip_online_check = FALSE) {
 
   type_lwr <- tolower(type)
 
-  if (!type_lwr %in% c("main", "all", "gmc-bs", "gmc-r")) {
+  if (!type_lwr %in% c("main", "dev", "all", "gmc-bs", "gmc-r")) {
     ui_warn("Unknown value of type = '{type}'")
   }
 
@@ -92,17 +92,17 @@ check_installed_programs <- function(type = "main", skip_online_check = FALSE) {
       "R Build Tools"
     }
 
-  check_tool_installed(
-    tool_name,
-    if (rstudioapi::isAvailable()) {
-      # Requires RStudio to be running
-      rstudioapi::buildToolsCheck()
-    } else {
-      pkgbuild::has_build_tools()
-    }
-  )
-
-
+  if (type_lwr %in% c("all", "dev")) {
+    check_tool_installed(
+      tool_name,
+      if (rstudioapi::isAvailable()) {
+        # Requires RStudio to be running
+        rstudioapi::buildToolsCheck()
+      } else {
+        pkgbuild::has_build_tools()
+      }
+    )
+  }
 
   # XQuartz (on Mac)
   if (type_lwr %in% c("all", "gmc-bs")) {
@@ -177,14 +177,11 @@ get_available_r_version <- function(force = FALSE, skip = FALSE) {
       purrr::reduce(c) %>%
       stringr::str_extract("(?<=R-).\\d*[.].\\d*[.]\\d*(?=.tar.gz)") %>%
       .[!is.na(.)] %>%
-      numeric_version() %>%
+      as.numeric_version() %>%
       max()
 
   } else {
-    ui_warn(paste(
-      "To get the newest availableR version, network connection is required.",
-      "You are offline. "
-    ))
+    msg_offline(get_what = "R version")
     NULL
   }
 }
@@ -202,28 +199,30 @@ get_available_rs_version <- function(force = FALSE, skip = FALSE) {
       readr::read_lines() %>%
       stringr::str_extract("(?<=RStudio-).*?(?=.exe)") %>%
       .[!is.na(.)] %>%
-      numeric_version() %>%
+      as.numeric_version() %>%
       max()
 
   } else {
-    ui_warn(paste(
-      "To get the newest available RStudio version,",
-      "network connection is required. You are offline. "
-    ))
+    msg_offline(get_what = "RStudio version")
   }
 }
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_internet_connection <- function() {
+msg_offline <- function(get_what = "versions") {
+  cli::cli_warn(c(
+    "To get the newest available {get_what}, network connection is required.",
+    "x" = "This computer is offline. "
+  ))
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+check_internet_connection <- function(get_what = "versions") {
   if (pingr::is_online()) {
     FALSE # Online
 
   } else {
-    ui_warn(paste0(
-      "To get the newest available versions, network connection is required. ",
-      "You are offline. "
-    ))
+    msg_offline(get_what = get_what)
     TRUE # Offline
   }
 }
@@ -238,8 +237,8 @@ check_program_version  <- function(name = "", v_installed = NULL,
   r_color   <- red
   install_status <- ""
 
-  v_recommended <- numeric_version(v_recommended)
-  v_installed   <- numeric_version(v_installed)
+  v_recommended <- as.numeric_version(v_recommended)
+  v_installed   <- as.numeric_version(v_installed)
 
   if (!is.null(v_available)) {
 

@@ -195,7 +195,7 @@ get_path_rstudio_internal_state_dir <- function(..., .check = FALSE) {
   # Linux/Mac:     ~/.rstudio-desktop
 
 
-  if (rstudioapi::isAvailable() && rstudioapi::versionInfo()$version >= 1.4) {
+  if (rstudioapi::isAvailable() && rstudioapi::versionInfo()$version >= "1.4") {
     # RStudio 1.4
     base <-
       switch(get_os_type(),
