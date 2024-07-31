@@ -105,7 +105,7 @@
     "memory_query_interval_seconds"                : 10,
     "native_file_dialogs"                          : true,
     "navigate_to_build_error"                      : true,
-    "new_proj_git_init"                            : true,
+    "new_proj_git_init"                            : false,
     "new_proj_use_renv"                            : false,
     "num_spaces_for_tab"                           : 2,
     "packages_pane_enabled"                        : true,
