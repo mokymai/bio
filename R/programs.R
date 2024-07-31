@@ -215,7 +215,15 @@ get_available_rs_version <- function(force = FALSE, skip = FALSE) {
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_internet_connection <- function() {
+msg_offline <- function(get_what = "versions") {
+  cli::cli_warn(c(
+    "To get the newest available {get_what}, network connection is required.",
+    "x" = "This computer is offline. "
+  ))
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+check_internet_connection <- function(get_what = "versions") {
   if (pingr::is_online()) {
     FALSE # Online
 
