@@ -208,7 +208,8 @@ read_pkgs_list <- function(list_name,
           "It seems that there is no online version of list ",
           "{list_name_blue} or it cannot be accessed. ",
           "\nCheck if the list name is correct. ",
-          "Did you mean one of: \n{usethis::ui_value(bio::get_pkg_lists_local())}, ..."
+          "Did you mean one of: \n",
+          "{usethis::ui_value(bio::get_pkg_lists_local())}, ..."
         ))
       } else {
         usethis::ui_stop(w$message)
@@ -239,7 +240,8 @@ get_path_pkgs_list <- function(list_name, local_list) {
       usethis::ui_stop(paste0(
         "List {list_name_blue} was not found on your computer. \n",
         "Check if the list name is correct. ",
-        "Did you mean one of: \n{usethis::ui_value(bio::get_pkg_lists_local())}, ..."
+        "Did you mean one of: \n",
+        "{usethis::ui_value(bio::get_pkg_lists_local())}, ..."
       ))
     }
 
@@ -475,7 +477,8 @@ merge_pkgs_status_lists <- function(pkgs_list, pkgs_installed,
 #' head(get_pkgs_installation_status_raw("mini"))
 get_pkgs_installation_status_raw <- function(list_name = NULL, pkgs = NULL,
                                              local_list = getOption(
-                                               "bio.local_list", TRUE)) {
+                                               "bio.local_list", TRUE
+                                             )) {
   checkmate::assert_character(list_name, null.ok = TRUE)
   checkmate::assert_character(pkgs, null.ok = TRUE)
   if (is.null(list_name) && is.null(pkgs)) {
@@ -504,7 +507,6 @@ get_pkgs_installation_status_raw <- function(list_name = NULL, pkgs = NULL,
 
   merge_pkgs_status_lists(pkgs_list, pkgs_inst, pkgs_req_v)
 }
-
 
 
 
