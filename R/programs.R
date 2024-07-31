@@ -181,10 +181,7 @@ get_available_r_version <- function(force = FALSE, skip = FALSE) {
       max()
 
   } else {
-    ui_warn(paste(
-      "To get the newest availableR version, network connection is required.",
-      "You are offline. "
-    ))
+    msg_offline(get_what = "R version")
     NULL
   }
 }
@@ -206,10 +203,7 @@ get_available_rs_version <- function(force = FALSE, skip = FALSE) {
       max()
 
   } else {
-    ui_warn(paste(
-      "To get the newest available RStudio version,",
-      "network connection is required. You are offline. "
-    ))
+    msg_offline(get_what = "RStudio version")
   }
 }
 
@@ -228,10 +222,7 @@ check_internet_connection <- function(get_what = "versions") {
     FALSE # Online
 
   } else {
-    ui_warn(paste0(
-      "To get the newest available versions, network connection is required. ",
-      "You are offline. "
-    ))
+    msg_offline(get_what = get_what)
     TRUE # Offline
   }
 }
