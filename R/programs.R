@@ -65,7 +65,7 @@ check_installed_programs <- function(type = "main", skip_online_check = FALSE) {
   type_lwr <- tolower(type)
 
   if (!type_lwr %in% c("main", "all", "gmc-bs", "gmc-r")) {
-    ui_warn("Unknown value of type = '{type}'")
+    cli::cli_warn("Unknown value of type = '{type}'")
   }
 
 
@@ -232,7 +232,7 @@ check_internet_connection <- function(get_what = "versions") {
 check_program_version  <- function(name = "", v_installed = NULL,
   v_recommended = NULL, v_available = NULL, type = "Program") {
 
-  print_fun <- ui_info
+  print_fun <- cli::cli_alert_info
   v_color   <- red
   r_color   <- red
   install_status <- ""
@@ -256,13 +256,13 @@ check_program_version  <- function(name = "", v_installed = NULL,
   }
 
   if (v_installed < v_recommended) {
-    print_fun <- ui_todo
+    print_fun <- cli::cli_ul
     v_color   <- red
     r_color   <- green
     install_status <- "should be updated"
 
   } else {
-    print_fun <- ui_done
+    print_fun <- cli::cli_alert_danger
     v_color   <- green
     r_color   <- yellow
     install_status <- "is installed"
@@ -303,7 +303,9 @@ check_quarto_version <- function(v_recommended = "1.4.549",
 check_rs_version <- function(v_recommended = "2023.12.1", skip_online_check = FALSE) {
 
   if (!rstudioapi::isAvailable()) {
-    ui_oops("Program {red('RStudio')} is not installed or is not running. ")
+    cli::cli_alert_danger(
+      "Program {red('RStudio')} is not installed or is not running. "
+    )
 
   } else {
     check_program_version(
@@ -322,7 +324,7 @@ check_rs_version <- function(v_recommended = "2023.12.1", skip_online_check = FA
   }
   try({
     if (is_32bit_os()) {
-      ui_info(stringr::str_c(
+      cli::cli_alert_info(paste0(
         "For 32-bit operating systems, the newest available RStudio version ",
         "is {yellow('1.1.463')}."
       ))
@@ -392,10 +394,10 @@ check_program_installed <- function(program = "", condition = NULL,
   what = "Program") {
 
   if (condition) {
-    ui_done("{what} {blue(program)} is installed.")
+    cli::cli_alert_success("{what} {blue(program)} is installed.")
 
   } else {
-    ui_oops("{what} {red(program)} is not detected.")
+    cli::cli_alert_danger("{what} {red(program)} is not detected.")
   }
 }
 
