@@ -8,7 +8,7 @@ check_installed_programs(type = "main", skip_online_check = FALSE)
 }
 \arguments{
 \item{type}{(character) Which programs should be checked? Options:
-\code{main}, \code{all}, \code{gmc-bs}, \code{gmc-r}.}
+\code{main}, \code{all}, \code{dev}, \code{gmc-bs}, \code{gmc-r}.}
 
 \item{skip_online_check}{(logical) If \code{TRUE}, the numbers of newest available
 stable programs are downloaded, when internet connection is connected.}
