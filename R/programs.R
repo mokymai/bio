@@ -313,7 +313,7 @@ check_rs_version <- function(v_recommended = "2023.12.1", skip_online_check = FA
         tryCatch(
           get_available_rs_version(skip = skip_online_check),
           error = function(e) {
-            warning(e)
+            cli::warn(e)
             NULL
           }
         ),
