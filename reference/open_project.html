@@ -4,7 +4,7 @@ files that contain project lists."><!-- mathjax --><script src="https://cdnjs.cl
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-reference-topic">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -18,7 +18,7 @@ files that contain project lists."><!-- mathjax --><script src="https://cdnjs.cl
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6</span>
       </span>
     </div>
 
@@ -26,8 +26,8 @@ files that contain project lists."><!-- mathjax --><script src="https://cdnjs.cl
       <ul class="nav navbar-nav"><li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-book"></span>
-     
-     
+
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li class="dropdown-header">Documentation for version of package:</li>
@@ -44,20 +44,20 @@ files that contain project lists."><!-- mathjax --><script src="https://cdnjs.cl
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/mokymai/bio/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Open RStudio Project</h1>
-    <small class="dont-index">Source: <a href="https://github.com/mokymai/bio/blob/HEAD/R/projects.R" class="external-link"><code>R/projects.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/mokymai/bio/blob/master/R/projects.R" class="external-link"><code>R/projects.R</code></a></small>
     <div class="hidden name"><code>open_project.Rd</code></div>
     </div>
 
@@ -80,12 +80,14 @@ files that contain project lists.</p>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>pattern</dt>
+
+
+<dl><dt id="arg-pattern">pattern<a class="anchor" aria-label="anchor" href="#arg-pattern"></a></dt>
 <dd><p>(character) regular expression to narrow down the list of
 possible options.</p></dd>
 
 
-<dt>new_session</dt>
+<dt id="arg-new-session">new_session<a class="anchor" aria-label="anchor" href="#arg-new-session"></a></dt>
 <dd><p>(logical|<code>NULL</code>) should the project be opened in a new
 session, or should the current RStudio session switch to that project?
 Note that <code>TRUE</code> values are only supported with RStudio Desktop and
@@ -93,35 +95,33 @@ RStudio Server Pro.
 If <code>NULL</code>, user will have to choose interactively.</p></dd>
 
 
-<dt>proj_list</dt>
+<dt id="arg-proj-list">proj_list<a class="anchor" aria-label="anchor" href="#arg-proj-list"></a></dt>
 <dd><p>(data frame) The result of <code><a href="projects.html">read_projects()</a></code> or <code>NULL</code>.</p></dd>
 
 
-<dt>proj_list_path</dt>
+<dt id="arg-proj-list-path">proj_list_path<a class="anchor" aria-label="anchor" href="#arg-proj-list-path"></a></dt>
 <dd><p>(string) The path to the file with the list of project
 paths. If <code>proj_list</code> is not <code>NULL</code>, then <code>proj_list_path</code> is ignored.</p></dd>
 
 
-<dt>only_available</dt>
+<dt id="arg-only-available">only_available<a class="anchor" aria-label="anchor" href="#arg-only-available"></a></dt>
 <dd><p>(logical) If <code>TRUE</code>, non-existing projects and projects
 with broken paths are removed from the list of choices.</p></dd>
 
 
-<dt>name</dt>
+<dt id="arg-name">name<a class="anchor" aria-label="anchor" href="#arg-name"></a></dt>
 <dd><p>(string|<code>NULL</code>) The name of the project or <code>NULL</code> to choose
 a project interactively.</p></dd>
 
 
-<dt>negate</dt>
+<dt id="arg-negate">negate<a class="anchor" aria-label="anchor" href="#arg-negate"></a></dt>
 <dd><p>(logical) If <code>TRUE</code>, then the options defined by  <code>pattern</code> are
 excluded.</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    
-
-<p>Opens the indicated project.</p>
+    <p>Opens the indicated project.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
@@ -134,7 +134,7 @@ excluded.</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    
+
     </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -148,15 +148,15 @@ excluded.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
       </footer></div>
 
-  
 
 
-  
+
+
 
   </body></html>
 

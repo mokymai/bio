@@ -3,7 +3,7 @@
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]--></head><body data-spy="scroll" data-target="#toc">
-    
+
 
     <div class="container template-reference-topic">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">bio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.6</span>
       </span>
     </div>
 
@@ -25,8 +25,8 @@
       <ul class="nav navbar-nav"><li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     <span class="fa fa-book"></span>
-     
-     
+
+
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li class="dropdown-header">Documentation for version of package:</li>
@@ -43,20 +43,20 @@
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/mokymai/bio/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
-     
+
   </a>
 </li>
       </ul></div><!--/.nav-collapse -->
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-      
+
 
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>List packages installed on this computer</h1>
-    <small class="dont-index">Source: <a href="https://github.com/mokymai/bio/blob/HEAD/R/packages--check.R" class="external-link"><code>R/packages--check.R</code></a></small>
+    <small class="dont-index">Source: <a href="https://github.com/mokymai/bio/blob/master/R/packages--check.R" class="external-link"><code>R/packages--check.R</code></a></small>
     <div class="hidden name"><code>get_pkgs_installed.Rd</code></div>
     </div>
 
@@ -70,7 +70,9 @@
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>rm_duplicates</dt>
+
+
+<dl><dt id="arg-rm-duplicates">rm_duplicates<a class="anchor" aria-label="anchor" href="#arg-rm-duplicates"></a></dt>
 <dd><p>(logical) Should duplicated names of packages be removed?
 If <code>TRUE</code>, when several packages are found, only the one with the
 highest version is returned. If <code>FALSE</code>, no packages are removed
@@ -79,13 +81,11 @@ from the list.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    
-
-<p>Data frame with columns <code>"package"</code> and <code>"current_version"</code>.</p>
+    <p>Data frame with columns <code>"package"</code> and <code>"current_version"</code>.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
-    <div class="dont-index"><p>Other R-packages-related functions: 
+    <div class="dont-index"><p>Other R-packages-related functions:
 <code><a href="compare_version.html">compare_version</a>()</code>,
 <code><a href="get_pkgs_installation_status.html">get_pkgs_installation_status</a>()</code></p></div>
     </div>
@@ -95,7 +95,7 @@ from the list.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">get_pkgs_installed</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       package current_version</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  KernSmooth         2.23-22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  KernSmooth         2.23-24</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2        MASS        7.3-60.2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3      Matrix           1.7-0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4     R.cache          0.16.0</span>
@@ -121,15 +121,15 @@ from the list.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
 </div>
 
       </footer></div>
 
-  
 
 
-  
+
+
 
   </body></html>
 
