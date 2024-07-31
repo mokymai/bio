@@ -24,6 +24,7 @@ Additional_repositories:
 Imports:
   backup.tools (>= 0.0.3),
   checkmate,
+  cli,
   clipr,
   crayon,
   desc,
