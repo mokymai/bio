@@ -214,7 +214,7 @@
     "visual_markdown_editing_font_size_points"     : 0,
     "visual_markdown_editing_is_default"           : false,
     "visual_markdown_editing_list_spacing"         : "tight",
-    "visual_markdown_editing_max_content_width"    : 700,
+    "visual_markdown_editing_max_content_width"    : 1000,
     "visual_markdown_editing_references_location"  : "section",
     "visual_markdown_editing_show_doc_outline"     : true,
     "visual_markdown_editing_show_margin"          : true,
