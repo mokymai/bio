@@ -1,6 +1,5 @@
 {
-    "addins.rmd::rmd_code_block_python"            : "Ctrl+R",
-    "addins.rmd::rmd_code_block_r"                 : "Ctrl+E",
+    "addins.rmd::rmd_code_block_r"                 : "Ctrl+R",
     "addins.rmd::rmd_code_inline_highlighted_as_r" : "Ctrl+Shift+Alt+T",
     "addins.rmd::rmd_equation_a_inline"            : "Shift+Alt+S",
     "addins.rmd::rmd_format_bold"                  : "Ctrl+Alt+B",
