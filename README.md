@@ -6,9 +6,9 @@ Package ***bio***
 <!-- badges: start -->
 
 [![GitHub
-version](https://img.shields.io/badge/GitHub-0.2.5-brightgreen.svg)](https://github.com/mokymai/bio)
+version](https://img.shields.io/badge/GitHub-0.2.6-brightgreen.svg)](https://github.com/mokymai/bio)
 [![R-CMD-check](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
-[![Updated-on](https://img.shields.io/badge/Updated%20on-2024--05--27-yellowgreen.svg)](/commits/master)
+[![Updated-on](https://img.shields.io/badge/Updated%20on-2024--07--31-yellowgreen.svg)](/commits/master)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![R-CMD-check](https://github.com/mokymai/bio/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mokymai/bio/actions/workflows/R-CMD-check.yaml)
@@ -21,7 +21,7 @@ required resources for course unit ***Biostatistics*** (*BS-2023*).
 
 <center>
 <br> <font color="darkred" size=4> This package is intended to be used
-with <b>RStudio 2022.06.0</b> or newer<br> and <b>R 4.3.1</b> or
+with <b>RStudio 2024.04</b> or newer<br> and <b>R 4.4.0</b> or
 newer.<br> </font> <font color="darkred" size=3> Functions may not work
 correctly with the previous versions of RStudio and R. </font>
 <br><br><br>
