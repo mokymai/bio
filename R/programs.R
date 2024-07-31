@@ -237,8 +237,8 @@ check_program_version  <- function(name = "", v_installed = NULL,
   r_color   <- red
   install_status <- ""
 
-  v_recommended <- numeric_version(v_recommended)
-  v_installed   <- numeric_version(v_installed)
+  v_recommended <- as.numeric_version(v_recommended)
+  v_installed   <- as.numeric_version(v_installed)
 
   if (!is.null(v_available)) {
 
