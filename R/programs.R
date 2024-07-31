@@ -262,7 +262,7 @@ check_program_version  <- function(name = "", v_installed = NULL,
     install_status <- "should be updated"
 
   } else {
-    print_fun <- cli::cli_alert_danger
+    print_fun <- cli::cli_alert_success
     v_color   <- green
     r_color   <- yellow
     install_status <- "is installed"
