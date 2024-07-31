@@ -1,8 +1,8 @@
 Package: bio
 Type: Package
 Title: Resources Manager for R, RStudio and Related Software
-Version: 0.2.5
-Date: 2024-05-27
+Version: 0.2.6
+Date: 2024-07-31
 Authors@R: 
     person("Vilmantas", "Gegzna", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-9500-5167"),
