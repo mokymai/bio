@@ -1,6 +1,6 @@
 ---
 title: "Minimal required versions of packages"
-date:  2024-07-31
+date:  2024-08-30
 notes: ""
 
 
@@ -24,10 +24,10 @@ chemCal                     | 0.2.3            | FALSE  | -
 citr                        | 0.3.2            | TRUE   | -
 correlation                 | 0.8.1            | FALSE  | -
 cowplot                     | 1.1.1            | FALSE  | -
-data.table                  | 1.14.2           | FALSE  | -
-DescTools                   | 0.99.48          | FALSE  | -
+data.table                  | 1.16.0           | FALSE  | -
+DescTools                   | 0.99.56          | FALSE  | -
 devtools                    | 2.4.4            | FALSE  | -
-dplyr                       | 1.1.2            | FALSE  | -
+dplyr                       | 1.1.4            | FALSE  | -
 DT                          | 0.28             | FALSE  | -
 effects                     | 4.2-2            | FALSE  | Rcmdr
 effectsize                  | 0.7.0            | FALSE  | -
