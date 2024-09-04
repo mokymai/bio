@@ -65,7 +65,7 @@
     "execution_behavior"                           : "statement",
     "file_monitor_ignored_components"              : [],
     "find_panel_legacy_tab_sequence"               : false,
-    "focus_console_after_exec"                     : true,
+    "focus_console_after_exec"                     : false,
     "fold_style"                                   : "begin-and-end",
     "font_size_points"                             : 10,
     "full_project_path_in_window_title"            : false,
