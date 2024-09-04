@@ -1,6 +1,6 @@
 ---
 title: "Minimal required versions of packages"
-date:  2024-08-30
+date:  2024-09-04
 notes: ""
 
 
@@ -13,7 +13,7 @@ addin.tools                 | 0.0.10           | FALSE  | -
 addins.rmd                  | 0.0.14           | FALSE  | -
 addins.rs                   | 0.0.12           | FALSE  | -
 backup.tools                | 0.0.3            | FALSE  | -
-bio                         | 0.2.6            | FALSE  | -
+bio                         | 0.2.7            | FALSE  | -
 BiocManager                 | 1.30.20          | FALSE  | -
 blogdown                    | 1.9              | FALSE  | -
 bookdown                    | 0.32             | FALSE  | -
