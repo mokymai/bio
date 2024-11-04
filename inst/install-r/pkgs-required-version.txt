@@ -1,6 +1,6 @@
 ---
 title: "Minimal required versions of packages"
-date:  2024-09-04
+date:  2024-11-04
 notes: ""
 
 
@@ -13,7 +13,7 @@ addin.tools                 | 0.0.10           | FALSE  | -
 addins.rmd                  | 0.0.14           | FALSE  | -
 addins.rs                   | 0.0.12           | FALSE  | -
 backup.tools                | 0.0.3            | FALSE  | -
-bio                         | 0.2.7            | FALSE  | -
+bio                         | 0.2.8            | FALSE  | -
 BiocManager                 | 1.30.20          | FALSE  | -
 blogdown                    | 1.9              | FALSE  | -
 bookdown                    | 0.32             | FALSE  | -
@@ -21,18 +21,17 @@ broom                       | 1.0.4            | FALSE  | -
 bslib                       | 0.4.0            | FALSE  | -
 car                         | 3.1-0            | FALSE  | Rcmdr
 chemCal                     | 0.2.3            | FALSE  | -
-citr                        | 0.3.2            | TRUE   | -
 correlation                 | 0.8.1            | FALSE  | -
 cowplot                     | 1.1.1            | FALSE  | -
 data.table                  | 1.16.0           | FALSE  | -
-DescTools                   | 0.99.56          | FALSE  | -
+DescTools                   | 0.99.57          | FALSE  | -
 devtools                    | 2.4.4            | FALSE  | -
 dplyr                       | 1.1.4            | FALSE  | -
 DT                          | 0.28             | FALSE  | -
 effects                     | 4.2-2            | FALSE  | Rcmdr
 effectsize                  | 0.7.0            | FALSE  | -
 effsize                     | 0.8.1            | FALSE  | -
-esquisse                    | 1.1.2            | FALSE  | -
+esquisse                    | 2.0.1            | FALSE  | -
 factoextra                  | 1.0.7            | FALSE  | -
 flextable                   | 0.7.2            | FALSE  | -
 forcats                     | 1.0.0            | FALSE  | -
@@ -45,7 +44,7 @@ ggpubr                      | 0.6.0            | FALSE  | -
 ggstatsplot                 | 0.10.            | FALSE  | -
 ggtext                      | 0.1.1            | FALSE  | -
 glue                        | 1.6.2            | FALSE  | -
-gt                          | 0.8.0            | FALSE  | -
+gt                          | 0.11.1           | FALSE  | -
 gtsummary                   | 1.7.2            | FALSE  | -
 haven                       | 2.5.0            | FALSE  | -
 hms                         | 1.1.1            | FALSE  | -
@@ -63,7 +62,7 @@ mlr3                        | 0.13.4           | FALSE  | -
 mlr3verse                   | 0.2.5            | FALSE  | -
 mlr                         | 2.19.0           | FALSE  | -
 multcomp                    | 1.4-19           | FALSE  | Rcmdr
-officer                     | 0.4.3            | FALSE  | -
+officer                     | 0.6.7            | FALSE  | -
 openxlsx                    | 4.2.5            | FALSE  | -
 pander                      | 0.6.5            | FALSE  | -
 patchwork                   | 1.1.2            | FALSE  | -
@@ -71,10 +70,10 @@ pkgdown                     | 2.0.6            | FALSE  | -
 plotly                      | 4.9.4.1          | FALSE  | -
 purrr                       | 0.3.4            | FALSE  | -
 qqplotr                     | 0.0.6            | FALSE  | -
-quarto                      | 1.2              | FALSE  | -
+quarto                      | 1.4.4            | FALSE  | -
 Rcmdr                       | 2.8-1            | FALSE  | -
 RcmdrMisc                   | 2.7-2            | FALSE  | -
-RcmdrPlugin.biostat         | 0.0.70           | FALSE  | -
+RcmdrPlugin.biostat         | 0.0.77           | FALSE  | -
 RcmdrPlugin.EZR.as.menu     | 1.55             | FALSE  | -
 rcrossref                   | 1.1.0            | FALSE  | -
 readr                       | 2.1.3            | FALSE  | -
