@@ -116,7 +116,7 @@
     "publish_ca_bundle"                            : "",
     "publish_check_certificates"                   : true,
     "python_project_environment_automatic_activate": true,
-    "rainbow_fenced_divs"                          : false,
+    "rainbow_fenced_divs"                          : true,
     "rainbow_parentheses"                          : true,
     "real_time_spellchecking"                      : true,
     "reduced_motion"                               : false,
@@ -164,7 +164,7 @@
     "show_memory_usage"                            : true,
     "show_panel_focus_rectangle"                   : true,
     "show_publish_diagnostics"                     : false,
-    "show_rmd_render_command"                      : false,
+    "show_rmd_render_command"                      : true,
     "show_terminal_tab"                            : true,
     "show_user_home_page"                          : "sessions",
     "soft_wrap_r_files"                            : false,
@@ -223,6 +223,6 @@
     "warn_if_no_such_variable_in_scope"            : true,
     "warn_variable_defined_but_not_used"           : true,
     "windows_terminal_shell"                       : "win-git-bash",
-    "wrap_tab_navigation"                          : true
+    "wrap_tab_navigation"                          : false
 }
 
