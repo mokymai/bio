@@ -198,7 +198,6 @@
     "show_diagnostics_r"                           : true,
     "show_diagnostics_yaml"                        : true,
     "show_doc_outline_rmd"                         : false,
-    "show_focus_rectangles"                        : true,
     "show_function_signature_tooltips"             : true,
     "show_help_tooltip_on_idle"                    : false,
     "show_hidden_files"                            : false,
