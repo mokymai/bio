@@ -139,9 +139,9 @@ get_pkgs_installation_code()
 }
 }
 \seealso{
-Other R-packages-related functions: 
-\code{\link{compare_version}()},
-\code{\link{get_pkgs_installed}()}
+Other R-packages-related functions:
+\code{\link[=compare_version]{compare_version()}},
+\code{\link[=get_pkgs_installed]{get_pkgs_installed()}}
 }
 \concept{R-packages-related functions}
 \concept{packages}

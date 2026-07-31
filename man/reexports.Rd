@@ -13,8 +13,8 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{backup.tools}{\code{\link[backup.tools:get_path_backup_dir]{open_backup_dir}}}
+  \item{backup.tools}{\code{\link[backup.tools:open_backup_dir]{open_backup_dir()}}}
 
-  \item{snippets}{\code{\link[snippets]{get_path_rstudio_snippets_dir}}, \code{\link[snippets]{open_rstudio_snippets_dir}}}
+  \item{snippets}{\code{\link[snippets:get_path_rstudio_snippets_dir]{get_path_rstudio_snippets_dir()}}, \code{\link[snippets:open_rstudio_snippets_dir]{open_rstudio_snippets_dir()}}}
 }}
 

@@ -16,7 +16,7 @@ open_r_environ()
 Functions to get path to and open \code{.Renviron} file that contains
 definitions of R environment variables.
 
-Compared to  \code{\link[usethis:edit]{usethis::edit_r_environ()}}, \code{open_r_environ()} does not create
+Compared to  \code{\link[usethis:edit_r_environ]{usethis::edit_r_environ()}}, \code{open_r_environ()} does not create
 file if it does not exist.
 }
 \examples{
@@ -25,7 +25,7 @@ get_path_r_environ()
 }
 \seealso{
 \itemize{
-\item \code{\link[usethis:edit]{usethis::edit_r_environ()}}
+\item \code{\link[usethis:edit_r_environ]{usethis::edit_r_environ()}}
 }
 }
 \concept{paths and dirs}
