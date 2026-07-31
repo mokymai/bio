@@ -33,14 +33,14 @@ Sys.setenv(R_REMOTES_NO_ERRORS_FROM_WARNINGS = "true")
 
 
 
-Convenience functions to facilitate installation and management of required resources for course unit __*Biostatistics*__  (*BS-2023*).
+Convenience functions to facilitate installation and management of required resources for course unit __*Biostatistics*__  (*BS*).
 
 
 <center>
 <br>
 <font color="darkred" size=4>
-This package is intended to be used with <b>RStudio 2024.04</b> or newer<br>
-and <b>R 4.4.0</b> or newer.<br>
+This package is intended to be used with <b>RStudio 2026.07</b> or newer<br>
+and <b>R 4.6.1</b> or newer.<br>
 </font>
 <font color="darkred" size=3>
 Functions may not work correctly with the previous versions of RStudio and R.
@@ -242,7 +242,7 @@ bio::rstudio_reset_keybindings()
 
 Options:
 
-- `"bio-default"`{.r} -- shortcut keys recommended for course BS-2023.
+- `"bio-default"`{.r} -- shortcut keys recommended for BS course.
 - `"rstudio-default"`{.r} -- RStudio defaults.
 
 ```{r README-9b, eval=FALSE}
