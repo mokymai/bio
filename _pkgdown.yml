@@ -5,9 +5,15 @@ url: https://mokymai.github.io/bio
 destination: docs
 
 template:
-  bootstrap: 3
-  params:
-    bootswatch: sandstone
+  bootstrap: 5
+  light-switch: true
+  bootswatch: sandstone
+  bootswatch_dark: darkly
+
+# ----------------------------------------------------------------------------
+# Search settings
+search:
+  backend: docsearch
 
 # ----------------------------------------------------------------------------
 
