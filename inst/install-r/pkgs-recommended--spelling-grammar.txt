@@ -1,4 +1,0 @@
-hunspell
-spelling
-LanguageToolR
-wellspell.addin
