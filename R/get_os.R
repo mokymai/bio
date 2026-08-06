@@ -17,11 +17,9 @@ get_os_type <- function() {
   sys_info <- Sys.info()
   if (!is.null(sys_info)) {
     os <- sys_info["sysname"]
-    if (os == "Darwin") {os <- "mac"}
-  } else {
-    os <- .Platform$OS.type
-    if (grepl("^darwin",   R.version$os, useBytes = TRUE)) {os <- "mac"}
-    if (grepl("linux-gnu", R.version$os, useBytes = TRUE)) {os <- "linux"}
+    os <- if (os == "Darwin") "mac" else .Platform$OS.type
+    if (grepl("^darwin", R.version$os, useBytes = TRUE)) os <- "mac"
+    if (grepl("linux-gnu", R.version$os, useBytes = TRUE)) os <- "linux"
   }
   unname(tolower(os))
 }
@@ -37,5 +35,3 @@ is_32bit_os <- function() {
 is_64bit_os <- function() {
   stringr::str_detect(version$arch, "64$")
 }
-
-
