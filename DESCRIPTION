@@ -49,8 +49,9 @@ Imports:
   waldo,
   withr
 Suggests: 
-  covr,
-  spelling
+    covr,
+    spelling,
+    testthat (>= 3.0.0)
 Roxygen: list(markdown = TRUE)
 Config/roxygen2/version: 8.0.0
 Config/testthat/edition: 3
