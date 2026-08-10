@@ -51,8 +51,8 @@
     "autohide_menubar"                             : false,
     "background_diagnostics"                       : true,
     "background_diagnostics_delay_ms"              : 2000,
-    "bioconductor_mirror_name"                     : "Seattle (USA)",
-    "bioconductor_mirror_url"                      : "http://www.bioconductor.org",
+    "bioconductor_mirror_name"                     : "EMBL-EBI (Cambridge, UK)",
+    "bioconductor_mirror_url"                      : "https://www.ebi.ac.uk/pub/software/Bioconductor/",
     "blinking_cursor"                              : true,
     "browser_fixed_width_fonts"                    : [
       "Andale Mono",
