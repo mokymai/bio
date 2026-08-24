@@ -59,13 +59,12 @@ user_setting_set_names <- c(
 #' }
 #' @export
 rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
-
   # Check arguments
   if (missing(to)) {
     # If the set of RStudio user settings is not chosen
     ui_stop(paste0(
       "The value of argument '{yellow('to')}' is missing.\n",
-      'Possible choices: {ui_value(user_setting_set_names)}.'
+      "Possible choices: {ui_value(user_setting_set_names)}."
     ))
   }
 
@@ -129,7 +128,7 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
     },
 
     usethis::ui_stop(paste0(
-      'Unknown option of user setting defaults: to = {usethis::ui_value(to[1])}. \n',
+      "Unknown option of user setting defaults: to = {usethis::ui_value(to[1])}. \n",
       "Possible options: {ui_value(user_setting_set_names)}."
     ))
   )
@@ -245,7 +244,7 @@ normalize_rstudio_preference_value <- function(value) {
 
   if (
     is.null(names(value)) &&
-    all(vapply(value, function(item) !is.list(item) && length(item) == 1L, logical(1)))
+      all(vapply(value, function(item) !is.list(item) && length(item) == 1L, logical(1)))
   ) {
     return(unlist(value, use.names = FALSE))
   }
@@ -278,7 +277,7 @@ rstudio_compare_user_settings <- function(to = "bio-default") {
 
   pref_names <- names(default_prefs) |> purrr::set_names()
   current_prefs <-
-    purrr::map(pref_names, ~rstudioapi::readRStudioPreference(., NULL)) |>
+    purrr::map(pref_names, ~ rstudioapi::readRStudioPreference(., NULL)) |>
     purrr::map(normalize_rstudio_preference_value)
 
   usethis::ui_info(

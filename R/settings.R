@@ -352,4 +352,3 @@ rstudio_clear_console_ask <- function() {
 
   invisible(NULL)
 }
-

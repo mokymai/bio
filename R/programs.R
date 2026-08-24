@@ -89,7 +89,7 @@ check_installed_programs <- function(type = "main", skip_online_check = FALSE) {
     )
   }
 
-  # XQuartz (on Mac) 
+  # XQuartz (on Mac)
   # NOTE: on stack overflow, it writes that this functon might hang R session
   # if XQuartz is missing.
   # https://stackoverflow.com/questions/37438773/
@@ -104,9 +104,11 @@ check_installed_programs <- function(type = "main", skip_online_check = FALSE) {
 
   # Meld
   if (type_lwr %in% c("all")) {
-    try({
-      check_program_installed("Meld", is_meld_installed())
-    }, silent = TRUE)
+    try(
+      {
+        check_program_installed("Meld", is_meld_installed())
+      },
+      silent = TRUE)
   }
 
   invisible(NULL)
@@ -280,7 +282,7 @@ print_program_version_info <- function(name = "", v_installed = NULL,
     version <- glue::glue("({v_color(v_installed_num)}) ")
   }
 
-  available <- 
+  available <-
     if (not_available) {
       ""
     } else {
@@ -306,7 +308,7 @@ print_program_version_info <- function(name = "", v_installed = NULL,
 check_r_version <- function(skip_online_check = FALSE) {
 
   print_program_version_info(
-    name = 'R',
+    name = "R",
     v_installed = getRversion(),
     v_available = get_available_r_version(skip = skip_online_check)
   )
@@ -329,7 +331,7 @@ check_rs_version <- function(v_recommended = "2023.12.1", skip_online_check = FA
 
   } else {
     print_program_version_info(
-      name = 'RStudio',
+      name = "RStudio",
       v_installed = rstudioapi::versionInfo()$version,
       v_available =
         tryCatch(
@@ -395,7 +397,6 @@ is_git_installed <- function() {
       # If no error occurs in system2(), TRUE is returned.
       TRUE
     },
-
     error = function(e) {
       FALSE
     }
@@ -425,4 +426,3 @@ check_program_installed <- function(program = "", condition = NULL,
 check_tool_installed <- function(name = "", condition = NULL) {
   check_program_installed(name, condition, what = "Tool")
 }
-

@@ -423,4 +423,3 @@ update_rstudio_proj_list_user <- function() {
     "{usethis::ui_path(file_with_users_list)}"
   ))
 }
-

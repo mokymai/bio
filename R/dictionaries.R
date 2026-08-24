@@ -31,7 +31,6 @@
 #'   rstudioapi::userDictionariesPath()
 #'   get_path_rstudio_config_dir("dictionaries")
 #' }
-
 NULL
 
 
@@ -87,7 +86,6 @@ open_rstudio_internal_dictionaries_dir <- function() {
 #'   rstudio_delete_spellcheck_dictionaries()
 #'   rstudio_download_spellcheck_dictionaries()
 #' }
-
 rstudio_install_spellcheck_dictionaries <- function(secure = TRUE) {
 
   if (rstudioapi::isAvailable(version_needed = "1.3")) {
