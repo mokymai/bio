@@ -21,6 +21,14 @@ jobs:
           use-public-rspm: true
           extra-repositories: "https://mokymai.github.io/download/"
 
+      - name: Configure package repositories
+        shell: Rscript {0}
+        run: |
+          writeLines(
+            'options(repos = c(CRAN = "https://packagemanager.posit.co/cran/latest", MOKYMAI = "https://mokymai.github.io/download/"))',
+            "~/.Rprofile"
+          )
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::lintr, any::styler, local::.
