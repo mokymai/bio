@@ -4,9 +4,10 @@ make_unique_obj_names <- function(names, prefix = "", suffix = "",
                                     envir = .GlobalEnv
                                   ),
                                   all_numbered = TRUE) {
-  if (length(names) == 0) {
+  if (length(names) == 0L) {
     return(NULL)
   }
+
   initial_names <- glue::glue("{prefix}{names}{suffix}")
   n_names <- length(names)
 
@@ -17,9 +18,7 @@ make_unique_obj_names <- function(names, prefix = "", suffix = "",
       c(list_of_choices, initial_names)
     }
 
-  list_to_check %>%
-    make.unique(sep = "_") %>%
-    rev() %>%
-    .[1:n_names] %>%
-    rev()
+  list_to_check |>
+    make.unique(sep = "_") |>
+    utils::tail(n_names)
 }
