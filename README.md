@@ -48,7 +48,7 @@ install.packages("bio", repos = repos)
 
 <summary>
 
-Install form GitHub
+Install from GitHub
 </summary>
 
 To install this package from GitHub:
@@ -66,7 +66,7 @@ Note: installation from *GitHub* may require *RTools* on *Windows*.
 
 ## Check information about OS and user
 
-Check information about operating system (OS) and R-related user
+Check information about the operating system (OS) and R-related user
 information.
 
 ``` r
@@ -87,8 +87,8 @@ bio::check_user_info()
 
 ## Check information about programs
 
-Check versions of presence of installed R-related and other programs.
-Options:
+Check the versions and availability of installed R-related and other
+programs. Options:
 
 - `"main"` (default) – checks for “R”, “RStudio”, “Quarto”, and “Rtools”
   (“Windows” only) or “R Build Tools” (non-“Windows” only).
@@ -115,15 +115,15 @@ bio::check_installed_programs("all")
 
 ## RStudio settings and user preferences
 
-> Make sure that you understand what you are doing when you try using
-> the functions that reset RStudio key bindings (shortcut keys),
-> settings or snippets. **You may loose *all* your previous settings.**
+> Make sure that you understand what you are doing when using functions
+> that reset RStudio key bindings (shortcut keys), settings, or
+> snippets. **You may lose *all* your previous settings.**
 
 ### Dictionaries
 
-This function downloads or updates **hunspell** spelling checking
-dictionaries dictionaries (including Lithuanian) that can be used by
-RStudio or by tools from **wellspell.addin** package.
+This function downloads or updates **hunspell** spelling-checking
+dictionaries (including Lithuanian) that can be used by RStudio or by
+tools from the **wellspell.addin** package.
 
 ``` r
 bio::rstudio_install_spellcheck_dictionaries()
@@ -133,7 +133,7 @@ bio::rstudio_install_spellcheck_dictionaries()
 
 This function changes shortcut keys in RStudio.
 
-Run function without arguments to see the available options.
+Run the function without arguments to see the available options.
 
 ``` r
 bio::rstudio_reset_keybindings()
@@ -152,25 +152,24 @@ bio::rstudio_reset_keybindings(to = "bio-default")
 ## ✔ Shortcut keys were reset to bio-default.
 ```
 
+**Table 1.** Some examples of shortcut keys set with the `"bio-default"`
+option.
+
 | Shortcut | Action |
 |----|----|
 | <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd> | Insert inline LaTeX equation (*Quarto*). |
 | <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd> | Use “Tidyverse” style on selected lines of R code. Package **styler** must be installed (*R code*). |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd> | Duplicate selected text. |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd> | Check spelling in selected text. Package [**wellspell.addin**](https://github.com/nevrome/wellspell.addin) must be installed. |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>P</kbd> | Align parts of selected lines at a custom pattern. |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>\]</kbd> | Change heading one level down (*Quarto*) **\[!\]**. |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>\[</kbd> | Change heading one level up or remove heading (*Quarto*) **\[!\]**. |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd> | Insert lower opening quotes `„`. |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>’</kbd> | Insert upper closing quotes `“`. |
-| <kbd>Ctrl</kbd>+<kbd>E</kbd> | **Insert/Enclose with R code block** (*Quarto*) **\[!\]** . |
+| <kbd>Ctrl</kbd>+<kbd>R</kbd> | **Insert/Enclose with R code block** (*Quarto*) **\[!\]** . |
 | <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>T</kbd> | Insert inline code highlighted as R code (Quarto). |
 | <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad8</kbd> | Insert operator `%*%` (*R code*). |
 | <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad7</kbd> | Insert operator `%in%` (*R code*). |
-| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>D</kbd> | Document R package (that you are building). |
-
-**Table 1.** Some examples of shortcut keys set with option
-`"bio-default"`.
+| <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd> | Document R package (that you are building). |
 
 <!-- : **Table 1.** Some examples of shortcut keys set with option `"bio-default"`{.r}. -->
 
@@ -184,9 +183,7 @@ bio::rstudio_reset_keybindings(to = "bio-default")
 
 <!-- Shift Alt A          | Use "Tidyverse" style on selected lines of R code. Package **styler** must be installed (*R code*). -->
 
-<!-- Ctrl Alt D           | Document R package (that you are building). -->
-
-<!-- Ctrl Shift D         | Duplicate selected text. -->
+<!-- Alt Shift D          | Document R package (that you are building). -->
 
 <!-- Ctrl Shift Alt P  | Align parts of selected lines at a custom pattern. -->
 
@@ -194,7 +191,7 @@ bio::rstudio_reset_keybindings(to = "bio-default")
 
 <!-- Ctrl Shift '         | Insert upper closing quotes `“`. -->
 
-<!-- Ctrl E                  | **Insert/Enclose with R code block** (*Quarto*) **[!]** . -->
+<!-- Ctrl R                  | **Insert/Enclose with R code block** (*Quarto*) **[!]** . -->
 
 <!-- Ctrl Alt T           | Insert inline code highlighted as R code (Quarto). -->
 
@@ -218,7 +215,7 @@ bio::rstudio_reset_keybindings(to = "bio-default")
 
 <!-- Ctrl Alt NumPad8     | Insert operator `%*%` (*R code*). -->
 
-More on <a
+For more information, see <a
 href="https://docs.posit.co/ide/user/ide/guide/productivity/custom-shortcuts.html"
 target="_blank">Customizing Keyboard Shortcuts</a> in RStudio.
 
@@ -226,7 +223,7 @@ target="_blank">Customizing Keyboard Shortcuts</a> in RStudio.
 
 This function resets RStudio user preferences and settings.
 
-Run function without arguments to see the available options.
+Run the function without arguments to see the available options.
 
 ``` r
 bio::rstudio_reset_user_settings()
@@ -244,11 +241,11 @@ The options:
 - `"rstudio-default"` – default RStudio settings.
 
 ``` r
-bio::rstudio_reset_user_settings(to = "bio-dark-blue")
+bio::rstudio_reset_user_settings(to = "bio-default")
 ```
 
-To check, how your settings differ from the defaults in a certain list,
-use:
+To check how your settings differ from the defaults in a particular
+list, use:
 
 ``` r
 bio::rstudio_compare_user_settings(to = "bio-default")
@@ -256,13 +253,13 @@ bio::rstudio_compare_user_settings(to = "bio-default")
 ## ✔ No differences
 ```
 
-The settings that are not in the list will not be displayed. Available
-options of `to` are “bio-default” and “rstudio-default”.
+Settings that are not in the list will not be displayed. The available
+options for `to` are “bio-default” and “rstudio-default”.
 
 ### Snippets
 
-The function replaces current R code and Quarto snippets with those in
-package “snippets”.
+The function replaces the current R and Quarto snippets with those from
+the “snippets” package.
 
 ``` r
 snippets::install_snippets_from_package("snippets", backup = TRUE)
@@ -274,7 +271,7 @@ snippets::install_snippets_from_package("snippets", backup = TRUE)
 ## ℹ You will be able to use the snippets after RStudio is closed and reopened.
 ```
 
-More information on <a
+For more information about <a
 href="https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets"
 target="_blank">Code Snippets</a> in RStudio and on package
 <a href="https://gegznav.github.io/snippets/"
@@ -282,17 +279,17 @@ target="_blank"><strong>snippets</strong></a>.
 
 ### Restart R and RStudio
 
-If you want to see the effect of changed settings, you should reload
-RStudio. You may use this function, which reloads RStudio without
-closing it:
+If you want to see the effect of the changed settings, reload RStudio.
+You can use this function to reload RStudio without closing it:
 
 ``` r
 bio::restart_rstudio()
 ```
 
-However, in some cases it is recommended to close and reopen RStudio.
+However, in some cases, it is recommended that you close and reopen
+RStudio.
 
-Next, to restart R session without closing RStudio, use:
+To restart the R session without closing RStudio, use:
 
 ``` r
 bio::restart_r()
