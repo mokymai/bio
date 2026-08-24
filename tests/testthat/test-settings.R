@@ -62,3 +62,26 @@ test_that("compare settings helper is callable with valid presets", {
 
   expect_true(is.character(match.arg("bio-default", c("bio-default", "rstudio-default"))))
 })
+
+test_that("RStudio preference values are normalized for comparison", {
+  expect_equal(
+    normalize_rstudio_preference_value(list("Chat")),
+    "Chat"
+  )
+  expect_equal(
+    normalize_rstudio_preference_value(list("tmux", "screen")),
+    c("tmux", "screen")
+  )
+  expect_equal(
+    normalize_rstudio_preference_value(list()),
+    character()
+  )
+  expect_equal(
+    normalize_rstudio_preference_value(list(panes = list("Source"))),
+    list(panes = "Source")
+  )
+  expect_equal(
+    normalize_rstudio_preference_value(1L),
+    1
+  )
+})
