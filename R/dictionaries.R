@@ -26,15 +26,11 @@
 #'
 #' @seealso [rstudioapi::dictionaries]
 #' @examples
-#' \dontrun{\donttest{
-#'
-#' rstudioapi::dictionariesPath()
-#'
-#' rstudioapi::userDictionariesPath()
-#'
-#' get_path_rstudio_config_dir("dictionaries")
-#'
-#' }}
+#' if (interactive()) {
+#'   rstudioapi::dictionariesPath()
+#'   rstudioapi::userDictionariesPath()
+#'   get_path_rstudio_config_dir("dictionaries")
+#' }
 
 NULL
 
@@ -47,7 +43,7 @@ NULL
 #' - `open_rstudio_system_dictionaries_dir()`
 open_rstudio_system_dictionaries_dir <- function() {
   # "C:/Users/User/AppData/Roaming/RStudio/dictionaries/languages-system"
-  get_path_rstudio_config_dir("dictionaries/languages-system") %>%
+  get_path_rstudio_config_dir("dictionaries/languages-system") |>
     fs::file_show()
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -58,7 +54,7 @@ open_rstudio_system_dictionaries_dir <- function() {
 #' - `open_rstudio_user_dictionaries_dir()`
 open_rstudio_user_dictionaries_dir <- function() {
   # "C:/Users/User/AppData/Local/RStudio/dictionaries"
-  rstudioapi::userDictionariesPath() %>% fs::file_show()
+  rstudioapi::userDictionariesPath() |> fs::file_show()
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @rdname RStudio-dictionaries
@@ -68,7 +64,7 @@ open_rstudio_user_dictionaries_dir <- function() {
 #' - `open_rstudio_internal_dictionaries_dir()`
 open_rstudio_internal_dictionaries_dir <- function() {
   # "C:/Program Files/RStudio/resources/dictionaries"
-  rstudioapi::dictionariesPath() %>% fs::file_show()
+  rstudioapi::dictionariesPath() |> fs::file_show()
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #
@@ -87,10 +83,10 @@ open_rstudio_internal_dictionaries_dir <- function() {
 #' @concept dictionaries
 #'
 #' @examples
-#' \dontrun{\donttest{
-#' rstudio_delete_spellcheck_dictionaries()
-#' rstudio_download_spellcheck_dictionaries()
-#' }}
+#' if (interactive()) {
+#'   rstudio_delete_spellcheck_dictionaries()
+#'   rstudio_download_spellcheck_dictionaries()
+#' }
 
 rstudio_install_spellcheck_dictionaries <- function(secure = TRUE) {
 
