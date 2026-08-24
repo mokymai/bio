@@ -41,7 +41,6 @@ jobs:
     env:
       R_KEEP_PKG_SOURCE: yes
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      RENV_CONFIG_REPOS_OVERRIDE: "CRAN=https://packagemanager.posit.co/cran/latest;MOKYMAI=https://mokymai.github.io/download/"
 
     steps:
       - uses: actions/checkout@v4
@@ -52,16 +51,8 @@ jobs:
         with:
           r-version: ${{ matrix.config.r }}
           http-user-agent: ${{ matrix.config.http-user-agent }}
-          use-public-rspm: true
+          use-public-rspm: false
           extra-repositories: "https://mokymai.github.io/download/"
-
-      - name: Configure package repositories
-        shell: Rscript {0}
-        run: |
-          writeLines(
-            'options(repos = c(CRAN = "https://packagemanager.posit.co/cran/latest", MOKYMAI = "https://mokymai.github.io/download/"))',
-            "~/.Rprofile"
-          )
 
 
       - uses: r-lib/actions/setup-r-dependencies@v2
