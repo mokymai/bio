@@ -40,14 +40,14 @@ directory (and its sub-directories).
 }
 }
 \examples{
-\dontrun{\donttest{
-get_path_rstudio_config_dir()
+if (interactive()) {
+  get_path_rstudio_config_dir()
 
-get_path_rstudio_config_dir("dictionaries")
-}}
-\dontrun{\donttest{
-get_path_rstudio_keybindings_dir()
-}}
+  get_path_rstudio_config_dir("dictionaries")
+}
+if (interactive()) {
+  get_path_rstudio_keybindings_dir()
+}
 }
 \seealso{
 \itemize{
