@@ -35,15 +35,11 @@ Functions to work with RStudio dictionaries.
 }
 }
 \examples{
-\dontrun{\donttest{
-
-rstudioapi::dictionariesPath()
-
-rstudioapi::userDictionariesPath()
-
-get_path_rstudio_config_dir("dictionaries")
-
-}}
+if (interactive()) {
+  rstudioapi::dictionariesPath()
+  rstudioapi::userDictionariesPath()
+  get_path_rstudio_config_dir("dictionaries")
+}
 }
 \seealso{
 \link[rstudioapi:dictionaries]{rstudioapi::dictionaries}

@@ -6,24 +6,12 @@
 \usage{
 update_pkg_snippets(upgrade = TRUE, force = FALSE, ...)
 }
-\arguments{
-\item{upgrade}{Upgrade dependencies.
-See \code{upgrade} in \code{\link[remotes:install_cran]{remotes::install_cran()}}.}
-
-\item{force}{(logical) \code{TRUE} or \code{FALSE}.
-Force to update.
-See \code{force} in \code{\link[remotes:install_cran]{remotes::install_cran()}}.}
-
-\item{...}{Further arguments passed to \code{\link[remotes:install_cran]{remotes::install_cran()}}.}
-}
 \description{
 Update '\pkg{snippets}' and related packages
 }
 \examples{
-\dontrun{\donttest{
-
-update_pkg_snippets()
-
-}}
+if (interactive()) {
+  update_pkg_snippets()
+}
 }
 \concept{packages}

@@ -28,7 +28,6 @@ compare_version("2.3", "2.3.1")
 }
 \seealso{
 Other R-packages-related functions:
-\code{\link[=get_pkgs_installation_status]{get_pkgs_installation_status()}},
 \code{\link[=get_pkgs_installed]{get_pkgs_installed()}}
 }
 \concept{R-packages-related functions}

@@ -14,30 +14,13 @@ check_updates_rcmdr_biostat(
 
 update_pkg_rcmdr_biostat(upgrade = TRUE, force = FALSE, ...)
 }
-\arguments{
-\item{show_status}{See argument \code{show_status} in \code{\link[=get_pkgs_installation_status]{get_pkgs_installation_status()}}.}
-
-\item{install}{See argument \code{install} in \code{\link[=get_pkgs_installation_status]{get_pkgs_installation_status()}}.}
-
-\item{upgrade}{Upgrade dependencies.
-See \code{upgrade} in \code{\link[remotes:install_cran]{remotes::install_cran()}}.}
-
-\item{...}{Further arguments passed to \code{\link[remotes:install_cran]{remotes::install_cran()}}.}
-
-\item{force}{(logical) \code{TRUE} or \code{FALSE}.
-Force to update.
-See \code{force} in \code{\link[remotes:install_cran]{remotes::install_cran()}}.}
-}
 \description{
 Update '\pkg{RcmdrPlugin.biostat}' and related packages
 }
 \examples{
-\dontrun{\donttest{
-
-update_pkg_rcmdr_biostat()
-
-check_updates_rcmdr_biostat()
-
-}}
+if (interactive()) {
+  update_pkg_rcmdr_biostat()
+  check_updates_rcmdr_biostat()
+}
 }
 \concept{packages}

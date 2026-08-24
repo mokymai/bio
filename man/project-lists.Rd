@@ -38,10 +38,10 @@ recent RStudio projects.
 }
 }
 \examples{
-\dontrun{\donttest{
-get_path_recent_proj_list()
-get_path_user_proj_list()
-}}
+if (interactive()) {
+  get_path_recent_proj_list()
+  get_path_user_proj_list()
+}
 
 }
 \concept{rstudio projects}

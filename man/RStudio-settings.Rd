@@ -30,17 +30,14 @@ Settings that can be used in \code{rstudio-prefs.json} file:
 https://docs.rstudio.com/ide/server-pro/session-user-settings.html
 }
 \examples{
-\dontrun{\donttest{
+if (interactive()) {
 
-rstudio_reset_user_settings(to = "rstudio-default")
+  rstudio_reset_user_settings(to = "rstudio-default")
+  rstudio_reset_user_settings(to = "bio-default")
+  rstudio_reset_user_settings(to = "bio-dark-blue")
+  rstudio_reset_user_settings(to = "bio-black")
 
-rstudio_reset_user_settings(to = "bio-default")
-
-rstudio_reset_user_settings(to = "bio-dark-blue")
-
-rstudio_reset_user_settings(to = "bio-black")
-
-}}
+}
 }
 \seealso{
 \code{\link[=get_path_rstudio_config_file]{get_path_rstudio_config_file()}}

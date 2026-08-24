@@ -2,17 +2,17 @@
 % Please edit documentation in R/programs.R
 \name{check_user_info}
 \alias{check_user_info}
-\title{Get User-Related Information}
+\title{Get user-related information}
 \usage{
 check_user_info()
 }
 \description{
-Get user-related information.
+Prints user and system metadata useful for troubleshooting local R setups.
 }
 \examples{
-\dontrun{\donttest{
-check_user_info()
-}}
+if (interactive()) {
+  check_user_info()
+}
 }
 \concept{check}
 \concept{check-user-info}

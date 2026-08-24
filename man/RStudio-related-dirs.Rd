@@ -25,7 +25,7 @@ open_rstudio_keybindings_dir()
 \arguments{
 \item{...}{(character) Parts of the path. Path to sub-directories.}
 
-\item{.check}{(logical) If \code{TRUE}, additionally checks for path existance.}
+\item{.check}{(logical) If \code{TRUE}, additionally checks for path existence.}
 }
 \value{
 (string) path to RStudio configuration directory.

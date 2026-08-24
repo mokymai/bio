@@ -2,26 +2,29 @@
 % Please edit documentation in R/settings--keybindings.R
 \name{rstudio_reset_keybindings}
 \alias{rstudio_reset_keybindings}
-\title{Set RStudio keybindings}
+\title{Reset RStudio keybindings to a packaged preset.}
 \usage{
 rstudio_reset_keybindings(to, backup = TRUE)
 }
 \arguments{
-\item{to}{(string) The type of keybindings.
-Currently available value is \code{"bio-default"}.}
+\item{to}{String scalar. Supported values are \code{"bio-default"} and
+\code{"rstudio-default"}.}
 
-\item{backup}{(logical) If \code{TRUE}, a back-up copy of files with current
-keybindings will be created.}
+\item{backup}{Logical scalar. If \code{TRUE}, a backup copy of the current
+keybinding files is created before resetting.}
+}
+\value{
+Invisibly returns \code{NULL} after resetting the keybindings.
 }
 \description{
-Set RStudio keybindings
+This helper copies the packaged keybindings files into the user-level
+RStudio folder, or removes the current keybinding files when the preset is
+\code{"rstudio-default"}.
 }
 \examples{
-\dontrun{\dontest{
-
-bio::rstudio_reset_keybindings(to = "bio-default")
-bio::rstudio_reload()
-
-}}
+if (interactive()) {
+  bio::rstudio_reset_keybindings(to = "bio-default")
+  bio::rstudio_reload_ui()
+}
 }
 \concept{r and rstudio settings}

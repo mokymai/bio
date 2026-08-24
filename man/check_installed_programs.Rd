@@ -2,33 +2,29 @@
 % Please edit documentation in R/programs.R
 \name{check_installed_programs}
 \alias{check_installed_programs}
-\title{Check Required Programs}
+\title{Check installed programs and available versions}
 \usage{
 check_installed_programs(type = "main", skip_online_check = FALSE)
 }
 \arguments{
-\item{type}{(character) Which programs should be checked? Options:
-\code{main}, \code{all}, \code{dev}, \code{gmc-bs}, \code{gmc-r}.}
+\item{type}{Character scalar selecting the tool group to check. Supported
+values are \code{"main"}, \code{"all"}, \code{"dev"}, \code{"gmc-bs"}, and \code{"gmc-r"}.}
 
-\item{skip_online_check}{(logical) If \code{TRUE}, the numbers of newest available
-stable programs are downloaded, when internet connection is connected.}
+\item{skip_online_check}{Logical. If \code{TRUE}, skips internet checks and does not
+attempt to fetch the newest available versions.}
 }
 \value{
-Invisible \code{NULL}.
-The results of program checking are printed.
+Invisibly returns \code{NULL}. The results are printed to the console.
 }
 \description{
-Check absence/presence and (in some cases) versions of required programs.
+Checks whether key tools are installed and, when online, reports the newest
+available versions for R, RStudio, and Quarto.
 }
 \examples{
-
-\dontrun{\donttest{
-
-check_installed_programs()
-
-check_installed_programs("all")
-
-}}
+if (interactive()) {
+  check_installed_programs()
+  check_installed_programs("all")
+}
 }
 \concept{check}
 \concept{check-programs}
