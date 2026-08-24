@@ -72,16 +72,16 @@ information.
 ``` r
 bio::check_user_info()
 ## # A tibble: 9 × 2
-##   Setting          Value                                       
-##   <chr>            <fs::path>                                  
-## 1 Operating system Windows 10 x64 (build 19045)                
-## 2 Platform         x86_64-w64-mingw32/x64                      
-## 3 LOGNAME                                                      
-## 4 USERNAME         user                                         
-## 5 USERPROFILE      C:/Users/user                                
-## 6 HOME             C:/Users/user                                
-## 7 R_USER           C:/Users/user                                
-## 8 R_HOME           C:/PROGRA~1/R/R-4.6.1                       
+##   Setting          Value
+##   <chr>            <fs::path>
+## 1 Operating system Windows 10 x64 (build 19045)
+## 2 Platform         x86_64-w64-mingw32/x64
+## 3 LOGNAME
+## 4 USERNAME         user
+## 5 USERPROFILE      C:/Users/user
+## 6 HOME             C:/Users/user
+## 7 R_USER           C:/Users/user
+## 8 R_HOME           C:/PROGRA~1/R/R-4.6.1
 ## 9 R_LIBS_USER      C:/Users/user/AppData/Local/R/win-library/4.6
 ```
 
