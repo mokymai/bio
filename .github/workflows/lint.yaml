@@ -23,6 +23,7 @@ jobs:
         with:
           extra-packages: any::lintr, any::styler, local::.
           needs: lint
+          extra-repositories: "https://mokymai.github.io/download/"
 
       - name: Run lintr
         run: lintr::lint_package()
