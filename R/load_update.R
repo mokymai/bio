@@ -8,13 +8,10 @@
 #' @concept packages
 #'
 #' @examples
-#' \dontrun{\donttest{
-#'
-#' update_pkg_rcmdr_biostat()
-#'
-#' check_updates_rcmdr_biostat()
-#'
-#' }}
+#' if (interactive()) {
+#'   update_pkg_rcmdr_biostat()
+#'   check_updates_rcmdr_biostat()
+#' }
 check_updates_rcmdr_biostat <- function(show_status = "always",
   install = "outdated", upgrade = TRUE, ...) {
 
@@ -44,11 +41,9 @@ update_pkg_rcmdr_biostat <- function(upgrade = TRUE, force = FALSE, ...) {
 #' @concept packages
 #'
 #' @examples
-#' \dontrun{\donttest{
-#'
-#' update_pkg_snippets()
-#'
-#' }}
+#' if (interactive()) {
+#'   update_pkg_snippets()
+#' }
 update_pkg_snippets <- function(upgrade = TRUE, force = FALSE, ...) {
   repos <- c("https://mokymai.github.io/download/", getOption("repos"))
   remotes::install_cran(
