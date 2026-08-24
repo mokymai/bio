@@ -276,7 +276,7 @@
     "use_devtools"                                 : true,
     "use_newlines_in_makefiles"                    : true,
     "use_publish_ca_bundle"                        : false,
-    "use_roxygen"                                  : false,
+    "use_roxygen"                                  : true,
     "use_secure_download"                          : true,
     "use_spaces_for_tab"                           : true,
     "use_tinytex"                                  : true,
