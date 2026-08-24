@@ -100,7 +100,7 @@ NULL
 #'
 #' @param ... (character) Parts of the path. Path to sub-directories.
 #'
-#' @param .check (logical) If `TRUE`, additionally checks for path existance.
+#' @param .check (logical) If `TRUE`, additionally checks for path existence.
 #'
 #' @return (string) path to RStudio configuration directory.
 #'         When `.check = TRUE`, renturns error, if the path does not exist.
