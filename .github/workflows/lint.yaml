@@ -10,6 +10,8 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
+    env:
+      RENV_CONFIG_REPOS_OVERRIDE: "CRAN=https://packagemanager.posit.co/cran/latest;MOKYMAI=https://mokymai.github.io/download/"
     steps:
       - uses: actions/checkout@v4
 
