@@ -121,7 +121,10 @@
     "copilot_show_messages"                        : true,
     "copilot_tab_key_behavior"                     : "suggestion",
     "cpp_template"                                 : "Rcpp",
-    "cran_mirror"                                  : {},
+    // "cran_mirror"                                  : {
+    //   "name": "Posit Package Manager",
+    //   "url": "https://packagemanager.posit.co/cran/latest"
+    // },
     "custom_shell_command"                         : "",
     "custom_shell_options"                         : "",
     "data_viewer_max_cell_size"                    : 50,
