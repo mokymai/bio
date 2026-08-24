@@ -35,9 +35,8 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::pkgdown, any::devtools, local::.
+          extra-packages: any::pkgdown, any::devtools, github::GegznaV/backup.tools, github::GegznaV/snippets, local::.
           needs: website
-          extra-repositories: "https://mokymai.github.io/download/"
 
       - name: Configure Git
         run: |
