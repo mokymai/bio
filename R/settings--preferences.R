@@ -230,6 +230,29 @@ rstudio_set_preferences <- function(file) {
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+normalize_rstudio_preference_value <- function(value) {
+  if (is.integer(value)) {
+    return(as.numeric(value))
+  }
+
+  if (!is.list(value)) {
+    return(value)
+  }
+
+  if (length(value) == 0L && is.null(names(value))) {
+    return(character())
+  }
+
+  if (
+    is.null(names(value)) &&
+    all(vapply(value, function(item) !is.list(item) && length(item) == 1L, logical(1)))
+  ) {
+    return(unlist(value, use.names = FALSE))
+  }
+
+  lapply(value, normalize_rstudio_preference_value)
+}
+
 #' Show differences in sets of settings
 #'
 #' @param to One of: "bio-default", "rstudio-default"
@@ -250,14 +273,13 @@ rstudio_compare_user_settings <- function(to = "bio-default") {
 
   file <- get_path_rstudio_config_file(which = to)
   default_prefs <-
-    jsonlite::fromJSON(file) |>
-    purrr::map_if(is.integer, as.numeric) |>
-    purrr::map_at("busy_exclusion_list", as.list)
+    jsonlite::fromJSON(file, simplifyVector = FALSE) |>
+    purrr::map(normalize_rstudio_preference_value)
 
   pref_names <- names(default_prefs) |> purrr::set_names()
   current_prefs <-
     purrr::map(pref_names, ~rstudioapi::readRStudioPreference(., NULL)) |>
-    purrr::map_if(is.integer, as.numeric)
+    purrr::map(normalize_rstudio_preference_value)
 
   usethis::ui_info(
     "Show differences between {green('current')} and {green(to)} setting lists.\n"
@@ -267,8 +289,8 @@ rstudio_compare_user_settings <- function(to = "bio-default") {
   all_names <- unique(names(current_prefs), names(default_prefs))
   named_list <- setNames(vector("list", length(all_names)), all_names)
 
-  default_prefs <- modifyList(named_list, default_prefs, keep.null = TRUE)
-  current_prefs <- modifyList(named_list, current_prefs, keep.null = TRUE)
+  default_prefs <- utils::modifyList(named_list, default_prefs, keep.null = TRUE)
+  current_prefs <- utils::modifyList(named_list, current_prefs, keep.null = TRUE)
 
   # Compare
   waldo::compare(
