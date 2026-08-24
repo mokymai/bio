@@ -37,6 +37,7 @@ jobs:
         with:
           extra-packages: any::pkgdown, any::devtools, local::.
           needs: website
+          extra-repositories: "https://mokymai.github.io/download/"
 
       - name: Configure Git
         run: |
