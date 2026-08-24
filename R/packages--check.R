@@ -323,12 +323,10 @@ get_pkgs_installed <- function(rm_duplicates = TRUE) {
 #' @concept packages
 #'
 #' @examples
-#' \dontrun{\donttest{
-#'
-#' # NOTE: Internet connection is needed.
-#' head(get_pkgs_cran_details())
-#'
-#' }}
+#' if (interactive()) {
+#'   # NOTE: Internet connection is needed.
+#'   head(get_pkgs_cran_details())
+#' }
 get_pkgs_cran_details <- function(repos = NULL) {
   repos <- unique(c(repos , getOption("repos")))
 
