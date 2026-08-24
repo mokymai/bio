@@ -8,9 +8,9 @@ Package ***bio***
 <!-- badges: start -->
 
 [![GitHub
-version](https://img.shields.io/badge/GitHub-0.2.9-brightgreen.svg)](https://github.com/mokymai/bio)
+version](https://img.shields.io/badge/GitHub-0.2.10-brightgreen.svg)](https://github.com/mokymai/bio)
 [![R-CMD-check](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
-[![Updated-on](https://img.shields.io/badge/Updated%20on-2026--07--31-yellowgreen.svg)](/commits/master)
+[![Updated-on](https://img.shields.io/badge/Updated%20on-2026--08--24-yellowgreen.svg)](/commits/master)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![R-CMD-check](https://github.com/mokymai/bio/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mokymai/bio/actions/workflows/R-CMD-check.yaml)
@@ -24,7 +24,7 @@ required resources for course unit ***Biostatistics*** (*BS*).
 <center>
 
 <br> <font color="darkred" size=4> This package is intended to be used
-with <b>RStudio 2026.07</b> or newer<br> and <b>R 4.6.1</b> or
+with <b>RStudio 2026.08</b> or newer<br> and <b>R 4.6.1</b> or
 newer.<br> </font> <font color="darkred" size=3> Functions may not work
 correctly with the previous versions of RStudio and R. </font>
 <br><br><br>
@@ -58,7 +58,7 @@ if (!require(remotes)) install.packages("remotes")
 remotes::install_github("mokymai/bio", dependencies = TRUE)
 ```
 
-Note: installation from *GitHub* requires *RTools* on *Windows*.
+Note: installation from *GitHub* may require *RTools* on *Windows*.
 
 </details>
 
@@ -71,15 +71,18 @@ information.
 
 ``` r
 bio::check_user_info()
-## Operating system    Windows 10 x64 (build 19044)
-## Platform            x86_64-w64-mingw32/x64 (64-bit)
-## LOGNAME
-## USERNAME            User
-## USERPROFILE         C:/Users/User
-## HOME                C:/Users/User
-## R_USER              C:/Users/User
-## R_HOME              C:/PROGRA~1/R/R-4.2.2
-## R_LIBS_USER         C:/Users/User/AppData/Local/R/win-library/4.2
+## # A tibble: 9 × 2
+##   Setting          Value                                       
+##   <chr>            <fs::path>                                  
+## 1 Operating system Windows 10 x64 (build 19045)                
+## 2 Platform         x86_64-w64-mingw32/x64                      
+## 3 LOGNAME                                                      
+## 4 USERNAME         user                                         
+## 5 USERPROFILE      C:/Users/user                                
+## 6 HOME             C:/Users/user                                
+## 7 R_USER           C:/Users/user                                
+## 8 R_HOME           C:/PROGRA~1/R/R-4.6.1                       
+## 9 R_LIBS_USER      C:/Users/user/AppData/Local/R/win-library/4.6
 ```
 
 ## Check information about programs
@@ -95,113 +98,20 @@ Options:
 
 ``` r
 bio::check_installed_programs()
-## ✔ Program R (4.3.1) is installed (recommended >= 4.3.1).
-## ✖ Program RStudio is not installed or is not running.
-## ✔ Tool Quarto (1.4.268) is installed (recommended >= 1.3.336).
-## ✔ Tool Rtools is installed.
+## ✔ Program R (4.6.1) is installed (4.6.1 is available online).
+## ✔ Program RStudio (2026.8.1.195) is installed (2026.8.1.195 is available online).
+## ✔ Tool Quarto (1.10.18) is installed (1.10.18 is available online).
 ```
 
 ``` r
 bio::check_installed_programs("all")
-## ✔ Program R (4.3.1) is installed (recommended >= 4.2.2, available 4.3.1).
-## ✔ Program RStudio (2023.6.1.524) is installed (recommended >= 2023.3.0, available 2023.6.1.524).
-## ✔ Tool Quarto (1.4.268) is installed (recommended >= 1.3.336).
+## ✔ Program R (4.6.1) is installed (4.6.1 is available online).
+## ✔ Program RStudio (2026.8.1.195) is installed (2026.8.1.195 is available online).
+## ✔ Tool Quarto (1.10.18) is installed (1.10.18 is available online).
 ## ✔ Tool Rtools is installed.
 ## ✔ Program Git is installed.
 ## ✔ Program Meld is installed.
 ```
-
-## Check installation status of “R” packages
-
-It is recommended to check installation status and version of required
-packages by name:
-
-``` r
-bio::check_packages_by_name(c("bio", "remotes", "tidyverse"))
-## ✔ Minimal required versions of all 3 packages are already installed.
-```
-
-There is a less recommended way (due to lower transparency) to check
-installation status of packages by topic. By default, only missing
-packages or packages with lower versions than recommended are displayed.
-Currently available lists can be returned by function
-`bio::get_pkg_lists_local()`.
-
-<details>
-
-<summary>
-
-Details
-</summary>
-
-- `'addins-rmd'`
-- `'bio'`
-- `'confidence-intervals'`
-- `'ggplot-extra-tools'`
-- `'ggplot'`
-- `'gmc-r209'`
-- `'initial'`
-- `'linear-regression'`
-- `'markdown'`
-- `'mini'`
-- `'rcmdr-biostat'`
-- `'rcmdr'`
-- `'snippets'`
-- `'spelling-grammar'`
-- `'statistical-tests'`
-- `'summary'`
-- `'tidyverse'`
-
-</details>
-
-``` r
-bio::check_packages_by_topic("mini")
-## ℹ Reading list 'mini'
-## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.
-```
-
-``` r
-bio::check_packages_by_topic("mini", include = "newer_on_cran")
-## ℹ Reading list 'mini'
-## ✔ Minimal required versions of all 19 packages (from list 'mini') are already installed.
-## ℹ Note: 1 package has newer version on CRAN.
-```
-
-## Update packages
-
-These are the convenience functions to update certain R packages. The
-functions restart R before installation if used in RStudio.
-
-Update package **bio**.
-
-``` r
-bio::update_pkg_bio()
-```
-
-Check if there are updates for **bio** or its dependency packages.
-
-``` r
-bio::check_updates_pkg_bio()
-## ℹ Analyzing dependencies of package bio
-##
-## [... truncated ...]
-##
-## ✔ Minimal required versions of all 26 packages (from list 'bio') are already installed.
-```
-
-Update package **snippets**.
-
-``` r
-bio::update_pkg_snippets()
-```
-
-<!-- Update package **RcmdrPlugin.biostat**. -->
-
-<!-- ```{r README-5a, eval=FALSE} -->
-
-<!-- bio::update_pkg_rcmdr_biostat() -->
-
-<!-- ``` -->
 
 ## RStudio settings and user preferences
 
@@ -219,14 +129,6 @@ RStudio or by tools from **wellspell.addin** package.
 bio::rstudio_install_spellcheck_dictionaries()
 ```
 
-Install improved Lithuanian dictionary.
-
-``` r
-bio::rstudio_install_spellcheck_dictionary_lt()
-## ✔ lt_LT dictionary installed.
-##   'C:/Users/ViG/AppData/Roaming/RStudio/dictionaries/languages-system/lt_LT.dic'
-```
-
 ### Shortcut keys
 
 This function changes shortcut keys in RStudio.
@@ -241,28 +143,28 @@ bio::rstudio_reset_keybindings()
 
 Options:
 
-- `"bio-default"` – shortcut keys recommended for course BS-2023.
+- `"bio-default"` – shortcut keys recommended for BS course.
 - `"rstudio-default"` – RStudio defaults.
 
 ``` r
 bio::rstudio_reset_keybindings(to = "bio-default")
-## ✔ Back up copy of shortcut keys was created in 'C:/Users/User/.R/_backup/keybindings/'
+## ✔ Back up copy of shortcut keys was saved as  'C:/Users/User/.R/_backup/keybindings/addins__backup_260824_212734.json'
 ## ✔ Shortcut keys were reset to bio-default.
 ```
 
 | Shortcut | Action |
 |----|----|
-| <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd> | Insert inline LaTeX equation (*R Markdown*). |
+| <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd> | Insert inline LaTeX equation (*Quarto*). |
 | <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd> | Use “Tidyverse” style on selected lines of R code. Package **styler** must be installed (*R code*). |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd> | Duplicate selected text. |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>S</kbd> | Check spelling in selected text. Package [**wellspell.addin**](https://github.com/nevrome/wellspell.addin) must be installed. |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>P</kbd> | Align parts of selected lines at a custom pattern. |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>\]</kbd> | Change heading one level down (*R Markdown*) **\[!\]**. |
-| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>\[</kbd> | Change heading one level up or remove heading (*R Markdown*) **\[!\]**. |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>\]</kbd> | Change heading one level down (*Quarto*) **\[!\]**. |
+| <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>\[</kbd> | Change heading one level up or remove heading (*Quarto*) **\[!\]**. |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>;</kbd> | Insert lower opening quotes `„`. |
 | <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>’</kbd> | Insert upper closing quotes `“`. |
-| <kbd>Ctrl</kbd>+<kbd>E</kbd> | **Insert/Enclose with R code block** (*R Markdown*) **\[!\]** . |
-| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>T</kbd> | Insert inline code highlighted as R code (R Markdown). |
+| <kbd>Ctrl</kbd>+<kbd>E</kbd> | **Insert/Enclose with R code block** (*Quarto*) **\[!\]** . |
+| <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>T</kbd> | Insert inline code highlighted as R code (Quarto). |
 | <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad8</kbd> | Insert operator `%*%` (*R code*). |
 | <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>NumPad7</kbd> | Insert operator `%in%` (*R code*). |
 | <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>D</kbd> | Document R package (that you are building). |
@@ -292,32 +194,32 @@ bio::rstudio_reset_keybindings(to = "bio-default")
 
 <!-- Ctrl Shift '         | Insert upper closing quotes `“`. -->
 
-<!-- Ctrl E                  | **Insert/Enclose with R code block** (*R Markdown*) **[!]** . -->
+<!-- Ctrl E                  | **Insert/Enclose with R code block** (*Quarto*) **[!]** . -->
 
-<!-- Ctrl Alt T           | Insert inline code highlighted as R code (R Markdown). -->
+<!-- Ctrl Alt T           | Insert inline code highlighted as R code (Quarto). -->
 
-<!-- Shift Alt S          | Insert inline LaTeX equation (*R Markdown*). -->
+<!-- Shift Alt S          | Insert inline LaTeX equation (*Quarto*). -->
 
-<!-- Ctrl Alt NumPad0     | Remove heading/section name (*R Markdown*). -->
+<!-- Ctrl Alt NumPad0     | Remove heading/section name (*Quarto*). -->
 
-<!-- Ctrl Alt NumPad1     | Replace line into/Insert heading (section name) of level 1 (*R Markdown*). -->
+<!-- Ctrl Alt NumPad1     | Replace line into/Insert heading (section name) of level 1 (*Quarto*). -->
 
-<!-- Ctrl Alt NumPad2     | ... of level 2 (*R Markdown*). -->
+<!-- Ctrl Alt NumPad2     | ... of level 2 (*Quarto*). -->
 
-<!-- Ctrl Alt NumPad3     | ... of level 3 (*R Markdown*). -->
+<!-- Ctrl Alt NumPad3     | ... of level 3 (*Quarto*). -->
 
-<!-- Ctrl Alt NumPad4     | ... of level 4 (*R Markdown*). -->
+<!-- Ctrl Alt NumPad4     | ... of level 4 (*Quarto*). -->
 
-<!-- Ctrl Alt NumPad5     | ... of level 5 (*R Markdown*). -->
+<!-- Ctrl Alt NumPad5     | ... of level 5 (*Quarto*). -->
 
-<!-- Ctrl Alt NumPad6     | ... of level 6 (*R Markdown*). -->
+<!-- Ctrl Alt NumPad6     | ... of level 6 (*Quarto*). -->
 
 <!-- Ctrl Alt NumPad7     | Insert operator `%in%` (*R code*). -->
 
 <!-- Ctrl Alt NumPad8     | Insert operator `%*%` (*R code*). -->
 
 More on <a
-href="https://support.rstudio.com/hc/en-us/articles/206382178-Customizing-Keyboard-Shortcuts"
+href="https://docs.posit.co/ide/user/ide/guide/productivity/custom-shortcuts.html"
 target="_blank">Customizing Keyboard Shortcuts</a> in RStudio.
 
 ### RStudio settings
@@ -342,7 +244,7 @@ The options:
 - `"rstudio-default"` – default RStudio settings.
 
 ``` r
-bio::rstudio_reset_user_settings(to = "bio-default")
+bio::rstudio_reset_user_settings(to = "bio-dark-blue")
 ```
 
 To check, how your settings differ from the defaults in a certain list,
@@ -359,8 +261,8 @@ options of `to` are “bio-default” and “rstudio-default”.
 
 ### Snippets
 
-The function replaces current R code and R Markdown snippets with those
-in package “snippets”.
+The function replaces current R code and Quarto snippets with those in
+package “snippets”.
 
 ``` r
 snippets::install_snippets_from_package("snippets", backup = TRUE)
