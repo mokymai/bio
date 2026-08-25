@@ -289,8 +289,8 @@ clear_r_workspace <- function(envir = .GlobalEnv) {
 #' @return Invisibly returns `NULL`.
 #' @keywords internal
 #' @examples
-#' \dontrun{
-#' rstudio_reset_layout("left")
+#' if (interactive()) {
+#'   rstudio_reset_layout("left")
 #' }
 rstudio_reset_layout <- function(rs_layout = "left") {
   rs_layout <- match.arg(tolower(rs_layout), c("left", "right"))
