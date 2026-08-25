@@ -267,9 +267,10 @@ rstudio_clear_history <- function(backup = FALSE) {
 #' @return Invisibly returns the cleared environment.
 #' @keywords internal
 #' @examples
-#' x <- 1
-#' bio:::clear_r_workspace()
-#' exists("x", where = .GlobalEnv)
+#' env <- new.env()
+#' env$x <- 1
+#' bio:::clear_r_workspace(env)
+#' exists("x", envir = env)
 clear_r_workspace <- function(envir = .GlobalEnv) {
   if (!is.environment(envir)) {
     stop("`envir` must be an environment.", call. = FALSE)
