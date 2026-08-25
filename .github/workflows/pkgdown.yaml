@@ -18,6 +18,8 @@ jobs:
       group: pkgdown-${{ github.ref }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_REPOS: "c(mokymai = 'https://mokymai.github.io/download/', CRAN = 'https://cran.rstudio.com')"
+
     permissions:
       contents: write
     steps:
@@ -29,7 +31,6 @@ jobs:
         with:
           r-version: "release"
           use-public-rspm: false
-          extra-repositories: "https://mokymai.github.io/download/"
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:

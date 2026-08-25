@@ -28,6 +28,7 @@ jobs:
       SOURCE_REPO: ${{ github.repository }}
       DEST_REPO:   mokymai/download
       TMP_DIR:     tmp_dir
+      R_REPOS:     "c(mokymai = 'https://mokymai.github.io/download/', CRAN = 'https://cran.rstudio.com')"
 
     steps:
       - uses: actions/checkout@v4
@@ -40,12 +41,10 @@ jobs:
         with:
           r-version: ${{ matrix.config.r }}
           use-public-rspm: false
-          extra-repositories: "https://mokymai.github.io/download/"
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           cache-version: 1
-          extra-repositories: "https://mokymai.github.io/download/"
           extra-packages: |
             roxygen2
             devtools

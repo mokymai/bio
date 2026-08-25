@@ -10,6 +10,10 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_REPOS: "c(mokymai = 'https://mokymai.github.io/download/', CRAN = 'https://cran.rstudio.com')"
+
     steps:
       - uses: actions/checkout@v4
 
@@ -17,13 +21,11 @@ jobs:
         with:
           r-version: "release"
           use-public-rspm: false
-          extra-repositories: "https://mokymai.github.io/download/"
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::lintr, any::styler, local::.
           needs: lint
-          extra-repositories: "https://mokymai.github.io/download/"
 
       - name: Run lintr
         run: lintr::lint_package()
