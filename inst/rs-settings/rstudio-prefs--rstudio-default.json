@@ -355,6 +355,13 @@
       "Vera Sans Mono",
       "Victor Mono",
       "Ubuntu Mono"
-    ]
+    ],
+    "cran_mirror": {
+      "name": "Global (CDN)",
+      "host": "RStudio",
+      "url": "https://cran.rstudio.com/",
+      "country": "us",
+      "ok": 1
+    }
 }
 
