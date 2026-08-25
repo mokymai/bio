@@ -86,7 +86,7 @@ compare_version <- function(v_installed, v_required) {
 #' @keywords internal
 remove_ignored_rows <- function(tbl) {
   ingnore_col <- names(tbl) %in% c("ignore")
-  subset(tbl, !sapply(as.logical(tbl$ignore), FUN = isTRUE))[ , -which(ingnore_col)]
+  subset(tbl, !sapply(as.logical(tbl$ignore), FUN = isTRUE))[, -which(ingnore_col)]
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -328,11 +328,11 @@ get_pkgs_installed <- function(rm_duplicates = TRUE) {
 #'   head(get_pkgs_cran_details())
 #' }
 get_pkgs_cran_details <- function(repos = NULL) {
-  repos <- unique(c(repos , getOption("repos")))
+  repos <- unique(c(repos, getOption("repos")))
 
   cran_all <-
     data.frame(
-      available.packages(repos = repos)[ , c("Package", "Version")],
+      available.packages(repos = repos)[, c("Package", "Version")],
       on_cran = TRUE,
       stringsAsFactors = FALSE
     )
@@ -358,7 +358,6 @@ get_pkgs_cran_details <- function(repos = NULL) {
 #'
 #' pkg_list_archived_versions("none")
 pkg_list_archived_versions <- function(package) {
-
   # Base URL of archived packages on CRAN
   url <- "https://cran.r-project.org/src/contrib/Archive/"
 
