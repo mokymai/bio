@@ -60,13 +60,9 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
     return(invisible())
   }
 
-  # Tab History
-  rstudio_clear_history()
-  # clear_r_history(backup = FALSE)
-  unlink(".Rhistory")
-
   # Dictionaries
-  dict_path <- rstudioapi::userDictionariesPath()
+  # dict_path <- rstudioapi::userDictionariesPath()
+  dict_path <- get_path_rstudio_config_dir("dictionaries/languages-system")
   lt_LT_is_missing <- !any(stringr::str_detect(dir(dict_path), "lt_LT"))
   if (force_update_dictionaries || lt_LT_is_missing) {
     bio::rstudio_download_spellcheck_dictionaries()
@@ -74,13 +70,6 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
 
   # Working directory
   rstudioapi::executeCommand("setWorkingDirToProjectDir", quiet = TRUE)
-
-  # Create/Clean directories
-  fs::dir_create(fs::path_expand_r("~/R/main"))
-
-  bs_folder <- fs::path_expand("~/Desktop/BS-pratybos/")
-  try(fs::dir_delete(bs_folder), silent = TRUE)
-  fs::dir_create(bs_folder)
 
   # User preferences
   bio::rstudio_reset_user_settings(to = "bio-default", backup = TRUE, ask = FALSE)
@@ -94,6 +83,7 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
 
   # Tab Help
   rstudioapi::executeCommand("clearHelpHistory",    quiet = TRUE)
+  rstudioapi::executeCommand("helpHome",            quiet = TRUE)
 
   # Tab Viewer
   rstudioapi::executeCommand("viewerClearAll",      quiet = TRUE)
@@ -108,84 +98,38 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
   rstudio_reset_layout()
   rstudioapi::executeCommand("zoomActualSize",  quiet = TRUE)
   rstudioapi::executeCommand("zoomIn",          quiet = TRUE)
-  rstudioapi::executeCommand("zoomIn",          quiet = TRUE)
+  # rstudioapi::executeCommand("zoomIn",          quiet = TRUE)
   rstudioapi::executeCommand("activateConsole", quiet = TRUE)
 
   # Settings
-  snippets::install_snippets_from_package(type = c("r", "markdown"))
+  snippets::install_snippets_from_package("snippets", type = c("r", "markdown"))
 
   # Reset keybindings
   bio::rstudio_reset_keybindings("bio-default", backup = TRUE)
+
+  # Theme
+  rstudioapi::applyTheme("Textmate (default)")
+
+  # Documents
+  rstudioapi::executeCommand("closeAllSourceDocs", quiet = TRUE)
+
+  # Create/Clean directories
+  fs::path_expand_r("~/R/main") |> fs::dir_create()
+
+  bs_folder <- fs::path_expand("~/Desktop/BS-pratybos/")
+  try(fs::dir_delete(bs_folder), silent = TRUE)
+  fs::dir_create(bs_folder)
 
   # Console
   rstudioapi::executeCommand("closeAllTerminals", quiet = TRUE)
   rstudioapi::executeCommand("consoleClear",      quiet = TRUE)
 
-  if (rstudioapi::isAvailable("1.2.879")) {
-
-    light_theme <- rstudioapi::showQuestion(
-      "Choose light or dark color theme",
-      "Which theme (light/dark) should be used in RStudio?",
-      " Light ",
-      " Dark "
-    )
-
-    if (light_theme) {
-
-      is_textmate <- rstudioapi::showQuestion(
-        "Choose light color theme",
-        "Which light theme should be used in RStudio?",
-        " Textmate (default) ",
-        " Crimson Editor "
-      )
-
-      if (is_textmate) {
-        rstudioapi::applyTheme("Textmate (default)")
-
-      } else {
-        rstudioapi::applyTheme("Crimson Editor")
-        # rstudioapi::applyTheme("Xcode")
-        # rstudioapi::applyTheme("Clouds")
-      }
-
-    } else {
-      is_cobalt <- rstudioapi::showQuestion(
-        "Choose dark color theme",
-        "Which dark theme should be used in RStudio?",
-        " Cobalt (dark blue) ",
-        " Tomorrow Night 80s (black) "
-      )
-
-      if (is_cobalt) {
-        rstudioapi::applyTheme("Cobalt")
-
-      } else {
-        # rstudioapi::applyTheme("Vibrant Ink")
-        # rstudioapi::applyTheme("Chaos")
-        rstudioapi::applyTheme("Tomorrow Night 80s")
-      }
-    }
-  }
-
-  # Documents
-  rstudioapi::executeCommand("closeAllSourceDocs", quiet = TRUE)
-
-  # Sys.sleep(1)
-
-  # Restart RS
-  to_restart <- rstudioapi::showQuestion(
-    "Restart RStudio",
-    "Restart RStudio?",
-    " Yes ",
-    " No "
-  )
-
-  if (to_restart) {
-    bio::restart_rstudio()
-  }
+  # History Tab
+  rstudio_clear_history()
+  # clear_r_history(backup = FALSE)
+  unlink(".Rhistory")
 
   invisible()
-
 
   # commands <- c(
   #   "cleanAll",
@@ -212,6 +156,77 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
   # )
   # purrr::walk(commands, ~rstudioapi::executeCommand(. , quiet = TRUE))
 }
+
+  # Sys.sleep(1)
+
+  # Restart RS
+  # bio::restart_rstudio()  # Hangs RStudio
+
+  # if (rs_restart == "ask") {
+  #   to_restart <- rstudioapi::showQuestion(
+  #     "Restart RStudio",
+  #     "Restart RStudio?",
+  #     " Yes ",
+  #     " No "
+  #   )
+  # } else if (isTRUE(rs_restart)) {
+  #   to_restart <- TRUE
+  # } else {
+  #   return(invisible())
+  # }
+  #
+  # if (to_restart) {
+  #   bio::restart_rstudio()
+  # }
+
+
+  # if (rstudioapi::isAvailable("1.2.879")) {
+  #
+  #   light_theme <- rstudioapi::showQuestion(
+  #     "Choose light or dark color theme",
+  #     "Which theme (light/dark) should be used in RStudio?",
+  #     " Light ",
+  #     " Dark "
+  #   )
+  #
+  #   if (light_theme) {
+  #
+  #     is_textmate <- rstudioapi::showQuestion(
+  #       "Choose light color theme",
+  #       "Which light theme should be used in RStudio?",
+  #       " Textmate (default) ",
+  #       " Crimson Editor "
+  #     )
+  #
+  #     if (is_textmate) {
+  #       rstudioapi::applyTheme("Textmate (default)")
+  #
+  #     } else {
+  #       rstudioapi::applyTheme("Crimson Editor")
+  #       # rstudioapi::applyTheme("Xcode")
+  #       # rstudioapi::applyTheme("Clouds")
+  #     }
+  #
+  #   } else {
+  #     is_cobalt <- rstudioapi::showQuestion(
+  #       "Choose dark color theme",
+  #       "Which dark theme should be used in RStudio?",
+  #       " Cobalt (dark blue) ",
+  #       " Tomorrow Night 80s (black) "
+  #     )
+  #
+  #     if (is_cobalt) {
+  #       rstudioapi::applyTheme("Cobalt")
+  #
+  #     } else {
+  #       # rstudioapi::applyTheme("Vibrant Ink")
+  #       # rstudioapi::applyTheme("Chaos")
+  #       rstudioapi::applyTheme("Tomorrow Night 80s")
+  #     }
+  #   }
+  # }
+
+
 
 
 #' @name clear_and_reset
