@@ -3,7 +3,7 @@
     "addins.qmd::qmd_code_inline_highlighted_as_r" : "Ctrl+Shift+Alt+T",
     "addins.qmd::qmd_equation_a_inline"            : "Shift+Alt+S",
     "addins.qmd::qmd_format_bold"                  : "Ctrl+Alt+B",
-    "addins.qmd::qmd_html_comment"          : "Ctrl+Shift+Alt+C",
+    "addins.qmd::qmd_html_comment"                 : "Ctrl+Shift+Alt+C",
     "addins.qmd::qmd_heading_1"                    : "Ctrl+Alt+NumPad1",
     "addins.qmd::qmd_heading_2"                    : "Ctrl+Alt+NumPad2",
     "addins.qmd::qmd_heading_3"                    : "Ctrl+Alt+NumPad3",
