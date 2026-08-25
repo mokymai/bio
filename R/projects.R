@@ -52,7 +52,7 @@ parse_proj_path <- function(proj_path) {
 extract_proj_name <- function(proj_path) {
   proj_path <- as.character(proj_path)
   names <- fs::path_file(proj_path)
-  names <- stringr::str_replace(names, "\\.[Rr]proj$", "")
+  names <- stringr::str_remove(names, stringr::regex("\\.rproj$", ignore_case = TRUE))
 
   ext <- fs::path_ext(proj_path)
   if (any(!tolower(ext) %in% c("rproj"))) {
