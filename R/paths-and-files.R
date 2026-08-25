@@ -159,7 +159,8 @@ get_path_rstudio_config_dir <- function(..., .check = FALSE) {
   #   )
   # path_construct_and_check(base, ...)
 
-
+  # styler: off
+  # nolint start
   base <-
     switch(get_os_type(),
       "windows" = fs::path(Sys.getenv("APPDATA"), "RStudio"),
@@ -169,6 +170,8 @@ get_path_rstudio_config_dir <- function(..., .check = FALSE) {
       "mac"     = fs::path_expand_r("~/.config/rstudio"),
                   fs::path_expand_r("~/.config/rstudio")  # Other OS'es
     )
+  # nolint end
+  # styler: on
 
   # base <- Sys.getenv("XDG_CONFIG_DIRS",    unset = base) # Scope: system
   base <- Sys.getenv("XDG_CONFIG_HOME",      unset = base) # Scope: user
