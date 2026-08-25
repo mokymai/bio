@@ -43,6 +43,9 @@ Imports:
     usethis (>= 2.0.1),
     waldo,
     withr
+Remotes:
+    GegznaV/backup.tools,
+    GegznaV/snippets
 Suggests: 
     covr,
     spelling,
