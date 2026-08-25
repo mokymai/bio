@@ -1,14 +1,14 @@
 Package: bio
 Type: Package
 Title: Resources Manager for R, RStudio and Related Software
-Version: 0.2.9
-Date: 2025-11-12
+Version: 0.3.0
+Date: 2026-08-25
 Authors@R: 
     person("Vilmantas", "Gegzna", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-9500-5167"),
            email = "GegznaV@gmail.com"
     )
-Description: Resources manager for course unit BS-2023.
+Description: Resources manager for course unit BS.
 URL: 
     https://mokymai.github.io/bio/,
     https://github.com/mokymai/bio/
@@ -16,38 +16,40 @@ BugReports: https://github.com/mokymai/bio/issues
 License: MIT + file LICENSE
 Language: en-US
 Encoding: UTF-8
-LazyData: true
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
 Additional_repositories:
   https://mokymai.github.io/download/
+Depends:
+    R (>= 4.1)
 Imports:
-  backup.tools (>= 0.0.3),
-  checkmate,
-  cli,
-  clipr,
-  crayon,
-  desc,
-  dplyr,
-  fs,
-  glue,
-  jsonlite,
-  magrittr,
-  pingr,
-  pkgbuild,
-  purrr,
-  quarto,
-  readr (>= 2.0.0),
-  remotes,
-  rlang,
-  rstudioapi (>= 0.13),
-  snippets,
-  stringr,
-  styler,
-  tibble (>= 3.1.4),
-  usethis (>= 2.0.1),
-  waldo,
-  withr
+    backup.tools (>= 0.0.3),
+    checkmate,
+    cli,
+    crayon,
+    dplyr,
+    fs,
+    glue,
+    jsonlite,
+    pingr,
+    pkgbuild,
+    purrr,
+    quarto,
+    readr (>= 2.0.0),
+    renv,
+    rlang,
+    rstudioapi (>= 0.13),
+    snippets,
+    stringr,
+    tibble (>= 3.1.4),
+    usethis (>= 2.0.1),
+    waldo,
+    withr
+Remotes:
+    GegznaV/backup.tools,
+    GegznaV/snippets
 Suggests: 
-  covr,
-  spelling
+    covr,
+    spelling,
+    testthat (>= 3.0.0)
+Roxygen: list(markdown = TRUE)
+Config/roxygen2/version: 8.1.0
+Config/testthat/edition: 3

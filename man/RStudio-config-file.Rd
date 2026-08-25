@@ -23,13 +23,11 @@ https://docs.rstudio.com/ide/server-pro/session_user_settings/session_user_setti
 Manage file with RStudio configuration (user preferences).
 }
 \examples{
-\dontrun{\donttest{
+if (interactive()) {
+  get_path_rstudio_config_file()
 
-get_path_rstudio_config_file()
-
-get_path_rstudio_config_file("bio-default")
-
-}}
+  get_path_rstudio_config_file("bio-default")
+}
 }
 \seealso{
 \itemize{

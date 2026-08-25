@@ -2,29 +2,25 @@
 % Please edit documentation in R/get_os.R
 \name{get_os_type}
 \alias{get_os_type}
-\alias{is_32bit_os}
 \alias{is_64bit_os}
-\title{Determine Operating System (OS)}
+\alias{is_32bit_os}
+\title{Detect the current operating system}
 \usage{
 get_os_type()
 
-is_32bit_os()
-
 is_64bit_os()
+
+is_32bit_os()
 }
 \value{
-OS name in lower case: windows, mac, linux, etc.
+A length-1 character string with the current OS name in lowercase.
 }
 \description{
-Determine the operating system (OS) of your machine.
+Returns a normalized operating-system label for the current R session.
+The result is a single lowercase string such as "windows", "mac", or
+"linux"; other Unix-like systems are normalized to their platform name.
 }
 \examples{
 get_os_type()
-}
-\seealso{
-https://www.r-bloggers.com/identifying-the-os-from-r/
-}
-\author{
-The code is based on https://www.r-bloggers.com/identifying-the-os-from-r/
 }
 \concept{utilities}

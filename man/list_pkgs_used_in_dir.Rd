@@ -2,29 +2,24 @@
 % Please edit documentation in R/packages--find.R
 \name{list_pkgs_used_in_dir}
 \alias{list_pkgs_used_in_dir}
-\alias{list_pkgs_used_in_files}
-\title{List Packages Used in File(s)}
+\title{List Packages Used in Directory}
 \usage{
-list_pkgs_used_in_dir(path = ".", regexp = "(?i)[.](rmd|r)$", ...)
-
-list_pkgs_used_in_files(files)
+list_pkgs_used_in_dir(path = ".", exclude_base = TRUE, progress = FALSE, ...)
 }
 \arguments{
-\item{path}{Path to directory with R and R Markdown files. Defaults to \code{"."}.}
+\item{path}{Path to directory. Defaults to \code{"."}.}
 
-\item{regexp}{Regular expression to filter file names. Defaults to R and Rmd
-files.}
+\item{exclude_base}{Logical. If \code{TRUE} (default), base R packages
+(e.g., \code{stats}, \code{utils}, \code{graphics}) are excluded from the output.}
 
-\item{...}{Further arguments to \link[fs:dir_ls]{fs::dir_ls}.}
+\item{progress}{Logical. Whether to show a progress bar. Defaults to \code{FALSE}.}
 
-\item{files}{Path to R or Rmd files}
+\item{...}{Further arguments passed to \code{\link[renv:dependencies]{renv::dependencies()}}.}
 }
 \value{
-Character vector with package names.
+Character vector of unique, sorted package names.
 }
 \description{
-These functions search for patterns, such as \code{library(pkg)}, \code{require(pkg)},
-\verb{pkg::function()}, or \code{data(package = "pkg")} and return package names from
-these expressions.
+Scans a directory for R, Rmd, and Qmd files and returns a vector of
+unique package names used across those files.
 }
-\concept{utilities}

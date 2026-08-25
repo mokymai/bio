@@ -1,31 +1,32 @@
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' Get User-Related Information
+#' Get user-related information
 #'
-#' Get user-related information.
+#' Prints user and system metadata useful for troubleshooting local R setups.
 #'
 #' @concept check
 #' @concept check-user-info
-#'
 #' @export
 #' @examples
-#' \dontrun{\donttest{
-#' check_user_info()
-#' }}
-#
-# @concept utilities
+#' if (interactive()) {
+#'   check_user_info()
+#' }
 check_user_info <- function() {
+  os_info <- c(
+    "Operating system" = sessionInfo()$running,
+    "Platform" = sessionInfo()$platform,
+    Sys.getenv(c(
+      "LOGNAME",
+      "USERNAME",
+      "USERPROFILE",
+      "HOME",
+      "R_USER",
+      "R_HOME",
+      "R_LIBS_USER"
+    ))
+  )
 
-  os_info <-
-    c(
-      "Operating system   " = sessionInfo()$running,
-      "Platform "           = sessionInfo()$platform,
-      Sys.getenv(c(
-        "LOGNAME", "USERNAME", "USERPROFILE", "HOME", "R_USER", "R_HOME", "R_LIBS_USER"))
-    ) %>%
-    as.data.frame()
-
-  os_info$. = fs::path(os_info$.)
-  os_info <- setNames(os_info, c("  "))
+  os_info <- tibble::enframe(os_info, name = "Setting", value = "Value")
+  os_info$Value <- fs::path(os_info$Value)
 
   print(os_info, right = FALSE)
   cat("\n")
@@ -34,69 +35,53 @@ check_user_info <- function() {
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' Check Required Programs
+#' Check installed programs and available versions
 #'
-#' Check absence/presence and (in some cases) versions of required programs.
+#' Checks whether key tools are installed and, when online, reports the newest
+#' available versions for R, RStudio, and Quarto.
 #'
-#' @param skip_online_check (logical) If `TRUE`, the numbers of newest available
-#'       stable programs are downloaded, when internet connection is connected.
-#' @param type (character) Which programs should be checked? Options:
-#'        `main`, `all`, `dev`, `gmc-bs`, `gmc-r`.
+#' @param type Character scalar selecting the tool group to check. Supported
+#'   values are `"main"`, `"all"`, `"dev"`, `"gmc-bs"`, and `"gmc-r"`.
+#' @param skip_online_check Logical. If `TRUE`, skips internet checks and does not
+#'   attempt to fetch the newest available versions.
 #'
-#' @return
-#' Invisible `NULL`.
-#' The results of program checking are printed.
-#'
+#' @return Invisibly returns `NULL`. The results are printed to the console.
 #' @export
 #' @concept check
 #' @concept check-programs
-#'
 #' @examples
-#'
-#' \dontrun{\donttest{
-#'
-#' check_installed_programs()
-#'
-#' check_installed_programs("all")
-#'
-#' }}
+#' if (interactive()) {
+#'   check_installed_programs()
+#'   check_installed_programs("all")
+#' }
 check_installed_programs <- function(type = "main", skip_online_check = FALSE) {
-
   type_lwr <- tolower(type)
 
   if (!type_lwr %in% c("main", "dev", "all", "gmc-bs", "gmc-r")) {
     ui_warn("Unknown value of type = '{type}'")
+    return(invisible(NULL))
   }
-
 
   if (!skip_online_check) {
     skip_online_check <- check_internet_connection()
   }
 
-  v_req <- get_prgm_req_version(local_list = skip_online_check)
-
   # R
-  check_r_version(v_recommended = v_req$R, skip_online_check = skip_online_check)
+  check_r_version(skip_online_check = skip_online_check)
 
   # RStudio
-  check_rs_version(v_recommended = v_req$RStudio, skip_online_check = skip_online_check)
+  check_rs_version(skip_online_check = skip_online_check)
 
   # Quarto
-  check_quarto_version(v_recommended = v_req$Quarto)
+  check_quarto_version(skip_online_check = skip_online_check)
 
   # R Build Tools (on Windows, they are called 'Rtools')
-  tool_name <-
-    if (get_os_type() == "windows") {
-      "Rtools"
-    } else {
-      "R Build Tools"
-    }
+  tool_name <-  if (get_os_type() == "windows") "Rtools" else "R Build Tools"
 
   if (type_lwr %in% c("all", "dev")) {
     check_tool_installed(
       tool_name,
       if (rstudioapi::isAvailable()) {
-        # Requires RStudio to be running
         rstudioapi::buildToolsCheck()
       } else {
         pkgbuild::has_build_tools()
@@ -105,61 +90,28 @@ check_installed_programs <- function(type = "main", skip_online_check = FALSE) {
   }
 
   # XQuartz (on Mac)
-  if (type_lwr %in% c("all", "gmc-bs")) {
-    # xQuartz (on Mac, OS X)
-    if (get_os_type() == "mac") {
-      # FIXME: on stack overflow, it writes that this functon might hang R session
-      # if XQuartz is missing.
-      # https://stackoverflow.com/questions/37438773/
-      check_program_installed("XQuartz", is_xquartz_installed())
-    }
+  # NOTE: on stack overflow, it writes that this functon might hang R session
+  # if XQuartz is missing.
+  # https://stackoverflow.com/questions/37438773/
+  if (type_lwr %in% c("all", "gmc-bs") && get_os_type() == "mac") {
+    check_program_installed("XQuartz", is_xquartz_installed())
   }
 
   # Git
   if (type_lwr %in% c("all", "gmc-r")) {
-    check_program_installed("Git",  is_git_installed())
+    check_program_installed("Git", is_git_installed())
   }
 
   # Meld
   if (type_lwr %in% c("all")) {
-    # FIXME: Use better algorithm to check if Meld is installed.
-    try({
-      check_program_installed("Meld", is_meld_installed())
-    }, silent = TRUE)
+    try(
+      {
+        check_program_installed("Meld", is_meld_installed())
+      },
+      silent = TRUE)
   }
+
   invisible(NULL)
-}
-
-# ~~~~~~~~~~~~~~~~~~~~~ ======================================================
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-get_path_program_req_version <- function(local_list) {
-  base_name <- "programs-required-version.txt"
-
-  if (isTRUE(local_list)) {
-    file <- path_bio(base_name)
-    if (!file.exists(file)) {
-      stop("File '", base_name, "' was not found.")
-    }
-
-  } else {
-    file <- url_bio(base_name)
-  }
-  file
-}
-
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-get_prgm_req_version <- function(local_list = getOption("bio.local_list", FALSE)) {
-
-  file <- get_path_program_req_version(local_list)
-
-  # text <- download_from_github_with_curl(file)
-
-  tbl <- read.table(file, skip = 10, header = TRUE, sep = "|",
-    na.strings = c("NA", "-"), strip.white = TRUE, stringsAsFactors = FALSE)
-
-  tbl <- remove_ignored_rows(tbl)
-  as.list(setNames(tbl$required_version, tbl$program))
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -172,14 +124,13 @@ get_available_r_version <- function(force = FALSE, skip = FALSE) {
     c(
       # "https://cran.r-project.org/src/base/R-3",
       "https://cran.r-project.org/src/base/R-4"
-    ) %>%
-      purrr::map(readr::read_lines) %>%
-      purrr::reduce(c) %>%
-      stringr::str_extract("(?<=R-).\\d*[.].\\d*[.]\\d*(?=.tar.gz)") %>%
-      .[!is.na(.)] %>%
-      as.numeric_version() %>%
+    ) |>
+      purrr::map(readr::read_lines) |>
+      purrr::reduce(c) |>
+      stringr::str_extract("(?<=R-).\\d*[.].\\d*[.]\\d*(?=.tar.gz)") |>
+      purrr::discard(is.na) |>
+      as.numeric_version() |>
       max()
-
   } else {
     msg_offline(get_what = "R version")
     NULL
@@ -193,17 +144,31 @@ get_available_rs_version <- function(force = FALSE, skip = FALSE) {
   }
 
   if (force || pingr::is_online()) {
-
-    # "https://rstudio.com/products/rstudio/download/" %>%
-    "https://posit.co/download/rstudio-desktop/" %>%
-      readr::read_lines() %>%
-      stringr::str_extract("(?<=RStudio-).*?(?=.exe)") %>%
-      .[!is.na(.)] %>%
-      as.numeric_version() %>%
+    "https://docs.posit.co/ide/user/#rstudio-ide-oss-downloads" |>
+      readr::read_lines() |>
+      stringr::str_extract("(?<=RStudio-)\\d{4}[.].*?(?=.exe)") |>
+      purrr::discard(is.na) |>
+      as.numeric_version() |>
       max()
-
   } else {
     msg_offline(get_what = "RStudio version")
+    NULL
+  }
+}
+
+get_available_quarto_version <- function(force = FALSE, skip = FALSE) {
+  if (isTRUE(skip)) {
+    return(NULL)
+  }
+
+  if (force || pingr::is_online()) {
+    url <- "https://api.github.com/repos/quarto-dev/quarto-cli/releases/latest"
+    rel <- jsonlite::fromJSON(url)
+    sub("^v", "", rel$tag_name) |>
+      as.numeric_version()
+  } else {
+    msg_offline(get_what = "Quarto version")
+    NULL
   }
 }
 
@@ -229,72 +194,131 @@ check_internet_connection <- function(get_what = "versions") {
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_program_version  <- function(name = "", v_installed = NULL,
-  v_recommended = NULL, v_available = NULL, type = "Program") {
-
-  print_fun <- ui_info
-  v_color   <- red
-  r_color   <- red
-  install_status <- ""
-
-  v_recommended <- as.numeric_version(v_recommended)
-  v_installed   <- as.numeric_version(v_installed)
-
-  if (!is.null(v_available)) {
-
-    if (v_installed < v_available) {
-      av_color <- green
-
-    } else {
-      av_color <- yellow
+#' Validate that a function argument is a single value.
+#'
+#' This helper keeps internal checks explicit and consistent when a function is
+#' intentionally scalar-only.
+#'
+#' @param x Value to validate.
+#' @param arg_name Name of the argument for the error message.
+#' @param allow_null Whether `NULL` is allowed.
+#' @param allow_na Whether `NA` is allowed.
+#'
+#' @examples
+#' bio:::assert_single_value("R", "name", allow_null = FALSE, allow_na = FALSE)
+#' try(bio:::assert_single_value(c("R", "S"), "name", allow_null = FALSE, allow_na = FALSE))
+assert_single_value <- function(x, arg_name, allow_null = TRUE, allow_na = TRUE) {
+  if (is.null(x)) {
+    if (allow_null) {
+      return(invisible(TRUE))
     }
-
-    if_available <- glue::glue(", available {av_color(v_available)}")
-
-  } else {
-    if_available <- ""
+    stop(sprintf("`%s` must be a single value.", arg_name), call. = FALSE)
   }
 
-  if (v_installed < v_recommended) {
-    print_fun <- ui_todo
-    v_color   <- red
-    r_color   <- green
-    install_status <- "should be updated"
-
-  } else {
-    print_fun <- ui_done
-    v_color   <- green
-    r_color   <- yellow
-    install_status <- "is installed"
+  if (length(x) != 1L) {
+    stop(sprintf("`%s` must be a single value.", arg_name), call. = FALSE)
   }
 
-  print_fun(paste0(
-    "{type} {blue(name)} ({v_color(v_installed)}) {install_status} ",
-    "(recommended >= {r_color(v_recommended)}{if_available})."
-  ))
+  if (length(x) == 1L && is.na(x) && !allow_na) {
+    stop(sprintf("`%s` must not be NA.", arg_name), call. = FALSE)
+  }
+
+  invisible(TRUE)
+}
+
+#' Print a version-status summary for a program.
+#'
+#' Formats the installed and latest available version for an application or tool
+#' and reports whether the program is installed and whether an upgrade is known.
+#'
+#' @param name Name of the program.
+#' @param v_installed Installed version value, or `NULL` when missing.
+#' @param v_available Newest available version value, or `NULL` when unavailable.
+#' @param type Label used for the output, typically `"Program"` or `"Tool"`.
+#'
+#' @examples
+#' if (interactive()) {
+#'   bio:::print_program_version_info("R", getRversion(), "4.5.0")
+#'   bio:::print_program_version_info("R", NULL, "4.5.0")
+#' }
+print_program_version_info <- function(name = "", v_installed = NULL,
+  v_available = NULL, type = "Program") {
+  assert_single_value(name, "name", allow_null = FALSE, allow_na = FALSE)
+  assert_single_value(type, "type", allow_null = FALSE, allow_na = FALSE)
+  assert_single_value(v_installed, "v_installed", allow_null = TRUE, allow_na = TRUE)
+  assert_single_value(v_available, "v_available", allow_null = TRUE, allow_na = TRUE)
+
+  scalar_na <- function(x) {
+    is.null(x) || length(x) == 0L || is.na(x) || !nzchar(as.character(x))
+  }
+
+  v_installed <- if (scalar_na(v_installed)) NA_character_ else as.character(v_installed)
+  v_available <- if (scalar_na(v_available)) NA_character_ else as.character(v_available)
+
+  not_installed <- is.na(v_installed)
+  not_available <- is.na(v_available)
+
+  if (not_installed) {
+    status <- "is not found"
+    ui_fun <- ui_oops
+    n_color <- red
+    version <- ""
+    v_installed_num <- NULL
+  } else {
+    status <- "is installed"
+    ui_fun <- ui_done
+    n_color <- blue
+    v_installed_num <- as.numeric_version(v_installed)
+    v_color <- if (not_available) {
+      green
+    } else {
+      v_available_num <- as.numeric_version(v_available)
+      if (v_installed_num < v_available_num) {
+        yellow
+      } else {
+        green
+      }
+    }
+    version <- glue::glue("({v_color(v_installed_num)}) ")
+  }
+
+  available <-
+    if (not_available) {
+      ""
+    } else {
+      available_version <- as.numeric_version(v_available)
+      if (not_installed) {
+        available_color <- green
+      } else {
+        available_color <- if (v_installed_num <= available_version) {
+          cli::col_grey
+        } else {
+          green
+        }
+      }
+      glue::glue(" ({available_color(available_version)} is available online)")
+    }
+  ui_fun("{type} {n_color(name)} {version}{status}{available}.")
+
+  invisible(NULL)
 }
 
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_r_version <- function(v_recommended = "4.3.0",
-                            skip_online_check = FALSE) {
+check_r_version <- function(skip_online_check = FALSE) {
 
-  check_program_version(
-    name = 'R',
+  print_program_version_info(
+    name = "R",
     v_installed = getRversion(),
-    v_available = get_available_r_version(skip = skip_online_check),
-    v_recommended = v_recommended
+    v_available = get_available_r_version(skip = skip_online_check)
   )
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_quarto_version <- function(v_recommended = "1.4.549",
-                                 skip_online_check = FALSE) {
-
-  check_program_version(
-    name = 'Quarto',
+check_quarto_version <- function(skip_online_check = FALSE) {
+  print_program_version_info(
+    name = "Quarto",
     v_installed = quarto::quarto_version(),
-    v_available = NULL,
-    v_recommended = v_recommended,
+    v_available = get_available_quarto_version(skip = skip_online_check),
     type = "Tool"
   )
 }
@@ -306,8 +330,8 @@ check_rs_version <- function(v_recommended = "2023.12.1", skip_online_check = FA
     ui_oops("Program {red('RStudio')} is not installed or is not running. ")
 
   } else {
-    check_program_version(
-      name = 'RStudio',
+    print_program_version_info(
+      name = "RStudio",
       v_installed = rstudioapi::versionInfo()$version,
       v_available =
         tryCatch(
@@ -316,8 +340,8 @@ check_rs_version <- function(v_recommended = "2023.12.1", skip_online_check = FA
             warning(e)
             NULL
           }
-        ),
-      v_recommended = v_recommended
+        )
+      # v_recommended = v_recommended
     )
   }
   try({
@@ -373,7 +397,6 @@ is_git_installed <- function() {
       # If no error occurs in system2(), TRUE is returned.
       TRUE
     },
-
     error = function(e) {
       FALSE
     }
@@ -403,4 +426,3 @@ check_program_installed <- function(program = "", condition = NULL,
 check_tool_installed <- function(name = "", condition = NULL) {
   check_program_installed(name, condition, what = "Tool")
 }
-

@@ -49,26 +49,22 @@ user_setting_set_names <- c(
 #' @concept r and rstudio settings
 #'
 #' @examples
-#' \dontrun{\donttest{
+#' if (interactive()) {
 #'
-#' rstudio_reset_user_settings(to = "rstudio-default")
+#'   rstudio_reset_user_settings(to = "rstudio-default")
+#'   rstudio_reset_user_settings(to = "bio-default")
+#'   rstudio_reset_user_settings(to = "bio-dark-blue")
+#'   rstudio_reset_user_settings(to = "bio-black")
 #'
-#' rstudio_reset_user_settings(to = "bio-default")
-#'
-#' rstudio_reset_user_settings(to = "bio-dark-blue")
-#'
-#' rstudio_reset_user_settings(to = "bio-black")
-#'
-#' }}
+#' }
 #' @export
 rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
-
   # Check arguments
   if (missing(to)) {
     # If the set of RStudio user settings is not chosen
     ui_stop(paste0(
       "The value of argument '{yellow('to')}' is missing.\n",
-      'Possible choices: {ui_value(user_setting_set_names)}.'
+      "Possible choices: {ui_value(user_setting_set_names)}."
     ))
   }
 
@@ -118,7 +114,11 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
   switch(
     to,
 
-    "rstudio-default" = NULL,
+    "rstudio-default" = {
+      if (isTRUE(ask)) {
+        rstudioapi::executeCommand("clearUserPrefs", quiet = TRUE)
+      }
+    },
 
     "bio-default" = ,
     "bio-dark-blue" = ,
@@ -132,7 +132,7 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
     },
 
     usethis::ui_stop(paste0(
-      'Unknown option of user setting defaults: to = {usethis::ui_value(to[1])}. \n',
+      "Unknown option of user setting defaults: to = {usethis::ui_value(to[1])}. \n",
       "Possible options: {ui_value(user_setting_set_names)}."
     ))
   )
@@ -148,8 +148,8 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
 
   if (isTRUE(success)) {
     usethis::ui_done("RStudio user settings were set to {green(to)}.")
-    rstudio_reload_ui()
     ui_msg_restart_rstudio()
+    # rstudio_reload_ui()
 
   } else {
     usethis::ui_oops("Failure to reset RStudio user settings.")
@@ -158,24 +158,68 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Read preference from JSON file and set them in RStudio
+normalize_cran_mirror_pref <- function(value) {
+  has_https_url <- function(x) {
+    is.character(x) && length(x) >= 1L && nzchar(x[1]) &&
+      startsWith(x[1], "https://")
+  }
+
+  # Keep valid mirror objects untouched.
+  if (is.list(value)) {
+    if (!is.null(value$url) && has_https_url(value$url)) {
+      return(value)
+    }
+
+    # Empty or malformed mirror objects are normalized to a secure default.
+    return(list(
+      name = "Posit Package Manager",
+      url = "https://packagemanager.posit.co/cran/latest"
+    ))
+  }
+
+  if (is.character(value) && length(value) >= 1L && has_https_url(value)) {
+    return(list(name = "CRAN", url = value[1]))
+  }
+
+  list(
+    name = "Posit Package Manager",
+    url = "https://packagemanager.posit.co/cran/latest"
+  )
+}
+
 rstudio_set_preferences <- function(file) {
   if (rstudioapi::isAvailable("1.3.387")) {
     pref <- jsonlite::fromJSON(file)
+
+    pref_names <- names(pref)
+    if (is.null(pref_names)) {
+      return(TRUE)
+    }
+
+    valid_idx <- which(nzchar(pref_names))
+
     purrr::walk2(
-      names(pref), unname(pref),
+      pref_names[valid_idx], unname(pref)[valid_idx],
       ~ {
+        pref_name <- .x
+        pref_value <- .y
+
+        if (identical(pref_name, "cran_mirror")) {
+          pref_value <- normalize_cran_mirror_pref(pref_value)
+        }
+
         tryCatch(
-          rstudioapi::writeRStudioPreference(.x, .y),
+          rstudioapi::writeRStudioPreference(pref_name, pref_value),
           error = function(e) {
             e_msg <- e$message
             if (stringr::str_detect(e_msg, "expected <Integer>")) {
-              rstudioapi::writeRStudioPreference(.x, as.integer(.y))
+              rstudioapi::writeRStudioPreference(pref_name, as.integer(pref_value))
             } else if (stringr::str_detect(e_msg, "expected <Real>")) {
-              rstudioapi::writeRStudioPreference(.x, as.numeric(.y))
+              rstudioapi::writeRStudioPreference(pref_name, as.numeric(pref_value))
             } else if (stringr::str_detect(e_msg, "expected <Array>")) {
-              rstudioapi::writeRStudioPreference(.x, as.list(.y))
+              rstudioapi::writeRStudioPreference(pref_name, as.list(pref_value))
             } else {
-              print(glue::glue("'In {.x}' = {.y}\n{e}\n"))
+              print(glue::glue("'In {pref_name}' = {pref_value}\n{e}\n"))
             }
           }
         )
@@ -189,6 +233,29 @@ rstudio_set_preferences <- function(file) {
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+normalize_rstudio_preference_value <- function(value) {
+  if (is.integer(value)) {
+    return(as.numeric(value))
+  }
+
+  if (!is.list(value)) {
+    return(value)
+  }
+
+  if (length(value) == 0L && is.null(names(value))) {
+    return(character())
+  }
+
+  if (
+    is.null(names(value)) &&
+      all(vapply(value, function(item) !is.list(item) && length(item) == 1L, logical(1)))
+  ) {
+    return(unlist(value, use.names = FALSE))
+  }
+
+  lapply(value, normalize_rstudio_preference_value)
+}
+
 #' Show differences in sets of settings
 #'
 #' @param to One of: "bio-default", "rstudio-default"
@@ -200,23 +267,22 @@ rstudio_set_preferences <- function(file) {
 #' @export
 #'
 #' @examples
-#' \dontrun{\donttest{
-#' rstudio_compare_user_settings(to = "bio-default")
-#' rstudio_compare_user_settings(to = "rstudio-default")
-#' }}
+#' if (interactive()) {
+#'   rstudio_compare_user_settings(to = "bio-default")
+#'   rstudio_compare_user_settings(to = "rstudio-default")
+#' }
 rstudio_compare_user_settings <- function(to = "bio-default") {
   to <- match.arg(to, c("bio-default", "rstudio-default"))
 
   file <- get_path_rstudio_config_file(which = to)
   default_prefs <-
-    jsonlite::fromJSON(file) %>%
-    purrr::map_if(is.integer, as.numeric) |>
-    purrr::map_at("busy_exclusion_list", as.list)
+    jsonlite::fromJSON(file, simplifyVector = FALSE) |>
+    purrr::map(normalize_rstudio_preference_value)
 
-  pref_names <- names(default_prefs) %>% purrr::set_names(., .)
+  pref_names <- names(default_prefs) |> purrr::set_names()
   current_prefs <-
-    purrr::map(pref_names, ~rstudioapi::readRStudioPreference(., NULL)) %>%
-    purrr::map_if(is.integer, as.numeric)
+    purrr::map(pref_names, ~ rstudioapi::readRStudioPreference(., NULL)) |>
+    purrr::map(normalize_rstudio_preference_value)
 
   usethis::ui_info(
     "Show differences between {green('current')} and {green(to)} setting lists.\n"
@@ -226,8 +292,8 @@ rstudio_compare_user_settings <- function(to = "bio-default") {
   all_names <- unique(names(current_prefs), names(default_prefs))
   named_list <- setNames(vector("list", length(all_names)), all_names)
 
-  default_prefs <- modifyList(named_list, default_prefs, keep.null = TRUE)
-  current_prefs <- modifyList(named_list, current_prefs, keep.null = TRUE)
+  default_prefs <- utils::modifyList(named_list, default_prefs, keep.null = TRUE)
+  current_prefs <- utils::modifyList(named_list, current_prefs, keep.null = TRUE)
 
   # Compare
   waldo::compare(

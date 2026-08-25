@@ -19,8 +19,8 @@ not be displayed at all.
 Show differences in sets of settings
 }
 \examples{
-\dontrun{\donttest{
-rstudio_compare_user_settings(to = "bio-default")
-rstudio_compare_user_settings(to = "rstudio-default")
-}}
+if (interactive()) {
+  rstudio_compare_user_settings(to = "bio-default")
+  rstudio_compare_user_settings(to = "rstudio-default")
+}
 }

@@ -24,21 +24,25 @@
 #' @concept rstudio projects
 #'
 #' @examples
-#' path_to_project <-  c("list/proj.Rproj", "C:/R/BS-2020/bs.Rproj",
-#'     "C:/data/analysis/proj.Rproj")
+#' path_to_project <- c(
+#'   "list/proj.Rproj",
+#'   "C:/R/BS-2020/bs.Rproj",
+#'   "C:/data/analysis/proj.Rproj"
+#' )
 #'
 #' extract_proj_name(path_to_project)
-#'
 #' parse_proj_path(path_to_project)
 NULL
 
 #' @rdname parse_proj_path
 #' @noRd
 parse_proj_path <- function(proj_path) {
+  proj_path <- as.character(proj_path)
+
   tibble::tibble(
-    name   = extract_proj_name(proj_path = proj_path),
-    path   = proj_path,
-    exists = fs::file_exists(proj_path),
+    name       = extract_proj_name(proj_path = proj_path),
+    path       = proj_path,
+    exists     = fs::file_exists(proj_path),
     dir_exists = fs::dir_exists(fs::path_dir(proj_path))
   )
 }
@@ -46,28 +50,40 @@ parse_proj_path <- function(proj_path) {
 #' @rdname parse_proj_path
 #' @noRd
 extract_proj_name <- function(proj_path) {
-  proj_path <- fs::path(proj_path)
-  ext       <- fs::path_ext(proj_path)
-  if (any(!tolower(ext) %in% c("Rproj", "rproj"))) {
-    warning('The result is incorrect as the extension in some strings is not ".Rproj".')
+  proj_path <- as.character(proj_path)
+  names <- fs::path_file(proj_path)
+  names <- stringr::str_remove(names, stringr::regex("\\.rproj$", ignore_case = TRUE))
+
+  ext <- fs::path_ext(proj_path)
+  if (any(!tolower(ext) %in% c("rproj"))) {
+    warning(
+      'The result is incorrect as the extension in some strings is not ".Rproj".',
+      call. = FALSE
+    )
   }
-  stringr::str_replace(proj_path, "(.*/)?([^/]*?)(/[^/]*?\\.[Rr]proj$)", "\\2")
+
+  names
 }
 
 
 #' @rdname parse_proj_path
 #' @noRd
 #' @examples
-#' highlight_proj_name("D:/bio/proj.Rproj")
-#' highlight_proj_name("bio/proj.Rproj")
+#' if (interactive()) {
+#'   highlight_proj_name("D:/bio/proj.Rproj")
+#'   highlight_proj_name("bio/proj.Rproj")
+#' }
 highlight_proj_name <- function(proj_path) {
   proj_dir <- fs::path_dir(proj_path)
+  proj_name <- fs::path_file(proj_dir)
+  proj_file <- fs::path_file(proj_path)
+
   glue::glue(
-    crayon::blue(sep = "",
+    crayon::blue(
       fs::path(
         paste0("'", fs::path_dir(proj_dir)),
-        crayon::yellow(fs::path_file(proj_dir)),
-        paste0(fs::path_file(proj_path), "'")
+        crayon::yellow(proj_name),
+        paste0(proj_file, "'")
       )
     )
   )
@@ -78,42 +94,34 @@ highlight_proj_name <- function(proj_path) {
 #' @title Manage RStudio Projects
 #'
 #' @description
-#' - `read_projects()` - reads file with projects and list their names and paths.
+#' - `read_projects()` reads a project-list file and returns the project names and paths.
 #' @examples
-#' \dontrun{\donttest{
-#' read_projects(get_path_recent_proj_list())
-#' }}
+#' if (interactive()) {
+#'   read_projects(get_path_recent_proj_list())
+#' }
 #'
-#' @param file (character) Path to file with RStudio project names.
-#' @param sort_by (`"name"`|`"path"`|[`FALSE`])
+#' @param file (character) Path to the file with RStudio project names.
+#' @param sort_by (`"name"`|`"path"`|`FALSE`)
 #'
 #' @export
 #'
 #' @concept rstudio projects
 #'
 read_projects <- function(file, sort_by = FALSE) {
-
-  if (is.null(file) || !file.exists(file)) {
-    warning("File was not found: ", file)
+  if (is.null(file) || !fs::file_exists(file)) {
+    warning("File was not found: ", file, call. = FALSE)
     return(NULL)
   }
 
-  projs   <- readr::read_lines(file, lazy = FALSE)
-  projs   <- stringr::str_trim(projs)
-  projs   <- stringr::str_subset(projs, "^\\s*$", negate = TRUE)
+  projs <- readr::read_lines(file, lazy = FALSE)
+  projs <- stringr::str_trim(projs)
+  projs <- stringr::str_subset(projs, "^\\s*$", negate = TRUE)
   proj_df <- parse_proj_path(projs)
 
   switch(
     tolower(sort_by),
-
-    "name" = , "names" = {
-      dplyr::arrange(proj_df, .data$name)
-    },
-
-    "path" = , "paths" = {
-      dplyr::arrange(proj_df, .data$path)
-    },
-    # else
+    "name" = , "names" = dplyr::arrange(proj_df, .data$name),
+    "path" = , "paths" = dplyr::arrange(proj_df, .data$path),
     proj_df
   )
 }
@@ -122,15 +130,15 @@ read_projects <- function(file, sort_by = FALSE) {
 #' @name projects
 #' @noRd
 #' @description
-#' - `get_projs_recent()` -- lists RStudio projects from the recent project list.
-#' - `get_projs_user()` -- lists RStudio projects from a user-defined list.
-#' - `get_projs_all()` -- lists RStudio projects from recent project and user-defined project lists.
+#' - `get_projs_recent()` lists recent RStudio projects.
+#' - `get_projs_user()` lists user-defined RStudio projects.
+#' - `get_projs_all()` combines both project sources.
 #' @examples
-#' \dontrun{\donttest{
-#' get_projs_recent()
-#' get_projs_user()
-#' get_projs_all()
-#' }}
+#' if (interactive()) {
+#'   get_projs_recent()
+#'   get_projs_user()
+#'   get_projs_all()
+#' }
 #'
 get_projs_recent <- function(sort_by = FALSE) {
   read_projects(file = get_path_recent_proj_list(), sort_by = sort_by)
@@ -153,7 +161,7 @@ get_projs_all <- function() {
     dplyr::bind_rows(
       read_projects(file = file_with_recent_list),
       read_projects(file = file_with_users_list)
-    ) %>%
+    ) |>
     dplyr::distinct()
 
   new_list
@@ -162,12 +170,11 @@ get_projs_all <- function() {
 #' @name projects
 #' @noRd
 #' @description
-#' - `get_proj_names()` -- lists RStudio projects names (as a character
-#'   vector)
+#' - `get_proj_names()` lists project names as a character vector.
 #' @examples
-#' \dontrun{\donttest{
-#' head(get_proj_names())
-#' }}
+#' if (interactive()) {
+#'   head(get_proj_names())
+#' }
 get_proj_names <- function(file = get_path_recent_proj_list(),
   sort_by = FALSE) {
   read_projects(file, sort_by = sort_by)$name
@@ -206,16 +213,12 @@ get_proj_names <- function(file = get_path_recent_proj_list(),
 #' - [rstudioapi::openProject()]
 #' - [rstudioapi::initializeProject()]
 #' @examples
-#' \dontrun{\donttest{
+#' if (interactive()) {
+#'   open_project()
+#'   open_project("bio")
+#'   open_project("R-2019-project")
+#' }
 #'
-#' open_project()
-#'
-#' open_project("bio")
-#'
-#' open_project("R-2019-project")
-#'
-#' }}
-#
 open_project <- function(pattern = NULL,
                          new_session = if (interactive()) NULL else TRUE,
                          proj_list = NULL,
@@ -248,8 +251,10 @@ open_project <- function(pattern = NULL,
   }
 
   if (!is.null(pattern)) {
-    proj_list <-
-      dplyr::filter(proj_list, stringr::str_detect(name, pattern, negate))
+    proj_list <- dplyr::filter(
+      proj_list,
+      stringr::str_detect(.data$name, pattern, negate = negate)
+    )
   }
 
   n_projs <- nrow(proj_list)
@@ -369,10 +374,10 @@ NULL
 #' - `get_path_user_proj_list()` -- gets path to the file with the list of
 #'    personal RStudio projects.
 #' @examples
-#' \dontrun{\donttest{
-#' get_path_recent_proj_list()
-#' get_path_user_proj_list()
-#' }}
+#' if (interactive()) {
+#'   get_path_recent_proj_list()
+#'   get_path_user_proj_list()
+#' }
 #'
 get_path_recent_proj_list <- function() {
   get_path_rstudio_internal_state_dir("monitored/lists/project_mru")
@@ -418,4 +423,3 @@ update_rstudio_proj_list_user <- function() {
     "{usethis::ui_path(file_with_users_list)}"
   ))
 }
-

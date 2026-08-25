@@ -25,7 +25,7 @@ open_rstudio_keybindings_dir()
 \arguments{
 \item{...}{(character) Parts of the path. Path to sub-directories.}
 
-\item{.check}{(logical) If \code{TRUE}, additionally checks for path existance.}
+\item{.check}{(logical) If \code{TRUE}, additionally checks for path existence.}
 }
 \value{
 (string) path to RStudio configuration directory.
@@ -40,14 +40,14 @@ directory (and its sub-directories).
 }
 }
 \examples{
-\dontrun{\donttest{
-get_path_rstudio_config_dir()
+if (interactive()) {
+  get_path_rstudio_config_dir()
 
-get_path_rstudio_config_dir("dictionaries")
-}}
-\dontrun{\donttest{
-get_path_rstudio_keybindings_dir()
-}}
+  get_path_rstudio_config_dir("dictionaries")
+}
+if (interactive()) {
+  get_path_rstudio_keybindings_dir()
+}
 }
 \seealso{
 \itemize{

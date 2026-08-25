@@ -20,30 +20,26 @@ String with path.
 Functions to work with RStudio dictionaries.
 
 \itemize{
-\item \code{\link[rstudioapi:dictionaries]{rstudioapi::dictionariesPath()}}
+\item \code{\link[rstudioapi:dictionariesPath]{rstudioapi::dictionariesPath()}}
 \item \code{open_rstudio_system_dictionaries_dir()}
 }
 
 \itemize{
-\item \code{\link[rstudioapi:dictionaries]{rstudioapi::userDictionariesPath()}}
+\item \code{\link[rstudioapi:userDictionariesPath]{rstudioapi::userDictionariesPath()}}
 \item \code{open_rstudio_user_dictionaries_dir()}
 }
 
 \itemize{
-\item \code{\link[rstudioapi:dictionaries]{rstudioapi::dictionariesPath()}}
+\item \code{\link[rstudioapi:dictionariesPath]{rstudioapi::dictionariesPath()}}
 \item \code{open_rstudio_internal_dictionaries_dir()}
 }
 }
 \examples{
-\dontrun{\donttest{
-
-rstudioapi::dictionariesPath()
-
-rstudioapi::userDictionariesPath()
-
-get_path_rstudio_config_dir("dictionaries")
-
-}}
+if (interactive()) {
+  rstudioapi::dictionariesPath()
+  rstudioapi::userDictionariesPath()
+  get_path_rstudio_config_dir("dictionaries")
+}
 }
 \seealso{
 \link[rstudioapi:dictionaries]{rstudioapi::dictionaries}

@@ -6,7 +6,7 @@
 \alias{bio-package}
 \title{bio: Resources Manager for R, RStudio and Related Software}
 \description{
-Resources manager for course unit BS-2023.
+Resources manager for course unit BS.
 }
 \seealso{
 Useful links:
@@ -19,6 +19,11 @@ Useful links:
 }
 \author{
 \strong{Maintainer}: Vilmantas Gegzna \email{GegznaV@gmail.com} (\href{https://orcid.org/0000-0002-9500-5167}{ORCID})
+
+Authors:
+\itemize{
+  \item Vilmantas Gegzna \email{GegznaV@gmail.com} (\href{https://orcid.org/0000-0002-9500-5167}{ORCID})
+}
 
 }
 \keyword{internal}

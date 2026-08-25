@@ -1,41 +1,55 @@
-#' Determine Operating System (OS)
+#' Detect the current operating system
 #'
-#' Determine the operating system (OS) of your machine.
+#' Returns a normalized operating-system label for the current R session.
+#' The result is a single lowercase string such as "windows", "mac", or
+#' "linux"; other Unix-like systems are normalized to their platform name.
 #'
-#' @return OS name in lower case: windows, mac, linux, etc.
-#' @author
-#' The code is based on https://www.r-bloggers.com/identifying-the-os-from-r/
-#' @seealso
-#' https://www.r-bloggers.com/identifying-the-os-from-r/
-#'
-#' @export
+#' @return A length-1 character string with the current OS name in lowercase.
 #' @concept utilities
+#' @export
 #'
 #' @examples
 #' get_os_type()
 get_os_type <- function() {
-  sys_info <- Sys.info()
-  if (!is.null(sys_info)) {
-    os <- sys_info["sysname"]
-    if (os == "Darwin") {os <- "mac"}
+  sysname <- Sys.info()[["sysname"]]
+
+  if (!is.null(sysname) && nzchar(sysname)) {
+    os <- switch(
+      sysname,
+      "Darwin"  = "mac",
+      "Windows" = "windows",
+      "Linux"   = "linux",
+      tolower(sysname)
+    )
   } else {
-    os <- .Platform$OS.type
-    if (grepl("^darwin",   R.version$os, useBytes = TRUE)) {os <- "mac"}
-    if (grepl("linux-gnu", R.version$os, useBytes = TRUE)) {os <- "linux"}
+    os_type <- tolower(.Platform$OS.type)
+
+    if (identical(os_type, "windows")) {
+      os <- "windows"
+    } else if (grepl("darwin", R.version$os, ignore.case = TRUE)) {
+      os <- "mac"
+    } else if (grepl("linux", R.version$os, ignore.case = TRUE)) {
+      os <- "linux"
+    } else {
+      os <- os_type
+    }
   }
-  unname(tolower(os))
+
+  as.character(os)
 }
 
-#' @rdname get_os_type
-#' @export
-is_32bit_os <- function() {
-  stringr::str_detect(version$arch, "32$")
-}
-
+#' Check whether the current session is running on a 64-bit OS
+#'
 #' @rdname get_os_type
 #' @export
 is_64bit_os <- function() {
-  stringr::str_detect(version$arch, "64$")
+  isTRUE(.Machine$sizeof.pointer == 8L)
 }
 
-
+#' Check whether the current session is running on a 32-bit OS
+#'
+#' @rdname get_os_type
+#' @export
+is_32bit_os <- function() {
+  isTRUE(.Machine$sizeof.pointer == 4L)
+}

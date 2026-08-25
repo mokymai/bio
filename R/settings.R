@@ -5,87 +5,64 @@
 # bio::rstudio_reload_ui()
 
 # Clear and Reset ============================================================
-ip_gmc_r209_compact <- "158.129.170.(3,200-237)"
-ip_gmc_r209  <- paste0("158.129.170.", c(3, 200:237))
 
-ip_gmc_c255_compact <- "158.129.170.240-253"
-ip_gmc_c255 <-  paste0("158.129.170.", 240:253)
-
-ip_ec_108_main <- "158.129.136.241"
-
-ip_ec_108_compact <- paste(sep = ", ",
-  "158.129.136.57",
-  "158.129.136.61",
-  "158.129.159.234",
-  ip_ec_108_main,
-  "158.129.129.151-249"
-)
-
-ip_ec_108 <-
-  c(
-    "158.129.136.57",
-    "158.129.136.61",
-    ip_ec_108_main,
-    "158.129.159.234",
-    paste0("158.129.129.", 151:249)
-  )
-
-is_classroom_ip <- function() {
-  pingr::my_ip(method = "https") %in% c(ip_gmc_r209, ip_gmc_c255, ip_ec_108)
-}
-
-restriction_status <- function(ignore_ip = getOption("bio.ignore_ip", FALSE),
-                               ...) {
+#' Check whether local reset safeguards are intentionally bypassed.
+#'
+#' This helper keeps the legacy override semantics but avoids any hard-coded
+#' network allow-list. It is intended as a small guard for destructive local
+#' reset actions, and it can be bypassed explicitly when a user opts in.
+#'
+#' @param ignore_ip Logical scalar that bypasses the local reset safeguard.
+#' @param ... Additional arguments ignored for compatibility with older callers.
+#' @return Logical scalar, `TRUE` when the safeguard is intentionally overridden.
+#' @keywords internal
+#' @examples
+#' if (interactive()) {
+#'   restriction_status(ignore_ip = TRUE)
+#'   restriction_status(ignore_ip = FALSE)
+#' }
+restriction_status <- function(ignore_ip = getOption("bio.ignore_ip", FALSE), ...) {
   isTRUE(ignore_ip)
 }
 
-#' Reset RStudio state in GMC R209 and clear environment
+#' Reset the local RStudio session to a known-good classroom/lab state.
 #'
-#' This function:
-#' 1) Resets RStudio state and user preferences (incl. color scheme)
-#' 2) Clears function history, plot history, console, recent project list, etc.
-#' 3) Closes unnecessary windows
-#' 4) Resets custom key bindings to "bio-default"
-#' 5) Resets R Markdown and R snippets to defaults in package "snippets"
-#' 6) Creates folder "~/R/default" and starts using it as working directory
-#'    when no project is used.
-#' 7) Clears (if possible)/creates folder "BS-pratybos" on Desktop.
+#' The function performs several destructive cleanup steps aimed at restoring a
+#' consistent RStudio environment:
+#' 1. clears history and recent-session state;
+#' 2. resets user settings and keybindings;
+#' 3. clears the current R workspace;
+#' 4. restores the default snippets and layout;
+#' 5. optionally updates spellcheck dictionaries; and
+#' 6. restarts RStudio when the user confirms.
 #'
-#' The function works only in GMC R209, GMC C255 and ITPC EC-108 classrooms.
+#' This helper is intentionally conservative and protects destructive reset
+#' actions behind a simple override flag. The code does not rely on external
+#' IP metadata or a hard-coded allow-list.
 #'
-#' @param ... Further arguments for advanced users only.
-#' @param force_update_dictionaries (logical) If `TRUE`, the dictionaries are
-#' forced to be downloaded/updated.
+#' @param ... Further arguments used by `restriction_status()` for compatibility.
+#' @param force_update_dictionaries Logical scalar. If `TRUE`, the dictionaries
+#'   are refreshed even when the current locale is present.
 #'
-# @export
-#' @noRd
-#'
-#' @concept settings
-#'
+#' @return Invisibly returns `NULL` after the reset workflow completes.
+#' @keywords internal
 #' @examples
-#' \dontrun{\donttest{
-#'
-#' bio::rstudio_reset_gmc()
-#'
-#' }}
+#' if (interactive()) {
+#'   options(bio.ignore_ip = TRUE)
+#'   bio::rstudio_reset_gmc()
+#' }
 rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
 
   status <- restriction_status(...)
 
-  if (!(status || is_classroom_ip())) {
-    usethis::ui_oops(
-      "Unfortunately, this function does not work on this computer."
-    )
+  if (!status) {
+    usethis::ui_oops("This action is restricted. You may explicitly bypass it.")
     return(invisible())
   }
 
-  # Tab History
-  rstudio_clear_history()
-  # clear_r_history(backup = FALSE)
-  unlink(".Rhistory")
-
   # Dictionaries
-  dict_path <- rstudioapi::userDictionariesPath()
+  # dict_path <- rstudioapi::userDictionariesPath()
+  dict_path <- get_path_rstudio_config_dir("dictionaries/languages-system")
   lt_LT_is_missing <- !any(stringr::str_detect(dir(dict_path), "lt_LT"))
   if (force_update_dictionaries || lt_LT_is_missing) {
     bio::rstudio_download_spellcheck_dictionaries()
@@ -93,13 +70,6 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
 
   # Working directory
   rstudioapi::executeCommand("setWorkingDirToProjectDir", quiet = TRUE)
-
-  # Create/Clean directories
-  fs::dir_create(fs::path_expand_r("~/R/main"))
-
-  bs_folder <- fs::path_expand("~/Desktop/BS-pratybos/")
-  try(fs::dir_delete(bs_folder), silent = TRUE)
-  fs::dir_create(bs_folder)
 
   # User preferences
   bio::rstudio_reset_user_settings(to = "bio-default", backup = TRUE, ask = FALSE)
@@ -113,6 +83,7 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
 
   # Tab Help
   rstudioapi::executeCommand("clearHelpHistory",    quiet = TRUE)
+  rstudioapi::executeCommand("helpHome",            quiet = TRUE)
 
   # Tab Viewer
   rstudioapi::executeCommand("viewerClearAll",      quiet = TRUE)
@@ -127,84 +98,38 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
   rstudio_reset_layout()
   rstudioapi::executeCommand("zoomActualSize",  quiet = TRUE)
   rstudioapi::executeCommand("zoomIn",          quiet = TRUE)
-  rstudioapi::executeCommand("zoomIn",          quiet = TRUE)
+  # rstudioapi::executeCommand("zoomIn",          quiet = TRUE)
   rstudioapi::executeCommand("activateConsole", quiet = TRUE)
 
   # Settings
-  snippets::install_snippets_from_package(type = c("r", "markdown"))
+  snippets::install_snippets_from_package("snippets", type = c("r", "markdown"))
 
   # Reset keybindings
   bio::rstudio_reset_keybindings("bio-default", backup = TRUE)
+
+  # Theme
+  rstudioapi::applyTheme("Textmate (default)")
+
+  # Documents
+  rstudioapi::executeCommand("closeAllSourceDocs", quiet = TRUE)
+
+  # Create/Clean directories
+  fs::path_expand_r("~/R/main") |> fs::dir_create()
+
+  bs_folder <- fs::path_expand("~/Desktop/BS-pratybos/")
+  try(fs::dir_delete(bs_folder), silent = TRUE)
+  fs::dir_create(bs_folder)
 
   # Console
   rstudioapi::executeCommand("closeAllTerminals", quiet = TRUE)
   rstudioapi::executeCommand("consoleClear",      quiet = TRUE)
 
-  if (rstudioapi::isAvailable("1.2.879")) {
-
-    light_theme <- rstudioapi::showQuestion(
-      "Choose light or dark color theme",
-      "Which theme (light/dark) should be used in RStudio?",
-      " Light ",
-      " Dark "
-    )
-
-    if (light_theme) {
-
-      is_textmate <- rstudioapi::showQuestion(
-        "Choose light color theme",
-        "Which light theme should be used in RStudio?",
-        " Textmate (default) ",
-        " Crimson Editor "
-      )
-
-      if (is_textmate) {
-        rstudioapi::applyTheme("Textmate (default)")
-
-      } else {
-        rstudioapi::applyTheme("Crimson Editor")
-        # rstudioapi::applyTheme("Xcode")
-        # rstudioapi::applyTheme("Clouds")
-      }
-
-    } else {
-      is_cobalt <- rstudioapi::showQuestion(
-        "Choose dark color theme",
-        "Which dark theme should be used in RStudio?",
-        " Cobalt (dark blue) ",
-        " Tomorrow Night 80s (black) "
-      )
-
-      if (is_cobalt) {
-        rstudioapi::applyTheme("Cobalt")
-
-      } else {
-        # rstudioapi::applyTheme("Vibrant Ink")
-        # rstudioapi::applyTheme("Chaos")
-        rstudioapi::applyTheme("Tomorrow Night 80s")
-      }
-    }
-  }
-
-  # Documents
-  rstudioapi::executeCommand("closeAllSourceDocs", quiet = TRUE)
-
-  # Sys.sleep(1)
-
-  # Restart RS
-  to_restart <- rstudioapi::showQuestion(
-    "Restart RStudio",
-    "Restart RStudio?",
-    " Yes ",
-    " No "
-  )
-
-  if (to_restart) {
-    bio::restart_rstudio()
-  }
+  # History Tab
+  rstudio_clear_history()
+  # clear_r_history(backup = FALSE)
+  unlink(".Rhistory")
 
   invisible()
-
 
   # commands <- c(
   #   "cleanAll",
@@ -231,6 +156,77 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
   # )
   # purrr::walk(commands, ~rstudioapi::executeCommand(. , quiet = TRUE))
 }
+
+# Sys.sleep(1)
+
+# Restart RS
+# bio::restart_rstudio()  # Hangs RStudio
+
+# if (rs_restart == "ask") {
+#   to_restart <- rstudioapi::showQuestion(
+#     "Restart RStudio",
+#     "Restart RStudio?",
+#     " Yes ",
+#     " No "
+#   )
+# } else if (isTRUE(rs_restart)) {
+#   to_restart <- TRUE
+# } else {
+#   return(invisible())
+# }
+#
+# if (to_restart) {
+#   bio::restart_rstudio()
+# }
+
+
+# if (rstudioapi::isAvailable("1.2.879")) {
+#
+#   light_theme <- rstudioapi::showQuestion(
+#     "Choose light or dark color theme",
+#     "Which theme (light/dark) should be used in RStudio?",
+#     " Light ",
+#     " Dark "
+#   )
+#
+#   if (light_theme) {
+#
+#     is_textmate <- rstudioapi::showQuestion(
+#       "Choose light color theme",
+#       "Which light theme should be used in RStudio?",
+#       " Textmate (default) ",
+#       " Crimson Editor "
+#     )
+#
+#     if (is_textmate) {
+#       rstudioapi::applyTheme("Textmate (default)")
+#
+#     } else {
+#       rstudioapi::applyTheme("Crimson Editor")
+#       # rstudioapi::applyTheme("Xcode")
+#       # rstudioapi::applyTheme("Clouds")
+#     }
+#
+#   } else {
+#     is_cobalt <- rstudioapi::showQuestion(
+#       "Choose dark color theme",
+#       "Which dark theme should be used in RStudio?",
+#       " Cobalt (dark blue) ",
+#       " Tomorrow Night 80s (black) "
+#     )
+#
+#     if (is_cobalt) {
+#       rstudioapi::applyTheme("Cobalt")
+#
+#     } else {
+#       # rstudioapi::applyTheme("Vibrant Ink")
+#       # rstudioapi::applyTheme("Chaos")
+#       rstudioapi::applyTheme("Tomorrow Night 80s")
+#     }
+#   }
+# }
+
+
 
 
 #' @name clear_and_reset
@@ -276,52 +272,99 @@ rstudio_clear_history <- function(backup = FALSE) {
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# @rdname clear_and_reset
-# @noRd
-clear_r_workspace <- function() {
-  # Clear R workspace
-  object_names <- ls(all.names = TRUE, envir = .GlobalEnv)
-  rm(list = object_names, envir = .GlobalEnv)
+#' Clear the global R workspace.
+#'
+#' Useful for the "reset" flows in RStudio when the user wants to remove all
+#' objects from the global environment without removing attached packages or
+#' environment state outside `.GlobalEnv`.
+#'
+#' @param envir Environment to clear. Defaults to `.GlobalEnv`.
+#' @return Invisibly returns the cleared environment.
+#' @keywords internal
+#' @examples
+#' env <- new.env()
+#' env$x <- 1
+#' bio:::clear_r_workspace(env)
+#' exists("x", envir = env)
+clear_r_workspace <- function(envir = .GlobalEnv) {
+  if (!is.environment(envir)) {
+    stop("`envir` must be an environment.", call. = FALSE)
+  }
+
+  object_names <- ls(all.names = TRUE, envir = envir)
+  if (length(object_names) > 0L) {
+    rm(list = object_names, envir = envir)
+  }
+
+  invisible(envir)
 }
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# @rdname clear_and_reset
-# @param rs_layout (`"left"`|`"right"`) Type of RStudio panes layout.
-# @export
+#' Reset the RStudio pane layout.
+#'
+#' @param rs_layout Character scalar: either `"left"` or `"right"`.
+#' @return Invisibly returns `NULL`.
+#' @keywords internal
+#' @examples
+#' if (interactive()) {
+#'   rstudio_reset_layout("left")
+#' }
 rstudio_reset_layout <- function(rs_layout = "left") {
+  rs_layout <- match.arg(tolower(rs_layout), c("left", "right"))
+
   if (rstudioapi::isAvailable() && rstudioapi::hasFun("executeCommand")) {
     # Set opened RS tabs
-    rstudioapi::executeCommand("activateFiles",       quiet = TRUE)
+    rstudioapi::executeCommand("activateFiles", quiet = TRUE)
     rstudioapi::executeCommand("activateEnvironment", quiet = TRUE)
-    rstudioapi::executeCommand("activateConsole",     quiet = TRUE)
+    rstudioapi::executeCommand("activateConsole", quiet = TRUE)
 
     switch(rs_layout,
       "right" = rstudioapi::executeCommand("layoutConsoleOnRight", quiet = TRUE),
-      "left"  = rstudioapi::executeCommand("layoutConsoleOnLeft",  quiet = TRUE)
+      "left"  = rstudioapi::executeCommand("layoutConsoleOnLeft", quiet = TRUE)
     )
 
     # End zooming of single window
     rstudioapi::executeCommand("layoutEndZoom", quiet = TRUE)
   }
-  invisible()
+
+  invisible(NULL)
 }
 
-# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' Activate the console in RStudio when available.
+#'
+#' @return Invisibly returns `NULL` when RStudio is unavailable.
+#' @keywords internal
+#' @examples
+#' \dontrun{
+#' rstudio_activate_console()
+#' }
 rstudio_activate_console <- function() {
-  if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
+  if (rstudioapi::isAvailable(version_needed = "1.2.1261")) {
     invisible(rstudioapi::executeCommand("activateConsole", quiet = TRUE))
   }
+
+  invisible(NULL)
 }
 
+#' Ask before clearing the RStudio console.
+#'
+#' @return Invisibly returns `NULL` if RStudio is unavailable or the user says no.
+#' @keywords internal
+#' @examples
+#' \dontrun{
+#' rstudio_clear_console_ask()
+#' }
 rstudio_clear_console_ask <- function() {
-  if (rstudioapi::isAvailable(version_needed = "1.2.1261") ) {
-    ans <-
-      rstudioapi::showQuestion(
-        "Clear console", "Do you want to clear console?", "No", "Yes"
-      )
-    if (!ans) {
-      invisible(rstudioapi::executeCommand("consoleClear", quiet = TRUE))
-    }
+  if (!rstudioapi::isAvailable(version_needed = "1.2.1261")) {
+    return(invisible(NULL))
   }
-}
 
+  ans <- rstudioapi::showQuestion(
+    "Clear console", "Do you want to clear console?", "No", "Yes"
+  )
+
+  if (!ans) {
+    invisible(rstudioapi::executeCommand("consoleClear", quiet = TRUE))
+  }
+
+  invisible(NULL)
+}

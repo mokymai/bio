@@ -1,32 +1,35 @@
 # Keybindings ================================================================
 
 # For auto-completion
-keybindings_defaults   <- c('bio-default', 'rstudio-default')
+keybindings_defaults   <- c("bio-default", "rstudio-default")
 
-#' Set RStudio keybindings
+#' Reset RStudio keybindings to a packaged preset.
 #'
-#' @param to (string) The type of keybindings.
-#'        Currently available value is `"bio-default"`.
-#' @param backup (logical) If `TRUE`, a back-up copy of files with current
-#'        keybindings will be created.
+#' This helper copies the packaged keybindings files into the user-level
+#' RStudio folder, or removes the current keybinding files when the preset is
+#' `"rstudio-default"`.
 #'
+#' @param to String scalar. Supported values are `"bio-default"` and
+#'   `"rstudio-default"`.
+#' @param backup Logical scalar. If `TRUE`, a backup copy of the current
+#'   keybinding files is created before resetting.
+#'
+#' @return Invisibly returns `NULL` after resetting the keybindings.
 #' @export
 #'
 #' @concept r and rstudio settings
 #'
 #' @examples
-#' \dontrun{\dontest{
-#'
-#' bio::rstudio_reset_keybindings(to = "bio-default")
-#' bio::rstudio_reload()
-#'
-#' }}
+#' if (interactive()) {
+#'   bio::rstudio_reset_keybindings(to = "bio-default")
+#'   bio::rstudio_reload_ui()
+#' }
 rstudio_reset_keybindings <- function(to, backup = TRUE) {
 
   if (missing(to)) {
     ui_stop(paste0(
       "The value of argument '{yellow('to')}' is missing.\n",
-      'Possible options: {ui_value(keybindings_defaults)}.'
+      "Possible options: {ui_value(keybindings_defaults)}."
     ))
   }
   checkmate::assert_string(to)
@@ -54,8 +57,8 @@ rstudio_reset_keybindings <- function(to, backup = TRUE) {
     },
 
     usethis::ui_stop(paste0(
-      'Unknown type of keybindings: to = {usethis::ui_value(to[1])}. \n',
-      "Possible options: {ui_value(user_setting_set_names)}."
+      "Unknown type of keybindings: to = {usethis::ui_value(to[1])}. \n",
+      "Possible options: {ui_value(keybindings_defaults)}."
     ))
   )
 
@@ -70,8 +73,7 @@ rstudio_reset_keybindings <- function(to, backup = TRUE) {
     "rstudio-default" = {
       # RStudio defaults are set when setup files are deleted
       fs::file_delete(current_files)
-    },
-    {
+    },    {
       # To set other options, files must be copied
       fs::dir_create(fs::path_dir(current_files), recurse = TRUE)
       fs::file_copy(from_files, current_files, overwrite = TRUE)

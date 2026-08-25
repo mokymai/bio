@@ -46,21 +46,18 @@ Open RStudio project by name or interactively. The projects list is read from
 files that contain project lists.
 }
 \examples{
-\dontrun{\donttest{
+if (interactive()) {
+  open_project()
+  open_project("bio")
+  open_project("R-2019-project")
+}
 
-open_project()
-
-open_project("bio")
-
-open_project("R-2019-project")
-
-}}
 }
 \seealso{
 \itemize{
 \item \code{\link[=update_rstudio_proj_list_user]{update_rstudio_proj_list_user()}}
-\item \code{\link[rstudioapi:projects]{rstudioapi::openProject()}}
-\item \code{\link[rstudioapi:projects]{rstudioapi::initializeProject()}}
+\item \code{\link[rstudioapi:openProject]{rstudioapi::openProject()}}
+\item \code{\link[rstudioapi:initializeProject]{rstudioapi::initializeProject()}}
 }
 }
 \concept{rstudio projects}

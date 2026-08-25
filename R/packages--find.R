@@ -1,95 +1,87 @@
 # List packages --------------------------------------------------------------
 
-#' List Packages Used in File(s)
+#' Get Standard Base R Packages
 #'
-#' These functions search for patterns, such as `library(pkg)`, `require(pkg)`,
-#' `pkg::function()`, or `data(package = "pkg")` and return package names from
-#' these expressions.
+#' Returns a character vector of standard packages included in the base R
+#' distribution to allow filtering them out from dependencies.
 #'
-#' @param path Path to directory with R and R Markdown files. Defaults to `"."`.
-#' @param files Path to R or Rmd files
-#' @param regexp Regular expression to filter file names. Defaults to R and Rmd
-#'        files.
-#' @param ... Further arguments to [fs::dir_ls].
+#' @return Character vector of base R package names.
+#' @keywords internal
+get_base_packages <- function() {
+  c(
+    "base", "compiler", "datasets", "graphics", "grDevices",
+    "grid", "methods", "parallel", "profile", "splines",
+    "stats", "stats4", "tcltk", "tools", "utils"
+  )
+}
+
+#' List Packages Used in Directory
 #'
-#' @concept utilities
+#' Scans a directory for R, Rmd, and Qmd files and returns a vector of
+#' unique package names used across those files.
 #'
-#' @return Character vector with package names.
+#' @param path Path to directory. Defaults to `"."`.
+#' @param exclude_base Logical. If `TRUE` (default), base R packages
+#'   (e.g., `stats`, `utils`, `graphics`) are excluded from the output.
+#' @param progress Logical. Whether to show a progress bar. Defaults to `FALSE`.
+#' @param ... Further arguments passed to [renv::dependencies()].
+#'
+#' @return Character vector of unique, sorted package names.
 #' @export
-list_pkgs_used_in_dir <- function(path = ".", regexp = "(?i)[.](rmd|r)$", ...) {
-  path %>%
-    fs::dir_ls(regexp = regexp, ...) %>%
-    list_pkgs_used_in_files()
+list_pkgs_used_in_dir <- function(path = ".",
+                                  exclude_base = TRUE,
+                                  progress = FALSE,
+                                  ...) {
+  deps <- renv::dependencies(path = path, progress = progress, ...)
+
+  if (nrow(deps) == 0) {
+    return(character(0))
+  }
+
+  pkgs <- unique(deps$Package)
+
+  if (exclude_base) {
+    pkgs <- setdiff(pkgs, get_base_packages())
+  }
+
+  sort(pkgs)
 }
 
-list_pkgs_used_in_dir_code <- function(path = ".", regexp = "(?i)[.](rmd|r)$", ...) {
-  path %>%
-    fs::dir_ls(regexp = regexp, ...) %>%
-    list_pkgs_used_in_files_code()
-}
-
-#' @rdname list_pkgs_used_in_dir
+#' List Packages Used in Specific File(s)
+#'
+#' Scans specific R, Rmd, or Qmd file(s) and returns a vector of
+#' unique package names used inside them.
+#'
+#' @param files Character vector of file paths (R, Rmd, Qmd).
+#' @param exclude_base Logical. If `TRUE` (default), base R packages
+#'   (e.g., `stats`, `utils`, `graphics`) are excluded from the output.
+#' @param progress Logical. Whether to show a progress bar. Defaults to `FALSE`.
+#' @param ... Further arguments passed to [renv::dependencies()].
+#'
+#' @return Character vector of unique, sorted package names.
 #' @export
-# NOTE: should work in all these situations:
-# library("pkg1")
-# library('pkg2')
-# library(pkg3)
-# require(pkg4)
-# require2(pkg5)
-# library(package = "pkg6")
-# library(package = 'pkg7')
-# library(package = pkg8)
-# library(package=pkg9)
-# library(package   =    pkg10)
-# library(package = pkg11, pos = 2)
-# library(package = 'pkg12', pos = 2)
-# library(package = "pkg13", pos = 2)
-# data("xxxx", package = "pkg14")
-# data("xxxx", package = 'pkg15')
-# pkg16::data
-# pkg17:::data
-# pkg18::fun()
-# pkg19:::fun()
-# (pkg20::fun())
-# {pkg21::fun()}
-# pkg22 :: fun()
-#
-# TODO: ignore code in comments
-list_pkgs_used_in_files <- function(files) {
-  files %>%
-    purrr::map(~ readr::read_file(.)) %>%
-    stringr::str_extract_all(
-      paste0(
-        "(?<=(library|require|require2)\\()(.*?)(?=\\))|", # library(dplyr)
-        "(?<=\\s|\\n|\\(|\\{|\\[)[a-zA-Z0-9.]*?( )*(?=:{2,3})|", # dplyr::select
-        "package\\s*=\\s*(\"|')[a-zA-Z0-9.]*?(\"|')" # data(package = "dplyr")
-      )
-    ) %>%
-    purrr::reduce(c) %>%
-    stringr::str_remove_all("\'|\"|package\\s*=\\s*|,\\s*pos\\s*=\\s.*") %>%
-    stringr::str_trim() %>%
-    stringr::str_subset("^$", negate = TRUE) %>%
-    unique()
-}
+list_pkgs_used_in_files <- function(files,
+                                    exclude_base = TRUE,
+                                    progress = FALSE,
+                                    ...) {
+  # Keep only existing files to prevent errors
+  valid_files <- files[file.exists(files)]
 
-list_pkgs_used_in_files_code <- function(files) {
-  files %>%
-    purrr::map(~ readr::read_file(.)) %>%
-    stringr::str_extract_all(
-      paste0(
-        "(library|require|require2)\\((.*?)\\)|", # library(dplyr)
-        "(\\s|\\n|\\(|\\{|\\[)[a-zA-Z0-9.]*?( )*:{2,3}[a-zA-Z0-9._]*|", # dplyr::select
-        "package\\s*=\\s*(\"|')[a-zA-Z0-9.]*?(\"|')" # data(package = "dplyr")
-      )
-    ) %>%
-    purrr::reduce(c) %>%
-    unique()
-}
+  if (length(valid_files) == 0) {
+    return(character(0))
+  }
 
+  deps <- renv::dependencies(path = valid_files, progress = progress, ...)
 
-get_pkg_dependencies <- function(pkg) {
-  pkg <- stringr::str_replace(pkg, "[.]", "[.]")
-  desc::desc_get_deps(fs::dir_ls(.libPaths(), regexp = glue::glue("/{pkg}$"))) %>%
-    dplyr::filter(.data$type %in% c("Depends", "Imports")) %>%
-    dplyr::pull(.data$package)
+  if (nrow(deps) == 0) {
+    return(character(0))
+  }
+
+  pkgs <- unique(deps$Package)
+
+  if (exclude_base) {
+    pkgs <- setdiff(pkgs, get_base_packages())
+  }
+
+  sort(pkgs)
 }

@@ -8,19 +8,19 @@
 read_projects(file, sort_by = FALSE)
 }
 \arguments{
-\item{file}{(character) Path to file with RStudio project names.}
+\item{file}{(character) Path to the file with RStudio project names.}
 
-\item{sort_by}{(\code{"name"}|\code{"path"}|\code{\link{FALSE}})}
+\item{sort_by}{(\code{"name"}|\code{"path"}|\code{FALSE})}
 }
 \description{
 \itemize{
-\item \code{read_projects()} - reads file with projects and list their names and paths.
+\item \code{read_projects()} reads a project-list file and returns the project names and paths.
 }
 }
 \examples{
-\dontrun{\donttest{
-read_projects(get_path_recent_proj_list())
-}}
+if (interactive()) {
+  read_projects(get_path_recent_proj_list())
+}
 
 }
 \concept{rstudio projects}

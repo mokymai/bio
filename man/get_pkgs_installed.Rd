@@ -27,9 +27,8 @@ nrow(get_pkgs_installed(rm_duplicates = FALSE))
 
 }
 \seealso{
-Other R-packages-related functions: 
-\code{\link{compare_version}()},
-\code{\link{get_pkgs_installation_status}()}
+Other R-packages-related functions:
+\code{\link[=compare_version]{compare_version()}}
 }
 \concept{R-packages-related functions}
 \concept{packages}

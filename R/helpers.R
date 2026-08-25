@@ -35,8 +35,9 @@ ui_msg_restart_rstudio <- function() {
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # str_glue_eval ==============================================================
 str_glue_eval <- function(
-    ..., envir = parent.frame(), .sep = "",
-    .open = "{", .close = "}", envir_eval = envir, envir_glue = envir) {
+  ..., envir = parent.frame(), .sep = "",
+  .open = "{", .close = "}", envir_eval = envir, envir_glue = envir
+) {
   commands_as_text <- glue::glue(...,
     .envir = envir_glue,
     .open  = .open,

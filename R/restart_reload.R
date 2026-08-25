@@ -33,5 +33,5 @@ restart_r <- function() {
 #' @name restart-reload
 #' @export
 restart_rstudio <- function() {
-  rstudio_restart_r()
+  rstudio_reload_ui()
 }

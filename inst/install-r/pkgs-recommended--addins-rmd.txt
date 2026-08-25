@@ -1,8 +1,0 @@
-rstudioapi
-shiny
-addin.tools
-addins.rmd
-addins.rs
-hunspell
-LanguageToolR
-wellspell.addin

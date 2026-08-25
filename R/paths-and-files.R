@@ -14,10 +14,10 @@
 #' @examples
 #' path_construct_and_check(".")
 #'
-#' \dontrun{\donttest{
-#' # Expect error:
-#' path_construct_and_check("uiuuuu")
-#' }}
+#' if (interactive()) {
+#'   # Expect error:
+#'   path_construct_and_check("uiuuuu")
+#' }
 path_construct_and_check <- function(base, ...) {
   file <- fs::path(base, ...)
 
@@ -100,7 +100,7 @@ NULL
 #'
 #' @param ... (character) Parts of the path. Path to sub-directories.
 #'
-#' @param .check (logical) If `TRUE`, additionally checks for path existance.
+#' @param .check (logical) If `TRUE`, additionally checks for path existence.
 #'
 #' @return (string) path to RStudio configuration directory.
 #'         When `.check = TRUE`, renturns error, if the path does not exist.
@@ -114,11 +114,11 @@ NULL
 #' @export
 #'
 #' @examples
-#' \dontrun{\donttest{
-#' get_path_rstudio_config_dir()
+#' if (interactive()) {
+#'   get_path_rstudio_config_dir()
 #'
-#' get_path_rstudio_config_dir("dictionaries")
-#' }}
+#'   get_path_rstudio_config_dir("dictionaries")
+#' }
 get_path_rstudio_config_dir <- function(..., .check = FALSE) {
   # https://support.rstudio.com/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State
   # Section
@@ -159,7 +159,8 @@ get_path_rstudio_config_dir <- function(..., .check = FALSE) {
   #   )
   # path_construct_and_check(base, ...)
 
-
+  # styler: off
+  # nolint start
   base <-
     switch(get_os_type(),
       "windows" = fs::path(Sys.getenv("APPDATA"), "RStudio"),
@@ -169,6 +170,8 @@ get_path_rstudio_config_dir <- function(..., .check = FALSE) {
       "mac"     = fs::path_expand_r("~/.config/rstudio"),
                   fs::path_expand_r("~/.config/rstudio")  # Other OS'es
     )
+  # nolint end
+  # styler: on
 
   # base <- Sys.getenv("XDG_CONFIG_DIRS",    unset = base) # Scope: system
   base <- Sys.getenv("XDG_CONFIG_HOME",      unset = base) # Scope: user
@@ -229,9 +232,9 @@ get_path_rstudio_internal_state_dir <- function(..., .check = FALSE) {
 #' @concept paths and dirs
 #' @export
 #' @examples
-#' \dontrun{\donttest{
-#' get_path_rstudio_keybindings_dir()
-#' }}
+#' if (interactive()) {
+#'   get_path_rstudio_keybindings_dir()
+#' }
 get_path_rstudio_keybindings_dir <- function() {
   get_path_rstudio_config_dir("keybindings")
 }
@@ -283,13 +286,11 @@ open_rstudio_keybindings_dir <- function() {
 #' - [get_path_rstudio_config_dir()]
 #'
 #' @examples
-#' \dontrun{\donttest{
+#' if (interactive()) {
+#'   get_path_rstudio_config_file()
 #'
-#' get_path_rstudio_config_file()
-#'
-#' get_path_rstudio_config_file("bio-default")
-#'
-#' }}
+#'   get_path_rstudio_config_file("bio-default")
+#' }
 get_path_rstudio_config_file <- function(which = "current") {
 
   if (which == "current") {

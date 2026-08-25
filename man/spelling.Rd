@@ -28,10 +28,10 @@ deletes RStudio (system) spellchecking dictionaries.
 }
 }
 \examples{
-\dontrun{\donttest{
-rstudio_delete_spellcheck_dictionaries()
-rstudio_download_spellcheck_dictionaries()
-}}
+if (interactive()) {
+  rstudio_delete_spellcheck_dictionaries()
+  rstudio_download_spellcheck_dictionaries()
+}
 }
 \concept{dictionaries}
 \concept{r and rstudio settings}
