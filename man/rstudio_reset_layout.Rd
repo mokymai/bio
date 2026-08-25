@@ -16,8 +16,8 @@ Invisibly returns \code{NULL}.
 Reset the RStudio pane layout.
 }
 \examples{
-\dontrun{
-rstudio_reset_layout("left")
+if (interactive()) {
+  rstudio_reset_layout("left")
 }
 }
 \keyword{internal}

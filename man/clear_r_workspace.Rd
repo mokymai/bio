@@ -18,8 +18,9 @@ objects from the global environment without removing attached packages or
 environment state outside \code{.GlobalEnv}.
 }
 \examples{
-x <- 1
-bio:::clear_r_workspace()
-exists("x", where = .GlobalEnv)
+env <- new.env()
+env$x <- 1
+bio:::clear_r_workspace(env)
+exists("x", envir = env)
 }
 \keyword{internal}
