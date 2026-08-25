@@ -3,7 +3,6 @@
 on:
   push:
     branches: [main, master]
-  pull_request:
   release:
     types: [published]
   workflow_dispatch:
@@ -15,9 +14,8 @@ permissions: read-all
 jobs:
   pkgdown:
     runs-on: ubuntu-latest
-    # Only restrict concurrency for non-PR jobs
     concurrency:
-      group: pkgdown-${{ github.event_name != 'pull_request' || github.run_id }}
+      group: pkgdown-${{ github.ref }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     permissions:
