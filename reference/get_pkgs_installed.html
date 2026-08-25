@@ -32,7 +32,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>List packages installed on this computer</h1>
-      <small class="dont-index">Source: <a href="https://github.com/mokymai/bio/blob/devel/R/packages--check.R" class="external-link"><code>R/packages--check.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/mokymai/bio/blob/master/R/packages--check.R" class="external-link"><code>R/packages--check.R</code></a></small>
       <div class="d-none name"><code>get_pkgs_installed.Rd</code></div>
     </div>
 
@@ -70,18 +70,18 @@ from the list.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu">get_pkgs_installed</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       package current_version</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  KernSmooth         2.23-26</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        MASS          7.3-65</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3      Matrix           1.7-5</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4     R.cache          0.17.0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5 R.methodsS3           1.8.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6        R.oo          1.27.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      package current_version</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 KernSmooth         2.23-26</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       MASS          7.3-65</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3     Matrix           1.7-5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4         R6           2.6.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5       Rcpp           1.1.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6    askpass           1.2.1</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="fu">get_pkgs_installed</span><span class="op">(</span>rm_duplicates <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 157</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 150</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="fu">get_pkgs_installed</span><span class="op">(</span>rm_duplicates <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 158</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 151</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

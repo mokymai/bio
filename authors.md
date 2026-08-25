@@ -8,7 +8,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/mokymai/bio/blob/devel/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/mokymai/bio/blob/master/DESCRIPTION)
 
 Gegzna V (2026). *bio: Resources Manager for R, RStudio and Related
 Software*. R package version 0.3.0, <https://mokymai.github.io/bio/>.

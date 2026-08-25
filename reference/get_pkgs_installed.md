@@ -30,16 +30,16 @@ Other R-packages-related functions:
 ``` r
 
 head(get_pkgs_installed())
-#>       package current_version
-#> 1  KernSmooth         2.23-26
-#> 2        MASS          7.3-65
-#> 3      Matrix           1.7-5
-#> 4     R.cache          0.17.0
-#> 5 R.methodsS3           1.8.2
-#> 6        R.oo          1.27.1
+#>      package current_version
+#> 1 KernSmooth         2.23-26
+#> 2       MASS          7.3-65
+#> 3     Matrix           1.7-5
+#> 4         R6           2.6.1
+#> 5       Rcpp           1.1.2
+#> 6    askpass           1.2.1
 
 nrow(get_pkgs_installed(rm_duplicates = TRUE))
-#> [1] 157
+#> [1] 150
 nrow(get_pkgs_installed(rm_duplicates = FALSE))
-#> [1] 158
+#> [1] 151
 ```
