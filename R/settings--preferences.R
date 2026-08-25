@@ -114,7 +114,11 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
   switch(
     to,
 
-    "rstudio-default" = NULL,
+    "rstudio-default" = {
+      if (isTRUE(ask)) {
+        rstudioapi::executeCommand("clearUserPrefs", quiet = TRUE)
+      }
+    },
 
     "bio-default" = ,
     "bio-dark-blue" = ,
