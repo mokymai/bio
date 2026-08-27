@@ -113,6 +113,6 @@ jobs:
           cd "${TMP_DIR}" # move into the subdir, which is Git controlled
           git add *
           git add -f *.tar.gz
-          git commit -m "Update from ${SOURCE_REPO} ${{ runner.os }} R-${{ matrix.config.r }}" || echo "Nothing to commit"
+          git commit -m "Update from ${SOURCE_REPO} ${{ runner.os }} R-${{ matrix.config.r }} ${{ steps.setup-r.outputs.installed-r-version }}" || echo "Nothing to commit"
           git push origin master || echo "Nothing to commit"
 
