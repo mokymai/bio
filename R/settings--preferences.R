@@ -138,13 +138,15 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
   )
 
 
-  # Change RStudio theme
-  switch(
-    to,
-    "bio-default"   = rstudioapi::applyTheme("Textmate (default)"),
-    "bio-dark-blue" = rstudioapi::applyTheme("Cobalt"),
-    "bio-black"     = rstudioapi::applyTheme("Chaos")
-  )
+  # Change RStudio theme (only possible in a live RStudio session)
+  if (rstudioapi::isAvailable()) {
+    switch(
+      to,
+      "bio-default"   = rstudioapi::applyTheme("Textmate (default)"),
+      "bio-dark-blue" = rstudioapi::applyTheme("Cobalt"),
+      "bio-black"     = rstudioapi::applyTheme("Chaos")
+    )
+  }
 
   if (isTRUE(success)) {
     usethis::ui_done("RStudio user settings were set to {green(to)}.")
