@@ -256,22 +256,148 @@ normalize_rstudio_preference_value <- function(value) {
   lapply(value, normalize_rstudio_preference_value)
 }
 
+#' Format a preference value for display in a one-line diff summary.
+#' @keywords internal
+format_pref_value <- function(x) {
+  if (is.null(x)) {
+    return(NA_character_)
+  }
+  if (is.list(x)) {
+    return(paste0("<list, length ", length(x), ">"))
+  }
+  paste(utils::head(x, 5L), collapse = ", ")
+}
+
+#' Recursively compare two (possibly nested) named preference lists.
+#'
+#' @return A data frame with one row per compared key: `path`, `status`
+#'   (one of `"identical"`, `"different"`, `"missing_in_current"`,
+#'   `"missing_in_default"`), and formatted `default`/`current` values.
+#' @keywords internal
+summarize_pref_diff <- function(default_prefs, current_prefs, parent = character()) {
+  all_names <- union(names(default_prefs), names(current_prefs))
+
+  rows <- purrr::map(all_names, function(nm) {
+    path <- paste(c(parent, nm), collapse = "$")
+    has_default <- nm %in% names(default_prefs)
+    has_current <- nm %in% names(current_prefs)
+
+    d_val <- if (has_default) default_prefs[[nm]] else NULL
+    c_val <- if (has_current) current_prefs[[nm]] else NULL
+
+    if (!has_current) {
+      return(data.frame(
+        path = path, status = "missing_in_current",
+        default = format_pref_value(d_val), current = NA_character_,
+        stringsAsFactors = FALSE
+      ))
+    }
+
+    if (!has_default) {
+      return(data.frame(
+        path = path, status = "missing_in_default",
+        default = NA_character_, current = format_pref_value(c_val),
+        stringsAsFactors = FALSE
+      ))
+    }
+
+    if (is.list(d_val) && is.list(c_val) && !is.null(names(d_val))) {
+      return(summarize_pref_diff(d_val, c_val, c(parent, nm)))
+    }
+
+    status <- if (identical(d_val, c_val)) "identical" else "different"
+    data.frame(
+      path = path, status = status,
+      default = format_pref_value(d_val), current = format_pref_value(c_val),
+      stringsAsFactors = FALSE
+    )
+  })
+
+  do.call(rbind, rows)
+}
+
+#' Print a concise summary of `summarize_pref_diff()` output.
+#' @keywords internal
+print_pref_diff_summary <- function(diff_df, x_arg, y_arg) {
+  n_total <- nrow(diff_df)
+  same <- diff_df[diff_df$status == "identical", , drop = FALSE]
+  diffs <- diff_df[diff_df$status != "identical", , drop = FALSE]
+
+  usethis::ui_info(
+    "Comparing {usethis::ui_value(y_arg)} RStudio settings to {usethis::ui_value(x_arg)} ({n_total} keys)."
+  )
+
+  if (nrow(diffs) == 0L) {
+    usethis::ui_done("All settings match.")
+    return(invisible(diff_df))
+  }
+
+  usethis::ui_done("{nrow(same)} settings match.")
+  usethis::ui_oops("{nrow(diffs)} difference(s) found:")
+
+  missing_current <- diffs[diffs$status == "missing_in_current", , drop = FALSE]
+  missing_default <- diffs[diffs$status == "missing_in_default", , drop = FALSE]
+  changed <- diffs[diffs$status == "different", , drop = FALSE]
+
+  if (nrow(missing_current) > 0L) {
+    cat("\n  Not set / unsupported in", y_arg, paste0("(", nrow(missing_current), "):\n"))
+    cat(
+      paste0("    - ", missing_current$path, " (", x_arg, " = ", missing_current$default, ")"),
+      sep = "\n"
+    )
+  }
+
+  if (nrow(missing_default) > 0L) {
+    cat("\n  Extra in", y_arg, paste0("(", nrow(missing_default), "):\n"))
+    cat(
+      paste0("    - ", missing_default$path, " (", y_arg, " = ", missing_default$current, ")"),
+      sep = "\n"
+    )
+  }
+
+  if (nrow(changed) > 0L) {
+    cat("\n  Changed values", paste0("(", nrow(changed), "):\n"))
+    cat(
+      paste0(
+        "    - ", changed$path, ": ", x_arg, " = ", changed$default,
+        "  |  ", y_arg, " = ", changed$current
+      ),
+      sep = "\n"
+    )
+  }
+
+  cat("\n")
+  usethis::ui_todo(paste0(
+    "Many \"not set\" entries are pseudo-differences: preferences unsupported by ",
+    "your installed RStudio version, or ones that need a restart/manual step to ",
+    "register. Run with `verbose = TRUE` for the full diff."
+  ))
+
+  invisible(diff_df)
+}
+
 #' Show differences in sets of settings
 #'
 #' @param to One of: "bio-default", "rstudio-default"
 #'        (or an unambiguous abbreviation of these).
+#' @param verbose (logical)
+#'        If `FALSE` (default), print a concise summary: how many settings
+#'        match, and a short list of what differs. If `TRUE`, fall back to
+#'        the full `waldo::compare()` output (useful for deep debugging, but
+#'        can be very verbose for large preference sets).
 #'
-#' @return Nothing. But prints the set differences between `to` list and
-#'         current settings. Settings, which are not in `to` list, will
-#'         not be displayed at all.
+#' @return Invisibly, a data frame of per-key comparison results (default
+#'         mode), or the `waldo::compare()` result (`verbose = TRUE`).
+#'         Settings, which are not in `to` list, will not be displayed at all.
 #' @export
 #'
 #' @examples
 #' if (interactive()) {
 #'   rstudio_compare_user_settings(to = "bio-default")
 #'   rstudio_compare_user_settings(to = "rstudio-default")
+#'   rstudio_compare_user_settings(to = "bio-default", verbose = TRUE)
 #' }
-rstudio_compare_user_settings <- function(to = "bio-default") {
+rstudio_compare_user_settings <- function(to = "bio-default", verbose = FALSE) {
   to <- match.arg(to, c("bio-default", "rstudio-default"))
 
   file <- get_path_rstudio_config_file(which = to)
@@ -284,22 +410,26 @@ rstudio_compare_user_settings <- function(to = "bio-default") {
     purrr::map(pref_names, ~ rstudioapi::readRStudioPreference(., NULL)) |>
     purrr::map(normalize_rstudio_preference_value)
 
-  usethis::ui_info(
-    "Show differences between {green('current')} and {green(to)} setting lists.\n"
-  )
+  if (isTRUE(verbose)) {
+    usethis::ui_info(
+      "Show differences between {green('current')} and {green(to)} setting lists.\n"
+    )
 
-  # Unify names and number of fields
-  all_names <- unique(names(current_prefs), names(default_prefs))
-  named_list <- setNames(vector("list", length(all_names)), all_names)
+    # Unify names and number of fields
+    all_names <- unique(names(current_prefs), names(default_prefs))
+    named_list <- setNames(vector("list", length(all_names)), all_names)
 
-  default_prefs <- utils::modifyList(named_list, default_prefs, keep.null = TRUE)
-  current_prefs <- utils::modifyList(named_list, current_prefs, keep.null = TRUE)
+    default_prefs <- utils::modifyList(named_list, default_prefs, keep.null = TRUE)
+    current_prefs <- utils::modifyList(named_list, current_prefs, keep.null = TRUE)
 
-  # Compare
-  waldo::compare(
-    default_prefs, current_prefs,
-    x_arg = to, y_arg = "current",
-    max_diffs = Inf,
-    list_as_map = TRUE
-  )
+    return(waldo::compare(
+      default_prefs, current_prefs,
+      x_arg = to, y_arg = "current",
+      max_diffs = Inf,
+      list_as_map = TRUE
+    ))
+  }
+
+  diff_df <- summarize_pref_diff(default_prefs, current_prefs)
+  print_pref_diff_summary(diff_df, x_arg = to, y_arg = "current")
 }
