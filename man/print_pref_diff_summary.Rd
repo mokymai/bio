@@ -4,7 +4,11 @@
 \alias{print_pref_diff_summary}
 \title{Print a concise summary of \code{summarize_pref_diff()} output.}
 \usage{
-print_pref_diff_summary(diff_df, x_arg, y_arg)
+print_pref_diff_summary(diff_df, x_arg, y_arg, details = TRUE)
+}
+\arguments{
+\item{details}{(logical) If \code{FALSE}, print only the match/difference
+counts (no per-key breakdown).}
 }
 \description{
 Print a concise summary of \code{summarize_pref_diff()} output.
