@@ -24,10 +24,22 @@ preference sets).
 Invisibly, a data frame of per-key comparison results
 (\code{"concise"}/\code{"minimal"}), or the \code{waldo::compare()} result
 (\code{"verbose"}). Settings, which are not in \code{to} list, will not be
-displayed at all.
+displayed at all. Returns \code{invisible(NULL)} if neither a live
+RStudio session nor a saved preferences file is available.
 }
 \description{
 Show differences in sets of settings
+}
+\details{
+When RStudio is running, "current" settings are read live via
+\code{\link[rstudioapi:readRStudioPreference]{rstudioapi::readRStudioPreference()}}. When RStudio is not running, the
+function falls back to reading the saved \code{rstudio-prefs.json} file on
+disk (see \code{\link[=get_path_rstudio_config_file]{get_path_rstudio_config_file()}}), if one exists. Since that
+file only stores values overridden from RStudio's built-in defaults, keys
+left at their default are also filled in (when possible) from the local
+RStudio installation's \code{user-prefs-schema.json}, so they aren't
+misreported as "missing". The file-based comparison may still not
+reflect unsaved, in-memory session state.
 }
 \examples{
 if (interactive()) {
