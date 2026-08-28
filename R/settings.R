@@ -25,26 +25,77 @@ restriction_status <- function(ignore_ip = getOption("bio.ignore_ip", FALSE), ..
   isTRUE(ignore_ip)
 }
 
+#' Run one reset step without letting it stop the rest of the workflow.
+#'
+#' Evaluates `expr`, reports success or failure to the console, and turns
+#' warnings into non-fatal notices. Used by [rstudio_reset_gmc()] so a single
+#' failing step (e.g. no network for dictionaries) never blocks later steps
+#' and never fails silently.
+#'
+#' @param label Character scalar describing the step, used in progress output.
+#' @param expr Expression to evaluate (wrap multiple statements in `{ }`).
+#' @return Invisibly returns a list with `label`, `ok` (logical), and
+#'   `message` (the error message, or `NA` on success).
+#' @keywords internal
+#' @examples
+#' bio:::run_reset_step("A step that works", 1 + 1)
+#' bio:::run_reset_step("A step that fails", stop("boom"))
+run_reset_step <- function(label, expr) {
+  checkmate::assert_string(label)
+
+  result <- tryCatch(
+    {
+      withCallingHandlers(
+        expr,
+        warning = function(w) {
+          usethis::ui_warn(paste0(label, ": ", conditionMessage(w)))
+          invokeRestart("muffleWarning")
+        }
+      )
+      list(label = label, ok = TRUE, message = NA_character_)
+    },
+    error = function(e) {
+      list(label = label, ok = FALSE, message = conditionMessage(e))
+    }
+  )
+
+  if (isTRUE(result$ok)) {
+    usethis::ui_done(label)
+  } else {
+    usethis::ui_oops(paste0(label, " failed: ", result$message))
+  }
+
+  invisible(result)
+}
+
 #' Reset the local RStudio session to a known-good classroom/lab state.
 #'
-#' The function performs several destructive cleanup steps aimed at restoring a
-#' consistent RStudio environment:
-#' 1. clears history and recent-session state;
-#' 2. resets user settings and keybindings;
-#' 3. clears the current R workspace;
-#' 4. restores the default snippets and layout;
-#' 5. optionally updates spellcheck dictionaries; and
-#' 6. restarts RStudio when the user confirms.
+#' The function performs several destructive cleanup steps aimed at restoring
+#' a consistent RStudio environment for a lab/classroom computer:
+#' 1. optionally updates spellcheck dictionaries;
+#' 2. resets user settings, keybindings, snippets, theme and layout to course
+#'    defaults;
+#' 3. clears recent files/projects, help history, plots and viewer tabs;
+#' 4. clears the current R workspace; and
+#' 5. as the very last steps, clears the R console and the command history.
+#'
+#' Every step is run through [run_reset_step()], so a failure in one step
+#' (e.g. missing internet connection while downloading dictionaries) is
+#' reported but does not prevent the remaining steps from running. A summary
+#' of what worked and what did not is printed at the end. None of the steps
+#' below open interactive confirmation popups.
 #'
 #' This helper is intentionally conservative and protects destructive reset
-#' actions behind a simple override flag. The code does not rely on external
-#' IP metadata or a hard-coded allow-list.
+#' actions behind a simple override flag (see `restriction_status()`). It is
+#' meant to be run on classroom/lab computers, never on a developer's own,
+#' non-standardized RStudio session.
 #'
 #' @param ... Further arguments used by `restriction_status()` for compatibility.
 #' @param force_update_dictionaries Logical scalar. If `TRUE`, the dictionaries
 #'   are refreshed even when the current locale is present.
 #'
-#' @return Invisibly returns `NULL` after the reset workflow completes.
+#' @return Invisibly returns a data frame with one row per step, its `ok`
+#'   status, and an error `message` (if any).
 #' @keywords internal
 #' @examples
 #' if (interactive()) {
@@ -60,76 +111,121 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
     return(invisible())
   }
 
+  steps <- list()
+
   # Dictionaries
-  # dict_path <- rstudioapi::userDictionariesPath()
-  dict_path <- get_path_rstudio_config_dir("dictionaries/languages-system")
-  lt_LT_is_missing <- !any(stringr::str_detect(dir(dict_path), "lt_LT"))
-  if (force_update_dictionaries || lt_LT_is_missing) {
-    bio::rstudio_download_spellcheck_dictionaries()
-  }
+  steps$dictionaries <- run_reset_step("Update spellcheck dictionaries", {
+    dict_path <- get_path_rstudio_config_dir("dictionaries/languages-system")
+    lt_LT_is_missing <- !any(stringr::str_detect(dir(dict_path), "lt_LT"))
+    if (force_update_dictionaries || lt_LT_is_missing) {
+      bio::rstudio_download_spellcheck_dictionaries()
+    }
+  })
 
   # Working directory
-  rstudioapi::executeCommand("setWorkingDirToProjectDir", quiet = TRUE)
+  steps$working_dir <- run_reset_step("Set working directory to project directory", {
+    rstudioapi::executeCommand("setWorkingDirToProjectDir", quiet = TRUE)
+  })
 
-  # User preferences
-  bio::rstudio_reset_user_settings(to = "bio-default", backup = TRUE, ask = FALSE)
+  # User preferences (ask = FALSE: no confirmation popup)
+  steps$user_settings <- run_reset_step("Reset user settings", {
+    bio::rstudio_reset_user_settings(to = "bio-default", backup = TRUE, ask = FALSE)
+  })
 
-  # Tab Files
-  # TODO: Go to home dir
-  rstudioapi::executeCommand("clearRecentFiles",    quiet = TRUE)
+  # Tabs: Files, Plots, Help, Viewer, Projects
+  steps$recent_files <- run_reset_step("Clear recent files", {
+    rstudioapi::executeCommand("clearRecentFiles", quiet = TRUE)
+  })
+  steps$plots <- run_reset_step("Clear plots", {
+    rstudioapi::executeCommand("clearPlots", quiet = TRUE)
+  })
+  steps$help <- run_reset_step("Clear help history", {
+    rstudioapi::executeCommand("clearHelpHistory", quiet = TRUE)
+    rstudioapi::executeCommand("helpHome", quiet = TRUE)
+  })
+  steps$viewer <- run_reset_step("Clear viewer tab", {
+    rstudioapi::executeCommand("viewerClearAll", quiet = TRUE)
+  })
+  steps$recent_projects <- run_reset_step("Clear recent projects", {
+    rstudioapi::executeCommand("clearRecentProjects", quiet = TRUE)
+  })
 
-  # Tab Plots
-  rstudioapi::executeCommand("clearPlots",          quiet = TRUE)
-
-  # Tab Help
-  rstudioapi::executeCommand("clearHelpHistory",    quiet = TRUE)
-  rstudioapi::executeCommand("helpHome",            quiet = TRUE)
-
-  # Tab Viewer
-  rstudioapi::executeCommand("viewerClearAll",      quiet = TRUE)
-
-  # Projects
-  rstudioapi::executeCommand("clearRecentProjects", quiet = TRUE)
-
-  # Tab Environment
-  clear_r_workspace() # clearWorkspace
+  # Environment tab
+  steps$workspace <- run_reset_step("Clear R workspace", {
+    clear_r_workspace()
+  })
 
   # Layout
-  rstudio_reset_layout()
-  rstudioapi::executeCommand("zoomActualSize",  quiet = TRUE)
-  rstudioapi::executeCommand("zoomIn",          quiet = TRUE)
-  # rstudioapi::executeCommand("zoomIn",          quiet = TRUE)
-  rstudioapi::executeCommand("activateConsole", quiet = TRUE)
+  steps$layout <- run_reset_step("Reset pane layout and zoom", {
+    rstudio_reset_layout()
+    rstudioapi::executeCommand("zoomActualSize", quiet = TRUE)
+    rstudioapi::executeCommand("zoomIn", quiet = TRUE)
+    rstudioapi::executeCommand("activateConsole", quiet = TRUE)
+  })
 
-  # Settings
-  snippets::install_snippets_from_package("snippets", type = c("r", "markdown"))
+  # Snippets
+  steps$snippets <- run_reset_step("Install default snippets", {
+    snippets::install_snippets_from_package("snippets", type = c("r", "markdown"))
+  })
 
-  # Reset keybindings
-  bio::rstudio_reset_keybindings("bio-default", backup = TRUE)
+  # Keybindings
+  steps$keybindings <- run_reset_step("Reset keybindings", {
+    bio::rstudio_reset_keybindings("bio-default", backup = TRUE)
+  })
 
   # Theme
-  rstudioapi::applyTheme("Textmate (default)")
+  steps$theme <- run_reset_step("Apply default theme", {
+    rstudioapi::applyTheme("Textmate (default)")
+  })
 
   # Documents
-  rstudioapi::executeCommand("closeAllSourceDocs", quiet = TRUE)
+  steps$documents <- run_reset_step("Close all source documents", {
+    rstudioapi::executeCommand("closeAllSourceDocs", quiet = TRUE)
+  })
 
-  # Create/Clean directories
-  fs::path_expand_r("~/R/main") |> fs::dir_create()
+  # Create/clean course directories
+  steps$directories <- run_reset_step("Create/clean course directories", {
+    fs::path_expand_r("~/R/main") |> fs::dir_create()
 
-  bs_folder <- fs::path_expand("~/Desktop/BS-pratybos/")
-  try(fs::dir_delete(bs_folder), silent = TRUE)
-  fs::dir_create(bs_folder)
+    bs_folder <- fs::path_expand("~/Desktop/BS-pratybos/")
+    if (fs::dir_exists(bs_folder)) {
+      fs::dir_delete(bs_folder)
+    }
+    fs::dir_create(bs_folder)
+  })
 
-  # Console
-  rstudioapi::executeCommand("closeAllTerminals", quiet = TRUE)
-  rstudioapi::executeCommand("consoleClear",      quiet = TRUE)
+  # Terminals
+  steps$terminals <- run_reset_step("Close all terminals", {
+    rstudioapi::executeCommand("closeAllTerminals", quiet = TRUE)
+  })
 
-  # History Tab
-  rstudio_clear_history()
-  # clear_r_history(backup = FALSE)
-  unlink(".Rhistory")
+  # Console — must run near the very end
+  steps$console <- run_reset_step("Clear R console", {
+    rstudioapi::executeCommand("consoleClear", quiet = TRUE)
+  })
 
-  invisible()
+  # History — the very last step
+  steps$history <- run_reset_step("Clear R history", {
+    rstudio_clear_history(backup = FALSE)
+    unlink(".Rhistory")
+  })
+
+  summary_df <- data.frame(
+    step    = names(steps),
+    ok      = vapply(steps, function(x) isTRUE(x$ok), logical(1)),
+    message = vapply(steps, function(x) x$message, character(1)),
+    stringsAsFactors = FALSE
+  )
+
+  n_failed <- sum(!summary_df$ok)
+  if (n_failed > 0) {
+    usethis::ui_oops("RStudio reset finished with {n_failed} failed step(s).")
+  } else {
+    usethis::ui_done("RStudio reset finished successfully.")
+  }
+
+  invisible(summary_df)
+}
 
   # commands <- c(
   #   "cleanAll",
@@ -155,7 +251,7 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
   #   NULL
   # )
   # purrr::walk(commands, ~rstudioapi::executeCommand(. , quiet = TRUE))
-}
+
 
 # Sys.sleep(1)
 
