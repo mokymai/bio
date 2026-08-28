@@ -382,11 +382,34 @@ check_rs_version <- function(skip_online_check = FALSE) {
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Registry hives to check for an RStudio install/version: per-user ("just
+# me" installer mode) first, then system-wide ("all users", requires admin
+# rights). Shared by `find_rstudio_install_dir()` and
+# `get_rstudio_version_from_registry()` so a future hive addition only has
+# to happen in one place.
+rstudio_registry_hives <- function() c("HCU", "HLM")
+
+# Read a single registry key, returning `NULL` (never erroring) if missing,
+# unreadable, or not on Windows.
+read_registry_key_safely <- function(reg_path, hive) {
+  if (!identical(get_os_type(), "windows")) {
+    return(NULL)
+  }
+
+  tryCatch(
+    utils::readRegistry(reg_path, hive = hive, maxdepth = 2),
+    error = function(e) NULL
+  )
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' Locate the RStudio Desktop installation directory
 #'
 #' Searches common per-OS install locations (and, on Windows, the registry)
 #' for an installed copy of RStudio Desktop. Does not require RStudio to be
-#' running.
+#' running. Looks for both a system-wide ("all users") and a per-user
+#' ("just me") install, preferring the per-user one if both are found (see
+#' [get_rstudio_install_scope()]).
 #'
 #' @return A length-1 character string with the install directory, or `NULL`
 #'   if no installation was found.
@@ -396,12 +419,17 @@ find_rstudio_install_dir <- function() {
   candidates <- switch(
     os,
     "windows" = c(
-      file.path(Sys.getenv("PROGRAMFILES"), "RStudio"),
-      file.path(Sys.getenv("PROGRAMFILES(X86)"), "RStudio"),
+      # Per-user ("just me") install locations first.
       file.path(Sys.getenv("LOCALAPPDATA"), "Programs", "RStudio"),
-      file.path(Sys.getenv("LOCALAPPDATA"), "RStudio")
+      file.path(Sys.getenv("LOCALAPPDATA"), "RStudio"),
+      # System-wide ("all users") install locations.
+      file.path(Sys.getenv("PROGRAMFILES"), "RStudio"),
+      file.path(Sys.getenv("PROGRAMFILES(X86)"), "RStudio")
     ),
-    "mac" = "/Applications/RStudio.app",
+    "mac" = c(
+      path.expand("~/Applications/RStudio.app"), # per-user
+      "/Applications/RStudio.app" # system-wide
+    ),
     "linux" = c(
       "/usr/lib/rstudio",
       "/usr/lib/rstudio-server",
@@ -412,11 +440,11 @@ find_rstudio_install_dir <- function() {
   )
 
   if (identical(os, "windows")) {
-    install_path <- tryCatch(
-      utils::readRegistry("SOFTWARE\\RStudio", hive = "HLM", maxdepth = 2)$InstallPath,
-      error = function(e) NULL
-    )
-    candidates <- c(install_path, candidates)
+    registry_paths <- vapply(rstudio_registry_hives(), function(hive) {
+      key <- read_registry_key_safely("SOFTWARE\\RStudio", hive)
+      if (!is.null(key$InstallPath) && nzchar(key$InstallPath)) key$InstallPath else NA_character_
+    }, character(1))
+    candidates <- c(registry_paths[!is.na(registry_paths)], candidates)
   }
 
   candidates <- candidates[nzchar(candidates) & !is.na(candidates)]
@@ -427,6 +455,51 @@ find_rstudio_install_dir <- function() {
   }
 
   existing[[1]]
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Classify a resolved RStudio install directory as "system" (all-users) or
+# "user" (per-user) scope, based on well-known per-user vs. system parent
+# directories. Pure string-matching, no I/O.
+classify_rstudio_install_scope <- function(install_dir) {
+  if (is.null(install_dir) || is.na(install_dir) || !nzchar(install_dir)) {
+    return(NA_character_)
+  }
+
+  user_roots <- c(Sys.getenv("LOCALAPPDATA"), path.expand("~"))
+  user_roots <- user_roots[nzchar(user_roots)]
+
+  install_dir_lower <- tolower(install_dir)
+  is_under_user_root <- any(vapply(
+    user_roots, function(root) startsWith(install_dir_lower, tolower(root)), logical(1)
+  ))
+
+  if (is_under_user_root) "user" else "system"
+}
+
+#' Determine whether the local RStudio Desktop install is system-wide or per-user
+#'
+#' RStudio Desktop's Windows installer supports an "all users" (system-wide,
+#' admin rights required) and a "just me" (per-user) install mode; macOS
+#' installs are similarly either shared (`/Applications`) or per-user
+#' (`~/Applications`). This distinction affects only where the RStudio
+#' *application files* live (used e.g. to find the bundled
+#' `user-prefs-schema.json`) — it does **not** affect where RStudio stores
+#' preferences, keybindings, or other per-user state, which always lives
+#' under the current OS user's profile regardless of install scope (see
+#' [get_path_rstudio_config_dir()]).
+#'
+#' @param install_dir Character scalar, the resolved RStudio install
+#'   directory. Defaults to [find_rstudio_install_dir()].
+#' @return `"system"`, `"user"`, or `NA_character_` if the install location
+#'   is unknown (e.g. RStudio isn't installed).
+#' @export
+#' @examples
+#' if (interactive()) {
+#'   get_rstudio_install_scope()
+#' }
+get_rstudio_install_scope <- function(install_dir = find_rstudio_install_dir()) {
+  classify_rstudio_install_scope(install_dir)
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -497,11 +570,8 @@ get_rstudio_version_from_registry <- function() {
   )
 
   for (reg_path in reg_paths) {
-    for (hive in c("HLM", "HCU")) {
-      key <- tryCatch(
-        utils::readRegistry(reg_path, hive = hive, maxdepth = 2),
-        error = function(e) NULL
-      )
+    for (hive in rstudio_registry_hives()) {
+      key <- read_registry_key_safely(reg_path, hive)
 
       value <- key$Version
       if (is.null(value)) {
