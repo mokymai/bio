@@ -4,16 +4,22 @@
 \alias{rstudio_compare_user_settings}
 \title{Show differences in sets of settings}
 \usage{
-rstudio_compare_user_settings(to = "bio-default")
+rstudio_compare_user_settings(to = "bio-default", verbose = FALSE)
 }
 \arguments{
 \item{to}{One of: "bio-default", "rstudio-default"
 (or an unambiguous abbreviation of these).}
+
+\item{verbose}{(logical)
+If \code{FALSE} (default), print a concise summary: how many settings
+match, and a short list of what differs. If \code{TRUE}, fall back to
+the full \code{waldo::compare()} output (useful for deep debugging, but
+can be very verbose for large preference sets).}
 }
 \value{
-Nothing. But prints the set differences between \code{to} list and
-current settings. Settings, which are not in \code{to} list, will
-not be displayed at all.
+Invisibly, a data frame of per-key comparison results (default
+mode), or the \code{waldo::compare()} result (\code{verbose = TRUE}).
+Settings, which are not in \code{to} list, will not be displayed at all.
 }
 \description{
 Show differences in sets of settings
@@ -22,5 +28,6 @@ Show differences in sets of settings
 if (interactive()) {
   rstudio_compare_user_settings(to = "bio-default")
   rstudio_compare_user_settings(to = "rstudio-default")
+  rstudio_compare_user_settings(to = "bio-default", verbose = TRUE)
 }
 }
