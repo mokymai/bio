@@ -85,7 +85,10 @@ check_installed_programs <- function(type = "main", skip_online_check = FALSE) {
         rstudioapi::buildToolsCheck()
       } else {
         pkgbuild::has_build_tools()
-      }
+      },
+      # No reliable single "latest" Rtools version to compare against: the
+      # required version is tied to the installed R version, not a global max.
+      v_installed = get_installed_rtools_version()
     )
   }
 
@@ -94,19 +97,33 @@ check_installed_programs <- function(type = "main", skip_online_check = FALSE) {
   # if XQuartz is missing.
   # https://stackoverflow.com/questions/37438773/
   if (type_lwr %in% c("all", "gmc-bs") && get_os_type() == "mac") {
-    check_program_installed("XQuartz", is_xquartz_installed())
+    check_program_installed(
+      "XQuartz",
+      is_xquartz_installed(),
+      v_installed = get_installed_xquartz_version()
+    )
   }
 
   # Git
   if (type_lwr %in% c("all", "gmc-r")) {
-    check_program_installed("Git", is_git_installed())
+    check_program_installed(
+      "Git",
+      is_git_installed(),
+      v_installed = get_installed_git_version(),
+      v_available = get_available_git_version(skip = skip_online_check)
+    )
   }
 
   # Meld
   if (type_lwr %in% c("all")) {
     try(
       {
-        check_program_installed("Meld", is_meld_installed())
+        check_program_installed(
+          "Meld",
+          is_meld_installed(),
+          v_installed = get_installed_meld_version(),
+          v_available = get_available_meld_version(skip = skip_online_check)
+        )
       },
       silent = TRUE)
   }
@@ -562,6 +579,25 @@ is_meld_installed <- function(path_to_meld = get_default_path_to_meld()) {
   file.exists(path_to_meld)
 }
 
+get_installed_meld_version <- function(path_to_meld = get_default_path_to_meld()) {
+  if (!file.exists(path_to_meld)) {
+    return(NULL)
+  }
+
+  extract_first_version(
+    tryCatch(
+      system2(path_to_meld, "--version", stdout = TRUE, stderr = TRUE),
+      error = function(e) NULL
+    )
+  )
+}
+
+get_available_meld_version <- function(force = FALSE, skip = FALSE) {
+  # GNOME/meld publishes tags, not GitHub Releases, so the "latest release"
+  # API 404s here. There is no reliable single "latest" version to fetch.
+  NULL
+}
+
 is_git_installed <- function() {
   tryCatch(
     {
@@ -575,16 +611,179 @@ is_git_installed <- function() {
   )
 }
 
+get_installed_git_version <- function() {
+  extract_first_version(
+    tryCatch(
+      system2("git", "--version", stdout = TRUE, stderr = TRUE),
+      error = function(e) NULL
+    )
+  )
+}
+
+get_available_git_version <- function(force = FALSE, skip = FALSE) {
+  # Git for Windows releases track the Windows build; on Mac/Linux, Git is
+  # usually managed by the OS/Xcode CLT/package manager, so there is no single
+  # comparable "latest" version.
+  if (!identical(get_os_type(), "windows")) {
+    return(NULL)
+  }
+
+  get_available_version_from_github_release(
+    "git-for-windows/git",
+    force = force,
+    skip = skip
+  )
+}
+
 is_xquartz_installed  <- function(variables) {
   isTRUE(unname(capabilities("aqua")))
+}
+
+get_installed_xquartz_version <- function() {
+  if (!identical(get_os_type(), "mac")) {
+    return(NULL)
+  }
+
+  plist <- "/Applications/Utilities/XQuartz.app/Contents/Info"
+  if (!file.exists(paste0(plist, ".plist"))) {
+    return(NULL)
+  }
+
+  out <- tryCatch(
+    system2(
+      "defaults",
+      c("read", plist, "CFBundleShortVersionString"),
+      stdout = TRUE, stderr = TRUE
+    ),
+    error = function(e) NULL
+  )
+
+  extract_first_version(out)
+}
+
+get_installed_rtools_version <- function() {
+  if (!identical(get_os_type(), "windows")) {
+    return(NULL)
+  }
+
+  # 1) Env vars set by the Rtools installer, e.g. "RTOOLS44_HOME"
+  env_names <- grep("^RTOOLS\\d+_HOME$", names(Sys.getenv()), value = TRUE)
+  for (env_name in env_names) {
+    v <- rtools_code_to_version(sub("^RTOOLS(\\d+)_HOME$", "\\1", env_name))
+    if (!is.null(v)) {
+      return(v)
+    }
+  }
+
+  # 2) Registry entries written by the Rtools installer
+  reg_paths <- c("SOFTWARE\\R-core\\Rtools", "SOFTWARE\\WOW6432Node\\R-core\\Rtools")
+  for (reg_path in reg_paths) {
+    for (hive in c("HLM", "HCU")) {
+      key <- tryCatch(
+        utils::readRegistry(reg_path, hive = hive, maxdepth = 3),
+        error = function(e) NULL
+      )
+      subkey_names <- names(key)[vapply(key, is.list, logical(1))]
+      versions <- suppressWarnings(as.numeric_version(subkey_names))
+      versions <- versions[!is.na(versions)]
+      if (length(versions) > 0) {
+        return(max(versions))
+      }
+    }
+  }
+
+  # 3) pkgbuild's own detection, e.g. path ".../rtools44/usr/bin"
+  path <- tryCatch(pkgbuild::rtools_path(), error = function(e) NULL)
+  if (!is.null(path) && any(nzchar(path))) {
+    v <- rtools_code_to_version(
+      stringr::str_extract(path[[1]], "(?i)(?<=rtools)\\d{2,3}")
+    )
+    if (!is.null(v)) {
+      return(v)
+    }
+  }
+
+  # 4) Common install locations by naming convention (e.g. "C:/rtools44")
+  candidates <- Sys.glob("C:/rtools*")
+  codes <- stringr::str_extract(basename(candidates), "(?i)(?<=rtools)\\d{2,3}")
+  versions <- Filter(Negate(is.null), lapply(codes, rtools_code_to_version))
+  if (length(versions) > 0) {
+    return(max(do.call(c, versions)))
+  }
+
+  NULL
+}
+
+# Rtools folder/registry codes are 2-3 digit strings like "44" -> version "4.4"
+rtools_code_to_version <- function(code) {
+  if (is.null(code) || is.na(code) || !grepl("^\\d{2,3}$", code)) {
+    return(NULL)
+  }
+
+  version_txt <- paste0(
+    substr(code, 1, nchar(code) - 1), ".", substr(code, nchar(code), nchar(code))
+  )
+
+  tryCatch(as.numeric_version(version_txt), error = function(e) NULL)
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Extract the first "x.y[.z]"-style version number found in `x` as a
+# numeric_version(), or NULL if no match was found.
+extract_first_version <- function(x) {
+  if (is.null(x)) {
+    return(NULL)
+  }
+
+  version_txt <- stringr::str_extract(paste(x, collapse = " "), "\\d+[.]\\d+([.]\\d+)?")
+  if (is.na(version_txt)) {
+    return(NULL)
+  }
+
+  tryCatch(as.numeric_version(version_txt), error = function(e) NULL)
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Get the latest GitHub release tag for `repo` ("owner/name") as a
+# numeric_version(), or NULL if unavailable/offline.
+get_available_version_from_github_release <- function(repo, force = FALSE, skip = FALSE) {
+  if (isTRUE(skip)) {
+    return(NULL)
+  }
+
+  if (!force && !pingr::is_online()) {
+    msg_offline(get_what = paste(repo, "version"))
+    return(NULL)
+  }
+
+  tryCatch(
+    suppressWarnings({
+      url <- paste0("https://api.github.com/repos/", repo, "/releases/latest")
+      rel <- jsonlite::fromJSON(url)
+      extract_first_version(rel$tag_name)
+    }),
+    error = function(e) NULL
+  )
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # program   - string
 # condition - logical
-# string    - what
+# what      - string ("Program" or "Tool")
+# v_installed/v_available - optional numeric_version()s; when v_installed is
+# known, show the version-comparison line instead of the plain install status.
 check_program_installed <- function(program = "", condition = NULL,
-  what = "Program") {
+  what = "Program", v_installed = NULL, v_available = NULL) {
+
+  if (isTRUE(condition) && !is.null(v_installed)) {
+    print_program_version_info(
+      name = program,
+      v_installed = v_installed,
+      v_available = v_available,
+      type = what
+    )
+    return(invisible(NULL))
+  }
 
   if (condition) {
     ui_done("{what} {blue(program)} is installed.")
@@ -592,9 +791,15 @@ check_program_installed <- function(program = "", condition = NULL,
   } else {
     ui_oops("{what} {red(program)} is not detected.")
   }
+
+  invisible(NULL)
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_tool_installed <- function(name = "", condition = NULL) {
-  check_program_installed(name, condition, what = "Tool")
+check_tool_installed <- function(name = "", condition = NULL,
+  v_installed = NULL, v_available = NULL) {
+  check_program_installed(
+    name, condition,
+    what = "Tool", v_installed = v_installed, v_available = v_available
+  )
 }
