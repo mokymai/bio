@@ -316,30 +316,30 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
   invisible(list(configure = configure_summary, session_state = session_summary))
 }
 
-  # commands <- c(
-  #   "cleanAll",
-  #   "clearHelpHistory",
-  #   "clearHistory",
-  #   "clearJobs",
-  #   "clearKnitrCache",
-  #   "clearPlots",
-  #   "clearPrerenderedOutput",
-  #   "clearPresentationCache",
-  #   "clearRecentFiles",
-  #   "clearRecentProjects",
-  #   "clearTerminalScrollbackBuffer",
-  #   "clearUserPrefs",
-  #   "clearWorkspace",
-  #   "closeAllSourceDocs",
-  #   "closeAllTerminals",
-  #   # "closeOtherSourceDocs",
-  #   "closeProject",
-  #   # "closeSourceDoc",
-  #   # "closeTerminal",
-  #   "consoleClear",
-  #   NULL
-  # )
-  # purrr::walk(commands, ~rstudioapi::executeCommand(. , quiet = TRUE))
+# commands <- c(
+#   "cleanAll",
+#   "clearHelpHistory",
+#   "clearHistory",
+#   "clearJobs",
+#   "clearKnitrCache",
+#   "clearPlots",
+#   "clearPrerenderedOutput",
+#   "clearPresentationCache",
+#   "clearRecentFiles",
+#   "clearRecentProjects",
+#   "clearTerminalScrollbackBuffer",
+#   "clearUserPrefs",
+#   "clearWorkspace",
+#   "closeAllSourceDocs",
+#   "closeAllTerminals",
+#   # "closeOtherSourceDocs",
+#   "closeProject",
+#   # "closeSourceDoc",
+#   # "closeTerminal",
+#   "consoleClear",
+#   NULL
+# )
+# purrr::walk(commands, ~rstudioapi::executeCommand(. , quiet = TRUE))
 
 
 # Sys.sleep(1)
