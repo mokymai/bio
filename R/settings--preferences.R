@@ -353,6 +353,14 @@ summarize_pref_diff <- function(default_prefs, current_prefs, parent = character
     )
   })
 
+  if (length(rows) == 0L) {
+    return(data.frame(
+      path = character(), status = character(),
+      default = character(), current = character(),
+      stringsAsFactors = FALSE
+    ))
+  }
+
   do.call(rbind, rows)
 }
 
@@ -386,7 +394,7 @@ print_pref_diff_summary <- function(diff_df, x_arg, y_arg, details = TRUE) {
   changed <- diffs[diffs$status == "different", , drop = FALSE]
 
   if (nrow(missing_current) > 0L) {
-    cat("\n  Not set / unsupported in", y_arg, paste0("(", nrow(missing_current), "):\n"))
+    cat("\n  Not set in", paste0(y_arg, " (", nrow(missing_current), "):\n"))
     cat(
       paste0("    - ", missing_current$path, " (", x_arg, " = ", missing_current$default, ")"),
       sep = "\n"
@@ -394,7 +402,7 @@ print_pref_diff_summary <- function(diff_df, x_arg, y_arg, details = TRUE) {
   }
 
   if (nrow(missing_default) > 0L) {
-    cat("\n  Extra in", y_arg, paste0("(", nrow(missing_default), "):\n"))
+    cat("\n  Extra in", paste0(y_arg, " (", nrow(missing_default), "):\n"))
     cat(
       paste0("    - ", missing_default$path, " (", y_arg, " = ", missing_default$current, ")"),
       sep = "\n"
@@ -402,22 +410,19 @@ print_pref_diff_summary <- function(diff_df, x_arg, y_arg, details = TRUE) {
   }
 
   if (nrow(changed) > 0L) {
-    cat("\n  Changed values", paste0("(", nrow(changed), "):\n"))
+    cat("\n  Different values", paste0("(", nrow(changed), "):\n"))
     cat(
       paste0(
-        "    - ", changed$path, ": ", x_arg, " = ", changed$default,
-        "  |  ", y_arg, " = ", changed$current
+        "    - ", changed$path, " (", x_arg, " = ", changed$default,
+        ", ", y_arg, " = ", changed$current, ")"
       ),
       sep = "\n"
     )
   }
 
   cat("\n")
-  usethis::ui_todo(paste0(
-    "Many \"not set\" entries are pseudo-differences: preferences unsupported by ",
-    "your installed RStudio version, or ones that need a restart/manual step to ",
-    "register. Run with `output = \"verbose\"` for the full diff."
-  ))
+  usethis::ui_todo("\"Not set\" often just means RStudio doesn't know that setting yet (older/newer version) or it needs a restart/manual step.")
+  usethis::ui_todo("Run with `output = \"verbose\"` for the full technical diff.")
 
   invisible(diff_df)
 }
@@ -426,23 +431,6 @@ print_pref_diff_summary <- function(diff_df, x_arg, y_arg, details = TRUE) {
 read_pref_file <- function(file) {
   jsonlite::fromJSON(file, simplifyVector = FALSE) |>
     purrr::map(normalize_rstudio_preference_value)
-}
-
-# Locate a local RStudio installation directory, if any (best-effort, no
-# guarantee an install exists or is the one that wrote `rstudio-prefs.json`).
-find_rstudio_install_dir <- function() {
-  candidates <- switch(
-    get_os_type(),
-    "windows" = c(
-      fs::path(Sys.getenv("PROGRAMFILES"), "RStudio"),
-      fs::path(Sys.getenv("LOCALAPPDATA"), "Programs", "RStudio")
-    ),
-    "mac" = "/Applications/RStudio.app/Contents",
-    c("/usr/lib/rstudio", "/usr/lib/rstudio-server", "/usr/local/lib/rstudio")
-  )
-
-  candidates <- candidates[nzchar(candidates) & fs::dir_exists(candidates)]
-  if (length(candidates) == 0L) NULL else candidates[[1]]
 }
 
 # Path to the bundled `user-prefs-schema.json` (documents RStudio's built-in
@@ -454,6 +442,7 @@ find_rstudio_prefs_schema_file <- function(install_dir = find_rstudio_install_di
 
   candidates <- c(
     fs::path(install_dir, "resources", "app", "resources", "schema", "user-prefs-schema.json"),
+    fs::path(install_dir, "Contents", "Resources", "app", "resources", "schema", "user-prefs-schema.json"),
     fs::path(install_dir, "resources", "schema", "user-prefs-schema.json")
   )
   candidates <- candidates[fs::file_exists(candidates)]
@@ -490,36 +479,67 @@ read_current_prefs_live <- function(pref_names) {
     purrr::map(normalize_rstudio_preference_value)
 }
 
+# Recursively fill keys/sub-keys that are present in `wanted` (the settings
+# we're actually comparing against) but missing from `current`, using the
+# matching value from `defaults`. Never adds a key `wanted` doesn't have, so
+# schema keys the `to` preset doesn't care about are ignored. Returns the
+# number of top-level-or-nested keys filled as the `"n_filled"` attribute.
+fill_missing_defaults <- function(current, defaults, wanted) {
+  n_filled <- 0L
+
+  for (nm in names(wanted)) {
+    default_val <- defaults[[nm]]
+    if (is.null(default_val)) {
+      next # Not in the schema either; leave as-is.
+    }
+
+    if (!nm %in% names(current)) {
+      current[[nm]] <- default_val
+      n_filled <- n_filled + 1L
+      next
+    }
+
+    is_nested <- is.list(current[[nm]]) && is.list(default_val) && is.list(wanted[[nm]]) &&
+      !is.null(names(current[[nm]])) && !is.null(names(default_val))
+    if (is_nested) {
+      nested <- fill_missing_defaults(current[[nm]], default_val, wanted[[nm]])
+      current[[nm]] <- nested
+      n_filled <- n_filled + attr(nested, "n_filled", exact = TRUE)
+      attr(current[[nm]], "n_filled") <- NULL
+    }
+  }
+
+  attr(current, "n_filled") <- n_filled
+  current
+}
+
 # Read "current" preference values from the saved `rstudio-prefs.json` file,
-# filling in keys missing from `default_prefs` with the local install's
-# schema defaults (the file only stores values overridden from RStudio's
-# built-in defaults, so unset keys would otherwise look "missing").
+# filling in keys/sub-keys missing from `default_prefs` with the local
+# install's schema defaults (the file only stores values overridden from
+# RStudio's built-in defaults, so unset keys would otherwise look "missing").
 read_current_prefs_from_file <- function(current_file, default_prefs) {
   current_prefs <- read_pref_file(current_file)
-
-  missing_keys <- setdiff(names(default_prefs), names(current_prefs))
-  if (length(missing_keys) == 0L) {
-    return(current_prefs)
-  }
 
   schema_defaults <- get_rstudio_prefs_schema_defaults()
   if (is.null(schema_defaults)) {
     usethis::ui_info(paste0(
-      "Could not locate the local RStudio installation's preference schema; ",
-      "keys left at their built-in default value may show as \"not set\" below."
+      "Could not find your local RStudio installation's list of built-in ",
+      "default settings, so unchanged settings may be shown as \"not set\" below."
     ))
     return(current_prefs)
   }
 
-  fill <- schema_defaults[intersect(missing_keys, names(schema_defaults))]
-  if (length(fill) > 0L) {
+  filled <- fill_missing_defaults(current_prefs, schema_defaults, default_prefs)
+  n_filled <- attr(filled, "n_filled", exact = TRUE)
+  attr(filled, "n_filled") <- NULL
+
+  if (n_filled > 0L) {
     usethis::ui_info(
-      "Filled {length(fill)} unset key(s) with built-in defaults from the local RStudio install."
+      "Filled in {n_filled} setting(s) left at RStudio's built-in default value."
     )
-    current_prefs <- utils::modifyList(current_prefs, fill)
   }
 
-  current_prefs
+  filled
 }
 
 #' Show differences in sets of settings
