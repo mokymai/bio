@@ -482,10 +482,58 @@ get_rstudio_prefs_schema_defaults <- function() {
   purrr::map(defaults, normalize_rstudio_preference_value)
 }
 
+# Read "current" preference values live from an active RStudio session.
+read_current_prefs_live <- function(pref_names) {
+  pref_names |>
+    purrr::set_names() |>
+    purrr::map(~ rstudioapi::readRStudioPreference(., NULL)) |>
+    purrr::map(normalize_rstudio_preference_value)
+}
+
+# Read "current" preference values from the saved `rstudio-prefs.json` file,
+# filling in keys missing from `default_prefs` with the local install's
+# schema defaults (the file only stores values overridden from RStudio's
+# built-in defaults, so unset keys would otherwise look "missing").
+read_current_prefs_from_file <- function(current_file, default_prefs) {
+  current_prefs <- read_pref_file(current_file)
+
+  missing_keys <- setdiff(names(default_prefs), names(current_prefs))
+  if (length(missing_keys) == 0L) {
+    return(current_prefs)
+  }
+
+  schema_defaults <- get_rstudio_prefs_schema_defaults()
+  if (is.null(schema_defaults)) {
+    usethis::ui_info(paste0(
+      "Could not locate the local RStudio installation's preference schema; ",
+      "keys left at their built-in default value may show as \"not set\" below."
+    ))
+    return(current_prefs)
+  }
+
+  fill <- schema_defaults[intersect(missing_keys, names(schema_defaults))]
+  if (length(fill) > 0L) {
+    usethis::ui_info(
+      "Filled {length(fill)} unset key(s) with built-in defaults from the local RStudio install."
+    )
+    current_prefs <- utils::modifyList(current_prefs, fill)
+  }
+
+  current_prefs
+}
+
 #' Show differences in sets of settings
 #'
 #' @param to One of: "bio-default", "rstudio-default"
 #'        (or an unambiguous abbreviation of these).
+#' @param source One of:
+#'        - `"auto"` (default): use a live RStudio session if one is
+#'          running, otherwise fall back to the saved preferences file.
+#'        - `"live"`: read "current" settings live via
+#'          [rstudioapi::readRStudioPreference()]; fails gracefully if
+#'          RStudio is not running.
+#'        - `"file"`: always read "current" settings from the saved
+#'          `rstudio-prefs.json` file on disk, even if RStudio is running.
 #' @param output One of:
 #'        - `"minimal"`: print only the match/difference counts.
 #'        - `"concise"` (default): print how many settings match, plus a
@@ -495,77 +543,66 @@ get_rstudio_prefs_schema_defaults <- function() {
 #'          preference sets).
 #'
 #' @details
-#' When RStudio is running, "current" settings are read live via
-#' [rstudioapi::readRStudioPreference()]. When RStudio is not running, the
-#' function falls back to reading the saved `rstudio-prefs.json` file on
-#' disk (see [get_path_rstudio_config_file()]), if one exists. Since that
-#' file only stores values overridden from RStudio's built-in defaults, keys
-#' left at their default are also filled in (when possible) from the local
-#' RStudio installation's `user-prefs-schema.json`, so they aren't
-#' misreported as "missing". The file-based comparison may still not
+#' `source = "live"` (or `"auto"` with RStudio running) reads "current"
+#' settings live via [rstudioapi::readRStudioPreference()].
+#' `source = "file"` (or `"auto"` without RStudio running) reads the saved
+#' `rstudio-prefs.json` file on disk (see [get_path_rstudio_config_file()]).
+#' Since that file only stores values overridden from RStudio's built-in
+#' defaults, keys left at their default are also filled in (when possible)
+#' from the local RStudio installation's `user-prefs-schema.json`, so they
+#' aren't misreported as "missing". The file-based comparison may still not
 #' reflect unsaved, in-memory session state.
 #'
 #' @return Invisibly, a data frame of per-key comparison results
 #'         (`"concise"`/`"minimal"`), or the `waldo::compare()` result
 #'         (`"verbose"`). Settings, which are not in `to` list, will not be
-#'         displayed at all. Returns `invisible(NULL)` if neither a live
-#'         RStudio session nor a saved preferences file is available.
+#'         displayed at all. Returns `invisible(NULL)` if the requested
+#'         `source` is unavailable (e.g. `"live"` without a running RStudio
+#'         session, or `"file"`/`"auto"` with no saved preferences file).
 #' @export
 #'
 #' @examples
 #' if (interactive()) {
 #'   rstudio_compare_user_settings(to = "bio-default")
 #'   rstudio_compare_user_settings(to = "rstudio-default")
+#'   rstudio_compare_user_settings(to = "bio-default", source = "file")
 #'   rstudio_compare_user_settings(to = "bio-default", output = "minimal")
 #'   rstudio_compare_user_settings(to = "bio-default", output = "verbose")
 #' }
-rstudio_compare_user_settings <- function(to = "bio-default", output = "concise") {
+rstudio_compare_user_settings <- function(to = "bio-default", source = "auto", output = "concise") {
   to <- match.arg(to, c("bio-default", "rstudio-default"))
+  source <- match.arg(source, c("auto", "live", "file"))
   output <- match.arg(output, c("concise", "minimal", "verbose"))
 
   default_prefs <- read_pref_file(get_path_rstudio_config_file(which = to))
   current_file <- get_path_rstudio_config_file("current")
+  live_available <- rstudioapi::isAvailable()
+  use_live <- if (source == "auto") live_available else source == "live"
 
-  if (rstudioapi::isAvailable()) {
-    pref_names <- names(default_prefs) |> purrr::set_names()
-    current_prefs <-
-      purrr::map(pref_names, ~ rstudioapi::readRStudioPreference(., NULL)) |>
-      purrr::map(normalize_rstudio_preference_value)
+  if (use_live && !live_available) {
+    usethis::ui_oops(paste0(
+      "RStudio is not running. `source = \"live\"` requires an active ",
+      "RStudio session; use `source = \"file\"` or `source = \"auto\"` instead."
+    ))
+    return(invisible(NULL))
+  }
+
+  if (use_live) {
+    current_prefs <- read_current_prefs_live(names(default_prefs))
 
   } else if (fs::file_exists(current_file)) {
-    usethis::ui_info(paste0(
-      "RStudio is not running. Comparing against the saved preferences file ",
-      "instead of a live session ({usethis::ui_path(current_file)})."
-    ))
-    current_prefs <- read_pref_file(current_file)
-
-    # `rstudio-prefs.json` only stores values overridden from RStudio's
-    # built-in defaults; fill in the rest from the local install's schema,
-    # so unset-but-default keys aren't reported as "missing".
-    missing_keys <- setdiff(names(default_prefs), names(current_prefs))
-    if (length(missing_keys) > 0L) {
-      schema_defaults <- get_rstudio_prefs_schema_defaults()
-
-      if (is.null(schema_defaults)) {
-        usethis::ui_info(paste0(
-          "Could not locate the local RStudio installation's preference schema; ",
-          "keys left at their built-in default value may show as \"not set\" below."
-        ))
-      } else {
-        fill <- schema_defaults[intersect(missing_keys, names(schema_defaults))]
-        if (length(fill) > 0L) {
-          usethis::ui_info(
-            "Filled {length(fill)} unset key(s) with built-in defaults from the local RStudio install."
-          )
-          current_prefs <- utils::modifyList(current_prefs, fill)
-        }
-      }
+    intro <- if (live_available) {
+      "Comparing against the saved preferences file, "
+    } else {
+      "RStudio is not running; comparing against the saved preferences file, "
     }
+    usethis::ui_info(paste0(intro, "not a live session ({usethis::ui_path(current_file)})."))
+    current_prefs <- read_current_prefs_from_file(current_file, default_prefs)
 
   } else {
     usethis::ui_oops(paste0(
-      "RStudio is not running and no saved preferences file was found at ",
-      "{usethis::ui_path(current_file)}."
+      "No saved preferences file was found at {usethis::ui_path(current_file)}",
+      if (!live_available) " and RStudio is not running." else "."
     ))
     return(invisible(NULL))
   }
