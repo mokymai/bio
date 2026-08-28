@@ -299,8 +299,7 @@ normalize_rstudio_preference_value <- function(value) {
   lapply(value, normalize_rstudio_preference_value)
 }
 
-#' Format a preference value for display in a one-line diff summary.
-#' @keywords internal
+# Format a preference value for display in a one-line diff summary.
 format_pref_value <- function(x) {
   if (is.null(x)) {
     return(NA_character_)
@@ -311,12 +310,10 @@ format_pref_value <- function(x) {
   paste(utils::head(x, 5L), collapse = ", ")
 }
 
-#' Recursively compare two (possibly nested) named preference lists.
-#'
-#' @return A data frame with one row per compared key: `path`, `status`
-#'   (one of `"identical"`, `"different"`, `"missing_in_current"`,
-#'   `"missing_in_default"`), and formatted `default`/`current` values.
-#' @keywords internal
+# Recursively compare two (possibly nested) named preference lists.
+# Returns a data frame with one row per compared key: `path`, `status`
+# ("identical" / "different" / "missing_in_current" / "missing_in_default"),
+# and formatted `default`/`current` values.
 summarize_pref_diff <- function(default_prefs, current_prefs, parent = character()) {
   all_names <- union(names(default_prefs), names(current_prefs))
 
@@ -359,11 +356,8 @@ summarize_pref_diff <- function(default_prefs, current_prefs, parent = character
   do.call(rbind, rows)
 }
 
-#' Print a concise summary of `summarize_pref_diff()` output.
-#'
-#' @param details (logical) If `FALSE`, print only the match/difference
-#'   counts (no per-key breakdown).
-#' @keywords internal
+# Print a concise summary of `summarize_pref_diff()` output.
+# `details = FALSE` prints only the match/difference counts.
 print_pref_diff_summary <- function(diff_df, x_arg, y_arg, details = TRUE) {
   n_total <- nrow(diff_df)
   same <- diff_df[diff_df$status == "identical", , drop = FALSE]
@@ -428,6 +422,66 @@ print_pref_diff_summary <- function(diff_df, x_arg, y_arg, details = TRUE) {
   invisible(diff_df)
 }
 
+# Read and normalize an RStudio preferences JSON file.
+read_pref_file <- function(file) {
+  jsonlite::fromJSON(file, simplifyVector = FALSE) |>
+    purrr::map(normalize_rstudio_preference_value)
+}
+
+# Locate a local RStudio installation directory, if any (best-effort, no
+# guarantee an install exists or is the one that wrote `rstudio-prefs.json`).
+find_rstudio_install_dir <- function() {
+  candidates <- switch(
+    get_os_type(),
+    "windows" = c(
+      fs::path(Sys.getenv("PROGRAMFILES"), "RStudio"),
+      fs::path(Sys.getenv("LOCALAPPDATA"), "Programs", "RStudio")
+    ),
+    "mac" = "/Applications/RStudio.app/Contents",
+    c("/usr/lib/rstudio", "/usr/lib/rstudio-server", "/usr/local/lib/rstudio")
+  )
+
+  candidates <- candidates[nzchar(candidates) & fs::dir_exists(candidates)]
+  if (length(candidates) == 0L) NULL else candidates[[1]]
+}
+
+# Path to the bundled `user-prefs-schema.json` (documents RStudio's built-in
+# default value for each preference), if the local install can be found.
+find_rstudio_prefs_schema_file <- function(install_dir = find_rstudio_install_dir()) {
+  if (is.null(install_dir)) {
+    return(NULL)
+  }
+
+  candidates <- c(
+    fs::path(install_dir, "resources", "app", "resources", "schema", "user-prefs-schema.json"),
+    fs::path(install_dir, "resources", "schema", "user-prefs-schema.json")
+  )
+  candidates <- candidates[fs::file_exists(candidates)]
+  if (length(candidates) == 0L) NULL else candidates[[1]]
+}
+
+# Named list of RStudio's built-in default preference values, read from the
+# local installation's schema file. `NULL` if no schema file can be found.
+get_rstudio_prefs_schema_defaults <- function() {
+  schema_file <- find_rstudio_prefs_schema_file()
+  if (is.null(schema_file)) {
+    return(NULL)
+  }
+
+  schema <- tryCatch(
+    jsonlite::fromJSON(schema_file, simplifyVector = FALSE),
+    error = function(e) NULL
+  )
+  props <- schema[["properties"]]
+  if (is.null(props)) {
+    return(NULL)
+  }
+
+  defaults <- purrr::map(props, "default")
+  defaults <- defaults[!vapply(defaults, is.null, logical(1))]
+  purrr::map(defaults, normalize_rstudio_preference_value)
+}
+
 #' Show differences in sets of settings
 #'
 #' @param to One of: "bio-default", "rstudio-default"
@@ -440,10 +494,22 @@ print_pref_diff_summary <- function(diff_df, x_arg, y_arg, details = TRUE) {
 #'          (useful for deep debugging, but can be very verbose for large
 #'          preference sets).
 #'
+#' @details
+#' When RStudio is running, "current" settings are read live via
+#' [rstudioapi::readRStudioPreference()]. When RStudio is not running, the
+#' function falls back to reading the saved `rstudio-prefs.json` file on
+#' disk (see [get_path_rstudio_config_file()]), if one exists. Since that
+#' file only stores values overridden from RStudio's built-in defaults, keys
+#' left at their default are also filled in (when possible) from the local
+#' RStudio installation's `user-prefs-schema.json`, so they aren't
+#' misreported as "missing". The file-based comparison may still not
+#' reflect unsaved, in-memory session state.
+#'
 #' @return Invisibly, a data frame of per-key comparison results
 #'         (`"concise"`/`"minimal"`), or the `waldo::compare()` result
 #'         (`"verbose"`). Settings, which are not in `to` list, will not be
-#'         displayed at all.
+#'         displayed at all. Returns `invisible(NULL)` if neither a live
+#'         RStudio session nor a saved preferences file is available.
 #' @export
 #'
 #' @examples
@@ -457,24 +523,52 @@ rstudio_compare_user_settings <- function(to = "bio-default", output = "concise"
   to <- match.arg(to, c("bio-default", "rstudio-default"))
   output <- match.arg(output, c("concise", "minimal", "verbose"))
 
-  if (!rstudioapi::isAvailable()) {
+  default_prefs <- read_pref_file(get_path_rstudio_config_file(which = to))
+  current_file <- get_path_rstudio_config_file("current")
+
+  if (rstudioapi::isAvailable()) {
+    pref_names <- names(default_prefs) |> purrr::set_names()
+    current_prefs <-
+      purrr::map(pref_names, ~ rstudioapi::readRStudioPreference(., NULL)) |>
+      purrr::map(normalize_rstudio_preference_value)
+
+  } else if (fs::file_exists(current_file)) {
+    usethis::ui_info(paste0(
+      "RStudio is not running. Comparing against the saved preferences file ",
+      "instead of a live session ({usethis::ui_path(current_file)})."
+    ))
+    current_prefs <- read_pref_file(current_file)
+
+    # `rstudio-prefs.json` only stores values overridden from RStudio's
+    # built-in defaults; fill in the rest from the local install's schema,
+    # so unset-but-default keys aren't reported as "missing".
+    missing_keys <- setdiff(names(default_prefs), names(current_prefs))
+    if (length(missing_keys) > 0L) {
+      schema_defaults <- get_rstudio_prefs_schema_defaults()
+
+      if (is.null(schema_defaults)) {
+        usethis::ui_info(paste0(
+          "Could not locate the local RStudio installation's preference schema; ",
+          "keys left at their built-in default value may show as \"not set\" below."
+        ))
+      } else {
+        fill <- schema_defaults[intersect(missing_keys, names(schema_defaults))]
+        if (length(fill) > 0L) {
+          usethis::ui_info(
+            "Filled {length(fill)} unset key(s) with built-in defaults from the local RStudio install."
+          )
+          current_prefs <- utils::modifyList(current_prefs, fill)
+        }
+      }
+    }
+
+  } else {
     usethis::ui_oops(paste0(
-      "RStudio is not running. `rstudio_compare_user_settings()` reads live ",
-      "preferences via {usethis::ui_field('rstudioapi')} and only works from ",
-      "an active RStudio session."
+      "RStudio is not running and no saved preferences file was found at ",
+      "{usethis::ui_path(current_file)}."
     ))
     return(invisible(NULL))
   }
-
-  file <- get_path_rstudio_config_file(which = to)
-  default_prefs <-
-    jsonlite::fromJSON(file, simplifyVector = FALSE) |>
-    purrr::map(normalize_rstudio_preference_value)
-
-  pref_names <- names(default_prefs) |> purrr::set_names()
-  current_prefs <-
-    purrr::map(pref_names, ~ rstudioapi::readRStudioPreference(., NULL)) |>
-    purrr::map(normalize_rstudio_preference_value)
 
   if (output == "verbose") {
     usethis::ui_info(
