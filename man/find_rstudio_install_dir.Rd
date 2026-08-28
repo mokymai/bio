@@ -13,5 +13,7 @@ if no installation was found.
 \description{
 Searches common per-OS install locations (and, on Windows, the registry)
 for an installed copy of RStudio Desktop. Does not require RStudio to be
-running.
+running. Looks for both a system-wide ("all users") and a per-user
+("just me") install, preferring the per-user one if both are found (see
+\code{\link[=get_rstudio_install_scope]{get_rstudio_install_scope()}}).
 }
