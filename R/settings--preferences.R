@@ -191,7 +191,7 @@ normalize_cran_mirror_pref <- function(value) {
 
 #' Merge a preset preferences JSON file straight into `rstudio-prefs.json`.
 #'
-#' Headless fallback used by [rstudio_set_preferences()] when no RStudio
+#' Headless fallback used by `rstudio_set_preferences()` when no RStudio
 #' session is available (e.g. run via `Rscript`). Values are merged directly
 #' into the preferences file instead of going through
 #' [rstudioapi::writeRStudioPreference()], which requires a live session.

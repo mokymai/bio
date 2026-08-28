@@ -97,7 +97,7 @@ summarize_reset_steps <- function(steps) {
 #' spellcheck dictionaries and TinyTeX, and (re)creates the course working
 #' directories. Unlike [rstudio_reset_session_state()], every step here is
 #' file-based (settings/keybindings are written straight to disk, see
-#' [rstudio_set_preferences()]) or a plain package install, so this function
+#' `rstudio_set_preferences()`) or a plain package install, so this function
 #' **can be run outside of RStudio**, e.g. from a plain terminal with
 #' `Rscript -e "bio::rstudio_configure_defaults()"` when provisioning many
 #' classroom computers. Steps that do need a live RStudio session (such as
