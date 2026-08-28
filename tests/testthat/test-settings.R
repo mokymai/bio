@@ -60,7 +60,141 @@ test_that("compare settings helper is callable with valid presets", {
     fixed = FALSE
   )
 
+  expect_error(
+    rstudio_compare_user_settings(to = "bio-default", source = "bad-source"),
+    "should be one of",
+    fixed = FALSE
+  )
+
+  expect_error(
+    rstudio_compare_user_settings(to = "bio-default", output = "bad-output"),
+    "should be one of",
+    fixed = FALSE
+  )
+
   expect_true(is.character(match.arg("bio-default", c("bio-default", "rstudio-default"))))
+})
+
+test_that("summarize_pref_diff() classifies matches, diffs, and nested keys", {
+  default_prefs <- list(a = 1, b = 2, nested = list(x = 1, y = 2))
+  current_prefs <- list(a = 1, b = 99, nested = list(x = 1), extra = "surprise")
+
+  diff_df <- summarize_pref_diff(default_prefs, current_prefs)
+
+  by_path <- stats::setNames(diff_df$status, diff_df$path)
+  expect_identical(by_path[["a"]], "identical")
+  expect_identical(by_path[["b"]], "different")
+  expect_identical(by_path[["nested$x"]], "identical")
+  expect_identical(by_path[["nested$y"]], "missing_in_current")
+  expect_identical(by_path[["extra"]], "missing_in_default")
+})
+
+test_that("summarize_pref_diff() handles empty input without erroring", {
+  diff_df <- summarize_pref_diff(list(), list())
+  expect_equal(nrow(diff_df), 0L)
+  expect_named(diff_df, c("path", "status", "default", "current"))
+})
+
+test_that("format_pref_value() renders scalars, vectors, lists, and NULL", {
+  expect_true(is.na(format_pref_value(NULL)))
+  expect_equal(format_pref_value("Chat"), "Chat")
+  expect_equal(format_pref_value(c("a", "b")), "a, b")
+  expect_equal(format_pref_value(list(x = 1, y = 2)), "<list, length 2>")
+})
+
+test_that("fill_missing_defaults() recurses and never adds unwanted keys", {
+  wanted <- list(a = 1, panes = list(x = 1, y = 2, z = 3))
+  defaults <- list(a = 99, panes = list(x = 100, y = 200, z = 300), unrelated = "nope")
+  current <- list(panes = list(x = 1))
+
+  filled <- fill_missing_defaults(current, defaults, wanted)
+
+  expect_equal(attr(filled, "n_filled"), 3L)
+  expect_false("unrelated" %in% names(filled))
+  expect_equal(filled$a, 99)
+  expect_equal(filled$panes, list(x = 1, y = 200, z = 300))
+})
+
+test_that("fill_missing_defaults() leaves already-set values untouched", {
+  wanted <- list(a = 1)
+  defaults <- list(a = 99)
+  current <- list(a = 1)
+
+  filled <- fill_missing_defaults(current, defaults, wanted)
+
+  expect_equal(attr(filled, "n_filled"), 0L)
+  expect_equal(filled$a, 1)
+})
+
+test_that("print_pref_diff_summary() reports counts and, with details, key lists", {
+  diff_df <- summarize_pref_diff(
+    list(a = 1, b = 2, c = 3),
+    list(a = 1, b = 99)
+  )
+
+  minimal_out <- capture_all_output(
+    print_pref_diff_summary(diff_df, "bio-default", "current", details = FALSE)
+  )
+  expect_true(any(grepl("difference\\(s\\) found\\.", minimal_out)))
+  expect_false(any(grepl("- b ", minimal_out, fixed = TRUE)))
+
+  detailed_out <- capture_all_output(
+    print_pref_diff_summary(diff_df, "bio-default", "current", details = TRUE)
+  )
+  expect_true(any(grepl("- b ", detailed_out, fixed = TRUE)))
+  expect_true(any(grepl("- c ", detailed_out, fixed = TRUE)))
+})
+
+test_that("print_pref_diff_summary() reports a clean match with no differences", {
+  diff_df <- summarize_pref_diff(list(a = 1), list(a = 1))
+  out <- capture_all_output(
+    print_pref_diff_summary(diff_df, "bio-default", "current")
+  )
+  expect_true(any(grepl("All settings match\\.", out)))
+})
+
+test_that("read_pref_file() reads and normalizes a JSON preferences file", {
+  tmp <- withr::local_tempfile(fileext = ".json")
+  jsonlite::write_json(list(editor_theme = "Cobalt", n = 1L), tmp, auto_unbox = TRUE)
+
+  prefs <- read_pref_file(tmp)
+
+  expect_equal(prefs$editor_theme, "Cobalt")
+  expect_equal(prefs$n, 1) # integers are normalized to double
+})
+
+test_that("rstudio_compare_user_settings(source = 'live') works with a mocked RStudio session", {
+  tmp <- withr::local_tempfile(fileext = ".json")
+  jsonlite::write_json(list(editor_theme = "Cobalt"), tmp, auto_unbox = TRUE)
+
+  testthat::local_mocked_bindings(
+    get_path_rstudio_config_file = function(which = "current") tmp,
+    .package = "bio"
+  )
+  testthat::local_mocked_bindings(
+    isAvailable = function(...) TRUE,
+    readRStudioPreference = function(name, default) {
+      if (identical(name, "editor_theme")) "Cobalt" else default
+    },
+    .package = "rstudioapi"
+  )
+
+  out <- capture_all_output(
+    result <- rstudio_compare_user_settings(to = "bio-default", source = "live", output = "minimal")
+  )
+  expect_true(any(grepl("settings match", out)))
+  expect_s3_class(result, "data.frame")
+})
+
+test_that("rstudio_compare_user_settings(source = 'live') fails gracefully without RStudio", {
+  testthat::local_mocked_bindings(
+    isAvailable = function(...) FALSE,
+    .package = "rstudioapi"
+  )
+
+  expect_null(
+    rstudio_compare_user_settings(to = "bio-default", source = "live", output = "minimal")
+  )
 })
 
 test_that("RStudio preference values are normalized for comparison", {
