@@ -317,8 +317,11 @@ summarize_pref_diff <- function(default_prefs, current_prefs, parent = character
 }
 
 #' Print a concise summary of `summarize_pref_diff()` output.
+#'
+#' @param details (logical) If `FALSE`, print only the match/difference
+#'   counts (no per-key breakdown).
 #' @keywords internal
-print_pref_diff_summary <- function(diff_df, x_arg, y_arg) {
+print_pref_diff_summary <- function(diff_df, x_arg, y_arg, details = TRUE) {
   n_total <- nrow(diff_df)
   same <- diff_df[diff_df$status == "identical", , drop = FALSE]
   diffs <- diff_df[diff_df$status != "identical", , drop = FALSE]
@@ -333,6 +336,12 @@ print_pref_diff_summary <- function(diff_df, x_arg, y_arg) {
   }
 
   usethis::ui_done("{nrow(same)} settings match.")
+
+  if (!isTRUE(details)) {
+    usethis::ui_oops("{nrow(diffs)} difference(s) found.")
+    return(invisible(diff_df))
+  }
+
   usethis::ui_oops("{nrow(diffs)} difference(s) found:")
 
   missing_current <- diffs[diffs$status == "missing_in_current", , drop = FALSE]
@@ -370,7 +379,7 @@ print_pref_diff_summary <- function(diff_df, x_arg, y_arg) {
   usethis::ui_todo(paste0(
     "Many \"not set\" entries are pseudo-differences: preferences unsupported by ",
     "your installed RStudio version, or ones that need a restart/manual step to ",
-    "register. Run with `verbose = TRUE` for the full diff."
+    "register. Run with `output = \"verbose\"` for the full diff."
   ))
 
   invisible(diff_df)
@@ -380,25 +389,30 @@ print_pref_diff_summary <- function(diff_df, x_arg, y_arg) {
 #'
 #' @param to One of: "bio-default", "rstudio-default"
 #'        (or an unambiguous abbreviation of these).
-#' @param verbose (logical)
-#'        If `FALSE` (default), print a concise summary: how many settings
-#'        match, and a short list of what differs. If `TRUE`, fall back to
-#'        the full `waldo::compare()` output (useful for deep debugging, but
-#'        can be very verbose for large preference sets).
+#' @param output One of:
+#'        - `"minimal"`: print only the match/difference counts.
+#'        - `"concise"` (default): print how many settings match, plus a
+#'          short list of what differs.
+#'        - `"verbose"`: fall back to the full `waldo::compare()` output
+#'          (useful for deep debugging, but can be very verbose for large
+#'          preference sets).
 #'
-#' @return Invisibly, a data frame of per-key comparison results (default
-#'         mode), or the `waldo::compare()` result (`verbose = TRUE`).
-#'         Settings, which are not in `to` list, will not be displayed at all.
+#' @return Invisibly, a data frame of per-key comparison results
+#'         (`"concise"`/`"minimal"`), or the `waldo::compare()` result
+#'         (`"verbose"`). Settings, which are not in `to` list, will not be
+#'         displayed at all.
 #' @export
 #'
 #' @examples
 #' if (interactive()) {
 #'   rstudio_compare_user_settings(to = "bio-default")
 #'   rstudio_compare_user_settings(to = "rstudio-default")
-#'   rstudio_compare_user_settings(to = "bio-default", verbose = TRUE)
+#'   rstudio_compare_user_settings(to = "bio-default", output = "minimal")
+#'   rstudio_compare_user_settings(to = "bio-default", output = "verbose")
 #' }
-rstudio_compare_user_settings <- function(to = "bio-default", verbose = FALSE) {
+rstudio_compare_user_settings <- function(to = "bio-default", output = "concise") {
   to <- match.arg(to, c("bio-default", "rstudio-default"))
+  output <- match.arg(output, c("concise", "minimal", "verbose"))
 
   file <- get_path_rstudio_config_file(which = to)
   default_prefs <-
@@ -410,7 +424,7 @@ rstudio_compare_user_settings <- function(to = "bio-default", verbose = FALSE) {
     purrr::map(pref_names, ~ rstudioapi::readRStudioPreference(., NULL)) |>
     purrr::map(normalize_rstudio_preference_value)
 
-  if (isTRUE(verbose)) {
+  if (output == "verbose") {
     usethis::ui_info(
       "Show differences between {green('current')} and {green(to)} setting lists.\n"
     )
@@ -431,5 +445,5 @@ rstudio_compare_user_settings <- function(to = "bio-default", verbose = FALSE) {
   }
 
   diff_df <- summarize_pref_diff(default_prefs, current_prefs)
-  print_pref_diff_summary(diff_df, x_arg = to, y_arg = "current")
+  print_pref_diff_summary(diff_df, x_arg = to, y_arg = "current", details = output == "concise")
 }
