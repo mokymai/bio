@@ -89,3 +89,78 @@ test_that("reset helpers are scalar-safe and quiet without the IP gate", {
 
   expect_error(rstudio_reset_layout("middle"), "should be one of")
 })
+
+test_that("classify_rstudio_install_scope() distinguishes user vs system installs", {
+  expect_identical(classify_rstudio_install_scope(NULL), NA_character_)
+  expect_identical(classify_rstudio_install_scope(NA_character_), NA_character_)
+  expect_identical(classify_rstudio_install_scope(""), NA_character_)
+
+  user_path <- file.path(Sys.getenv("LOCALAPPDATA"), "Programs", "RStudio")
+  expect_identical(classify_rstudio_install_scope(user_path), "user")
+
+  home_path <- file.path(path.expand("~"), "Applications", "RStudio.app")
+  expect_identical(classify_rstudio_install_scope(home_path), "user")
+
+  system_path <- file.path(Sys.getenv("PROGRAMFILES"), "RStudio")
+  expect_identical(classify_rstudio_install_scope(system_path), "system")
+
+  expect_identical(classify_rstudio_install_scope("/usr/lib/rstudio"), "system")
+})
+
+test_that("get_rstudio_install_scope() delegates to classify_rstudio_install_scope()", {
+  expect_identical(get_rstudio_install_scope(NULL), NA_character_)
+  expect_identical(
+    get_rstudio_install_scope(file.path(Sys.getenv("PROGRAMFILES"), "RStudio")),
+    "system"
+  )
+})
+
+test_that("find_rstudio_install_dir() finds a synthetic per-user install", {
+  fake_root <- withr::local_tempdir()
+  fake_local_appdata <- file.path(fake_root, "LocalAppData")
+  fake_install_dir <- file.path(fake_local_appdata, "Programs", "RStudio")
+  dir.create(fake_install_dir, recursive = TRUE)
+
+  withr::local_envvar(c(
+    LOCALAPPDATA = fake_local_appdata,
+    "PROGRAMFILES(X86)" = file.path(fake_root, "does-not-exist-x86"),
+    PROGRAMFILES = file.path(fake_root, "does-not-exist")
+  ))
+  testthat::local_mocked_bindings(get_os_type = function() "windows")
+  testthat::local_mocked_bindings(
+    read_registry_key_safely = function(reg_path, hive) NULL
+  )
+
+  expect_identical(find_rstudio_install_dir(), fake_install_dir)
+  expect_identical(get_rstudio_install_scope(), "user")
+})
+
+test_that("find_rstudio_install_dir() finds a synthetic system-wide install", {
+  # Note: doesn't also assert `get_rstudio_install_scope()` here, because
+  # `withr::local_tempdir()` always lives under the real user's home
+  # directory, which `classify_rstudio_install_scope()` treats as "user"
+  # scope regardless of the (fake) PROGRAMFILES override below. Scope
+  # classification is covered directly with realistic absolute paths in
+  # "classify_rstudio_install_scope() distinguishes user vs system installs".
+  fake_root <- withr::local_tempdir()
+  fake_program_files <- file.path(fake_root, "ProgramFiles")
+  fake_install_dir <- file.path(fake_program_files, "RStudio")
+  dir.create(fake_install_dir, recursive = TRUE)
+
+  withr::local_envvar(c(
+    LOCALAPPDATA = file.path(fake_root, "does-not-exist-local"),
+    "PROGRAMFILES(X86)" = file.path(fake_root, "does-not-exist-x86"),
+    PROGRAMFILES = fake_program_files
+  ))
+  testthat::local_mocked_bindings(get_os_type = function() "windows")
+  testthat::local_mocked_bindings(
+    read_registry_key_safely = function(reg_path, hive) NULL
+  )
+
+  expect_identical(find_rstudio_install_dir(), fake_install_dir)
+})
+
+test_that("read_registry_key_safely() is a no-op off Windows", {
+  testthat::local_mocked_bindings(get_os_type = function() "linux")
+  expect_null(read_registry_key_safely("SOFTWARE\\RStudio", "HCU"))
+})
