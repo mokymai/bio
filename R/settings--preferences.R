@@ -187,6 +187,47 @@ normalize_cran_mirror_pref <- function(value) {
   )
 }
 
+#' Merge a preset preferences JSON file straight into `rstudio-prefs.json`.
+#'
+#' Headless fallback used by [rstudio_set_preferences()] when no RStudio
+#' session is available (e.g. run via `Rscript`). Values are merged directly
+#' into the preferences file instead of going through
+#' [rstudioapi::writeRStudioPreference()], which requires a live session.
+#'
+#' @param file Path to a JSON file with preferences to merge in.
+#' @return Logical scalar, `TRUE` on success.
+#' @keywords internal
+rstudio_merge_preferences_file <- function(file) {
+  preset <- jsonlite::fromJSON(file, simplifyVector = FALSE)
+  preset_names <- names(preset)
+  if (is.null(preset_names)) {
+    return(TRUE)
+  }
+
+  target <- get_path_rstudio_config_file("current")
+  current <-
+    if (fs::file_exists(target)) {
+      jsonlite::fromJSON(target, simplifyVector = FALSE)
+    } else {
+      list()
+    }
+  if (is.null(current)) {
+    current <- list()
+  }
+
+  for (nm in preset_names[nzchar(preset_names)]) {
+    value <- preset[[nm]]
+    if (identical(nm, "cran_mirror")) {
+      value <- normalize_cran_mirror_pref(value)
+    }
+    current[[nm]] <- value
+  }
+
+  fs::dir_create(fs::path_dir(target), recurse = TRUE)
+  jsonlite::write_json(current, target, auto_unbox = TRUE, pretty = TRUE, null = "null")
+  TRUE
+}
+
 rstudio_set_preferences <- function(file) {
   if (rstudioapi::isAvailable("1.3.387")) {
     pref <- jsonlite::fromJSON(file)
