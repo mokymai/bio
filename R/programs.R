@@ -324,15 +324,25 @@ check_quarto_version <- function(skip_online_check = FALSE) {
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_rs_version <- function(v_recommended = "2023.12.1", skip_online_check = FALSE) {
+# `rstudioapi::isAvailable()` only detects a *running* RStudio session, so it
+# is always FALSE when R is invoked from a terminal (e.g. Git Bash). Fall back
+# to detecting an installed-but-not-running copy via known install locations.
+check_rs_version <- function(skip_online_check = FALSE) {
+  is_running <- rstudioapi::isAvailable()
 
-  if (!rstudioapi::isAvailable()) {
+  v_installed <- if (is_running) {
+    rstudioapi::versionInfo()$version
+  } else {
+    get_installed_rstudio_version()
+  }
+
+  if (is.null(v_installed) && !is_running && !is_rstudio_installed()) {
     ui_oops("Program {red('RStudio')} is not installed or is not running. ")
 
   } else {
     print_program_version_info(
       name = "RStudio",
-      v_installed = rstudioapi::versionInfo()$version,
+      v_installed = v_installed,
       v_available =
         tryCatch(
           get_available_rs_version(skip = skip_online_check),
@@ -341,9 +351,9 @@ check_rs_version <- function(v_recommended = "2023.12.1", skip_online_check = FA
             NULL
           }
         )
-      # v_recommended = v_recommended
     )
   }
+
   try({
     if (is_32bit_os()) {
       ui_info(stringr::str_c(
@@ -352,6 +362,168 @@ check_rs_version <- function(v_recommended = "2023.12.1", skip_online_check = FA
       ))
     }
   })
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' Locate the RStudio Desktop installation directory
+#'
+#' Searches common per-OS install locations (and, on Windows, the registry)
+#' for an installed copy of RStudio Desktop. Does not require RStudio to be
+#' running.
+#'
+#' @return A length-1 character string with the install directory, or `NULL`
+#'   if no installation was found.
+find_rstudio_install_dir <- function() {
+  os <- get_os_type()
+
+  candidates <- switch(
+    os,
+    "windows" = c(
+      file.path(Sys.getenv("PROGRAMFILES"), "RStudio"),
+      file.path(Sys.getenv("PROGRAMFILES(X86)"), "RStudio"),
+      file.path(Sys.getenv("LOCALAPPDATA"), "Programs", "RStudio"),
+      file.path(Sys.getenv("LOCALAPPDATA"), "RStudio")
+    ),
+    "mac" = "/Applications/RStudio.app",
+    "linux" = c(
+      "/usr/lib/rstudio",
+      "/usr/lib/rstudio-server",
+      "/usr/local/lib/rstudio",
+      "/opt/rstudio"
+    ),
+    character(0)
+  )
+
+  if (identical(os, "windows")) {
+    install_path <- tryCatch(
+      utils::readRegistry("SOFTWARE\\RStudio", hive = "HLM", maxdepth = 2)$InstallPath,
+      error = function(e) NULL
+    )
+    candidates <- c(install_path, candidates)
+  }
+
+  candidates <- candidates[nzchar(candidates) & !is.na(candidates)]
+  existing <- candidates[dir.exists(candidates)]
+
+  if (length(existing) == 0) {
+    return(NULL)
+  }
+
+  existing[[1]]
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' Check whether RStudio Desktop is installed, even if it is not running
+#'
+#' @return `TRUE`/`FALSE`.
+is_rstudio_installed <- function() {
+  if (rstudioapi::isAvailable()) {
+    return(TRUE)
+  }
+
+  if (!is.null(find_rstudio_install_dir())) {
+    return(TRUE)
+  }
+
+  exe <- if (get_os_type() == "windows") "rstudio.exe" else "rstudio"
+  nzchar(Sys.which(exe))
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' Get the version of an installed (but not necessarily running) RStudio
+#'
+#' On Windows, prefers the `Version` value written to the registry by the
+#' installer (the `VERSION` file on disk can hold an unrelated Electron shell
+#' build number on newer RStudio releases). Falls back to parsing the
+#' `VERSION` file that RStudio Desktop places in its install directory.
+#'
+#' @return A [numeric_version()] object, or `NULL` if it could not be
+#'   determined.
+get_installed_rstudio_version <- function() {
+  if (identical(get_os_type(), "windows")) {
+    v_registry <- get_rstudio_version_from_registry()
+    if (!is.null(v_registry)) {
+      return(v_registry)
+    }
+  }
+
+  install_dir <- find_rstudio_install_dir()
+
+  if (is.null(install_dir)) {
+    return(NULL)
+  }
+
+  version_file <- if (get_os_type() == "mac") {
+    file.path(install_dir, "Contents", "Resources", "VERSION")
+  } else {
+    file.path(install_dir, "VERSION")
+  }
+
+  if (!file.exists(version_file)) {
+    return(NULL)
+  }
+
+  version_txt <- paste(readLines(version_file, warn = FALSE), collapse = " ")
+  parse_rstudio_version_string(version_txt)
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' Get the RStudio version reported by the Windows installer registry entry
+#'
+#' @return A [numeric_version()] object, or `NULL` if not found.
+get_rstudio_version_from_registry <- function() {
+  reg_paths <- c(
+    "SOFTWARE\\RStudio",
+    "SOFTWARE\\WOW6432Node\\RStudio",
+    "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\RStudio",
+    "SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\RStudio"
+  )
+
+  for (reg_path in reg_paths) {
+    for (hive in c("HLM", "HCU")) {
+      key <- tryCatch(
+        utils::readRegistry(reg_path, hive = hive, maxdepth = 2),
+        error = function(e) NULL
+      )
+
+      value <- key$Version
+      if (is.null(value)) {
+        value <- key$DisplayVersion
+      }
+
+      if (is.null(value) || !nzchar(value)) {
+        next
+      }
+
+      parsed <- parse_rstudio_version_string(value)
+      if (!is.null(parsed)) {
+        return(parsed)
+      }
+    }
+  }
+
+  NULL
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' Parse an RStudio calendar-version string into a [numeric_version()]
+#'
+#' RStudio version strings look like `"2026.08.2+200"`. `numeric_version()`
+#' accepts `-` (like `.`) as a component separator but not `+`, so `+` is
+#' normalized to `-` to keep the build number as a 4th version component.
+#'
+#' @param x Character scalar containing (or surrounded by) a version string.
+#' @return A [numeric_version()] object, or `NULL` if `x` has no match.
+parse_rstudio_version_string <- function(x) {
+  version_txt <- stringr::str_extract(x, "\\d{4}[.]\\d+[.]\\d+([+-]\\d+)?")
+
+  if (is.na(version_txt)) {
+    return(NULL)
+  }
+
+  version_txt <- sub("[+]", "-", version_txt)
+
+  tryCatch(as.numeric_version(version_txt), error = function(e) NULL)
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
