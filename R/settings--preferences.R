@@ -457,6 +457,15 @@ rstudio_compare_user_settings <- function(to = "bio-default", output = "concise"
   to <- match.arg(to, c("bio-default", "rstudio-default"))
   output <- match.arg(output, c("concise", "minimal", "verbose"))
 
+  if (!rstudioapi::isAvailable()) {
+    usethis::ui_oops(paste0(
+      "RStudio is not running. `rstudio_compare_user_settings()` reads live ",
+      "preferences via {usethis::ui_field('rstudioapi')} and only works from ",
+      "an active RStudio session."
+    ))
+    return(invisible(NULL))
+  }
+
   file <- get_path_rstudio_config_file(which = to)
   default_prefs <-
     jsonlite::fromJSON(file, simplifyVector = FALSE) |>
