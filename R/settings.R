@@ -68,22 +68,122 @@ run_reset_step <- function(label, expr) {
   invisible(result)
 }
 
-#' Reset the local RStudio session to a known-good classroom/lab state.
+#' Summarize `run_reset_step()` results and print a final message.
 #'
-#' The function performs several destructive cleanup steps aimed at restoring
-#' a consistent RStudio environment for a lab/classroom computer:
-#' 1. optionally updates spellcheck dictionaries;
-#' 2. resets user settings, keybindings, snippets, theme and layout to course
-#'    defaults;
-#' 3. clears recent files/projects, help history, plots and viewer tabs;
-#' 4. clears the current R workspace; and
-#' 5. as the very last steps, clears the R console and the command history.
+#' @param steps Named list of results returned by [run_reset_step()].
+#' @return A data frame with one row per step (`step`, `ok`, `message`).
+#' @keywords internal
+summarize_reset_steps <- function(steps) {
+  summary_df <- data.frame(
+    step    = names(steps),
+    ok      = vapply(steps, function(x) isTRUE(x$ok), logical(1)),
+    message = vapply(steps, function(x) x$message, character(1)),
+    stringsAsFactors = FALSE
+  )
+
+  n_failed <- sum(!summary_df$ok)
+  if (n_failed > 0) {
+    usethis::ui_oops("Finished with {n_failed} failed step(s).")
+  } else {
+    usethis::ui_done("Finished successfully.")
+  }
+
+  summary_df
+}
+
+#' Install classroom/lab default configuration for RStudio and R.
 #'
-#' Every step is run through [run_reset_step()], so a failure in one step
-#' (e.g. missing internet connection while downloading dictionaries) is
-#' reported but does not prevent the remaining steps from running. A summary
-#' of what worked and what did not is printed at the end. None of the steps
-#' below open interactive confirmation popups.
+#' Installs the "bio-default" preferences, keybindings and snippets, updates
+#' spellcheck dictionaries and TinyTeX, and (re)creates the course working
+#' directories. Unlike [rstudio_reset_session_state()], every step here is
+#' file-based (settings/keybindings are written straight to disk, see
+#' [rstudio_set_preferences()]) or a plain package install, so this function
+#' **can be run outside of RStudio**, e.g. from a plain terminal with
+#' `Rscript -e "bio::rstudio_configure_defaults()"` when provisioning many
+#' classroom computers. Steps that do need a live RStudio session (such as
+#' downloading dictionaries via `.rs.downloadAllDictionaries()`, or applying
+#' a theme) are attempted but simply reported as failed/skipped when run
+#' headlessly, without stopping the remaining steps.
+#'
+#' Every step is run through [run_reset_step()]: a failure in one step is
+#' reported but does not prevent the remaining steps from running, and none
+#' of the steps open interactive confirmation popups.
+#'
+#' @param force_update_dictionaries Logical scalar. If `TRUE`, the dictionaries
+#'   are refreshed even when the current locale is present.
+#' @return Invisibly returns a data frame with one row per step, its `ok`
+#'   status, and an error `message` (if any).
+#' @keywords internal
+#' @examples
+#' if (interactive()) {
+#'   bio::rstudio_configure_defaults()
+#' }
+rstudio_configure_defaults <- function(force_update_dictionaries = FALSE) {
+
+  steps <- list()
+
+  # Dictionaries (requires a live RStudio session; reported as failed otherwise)
+  steps$dictionaries <- run_reset_step("Update spellcheck dictionaries", {
+    dict_path <- get_path_rstudio_config_dir("dictionaries/languages-system")
+    lt_LT_is_missing <- !any(stringr::str_detect(dir(dict_path), "lt_LT"))
+    if (force_update_dictionaries || lt_LT_is_missing) {
+      ok <- bio::rstudio_download_spellcheck_dictionaries()
+      if (!isTRUE(ok)) {
+        stop("dictionaries were not updated (requires a running RStudio session)")
+      }
+    }
+  })
+
+  # User preferences (ask = FALSE: no confirmation popup); works headless too
+  steps$user_settings <- run_reset_step("Reset user settings", {
+    bio::rstudio_reset_user_settings(to = "bio-default", backup = TRUE, ask = FALSE)
+  })
+
+  # Keybindings — plain file copy, works headless
+  steps$keybindings <- run_reset_step("Reset keybindings", {
+    bio::rstudio_reset_keybindings("bio-default", backup = TRUE)
+  })
+
+  # Snippets
+  steps$snippets <- run_reset_step("Install default snippets", {
+    snippets::install_snippets_from_package("snippets", backup = TRUE)
+  })
+
+  # TinyTeX
+  steps$tinytex <- run_reset_step("Install/repair TinyTeX", {
+    if (!requireNamespace("tinytex", quietly = TRUE)) {
+      stop("package 'tinytex' is not installed")
+    }
+    tinytex::install_tinytex(force = TRUE)
+  })
+
+  # Create/clean course directories
+  steps$directories <- run_reset_step("Create/clean course directories", {
+    fs::path_expand_r("~/R/main") |> fs::dir_create()
+
+    bs_folder <- fs::path_expand("~/Desktop/BS-pratybos/")
+    if (fs::dir_exists(bs_folder)) {
+      fs::dir_delete(bs_folder)
+    }
+    fs::dir_create(bs_folder)
+  })
+
+  invisible(summarize_reset_steps(steps))
+}
+
+#' Reset the current RStudio session's runtime state.
+#'
+#' Clears everything that only exists while RStudio is running: open tabs
+#' (files/plots/help/viewer/projects/terminals/documents), the R workspace,
+#' pane layout and zoom, theme, and — as the very last steps — the R console
+#' and the command history. This function needs a live RStudio session
+#' (it is built entirely on [rstudioapi::executeCommand()]); use
+#' [rstudio_configure_defaults()] first for the file-based configuration,
+#' which can be run outside RStudio.
+#'
+#' Every step is run through [run_reset_step()], so a failure in one step is
+#' reported but does not prevent the remaining steps from running, and none
+#' of the steps open interactive confirmation popups.
 #'
 #' This helper is intentionally conservative and protects destructive reset
 #' actions behind a simple override flag (see `restriction_status()`). It is
@@ -91,18 +191,15 @@ run_reset_step <- function(label, expr) {
 #' non-standardized RStudio session.
 #'
 #' @param ... Further arguments used by `restriction_status()` for compatibility.
-#' @param force_update_dictionaries Logical scalar. If `TRUE`, the dictionaries
-#'   are refreshed even when the current locale is present.
-#'
 #' @return Invisibly returns a data frame with one row per step, its `ok`
 #'   status, and an error `message` (if any).
 #' @keywords internal
 #' @examples
 #' if (interactive()) {
 #'   options(bio.ignore_ip = TRUE)
-#'   bio::rstudio_reset_gmc()
+#'   bio::rstudio_reset_session_state()
 #' }
-rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
+rstudio_reset_session_state <- function(...) {
 
   status <- restriction_status(...)
 
@@ -111,25 +208,16 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
     return(invisible())
   }
 
-  steps <- list()
+  if (!rstudioapi::isAvailable()) {
+    usethis::ui_oops("RStudio is not running: session state was not reset.")
+    return(invisible())
+  }
 
-  # Dictionaries
-  steps$dictionaries <- run_reset_step("Update spellcheck dictionaries", {
-    dict_path <- get_path_rstudio_config_dir("dictionaries/languages-system")
-    lt_LT_is_missing <- !any(stringr::str_detect(dir(dict_path), "lt_LT"))
-    if (force_update_dictionaries || lt_LT_is_missing) {
-      bio::rstudio_download_spellcheck_dictionaries()
-    }
-  })
+  steps <- list()
 
   # Working directory
   steps$working_dir <- run_reset_step("Set working directory to project directory", {
     rstudioapi::executeCommand("setWorkingDirToProjectDir", quiet = TRUE)
-  })
-
-  # User preferences (ask = FALSE: no confirmation popup)
-  steps$user_settings <- run_reset_step("Reset user settings", {
-    bio::rstudio_reset_user_settings(to = "bio-default", backup = TRUE, ask = FALSE)
   })
 
   # Tabs: Files, Plots, Help, Viewer, Projects
@@ -163,16 +251,6 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
     rstudioapi::executeCommand("activateConsole", quiet = TRUE)
   })
 
-  # Snippets
-  steps$snippets <- run_reset_step("Install default snippets", {
-    snippets::install_snippets_from_package("snippets", type = c("r", "markdown"))
-  })
-
-  # Keybindings
-  steps$keybindings <- run_reset_step("Reset keybindings", {
-    bio::rstudio_reset_keybindings("bio-default", backup = TRUE)
-  })
-
   # Theme
   steps$theme <- run_reset_step("Apply default theme", {
     rstudioapi::applyTheme("Textmate (default)")
@@ -181,17 +259,6 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
   # Documents
   steps$documents <- run_reset_step("Close all source documents", {
     rstudioapi::executeCommand("closeAllSourceDocs", quiet = TRUE)
-  })
-
-  # Create/clean course directories
-  steps$directories <- run_reset_step("Create/clean course directories", {
-    fs::path_expand_r("~/R/main") |> fs::dir_create()
-
-    bs_folder <- fs::path_expand("~/Desktop/BS-pratybos/")
-    if (fs::dir_exists(bs_folder)) {
-      fs::dir_delete(bs_folder)
-    }
-    fs::dir_create(bs_folder)
   })
 
   # Terminals
@@ -210,21 +277,43 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
     unlink(".Rhistory")
   })
 
-  summary_df <- data.frame(
-    step    = names(steps),
-    ok      = vapply(steps, function(x) isTRUE(x$ok), logical(1)),
-    message = vapply(steps, function(x) x$message, character(1)),
-    stringsAsFactors = FALSE
-  )
+  invisible(summarize_reset_steps(steps))
+}
 
-  n_failed <- sum(!summary_df$ok)
-  if (n_failed > 0) {
-    usethis::ui_oops("RStudio reset finished with {n_failed} failed step(s).")
-  } else {
-    usethis::ui_done("RStudio reset finished successfully.")
+#' Reset the local RStudio session to a known-good classroom/lab state.
+#'
+#' A thin wrapper that runs [rstudio_configure_defaults()] (file-based
+#' configuration, works even outside RStudio) followed by
+#' [rstudio_reset_session_state()] (runtime state, requires a live RStudio
+#' session), kept for backward compatibility. Prefer calling the two
+#' functions directly, e.g. to run the configuration step from a plain
+#' terminal via `Rscript` and only run the session-state reset inside
+#' RStudio itself.
+#'
+#' @param ... Further arguments used by `restriction_status()` for compatibility.
+#' @param force_update_dictionaries Logical scalar. If `TRUE`, the dictionaries
+#'   are refreshed even when the current locale is present.
+#' @return Invisibly returns a list with `configure` and `session_state`
+#'   summary data frames.
+#' @keywords internal
+#' @examples
+#' if (interactive()) {
+#'   options(bio.ignore_ip = TRUE)
+#'   bio::rstudio_reset_gmc()
+#' }
+rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
+
+  status <- restriction_status(...)
+
+  if (!status) {
+    usethis::ui_oops("This action is restricted. You may explicitly bypass it.")
+    return(invisible())
   }
 
-  invisible(summary_df)
+  configure_summary <- rstudio_configure_defaults(force_update_dictionaries = force_update_dictionaries)
+  session_summary    <- rstudio_reset_session_state(...)
+
+  invisible(list(configure = configure_summary, session_state = session_summary))
 }
 
   # commands <- c(
