@@ -15,10 +15,13 @@ capture_all_output <- function(expr) {
   on.exit(close(con))
   sink(con)
   sink(con, type = "message")
-  on.exit({
-    sink(type = "message")
-    sink()
-  }, add = TRUE, after = FALSE)
+  on.exit(
+    {
+      sink(type = "message")
+      sink()
+    },
+    add = TRUE,
+    after = FALSE)
 
   force(expr)
   captured_lines
