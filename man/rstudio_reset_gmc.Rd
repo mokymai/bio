@@ -13,24 +13,32 @@ rstudio_reset_gmc(..., force_update_dictionaries = FALSE)
 are refreshed even when the current locale is present.}
 }
 \value{
-Invisibly returns \code{NULL} after the reset workflow completes.
+Invisibly returns a data frame with one row per step, its \code{ok}
+status, and an error \code{message} (if any).
 }
 \description{
-The function performs several destructive cleanup steps aimed at restoring a
-consistent RStudio environment:
+The function performs several destructive cleanup steps aimed at restoring
+a consistent RStudio environment for a lab/classroom computer:
 \enumerate{
-\item clears history and recent-session state;
-\item resets user settings and keybindings;
-\item clears the current R workspace;
-\item restores the default snippets and layout;
-\item optionally updates spellcheck dictionaries; and
-\item restarts RStudio when the user confirms.
+\item optionally updates spellcheck dictionaries;
+\item resets user settings, keybindings, snippets, theme and layout to course
+defaults;
+\item clears recent files/projects, help history, plots and viewer tabs;
+\item clears the current R workspace; and
+\item as the very last steps, clears the R console and the command history.
 }
 }
 \details{
+Every step is run through \code{\link[=run_reset_step]{run_reset_step()}}, so a failure in one step
+(e.g. missing internet connection while downloading dictionaries) is
+reported but does not prevent the remaining steps from running. A summary
+of what worked and what did not is printed at the end. None of the steps
+below open interactive confirmation popups.
+
 This helper is intentionally conservative and protects destructive reset
-actions behind a simple override flag. The code does not rely on external
-IP metadata or a hard-coded allow-list.
+actions behind a simple override flag (see \code{restriction_status()}). It is
+meant to be run on classroom/lab computers, never on a developer's own,
+non-standardized RStudio session.
 }
 \examples{
 if (interactive()) {
