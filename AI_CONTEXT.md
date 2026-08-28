@@ -47,6 +47,15 @@ This document maps the package structure and the main responsibilities of the co
 - `R/packages--check.R` — installed package/version checks.
 - `R/packages--find.R` — package lookup and discovery helpers.
 - `R/programs.R` — installed software checks, version comparisons, and availability reporting.
+  Includes RStudio Desktop detection: `find_rstudio_install_dir()` (checks
+  both per-user "just me" and system-wide "all users" install locations,
+  including both `HKCU`/`HKLM` registry hives on Windows via the shared
+  `read_registry_key_safely()`/`rstudio_registry_hives()` helpers) and
+  `get_rstudio_install_scope()` (classifies a resolved install dir as
+  `"user"`/`"system"`/`NA`). Note: this install-scope distinction only
+  affects where the RStudio *application files* live — RStudio's
+  preferences/keybindings/config dirs (`R/paths-and-files.R`) are always
+  per-OS-user regardless of install scope.
 - `R/dictionaries.R` — spellcheck/dictionary management.
 
 ### RStudio and settings management
