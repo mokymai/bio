@@ -52,7 +52,17 @@ This document maps the package structure and the main responsibilities of the co
 ### RStudio and settings management
 
 - `R/settings.R` — higher-level reset workflows and RStudio housekeeping.
-- `R/settings--preferences.R` — user preferences reset utilities.
+- `R/settings--preferences.R` — user preferences reset utilities. Also has
+  `rstudio_compare_user_settings(to, source = c("auto","live","file"), output = c("concise","minimal","verbose"))`:
+  `source = "live"` reads "current" prefs via `rstudioapi` (requires a
+  running RStudio session); `source = "file"` always reads the on-disk
+  `rstudio-prefs.json`; `source = "auto"` (default) picks live vs. file
+  based on whether RStudio is running. Since `rstudio-prefs.json` only
+  stores values overridden from RStudio's built-in defaults, the file-based
+  path fills in unset keys (when possible) from the local RStudio
+  installation's `user-prefs-schema.json`
+  (`<install dir>/resources/app/resources/schema/user-prefs-schema.json`,
+  `properties.<pref_name>.default`).
 - `R/settings--keybindings.R` — keybinding reset helpers.
 - `R/bio-related.R` — package-specific RStudio/bio helper integration points.
 
