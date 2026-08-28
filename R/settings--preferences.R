@@ -269,7 +269,7 @@ rstudio_set_preferences <- function(file) {
     TRUE
 
   } else {
-    FALSE
+    rstudio_merge_preferences_file(file)
   }
 }
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
