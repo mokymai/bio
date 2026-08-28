@@ -7,6 +7,23 @@ with_safe_local_env <- function(code) {
   force(code(env))
 }
 
+# `usethis::ui_*()` helpers emit via `message()` (stderr), while plain
+# `cat()` writes to stdout; capture both interleaved, in order, as one
+# character vector of lines (like the user would see in a console).
+capture_all_output <- function(expr) {
+  con <- textConnection("captured_lines", "w", local = TRUE)
+  on.exit(close(con))
+  sink(con)
+  sink(con, type = "message")
+  on.exit({
+    sink(type = "message")
+    sink()
+  }, add = TRUE, after = FALSE)
+
+  force(expr)
+  captured_lines
+}
+
 with_mocked_rstudio_api <- function(expr) {
   testthat::local_mocked_bindings(
     isAvailable = function(...) TRUE,
