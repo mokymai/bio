@@ -46,5 +46,8 @@
 * Documentation and AI-assistant context files updated to match current
   behavior.
 
+* Fixed RStudio install-scope classification tests on non-Windows runners and
+  made per-user path detection separator- and path-boundary-safe.
+
 * Removed retired, commented-out implementation experiments from the package
   source.

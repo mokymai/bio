@@ -57,7 +57,9 @@ This document maps the package structure and the main responsibilities of the co
   `"user"`/`"system"`/`NA`). Note: this install-scope distinction only
   affects where the RStudio *application files* live — RStudio's
   preferences/keybindings/config dirs (`R/paths-and-files.R`) are always
-  per-OS-user regardless of install scope.
+  per-OS-user regardless of install scope. The classifier normalizes Windows
+  and Unix path separators and matches complete per-user path prefixes, so
+  its behavior and tests are independent of the operating system running R.
 - `R/dictionaries.R` — spellcheck/dictionary management.
 
 ### RStudio and settings management

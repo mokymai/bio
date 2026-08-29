@@ -95,14 +95,20 @@ test_that("classify_rstudio_install_scope() distinguishes user vs system install
   expect_identical(classify_rstudio_install_scope(NA_character_), NA_character_)
   expect_identical(classify_rstudio_install_scope(""), NA_character_)
 
-  user_path <- file.path(Sys.getenv("LOCALAPPDATA"), "Programs", "RStudio")
-  expect_identical(classify_rstudio_install_scope(user_path), "user")
+  withr::local_envvar(c(LOCALAPPDATA = "C:/Users/test/AppData/Local"))
+  expect_identical(
+    classify_rstudio_install_scope("C:\\Users\\test\\AppData\\Local\\Programs\\RStudio"),
+    "user"
+  )
+  expect_identical(
+    classify_rstudio_install_scope("C:/Users/test/AppData/Locality/RStudio"),
+    "system"
+  )
 
   home_path <- file.path(path.expand("~"), "Applications", "RStudio.app")
   expect_identical(classify_rstudio_install_scope(home_path), "user")
 
-  system_path <- file.path(Sys.getenv("PROGRAMFILES"), "RStudio")
-  expect_identical(classify_rstudio_install_scope(system_path), "system")
+  expect_identical(classify_rstudio_install_scope("C:/Program Files/RStudio"), "system")
 
   expect_identical(classify_rstudio_install_scope("/usr/lib/rstudio"), "system")
 })

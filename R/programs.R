@@ -469,9 +469,21 @@ classify_rstudio_install_scope <- function(install_dir) {
   user_roots <- c(Sys.getenv("LOCALAPPDATA"), path.expand("~"))
   user_roots <- user_roots[nzchar(user_roots)]
 
-  install_dir_lower <- tolower(install_dir)
+  normalize_path <- function(path) {
+    path |>
+      gsub("\\\\", "/", x = _) |>
+      sub("/+$", "", x = _)
+  }
+
+  install_dir_lower <- tolower(normalize_path(install_dir))
   is_under_user_root <- any(vapply(
-    user_roots, function(root) startsWith(install_dir_lower, tolower(root)), logical(1)
+    user_roots,
+    function(root) {
+      root_lower <- tolower(normalize_path(root))
+      identical(install_dir_lower, root_lower) ||
+        startsWith(install_dir_lower, paste0(root_lower, "/"))
+    },
+    logical(1)
   ))
 
   if (is_under_user_root) "user" else "system"
