@@ -6,6 +6,8 @@
 - Keep tidyverse-style formatting but avoid rigid spacing rules; use readable, idiomatic R.
 - Prefer small, explicit functions and early returns.
 - Avoid unsupported metadata or network-based version gates unless they are actually implemented and tested.
+- Do not leave obsolete implementations commented out in `R/`; preserve any
+	short-lived historical notes outside maintained package source.
 
 ## R package maintenance
 - Keep roxygen2 documentation in sync with function behavior.
