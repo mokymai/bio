@@ -122,24 +122,26 @@ test_that("get_rstudio_install_scope() delegates to classify_rstudio_install_sco
 })
 
 test_that("get_path_rstudio_config_dir() uses user-scoped paths and overrides", {
+  fake_root <- withr::local_tempdir()
+  fake_appdata <- fs::path(fake_root, "AppData", "Roaming")
   testthat::local_mocked_bindings(get_os_type = function() "windows")
   withr::local_envvar(c(
-    APPDATA = "C:/Users/test/AppData/Roaming",
+    APPDATA = fake_appdata,
     XDG_CONFIG_HOME = "",
     RSTUDIO_CONFIG_HOME = ""
   ))
   expect_identical(
     get_path_rstudio_config_dir("dictionaries"),
-    fs::path("C:/Users/test/AppData/Roaming", "RStudio", "dictionaries")
+    fs::path(fake_appdata, "RStudio", "dictionaries")
   )
 
   withr::local_envvar(c(
-    XDG_CONFIG_HOME = "C:/Users/test/.config",
-    RSTUDIO_CONFIG_HOME = "C:/Users/test/.rstudio-config"
+    XDG_CONFIG_HOME = fs::path(fake_root, ".config"),
+    RSTUDIO_CONFIG_HOME = fs::path(fake_root, ".rstudio-config")
   ))
   expect_identical(
     get_path_rstudio_config_dir(),
-    fs::path("C:/Users/test/.rstudio-config")
+    fs::path(fake_root, ".rstudio-config")
   )
 })
 
