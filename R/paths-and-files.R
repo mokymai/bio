@@ -135,8 +135,8 @@ get_path_rstudio_config_dir <- function(..., .check = FALSE) {
   # nolint end
   # styler: on
 
-  base <- Sys.getenv("XDG_CONFIG_HOME",      unset = base) # Scope: user
-  base <- Sys.getenv("RSTUDIO_CONFIG_HOME",  unset = base) # Scope: user
+  base <- env_var_or_default("XDG_CONFIG_HOME",     base) # Scope: user
+  base <- env_var_or_default("RSTUDIO_CONFIG_HOME", base) # Scope: user
 
   if (.check) {
     path_construct_and_check(base, ...)
@@ -144,6 +144,13 @@ get_path_rstudio_config_dir <- function(..., .check = FALSE) {
   } else {
     fs::path(base, ...)
   }
+}
+
+# `Sys.getenv(x, unset = default)` only falls back to `default` when `x` is
+# not set at all, not when it is set to an empty string. Treat both the same.
+env_var_or_default <- function(name, default) {
+  value <- Sys.getenv(name, unset = "")
+  if (nzchar(value)) value else default
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
