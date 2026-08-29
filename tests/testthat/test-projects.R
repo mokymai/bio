@@ -87,6 +87,44 @@ test_that("open_project() accepts a supplied project table", {
   expect_identical(opened_new_session, TRUE)
 })
 
+test_that("open_project() filters unavailable supplied projects", {
+  projects <- tibble::tibble(
+    name = c("missing", "available"),
+    path = c("missing.Rproj", "available.Rproj"),
+    exists = c(FALSE, TRUE),
+    dir_exists = c(TRUE, TRUE)
+  )
+  opened_path <- NULL
+  testthat::local_mocked_bindings(
+    openProject = function(path, ...) {
+      opened_path <<- path
+      invisible(NULL)
+    },
+    .package = "rstudioapi"
+  )
+
+  expect_invisible(open_project(proj_list = projects, name = "available"))
+  expect_identical(opened_path, "available.Rproj")
+  expect_error(
+    open_project(proj_list = projects, name = "missing"),
+    "No project named 'missing'"
+  )
+})
+
+test_that("open_project() reports duplicate project names outside RStudio", {
+  projects <- tibble::tibble(
+    name = c("demo", "demo"),
+    path = c("one.Rproj", "two.Rproj"),
+    exists = TRUE,
+    dir_exists = TRUE
+  )
+
+  expect_error(
+    open_project(proj_list = projects, name = "demo"),
+    "Several projects match name 'demo'"
+  )
+})
+
 test_that("make_unique_obj_names keeps duplicates unique relative to existing choices", {
   choices <- c("existing", "x", "x_1")
 
