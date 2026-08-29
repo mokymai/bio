@@ -3,7 +3,7 @@
 #'
 #' @description
 #' Function tries opening a file in RStudio.
-#' @param path (sting) Path to file.
+#' @param path (string) Path to file.
 #' @param ... Further arguments to [rstudioapi::navigateToFile()].
 #'
 #' @concept open

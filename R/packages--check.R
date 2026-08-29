@@ -63,18 +63,18 @@ compare_version <- function(v_installed, v_required) {
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' remove_ignored_rows
-#' Removes rows in column `ignore` with value `TRUE` and then removes the culumn
+#' Removes rows in column `ignore` with value `TRUE` and then removes the column
 #' itself.
 #' @param tbl A data frame.
 #' @noRd
 #' @keywords internal
 remove_ignored_rows <- function(tbl) {
-  ingnore_col <- names(tbl) %in% c("ignore")
-  subset(tbl, !sapply(as.logical(tbl$ignore), FUN = isTRUE))[, -which(ingnore_col)]
+  ignore_col <- names(tbl) %in% c("ignore")
+  subset(tbl, !sapply(as.logical(tbl$ignore), FUN = isTRUE))[, -which(ignore_col)]
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#' Check if packae is installed
+#' Check if package is installed
 #'
 #' @param pkgs (character) A list of installed packages.
 #'
