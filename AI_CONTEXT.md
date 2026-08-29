@@ -82,6 +82,9 @@ This document maps the package structure and the main responsibilities of the co
   configuration is `%APPDATA%/RStudio` on Windows and `~/.config/rstudio` on
   Linux/macOS; internal state is `%LOCALAPPDATA%/RStudio` on Windows and
   `~/.local/share/rstudio` on Linux/macOS.
+- `clear_r_history()` is an internal helper. Its effect on active command
+  history in a running Windows RStudio session is unverified and requires a
+  manual confirmation before it can be relied on in reset automation.
 
 ### Package entry points
 

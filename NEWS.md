@@ -50,6 +50,9 @@
   corrected current Linux/macOS internal-state paths to
   `~/.local/share/rstudio`.
 
+* Updated remaining RStudio documentation links to `docs.posit.co` and
+  documented the unverified Windows/RStudio command-history reset behavior.
+
 * Fixed RStudio install-scope classification tests on non-Windows runners and
   made per-user path detection separator- and path-boundary-safe.
 
