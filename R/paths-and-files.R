@@ -236,11 +236,10 @@ open_rstudio_keybindings_dir <- function() {
 #' @param which (character) type of settings:
 #'  - "current": file with current RStudio settings (that differ from the defaults);
 #'  - "bio-default": file with setting from "bio-default" list (except theme);
-#'  - "rstudio-default": a preset based on RStudio settings documentation
-#'    downloaded on 2022-08-03. It is a historical reference, not a statement
-#'    of the defaults in the installed RStudio version. For comparisons,
-#'    [rstudio_compare_user_settings()] fills unset values from the local
-#'    RStudio `user-prefs-schema.json` when available.
+#'  - "rstudio-default": a preset compiled from the most recent RStudio
+#'    settings documentation available when it was downloaded.
+#'    For comparisons, [rstudio_compare_user_settings()] fills unset values
+#'    from the local RStudio `user-prefs-schema.json` when available.
 #'
 #' @export
 #' @concept paths and dirs

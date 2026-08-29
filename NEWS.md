@@ -58,9 +58,12 @@
 * Fixed `clear_r_history()` to use RStudio's history commands in a live
   RStudio session, including on Windows.
 
-* Clarified that the bundled `rstudio-default` preset is a 2022 reference
-  snapshot; setting comparisons use the locally installed RStudio schema for
-  current defaults when available.
+* Clarified that the bundled `rstudio-default` preset was compiled from the
+  most recent official RStudio settings documentation available in 2022;
+  setting comparisons use the locally installed RStudio schema when available.
+
+* Added regression coverage for `open_project()` availability filtering and
+  duplicate project names outside an interactive RStudio session.
 
 * Updated RStudio Desktop support links to Posit's current support site and
   corrected current Linux/macOS internal-state paths to
