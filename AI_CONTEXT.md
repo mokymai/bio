@@ -8,6 +8,8 @@ This document maps the package structure and the main responsibilities of the co
 - Package metadata and project config live at the repo root.
 - Generated website/build artifacts are excluded from this map, including `docs/`, `man/*.Rd`, and the temporary `_tmp/` area.
 - Prefer package-qualified calls like `pkg::fun()` and keep examples short and interactive-safe.
+- Do not retain disabled implementations in package source. Remove obsolete code;
+  temporary historical notes belong outside the maintained package code.
 
 ## Top-level package layout
 
