@@ -62,10 +62,8 @@ session), kept for internal backward compatibility.
 Clear and Reset R and RStudio settings and preferences.
 
 Uses \code{\link[utils:savehistory]{utils::savehistory()}} and \code{\link[utils:loadhistory]{utils::loadhistory()}} to back up and clear
-the R command history. On Windows in a running RStudio session, RStudio may
-manage the active history independently; this helper's effect is therefore
-not confirmed for that combination and should be verified manually before
-relying on it in a reset workflow.
+the R command history outside RStudio. In a running RStudio session, it
+delegates to \code{rstudio_clear_history()} so RStudio clears its active history.
 }
 \details{
 Every step is run through \code{\link[=run_reset_step]{run_reset_step()}}: a failure in one step is

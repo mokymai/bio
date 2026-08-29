@@ -58,6 +58,10 @@
 * Fixed `clear_r_history()` to use RStudio's history commands in a live
   RStudio session, including on Windows.
 
+* Clarified that the bundled `rstudio-default` preset is a 2022 reference
+  snapshot; setting comparisons use the locally installed RStudio schema for
+  current defaults when available.
+
 * Updated RStudio Desktop support links to Posit's current support site and
   corrected current Linux/macOS internal-state paths to
   `~/.local/share/rstudio`.

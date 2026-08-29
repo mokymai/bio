@@ -15,8 +15,11 @@ open_rstudio_config_file(which = "current")
 \itemize{
 \item "current": file with current RStudio settings (that differ from the defaults);
 \item "bio-default": file with setting from "bio-default" list (except theme);
-\item "rstudio-default": file with most of default RStudio settings listed at
-https://docs.posit.co/ide/server-pro/session_user_settings/session_user_settings.html (downloaded on 2022-08-03).
+\item "rstudio-default": a preset based on RStudio settings documentation
+downloaded on 2022-08-03. It is a historical reference, not a statement
+of the defaults in the installed RStudio version. For comparisons,
+\code{\link[=rstudio_compare_user_settings]{rstudio_compare_user_settings()}} fills unset values from the local
+RStudio \code{user-prefs-schema.json} when available.
 }}
 }
 \description{

@@ -27,7 +27,8 @@ If \code{NULL}, user will have to choose interactively.}
 \item{proj_list}{(data frame) The result of \code{\link[=read_projects]{read_projects()}} or \code{NULL}.}
 
 \item{proj_list_path}{(string) The path to the file with the list of project
-paths. If \code{proj_list} is not \code{NULL}, then \code{proj_list_path} is ignored.}
+paths. When \code{proj_list} is also supplied, projects from both sources
+are combined.}
 
 \item{only_available}{(logical) If \code{TRUE}, non-existing projects and projects
 with broken paths are removed from the list of choices.}
