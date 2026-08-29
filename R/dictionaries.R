@@ -9,7 +9,7 @@
 
 # LanguageToolR::lato_quick_setup()
 
-# https://support.rstudio.com/hc/en-us/articles/200551916-Spelling-Dictionaries
+# https://support.posit.co/hc/en-us/articles/200551916-Spelling-Dictionaries
 
 
 

@@ -121,6 +121,50 @@ test_that("get_rstudio_install_scope() delegates to classify_rstudio_install_sco
   )
 })
 
+test_that("get_path_rstudio_config_dir() uses user-scoped paths and overrides", {
+  testthat::local_mocked_bindings(get_os_type = function() "windows")
+  withr::local_envvar(c(
+    APPDATA = "C:/Users/test/AppData/Roaming",
+    XDG_CONFIG_HOME = "",
+    RSTUDIO_CONFIG_HOME = ""
+  ))
+  expect_identical(
+    get_path_rstudio_config_dir("dictionaries"),
+    fs::path("C:/Users/test/AppData/Roaming", "RStudio", "dictionaries")
+  )
+
+  withr::local_envvar(c(
+    XDG_CONFIG_HOME = "C:/Users/test/.config",
+    RSTUDIO_CONFIG_HOME = "C:/Users/test/.rstudio-config"
+  ))
+  expect_identical(
+    get_path_rstudio_config_dir(),
+    fs::path("C:/Users/test/.rstudio-config")
+  )
+})
+
+test_that("get_path_rstudio_internal_state_dir() uses current RStudio paths", {
+  withr::local_envvar(c(LOCALAPPDATA = "C:/Users/test/AppData/Local"))
+
+  testthat::local_mocked_bindings(get_os_type = function() "windows")
+  expect_identical(
+    get_path_rstudio_internal_state_dir(),
+    fs::path("C:/Users/test/AppData/Local", "RStudio")
+  )
+
+  testthat::local_mocked_bindings(get_os_type = function() "linux")
+  expect_identical(
+    get_path_rstudio_internal_state_dir(),
+    fs::path_expand_r("~/.local/share/rstudio")
+  )
+
+  testthat::local_mocked_bindings(get_os_type = function() "mac")
+  expect_identical(
+    get_path_rstudio_internal_state_dir(),
+    fs::path_expand_r("~/.local/share/rstudio")
+  )
+})
+
 test_that("find_rstudio_install_dir() finds a synthetic per-user install", {
   fake_root <- withr::local_tempdir()
   fake_local_appdata <- file.path(fake_root, "LocalAppData")

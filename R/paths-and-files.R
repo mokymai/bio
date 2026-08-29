@@ -103,11 +103,11 @@ NULL
 #' @param .check (logical) If `TRUE`, additionally checks for path existence.
 #'
 #' @return (string) path to RStudio configuration directory.
-#'         When `.check = TRUE`, renturns error, if the path does not exist.
+#'         When `.check = TRUE`, returns an error if the path does not exist.
 #'
 #' @seealso
 #' - `get_path_rstudio_config_dir()`:
-#' https://support.rstudio.com/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State
+#' https://support.posit.co/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State
 #'
 #' @concept paths and dirs
 #'
@@ -120,7 +120,7 @@ NULL
 #'   get_path_rstudio_config_dir("dictionaries")
 #' }
 get_path_rstudio_config_dir <- function(..., .check = FALSE) {
-  # https://support.rstudio.com/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State
+  # https://support.posit.co/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State
   # RStudio's configuration is per OS user, regardless of application install scope.
 
   # styler: off
@@ -128,8 +128,6 @@ get_path_rstudio_config_dir <- function(..., .check = FALSE) {
   base <-
     switch(get_os_type(),
       "windows" = fs::path(Sys.getenv("APPDATA"), "RStudio"),
-      # FIXME: what is the correct dir in RStudio 1.4 on Unix like OS'es?
-      # fs::path_expand("~/.config/RStudio")
       "linux"   = fs::path_expand_r("~/.config/rstudio"),
       "mac"     = fs::path_expand_r("~/.config/rstudio"),
                   fs::path_expand_r("~/.config/rstudio")  # Other OS'es
@@ -152,7 +150,7 @@ get_path_rstudio_config_dir <- function(..., .check = FALSE) {
 #' @rdname RStudio-related-dirs
 #' @export
 get_path_rstudio_internal_state_dir <- function(..., .check = FALSE) {
-  # https://support.rstudio.com/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State
+  # https://support.posit.co/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State
   # Section:
   # Accessing the RStudio-Desktop Directory (Internal State)
   #
@@ -160,25 +158,14 @@ get_path_rstudio_internal_state_dir <- function(..., .check = FALSE) {
   # Linux/Mac:     ~/.rstudio-desktop
 
 
-  if (rstudioapi::isAvailable() && rstudioapi::versionInfo()$version >= "1.4") {
-    # RStudio 1.4
-    base <-
-      switch(get_os_type(),
-        "windows" = fs::path(Sys.getenv("LOCALAPPDATA"), "RStudio"),
-        # Linux / Mac OS X:
-        # FIXME: not sure if this is the correct path
-        fs::path_expand("~/.rstudio")
-      )
-
-  } else {
-    # RStudio 1.3 or older
-    base <-
-      switch(get_os_type(),
-        "windows" = fs::path(Sys.getenv("LOCALAPPDATA"), "RStudio-Desktop"),
-        # Linux / Mac OS X:
-        fs::path_expand("~/.rstudio-desktop")
-      )
-  }
+  # bio supports RStudio 2026.08+, which uses these current state directories.
+  base <-
+    switch(get_os_type(),
+      "windows" = fs::path(Sys.getenv("LOCALAPPDATA"), "RStudio"),
+      "linux"   = fs::path_expand_r("~/.local/share/rstudio"),
+      "mac"     = fs::path_expand_r("~/.local/share/rstudio"),
+                  fs::path_expand_r("~/.local/share/rstudio")
+    )
 
   if (.check) {
     path_construct_and_check(base, ...)

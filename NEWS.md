@@ -46,6 +46,10 @@
 * Documentation and AI-assistant context files updated to match current
   behavior.
 
+* Updated RStudio Desktop support links to Posit's current support site and
+  corrected current Linux/macOS internal-state paths to
+  `~/.local/share/rstudio`.
+
 * Fixed RStudio install-scope classification tests on non-Windows runners and
   made per-user path detection separator- and path-boundary-safe.
 

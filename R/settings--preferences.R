@@ -31,7 +31,7 @@ user_setting_set_names <- c(
 #' [get_path_rstudio_config_file()]
 #'
 #'
-#' On [Customizing RStudio](https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-the-RStudio-IDE) using point-and-click method.
+#' On [Customizing RStudio](https://support.posit.co/hc/en-us/articles/200549016-Customizing-the-RStudio-IDE) using point-and-click method.
 #'
 #' On [Configuration and Settings](https://www.rstudio.com/blog/rstudio-1-3-preview-configuration/).
 #'
@@ -40,7 +40,7 @@ user_setting_set_names <- c(
 #'
 #' On [RStudio setting locations](https://docs.rstudio.com/ide/desktop-pro/settings/settings.html).
 #'
-#' On [Resetting RStudio Desktop's State](https://support.rstudio.com/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State).
+#' On [Resetting RStudio Desktop's State](https://support.posit.co/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State).
 #'
 #' StackOverflow threads on export/import RStudio of user preferences:
 #' - https://stackoverflow.com/a/55940249/4783029
