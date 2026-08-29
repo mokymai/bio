@@ -310,10 +310,8 @@ NULL
 #' Clear the active R command history.
 #'
 #' Uses [utils::savehistory()] and [utils::loadhistory()] to back up and clear
-#' the R command history. On Windows in a running RStudio session, RStudio may
-#' manage the active history independently; this helper's effect is therefore
-#' not confirmed for that combination and should be verified manually before
-#' relying on it in a reset workflow.
+#' the R command history outside RStudio. In a running RStudio session, it
+#' delegates to `rstudio_clear_history()` so RStudio clears its active history.
 #'
 #' @param backup Logical scalar. If `TRUE`, save a timestamped backup before
 #'   clearing the active history.
@@ -322,6 +320,9 @@ NULL
 #' @keywords internal
 clear_r_history <- function(backup = TRUE) {
   # FIXME: if Windows + RStudio, then this function does not work
+  if (rstudioapi::isAvailable()) {
+    return(invisible(rstudio_clear_history(backup = backup)))
+  }
 
   if (isTRUE(backup)) {
 

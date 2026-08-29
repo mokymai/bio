@@ -55,6 +55,9 @@
 * Added isolated regression coverage for dictionary deletion and canceled
   RStudio user-settings resets.
 
+* Fixed `clear_r_history()` to use RStudio's history commands in a live
+  RStudio session, including on Windows.
+
 * Updated RStudio Desktop support links to Posit's current support site and
   corrected current Linux/macOS internal-state paths to
   `~/.local/share/rstudio`.

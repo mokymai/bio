@@ -92,6 +92,21 @@ test_that("reset helpers hold the expected scalar contracts", {
   expect_error(rstudio_reset_layout("middle"), "should be one of")
 })
 
+test_that("clear_r_history() delegates to RStudio in a live session", {
+  commands <- character()
+  testthat::local_mocked_bindings(
+    isAvailable = function(...) TRUE,
+    executeCommand = function(command, ...) {
+      commands <<- c(commands, command)
+      invisible(NULL)
+    },
+    .package = "rstudioapi"
+  )
+
+  expect_invisible(clear_r_history(backup = TRUE))
+  expect_identical(commands, c("saveHistory", "clearHistory"))
+})
+
 test_that("compare settings helper is callable with valid presets", {
   expect_error(
     rstudio_compare_user_settings(to = "bad-name"),
