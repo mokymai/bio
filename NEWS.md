@@ -45,3 +45,6 @@
 
 * Documentation and AI-assistant context files updated to match current
   behavior.
+
+* Removed retired, commented-out implementation experiments from the package
+  source.
