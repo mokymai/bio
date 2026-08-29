@@ -151,7 +151,7 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
   if (isTRUE(success)) {
     usethis::ui_done("RStudio user settings were set to {green(to)}.")
     ui_msg_restart_rstudio()
-    # rstudio_reload_ui()
+    # It might be also needed to rstudio_reload_ui()
 
   } else {
     usethis::ui_oops("Failure to reset RStudio user settings.")
