@@ -97,10 +97,8 @@ summarize_reset_steps <- function(steps) {
 #' spellcheck dictionaries and TinyTeX, and (re)creates the course working
 #' directories. Unlike [rstudio_reset_session_state()], every step here is
 #' file-based (settings/keybindings are written straight to disk, see
-#' `rstudio_set_preferences()`) or a plain package install, so this function
-#' **can be run outside of RStudio**, e.g. from a plain terminal with
-#' `Rscript -e "bio::rstudio_configure_defaults()"` when provisioning many
-#' classroom computers. Steps that do need a live RStudio session (such as
+#' `rstudio_set_preferences()`) or a plain package install. Steps that do need
+#' a live RStudio session (such as
 #' downloading dictionaries via `.rs.downloadAllDictionaries()`, or applying
 #' a theme) are attempted but simply reported as failed/skipped when run
 #' headlessly, without stopping the remaining steps.
@@ -113,11 +111,8 @@ summarize_reset_steps <- function(steps) {
 #'   are refreshed even when the current locale is present.
 #' @return Invisibly returns a data frame with one row per step, its `ok`
 #'   status, and an error `message` (if any).
+#' @rdname clear_and_reset
 #' @keywords internal
-#' @examples
-#' if (interactive()) {
-#'   bio::rstudio_configure_defaults()
-#' }
 rstudio_configure_defaults <- function(force_update_dictionaries = FALSE) {
 
   steps <- list()
@@ -177,9 +172,7 @@ rstudio_configure_defaults <- function(force_update_dictionaries = FALSE) {
 #' (files/plots/help/viewer/projects/terminals/documents), the R workspace,
 #' pane layout and zoom, theme, and — as the very last steps — the R console
 #' and the command history. This function needs a live RStudio session
-#' (it is built entirely on [rstudioapi::executeCommand()]); use
-#' [rstudio_configure_defaults()] first for the file-based configuration,
-#' which can be run outside RStudio.
+#' (it is built entirely on [rstudioapi::executeCommand()]).
 #'
 #' Every step is run through [run_reset_step()], so a failure in one step is
 #' reported but does not prevent the remaining steps from running, and none
@@ -193,12 +186,8 @@ rstudio_configure_defaults <- function(force_update_dictionaries = FALSE) {
 #' @param ... Further arguments used by `restriction_status()` for compatibility.
 #' @return Invisibly returns a data frame with one row per step, its `ok`
 #'   status, and an error `message` (if any).
+#' @rdname clear_and_reset
 #' @keywords internal
-#' @examples
-#' if (interactive()) {
-#'   options(bio.ignore_ip = TRUE)
-#'   bio::rstudio_reset_session_state()
-#' }
 rstudio_reset_session_state <- function(...) {
 
   status <- restriction_status(...)
@@ -285,22 +274,15 @@ rstudio_reset_session_state <- function(...) {
 #' A thin wrapper that runs [rstudio_configure_defaults()] (file-based
 #' configuration, works even outside RStudio) followed by
 #' [rstudio_reset_session_state()] (runtime state, requires a live RStudio
-#' session), kept for backward compatibility. Prefer calling the two
-#' functions directly, e.g. to run the configuration step from a plain
-#' terminal via `Rscript` and only run the session-state reset inside
-#' RStudio itself.
+#' session), kept for internal backward compatibility.
 #'
 #' @param ... Further arguments used by `restriction_status()` for compatibility.
 #' @param force_update_dictionaries Logical scalar. If `TRUE`, the dictionaries
 #'   are refreshed even when the current locale is present.
 #' @return Invisibly returns a list with `configure` and `session_state`
 #'   summary data frames.
+#' @rdname clear_and_reset
 #' @keywords internal
-#' @examples
-#' if (interactive()) {
-#'   options(bio.ignore_ip = TRUE)
-#'   bio::rstudio_reset_gmc()
-#' }
 rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
 
   status <- restriction_status(...)
@@ -323,7 +305,6 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
 #'
 #' @param backup (logical) If `TRUE`, a backup copy is created.
 #'
-#' @noRd
 #' @concept r and rstudio settings
 
 NULL
