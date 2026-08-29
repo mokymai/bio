@@ -31,6 +31,26 @@ test_that("user setting preset names are stable", {
   )
 })
 
+test_that("dictionary deletion handles non-interactive and declined requests", {
+  dic_dir <- withr::local_tempdir()
+  writeLines("dictionary", file.path(dic_dir, "test.dic"))
+  testthat::local_mocked_bindings(
+    get_path_rstudio_config_dir = function(...) dic_dir,
+    .package = "bio"
+  )
+
+  expect_invisible(rstudio_delete_spellcheck_dictionaries(ask = FALSE))
+  expect_false(fs::dir_exists(dic_dir))
+
+  fs::dir_create(dic_dir)
+  testthat::local_mocked_bindings(
+    ui_nope = function(...) TRUE,
+    .package = "usethis"
+  )
+  expect_invisible(rstudio_delete_spellcheck_dictionaries(ask = TRUE))
+  expect_true(fs::dir_exists(dic_dir))
+})
+
 test_that("reset helpers hold the expected scalar contracts", {
   expect_true(restriction_status(ignore_ip = TRUE))
   expect_false(restriction_status(ignore_ip = FALSE))

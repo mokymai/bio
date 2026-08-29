@@ -46,6 +46,9 @@
 * Documentation and AI-assistant context files updated to match current
   behavior.
 
+* Fixed `rstudio_delete_spellcheck_dictionaries(ask = FALSE)`, which could
+  previously fail before removing the selected dictionary directory.
+
 * Updated RStudio Desktop support links to Posit's current support site and
   corrected current Linux/macOS internal-state paths to
   `~/.local/share/rstudio`.

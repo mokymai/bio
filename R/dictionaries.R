@@ -108,6 +108,7 @@ rstudio_download_spellcheck_dictionaries <- rstudio_install_spellcheck_dictionar
 #' @concept dictionaries
 rstudio_delete_spellcheck_dictionaries <- function(ask = TRUE) {
   dic_dir <- get_path_rstudio_config_dir("dictionaries/languages-system")
+  ans <- FALSE
 
   if (isTRUE(ask)) {
     ans <- usethis::ui_nope(
