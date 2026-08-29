@@ -49,6 +49,9 @@
 * Fixed `rstudio_delete_spellcheck_dictionaries(ask = FALSE)`, which could
   previously fail before removing the selected dictionary directory.
 
+* Fixed `open_project()` when called with a supplied `proj_list` and no
+  `proj_list_path`.
+
 * Updated RStudio Desktop support links to Posit's current support site and
   corrected current Linux/macOS internal-state paths to
   `~/.local/share/rstudio`.

@@ -190,7 +190,8 @@ get_proj_names <- function(file = get_path_recent_proj_list(),
 #'       a project interactively.
 #' @param proj_list (data frame) The result of [read_projects()] or `NULL`.
 #' @param proj_list_path (string) The path to the file with the list of project
-#'        paths. If `proj_list` is not `NULL`, then `proj_list_path` is ignored.
+#'        paths. When `proj_list` is also supplied, projects from both sources
+#'        are combined.
 #' @param new_session (logical|`NULL`) should the project be opened in a new
 #'        session, or should the current RStudio session switch to that project?
 #'        Note that `TRUE` values are only supported with RStudio Desktop and
@@ -226,6 +227,7 @@ open_project <- function(pattern = NULL,
                          only_available = TRUE,
                          name = NULL,
                          negate = FALSE) {
+  proj_list_2 <- NULL
 
   if (is.null(proj_list) && is.null(proj_list_path)) {
     # No project lists are provided

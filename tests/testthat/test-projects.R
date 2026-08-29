@@ -64,6 +64,29 @@ test_that("read_projects warns and returns NULL for missing files", {
   expect_null(res)
 })
 
+test_that("open_project() accepts a supplied project table", {
+  projects <- tibble::tibble(
+    name = "demo",
+    path = "demo.Rproj",
+    exists = TRUE,
+    dir_exists = TRUE
+  )
+  opened_path <- NULL
+  opened_new_session <- NULL
+  testthat::local_mocked_bindings(
+    openProject = function(path, newSession) {
+      opened_path <<- path
+      opened_new_session <<- newSession
+      invisible(NULL)
+    },
+    .package = "rstudioapi"
+  )
+
+  expect_invisible(open_project(proj_list = projects, name = "demo"))
+  expect_identical(opened_path, "demo.Rproj")
+  expect_identical(opened_new_session, TRUE)
+})
+
 test_that("make_unique_obj_names keeps duplicates unique relative to existing choices", {
   choices <- c("existing", "x", "x_1")
 
