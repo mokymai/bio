@@ -113,7 +113,6 @@ rstudio_delete_spellcheck_dictionaries <- function(ask = TRUE) {
     ans <- usethis::ui_nope(
       "Do you really want to delete dictionaries in \n{ui_value(dic_dir)}?"
     )
-    # ans <- usethis::ui_nope("...", yes = "Yes")
   }
   if (ans) {
     usethis::ui_warn("Canceled (no dictionaries were deleted)")
