@@ -266,7 +266,7 @@ snippets::install_snippets_from_package("snippets", backup = TRUE)
 ```
 
 For more information about
-<a href="https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets" target="_blank">Code Snippets</a>
+<a href="https://support.posit.co/hc/en-us/articles/204463668-Code-Snippets" target="_blank">Code Snippets</a>
 in RStudio and on package
 <a href="https://gegznav.github.io/snippets/" target="_blank"><strong>snippets</strong></a>.
 

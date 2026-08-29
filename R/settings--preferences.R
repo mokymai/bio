@@ -25,7 +25,7 @@ user_setting_set_names <- c(
 #'
 #' @details
 #' Settings that can be used in `rstudio-prefs.json` file:
-#' https://docs.rstudio.com/ide/server-pro/session-user-settings.html
+#' https://docs.posit.co/ide/server-pro/session-user-settings.html
 #'
 #' @seealso
 #' [get_path_rstudio_config_file()]
@@ -35,10 +35,10 @@ user_setting_set_names <- c(
 #'
 #' On [Configuration and Settings](https://www.rstudio.com/blog/rstudio-1-3-preview-configuration/).
 #'
-#' A list of [Session User Settings](https://docs.rstudio.com/ide/server-pro/session_user_settings/session_user_settings.html) to be used with
+#' A list of [Session User Settings](https://docs.posit.co/ide/server-pro/session_user_settings/session_user_settings.html) to be used with
 #' [rstudioapi::writeRStudioPreference()].
 #'
-#' On [RStudio setting locations](https://docs.rstudio.com/ide/desktop-pro/settings/settings.html).
+#' On [RStudio setting locations](https://docs.posit.co/ide/desktop-pro/settings/settings.html).
 #'
 #' On [Resetting RStudio Desktop's State](https://support.posit.co/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State).
 #'

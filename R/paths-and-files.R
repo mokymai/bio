@@ -226,7 +226,7 @@ open_rstudio_keybindings_dir <- function() {
 #'  - "current": file with current RStudio settings (that differ from the defaults);
 #'  - "bio-default": file with setting from "bio-default" list (except theme);
 #'  - "rstudio-default": file with most of default RStudio settings listed at
-#'    https://docs.rstudio.com/ide/server-pro/session_user_settings/session_user_settings.html (downloaded on 2022-08-03).
+#'    https://docs.posit.co/ide/server-pro/session_user_settings/session_user_settings.html (downloaded on 2022-08-03).
 #'
 #' @export
 #' @concept paths and dirs

@@ -289,7 +289,7 @@ snippets::install_snippets_from_package("snippets", backup = TRUE)
 ```
 
 For more information about
-[Code Snippets](https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets){target="_blank"} in RStudio and on package
+[Code Snippets](https://support.posit.co/hc/en-us/articles/204463668-Code-Snippets){target="_blank"} in RStudio and on package
 [**snippets**](https://gegznav.github.io/snippets/){target="_blank"}.
 
 
