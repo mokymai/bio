@@ -51,6 +51,46 @@ test_that("dictionary deletion handles non-interactive and declined requests", {
   expect_true(fs::dir_exists(dic_dir))
 })
 
+test_that("dictionary installer delegates only in a supported RStudio session", {
+  dic_dir <- fs::path(withr::local_tempdir(), "dictionaries")
+  received_target <- NULL
+  received_secure <- NULL
+  downloader_name <- ".rs.downloadAllDictionaries"
+  had_downloader <- exists(downloader_name, envir = globalenv(), inherits = FALSE)
+  old_downloader <- get0(downloader_name, envir = globalenv(), inherits = FALSE)
+  on.exit({
+    if (had_downloader) {
+      assign(downloader_name, old_downloader, envir = globalenv())
+    } else {
+      rm(list = downloader_name, envir = globalenv())
+    }
+  }, add = TRUE)
+  assign(downloader_name, function(targetDir, secure) {
+    received_target <<- targetDir
+    received_secure <<- secure
+    TRUE
+  }, envir = globalenv())
+
+  testthat::local_mocked_bindings(
+    get_path_rstudio_config_dir = function(...) dic_dir,
+    .package = "bio"
+  )
+  testthat::local_mocked_bindings(
+    isAvailable = function(...) TRUE,
+    .package = "rstudioapi"
+  )
+
+  expect_true(rstudio_install_spellcheck_dictionaries(secure = FALSE))
+  expect_identical(received_target, dic_dir)
+  expect_false(received_secure)
+
+  testthat::local_mocked_bindings(
+    isAvailable = function(...) FALSE,
+    .package = "rstudioapi"
+  )
+  expect_false(rstudio_install_spellcheck_dictionaries())
+})
+
 test_that("declined user-settings reset does not modify preferences", {
   preference_file <- withr::local_tempfile(fileext = ".json")
   writeLines('{"editor_theme":"Textmate (default)"}', preference_file)

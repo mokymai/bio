@@ -55,6 +55,9 @@
 * Added isolated regression coverage for dictionary deletion and canceled
   RStudio user-settings resets.
 
+* Added mocked regression coverage for RStudio restart/reload commands and
+  spellcheck dictionary installation.
+
 * Fixed `clear_r_history()` to use RStudio's history commands in a live
   RStudio session, including on Windows.
 
