@@ -108,6 +108,24 @@ test_that("RStudio restart and reload helpers send the expected commands", {
   expect_identical(commands, c("restartR", "restartR", "reloadUi", "reloadUi"))
 })
 
+test_that("RStudio restart and reload helpers are quiet without RStudio", {
+  commands <- character()
+  testthat::local_mocked_bindings(
+    isAvailable = function(...) FALSE,
+    executeCommand = function(command, ...) {
+      commands <<- c(commands, command)
+      invisible(NULL)
+    },
+    .package = "rstudioapi"
+  )
+
+  expect_invisible(rstudio_restart_r())
+  expect_invisible(restart_r())
+  expect_invisible(rstudio_reload_ui())
+  expect_invisible(restart_rstudio())
+  expect_identical(commands, character())
+})
+
 test_that("classify_rstudio_install_scope() distinguishes user vs system installs", {
   expect_identical(classify_rstudio_install_scope(NULL), NA_character_)
   expect_identical(classify_rstudio_install_scope(NA_character_), NA_character_)

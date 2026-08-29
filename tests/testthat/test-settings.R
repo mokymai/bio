@@ -86,11 +86,28 @@ test_that("dictionary installer delegates only in a supported RStudio session", 
   expect_identical(received_target, dic_dir)
   expect_false(received_secure)
 
+  expect_true(rstudio_download_spellcheck_dictionaries(secure = TRUE))
+  expect_true(received_secure)
+
   testthat::local_mocked_bindings(
     isAvailable = function(...) FALSE,
     .package = "rstudioapi"
   )
   expect_false(rstudio_install_spellcheck_dictionaries())
+})
+
+test_that("keybinding resets update only a temporary keybindings directory", {
+  keybindings_dir <- withr::local_tempdir()
+  testthat::local_mocked_bindings(
+    get_path_rstudio_keybindings_dir = function() keybindings_dir,
+    .package = "bio"
+  )
+
+  expect_invisible(rstudio_reset_keybindings("bio-default", backup = FALSE))
+  expect_true(length(fs::dir_ls(keybindings_dir, regexp = "[.]json$")) > 0L)
+
+  expect_invisible(rstudio_reset_keybindings("rstudio-default", backup = FALSE))
+  expect_length(fs::dir_ls(keybindings_dir, regexp = "[.]json$"), 0L)
 })
 
 test_that("declined user-settings reset does not modify preferences", {
