@@ -159,6 +159,8 @@ get_path_rstudio_internal_state_dir <- function(..., .check = FALSE) {
 
 
   # bio supports RStudio 2026.08+, which uses these current state directories.
+  # nolint start
+  # styler: off
   base <-
     switch(get_os_type(),
       "windows" = fs::path(Sys.getenv("LOCALAPPDATA"), "RStudio"),
@@ -166,6 +168,8 @@ get_path_rstudio_internal_state_dir <- function(..., .check = FALSE) {
       "mac"     = fs::path_expand_r("~/.local/share/rstudio"),
                   fs::path_expand_r("~/.local/share/rstudio")
     )
+  # nolint end
+  # styler: on
 
   if (.check) {
     path_construct_and_check(base, ...)
