@@ -6,7 +6,7 @@
 \alias{rstudio_reset_gmc}
 \alias{clear_and_reset}
 \alias{clear_r_history}
-\title{Install classroom/lab default configuration for RStudio and R.}
+\title{Install classroom/lab default configuration for RStudio and R}
 \usage{
 rstudio_configure_defaults(force_update_dictionaries = FALSE)
 
@@ -50,7 +50,7 @@ headlessly, without stopping the remaining steps.
 
 Clears everything that only exists while RStudio is running: open tabs
 (files/plots/help/viewer/projects/terminals/documents), the R workspace,
-pane layout and zoom, theme, and — as the very last steps — the R console
+pane layout and zoom, theme, and, as the very last steps, the R console
 and the command history. This function needs a live RStudio session
 (it is built entirely on \code{\link[rstudioapi:executeCommand]{rstudioapi::executeCommand()}}).
 
