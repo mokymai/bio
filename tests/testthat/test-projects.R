@@ -125,6 +125,37 @@ test_that("open_project() reports duplicate project names outside RStudio", {
   )
 })
 
+test_that("user project-list helpers use a temporary RStudio configuration", {
+  config_dir <- withr::local_tempdir()
+  expected_file <- fs::path(config_dir, "rstudio-proj-list--user")
+  testthat::local_mocked_bindings(
+    get_path_rstudio_config_dir = function(...) config_dir,
+    .package = "bio"
+  )
+
+  expect_identical(get_path_user_proj_list(), expected_file)
+  expect_identical(get_path_user_proj_list(create = TRUE), expected_file)
+  expect_true(fs::file_exists(expected_file))
+})
+
+test_that("update_rstudio_proj_list_user() writes combined project paths", {
+  project_file <- withr::local_tempfile(fileext = ".txt")
+  projects <- tibble::tibble(
+    name = c("alpha", "beta"),
+    path = c("alpha.Rproj", "beta.Rproj"),
+    exists = TRUE,
+    dir_exists = TRUE
+  )
+  testthat::local_mocked_bindings(
+    get_path_user_proj_list = function(create = FALSE) project_file,
+    get_projs_all = function() projects,
+    .package = "bio"
+  )
+
+  expect_invisible(update_rstudio_proj_list_user())
+  expect_identical(readLines(project_file), projects$path)
+})
+
 test_that("make_unique_obj_names keeps duplicates unique relative to existing choices", {
   choices <- c("existing", "x", "x_1")
 

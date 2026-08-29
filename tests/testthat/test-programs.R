@@ -185,6 +185,33 @@ test_that("get_path_rstudio_internal_state_dir() uses current RStudio paths", {
   )
 })
 
+test_that("exported path helpers compose user and RStudio paths", {
+  fake_root <- withr::local_tempdir()
+  fake_config <- fs::path(fake_root, "rstudio-config")
+  fake_state <- fs::path(fake_root, "rstudio-state")
+  fake_environ <- fs::path(fake_root, ".Renviron")
+  testthat::local_mocked_bindings(
+    get_path_rstudio_config_dir = function(...) fs::path(fake_config, ...),
+    get_path_rstudio_internal_state_dir = function(...) fs::path(fake_state, ...),
+    .package = "bio"
+  )
+  withr::local_envvar(c(R_ENVIRON_USER = fake_environ))
+
+  expect_identical(
+    get_path_rstudio_keybindings_dir(),
+    fs::path(fake_config, "keybindings")
+  )
+  expect_identical(
+    get_path_recent_proj_list(),
+    fs::path(fake_state, "monitored/lists/project_mru")
+  )
+  expect_identical(get_path_r_environ(), fake_environ)
+  expect_identical(
+    get_path_desktop("notes.txt"),
+    fs::path(fs::path_expand("~/Desktop"), "notes.txt")
+  )
+})
+
 test_that("find_rstudio_install_dir() finds a synthetic per-user install", {
   fake_root <- withr::local_tempdir()
   fake_local_appdata <- file.path(fake_root, "LocalAppData")
