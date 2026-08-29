@@ -91,7 +91,7 @@ summarize_reset_steps <- function(steps) {
   summary_df
 }
 
-#' Install classroom/lab default configuration for RStudio and R.
+#' Install classroom/lab default configuration for RStudio and R
 #'
 #' Installs the "bio-default" preferences, keybindings and snippets, updates
 #' spellcheck dictionaries and TinyTeX, and (re)creates the course working
@@ -170,7 +170,7 @@ rstudio_configure_defaults <- function(force_update_dictionaries = FALSE) {
 #'
 #' Clears everything that only exists while RStudio is running: open tabs
 #' (files/plots/help/viewer/projects/terminals/documents), the R workspace,
-#' pane layout and zoom, theme, and — as the very last steps — the R console
+#' pane layout and zoom, theme, and, as the very last steps, the R console
 #' and the command history. This function needs a live RStudio session
 #' (it is built entirely on [rstudioapi::executeCommand()]).
 #'
@@ -302,8 +302,6 @@ rstudio_reset_gmc <- function(..., force_update_dictionaries = FALSE) {
 #' @name clear_and_reset
 #' @title Clear and Reset R and RStudio
 #' @description Clear and Reset R and RStudio settings and preferences.
-#'
-#' @param backup (logical) If `TRUE`, a backup copy is created.
 #'
 #' @concept r and rstudio settings
 
