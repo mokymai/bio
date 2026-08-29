@@ -2,7 +2,7 @@
 % Please edit documentation in R/packages--check.R
 \name{is_pkg_installed}
 \alias{is_pkg_installed}
-\title{Check if packae is installed}
+\title{Check if package is installed}
 \usage{
 is_pkg_installed(pkgs)
 }
@@ -13,7 +13,7 @@ is_pkg_installed(pkgs)
 A logical vector for each input element.
 }
 \description{
-Check if packae is installed
+Check if package is installed
 }
 \examples{
 

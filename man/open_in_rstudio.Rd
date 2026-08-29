@@ -7,7 +7,7 @@
 open_in_rstudio(path, ...)
 }
 \arguments{
-\item{path}{(sting) Path to file.}
+\item{path}{(string) Path to file.}
 
 \item{...}{Further arguments to \code{\link[rstudioapi:navigateToFile]{rstudioapi::navigateToFile()}}.}
 }

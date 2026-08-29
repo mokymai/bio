@@ -78,6 +78,10 @@ This document maps the package structure and the main responsibilities of the co
   `properties.<pref_name>.default`).
 - `R/settings--keybindings.R` — keybinding reset helpers.
 - `R/bio-related.R` — package-specific RStudio/bio helper integration points.
+- Current RStudio Desktop locations (verified against Posit Support): user
+  configuration is `%APPDATA%/RStudio` on Windows and `~/.config/rstudio` on
+  Linux/macOS; internal state is `%LOCALAPPDATA%/RStudio` on Windows and
+  `~/.local/share/rstudio` on Linux/macOS.
 
 ### Package entry points
 

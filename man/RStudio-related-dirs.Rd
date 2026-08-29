@@ -29,7 +29,7 @@ open_rstudio_keybindings_dir()
 }
 \value{
 (string) path to RStudio configuration directory.
-When \code{.check = TRUE}, renturns error, if the path does not exist.
+When \code{.check = TRUE}, returns an error if the path does not exist.
 }
 \description{
 Directories of RStudio (desktop) settings, preferences and other files.
@@ -58,7 +58,7 @@ if (interactive()) {
 
 \itemize{
 \item \code{get_path_rstudio_config_dir()}:
-https://support.rstudio.com/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State
+https://support.posit.co/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State
 }
 }
 \concept{paths and dirs}
