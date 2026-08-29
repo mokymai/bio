@@ -5,6 +5,7 @@
 \alias{rstudio_reset_session_state}
 \alias{rstudio_reset_gmc}
 \alias{clear_and_reset}
+\alias{clear_r_history}
 \title{Install classroom/lab default configuration for RStudio and R.}
 \usage{
 rstudio_configure_defaults(force_update_dictionaries = FALSE)
@@ -12,6 +13,8 @@ rstudio_configure_defaults(force_update_dictionaries = FALSE)
 rstudio_reset_session_state(...)
 
 rstudio_reset_gmc(..., force_update_dictionaries = FALSE)
+
+clear_r_history(backup = TRUE)
 }
 \arguments{
 \item{force_update_dictionaries}{Logical scalar. If \code{TRUE}, the dictionaries
@@ -19,7 +22,8 @@ are refreshed even when the current locale is present.}
 
 \item{...}{Further arguments used by \code{restriction_status()} for compatibility.}
 
-\item{backup}{(logical) If \code{TRUE}, a backup copy is created.}
+\item{backup}{Logical scalar. If \code{TRUE}, save a timestamped backup before
+clearing the active history.}
 }
 \value{
 Invisibly returns a data frame with one row per step, its \code{ok}
@@ -30,6 +34,8 @@ status, and an error \code{message} (if any).
 
 Invisibly returns a list with \code{configure} and \code{session_state}
 summary data frames.
+
+Invisibly returns \code{NULL}.
 }
 \description{
 Installs the "bio-default" preferences, keybindings and snippets, updates
@@ -54,6 +60,12 @@ configuration, works even outside RStudio) followed by
 session), kept for internal backward compatibility.
 
 Clear and Reset R and RStudio settings and preferences.
+
+Uses \code{\link[utils:savehistory]{utils::savehistory()}} and \code{\link[utils:loadhistory]{utils::loadhistory()}} to back up and clear
+the R command history. On Windows in a running RStudio session, RStudio may
+manage the active history independently; this helper's effect is therefore
+not confirmed for that combination and should be verified manually before
+relying on it in a reset workflow.
 }
 \details{
 Every step is run through \code{\link[=run_reset_step]{run_reset_step()}}: a failure in one step is
