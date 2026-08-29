@@ -121,43 +121,7 @@ NULL
 #' }
 get_path_rstudio_config_dir <- function(..., .check = FALSE) {
   # https://support.rstudio.com/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State
-  # Section
-  # Accessing the RStudio Configuration Directory (Preferences)
-  #
-  # Windows:       %appdata%\RStudio
-  # Linux/Mac:     ~/.config/rstudio
-
-
-  # # In get_path_user_settings_dir_rs_1.3() # REMOVED
-  #
-  # get_path_user_settings_dir_rs_1.3 <- function(...) {
-  #   base_path <-
-  #     if (get_os_type() == "windows") {
-  #       fs::path(Sys.getenv("APPDATA"), "RStudio")
-  #     } else {
-  #       fs::path_expand_r("~/.config/rstudio/")
-  #     }
-  #   fs::path(base_path, ...)
-  # }
-  #
-  # # In get_path_rs_config_dir() # REMOVED
-  #  base <-
-  #   switch(get_os_type(),
-  #     "windows" = fs::path(Sys.getenv("LOCALAPPDATA"), "RStudio"),
-  #     "linux"   = fs::path_expand_r("~/.config/RStudio"),
-  #     "mac"     = {
-  #       # TODO: check if correct on Mac
-  #       # defaults read com.rstudio.desktop > ~/backup-rstudio-prefs
-  #       # warning("Function get_path_rstudio_config_dir() may give a wrong result on Mac OS X.")
-  #       fs::path_expand_r("~/.config/RStudio")
-  #     },
-  #     # Otherwise:
-  #     {
-  #       warning("Your OS is not supported by get_path_rstudio_config_dir().")
-  #       fs::path_expand_r("~/.config/RStudio")
-  #     }
-  #   )
-  # path_construct_and_check(base, ...)
+  # RStudio's configuration is per OS user, regardless of application install scope.
 
   # styler: off
   # nolint start
@@ -173,9 +137,7 @@ get_path_rstudio_config_dir <- function(..., .check = FALSE) {
   # nolint end
   # styler: on
 
-  # base <- Sys.getenv("XDG_CONFIG_DIRS",    unset = base) # Scope: system
   base <- Sys.getenv("XDG_CONFIG_HOME",      unset = base) # Scope: user
-  # base <- Sys.getenv("RSTUDIO_CONFIG_DIR", unset = base) # Scope: system
   base <- Sys.getenv("RSTUDIO_CONFIG_HOME",  unset = base) # Scope: user
 
   if (.check) {
