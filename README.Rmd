@@ -252,6 +252,25 @@ bio::rstudio_compare_user_settings(to = "bio-default")
 
 Settings that are not in the list will not be displayed.
 The available options for `to` are "bio-default" and "rstudio-default".
+The default `source = "auto"` reads settings from a running RStudio session
+when available, otherwise it compares the saved `rstudio-prefs.json` file.
+Use `source = "file"` to always inspect saved preferences, or
+`source = "live"` to require a running RStudio session. The default concise
+output summarizes differences; use `output = "minimal"` for counts only or
+`output = "verbose"` for the complete technical comparison.
+
+
+### RStudio installation scope
+
+Use `get_rstudio_install_scope()` to determine whether the installed RStudio
+Desktop application is a per-user or system-wide installation. This affects
+the location of RStudio application files only; personal settings and
+keybindings remain per-user in either case.
+
+```{r README-rstudio-install-scope, eval=FALSE}
+bio::get_rstudio_install_scope()
+## [1] "user"
+```
 
 
 
