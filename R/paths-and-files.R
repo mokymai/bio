@@ -46,6 +46,10 @@ scoped_path_r <- function(scope = c("user", "project"), ..., envvar = NULL) {
   fs::path(root, ...)
 }
 
+open_path <- function(path) {
+  utils::browseURL(path)
+}
+
 
 # Path to Desktop ============================================================
 
@@ -69,7 +73,7 @@ get_path_desktop <- function(...) {
 #' @rdname get_path_desktop
 #' @export
 open_desktop <- function() {
-  browseURL(get_path_desktop())
+  open_path(get_path_desktop())
 }
 
 
@@ -209,19 +213,19 @@ get_path_rstudio_keybindings_dir <- function() {
 #' @rdname RStudio-related-dirs
 #' @export
 open_rstudio_config_dir <- function() {
-  browseURL(get_path_rstudio_config_dir())
+  open_path(get_path_rstudio_config_dir())
 }
 
 #' @rdname RStudio-related-dirs
 #' @export
 open_rstudio_internal_state_dir <- function() {
-  browseURL(get_path_rstudio_internal_state_dir())
+  open_path(get_path_rstudio_internal_state_dir())
 }
 
 #' @rdname RStudio-related-dirs
 #' @export
 open_rstudio_keybindings_dir <- function() {
-  browseURL(get_path_rstudio_keybindings_dir())
+  open_path(get_path_rstudio_keybindings_dir())
 }
 
 
@@ -308,5 +312,5 @@ get_path_r_environ <- function(scope = c("user", "project")) {
 #' @rdname open_r_environ
 #' @export
 open_r_environ <- function() {
-  browseURL(get_path_r_environ())
+  open_path(get_path_r_environ())
 }
