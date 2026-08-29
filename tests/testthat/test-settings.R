@@ -58,13 +58,15 @@ test_that("dictionary installer delegates only in a supported RStudio session", 
   downloader_name <- ".rs.downloadAllDictionaries"
   had_downloader <- exists(downloader_name, envir = globalenv(), inherits = FALSE)
   old_downloader <- get0(downloader_name, envir = globalenv(), inherits = FALSE)
-  on.exit({
-    if (had_downloader) {
-      assign(downloader_name, old_downloader, envir = globalenv())
-    } else {
-      rm(list = downloader_name, envir = globalenv())
-    }
-  }, add = TRUE)
+  on.exit(
+    {
+      if (had_downloader) {
+        assign(downloader_name, old_downloader, envir = globalenv())
+      } else {
+        rm(list = downloader_name, envir = globalenv())
+      }
+    },
+    add = TRUE)
   assign(downloader_name, function(targetDir, secure) {
     received_target <<- targetDir
     received_secure <<- secure
