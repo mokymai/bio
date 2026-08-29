@@ -16,7 +16,7 @@ open_rstudio_config_file(which = "current")
 \item "current": file with current RStudio settings (that differ from the defaults);
 \item "bio-default": file with setting from "bio-default" list (except theme);
 \item "rstudio-default": a preset compiled from the most recent RStudio
-settings documentation available when it was downloaded on 2022-08-03.
+settings documentation available when it was downloaded.
 For comparisons, \code{\link[=rstudio_compare_user_settings]{rstudio_compare_user_settings()}} fills unset values
 from the local RStudio \code{user-prefs-schema.json} when available.
 }}
