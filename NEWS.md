@@ -58,6 +58,9 @@
 * Added mocked regression coverage for RStudio restart/reload commands and
   spellcheck dictionary installation.
 
+* Expanded automated coverage across exported package, path, project, file
+  opening, RStudio integration, and offline program-information helpers.
+
 * Fixed `clear_r_history()` to use RStudio's history commands in a live
   RStudio session, including on Windows.
 

@@ -126,6 +126,36 @@ test_that("RStudio restart and reload helpers are quiet without RStudio", {
   expect_identical(commands, character())
 })
 
+test_that("check_user_info() returns stable troubleshooting metadata", {
+  output <- capture.output(info <- check_user_info())
+
+  expect_s3_class(info, "tbl_df")
+  expect_named(info, c("Setting", "Value"))
+  expect_true(all(c("Operating system", "Platform", "R_HOME") %in% info$Setting))
+  expect_true(any(grepl("Operating system", output, fixed = TRUE)))
+})
+
+test_that("pkg_list_archived_versions() parses pages and handles failures offline", {
+  testthat::local_mocked_bindings(
+    readLines = function(...) c(
+      "href=\"demo_1.2.0.tar.gz\"",
+      "href=\"demo_1.10.0.tar.gz\"",
+      "unrelated text"
+    ),
+    .package = "base"
+  )
+  expect_identical(
+    as.character(pkg_list_archived_versions("demo")),
+    c("1.10.0", "1.2.0")
+  )
+
+  testthat::local_mocked_bindings(
+    readLines = function(...) stop("offline"),
+    .package = "base"
+  )
+  expect_identical(pkg_list_archived_versions("demo"), as.numeric_version(NULL))
+})
+
 test_that("classify_rstudio_install_scope() distinguishes user vs system installs", {
   expect_identical(classify_rstudio_install_scope(NULL), NA_character_)
   expect_identical(classify_rstudio_install_scope(NA_character_), NA_character_)
