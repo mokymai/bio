@@ -47,8 +47,27 @@ test_that("dictionary deletion handles non-interactive and declined requests", {
     ui_nope = function(...) TRUE,
     .package = "usethis"
   )
-  expect_invisible(rstudio_delete_spellcheck_dictionaries(ask = TRUE))
+  expect_invisible(suppressWarnings(rstudio_delete_spellcheck_dictionaries(ask = TRUE)))
   expect_true(fs::dir_exists(dic_dir))
+})
+
+test_that("declined user-settings reset does not modify preferences", {
+  preference_file <- withr::local_tempfile(fileext = ".json")
+  writeLines('{"editor_theme":"Textmate (default)"}', preference_file)
+  testthat::local_mocked_bindings(
+    rstudio_clear_console_ask = function(...) invisible(NULL),
+    get_path_rstudio_config_file = function(which = "current") preference_file,
+    .package = "bio"
+  )
+  testthat::local_mocked_bindings(
+    isAvailable = function(...) TRUE,
+    showQuestion = function(...) TRUE,
+    .package = "rstudioapi"
+  )
+
+  expect_invisible(suppressWarnings(rstudio_reset_user_settings("bio-default", ask = TRUE)))
+  expect_true(fs::file_exists(preference_file))
+  expect_identical(readLines(preference_file), '{"editor_theme":"Textmate (default)"}')
 })
 
 test_that("reset helpers hold the expected scalar contracts", {
