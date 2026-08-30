@@ -194,7 +194,29 @@ bio::rstudio_compare_user_settings(to = "bio-default")
 ```
 
 Settings that are not in the list will not be displayed. The available
-options for `to` are “bio-default” and “rstudio-default”.
+options for `to` are “bio-default” and “rstudio-default”. The default
+`source = "auto"` reads settings from a running RStudio session when
+available, otherwise it compares the saved `rstudio-prefs.json` file.
+Use `source = "file"` to always inspect saved preferences, or
+`source = "live"` to require a running RStudio session. The default
+concise output summarizes differences; use `output = "minimal"` for
+counts only or `output = "verbose"` for the complete technical
+comparison.
+
+### RStudio installation scope
+
+Use
+[`get_rstudio_install_scope()`](https://mokymai.github.io/bio/reference/get_rstudio_install_scope.md)
+to determine whether the installed RStudio Desktop application is a
+per-user or system-wide installation. This affects the location of
+RStudio application files only; personal settings and keybindings remain
+per-user in either case.
+
+``` r
+
+bio::get_rstudio_install_scope()
+## [1] "user"
+```
 
 ### Snippets
 
@@ -213,7 +235,7 @@ snippets::install_snippets_from_package("snippets", backup = TRUE)
 ```
 
 For more information about [Code
-Snippets](https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets)
+Snippets](https://support.posit.co/hc/en-us/articles/204463668-Code-Snippets)
 in RStudio and on package
 [**snippets**](https://gegznav.github.io/snippets/).
 

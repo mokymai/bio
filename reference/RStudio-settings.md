@@ -29,29 +29,29 @@ rstudio_reset_user_settings(to, backup = TRUE, ask = TRUE)
 ## Details
 
 Settings that can be used in `rstudio-prefs.json` file:
-https://docs.rstudio.com/ide/server-pro/session-user-settings.html
+https://docs.posit.co/ide/server-pro/session-user-settings.html
 
 ## See also
 
 [`get_path_rstudio_config_file()`](https://mokymai.github.io/bio/reference/RStudio-config-file.md)
 
 On [Customizing
-RStudio](https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-the-RStudio-IDE)
+RStudio](https://support.posit.co/hc/en-us/articles/200549016-Customizing-the-RStudio-IDE)
 using point-and-click method.
 
 On [Configuration and
 Settings](https://www.rstudio.com/blog/rstudio-1-3-preview-configuration/).
 
 A list of [Session User
-Settings](https://docs.rstudio.com/ide/server-pro/session_user_settings/session_user_settings.html)
+Settings](https://docs.posit.co/ide/server-pro/session_user_settings/session_user_settings.html)
 to be used with
 [`rstudioapi::writeRStudioPreference()`](https://rstudio.github.io/rstudioapi/reference/writeRStudioPreference.html).
 
 On [RStudio setting
-locations](https://docs.rstudio.com/ide/desktop-pro/settings/settings.html).
+locations](https://docs.posit.co/ide/desktop-pro/settings/settings.html).
 
 On [Resetting RStudio Desktop's
-State](https://support.rstudio.com/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State).
+State](https://support.posit.co/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State).
 
 StackOverflow threads on export/import RStudio of user preferences:
 

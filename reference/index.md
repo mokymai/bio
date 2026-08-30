@@ -68,7 +68,7 @@
 - [`get_pkgs_installed()`](https://mokymai.github.io/bio/reference/get_pkgs_installed.md)
   : List packages installed on this computer
 - [`is_pkg_installed()`](https://mokymai.github.io/bio/reference/is_pkg_installed.md)
-  : Check if packae is installed
+  : Check if package is installed
 
 ## Utilities and Helper Functions
 
@@ -90,19 +90,52 @@ Functions not mentioned above.
 
 - [`assert_single_value()`](https://mokymai.github.io/bio/reference/assert_single_value.md)
   : Validate that a function argument is a single value.
+
 - [`check_installed_programs()`](https://mokymai.github.io/bio/reference/check_installed_programs.md)
   : Check installed programs and available versions
+
 - [`check_user_info()`](https://mokymai.github.io/bio/reference/check_user_info.md)
   : Get user-related information
+
 - [`compare_version()`](https://mokymai.github.io/bio/reference/compare_version.md)
   : Compare Version Numbers
+
+- [`find_rstudio_install_dir()`](https://mokymai.github.io/bio/reference/find_rstudio_install_dir.md)
+  : Locate the RStudio Desktop installation directory
+
+- [`get_installed_rstudio_version()`](https://mokymai.github.io/bio/reference/get_installed_rstudio_version.md)
+  : Get the version of an installed (but not necessarily running)
+  RStudio
+
+- [`get_rstudio_install_scope()`](https://mokymai.github.io/bio/reference/get_rstudio_install_scope.md)
+  : Determine whether the local RStudio Desktop install is system-wide
+  or per-user
+
+- [`get_rstudio_version_from_registry()`](https://mokymai.github.io/bio/reference/get_rstudio_version_from_registry.md)
+  : Get the RStudio version reported by the Windows installer registry
+  entry
+
+- [`is_rstudio_installed()`](https://mokymai.github.io/bio/reference/is_rstudio_installed.md)
+  : Check whether RStudio Desktop is installed, even if it is not
+  running
+
 - [`list_pkgs_used_in_dir()`](https://mokymai.github.io/bio/reference/list_pkgs_used_in_dir.md)
   : List Packages Used in Directory
+
 - [`list_pkgs_used_in_files()`](https://mokymai.github.io/bio/reference/list_pkgs_used_in_files.md)
   : List Packages Used in Specific File(s)
+
+- [`parse_rstudio_version_string()`](https://mokymai.github.io/bio/reference/parse_rstudio_version_string.md)
+  :
+
+  Parse an RStudio calendar-version string into a
+  [`numeric_version()`](https://rdrr.io/r/base/numeric_version.html)
+
 - [`pkg_list_archived_versions()`](https://mokymai.github.io/bio/reference/pkg_list_archived_versions.md)
   : Get previous package versions available on CRAN
+
 - [`print_program_version_info()`](https://mokymai.github.io/bio/reference/print_program_version_info.md)
   : Print a version-status summary for a program.
+
 - [`rstudio_compare_user_settings()`](https://mokymai.github.io/bio/reference/rstudio_compare_user_settings.md)
   : Show differences in sets of settings

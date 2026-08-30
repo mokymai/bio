@@ -34,7 +34,7 @@ open_rstudio_keybindings_dir()
 ## Value
 
 (string) path to RStudio configuration directory. When `.check = TRUE`,
-renturns error, if the path does not exist.
+returns an error if the path does not exist.
 
 ## See also
 
@@ -48,7 +48,7 @@ renturns error, if the path does not exist.
 &nbsp;
 
 - `get_path_rstudio_config_dir()`:
-  https://support.rstudio.com/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State
+  https://support.posit.co/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State
 
 ## Examples
 

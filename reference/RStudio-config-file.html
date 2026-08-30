@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">bio</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.3.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,6 +22,7 @@
     <li><a class="dropdown-item" href="https://mokymai.github.io/bio/dev/">In-development</a></li>
   </ul></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><a class="external-link nav-link" href="https://github.com/mokymai/bio/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
@@ -54,8 +55,10 @@
 <dl><dt id="arg-which">which<a class="anchor" aria-label="anchor" href="#arg-which"></a></dt>
 <dd><p>(character) type of settings:</p><ul><li><p>"current": file with current RStudio settings (that differ from the defaults);</p></li>
 <li><p>"bio-default": file with setting from "bio-default" list (except theme);</p></li>
-<li><p>"rstudio-default": file with most of default RStudio settings listed at
-https://docs.rstudio.com/ide/server-pro/session_user_settings/session_user_settings.html (downloaded on 2022-08-03).</p></li>
+<li><p>"rstudio-default": a preset compiled from the most recent RStudio
+settings documentation available when it was downloaded.
+For comparisons, <code><a href="rstudio_compare_user_settings.html">rstudio_compare_user_settings()</a></code> fills unset values
+from the local RStudio <code>user-prefs-schema.json</code> when available.</p></li>
 </ul></dd>
 
 </dl></div>

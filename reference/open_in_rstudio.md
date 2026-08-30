@@ -12,7 +12,7 @@ open_in_rstudio(path, ...)
 
 - path:
 
-  (sting) Path to file.
+  (string) Path to file.
 
 - ...:
 

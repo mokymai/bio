@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">bio</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.3.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,6 +22,7 @@
     <li><a class="dropdown-item" href="https://mokymai.github.io/bio/dev/">In-development</a></li>
   </ul></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><a class="external-link nav-link" href="https://github.com/mokymai/bio/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
@@ -190,7 +191,7 @@
           <code><a href="is_pkg_installed.html">is_pkg_installed()</a></code>
 
         </dt>
-        <dd>Check if packae is installed</dd>
+        <dd>Check if package is installed</dd>
       </dl></div><div class="section level2">
       <h2 id="utilities-and-helper-functions">Utilities and Helper Functions<a class="anchor" aria-label="anchor" href="#utilities-and-helper-functions"></a></h2>
 
@@ -261,6 +262,41 @@
 
         <dt>
 
+          <code><a href="find_rstudio_install_dir.html">find_rstudio_install_dir()</a></code>
+
+        </dt>
+        <dd>Locate the RStudio Desktop installation directory</dd>
+
+        <dt>
+
+          <code><a href="get_installed_rstudio_version.html">get_installed_rstudio_version()</a></code>
+
+        </dt>
+        <dd>Get the version of an installed (but not necessarily running) RStudio</dd>
+
+        <dt>
+
+          <code><a href="get_rstudio_install_scope.html">get_rstudio_install_scope()</a></code>
+
+        </dt>
+        <dd>Determine whether the local RStudio Desktop install is system-wide or per-user</dd>
+
+        <dt>
+
+          <code><a href="get_rstudio_version_from_registry.html">get_rstudio_version_from_registry()</a></code>
+
+        </dt>
+        <dd>Get the RStudio version reported by the Windows installer registry entry</dd>
+
+        <dt>
+
+          <code><a href="is_rstudio_installed.html">is_rstudio_installed()</a></code>
+
+        </dt>
+        <dd>Check whether RStudio Desktop is installed, even if it is not running</dd>
+
+        <dt>
+
           <code><a href="list_pkgs_used_in_dir.html">list_pkgs_used_in_dir()</a></code>
 
         </dt>
@@ -272,6 +308,13 @@
 
         </dt>
         <dd>List Packages Used in Specific File(s)</dd>
+
+        <dt>
+
+          <code><a href="parse_rstudio_version_string.html">parse_rstudio_version_string()</a></code>
+
+        </dt>
+        <dd>Parse an RStudio calendar-version string into a <code><a href="https://rdrr.io/r/base/numeric_version.html" class="external-link">numeric_version()</a></code></dd>
 
         <dt>
 

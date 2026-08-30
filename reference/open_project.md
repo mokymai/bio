@@ -39,8 +39,8 @@ open_project(
 
 - proj_list_path:
 
-  (string) The path to the file with the list of project paths. If
-  `proj_list` is not `NULL`, then `proj_list_path` is ignored.
+  (string) The path to the file with the list of project paths. When
+  `proj_list` is also supplied, projects from both sources are combined.
 
 - only_available:
 

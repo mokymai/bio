@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="index.html">bio</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.3.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,6 +22,7 @@
     <li><a class="dropdown-item" href="https://mokymai.github.io/bio/dev/">In-development</a></li>
   </ul></li>
 <li class="nav-item"><a class="nav-link" href="reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><a class="external-link nav-link" href="https://github.com/mokymai/bio/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
@@ -44,6 +45,7 @@
 <li>Package metadata and project config live at the repo root.</li>
 <li>Generated website/build artifacts are excluded from this map, including <code>docs/</code>, <code>man/*.Rd</code>, and the temporary <code>_tmp/</code> area.</li>
 <li>Prefer package-qualified calls like <code>pkg::fun()</code> and keep examples short and interactive-safe.</li>
+<li>Do not retain disabled implementations in package source. Remove obsolete code; temporary historical notes belong outside the maintained package code.</li>
 </ul></div>
 <div class="section level2">
 <h2 id="top-level-package-layout">Top-level package layout<a class="anchor" aria-label="anchor" href="#top-level-package-layout"></a></h2>
@@ -110,7 +112,7 @@
 <li>
 <code>R/packages--find.R</code> — package lookup and discovery helpers.</li>
 <li>
-<code>R/programs.R</code> — installed software checks, version comparisons, and availability reporting.</li>
+<code>R/programs.R</code> — installed software checks, version comparisons, and availability reporting. Includes RStudio Desktop detection: <code><a href="reference/find_rstudio_install_dir.html">find_rstudio_install_dir()</a></code> (checks both per-user “just me” and system-wide “all users” install locations, including both <code>HKCU</code>/<code>HKLM</code> registry hives on Windows via the shared <code>read_registry_key_safely()</code>/<code>rstudio_registry_hives()</code> helpers) and <code><a href="reference/get_rstudio_install_scope.html">get_rstudio_install_scope()</a></code> (classifies a resolved install dir as <code>"user"</code>/<code>"system"</code>/<code>NA</code>). Note: this install-scope distinction only affects where the RStudio <em>application files</em> live — RStudio’s preferences/keybindings/config dirs (<code>R/paths-and-files.R</code>) are always per-OS-user regardless of install scope. The classifier normalizes Windows and Unix path separators and matches complete per-user path prefixes, so its behavior and tests are independent of the operating system running R. Includes Rtools detection (<code><a href="reference/get_installed_rtools_version.html">get_installed_rtools_version()</a></code>): queries active toolchain via <code><a href="https://pkgbuild.r-lib.org/reference/has_rtools.html" class="external-link">pkgbuild::rtools_path()</a></code>, falling back to <code>RTOOLS*_HOME</code> env vars, registry, and <code>C:\rtools*</code> directories. Rtools releases (e.g., Rtools 4.5) span multiple R minor series (e.g., R 4.5.x and 4.6.x).</li>
 <li>
 <code>R/dictionaries.R</code> — spellcheck/dictionary management.</li>
 </ul></div>
@@ -119,11 +121,14 @@
 <ul><li>
 <code>R/settings.R</code> — higher-level reset workflows and RStudio housekeeping.</li>
 <li>
-<code>R/settings--preferences.R</code> — user preferences reset utilities.</li>
+<code>R/settings--preferences.R</code> — user preferences reset utilities. Also has <code>rstudio_compare_user_settings(to, source = c("auto","live","file"), output = c("concise","minimal","verbose"))</code>: <code>source = "live"</code> reads “current” prefs via <code>rstudioapi</code> (requires a running RStudio session); <code>source = "file"</code> always reads the on-disk <code>rstudio-prefs.json</code>; <code>source = "auto"</code> (default) picks live vs. file based on whether RStudio is running. Since <code>rstudio-prefs.json</code> only stores values overridden from RStudio’s built-in defaults, the file-based path fills in unset keys (when possible) from the local RStudio installation’s <code>user-prefs-schema.json</code> (<code>&lt;install dir&gt;/resources/app/resources/schema/user-prefs-schema.json</code>, <code>properties.&lt;pref_name&gt;.default</code>).</li>
 <li>
 <code>R/settings--keybindings.R</code> — keybinding reset helpers.</li>
 <li>
 <code>R/bio-related.R</code> — package-specific RStudio/bio helper integration points.</li>
+<li>Current RStudio Desktop locations (verified against Posit Support): user configuration is <code>%APPDATA%/RStudio</code> on Windows and <code>~/.config/rstudio</code> on Linux/macOS; internal state is <code>%LOCALAPPDATA%/RStudio</code> on Windows and <code>~/.local/share/rstudio</code> on Linux/macOS.</li>
+<li>
+<code><a href="reference/clear_and_reset.html">clear_r_history()</a></code> is an internal helper. In a running RStudio session it delegates to <code>rstudio_clear_history()</code> and RStudio’s <code>clearHistory</code> command; outside RStudio it uses base R history functions.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="package-entry-points">Package entry points<a class="anchor" aria-label="anchor" href="#package-entry-points"></a></h3>

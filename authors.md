@@ -11,12 +11,12 @@ Source:
 [`DESCRIPTION`](https://github.com/mokymai/bio/blob/master/DESCRIPTION)
 
 Gegzna V (2026). *bio: Resources Manager for R, RStudio and Related
-Software*. R package version 0.3.0, <https://mokymai.github.io/bio/>.
+Software*. R package version 0.3.1, <https://mokymai.github.io/bio/>.
 
     @Manual{,
       title = {bio: Resources Manager for R, RStudio and Related Software},
       author = {Vilmantas Gegzna},
       year = {2026},
-      note = {R package version 0.3.0},
+      note = {R package version 0.3.1},
       url = {https://mokymai.github.io/bio/},
     }

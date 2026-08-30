@@ -1,6 +1,6 @@
-# Check if packae is installed
+# Check if package is installed
 
-Check if packae is installed
+Check if package is installed
 
 ## Usage
 

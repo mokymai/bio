@@ -22,10 +22,12 @@ open_rstudio_config_file(which = "current")
   - "bio-default": file with setting from "bio-default" list (except
     theme);
 
-  - "rstudio-default": file with most of default RStudio settings listed
-    at
-    https://docs.rstudio.com/ide/server-pro/session_user_settings/session_user_settings.html
-    (downloaded on 2022-08-03).
+  - "rstudio-default": a preset compiled from the most recent RStudio
+    settings documentation available when it was downloaded. For
+    comparisons,
+    [`rstudio_compare_user_settings()`](https://mokymai.github.io/bio/reference/rstudio_compare_user_settings.md)
+    fills unset values from the local RStudio `user-prefs-schema.json`
+    when available.
 
 ## See also
 
