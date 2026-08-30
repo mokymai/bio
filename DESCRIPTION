@@ -19,7 +19,7 @@ Encoding: UTF-8
 Additional_repositories:
   https://mokymai.github.io/download/
 Depends:
-    R (>= 4.1)
+    R (>= 4.2.0)
 Imports:
     backup.tools (>= 0.0.3),
     checkmate,
