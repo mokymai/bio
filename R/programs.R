@@ -432,7 +432,7 @@ find_rstudio_install_dir <- function() {
     ),
     "linux" = c(
       "/usr/lib/rstudio",
-      "/usr/lib/rstudio-server",
+      # "/usr/lib/rstudio-server", # (RStudio Server, not Desktop)
       "/usr/local/lib/rstudio",
       "/opt/rstudio"
     ),
