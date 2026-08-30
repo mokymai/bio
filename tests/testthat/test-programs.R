@@ -203,6 +203,15 @@ test_that("get_path_rstudio_config_dir() uses user-scoped paths and overrides", 
 
   withr::local_envvar(c(
     XDG_CONFIG_HOME = fs::path(fake_root, ".config"),
+    RSTUDIO_CONFIG_HOME = ""
+  ))
+  expect_identical(
+    get_path_rstudio_config_dir(),
+    fs::path(fake_root, ".config", "rstudio")
+  )
+
+  withr::local_envvar(c(
+    XDG_CONFIG_HOME = fs::path(fake_root, ".config"),
     RSTUDIO_CONFIG_HOME = fs::path(fake_root, ".rstudio-config")
   ))
   expect_identical(

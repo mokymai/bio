@@ -52,6 +52,9 @@
 * Fixed `open_project()` when called with a supplied `proj_list` and no
   `proj_list_path`.
 
+* Fixed `get_path_rstudio_config_dir()` when `XDG_CONFIG_HOME` is set by
+  appending the `rstudio` sub-directory per the XDG Base Directory specification.
+
 * Added isolated regression coverage for dictionary deletion and canceled
   RStudio user-settings resets.
 

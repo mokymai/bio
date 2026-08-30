@@ -139,8 +139,15 @@ get_path_rstudio_config_dir <- function(..., .check = FALSE) {
   # nolint end
   # styler: on
 
-  base <- env_var_or_default("XDG_CONFIG_HOME",     base) # Scope: user
-  base <- env_var_or_default("RSTUDIO_CONFIG_HOME", base) # Scope: user
+  xdg_config <- Sys.getenv("XDG_CONFIG_HOME", unset = "")
+  if (nzchar(xdg_config)) {
+    base <- fs::path(xdg_config, "rstudio")
+  }
+
+  rstudio_config <- Sys.getenv("RSTUDIO_CONFIG_HOME", unset = "")
+  if (nzchar(rstudio_config)) {
+    base <- rstudio_config
+  }
 
   if (.check) {
     path_construct_and_check(base, ...)
