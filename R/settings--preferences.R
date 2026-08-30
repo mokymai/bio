@@ -311,32 +311,32 @@ format_pref_value <- function(x) {
 }
 
 # Recursively compare two (possibly nested) named preference lists.
-# Returns a data frame with one row per compared key: `path`, `status`
-# ("identical" / "different" / "missing_in_current" / "missing_in_default"),
-# and formatted `default`/`current` values.
+# Returns a data frame with one row per compared key in `default_prefs`:
+# `path`, `status` ("identical" / "different" / "missing_in_current"),
+# and formatted `default`/`current` values. Settings outside `default_prefs`
+# are intentionally excluded to keep comparison results focused on `to`.
 summarize_pref_diff <- function(default_prefs, current_prefs, parent = character()) {
-  all_names <- union(names(default_prefs), names(current_prefs))
+  # all_names <- union(names(default_prefs), names(current_prefs))
+  all_names <- names(default_prefs)
+  if (is.null(all_names)) {
+    return(data.frame(
+      path = character(), status = character(),
+      default = character(), current = character(),
+      stringsAsFactors = FALSE
+    ))
+  }
 
   rows <- purrr::map(all_names, function(nm) {
     path <- paste(c(parent, nm), collapse = "$")
-    has_default <- nm %in% names(default_prefs)
     has_current <- nm %in% names(current_prefs)
 
-    d_val <- if (has_default) default_prefs[[nm]] else NULL
+    d_val <- default_prefs[[nm]]
     c_val <- if (has_current) current_prefs[[nm]] else NULL
 
     if (!has_current) {
       return(data.frame(
         path = path, status = "missing_in_current",
         default = format_pref_value(d_val), current = NA_character_,
-        stringsAsFactors = FALSE
-      ))
-    }
-
-    if (!has_default) {
-      return(data.frame(
-        path = path, status = "missing_in_default",
-        default = NA_character_, current = format_pref_value(c_val),
         stringsAsFactors = FALSE
       ))
     }

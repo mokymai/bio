@@ -199,7 +199,7 @@ test_that("summarize_pref_diff() classifies matches, diffs, and nested keys", {
   expect_identical(by_path[["b"]], "different")
   expect_identical(by_path[["nested$x"]], "identical")
   expect_identical(by_path[["nested$y"]], "missing_in_current")
-  expect_identical(by_path[["extra"]], "missing_in_default")
+  expect_false("extra" %in% diff_df$path)
 })
 
 test_that("summarize_pref_diff() handles empty input without erroring", {
