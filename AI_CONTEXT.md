@@ -8,6 +8,8 @@ This document maps the package structure and the main responsibilities of the co
 - Package metadata and project config live at the repo root.
 - Generated website/build artifacts are excluded from this map, including `docs/`, `man/*.Rd`, and the temporary `_tmp/` area.
 - Prefer package-qualified calls like `pkg::fun()` and keep examples short and interactive-safe.
+- Do not retain disabled implementations in package source. Remove obsolete code;
+  temporary historical notes belong outside the maintained package code.
 
 ## Top-level package layout
 
@@ -47,14 +49,46 @@ This document maps the package structure and the main responsibilities of the co
 - `R/packages--check.R` — installed package/version checks.
 - `R/packages--find.R` — package lookup and discovery helpers.
 - `R/programs.R` — installed software checks, version comparisons, and availability reporting.
+  Includes RStudio Desktop detection: `find_rstudio_install_dir()` (checks
+  both per-user "just me" and system-wide "all users" install locations,
+  including both `HKCU`/`HKLM` registry hives on Windows via the shared
+  `read_registry_key_safely()`/`rstudio_registry_hives()` helpers) and
+  `get_rstudio_install_scope()` (classifies a resolved install dir as
+  `"user"`/`"system"`/`NA`). Note: this install-scope distinction only
+  affects where the RStudio *application files* live — RStudio's
+  preferences/keybindings/config dirs (`R/paths-and-files.R`) are always
+  per-OS-user regardless of install scope. The classifier normalizes Windows
+  and Unix path separators and matches complete per-user path prefixes, so
+  its behavior and tests are independent of the operating system running R.
+  Includes Rtools detection (`get_installed_rtools_version()`): queries active
+  toolchain via `pkgbuild::rtools_path()`, falling back to `RTOOLS*_HOME` env
+  vars, registry, and `C:\rtools*` directories. Rtools releases (e.g., Rtools 4.5)
+  span multiple R minor series (e.g., R 4.5.x and 4.6.x).
 - `R/dictionaries.R` — spellcheck/dictionary management.
 
 ### RStudio and settings management
 
 - `R/settings.R` — higher-level reset workflows and RStudio housekeeping.
-- `R/settings--preferences.R` — user preferences reset utilities.
+- `R/settings--preferences.R` — user preferences reset utilities. Also has
+  `rstudio_compare_user_settings(to, source = c("auto","live","file"), output = c("concise","minimal","verbose"))`:
+  `source = "live"` reads "current" prefs via `rstudioapi` (requires a
+  running RStudio session); `source = "file"` always reads the on-disk
+  `rstudio-prefs.json`; `source = "auto"` (default) picks live vs. file
+  based on whether RStudio is running. Since `rstudio-prefs.json` only
+  stores values overridden from RStudio's built-in defaults, the file-based
+  path fills in unset keys (when possible) from the local RStudio
+  installation's `user-prefs-schema.json`
+  (`<install dir>/resources/app/resources/schema/user-prefs-schema.json`,
+  `properties.<pref_name>.default`).
 - `R/settings--keybindings.R` — keybinding reset helpers.
 - `R/bio-related.R` — package-specific RStudio/bio helper integration points.
+- Current RStudio Desktop locations (verified against Posit Support): user
+  configuration is `%APPDATA%/RStudio` on Windows and `~/.config/rstudio` on
+  Linux/macOS; internal state is `%LOCALAPPDATA%/RStudio` on Windows and
+  `~/.local/share/rstudio` on Linux/macOS.
+- `clear_r_history()` is an internal helper. In a running RStudio session it
+  delegates to `rstudio_clear_history()` and RStudio's `clearHistory` command;
+  outside RStudio it uses base R history functions.
 
 ### Package entry points
 

@@ -46,6 +46,10 @@ scoped_path_r <- function(scope = c("user", "project"), ..., envvar = NULL) {
   fs::path(root, ...)
 }
 
+open_path <- function(path) {
+  utils::browseURL(path)
+}
+
 
 # Path to Desktop ============================================================
 
@@ -69,7 +73,7 @@ get_path_desktop <- function(...) {
 #' @rdname get_path_desktop
 #' @export
 open_desktop <- function() {
-  browseURL(get_path_desktop())
+  open_path(get_path_desktop())
 }
 
 
@@ -103,11 +107,11 @@ NULL
 #' @param .check (logical) If `TRUE`, additionally checks for path existence.
 #'
 #' @return (string) path to RStudio configuration directory.
-#'         When `.check = TRUE`, renturns error, if the path does not exist.
+#'         When `.check = TRUE`, returns an error if the path does not exist.
 #'
 #' @seealso
 #' - `get_path_rstudio_config_dir()`:
-#' https://support.rstudio.com/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State
+#' https://support.posit.co/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State
 #'
 #' @concept paths and dirs
 #'
@@ -120,52 +124,14 @@ NULL
 #'   get_path_rstudio_config_dir("dictionaries")
 #' }
 get_path_rstudio_config_dir <- function(..., .check = FALSE) {
-  # https://support.rstudio.com/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State
-  # Section
-  # Accessing the RStudio Configuration Directory (Preferences)
-  #
-  # Windows:       %appdata%\RStudio
-  # Linux/Mac:     ~/.config/rstudio
-
-
-  # # In get_path_user_settings_dir_rs_1.3() # REMOVED
-  #
-  # get_path_user_settings_dir_rs_1.3 <- function(...) {
-  #   base_path <-
-  #     if (get_os_type() == "windows") {
-  #       fs::path(Sys.getenv("APPDATA"), "RStudio")
-  #     } else {
-  #       fs::path_expand_r("~/.config/rstudio/")
-  #     }
-  #   fs::path(base_path, ...)
-  # }
-  #
-  # # In get_path_rs_config_dir() # REMOVED
-  #  base <-
-  #   switch(get_os_type(),
-  #     "windows" = fs::path(Sys.getenv("LOCALAPPDATA"), "RStudio"),
-  #     "linux"   = fs::path_expand_r("~/.config/RStudio"),
-  #     "mac"     = {
-  #       # TODO: check if correct on Mac
-  #       # defaults read com.rstudio.desktop > ~/backup-rstudio-prefs
-  #       # warning("Function get_path_rstudio_config_dir() may give a wrong result on Mac OS X.")
-  #       fs::path_expand_r("~/.config/RStudio")
-  #     },
-  #     # Otherwise:
-  #     {
-  #       warning("Your OS is not supported by get_path_rstudio_config_dir().")
-  #       fs::path_expand_r("~/.config/RStudio")
-  #     }
-  #   )
-  # path_construct_and_check(base, ...)
+  # https://support.posit.co/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State
+  # RStudio's configuration is per OS user, regardless of application install scope.
 
   # styler: off
   # nolint start
   base <-
     switch(get_os_type(),
       "windows" = fs::path(Sys.getenv("APPDATA"), "RStudio"),
-      # FIXME: what is the correct dir in RStudio 1.4 on Unix like OS'es?
-      # fs::path_expand("~/.config/RStudio")
       "linux"   = fs::path_expand_r("~/.config/rstudio"),
       "mac"     = fs::path_expand_r("~/.config/rstudio"),
                   fs::path_expand_r("~/.config/rstudio")  # Other OS'es
@@ -173,10 +139,15 @@ get_path_rstudio_config_dir <- function(..., .check = FALSE) {
   # nolint end
   # styler: on
 
-  # base <- Sys.getenv("XDG_CONFIG_DIRS",    unset = base) # Scope: system
-  base <- Sys.getenv("XDG_CONFIG_HOME",      unset = base) # Scope: user
-  # base <- Sys.getenv("RSTUDIO_CONFIG_DIR", unset = base) # Scope: system
-  base <- Sys.getenv("RSTUDIO_CONFIG_HOME",  unset = base) # Scope: user
+  xdg_config <- Sys.getenv("XDG_CONFIG_HOME", unset = "")
+  if (nzchar(xdg_config)) {
+    base <- fs::path(xdg_config, "rstudio")
+  }
+
+  rstudio_config <- Sys.getenv("RSTUDIO_CONFIG_HOME", unset = "")
+  if (nzchar(rstudio_config)) {
+    base <- rstudio_config
+  }
 
   if (.check) {
     path_construct_and_check(base, ...)
@@ -186,11 +157,18 @@ get_path_rstudio_config_dir <- function(..., .check = FALSE) {
   }
 }
 
+# `Sys.getenv(x, unset = default)` only falls back to `default` when `x` is
+# not set at all, not when it is set to an empty string. Treat both the same.
+env_var_or_default <- function(name, default) {
+  value <- Sys.getenv(name, unset = "")
+  if (nzchar(value)) value else default
+}
+
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @rdname RStudio-related-dirs
 #' @export
 get_path_rstudio_internal_state_dir <- function(..., .check = FALSE) {
-  # https://support.rstudio.com/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State
+  # https://support.posit.co/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State
   # Section:
   # Accessing the RStudio-Desktop Directory (Internal State)
   #
@@ -198,25 +176,18 @@ get_path_rstudio_internal_state_dir <- function(..., .check = FALSE) {
   # Linux/Mac:     ~/.rstudio-desktop
 
 
-  if (rstudioapi::isAvailable() && rstudioapi::versionInfo()$version >= "1.4") {
-    # RStudio 1.4
-    base <-
-      switch(get_os_type(),
-        "windows" = fs::path(Sys.getenv("LOCALAPPDATA"), "RStudio"),
-        # Linux / Mac OS X:
-        # FIXME: not sure if this is the correct path
-        fs::path_expand("~/.rstudio")
-      )
-
-  } else {
-    # RStudio 1.3 or older
-    base <-
-      switch(get_os_type(),
-        "windows" = fs::path(Sys.getenv("LOCALAPPDATA"), "RStudio-Desktop"),
-        # Linux / Mac OS X:
-        fs::path_expand("~/.rstudio-desktop")
-      )
-  }
+  # bio supports RStudio 2026.08+, which uses these current state directories.
+  # nolint start
+  # styler: off
+  base <-
+    switch(get_os_type(),
+      "windows" = fs::path(Sys.getenv("LOCALAPPDATA"), "RStudio"),
+      "linux"   = fs::path_expand_r("~/.local/share/rstudio"),
+      "mac"     = fs::path_expand_r("~/.local/share/rstudio"),
+                  fs::path_expand_r("~/.local/share/rstudio")
+    )
+  # nolint end
+  # styler: on
 
   if (.check) {
     path_construct_and_check(base, ...)
@@ -249,19 +220,19 @@ get_path_rstudio_keybindings_dir <- function() {
 #' @rdname RStudio-related-dirs
 #' @export
 open_rstudio_config_dir <- function() {
-  browseURL(get_path_rstudio_config_dir())
+  open_path(get_path_rstudio_config_dir())
 }
 
 #' @rdname RStudio-related-dirs
 #' @export
 open_rstudio_internal_state_dir <- function() {
-  browseURL(get_path_rstudio_internal_state_dir())
+  open_path(get_path_rstudio_internal_state_dir())
 }
 
 #' @rdname RStudio-related-dirs
 #' @export
 open_rstudio_keybindings_dir <- function() {
-  browseURL(get_path_rstudio_keybindings_dir())
+  open_path(get_path_rstudio_keybindings_dir())
 }
 
 
@@ -276,8 +247,10 @@ open_rstudio_keybindings_dir <- function() {
 #' @param which (character) type of settings:
 #'  - "current": file with current RStudio settings (that differ from the defaults);
 #'  - "bio-default": file with setting from "bio-default" list (except theme);
-#'  - "rstudio-default": file with most of default RStudio settings listed at
-#'    https://docs.rstudio.com/ide/server-pro/session_user_settings/session_user_settings.html (downloaded on 2022-08-03).
+#'  - "rstudio-default": a preset compiled from the most recent RStudio
+#'    settings documentation available when it was downloaded.
+#'    For comparisons, [rstudio_compare_user_settings()] fills unset values
+#'    from the local RStudio `user-prefs-schema.json` when available.
 #'
 #' @export
 #' @concept paths and dirs
@@ -346,5 +319,5 @@ get_path_r_environ <- function(scope = c("user", "project")) {
 #' @rdname open_r_environ
 #' @export
 open_r_environ <- function() {
-  browseURL(get_path_r_environ())
+  open_path(get_path_r_environ())
 }

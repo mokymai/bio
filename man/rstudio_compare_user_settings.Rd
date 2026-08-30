@@ -4,23 +4,65 @@
 \alias{rstudio_compare_user_settings}
 \title{Show differences in sets of settings}
 \usage{
-rstudio_compare_user_settings(to = "bio-default")
+rstudio_compare_user_settings(
+  to = "bio-default",
+  source = "auto",
+  output = "concise"
+)
 }
 \arguments{
 \item{to}{One of: "bio-default", "rstudio-default"
 (or an unambiguous abbreviation of these).}
+
+\item{source}{One of:
+\itemize{
+\item \code{"auto"} (default): use a live RStudio session if one is
+running, otherwise fall back to the saved preferences file.
+\item \code{"live"}: read "current" settings live via
+\code{\link[rstudioapi:readRStudioPreference]{rstudioapi::readRStudioPreference()}}; fails gracefully if
+RStudio is not running.
+\item \code{"file"}: always read "current" settings from the saved
+\code{rstudio-prefs.json} file on disk, even if RStudio is running.
+}}
+
+\item{output}{One of:
+\itemize{
+\item \code{"minimal"}: print only the match/difference counts.
+\item \code{"concise"} (default): print how many settings match, plus a
+short list of what differs.
+\item \code{"verbose"}: fall back to the full \code{waldo::compare()} output
+(useful for deep debugging, but can be very verbose for large
+preference sets).
+}}
 }
 \value{
-Nothing. But prints the set differences between \code{to} list and
-current settings. Settings, which are not in \code{to} list, will
-not be displayed at all.
+Invisibly, a data frame of per-key comparison results
+(\code{"concise"}/\code{"minimal"}), or the \code{waldo::compare()} result
+(\code{"verbose"}). Settings, which are not in \code{to} list, will not be
+displayed at all. Returns \code{invisible(NULL)} if the requested
+\code{source} is unavailable (e.g. \code{"live"} without a running RStudio
+session, or \code{"file"}/\code{"auto"} with no saved preferences file).
 }
 \description{
 Show differences in sets of settings
+}
+\details{
+\code{source = "live"} (or \code{"auto"} with RStudio running) reads "current"
+settings live via \code{\link[rstudioapi:readRStudioPreference]{rstudioapi::readRStudioPreference()}}.
+\code{source = "file"} (or \code{"auto"} without RStudio running) reads the saved
+\code{rstudio-prefs.json} file on disk (see \code{\link[=get_path_rstudio_config_file]{get_path_rstudio_config_file()}}).
+Since that file only stores values overridden from RStudio's built-in
+defaults, keys left at their default are also filled in (when possible)
+from the local RStudio installation's \code{user-prefs-schema.json}, so they
+aren't misreported as "missing". The file-based comparison may still not
+reflect unsaved, in-memory session state.
 }
 \examples{
 if (interactive()) {
   rstudio_compare_user_settings(to = "bio-default")
   rstudio_compare_user_settings(to = "rstudio-default")
+  rstudio_compare_user_settings(to = "bio-default", source = "file")
+  rstudio_compare_user_settings(to = "bio-default", output = "minimal")
+  rstudio_compare_user_settings(to = "bio-default", output = "verbose")
 }
 }

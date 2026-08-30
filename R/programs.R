@@ -85,7 +85,10 @@ check_installed_programs <- function(type = "main", skip_online_check = FALSE) {
         rstudioapi::buildToolsCheck()
       } else {
         pkgbuild::has_build_tools()
-      }
+      },
+      # No single "latest" online Rtools version to compare against: CRAN Rtools
+      # toolchains (e.g., Rtools 4.5) span multiple R minor releases (e.g., R 4.5/4.6).
+      v_installed = get_installed_rtools_version()
     )
   }
 
@@ -94,19 +97,33 @@ check_installed_programs <- function(type = "main", skip_online_check = FALSE) {
   # if XQuartz is missing.
   # https://stackoverflow.com/questions/37438773/
   if (type_lwr %in% c("all", "gmc-bs") && get_os_type() == "mac") {
-    check_program_installed("XQuartz", is_xquartz_installed())
+    check_program_installed(
+      "XQuartz",
+      is_xquartz_installed(),
+      v_installed = get_installed_xquartz_version()
+    )
   }
 
   # Git
   if (type_lwr %in% c("all", "gmc-r")) {
-    check_program_installed("Git", is_git_installed())
+    check_program_installed(
+      "Git",
+      is_git_installed(),
+      v_installed = get_installed_git_version(),
+      v_available = get_available_git_version(skip = skip_online_check)
+    )
   }
 
   # Meld
   if (type_lwr %in% c("all")) {
     try(
       {
-        check_program_installed("Meld", is_meld_installed())
+        check_program_installed(
+          "Meld",
+          is_meld_installed(),
+          v_installed = get_installed_meld_version(),
+          v_available = get_available_meld_version(skip = skip_online_check)
+        )
       },
       silent = TRUE)
   }
@@ -324,15 +341,25 @@ check_quarto_version <- function(skip_online_check = FALSE) {
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_rs_version <- function(v_recommended = "2023.12.1", skip_online_check = FALSE) {
+# `rstudioapi::isAvailable()` only detects a *running* RStudio session, so it
+# is always FALSE when R is invoked from a terminal (e.g. Git Bash). Fall back
+# to detecting an installed-but-not-running copy via known install locations.
+check_rs_version <- function(skip_online_check = FALSE) {
+  is_running <- rstudioapi::isAvailable()
 
-  if (!rstudioapi::isAvailable()) {
+  v_installed <- if (is_running) {
+    rstudioapi::versionInfo()$version
+  } else {
+    get_installed_rstudio_version()
+  }
+
+  if (is.null(v_installed) && !is_running && !is_rstudio_installed()) {
     ui_oops("Program {red('RStudio')} is not installed or is not running. ")
 
   } else {
     print_program_version_info(
       name = "RStudio",
-      v_installed = rstudioapi::versionInfo()$version,
+      v_installed = v_installed,
       v_available =
         tryCatch(
           get_available_rs_version(skip = skip_online_check),
@@ -341,9 +368,9 @@ check_rs_version <- function(v_recommended = "2023.12.1", skip_online_check = FA
             NULL
           }
         )
-      # v_recommended = v_recommended
     )
   }
+
   try({
     if (is_32bit_os()) {
       ui_info(stringr::str_c(
@@ -352,6 +379,250 @@ check_rs_version <- function(v_recommended = "2023.12.1", skip_online_check = FA
       ))
     }
   })
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Registry hives to check for an RStudio install/version: per-user ("just
+# me" installer mode) first, then system-wide ("all users", requires admin
+# rights). Shared by `find_rstudio_install_dir()` and
+# `get_rstudio_version_from_registry()` so a future hive addition only has
+# to happen in one place.
+rstudio_registry_hives <- function() c("HCU", "HLM")
+
+# Read a single registry key, returning `NULL` (never erroring) if missing,
+# unreadable, or not on Windows.
+read_registry_key_safely <- function(reg_path, hive) {
+  if (!identical(get_os_type(), "windows")) {
+    return(NULL)
+  }
+
+  tryCatch(
+    utils::readRegistry(reg_path, hive = hive, maxdepth = 2),
+    error = function(e) NULL
+  )
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' Locate the RStudio Desktop installation directory
+#'
+#' Searches common per-OS install locations (and, on Windows, the registry)
+#' for an installed copy of RStudio Desktop. Does not require RStudio to be
+#' running. Looks for both a system-wide ("all users") and a per-user
+#' ("just me") install, preferring the per-user one if both are found (see
+#' [get_rstudio_install_scope()]).
+#'
+#' @return A length-1 character string with the install directory, or `NULL`
+#'   if no installation was found.
+find_rstudio_install_dir <- function() {
+  os <- get_os_type()
+
+  candidates <- switch(
+    os,
+    "windows" = c(
+      # Per-user ("just me") install locations first.
+      file.path(Sys.getenv("LOCALAPPDATA"), "Programs", "RStudio"),
+      file.path(Sys.getenv("LOCALAPPDATA"), "RStudio"),
+      # System-wide ("all users") install locations.
+      file.path(Sys.getenv("PROGRAMFILES"), "RStudio"),
+      file.path(Sys.getenv("PROGRAMFILES(X86)"), "RStudio")
+    ),
+    "mac" = c(
+      path.expand("~/Applications/RStudio.app"), # per-user
+      "/Applications/RStudio.app" # system-wide
+    ),
+    "linux" = c(
+      "/usr/lib/rstudio",
+      # "/usr/lib/rstudio-server", # (RStudio Server, not Desktop)
+      "/usr/local/lib/rstudio",
+      "/opt/rstudio"
+    ),
+    character(0)
+  )
+
+  if (identical(os, "windows")) {
+    registry_paths <- vapply(rstudio_registry_hives(), function(hive) {
+      key <- read_registry_key_safely("SOFTWARE\\RStudio", hive)
+      if (!is.null(key$InstallPath) && nzchar(key$InstallPath)) key$InstallPath else NA_character_
+    }, character(1))
+    candidates <- c(registry_paths[!is.na(registry_paths)], candidates)
+  }
+
+  candidates <- candidates[nzchar(candidates) & !is.na(candidates)]
+  existing <- candidates[dir.exists(candidates)]
+
+  if (length(existing) == 0) {
+    return(NULL)
+  }
+
+  existing[[1]]
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Classify a resolved RStudio install directory as "system" (all-users) or
+# "user" (per-user) scope, based on well-known per-user vs. system parent
+# directories. Pure string-matching, no I/O.
+classify_rstudio_install_scope <- function(install_dir) {
+  if (is.null(install_dir) || is.na(install_dir) || !nzchar(install_dir)) {
+    return(NA_character_)
+  }
+
+  user_roots <- c(Sys.getenv("LOCALAPPDATA"), path.expand("~"))
+  user_roots <- user_roots[nzchar(user_roots)]
+
+  normalize_path <- function(path) {
+    path |>
+      gsub("\\\\", "/", x = _) |>
+      sub("/+$", "", x = _)
+  }
+
+  install_dir_lower <- tolower(normalize_path(install_dir))
+  is_under_user_root <- any(vapply(
+    user_roots,
+    function(root) {
+      root_lower <- tolower(normalize_path(root))
+      identical(install_dir_lower, root_lower) ||
+        startsWith(install_dir_lower, paste0(root_lower, "/"))
+    },
+    logical(1)
+  ))
+
+  if (is_under_user_root) "user" else "system"
+}
+
+#' Determine whether the local RStudio Desktop install is system-wide or per-user
+#'
+#' RStudio Desktop's Windows installer supports an "all users" (system-wide,
+#' admin rights required) and a "just me" (per-user) install mode; macOS
+#' installs are similarly either shared (`/Applications`) or per-user
+#' (`~/Applications`). This distinction affects only where the RStudio
+#' *application files* live (used e.g. to find the bundled
+#' `user-prefs-schema.json`) — it does **not** affect where RStudio stores
+#' preferences, keybindings, or other per-user state, which always lives
+#' under the current OS user's profile regardless of install scope (see
+#' [get_path_rstudio_config_dir()]).
+#'
+#' @param install_dir Character scalar, the resolved RStudio install
+#'   directory. Defaults to [find_rstudio_install_dir()].
+#' @return `"system"`, `"user"`, or `NA_character_` if the install location
+#'   is unknown (e.g. RStudio isn't installed).
+#' @export
+#' @examples
+#' if (interactive()) {
+#'   get_rstudio_install_scope()
+#' }
+get_rstudio_install_scope <- function(install_dir = find_rstudio_install_dir()) {
+  classify_rstudio_install_scope(install_dir)
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' Check whether RStudio Desktop is installed, even if it is not running
+#'
+#' @return `TRUE`/`FALSE`.
+is_rstudio_installed <- function() {
+  if (rstudioapi::isAvailable()) {
+    return(TRUE)
+  }
+
+  if (!is.null(find_rstudio_install_dir())) {
+    return(TRUE)
+  }
+
+  exe <- if (get_os_type() == "windows") "rstudio.exe" else "rstudio"
+  nzchar(Sys.which(exe))
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' Get the version of an installed (but not necessarily running) RStudio
+#'
+#' On Windows, prefers the `Version` value written to the registry by the
+#' installer (the `VERSION` file on disk can hold an unrelated Electron shell
+#' build number on newer RStudio releases). Falls back to parsing the
+#' `VERSION` file that RStudio Desktop places in its install directory.
+#'
+#' @return A [numeric_version()] object, or `NULL` if it could not be
+#'   determined.
+get_installed_rstudio_version <- function() {
+  if (identical(get_os_type(), "windows")) {
+    v_registry <- get_rstudio_version_from_registry()
+    if (!is.null(v_registry)) {
+      return(v_registry)
+    }
+  }
+
+  install_dir <- find_rstudio_install_dir()
+
+  if (is.null(install_dir)) {
+    return(NULL)
+  }
+
+  version_file <- if (get_os_type() == "mac") {
+    file.path(install_dir, "Contents", "Resources", "VERSION")
+  } else {
+    file.path(install_dir, "VERSION")
+  }
+
+  if (!file.exists(version_file)) {
+    return(NULL)
+  }
+
+  version_txt <- paste(readLines(version_file, warn = FALSE), collapse = " ")
+  parse_rstudio_version_string(version_txt)
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' Get the RStudio version reported by the Windows installer registry entry
+#'
+#' @return A [numeric_version()] object, or `NULL` if not found.
+get_rstudio_version_from_registry <- function() {
+  reg_paths <- c(
+    "SOFTWARE\\RStudio",
+    "SOFTWARE\\WOW6432Node\\RStudio",
+    "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\RStudio",
+    "SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\RStudio"
+  )
+
+  for (reg_path in reg_paths) {
+    for (hive in rstudio_registry_hives()) {
+      key <- read_registry_key_safely(reg_path, hive)
+
+      value <- key$Version
+      if (is.null(value)) {
+        value <- key$DisplayVersion
+      }
+
+      if (is.null(value) || !nzchar(value)) {
+        next
+      }
+
+      parsed <- parse_rstudio_version_string(value)
+      if (!is.null(parsed)) {
+        return(parsed)
+      }
+    }
+  }
+
+  NULL
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' Parse an RStudio calendar-version string into a [numeric_version()]
+#'
+#' RStudio version strings look like `"2026.08.2+200"`. `numeric_version()`
+#' accepts `-` (like `.`) as a component separator but not `+`, so `+` is
+#' normalized to `-` to keep the build number as a 4th version component.
+#'
+#' @param x Character scalar containing (or surrounded by) a version string.
+#' @return A [numeric_version()] object, or `NULL` if `x` has no match.
+parse_rstudio_version_string <- function(x) {
+  version_txt <- stringr::str_extract(x, "\\d{4}[.]\\d+[.]\\d+([+-]\\d+)?")
+
+  if (is.na(version_txt)) {
+    return(NULL)
+  }
+
+  version_txt <- sub("[+]", "-", version_txt)
+
+  tryCatch(as.numeric_version(version_txt), error = function(e) NULL)
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -390,6 +661,25 @@ is_meld_installed <- function(path_to_meld = get_default_path_to_meld()) {
   file.exists(path_to_meld)
 }
 
+get_installed_meld_version <- function(path_to_meld = get_default_path_to_meld()) {
+  if (!file.exists(path_to_meld)) {
+    return(NULL)
+  }
+
+  extract_first_version(
+    tryCatch(
+      system2(path_to_meld, "--version", stdout = TRUE, stderr = TRUE),
+      error = function(e) NULL
+    )
+  )
+}
+
+get_available_meld_version <- function(force = FALSE, skip = FALSE) {
+  # GNOME/meld publishes tags, not GitHub Releases, so the "latest release"
+  # API 404s here. There is no reliable single "latest" version to fetch.
+  NULL
+}
+
 is_git_installed <- function() {
   tryCatch(
     {
@@ -403,16 +693,196 @@ is_git_installed <- function() {
   )
 }
 
-is_xquartz_installed  <- function(variables) {
+get_installed_git_version <- function() {
+  extract_first_version(
+    tryCatch(
+      system2("git", "--version", stdout = TRUE, stderr = TRUE),
+      error = function(e) NULL
+    )
+  )
+}
+
+get_available_git_version <- function(force = FALSE, skip = FALSE) {
+  # Git for Windows releases track the Windows build; on Mac/Linux, Git is
+  # usually managed by the OS/Xcode CLT/package manager, so there is no single
+  # comparable "latest" version.
+  if (!identical(get_os_type(), "windows")) {
+    return(NULL)
+  }
+
+  get_available_version_from_github_release(
+    "git-for-windows/git",
+    force = force,
+    skip = skip
+  )
+}
+
+is_xquartz_installed  <- function() {
   isTRUE(unname(capabilities("aqua")))
+}
+
+get_installed_xquartz_version <- function() {
+  if (!identical(get_os_type(), "mac")) {
+    return(NULL)
+  }
+
+  plist <- "/Applications/Utilities/XQuartz.app/Contents/Info"
+  if (!file.exists(paste0(plist, ".plist"))) {
+    return(NULL)
+  }
+
+  out <- tryCatch(
+    system2(
+      "defaults",
+      c("read", plist, "CFBundleShortVersionString"),
+      stdout = TRUE, stderr = TRUE
+    ),
+    error = function(e) NULL
+  )
+
+  extract_first_version(out)
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' Get the version of an installed Rtools toolchain on Windows
+#'
+#' Evaluates the active toolchain selected by `pkgbuild::rtools_path()` for the
+#' running R session, or searches environment variables (`RTOOLS*_HOME`), the
+#' registry, and `C:\rtools*` directories for the highest installed version.
+#' Rtools toolchains are released per compiler toolchain update (e.g. Rtools 4.5
+#' supports R 4.5.x and 4.6.x), so there is no strict 1-to-1 major.minor version
+#' match requirement.
+#'
+#' @return A [numeric_version()] object, or `NULL` if not on Windows or not found.
+#' @keywords internal
+get_installed_rtools_version <- function() {
+  if (!identical(get_os_type(), "windows")) {
+    return(NULL)
+  }
+
+  # 1) pkgbuild's active toolchain detection for the running R session
+  path <- tryCatch(pkgbuild::rtools_path(), error = function(e) NULL)
+  if (!is.null(path) && any(nzchar(path))) {
+    v <- rtools_code_to_version(
+      stringr::str_extract(path[[1]], "(?i)(?<=rtools)\\d{2,3}")
+    )
+    if (!is.null(v)) {
+      return(v)
+    }
+  }
+
+  versions <- numeric_version(character(0))
+
+  # 2) Env vars set by Rtools installers (e.g. "RTOOLS45_HOME", "RTOOLS44_HOME")
+  env_names <- grep("^RTOOLS\\d+_HOME$", names(Sys.getenv()), value = TRUE)
+  for (env_name in env_names) {
+    v <- rtools_code_to_version(sub("^RTOOLS(\\d+)_HOME$", "\\1", env_name))
+    if (!is.null(v)) {
+      versions <- c(versions, v)
+    }
+  }
+
+  # 3) Registry entries written by Rtools installers
+  reg_paths <- c("SOFTWARE\\R-core\\Rtools", "SOFTWARE\\WOW6432Node\\R-core\\Rtools")
+  for (reg_path in reg_paths) {
+    for (hive in rstudio_registry_hives()) {
+      key <- read_registry_key_safely(reg_path, hive)
+      if (!is.null(key)) {
+        subkey_names <- names(key)[vapply(key, is.list, logical(1))]
+        parsed_v <- suppressWarnings(as.numeric_version(subkey_names))
+        parsed_v <- parsed_v[!is.na(parsed_v)]
+        if (length(parsed_v) > 0) {
+          versions <- c(versions, parsed_v)
+        }
+      }
+    }
+  }
+
+  # 4) Common install locations by naming convention (e.g. "C:/rtools45")
+  candidates <- Sys.glob("C:/rtools*")
+  codes <- stringr::str_extract(basename(candidates), "(?i)(?<=rtools)\\d{2,3}")
+  glob_versions <- Filter(Negate(is.null), lapply(codes, rtools_code_to_version))
+  if (length(glob_versions) > 0) {
+    versions <- c(versions, do.call(c, glob_versions))
+  }
+
+  if (length(versions) == 0) {
+    return(NULL)
+  }
+
+  max(unique(versions))
+}
+
+# Rtools folder/registry codes are 2-3 digit strings like "44" -> version "4.4"
+rtools_code_to_version <- function(code) {
+  if (is.null(code) || is.na(code) || !grepl("^\\d{2,3}$", code)) {
+    return(NULL)
+  }
+
+  version_txt <- paste0(
+    substr(code, 1, nchar(code) - 1), ".", substr(code, nchar(code), nchar(code))
+  )
+
+  tryCatch(as.numeric_version(version_txt), error = function(e) NULL)
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Extract the first "x.y[.z]"-style version number found in `x` as a
+# numeric_version(), or NULL if no match was found.
+extract_first_version <- function(x) {
+  if (is.null(x)) {
+    return(NULL)
+  }
+
+  version_txt <- stringr::str_extract(paste(x, collapse = " "), "\\d+[.]\\d+([.]\\d+)?")
+  if (is.na(version_txt)) {
+    return(NULL)
+  }
+
+  tryCatch(as.numeric_version(version_txt), error = function(e) NULL)
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# Get the latest GitHub release tag for `repo` ("owner/name") as a
+# numeric_version(), or NULL if unavailable/offline.
+get_available_version_from_github_release <- function(repo, force = FALSE, skip = FALSE) {
+  if (isTRUE(skip)) {
+    return(NULL)
+  }
+
+  if (!force && !pingr::is_online()) {
+    msg_offline(get_what = paste(repo, "version"))
+    return(NULL)
+  }
+
+  tryCatch(
+    suppressWarnings({
+      url <- paste0("https://api.github.com/repos/", repo, "/releases/latest")
+      rel <- jsonlite::fromJSON(url)
+      extract_first_version(rel$tag_name)
+    }),
+    error = function(e) NULL
+  )
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # program   - string
 # condition - logical
-# string    - what
+# what      - string ("Program" or "Tool")
+# v_installed/v_available - optional numeric_version()s; when v_installed is
+# known, show the version-comparison line instead of the plain install status.
 check_program_installed <- function(program = "", condition = NULL,
-  what = "Program") {
+  what = "Program", v_installed = NULL, v_available = NULL) {
+
+  if (isTRUE(condition) && !is.null(v_installed)) {
+    print_program_version_info(
+      name = program,
+      v_installed = v_installed,
+      v_available = v_available,
+      type = what
+    )
+    return(invisible(NULL))
+  }
 
   if (condition) {
     ui_done("{what} {blue(program)} is installed.")
@@ -420,9 +890,15 @@ check_program_installed <- function(program = "", condition = NULL,
   } else {
     ui_oops("{what} {red(program)} is not detected.")
   }
+
+  invisible(NULL)
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-check_tool_installed <- function(name = "", condition = NULL) {
-  check_program_installed(name, condition, what = "Tool")
+check_tool_installed <- function(name = "", condition = NULL,
+  v_installed = NULL, v_available = NULL) {
+  check_program_installed(
+    name, condition,
+    what = "Tool", v_installed = v_installed, v_available = v_available
+  )
 }

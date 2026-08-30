@@ -8,9 +8,9 @@ Package ***bio***
 <!-- badges: start -->
 
 [![GitHub
-version](https://img.shields.io/badge/GitHub-0.3.0-brightgreen.svg)](https://github.com/mokymai/bio)
+version](https://img.shields.io/badge/GitHub-0.3.1-brightgreen.svg)](https://github.com/mokymai/bio)
 [![R-CMD-check](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
-[![Updated-on](https://img.shields.io/badge/Updated%20on-2026--08--27-yellowgreen.svg)](/commits/master)
+[![Updated-on](https://img.shields.io/badge/Updated%20on-2026--08--30-yellowgreen.svg)](/commits/master)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![R-CMD-check](https://github.com/mokymai/bio/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mokymai/bio/actions/workflows/R-CMD-check.yaml)
@@ -254,7 +254,26 @@ bio::rstudio_compare_user_settings(to = "bio-default")
 ```
 
 Settings that are not in the list will not be displayed. The available
-options for `to` are “bio-default” and “rstudio-default”.
+options for `to` are “bio-default” and “rstudio-default”. The default
+`source = "auto"` reads settings from a running RStudio session when
+available, otherwise it compares the saved `rstudio-prefs.json` file.
+Use `source = "file"` to always inspect saved preferences, or
+`source = "live"` to require a running RStudio session. The default
+concise output summarizes differences; use `output = "minimal"` for
+counts only or `output = "verbose"` for the complete technical
+comparison.
+
+### RStudio installation scope
+
+Use `get_rstudio_install_scope()` to determine whether the installed
+RStudio Desktop application is a per-user or system-wide installation.
+This affects the location of RStudio application files only; personal
+settings and keybindings remain per-user in either case.
+
+``` r
+bio::get_rstudio_install_scope()
+## [1] "user"
+```
 
 ### Snippets
 
@@ -272,7 +291,7 @@ snippets::install_snippets_from_package("snippets", backup = TRUE)
 ```
 
 For more information about <a
-href="https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets"
+href="https://support.posit.co/hc/en-us/articles/204463668-Code-Snippets"
 target="_blank">Code Snippets</a> in RStudio and on package
 <a href="https://gegznav.github.io/snippets/"
 target="_blank"><strong>snippets</strong></a>.

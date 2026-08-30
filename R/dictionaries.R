@@ -9,7 +9,7 @@
 
 # LanguageToolR::lato_quick_setup()
 
-# https://support.rstudio.com/hc/en-us/articles/200551916-Spelling-Dictionaries
+# https://support.posit.co/hc/en-us/articles/200551916-Spelling-Dictionaries
 
 
 
@@ -108,12 +108,12 @@ rstudio_download_spellcheck_dictionaries <- rstudio_install_spellcheck_dictionar
 #' @concept dictionaries
 rstudio_delete_spellcheck_dictionaries <- function(ask = TRUE) {
   dic_dir <- get_path_rstudio_config_dir("dictionaries/languages-system")
+  ans <- FALSE
 
   if (isTRUE(ask)) {
     ans <- usethis::ui_nope(
       "Do you really want to delete dictionaries in \n{ui_value(dic_dir)}?"
     )
-    # ans <- usethis::ui_nope("...", yes = "Yes")
   }
   if (ans) {
     usethis::ui_warn("Canceled (no dictionaries were deleted)")

@@ -1,8 +1,8 @@
 Package: bio
 Type: Package
 Title: Resources Manager for R, RStudio and Related Software
-Version: 0.3.0
-Date: 2026-08-25
+Version: 0.3.1
+Date: 2026-08-30
 Authors@R: 
     person("Vilmantas", "Gegzna", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-9500-5167"),
@@ -19,7 +19,7 @@ Encoding: UTF-8
 Additional_repositories:
   https://mokymai.github.io/download/
 Depends:
-    R (>= 4.1)
+    R (>= 4.2.0)
 Imports:
     backup.tools (>= 0.0.3),
     checkmate,
@@ -43,13 +43,14 @@ Imports:
     usethis (>= 2.0.1),
     waldo,
     withr
-Remotes:
-    GegznaV/backup.tools,
-    GegznaV/snippets
 Suggests: 
     covr,
     spelling,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    tinytex
+Remotes:
+    GegznaV/backup.tools,
+    GegznaV/snippets
 Roxygen: list(markdown = TRUE)
 Config/roxygen2/version: 8.1.0
 Config/testthat/edition: 3
