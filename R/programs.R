@@ -389,6 +389,15 @@ check_rs_version <- function(skip_online_check = FALSE) {
 # to happen in one place.
 rstudio_registry_hives <- function() c("HCU", "HLM")
 
+rstudio_registry_paths <- function() {
+  c(
+    "SOFTWARE\\RStudio",
+    "SOFTWARE\\WOW6432Node\\RStudio",
+    "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\RStudio",
+    "SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\RStudio"
+  )
+}
+
 # Read a single registry key, returning `NULL` (never erroring) if missing,
 # unreadable, or not on Windows.
 read_registry_key_safely <- function(reg_path, hive) {
@@ -421,7 +430,6 @@ find_rstudio_install_dir <- function() {
     "windows" = c(
       # Per-user ("just me") install locations first.
       file.path(Sys.getenv("LOCALAPPDATA"), "Programs", "RStudio"),
-      file.path(Sys.getenv("LOCALAPPDATA"), "RStudio"),
       # System-wide ("all users") install locations.
       file.path(Sys.getenv("PROGRAMFILES"), "RStudio"),
       file.path(Sys.getenv("PROGRAMFILES(X86)"), "RStudio")
@@ -440,11 +448,23 @@ find_rstudio_install_dir <- function() {
   )
 
   if (identical(os, "windows")) {
-    registry_paths <- vapply(rstudio_registry_hives(), function(hive) {
-      key <- read_registry_key_safely("SOFTWARE\\RStudio", hive)
-      if (!is.null(key$InstallPath) && nzchar(key$InstallPath)) key$InstallPath else NA_character_
-    }, character(1))
-    candidates <- c(registry_paths[!is.na(registry_paths)], candidates)
+    registry_paths <- character()
+    for (hive in rstudio_registry_hives()) {
+      for (reg_path in rstudio_registry_paths()) {
+        key <- read_registry_key_safely(reg_path, hive)
+        loc <- if (!is.null(key$InstallLocation) && nzchar(key$InstallLocation)) {
+          key$InstallLocation
+        } else if (!is.null(key$InstallPath) && nzchar(key$InstallPath)) {
+          key$InstallPath
+        } else {
+          NA_character_
+        }
+        if (!is.na(loc)) {
+          registry_paths <- c(registry_paths, loc)
+        }
+      }
+    }
+    candidates <- c(registry_paths, candidates)
   }
 
   candidates <- candidates[nzchar(candidates) & !is.na(candidates)]
@@ -574,14 +594,7 @@ get_installed_rstudio_version <- function() {
 #'
 #' @return A [numeric_version()] object, or `NULL` if not found.
 get_rstudio_version_from_registry <- function() {
-  reg_paths <- c(
-    "SOFTWARE\\RStudio",
-    "SOFTWARE\\WOW6432Node\\RStudio",
-    "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\RStudio",
-    "SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\RStudio"
-  )
-
-  for (reg_path in reg_paths) {
+  for (reg_path in rstudio_registry_paths()) {
     for (hive in rstudio_registry_hives()) {
       key <- read_registry_key_safely(reg_path, hive)
 
