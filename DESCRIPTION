@@ -43,14 +43,14 @@ Imports:
     usethis (>= 2.0.1),
     waldo,
     withr
-Remotes:
-    GegznaV/backup.tools,
-    GegznaV/snippets
 Suggests: 
     covr,
     spelling,
     testthat (>= 3.0.0),
     tinytex
+Remotes:
+    GegznaV/backup.tools,
+    GegznaV/snippets
 Roxygen: list(markdown = TRUE)
 Config/roxygen2/version: 8.1.0
 Config/testthat/edition: 3
