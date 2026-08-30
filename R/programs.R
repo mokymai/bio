@@ -717,7 +717,7 @@ get_available_git_version <- function(force = FALSE, skip = FALSE) {
   )
 }
 
-is_xquartz_installed  <- function(variables) {
+is_xquartz_installed  <- function() {
   isTRUE(unname(capabilities("aqua")))
 }
 
