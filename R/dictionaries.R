@@ -90,7 +90,7 @@ rstudio_install_spellcheck_dictionaries <- function(secure = TRUE) {
   dic_dir <- get_path_rstudio_config_dir("dictionaries/languages-system")
 
   if (rstudioapi::isAvailable(version_needed = "1.3") &&
-      exists(".rs.downloadAllDictionaries", envir = globalenv(), inherits = TRUE)) {
+    exists(".rs.downloadAllDictionaries", envir = globalenv(), inherits = TRUE)) {
     .rs.downloadAllDictionaries(targetDir = dic_dir, secure = secure)
     return(TRUE)
   }
