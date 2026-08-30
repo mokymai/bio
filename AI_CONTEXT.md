@@ -60,6 +60,10 @@ This document maps the package structure and the main responsibilities of the co
   per-OS-user regardless of install scope. The classifier normalizes Windows
   and Unix path separators and matches complete per-user path prefixes, so
   its behavior and tests are independent of the operating system running R.
+  Includes Rtools detection (`get_installed_rtools_version()`): queries active
+  toolchain via `pkgbuild::rtools_path()`, falling back to `RTOOLS*_HOME` env
+  vars, registry, and `C:\rtools*` directories. Rtools releases (e.g., Rtools 4.5)
+  span multiple R minor series (e.g., R 4.5.x and 4.6.x).
 - `R/dictionaries.R` — spellcheck/dictionary management.
 
 ### RStudio and settings management
