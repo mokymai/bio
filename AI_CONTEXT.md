@@ -50,12 +50,14 @@ This document maps the package structure and the main responsibilities of the co
 - `R/packages--find.R` — package lookup and discovery helpers.
 - `R/programs.R` — installed software checks, version comparisons, and availability reporting.
   Includes RStudio Desktop detection: `find_rstudio_install_dir()` (checks
-  both per-user "just me" and system-wide "all users" install locations,
-  including both `HKCU`/`HKLM` registry hives on Windows via the shared
-  `read_registry_key_safely()`/`rstudio_registry_hives()` helpers) and
+  both per-user "just me" (`%LOCALAPPDATA%/Programs/RStudio`, `~/Applications/RStudio.app`)
+  and system-wide "all users" (`%PROGRAMFILES%/RStudio`, `/Applications/RStudio.app`,
+  `/usr/lib/rstudio`) install locations, including both `HKCU`/`HKLM` registry hives
+  on Windows via `rstudio_registry_paths()` for `InstallLocation`/`InstallPath`) and
   `get_rstudio_install_scope()` (classifies a resolved install dir as
   `"user"`/`"system"`/`NA`). Note: this install-scope distinction only
-  affects where the RStudio *application files* live — RStudio's
+  affects where the RStudio *application files* live (and where
+  `find_rstudio_prefs_schema_file()` looks for `user-prefs-schema.json`) — RStudio's
   preferences/keybindings/config dirs (`R/paths-and-files.R`) are always
   per-OS-user regardless of install scope. The classifier normalizes Windows
   and Unix path separators and matches complete per-user path prefixes, so
