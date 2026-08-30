@@ -309,3 +309,29 @@ test_that("read_registry_key_safely() is a no-op off Windows", {
   testthat::local_mocked_bindings(get_os_type = function() "linux")
   expect_null(read_registry_key_safely("SOFTWARE\\RStudio", "HCU"))
 })
+
+test_that("get_installed_rtools_version() detects active or highest installed rtools", {
+  testthat::local_mocked_bindings(get_os_type = function() "windows")
+  testthat::local_mocked_bindings(
+    read_registry_key_safely = function(...) NULL,
+    .package = "bio"
+  )
+
+  # 1) When pkgbuild detects an active rtools path
+  testthat::local_mocked_bindings(
+    rtools_path = function(...) "C:\\rtools45\\usr\\bin",
+    .package = "pkgbuild"
+  )
+  expect_identical(get_installed_rtools_version(), as.numeric_version("4.5"))
+
+  # 2) When pkgbuild path is NULL, selects highest installed version from environment
+  testthat::local_mocked_bindings(
+    rtools_path = function(...) NULL,
+    .package = "pkgbuild"
+  )
+  withr::local_envvar(c(
+    RTOOLS43_HOME = "C:\\rtools43",
+    RTOOLS45_HOME = "C:\\rtools45"
+  ))
+  expect_identical(get_installed_rtools_version(), as.numeric_version("4.5"))
+})
