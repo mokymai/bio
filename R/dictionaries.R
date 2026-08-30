@@ -87,13 +87,43 @@ open_rstudio_internal_dictionaries_dir <- function() {
 #'   rstudio_download_spellcheck_dictionaries()
 #' }
 rstudio_install_spellcheck_dictionaries <- function(secure = TRUE) {
+  dic_dir <- get_path_rstudio_config_dir("dictionaries/languages-system")
 
-  if (rstudioapi::isAvailable(version_needed = "1.3")) {
-    dic_dir <- get_path_rstudio_config_dir("dictionaries/languages-system")
+  if (rstudioapi::isAvailable(version_needed = "1.3") &&
+      exists(".rs.downloadAllDictionaries", envir = globalenv(), inherits = TRUE)) {
     .rs.downloadAllDictionaries(targetDir = dic_dir, secure = secure)
-  } else {
-    FALSE
+    return(TRUE)
   }
+
+  # Headless fallback: execute RStudio's exact download-and-extract workflow directly
+  protocol <- if (isTRUE(secure)) "https" else "http"
+  url <- sprintf("%s://s3.amazonaws.com/rstudio-buildtools/dictionaries/all-dictionaries.zip", protocol)
+
+  archive_path <- tempfile("all-dictionaries-", fileext = ".zip")
+  on.exit(unlink(archive_path), add = TRUE)
+
+  dl_status <- tryCatch(
+    {
+      utils::download.file(url = url, destfile = archive_path, mode = "wb", quiet = TRUE)
+      0L
+    },
+    error = function(e) 1L
+  )
+
+  if (dl_status != 0L || !file.exists(archive_path)) {
+    return(FALSE)
+  }
+
+  fs::dir_create(dic_dir, recurse = TRUE)
+  unzip_res <- tryCatch(
+    {
+      utils::unzip(archive_path, exdir = dic_dir)
+      TRUE
+    },
+    error = function(e) FALSE
+  )
+
+  isTRUE(unzip_res)
 }
 #' @rdname spelling
 #' @export

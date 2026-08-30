@@ -93,6 +93,23 @@ test_that("dictionary installer delegates only in a supported RStudio session", 
     isAvailable = function(...) FALSE,
     .package = "rstudioapi"
   )
+  testthat::local_mocked_bindings(
+    download.file = function(url, destfile, ...) {
+      writeLines("fake-zip-data", destfile)
+      0L
+    },
+    unzip = function(zipfile, exdir, ...) {
+      writeLines("lt_LT", file.path(exdir, "lt_LT.dic"))
+      character(0)
+    },
+    .package = "utils"
+  )
+  expect_true(rstudio_install_spellcheck_dictionaries())
+
+  testthat::local_mocked_bindings(
+    download.file = function(...) stop("download failed"),
+    .package = "utils"
+  )
   expect_false(rstudio_install_spellcheck_dictionaries())
 })
 
