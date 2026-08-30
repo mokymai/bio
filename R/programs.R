@@ -86,8 +86,8 @@ check_installed_programs <- function(type = "main", skip_online_check = FALSE) {
       } else {
         pkgbuild::has_build_tools()
       },
-      # No reliable single "latest" Rtools version to compare against: the
-      # required version is tied to the installed R version, not a global max.
+      # No single "latest" online Rtools version to compare against: CRAN Rtools
+      # toolchains (e.g., Rtools 4.5) span multiple R minor releases (e.g., R 4.5/4.6).
       v_installed = get_installed_rtools_version()
     )
   }
@@ -743,38 +743,24 @@ get_installed_xquartz_version <- function() {
   extract_first_version(out)
 }
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#' Get the version of an installed Rtools toolchain on Windows
+#'
+#' Evaluates the active toolchain selected by `pkgbuild::rtools_path()` for the
+#' running R session, or searches environment variables (`RTOOLS*_HOME`), the
+#' registry, and `C:\rtools*` directories for the highest installed version.
+#' Rtools toolchains are released per compiler toolchain update (e.g. Rtools 4.5
+#' supports R 4.5.x and 4.6.x), so there is no strict 1-to-1 major.minor version
+#' match requirement.
+#'
+#' @return A [numeric_version()] object, or `NULL` if not on Windows or not found.
+#' @keywords internal
 get_installed_rtools_version <- function() {
   if (!identical(get_os_type(), "windows")) {
     return(NULL)
   }
 
-  # 1) Env vars set by the Rtools installer, e.g. "RTOOLS44_HOME"
-  env_names <- grep("^RTOOLS\\d+_HOME$", names(Sys.getenv()), value = TRUE)
-  for (env_name in env_names) {
-    v <- rtools_code_to_version(sub("^RTOOLS(\\d+)_HOME$", "\\1", env_name))
-    if (!is.null(v)) {
-      return(v)
-    }
-  }
-
-  # 2) Registry entries written by the Rtools installer
-  reg_paths <- c("SOFTWARE\\R-core\\Rtools", "SOFTWARE\\WOW6432Node\\R-core\\Rtools")
-  for (reg_path in reg_paths) {
-    for (hive in c("HLM", "HCU")) {
-      key <- tryCatch(
-        utils::readRegistry(reg_path, hive = hive, maxdepth = 3),
-        error = function(e) NULL
-      )
-      subkey_names <- names(key)[vapply(key, is.list, logical(1))]
-      versions <- suppressWarnings(as.numeric_version(subkey_names))
-      versions <- versions[!is.na(versions)]
-      if (length(versions) > 0) {
-        return(max(versions))
-      }
-    }
-  }
-
-  # 3) pkgbuild's own detection, e.g. path ".../rtools44/usr/bin"
+  # 1) pkgbuild's active toolchain detection for the running R session
   path <- tryCatch(pkgbuild::rtools_path(), error = function(e) NULL)
   if (!is.null(path) && any(nzchar(path))) {
     v <- rtools_code_to_version(
@@ -785,15 +771,46 @@ get_installed_rtools_version <- function() {
     }
   }
 
-  # 4) Common install locations by naming convention (e.g. "C:/rtools44")
-  candidates <- Sys.glob("C:/rtools*")
-  codes <- stringr::str_extract(basename(candidates), "(?i)(?<=rtools)\\d{2,3}")
-  versions <- Filter(Negate(is.null), lapply(codes, rtools_code_to_version))
-  if (length(versions) > 0) {
-    return(max(do.call(c, versions)))
+  versions <- numeric_version(character(0))
+
+  # 2) Env vars set by Rtools installers (e.g. "RTOOLS45_HOME", "RTOOLS44_HOME")
+  env_names <- grep("^RTOOLS\\d+_HOME$", names(Sys.getenv()), value = TRUE)
+  for (env_name in env_names) {
+    v <- rtools_code_to_version(sub("^RTOOLS(\\d+)_HOME$", "\\1", env_name))
+    if (!is.null(v)) {
+      versions <- c(versions, v)
+    }
   }
 
-  NULL
+  # 3) Registry entries written by Rtools installers
+  reg_paths <- c("SOFTWARE\\R-core\\Rtools", "SOFTWARE\\WOW6432Node\\R-core\\Rtools")
+  for (reg_path in reg_paths) {
+    for (hive in rstudio_registry_hives()) {
+      key <- read_registry_key_safely(reg_path, hive)
+      if (!is.null(key)) {
+        subkey_names <- names(key)[vapply(key, is.list, logical(1))]
+        parsed_v <- suppressWarnings(as.numeric_version(subkey_names))
+        parsed_v <- parsed_v[!is.na(parsed_v)]
+        if (length(parsed_v) > 0) {
+          versions <- c(versions, parsed_v)
+        }
+      }
+    }
+  }
+
+  # 4) Common install locations by naming convention (e.g. "C:/rtools45")
+  candidates <- Sys.glob("C:/rtools*")
+  codes <- stringr::str_extract(basename(candidates), "(?i)(?<=rtools)\\d{2,3}")
+  glob_versions <- Filter(Negate(is.null), lapply(codes, rtools_code_to_version))
+  if (length(glob_versions) > 0) {
+    versions <- c(versions, do.call(c, glob_versions))
+  }
+
+  if (length(versions) == 0) {
+    return(NULL)
+  }
+
+  max(unique(versions))
 }
 
 # Rtools folder/registry codes are 2-3 digit strings like "44" -> version "4.4"
