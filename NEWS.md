@@ -39,7 +39,8 @@
 * New `get_rstudio_install_scope()` reports whether the local RStudio
   Desktop install is system-wide ("all users") or per-user ("just me").
   `find_rstudio_install_dir()` now looks for both, checking the per-user
-  registry hive on Windows that it previously missed.
+  registry hive on Windows that it previously missed, and avoids misidentifying
+  the local runtime state directory as an install directory.
 
 ## Other changes
 
