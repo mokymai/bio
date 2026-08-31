@@ -5,8 +5,8 @@
 - Prefer the base pipe `|>` over `%>%` for new code.
 - Keep tidyverse-style formatting but avoid rigid spacing rules; use readable, idiomatic R.
 - Run Styler on affected R files or selected code before final validation. Use
-	the project `.Rprofile` style (`styler::tidyverse_style(strict = FALSE)`) and
-	avoid formatting unrelated files or lines.
+  the project `.Rprofile` style (`styler::tidyverse_style(strict = FALSE)`) and
+  avoid formatting unrelated files or lines.
 - Prefer small, explicit functions and early returns.
 - Avoid unsupported metadata or network-based version gates unless they are actually implemented and tested.
 - Do not leave obsolete implementations commented out in `R/`; preserve any
@@ -32,11 +32,11 @@
   pkgdown runs may commit only `NAMESPACE`, `man/`, and `README.md`; serialize
   those runs and do not suppress commit, rebase, or push failures.
 - Generate documentation with the current R release, roxygen2 8.1.0, and
-	Pandoc 2.14 locally and in GitHub Actions. Keep README output derived from
-	repository metadata, and run `tools::checkDocFiles(dir = ".")` after roxygen
-	generation.
+  Pandoc 2.14 locally and in GitHub Actions. Keep README output derived from
+  repository metadata, and run `tools::checkDocFiles(dir = ".")` after roxygen
+  generation.
 - Validate bundled JSON presets and test headless RStudio operations without
-	touching real user settings.
+  touching real user settings.
 
 ## Related files
 - Package structure guide: [AI_CONTEXT.md](AI_CONTEXT.md)
