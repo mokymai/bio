@@ -34,6 +34,7 @@ navbar:
   components:
     version:
       icon: fa-book
+      aria-label: Documentation versions
       menu:
       - text: "Documentation for version of package:"
       - text: Released
