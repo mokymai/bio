@@ -320,6 +320,84 @@ test_that("the required dictionary set can be overridden", {
   )
 })
 
+test_that("the curl fallback runs only when curl is on PATH", {
+  archive_path <- withr::local_tempfile(fileext = ".zip")
+  called <- NULL
+
+  testthat::local_mocked_bindings(
+    Sys.which = function(names) stats::setNames("", names),
+    .package = "base"
+  )
+  expect_false(
+    bio:::.download_dictionary_archive_with_curl("https://example.test/d.zip", archive_path)
+  )
+
+  testthat::local_mocked_bindings(
+    Sys.which = function(names) stats::setNames("/usr/bin/curl", names),
+    .package = "base"
+  )
+  testthat::local_mocked_bindings(
+    unzip = function(zipfile, list = FALSE, ...) {
+      data.frame(Name = c("lt_LT.aff", "lt_LT.dic"))
+    },
+    .package = "utils"
+  )
+  testthat::local_mocked_bindings(
+    system2 = function(command, args, ...) {
+      called <<- list(command = command, args = args)
+      writeLines("payload", archive_path)
+      0L
+    },
+    .package = "base"
+  )
+
+  expect_true(
+    bio:::.download_dictionary_archive_with_curl("https://example.test/d.zip", archive_path)
+  )
+  # `Sys.which()` returns a named vector, and that name is carried through.
+  expect_identical(unname(called$command), "/usr/bin/curl")
+  expect_true(all(c("--fail", "--location", "--retry") %in% called$args))
+  expect_true(any(grepl("example.test", called$args, fixed = TRUE)))
+})
+
+test_that("a non-zero curl status is not treated as success", {
+  archive_path <- withr::local_tempfile(fileext = ".zip")
+
+  testthat::local_mocked_bindings(
+    Sys.which = function(names) stats::setNames("/usr/bin/curl", names),
+    system2 = function(...) 22L,
+    .package = "base"
+  )
+
+  expect_false(
+    bio:::.download_dictionary_archive_with_curl("https://example.test/d.zip", archive_path)
+  )
+})
+
+test_that("the download falls back to curl after the retries are exhausted", {
+  archive_path <- withr::local_tempfile(fileext = ".zip")
+  curl_calls <- 0L
+
+  testthat::local_mocked_bindings(
+    Sys.sleep = function(...) invisible(NULL),
+    .package = "base"
+  )
+  testthat::local_mocked_bindings(
+    download.file = function(...) stop("transport failed"),
+    .package = "utils"
+  )
+  testthat::local_mocked_bindings(
+    .download_dictionary_archive_with_curl = function(...) {
+      curl_calls <<- curl_calls + 1L
+      TRUE
+    },
+    .package = "bio"
+  )
+
+  expect_true(
+    bio:::.download_dictionary_archive("https://example.test/d.zip", archive_path)
+  )
+  expect_identical(curl_calls, 1L)
 })
 
 test_that("default configuration reports headless dictionary failures accurately", {
