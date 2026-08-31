@@ -16,6 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     concurrency:
       group: pkgdown-${{ github.ref }}
+      cancel-in-progress: false
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_REPOS: "c(mokymai = 'https://mokymai.github.io/download/', CRAN = 'https://cran.rstudio.com')"
@@ -37,29 +38,46 @@ jobs:
           extra-packages: any::pkgdown, any::devtools, github::GegznaV/backup.tools, github::GegznaV/snippets, local::.
           needs: website
 
-      - name: Configure Git
-        run: |
-           git config --global user.email "actions@github.com"
-           git config --global user.name  "GitHub Actions"
-
-      - name: Update Rd files
+      - name: Generate Rd files for website
         run: |
           devtools::document(roclets = c('rd', 'collate', 'namespace'))
         shell: Rscript {0}
 
-      - name: Commit documentation updates (if any)
-        run: |
-          git add --all
-          git commit -m 'Re-build documentation' || echo "No changes to commit"
-          git push origin || echo "No changes to commit (documentation)"
-
       - name: Render README
-        run: Rscript -e 'rmarkdown::render("README.Rmd")'
-
-      - name: Commit README (if changed)
         run: |
-           git commit README.md -m 'Re-build README.Rmd before pkgdown' || echo "No changes to commit (README)"
-           git push origin || echo "No changes to commit (README)"
+          rmarkdown::render(
+            "README.Rmd",
+            output_format = rmarkdown::github_document(html_preview = FALSE)
+          )
+        shell: Rscript {0}
+
+      - name: Commit generated documentation
+        if: github.ref_type == 'branch' && (github.ref_name == 'master' || github.ref_name == 'main')
+        shell: bash
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+          git add -- NAMESPACE man README.md
+
+          if git diff --cached --quiet; then
+            echo "Generated documentation is current"
+            exit 0
+          fi
+
+          git commit -m "Update generated documentation [skip ci]"
+
+          for attempt in 1 2 3; do
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+
+            if git push origin "HEAD:${GITHUB_REF_NAME}"; then
+              exit 0
+            fi
+
+            if [[ "${attempt}" -eq 3 ]]; then
+              echo "Failed to publish generated documentation after ${attempt} attempts" >&2
+              exit 1
+            fi
+          done
 
       - name: Build site
         run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
