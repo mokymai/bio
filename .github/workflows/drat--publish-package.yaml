@@ -126,15 +126,18 @@ jobs:
           git commit -m "Update from ${SOURCE_REPO} ${{ runner.os }} R-${R_VERSION}"
 
           for attempt in 1 2 3; do
-            git pull --rebase origin master
-
-            if git push origin master; then
+            # Guarded so `bash -e` cannot abort the step on the first race.
+            if git pull --rebase origin master && git push origin master; then
               exit 0
             fi
+
+            git rebase --abort || true
 
             if [[ "${attempt}" -eq 3 ]]; then
               echo "Failed to publish after ${attempt} attempts" >&2
               exit 1
             fi
+
+            sleep $((attempt * 5))
           done
 

@@ -79,16 +79,20 @@ jobs:
           git commit -m "Update generated documentation [skip ci]"
 
           for attempt in 1 2 3; do
-            git pull --rebase origin "${GITHUB_REF_NAME}"
-
-            if git push origin "HEAD:${GITHUB_REF_NAME}"; then
+            # Guarded so `bash -e` cannot abort the step on the first race.
+            if git pull --rebase origin "${GITHUB_REF_NAME}" &&
+              git push origin "HEAD:${GITHUB_REF_NAME}"; then
               exit 0
             fi
+
+            git rebase --abort || true
 
             if [[ "${attempt}" -eq 3 ]]; then
               echo "Failed to publish generated documentation after ${attempt} attempts" >&2
               exit 1
             fi
+
+            sleep $((attempt * 5))
           done
 
       - name: Build site
