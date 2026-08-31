@@ -13,6 +13,11 @@
   reports progress through UI messages and invisibly returns its success status.
   `rstudio_download_spellcheck_dictionaries()` remains a compatibility alias.
 
+* Dictionary installation no longer reports success when extraction fails.
+  `utils::unzip()` signals extraction problems as warnings rather than errors,
+  so the result is now confirmed against the dictionary files that actually
+  reached the target directory.
+
 * RStudio Desktop detection no longer mistakes the local runtime state
   directory for an installation directory.
 

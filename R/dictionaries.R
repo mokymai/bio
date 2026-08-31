@@ -89,6 +89,10 @@ open_rstudio_internal_dictionaries_dir <- function() {
 #' }
 NULL
 
+.required_dictionary_files <- function() {
+  c("lt_LT.aff", "lt_LT.dic")
+}
+
 .is_valid_dictionary_archive <- function(path) {
   if (!file.exists(path) || file.info(path)$size == 0) {
     return(FALSE)
@@ -103,8 +107,34 @@ NULL
     return(FALSE)
   }
 
-  expected_files <- c("lt_LT.aff", "lt_LT.dic")
-  all(expected_files %in% basename(contents$Name))
+  all(.required_dictionary_files() %in% basename(contents$Name))
+}
+
+# `utils::unzip()` reports extraction failures as warnings, not errors, so the
+# result is confirmed against the files that actually reached `dic_dir`.
+.extract_dictionary_archive <- function(archive_path, dic_dir) {
+  failed <- FALSE
+
+  withCallingHandlers(
+    tryCatch(
+      utils::unzip(archive_path, exdir = dic_dir),
+      error = function(error) {
+        failed <<- TRUE
+        NULL
+      }
+    ),
+    warning = function(warning) {
+      failed <<- TRUE
+      invokeRestart("muffleWarning")
+    }
+  )
+
+  if (isTRUE(failed)) {
+    return(FALSE)
+  }
+
+  installed <- basename(dir(dic_dir, recursive = TRUE))
+  all(.required_dictionary_files() %in% installed)
 }
 
 .download_dictionary_archive_with_curl <- function(url, destfile) {
@@ -178,13 +208,7 @@ rstudio_install_spellcheck_dictionaries <- function(secure = TRUE) {
   }
 
   fs::dir_create(dic_dir, recurse = TRUE)
-  unzip_res <- tryCatch(
-    {
-      utils::unzip(archive_path, exdir = dic_dir)
-      TRUE
-    },
-    error = function(e) FALSE
-  )
+  unzip_res <- .extract_dictionary_archive(archive_path, dic_dir)
 
   if (isTRUE(unzip_res)) {
     usethis::ui_done("RStudio spellcheck dictionaries were installed in {usethis::ui_path(dic_dir)}.")

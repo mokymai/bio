@@ -112,6 +112,7 @@ test_that("dictionary installer delegates only in a supported RStudio session", 
       if (list) {
         return(data.frame(Name = c("lt_LT.aff", "lt_LT.dic")))
       }
+      writeLines("lt_LT", file.path(exdir, "lt_LT.aff"))
       writeLines("lt_LT", file.path(exdir, "lt_LT.dic"))
       character(0)
     },
@@ -130,6 +131,82 @@ test_that("dictionary installer delegates only in a supported RStudio session", 
     .package = "bio"
   )
   ui_messages <- character()
+  expect_invisible(expect_false(rstudio_install_spellcheck_dictionaries()))
+  expect_identical(ui_messages, c("info", "warn"))
+})
+
+test_that("dictionary installation fails when extraction only warns", {
+  dic_dir <- fs::path(withr::local_tempdir(), "dictionaries")
+  ui_messages <- character()
+
+  testthat::local_mocked_bindings(
+    get_path_rstudio_config_dir = function(...) dic_dir,
+    .package = "bio"
+  )
+  testthat::local_mocked_bindings(
+    ui_info = function(message, ...) ui_messages <<- c(ui_messages, "info"),
+    ui_done = function(message, ...) ui_messages <<- c(ui_messages, "done"),
+    ui_warn = function(message, ...) ui_messages <<- c(ui_messages, "warn"),
+    .package = "usethis"
+  )
+  testthat::local_mocked_bindings(
+    isAvailable = function(...) FALSE,
+    .package = "rstudioapi"
+  )
+  testthat::local_mocked_bindings(
+    download.file = function(url, destfile, ...) {
+      writeLines("fake-zip-data", destfile)
+      0L
+    },
+    unzip = function(zipfile, exdir, list = FALSE, ...) {
+      if (list) {
+        return(data.frame(Name = c("lt_LT.aff", "lt_LT.dic")))
+      }
+      warning("error 1 in extracting from zip file")
+      character(0)
+    },
+    .package = "utils"
+  )
+
+  expect_invisible(expect_false(rstudio_install_spellcheck_dictionaries()))
+  expect_identical(ui_messages, c("info", "warn"))
+  expect_false(any(grepl("lt_LT", dir(dic_dir), fixed = TRUE)))
+})
+
+test_that("dictionary installation fails when extraction drops required files", {
+  dic_dir <- fs::path(withr::local_tempdir(), "dictionaries")
+  ui_messages <- character()
+
+  testthat::local_mocked_bindings(
+    get_path_rstudio_config_dir = function(...) dic_dir,
+    .package = "bio"
+  )
+  testthat::local_mocked_bindings(
+    ui_info = function(message, ...) ui_messages <<- c(ui_messages, "info"),
+    ui_done = function(message, ...) ui_messages <<- c(ui_messages, "done"),
+    ui_warn = function(message, ...) ui_messages <<- c(ui_messages, "warn"),
+    .package = "usethis"
+  )
+  testthat::local_mocked_bindings(
+    isAvailable = function(...) FALSE,
+    .package = "rstudioapi"
+  )
+  testthat::local_mocked_bindings(
+    download.file = function(url, destfile, ...) {
+      writeLines("fake-zip-data", destfile)
+      0L
+    },
+    unzip = function(zipfile, exdir, list = FALSE, ...) {
+      if (list) {
+        return(data.frame(Name = c("lt_LT.aff", "lt_LT.dic")))
+      }
+      # Silent partial extraction: only one of the two required files lands.
+      writeLines("lt_LT", file.path(exdir, "lt_LT.dic"))
+      character(0)
+    },
+    .package = "utils"
+  )
+
   expect_invisible(expect_false(rstudio_install_spellcheck_dictionaries()))
   expect_identical(ui_messages, c("info", "warn"))
 })
