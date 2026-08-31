@@ -21,6 +21,12 @@
 * RStudio Desktop detection no longer mistakes the local runtime state
   directory for an installation directory.
 
+* `rstudio_configure_defaults()` no longer creates or deletes
+  `~/Desktop/BS-pratybos/`. Deleting a student's course folder without
+  confirmation was unsafe, so the step was dropped; create the folder manually
+  if you need it. `~/R/main` is still created by
+  `rstudio_reset_user_settings()` for the `bio-*` presets.
+
 ## Reliability and maintenance
 
 * Expanded the package description and replaced the broad `backup.tools`
@@ -83,8 +89,8 @@
   JSON files directly instead of requiring a live `rstudioapi` session.
 
 * `rstudio_reset_gmc()` was split into `rstudio_configure_defaults()`
-  (headless-capable: preferences, keybindings, snippets, dictionaries, and
-  TinyTeX) and `rstudio_reset_session_state()` (requires a live
+  (headless-capable: preferences, keybindings, snippets, directories,
+  dictionaries) and `rstudio_reset_session_state()` (requires a live
   RStudio session: tabs, workspace, layout, theme, console, history).
   `rstudio_reset_gmc()` remains as a thin wrapper calling both, for
   backward compatibility.
