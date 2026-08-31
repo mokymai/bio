@@ -143,8 +143,9 @@ This document maps the package structure and the main responsibilities of the co
 - `.github/workflows/lint.yaml` — `lintr` and `styler` checks for maintained R
   and test code.
 - `.github/workflows/test-coverage.yaml` — test coverage reporting.
-- `.github/workflows/generated-docs.yaml` — read-only pull-request check that
-  fails when `NAMESPACE`, `man/`, or `README.md` are stale.
+- `.github/workflows/generated-docs.yaml` — regenerates `NAMESPACE`, `man/`,
+  and `README.md`; commits scoped changes to same-repository pull-request
+  branches and uploads a patch artifact for read-only fork pull requests.
 - `.github/workflows/pkgdown.yaml` — serialized post-merge regeneration of
   `NAMESPACE`, `man/`, and `README.md`; commits those files when needed, then
   builds and deploys the GitHub Pages site.
