@@ -76,6 +76,7 @@ open_rstudio_internal_dictionaries_dir <- function() {
 #'  deletes RStudio (system) spellchecking dictionaries.
 #'
 #' @param secure (logical) If `TRUE`, uses "https", if `FALSE`, uses "http".
+#' @return Invisibly, `TRUE` on success and `FALSE` on failure.
 #'
 #' @concept r and rstudio settings
 #' @concept dictionaries
@@ -154,11 +155,13 @@ NULL
 #' @export
 rstudio_install_spellcheck_dictionaries <- function(secure = TRUE) {
   dic_dir <- get_path_rstudio_config_dir("dictionaries/languages-system")
+  usethis::ui_info("Downloading RStudio spellcheck dictionaries...")
 
   if (rstudioapi::isAvailable(version_needed = "1.3") &&
     exists(".rs.downloadAllDictionaries", envir = globalenv(), inherits = TRUE)) {
     .rs.downloadAllDictionaries(targetDir = dic_dir, secure = secure)
-    return(TRUE)
+    usethis::ui_done("RStudio spellcheck dictionaries were installed in {usethis::ui_path(dic_dir)}.")
+    return(invisible(TRUE))
   }
 
   # Headless fallback: execute RStudio's exact download-and-extract workflow directly
@@ -169,8 +172,8 @@ rstudio_install_spellcheck_dictionaries <- function(secure = TRUE) {
   on.exit(unlink(archive_path), add = TRUE)
 
   if (!.download_dictionary_archive(url, archive_path)) {
-    warning("Could not download a complete RStudio dictionary archive.", call. = FALSE)
-    return(FALSE)
+    usethis::ui_warn("Could not download a complete RStudio dictionary archive.")
+    return(invisible(FALSE))
   }
 
   fs::dir_create(dic_dir, recurse = TRUE)
@@ -182,7 +185,13 @@ rstudio_install_spellcheck_dictionaries <- function(secure = TRUE) {
     error = function(e) FALSE
   )
 
-  isTRUE(unzip_res)
+  if (isTRUE(unzip_res)) {
+    usethis::ui_done("RStudio spellcheck dictionaries were installed in {usethis::ui_path(dic_dir)}.")
+  } else {
+    usethis::ui_warn("Could not extract the RStudio dictionary archive.")
+  }
+
+  invisible(isTRUE(unzip_res))
 }
 #' @rdname spelling
 #' @export
