@@ -1,25 +1,51 @@
+<div id="main" class="col-md-9" role="main">
+
 # Get previous package versions available on CRAN
+
+<div class="ref-description section level2">
 
 Function to scrape the CRAN website and retrieve archived (old) package
 versions
 
+</div>
+
+<div class="section level2">
+
 ## Usage
+
+<div class="sourceCode">
 
 ``` r
 pkg_list_archived_versions(package)
 ```
 
+</div>
+
+</div>
+
+<div class="section level2">
+
 ## Arguments
 
-- package:
+-   package:
 
-  (character) Package name.
+    (character) Package name.
+
+</div>
+
+<div class="section level2">
 
 ## Value
 
 Vector with version numbers (the current version is not present).
 
+</div>
+
+<div class="section level2">
+
 ## Examples
+
+<div class="sourceCode">
 
 ``` r
 pkg_list_archived_versions("ggplot2")
@@ -35,3 +61,9 @@ pkg_list_archived_versions("ggplot2")
 pkg_list_archived_versions("none")
 #> <0 elements>
 ```
+
+</div>
+
+</div>
+
+</div>

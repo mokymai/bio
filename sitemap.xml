@@ -1,11 +1,12 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://mokymai.github.io/bio/404.html</loc></url>
-<url><loc>https://mokymai.github.io/bio/AGENTS.html</loc></url>
-<url><loc>https://mokymai.github.io/bio/AI_CONTEXT.html</loc></url>
 <url><loc>https://mokymai.github.io/bio/LICENSE-text.html</loc></url>
 <url><loc>https://mokymai.github.io/bio/LICENSE.html</loc></url>
+<url><loc>https://mokymai.github.io/bio/articles/bio.html</loc></url>
+<url><loc>https://mokymai.github.io/bio/articles/checking-your-setup.html</loc></url>
+<url><loc>https://mokymai.github.io/bio/articles/index.html</loc></url>
+<url><loc>https://mokymai.github.io/bio/articles/rstudio-settings.html</loc></url>
 <url><loc>https://mokymai.github.io/bio/authors.html</loc></url>
-<url><loc>https://mokymai.github.io/bio/copilot-instructions.html</loc></url>
 <url><loc>https://mokymai.github.io/bio/index.html</loc></url>
 <url><loc>https://mokymai.github.io/bio/news/index.html</loc></url>
 <url><loc>https://mokymai.github.io/bio/reference/RStudio-config-file.html</loc></url>

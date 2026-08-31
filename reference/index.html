@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">bio</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.3.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.3.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,10 +16,16 @@
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true"><span class="fa fa-book"></span></button>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true" aria-label="Documentation versions"><span class="fa fa-book"></span></button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-"><li><h6 class="dropdown-header" data-toc-skip>Documentation for version of package:</h6></li>
     <li><a class="dropdown-item" href="https://mokymai.github.io/bio/">Released</a></li>
     <li><a class="dropdown-item" href="https://mokymai.github.io/bio/dev/">In-development</a></li>
+  </ul></li>
+<li class="nav-item"><a class="nav-link" href="../articles/bio.html">Get started</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/checking-your-setup.html">Checking your setup</a></li>
+    <li><a class="dropdown-item" href="../articles/rstudio-settings.html">Managing RStudio settings</a></li>
   </ul></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -58,6 +64,13 @@
 
         </dt>
         <dd>Get user-related information</dd>
+
+        <dt>
+
+          <code><a href="get_rstudio_install_scope.html">get_rstudio_install_scope()</a></code>
+
+        </dt>
+        <dd>Determine whether the local RStudio Desktop install is system-wide or per-user</dd>
       </dl></div><div class="section level2">
       <h2 id="change-settings">Change Settings<a class="anchor" aria-label="anchor" href="#change-settings"></a></h2>
 
@@ -74,6 +87,13 @@
 
         </dt>
         <dd>Reset RStudio settings</dd>
+
+        <dt>
+
+          <code><a href="rstudio_compare_user_settings.html">rstudio_compare_user_settings()</a></code>
+
+        </dt>
+        <dd>Show differences in sets of settings</dd>
 
         <dt>
 
@@ -192,6 +212,27 @@
 
         </dt>
         <dd>Check if package is installed</dd>
+
+        <dt>
+
+          <code><a href="list_pkgs_used_in_dir.html">list_pkgs_used_in_dir()</a></code>
+
+        </dt>
+        <dd>List Packages Used in Directory</dd>
+
+        <dt>
+
+          <code><a href="list_pkgs_used_in_files.html">list_pkgs_used_in_files()</a></code>
+
+        </dt>
+        <dd>List Packages Used in Specific File(s)</dd>
+
+        <dt>
+
+          <code><a href="pkg_list_archived_versions.html">pkg_list_archived_versions()</a></code>
+
+        </dt>
+        <dd>Get previous package versions available on CRAN</dd>
       </dl></div><div class="section level2">
       <h2 id="utilities-and-helper-functions">Utilities and Helper Functions<a class="anchor" aria-label="anchor" href="#utilities-and-helper-functions"></a></h2>
 
@@ -241,27 +282,6 @@
 
         <dt>
 
-          <code><a href="check_installed_programs.html">check_installed_programs()</a></code>
-
-        </dt>
-        <dd>Check installed programs and available versions</dd>
-
-        <dt>
-
-          <code><a href="check_user_info.html">check_user_info()</a></code>
-
-        </dt>
-        <dd>Get user-related information</dd>
-
-        <dt>
-
-          <code><a href="compare_version.html">compare_version()</a></code>
-
-        </dt>
-        <dd>Compare Version Numbers</dd>
-
-        <dt>
-
           <code><a href="find_rstudio_install_dir.html">find_rstudio_install_dir()</a></code>
 
         </dt>
@@ -273,13 +293,6 @@
 
         </dt>
         <dd>Get the version of an installed (but not necessarily running) RStudio</dd>
-
-        <dt>
-
-          <code><a href="get_rstudio_install_scope.html">get_rstudio_install_scope()</a></code>
-
-        </dt>
-        <dd>Determine whether the local RStudio Desktop install is system-wide or per-user</dd>
 
         <dt>
 
@@ -297,20 +310,6 @@
 
         <dt>
 
-          <code><a href="list_pkgs_used_in_dir.html">list_pkgs_used_in_dir()</a></code>
-
-        </dt>
-        <dd>List Packages Used in Directory</dd>
-
-        <dt>
-
-          <code><a href="list_pkgs_used_in_files.html">list_pkgs_used_in_files()</a></code>
-
-        </dt>
-        <dd>List Packages Used in Specific File(s)</dd>
-
-        <dt>
-
           <code><a href="parse_rstudio_version_string.html">parse_rstudio_version_string()</a></code>
 
         </dt>
@@ -318,24 +317,10 @@
 
         <dt>
 
-          <code><a href="pkg_list_archived_versions.html">pkg_list_archived_versions()</a></code>
-
-        </dt>
-        <dd>Get previous package versions available on CRAN</dd>
-
-        <dt>
-
           <code><a href="print_program_version_info.html">print_program_version_info()</a></code>
 
         </dt>
         <dd>Print a version-status summary for a program.</dd>
-
-        <dt>
-
-          <code><a href="rstudio_compare_user_settings.html">rstudio_compare_user_settings()</a></code>
-
-        </dt>
-        <dd>Show differences in sets of settings</dd>
       </dl></div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>

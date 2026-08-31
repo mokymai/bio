@@ -1,9 +1,19 @@
+<div id="main" class="col-md-9" role="main">
+
 # Open RStudio Project
+
+<div class="ref-description section level2">
 
 Open RStudio project by name or interactively. The projects list is read
 from files that contain project lists.
 
+</div>
+
+<div class="section level2">
+
 ## Usage
+
+<div class="sourceCode">
 
 ``` r
 open_project(
@@ -17,59 +27,82 @@ open_project(
 )
 ```
 
+</div>
+
+</div>
+
+<div class="section level2">
+
 ## Arguments
 
-- pattern:
+-   pattern:
 
-  (character) regular expression to narrow down the list of possible
-  options.
+    (character) regular expression to narrow down the list of possible
+    options.
 
-- new_session:
+-   new_session:
 
-  (logical\|`NULL`) should the project be opened in a new session, or
-  should the current RStudio session switch to that project? Note that
-  `TRUE` values are only supported with RStudio Desktop and RStudio
-  Server Pro. If `NULL`, user will have to choose interactively.
+    (logical\|`NULL`) should the project be opened in a new session, or
+    should the current RStudio session switch to that project? Note that
+    `TRUE` values are only supported with RStudio Desktop and RStudio
+    Server Pro. If `NULL`, user will have to choose interactively.
 
-- proj_list:
+-   proj_list:
 
-  (data frame) The result of
-  [`read_projects()`](https://mokymai.github.io/bio/reference/projects.md)
-  or `NULL`.
+    (data frame) The result of `read_projects()` or `NULL`.
 
-- proj_list_path:
+-   proj_list_path:
 
-  (string) The path to the file with the list of project paths. When
-  `proj_list` is also supplied, projects from both sources are combined.
+    (string) The path to the file with the list of project paths. When
+    `proj_list` is also supplied, projects from both sources are
+    combined.
 
-- only_available:
+-   only_available:
 
-  (logical) If `TRUE`, non-existing projects and projects with broken
-  paths are removed from the list of choices.
+    (logical) If `TRUE`, non-existing projects and projects with broken
+    paths are removed from the list of choices.
 
-- name:
+-   name:
 
-  (string\|`NULL`) The name of the project or `NULL` to choose a project
-  interactively.
+    (string\|`NULL`) The name of the project or `NULL` to choose a
+    project interactively.
 
-- negate:
+-   negate:
 
-  (logical) If `TRUE`, then the options defined by `pattern` are
-  excluded.
+    (logical) If `TRUE`, then the options defined by `pattern` are
+    excluded.
+
+</div>
+
+<div class="section level2">
 
 ## Value
 
 Opens the indicated project.
 
+</div>
+
+<div class="section level2">
+
 ## See also
 
-- [`update_rstudio_proj_list_user()`](https://mokymai.github.io/bio/reference/project-lists.md)
+<div class="dont-index">
 
-- [`rstudioapi::openProject()`](https://rstudio.github.io/rstudioapi/reference/projects.html)
+-   `update_rstudio_proj_list_user()`
 
-- [`rstudioapi::initializeProject()`](https://rstudio.github.io/rstudioapi/reference/projects.html)
+-   `rstudioapi::openProject()`
+
+-   `rstudioapi::initializeProject()`
+
+</div>
+
+</div>
+
+<div class="section level2">
 
 ## Examples
+
+<div class="sourceCode">
 
 ``` r
 if (interactive()) {
@@ -78,3 +111,9 @@ if (interactive()) {
   open_project("R-2019-project")
 }
 ```
+
+</div>
+
+</div>
+
+</div>

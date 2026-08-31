@@ -1,51 +1,78 @@
+<div id="main" class="col-md-9" role="main">
+
 # Reset RStudio settings
+
+<div class="ref-description section level2">
 
 Reset RStudio to use predefined set of settings/preferences. Correctly
 works only with RStudio 1.3 or newer. Recommended to use with RStudio
 2022.07.1 or newer.
 
+</div>
+
+<div class="section level2">
+
 ## Usage
+
+<div class="sourceCode">
 
 ``` r
 rstudio_reset_user_settings(to, backup = TRUE, ask = TRUE)
 ```
 
+</div>
+
+</div>
+
+<div class="section level2">
+
 ## Arguments
 
-- to:
+-   to:
 
-  The name of pre-defined set of RStudio settings/preferences. Options:
-  "rstudio-default", "bio-default", "bio-dark-blue", "bio-black".
+    The name of pre-defined set of RStudio settings/preferences.
+    Options: "rstudio-default", "bio-default", "bio-dark-blue",
+    "bio-black".
 
-- backup:
+-   backup:
 
-  (logical) If `TRUE`, a backup copy of files with settings is created.
+    (logical) If `TRUE`, a backup copy of files with settings is
+    created.
 
-- ask:
+-   ask:
 
-  (logical) If `TRUE`, additional confirmation to reset settings is
-  required.
+    (logical) If `TRUE`, additional confirmation to reset settings is
+    required.
+
+</div>
+
+<div class="section level2">
 
 ## Details
 
 Settings that can be used in `rstudio-prefs.json` file:
 https://docs.posit.co/ide/server-pro/session-user-settings.html
 
+</div>
+
+<div class="section level2">
+
 ## See also
 
-[`get_path_rstudio_config_file()`](https://mokymai.github.io/bio/reference/RStudio-config-file.md)
+<div class="dont-index">
+
+`get_path_rstudio_config_file()`
 
 On [Customizing
 RStudio](https://support.posit.co/hc/en-us/articles/200549016-Customizing-the-RStudio-IDE)
 using point-and-click method.
 
 On [Configuration and
-Settings](https://www.rstudio.com/blog/rstudio-1-3-preview-configuration/).
+Settings](https://posit.co/blog/rstudio-1-3-preview-configuration).
 
 A list of [Session User
 Settings](https://docs.posit.co/ide/server-pro/session_user_settings/session_user_settings.html)
-to be used with
-[`rstudioapi::writeRStudioPreference()`](https://rstudio.github.io/rstudioapi/reference/writeRStudioPreference.html).
+to be used with `rstudioapi::writeRStudioPreference()`.
 
 On [RStudio setting
 locations](https://docs.posit.co/ide/desktop-pro/settings/settings.html).
@@ -55,11 +82,19 @@ State](https://support.posit.co/hc/en-us/articles/200534577-Resetting-RStudio-De
 
 StackOverflow threads on export/import RStudio of user preferences:
 
-- https://stackoverflow.com/a/55940249/4783029
+-   https://stackoverflow.com/a/55940249/4783029
 
-- https://stackoverflow.com/a/54982341/4783029
+-   https://stackoverflow.com/a/54982341/4783029
+
+</div>
+
+</div>
+
+<div class="section level2">
 
 ## Examples
+
+<div class="sourceCode">
 
 ``` r
 if (interactive()) {
@@ -71,3 +106,9 @@ if (interactive()) {
 
 }
 ```
+
+</div>
+
+</div>
+
+</div>

@@ -1,34 +1,67 @@
+<div id="main" class="col-md-9" role="main">
+
 # List packages installed on this computer
+
+<div class="ref-description section level2">
 
 List packages installed on this computer
 
+</div>
+
+<div class="section level2">
+
 ## Usage
+
+<div class="sourceCode">
 
 ``` r
 get_pkgs_installed(rm_duplicates = TRUE)
 ```
 
+</div>
+
+</div>
+
+<div class="section level2">
+
 ## Arguments
 
-- rm_duplicates:
+-   rm_duplicates:
 
-  (logical) Should duplicated names of packages be removed? If `TRUE`,
-  when several packages are found, only the one with the highest version
-  is returned. If `FALSE`, no packages are removed from the list.
+    (logical) Should duplicated names of packages be removed? If `TRUE`,
+    when several packages are found, only the one with the highest
+    version is returned. If `FALSE`, no packages are removed from the
+    list.
+
+</div>
+
+<div class="section level2">
 
 ## Value
 
 Data frame with columns `"package"` and `"current_version"`.
 
+</div>
+
+<div class="section level2">
+
 ## See also
 
-Other R-packages-related functions:
-[`compare_version()`](https://mokymai.github.io/bio/reference/compare_version.md)
+<div class="dont-index">
+
+Other R-packages-related functions: `compare_version()`
+
+</div>
+
+</div>
+
+<div class="section level2">
 
 ## Examples
 
-``` r
+<div class="sourceCode">
 
+``` r
 head(get_pkgs_installed())
 #>      package current_version
 #> 1 KernSmooth         2.23-26
@@ -43,3 +76,9 @@ nrow(get_pkgs_installed(rm_duplicates = TRUE))
 nrow(get_pkgs_installed(rm_duplicates = FALSE))
 #> [1] 151
 ```
+
+</div>
+
+</div>
+
+</div>

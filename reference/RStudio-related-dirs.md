@@ -1,11 +1,21 @@
+<div id="main" class="col-md-9" role="main">
+
 # Directories of RStudio-Related Files
+
+<div class="ref-description section level2">
 
 Directories of RStudio (desktop) settings, preferences and other files.
 
-- \`get_path_rstudio_config_dir()“ - gets path to RStudio configuration
-  directory (and its sub-directories).
+-   \`get_path_rstudio_config_dir()“ - gets path to RStudio
+    configuration directory (and its sub-directories).
+
+</div>
+
+<div class="section level2">
 
 ## Usage
+
+<div class="sourceCode">
 
 ``` r
 get_path_rstudio_config_dir(..., .check = FALSE)
@@ -21,36 +31,59 @@ open_rstudio_internal_state_dir()
 open_rstudio_keybindings_dir()
 ```
 
+</div>
+
+</div>
+
+<div class="section level2">
+
 ## Arguments
 
-- ...:
+-   ...:
 
-  (character) Parts of the path. Path to sub-directories.
+    (character) Parts of the path. Path to sub-directories.
 
-- .check:
+-   .check:
 
-  (logical) If `TRUE`, additionally checks for path existence.
+    (logical) If `TRUE`, additionally checks for path existence.
+
+</div>
+
+<div class="section level2">
 
 ## Value
 
 (string) path to RStudio configuration directory. When `.check = TRUE`,
 returns an error if the path does not exist.
 
+</div>
+
+<div class="section level2">
+
 ## See also
 
-- [`fs::file_show()`](https://fs.r-lib.org/reference/file_show.html),
-  [`browseURL()`](https://rdrr.io/r/utils/browseURL.html),
+<div class="dont-index">
 
-- [`rstudioapi::navigateToFile()`](https://rstudio.github.io/rstudioapi/reference/navigateToFile.html),
+-   `fs::file_show()`, `browseURL()`,
 
-- [`utils::file.edit()`](https://rdrr.io/r/utils/file.edit.html)
+-   `rstudioapi::navigateToFile()`,
+
+-   `utils::file.edit()`
 
 &nbsp;
 
-- `get_path_rstudio_config_dir()`:
-  https://support.posit.co/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State
+-   `get_path_rstudio_config_dir()`:
+    https://support.posit.co/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State
+
+</div>
+
+</div>
+
+<div class="section level2">
 
 ## Examples
+
+<div class="sourceCode">
 
 ``` r
 if (interactive()) {
@@ -62,3 +95,9 @@ if (interactive()) {
   get_path_rstudio_keybindings_dir()
 }
 ```
+
+</div>
+
+</div>
+
+</div>

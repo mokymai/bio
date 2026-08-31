@@ -1,13 +1,20 @@
+<div id="main" class="col-md-9" role="main">
+
 # Objects exported from other packages
+
+<div class="ref-description section level2">
 
 These objects are imported from other packages. Follow the links below
 to see their documentation.
 
-- backup.tools:
+-   backup.tools:
 
-  [`open_backup_dir()`](https://rdrr.io/pkg/backup.tools/man/get_path_backup_dir.html)
+    `open_backup_dir()`
 
-- snippets:
+-   snippets:
 
-  [`get_path_rstudio_snippets_dir()`](https://gegznav.github.io/snippets/reference/get_path_rstudio_snippets_dir.html),
-  [`open_rstudio_snippets_dir()`](https://gegznav.github.io/snippets/reference/open_rstudio_snippets_dir.html)
+    `get_path_rstudio_snippets_dir()`, `open_rstudio_snippets_dir()`
+
+</div>
+
+</div>
