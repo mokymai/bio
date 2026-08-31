@@ -96,26 +96,56 @@ NULL
   c("lt_LT.aff", "lt_LT.dic")
 }
 
-.is_valid_dictionary_archive <- function(path) {
-  if (!file.exists(path) || file.info(path)$size == 0) {
-    return(FALSE)
-  }
-
+.archive_entry_names <- function(path) {
   contents <- tryCatch(
     suppressWarnings(utils::unzip(path, list = TRUE)),
     error = function(e) NULL
   )
 
   if (is.null(contents) || !"Name" %in% names(contents)) {
+    return(NULL)
+  }
+
+  as.character(contents$Name)
+}
+
+# Reject entries that would escape `exdir` when extracted (Zip Slip).
+.has_unsafe_archive_entries <- function(names) {
+  if (length(names) == 0L) {
+    return(TRUE)
+  }
+
+  paths <- gsub("\\\\", "/", names)
+  segments <- strsplit(paths, "/", fixed = TRUE)
+
+  any(
+    startsWith(paths, "/") |
+      grepl("^[A-Za-z]:", paths) |
+      vapply(segments, function(x) any(x == ".."), logical(1))
+  )
+}
+
+.is_valid_dictionary_archive <- function(path) {
+  if (!file.exists(path) || file.info(path)$size == 0) {
     return(FALSE)
   }
 
-  all(.required_dictionary_files() %in% basename(contents$Name))
+  entries <- .archive_entry_names(path)
+  if (is.null(entries) || .has_unsafe_archive_entries(entries)) {
+    return(FALSE)
+  }
+
+  all(.required_dictionary_files() %in% basename(entries))
 }
 
 # `utils::unzip()` reports extraction failures as warnings, not errors, so the
 # result is confirmed against the files that actually reached `dic_dir`.
 .extract_dictionary_archive <- function(archive_path, dic_dir) {
+  entries <- .archive_entry_names(archive_path)
+  if (is.null(entries) || .has_unsafe_archive_entries(entries)) {
+    return(FALSE)
+  }
+
   failed <- FALSE
 
   withCallingHandlers(

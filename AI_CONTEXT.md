@@ -75,6 +75,8 @@ This document maps the package structure and the main responsibilities of the co
   listed by `.required_dictionary_files()` actually landed in the target
   directory before reporting success.
   `secure = FALSE` warns that the download is unauthenticated.
+  `.has_unsafe_archive_entries()` refuses archives whose entries would escape
+  the target directory (absolute paths, drive letters, or `..` segments).
 
 ### RStudio and settings management
 

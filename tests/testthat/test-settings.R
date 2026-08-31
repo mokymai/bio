@@ -211,6 +211,39 @@ test_that("dictionary installation fails when extraction drops required files", 
   expect_identical(ui_messages, c("info", "warn"))
 })
 
+test_that("dictionary archives with escaping entries are refused", {
+  safe <- c("lt_LT.aff", "dict/lt_LT.dic")
+  expect_false(bio:::.has_unsafe_archive_entries(safe))
+
+  expect_true(bio:::.has_unsafe_archive_entries(c("lt_LT.aff", "../evil.txt")))
+  expect_true(bio:::.has_unsafe_archive_entries("a/../../evil.txt"))
+  expect_true(bio:::.has_unsafe_archive_entries("..\\evil.txt"))
+  expect_true(bio:::.has_unsafe_archive_entries("/etc/passwd"))
+  expect_true(bio:::.has_unsafe_archive_entries("C:/Windows/evil.txt"))
+  expect_true(bio:::.has_unsafe_archive_entries(character()))
+
+  archive <- withr::local_tempfile(fileext = ".zip")
+  target <- withr::local_tempdir()
+  extracted <- FALSE
+
+  testthat::local_mocked_bindings(
+    unzip = function(zipfile, list = FALSE, ...) {
+      if (list) {
+        return(data.frame(Name = c("lt_LT.aff", "lt_LT.dic", "../evil.txt")))
+      }
+      extracted <<- TRUE
+      character(0)
+    },
+    .package = "utils"
+  )
+  file.create(archive)
+  writeLines("payload", archive)
+
+  expect_false(bio:::.is_valid_dictionary_archive(archive))
+  expect_false(bio:::.extract_dictionary_archive(archive, target))
+  expect_false(extracted)
+})
+
 test_that("dictionary archive download retries interrupted transfers", {
   archive_path <- withr::local_tempfile(fileext = ".zip")
   attempts <- 0L
@@ -235,6 +268,8 @@ test_that("dictionary archive download retries interrupted transfers", {
 })
 
 test_that("default configuration reports headless dictionary failures accurately", {
+  dict_dir <- withr::local_tempdir()
+
   testthat::local_mocked_bindings(
     get_path_rstudio_config_dir = function(...) dict_dir,
     rstudio_download_spellcheck_dictionaries = function(...) FALSE,
@@ -268,8 +303,6 @@ test_that("default configuration reports headless dictionary failures accurately
 test_that("keybinding resets update only a temporary keybindings directory", {
   keybindings_dir <- withr::local_tempdir()
   testthat::local_mocked_bindings(
-  dict_dir <- withr::local_tempdir()
-
     get_path_rstudio_keybindings_dir = function() keybindings_dir,
     .package = "bio"
   )

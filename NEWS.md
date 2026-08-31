@@ -22,6 +22,9 @@
   unencrypted connection and extracted into your RStudio configuration
   directory.
 
+* Dictionary archives containing entries that would escape the target
+  directory (absolute paths, drive letters, or `..` segments) are refused
+  before extraction.
 
 * `rstudio_install_spellcheck_dictionaries()` now works outside RStudio by
   downloading and validating Posit's dictionary archive, retrying interrupted
