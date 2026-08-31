@@ -18,6 +18,10 @@
 
 ## Reliability and maintenance
 
+* Expanded the package description and replaced the broad `backup.tools`
+  namespace import with package-qualified calls and the single narrow import
+  required for the `open_backup_dir()` re-export.
+
 * Online R, RStudio, and Quarto version checks now treat connectivity,
   transport, parsing, and unexpected-response failures as unavailable version
   information instead of aborting program checks.
