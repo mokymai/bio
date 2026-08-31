@@ -86,6 +86,69 @@ open_rstudio_internal_dictionaries_dir <- function() {
 #'   rstudio_delete_spellcheck_dictionaries()
 #'   rstudio_download_spellcheck_dictionaries()
 #' }
+.is_valid_dictionary_archive <- function(path) {
+  if (!file.exists(path) || file.info(path)$size == 0) {
+    return(FALSE)
+  }
+
+  contents <- tryCatch(
+    suppressWarnings(utils::unzip(path, list = TRUE)),
+    error = function(e) NULL
+  )
+
+  if (is.null(contents) || !"Name" %in% names(contents)) {
+    return(FALSE)
+  }
+
+  expected_files <- c("lt_LT.aff", "lt_LT.dic")
+  all(expected_files %in% basename(contents$Name))
+}
+
+.download_dictionary_archive_with_curl <- function(url, destfile) {
+  curl <- Sys.which("curl")
+  if (!nzchar(curl)) {
+    return(FALSE)
+  }
+
+  status <- tryCatch(
+    system2(
+      curl,
+      args = c(
+        "--fail", "--location", "--retry", "3", "--retry-all-errors",
+        "--connect-timeout", "15", "--output", shQuote(destfile), shQuote(url)
+      ),
+      stdout = FALSE,
+      stderr = FALSE
+    ),
+    error = function(e) 1L
+  )
+
+  isTRUE(status == 0L) && .is_valid_dictionary_archive(destfile)
+}
+
+.download_dictionary_archive <- function(url, destfile, attempts = 3L) {
+  for (attempt in seq_len(attempts)) {
+    unlink(destfile)
+    status <- tryCatch(
+      suppressWarnings(utils::download.file(
+        url = url,
+        destfile = destfile,
+        mode = "wb",
+        quiet = TRUE,
+        method = "libcurl"
+      )),
+      error = function(e) 1L
+    )
+
+    if (isTRUE(status == 0L) && .is_valid_dictionary_archive(destfile)) {
+      return(TRUE)
+    }
+  }
+
+  unlink(destfile)
+  .download_dictionary_archive_with_curl(url, destfile)
+}
+
 rstudio_install_spellcheck_dictionaries <- function(secure = TRUE) {
   dic_dir <- get_path_rstudio_config_dir("dictionaries/languages-system")
 
@@ -102,15 +165,8 @@ rstudio_install_spellcheck_dictionaries <- function(secure = TRUE) {
   archive_path <- tempfile("all-dictionaries-", fileext = ".zip")
   on.exit(unlink(archive_path), add = TRUE)
 
-  dl_status <- tryCatch(
-    {
-      utils::download.file(url = url, destfile = archive_path, mode = "wb", quiet = TRUE)
-      0L
-    },
-    error = function(e) 1L
-  )
-
-  if (dl_status != 0L || !file.exists(archive_path)) {
+  if (!.download_dictionary_archive(url, archive_path)) {
+    warning("Could not download a complete RStudio dictionary archive.", call. = FALSE)
     return(FALSE)
   }
 
