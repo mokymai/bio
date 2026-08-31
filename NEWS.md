@@ -1,3 +1,36 @@
+# bio 0.3.2
+
+## RStudio settings and dictionaries
+
+* Preference-file resets are now transactional: failed preset reads or writes
+  restore the original file exactly, or remove partial output when no original
+  file existed. Errors encountered while applying preferences are no longer
+  hidden.
+
+* `rstudio_install_spellcheck_dictionaries()` now works outside RStudio by
+  downloading and validating Posit's dictionary archive, retrying interrupted
+  transfers, and falling back to the system `curl` command when available. It
+  reports progress through UI messages and invisibly returns its success status.
+  `rstudio_download_spellcheck_dictionaries()` remains a compatibility alias.
+
+* RStudio Desktop detection no longer mistakes the local runtime state
+  directory for an installation directory.
+
+## Reliability and maintenance
+
+* Online R, RStudio, and Quarto version checks now treat connectivity,
+  transport, parsing, and unexpected-response failures as unavailable version
+  information instead of aborting program checks.
+
+* GitHub Actions now tests installed-package behavior across current, devel,
+  and older R releases. Package publication and generated-documentation jobs
+  are serialized, deployment failures remain visible, and documentation jobs
+  follow the current R release rather than a hardcoded patch version.
+
+* Regression coverage was expanded for preference rollback, confirmation and
+  reset summaries, malformed version responses, dictionary installation,
+  bundled JSON assets, and deterministic internal helpers.
+
 # bio 0.3.1
 
 ## `rstudio_compare_user_settings()` improvements
@@ -39,29 +72,12 @@
 * New `get_rstudio_install_scope()` reports whether the local RStudio
   Desktop install is system-wide ("all users") or per-user ("just me").
   `find_rstudio_install_dir()` now looks for both, checking the per-user
-  registry hive on Windows that it previously missed, and avoids misidentifying
-  the local runtime state directory as an install directory.
+  registry hive on Windows that it previously missed.
 
 ## Other changes
 
 * Documentation and AI-assistant context files updated to match current
   behavior.
-
-* Preference-file resets are now transactional: failed preset reads or writes
-  restore the original file exactly, or remove partial output when no original
-  file existed.
-
-* Online R, RStudio, and Quarto version checks now treat connectivity,
-  transport, parsing, and unexpected-response failures as unavailable version
-  information instead of aborting program checks.
-
-* Retained the exported `rstudio_install_spellcheck_dictionaries()` API and its
-  `rstudio_download_spellcheck_dictionaries()` compatibility alias, with a
-  namespace regression test.
-
-* Made generated-documentation checks reproducible by aligning R, roxygen2,
-  and Pandoc versions between local generation and GitHub Actions, deriving
-  README badge metadata from `DESCRIPTION`, and checking Rd usage contracts.
 
 * Fixed `rstudio_delete_spellcheck_dictionaries(ask = FALSE)`, which could
   previously fail before removing the selected dictionary directory.
@@ -80,10 +96,6 @@
 
 * Expanded automated coverage across exported package, path, project, file
   opening, RStudio integration, and offline program-information helpers.
-
-* Added regression coverage for preference rollback, confirmation branches,
-  reset-step summaries, malformed version responses, bundled JSON assets, and
-  deterministic internal helpers.
 
 * Fixed `clear_r_history()` to use RStudio's history commands in a live
   RStudio session, including on Windows.
