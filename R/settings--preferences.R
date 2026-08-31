@@ -458,7 +458,10 @@ print_pref_diff_summary <- function(diff_df, x_arg, y_arg, details = TRUE) {
   }
 
   cat("\n")
-  usethis::ui_todo("\"Not set\" often just means RStudio doesn't know that setting yet (older/newer version) or it needs a restart/manual step.")
+  usethis::ui_todo(paste(
+    "\"Not set\" often just means RStudio doesn't know that setting yet",
+    "(older/newer version) or it needs a restart/manual step."
+  ))
   usethis::ui_todo("Run with `output = \"verbose\"` for the full technical diff.")
 
   invisible(diff_df)

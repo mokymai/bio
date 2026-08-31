@@ -222,11 +222,13 @@ test_that("check_user_info() returns stable troubleshooting metadata", {
 
 test_that("pkg_list_archived_versions() parses pages and handles failures offline", {
   testthat::local_mocked_bindings(
-    readLines = function(...) c(
-      "href=\"demo_1.2.0.tar.gz\"",
-      "href=\"demo_1.10.0.tar.gz\"",
-      "unrelated text"
-    ),
+    readLines = function(...) {
+      c(
+        "href=\"demo_1.2.0.tar.gz\"",
+        "href=\"demo_1.10.0.tar.gz\"",
+        "unrelated text"
+      )
+    },
     .package = "base"
   )
   expect_identical(

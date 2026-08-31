@@ -116,8 +116,8 @@ rstudio_configure_defaults <- function(force_update_dictionaries = FALSE) {
   # Dictionaries
   steps$dictionaries <- run_reset_step("Update spellcheck dictionaries", {
     dict_path <- get_path_rstudio_config_dir("dictionaries/languages-system")
-    lt_LT_is_missing <- !any(stringr::str_detect(dir(dict_path), "lt_LT"))
-    if (force_update_dictionaries || lt_LT_is_missing) {
+    lithuanian_is_missing <- !any(stringr::str_detect(dir(dict_path), "lt_LT"))
+    if (force_update_dictionaries || lithuanian_is_missing) {
       ok <- bio::rstudio_download_spellcheck_dictionaries()
       if (!isTRUE(ok)) {
         stop("dictionaries were not installed")
