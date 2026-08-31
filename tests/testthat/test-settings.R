@@ -55,6 +55,7 @@ test_that("dictionary installer delegates only in a supported RStudio session", 
   dic_dir <- fs::path(withr::local_tempdir(), "dictionaries")
   received_target <- NULL
   received_secure <- NULL
+  ui_messages <- character()
   downloader_name <- ".rs.downloadAllDictionaries"
   had_downloader <- exists(downloader_name, envir = globalenv(), inherits = FALSE)
   old_downloader <- get0(downloader_name, envir = globalenv(), inherits = FALSE)
@@ -78,15 +79,24 @@ test_that("dictionary installer delegates only in a supported RStudio session", 
     .package = "bio"
   )
   testthat::local_mocked_bindings(
+    ui_info = function(message, ...) ui_messages <<- c(ui_messages, "info"),
+    ui_done = function(message, ...) ui_messages <<- c(ui_messages, "done"),
+    ui_warn = function(message, ...) ui_messages <<- c(ui_messages, "warn"),
+    .package = "usethis"
+  )
+  testthat::local_mocked_bindings(
     isAvailable = function(...) TRUE,
     .package = "rstudioapi"
   )
 
-  expect_true(rstudio_install_spellcheck_dictionaries(secure = FALSE))
+  expect_invisible(expect_true(rstudio_install_spellcheck_dictionaries(secure = FALSE)))
+  expect_identical(ui_messages, c("info", "done"))
   expect_identical(received_target, dic_dir)
   expect_false(received_secure)
 
-  expect_true(rstudio_download_spellcheck_dictionaries(secure = TRUE))
+  ui_messages <- character()
+  expect_invisible(expect_true(rstudio_download_spellcheck_dictionaries(secure = TRUE)))
+  expect_identical(ui_messages, c("info", "done"))
   expect_true(received_secure)
 
   testthat::local_mocked_bindings(
@@ -107,7 +117,9 @@ test_that("dictionary installer delegates only in a supported RStudio session", 
     },
     .package = "utils"
   )
-  expect_true(rstudio_install_spellcheck_dictionaries())
+  ui_messages <- character()
+  expect_invisible(expect_true(rstudio_install_spellcheck_dictionaries()))
+  expect_identical(ui_messages, c("info", "done"))
 
   testthat::local_mocked_bindings(
     download.file = function(...) stop("download failed"),
@@ -117,10 +129,9 @@ test_that("dictionary installer delegates only in a supported RStudio session", 
     .download_dictionary_archive_with_curl = function(...) FALSE,
     .package = "bio"
   )
-  expect_warning(
-    expect_false(rstudio_install_spellcheck_dictionaries()),
-    "complete RStudio dictionary archive"
-  )
+  ui_messages <- character()
+  expect_invisible(expect_false(rstudio_install_spellcheck_dictionaries()))
+  expect_identical(ui_messages, c("info", "warn"))
 })
 
 test_that("dictionary archive download retries interrupted transfers", {
@@ -323,7 +334,7 @@ test_that("preference transaction rolls back a false result", {
   original <- charToRaw('{"value":"original"}\n')
   writeBin(original, current)
 
-  result <- with_preference_file_rollback(current, {
+  result <- bio:::with_preference_file_rollback(current, {
     writeLines('{"value":"partial"}', current)
     FALSE
   })
