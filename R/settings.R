@@ -404,8 +404,8 @@ rstudio_reset_layout <- function(rs_layout = "left") {
 #' @return Invisibly returns `NULL` when RStudio is unavailable.
 #' @keywords internal
 #' @examples
-#' \dontrun{
-#' rstudio_activate_console()
+#' if (interactive()) {
+#'   rstudio_activate_console()
 #' }
 rstudio_activate_console <- function() {
   if (rstudioapi::isAvailable(version_needed = "1.2.1261")) {
@@ -420,8 +420,8 @@ rstudio_activate_console <- function() {
 #' @return Invisibly returns `NULL` if RStudio is unavailable or the user says no.
 #' @keywords internal
 #' @examples
-#' \dontrun{
-#' rstudio_clear_console_ask()
+#' if (interactive()) {
+#'   rstudio_clear_console_ask()
 #' }
 rstudio_clear_console_ask <- function() {
   if (!rstudioapi::isAvailable(version_needed = "1.2.1261")) {
