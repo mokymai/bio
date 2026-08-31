@@ -19,6 +19,87 @@ test_that("program checks do not require obsolete version metadata", {
   expect_no_error(check_quarto_version(skip_online_check = TRUE))
 })
 
+test_that("online version helpers parse valid endpoint responses", {
+  testthat::local_mocked_bindings(
+    read_lines = function(path, ...) {
+      if (grepl("cran", path, fixed = TRUE)) {
+        return(c("R-4.6.0.tar.gz", "R-4.6.1.tar.gz"))
+      }
+      c("RStudio-2026.08.1.exe", "RStudio-2026.08.2.exe")
+    },
+    .package = "readr"
+  )
+  testthat::local_mocked_bindings(
+    fromJSON = function(...) list(tag_name = "v1.10.18"),
+    .package = "jsonlite"
+  )
+
+  expect_identical(as.character(get_available_r_version(force = TRUE)), "4.6.1")
+  expect_identical(as.character(get_available_rs_version(force = TRUE)), "2026.8.2")
+  expect_identical(as.character(get_available_quarto_version(force = TRUE)), "1.10.18")
+})
+
+test_that("online version helpers tolerate endpoint and format failures", {
+  testthat::local_mocked_bindings(
+    read_lines = function(...) stop("endpoint unavailable"),
+    .package = "readr"
+  )
+  expect_warning(
+    expect_null(get_available_r_version(force = TRUE)),
+    "Could not get the newest available R version"
+  )
+
+  testthat::local_mocked_bindings(
+    read_lines = function(...) "page without a release filename",
+    .package = "readr"
+  )
+  expect_warning(
+    expect_null(get_available_rs_version(force = TRUE)),
+    "no recognizable version"
+  )
+
+  testthat::local_mocked_bindings(
+    fromJSON = function(...) list(other = "value"),
+    .package = "jsonlite"
+  )
+  expect_warning(
+    expect_null(get_available_quarto_version(force = TRUE)),
+    "no recognizable version"
+  )
+})
+
+test_that("online checks tolerate connectivity probe failures and offline state", {
+  testthat::local_mocked_bindings(
+    is_online = function(...) stop("probe failed"),
+    .package = "pingr"
+  )
+  expect_warning(
+    expect_null(get_available_r_version()),
+    "Could not check network availability"
+  )
+
+  testthat::local_mocked_bindings(
+    is_online = function(...) FALSE,
+    .package = "pingr"
+  )
+  expect_warning(
+    expect_null(get_available_quarto_version()),
+    "computer is offline"
+  )
+})
+
+test_that("installed program reporting continues after endpoint failure", {
+  testthat::local_mocked_bindings(
+    read_lines = function(...) stop("endpoint unavailable"),
+    .package = "readr"
+  )
+
+  expect_warning(
+    expect_invisible(check_r_version(skip_online_check = FALSE)),
+    "Could not get the newest available R version"
+  )
+})
+
 test_that("print_program_version_info handles all scalar edge cases", {
   expect_no_error(print_program_version_info("ToolX", NULL, "1.2.3"))
   out_missing <- capture_messages(print_program_version_info("ToolX", NULL, "1.2.3"))
