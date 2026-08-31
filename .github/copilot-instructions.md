@@ -14,6 +14,9 @@
 	where practical, and keep tests confined to temporary paths.
 - Keep package-publication jobs sequential both within a matrix and across
 	workflow runs; do not hide deployment pull or push failures.
+- Keep pull-request generated-documentation checks read-only. Let serialized
+	post-merge pkgdown runs commit scoped generated files when contributors omit
+	them, with deployment failures remaining visible.
 
 ## Future maintenance
 - Update this file when adding new package conventions or shared workflows.
