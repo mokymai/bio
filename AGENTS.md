@@ -8,6 +8,9 @@
 - Avoid unsupported metadata or network-based version gates unless they are actually implemented and tested.
 - Do not leave obsolete implementations commented out in `R/`; preserve any
 	short-lived historical notes outside maintained package source.
+- Treat deletion of user preferences, histories, dictionaries, and course
+	directories as destructive behavior: require an explicit guard, preserve a
+	backup where practical, and test only against temporary paths.
 
 ## R package maintenance
 - Keep roxygen2 documentation in sync with function behavior.
@@ -19,6 +22,11 @@
 - Run targeted tests for changed behavior.
 - Regenerate roxygen docs when function comments change.
 - Review for broken version-check logic before merging.
+- Keep drat matrix jobs sequential and serialize workflow runs that publish to
+	the shared download repository. Publication pull/push failures must fail the
+	workflow rather than be reported as "nothing to commit".
+- Validate bundled JSON presets and test headless RStudio operations without
+	touching real user settings.
 
 ## Related files
 - Package structure guide: [AI_CONTEXT.md](AI_CONTEXT.md)
