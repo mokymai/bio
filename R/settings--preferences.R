@@ -280,6 +280,25 @@ rstudio_merge_preferences_file <- function(file) {
   TRUE
 }
 
+# Write one preference, retrying with the type RStudio asked for.
+write_rstudio_preference_coerced <- function(pref_name, pref_value) {
+  tryCatch(
+    rstudioapi::writeRStudioPreference(pref_name, pref_value),
+    error = function(e) {
+      e_msg <- conditionMessage(e)
+      if (stringr::str_detect(e_msg, "expected <Integer>")) {
+        rstudioapi::writeRStudioPreference(pref_name, as.integer(pref_value))
+      } else if (stringr::str_detect(e_msg, "expected <Real>")) {
+        rstudioapi::writeRStudioPreference(pref_name, as.numeric(pref_value))
+      } else if (stringr::str_detect(e_msg, "expected <Array>")) {
+        rstudioapi::writeRStudioPreference(pref_name, as.list(pref_value))
+      } else {
+        stop(e)
+      }
+    }
+  )
+}
+
 rstudio_set_preferences <- function(file) {
   if (rstudioapi::isAvailable("1.3.387")) {
     pref <- jsonlite::fromJSON(file)
@@ -291,35 +310,35 @@ rstudio_set_preferences <- function(file) {
 
     valid_idx <- which(nzchar(pref_names))
 
-    purrr::walk2(
+    # One key the running RStudio rejects must not discard the whole preset.
+    failures <- purrr::map2(
       pref_names[valid_idx], unname(pref)[valid_idx],
-      ~ {
-        pref_name <- .x
-        pref_value <- .y
-
+      function(pref_name, pref_value) {
         if (identical(pref_name, "cran_mirror")) {
           pref_value <- normalize_cran_mirror_pref(pref_value)
         }
 
         tryCatch(
-          rstudioapi::writeRStudioPreference(pref_name, pref_value),
-          error = function(e) {
-            e_msg <- e$message
-            if (stringr::str_detect(e_msg, "expected <Integer>")) {
-              rstudioapi::writeRStudioPreference(pref_name, as.integer(pref_value))
-            } else if (stringr::str_detect(e_msg, "expected <Real>")) {
-              rstudioapi::writeRStudioPreference(pref_name, as.numeric(pref_value))
-            } else if (stringr::str_detect(e_msg, "expected <Array>")) {
-              rstudioapi::writeRStudioPreference(pref_name, as.list(pref_value))
-            } else {
-              stop(e)
-            }
-          }
+          {
+            write_rstudio_preference_coerced(pref_name, pref_value)
+            NULL
+          },
+          error = function(e) paste0(pref_name, ": ", conditionMessage(e))
         )
       }
     )
-    TRUE
 
+    failures <- unlist(failures, use.names = FALSE)
+
+    if (length(failures) > 0L) {
+      usethis::ui_warn(paste0(
+        "This RStudio version did not accept ", length(failures),
+        " preference(s) from ", fs::path_file(file), ":\n",
+        paste0("  - ", failures, collapse = "\n")
+      ))
+    }
+
+    TRUE
   } else {
     rstudio_merge_preferences_file(file)
   }

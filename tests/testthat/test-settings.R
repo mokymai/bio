@@ -462,6 +462,63 @@ test_that("a live session leaves the preference file to RStudio", {
   expect_length(fs::dir_ls(root, regexp = "rstudio-prefs-"), 0L)
 })
 
+test_that("a rejected preference key does not discard the whole preset", {
+  preset <- withr::local_tempfile(fileext = ".json")
+  writeLines(
+    '{"editor_theme":"Textmate (default)","unknown_key":true,"save_workspace":"never"}',
+    preset
+  )
+  written <- character()
+
+  testthat::local_mocked_bindings(
+    isAvailable = function(...) TRUE,
+    writeRStudioPreference = function(name, value) {
+      if (identical(name, "unknown_key")) stop("Unknown preference name")
+      written <<- c(written, name)
+      invisible(NULL)
+    },
+    .package = "rstudioapi"
+  )
+
+  expect_warning(
+    expect_true(rstudio_set_preferences(preset)),
+    "unknown_key"
+  )
+  expect_identical(written, c("editor_theme", "save_workspace"))
+})
+
+test_that("preference writes retry with the type RStudio asks for", {
+  preset <- withr::local_tempfile(fileext = ".json")
+  writeLines('{"num_spaces_for_tab":2}', preset)
+  attempts <- list()
+
+  testthat::local_mocked_bindings(
+    isAvailable = function(...) TRUE,
+    writeRStudioPreference = function(name, value) {
+      attempts[[length(attempts) + 1L]] <<- value
+      if (length(attempts) == 1L) stop("expected <Integer>")
+      invisible(NULL)
+    },
+    .package = "rstudioapi"
+  )
+
+  expect_true(rstudio_set_preferences(preset))
+  expect_length(attempts, 2L)
+  expect_true(is.integer(attempts[[2]]))
+})
+
+test_that("a malformed preset still aborts and triggers rollback", {
+  preset <- withr::local_tempfile(fileext = ".json")
+  writeLines("{not-json", preset)
+
+  testthat::local_mocked_bindings(
+    isAvailable = function(...) TRUE,
+    .package = "rstudioapi"
+  )
+
+  expect_error(rstudio_set_preferences(preset))
+})
+
 test_that("reset steps report warnings and errors in their summaries", {
   expect_warning(
     warning_result <- suppressMessages(run_reset_step("Warn", warning("careful"))),

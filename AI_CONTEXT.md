@@ -98,6 +98,8 @@ This document maps the package structure and the main responsibilities of the co
   The `clearUserPrefs` RStudio command is only issued on the interactive
   (`ask = TRUE`) path because it opens its own confirmation dialog that cannot
   be suppressed, which would block an automated run.
+  `rstudio_set_preferences()` collects per-key rejections into a single warning
+  and keeps applying the remaining keys; only unreadable preset JSON aborts.
 - `R/settings--keybindings.R` — keybinding reset helpers.
 - Current RStudio Desktop locations (verified against Posit Support): user
   configuration is `%APPDATA%/RStudio` on Windows and `~/.config/rstudio` on

@@ -13,6 +13,11 @@
 * The theme change and the `~/R/main` directory are only applied when the
   preference reset actually succeeded.
 
+* A preference key the running RStudio version does not accept no longer aborts
+  the whole reset. Rejected keys are collected and reported in one warning,
+  and the remaining keys are still applied. Unreadable preset JSON still aborts
+  and rolls back.
+
 
 * `rstudio_install_spellcheck_dictionaries()` now works outside RStudio by
   downloading and validating Posit's dictionary archive, retrying interrupted
