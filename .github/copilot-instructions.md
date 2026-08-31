@@ -5,8 +5,8 @@
 - Prefer `|>` over `%>%` in new code.
 - Use tidyverse-style readability, not strict spacing dogma.
 - Run Styler on affected R files or selected code before final validation. Use
-	the project `.Rprofile` style (`styler::tidyverse_style(strict = FALSE)`) and
-	avoid formatting unrelated files or lines.
+  the project `.Rprofile` style (`styler::tidyverse_style(strict = FALSE)`) and
+  avoid formatting unrelated files or lines.
 - Keep examples in roxygen blocks as `if (interactive())` instead of `\dontrun{\donttest{ ... }}`.
 
 ## Package-specific rules
@@ -21,8 +21,8 @@
 	post-merge pkgdown runs commit scoped generated files when contributors omit
 	them, with deployment failures remaining visible.
 - Keep local and CI documentation generation aligned on the current R release,
-	roxygen2 8.1.0, and Pandoc 2.14. Derive README badges from `DESCRIPTION`, and
-	validate generated Rd contracts with `tools::checkDocFiles(dir = ".")`.
+  roxygen2 8.1.0, and Pandoc 2.14. Derive README badges from `DESCRIPTION`, and
+  validate generated Rd contracts with `tools::checkDocFiles(dir = ".")`.
 
 ## Future maintenance
 - Update this file when adding new package conventions or shared workflows.
