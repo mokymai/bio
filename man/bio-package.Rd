@@ -6,7 +6,7 @@
 \alias{bio-package}
 \title{bio: Resources Manager for R, RStudio and Related Software}
 \description{
-Resources manager for course unit BS.
+Provides tools for managing R and RStudio resources in Biostatistics teaching environments. It configures user preferences, keybindings, spellcheck dictionaries, project lists, and course setup, and checks installed software and available versions.
 }
 \seealso{
 Useful links:
