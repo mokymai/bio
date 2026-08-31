@@ -13,3 +13,8 @@ inst/install-r/pkgs-recommended--z.txt
 NUL
 /bio.Rcheck
 README.html
+/doc/
+/Meta/
+vignettes/*.html
+vignettes/*_files/
+vignettes/.quarto/

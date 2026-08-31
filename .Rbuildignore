@@ -32,3 +32,5 @@
 ^NUL$
 ^inst/rs-settings/other$
 ^.*[ ]- Copy\..*$
+^doc$
+^Meta$
