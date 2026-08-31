@@ -10,12 +10,18 @@
 - Do not reintroduce unsupported required-version lookups or external metadata files.
 - Keep program checks focused on installed software and online availability checks.
 - Document user-facing functions with roxygen2 comments and realistic examples.
+- Guard destructive changes to user files and directories, preserve backups
+	where practical, and keep tests confined to temporary paths.
+- Keep package-publication jobs sequential both within a matrix and across
+	workflow runs; do not hide deployment pull or push failures.
 
 ## Future maintenance
 - Update this file when adding new package conventions or shared workflows.
 - Prefer small, verifiable fixes and targeted tests over broad refactors.
 - Keep dependency reviews focused on runtime essentials vs helper-only tooling.
 - For this package, review RStudio integration, update/install helpers, and external tool checks before broad cleanup.
+- Validate the JSON files under `inst/rs-settings/` when changing bundled
+	preferences or keybindings.
 
 ## Related context files
 - Package overview: [AI_CONTEXT.md](../AI_CONTEXT.md)
