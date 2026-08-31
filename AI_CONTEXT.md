@@ -48,6 +48,9 @@ This document maps the package structure and the main responsibilities of the co
 - `R/packages--check.R` — installed package/version checks.
 - `R/packages--find.R` — package lookup and discovery helpers.
 - `R/programs.R` — installed software checks, version comparisons, and availability reporting.
+  Online R, RStudio, and Quarto version discovery is best-effort: connectivity,
+  endpoint, parsing, empty-result, and unexpected-format failures warn and
+  return `NULL` rather than aborting installed-program checks.
   Includes RStudio Desktop detection: `find_rstudio_install_dir()` (checks
   both per-user "just me" (`%LOCALAPPDATA%/Programs/RStudio`, `~/Applications/RStudio.app`)
   and system-wide "all users" (`%PROGRAMFILES%/RStudio`, `/Applications/RStudio.app`,
@@ -81,6 +84,9 @@ This document maps the package structure and the main responsibilities of the co
   installation's `user-prefs-schema.json`
   (`<install dir>/resources/app/resources/schema/user-prefs-schema.json`,
   `properties.<pref_name>.default`).
+  File-based preset application is transactional: failures restore the exact
+  original preference-file bytes, or remove partial output if the file did not
+  exist before the operation.
 - `R/settings--keybindings.R` — keybinding reset helpers.
 - Current RStudio Desktop locations (verified against Posit Support): user
   configuration is `%APPDATA%/RStudio` on Windows and `~/.config/rstudio` on
@@ -94,10 +100,20 @@ This document maps the package structure and the main responsibilities of the co
 
 - `R/bio-package.R` and `R/reexport.R` are the main entry points for public API exposure.
 - Public user-facing helpers should be documented in roxygen comments and exported through the package namespace.
+- Generated documentation uses R 4.6.1, roxygen2 8.1.0 (pinned by
+  `Config/roxygen2/version`), and Pandoc 2.14 locally and in GitHub Actions.
+  README version/date badges come from `DESCRIPTION`, not the render date or
+  an installed package. After roxygen generation,
+  `tools::checkDocFiles(dir = ".")` checks usage, arguments, and aliases.
 
 ## Test structure
 
-- `tests/testthat/test-programs.R` — current behavior checks for version-reporting logic and helper safety.
+- `tests/testthat/test-programs.R` — installed-version reporting and resilient
+  online availability behavior.
+- `tests/testthat/test-settings.R` — settings workflows, confirmation branches,
+  transactional rollback, reset summaries, and bundled JSON validation.
+- `tests/testthat/test-helpers.R` — deterministic helper contracts and public
+  spellcheck dictionary installer exports.
 - `tests/testthat.R` — testthat bootstrap entry file.
 - Add new tests beside the functional area they cover; keep them focused and runnable without network-dependent metadata unless explicitly mocked or skipped.
 
