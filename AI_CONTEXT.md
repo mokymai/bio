@@ -68,7 +68,12 @@ This document maps the package structure and the main responsibilities of the co
   toolchain via `pkgbuild::rtools_path()`, falling back to `RTOOLS*_HOME` env
   vars, registry, and `C:\rtools*` directories. Rtools releases (e.g., Rtools 4.5)
   span multiple R minor series (e.g., R 4.5.x and 4.6.x).
-- `R/dictionaries.R` — spellcheck/dictionary management.
+- `R/dictionaries.R` — spellcheck/dictionary management. The headless installer
+  downloads Posit's dictionary archive, validates it, and extracts it. Because
+  `utils::unzip()` reports extraction failures as **warnings**, never errors,
+  `.extract_dictionary_archive()` traps warnings *and* confirms that the files
+  listed by `.required_dictionary_files()` actually landed in the target
+  directory before reporting success.
 
 ### RStudio and settings management
 

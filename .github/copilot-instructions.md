@@ -15,6 +15,8 @@
 - Document user-facing functions with roxygen2 comments and realistic examples.
 - Guard destructive changes to user files and directories, preserve backups
 	where practical, and keep tests confined to temporary paths.
+- Treat `utils::unzip()` failures as warnings, not errors: confirm extraction
+	by checking the expected files on disk.
 - Keep package-publication jobs sequential both within a matrix and across
 	workflow runs; do not hide deployment pull or push failures.
 - Let serialized generated-documentation runs commit only `NAMESPACE`, `man/`,
