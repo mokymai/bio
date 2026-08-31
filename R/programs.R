@@ -132,26 +132,73 @@ check_installed_programs <- function(type = "main", skip_online_check = FALSE) {
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+can_check_available_version <- function(force = FALSE, get_what = "versions") {
+  if (isTRUE(force)) {
+    return(TRUE)
+  }
+
+  online <- tryCatch(
+    pingr::is_online(),
+    error = function(error) {
+      cli::cli_warn(c(
+        "Could not check network availability for {get_what}.",
+        "i" = conditionMessage(error)
+      ))
+      NA
+    }
+  )
+
+  if (is.na(online)) {
+    return(FALSE)
+  }
+
+  if (!isTRUE(online)) {
+    msg_offline(get_what = get_what)
+    return(FALSE)
+  }
+
+  TRUE
+}
+
+fetch_available_version <- function(get_what, fetch) {
+  tryCatch(
+    {
+      candidates <- fetch()
+      candidates <- as.character(candidates)
+      candidates <- candidates[!is.na(candidates) & nzchar(candidates)]
+
+      if (length(candidates) == 0L) {
+        stop("The endpoint returned no recognizable version.")
+      }
+
+      max(as.numeric_version(candidates))
+    },
+    error = function(error) {
+      cli::cli_warn(c(
+        "Could not get the newest available {get_what}.",
+        "i" = conditionMessage(error)
+      ))
+      NULL
+    }
+  )
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 get_available_r_version <- function(force = FALSE, skip = FALSE) {
   if (isTRUE(skip)) {
     return(NULL)
   }
 
-  if (force || pingr::is_online()) {
-    c(
-      # "https://cran.r-project.org/src/base/R-3",
-      "https://cran.r-project.org/src/base/R-4"
-    ) |>
+  if (!can_check_available_version(force, "R version")) {
+    return(NULL)
+  }
+
+  fetch_available_version("R version", function() {
+    c("https://cran.r-project.org/src/base/R-4") |>
       purrr::map(readr::read_lines) |>
       purrr::reduce(c) |>
-      stringr::str_extract("(?<=R-).\\d*[.].\\d*[.]\\d*(?=.tar.gz)") |>
-      purrr::discard(is.na) |>
-      as.numeric_version() |>
-      max()
-  } else {
-    msg_offline(get_what = "R version")
-    NULL
-  }
+      stringr::str_extract("(?<=R-)\\d+[.]\\d+[.]\\d+(?=.tar.gz)")
+  })
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -160,17 +207,16 @@ get_available_rs_version <- function(force = FALSE, skip = FALSE) {
     return(NULL)
   }
 
-  if (force || pingr::is_online()) {
+  if (!can_check_available_version(force, "RStudio version")) {
+    return(NULL)
+  }
+
+  fetch_available_version("RStudio version", function() {
     "https://docs.posit.co/ide/user/#rstudio-ide-oss-downloads" |>
       readr::read_lines() |>
       stringr::str_extract("(?<=RStudio-)\\d{4}[.].*?(?=.exe)") |>
-      purrr::discard(is.na) |>
-      as.numeric_version() |>
-      max()
-  } else {
-    msg_offline(get_what = "RStudio version")
-    NULL
-  }
+      purrr::discard(is.na)
+  })
 }
 
 get_available_quarto_version <- function(force = FALSE, skip = FALSE) {
@@ -178,15 +224,15 @@ get_available_quarto_version <- function(force = FALSE, skip = FALSE) {
     return(NULL)
   }
 
-  if (force || pingr::is_online()) {
+  if (!can_check_available_version(force, "Quarto version")) {
+    return(NULL)
+  }
+
+  fetch_available_version("Quarto version", function() {
     url <- "https://api.github.com/repos/quarto-dev/quarto-cli/releases/latest"
     rel <- jsonlite::fromJSON(url)
-    sub("^v", "", rel$tag_name) |>
-      as.numeric_version()
-  } else {
-    msg_offline(get_what = "Quarto version")
-    NULL
-  }
+    sub("^v", "", rel$tag_name)
+  })
 }
 
 
