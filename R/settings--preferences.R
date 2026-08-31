@@ -299,7 +299,7 @@ rstudio_set_preferences <- function(file) {
             } else if (stringr::str_detect(e_msg, "expected <Array>")) {
               rstudioapi::writeRStudioPreference(pref_name, as.list(pref_value))
             } else {
-              print(glue::glue("'In {pref_name}' = {pref_value}\n{e}\n"))
+              stop(e)
             }
           }
         )
