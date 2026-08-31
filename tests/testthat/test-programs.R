@@ -104,6 +104,49 @@ test_that("installed program reporting continues after endpoint failure", {
   )
 })
 
+test_that("R source branches are discovered instead of hardcoded", {
+  testthat::local_mocked_bindings(
+    is_online = function(...) TRUE,
+    .package = "pingr"
+  )
+  testthat::local_mocked_bindings(
+    read_lines = function(file, ...) {
+      if (grepl("src/base/$", file)) {
+        return(c('<a href="R-4/">R-4/</a>', '<a href="R-5/">R-5/</a>'))
+      }
+      c("R-4.6.1.tar.gz", "R-5.0.0.tar.gz")
+    },
+    .package = "readr"
+  )
+
+  expect_setequal(
+    r_source_branches(),
+    paste0("https://cran.r-project.org/src/base/", c("R-4", "R-5"))
+  )
+  expect_identical(as.character(get_available_r_version(force = TRUE)), "5.0.0")
+})
+
+test_that("R source branch discovery falls back when the index is unreadable", {
+  testthat::local_mocked_bindings(
+    read_lines = function(file, ...) {
+      if (grepl("src/base/$", file)) stop("no listing")
+      "R-4.6.1.tar.gz"
+    },
+    .package = "readr"
+  )
+
+  expect_identical(r_source_branches(), "https://cran.r-project.org/src/base/R-4")
+  expect_identical(as.character(get_available_r_version(force = TRUE)), "4.6.1")
+})
+
+test_that("the R tarball pattern requires literal dots", {
+  rx <- "(?<=R-)\\d+[.]\\d+[.]\\d+(?=[.]tar[.]gz)"
+
+  expect_identical(stringr::str_extract("R-4.6.1.tar.gz", rx), "4.6.1")
+  expect_true(is.na(stringr::str_extract("R-4.6.1_tar_gz", rx)))
+  expect_true(is.na(stringr::str_extract("R-4.6.1.tar.xz", rx)))
+})
+
 test_that("print_program_version_info handles all scalar edge cases", {
   expect_no_error(print_program_version_info("ToolX", NULL, "1.2.3"))
   out_missing <- capture_messages(print_program_version_info("ToolX", NULL, "1.2.3"))

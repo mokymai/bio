@@ -194,11 +194,32 @@ get_available_r_version <- function(force = FALSE, skip = FALSE) {
   }
 
   fetch_available_version("R version", function() {
-    c("https://cran.r-project.org/src/base/R-4") |>
+    r_source_branches() |>
       purrr::map(readr::read_lines) |>
       purrr::reduce(c) |>
-      stringr::str_extract("(?<=R-)\\d+[.]\\d+[.]\\d+(?=.tar.gz)")
+      stringr::str_extract("(?<=R-)\\d+[.]\\d+[.]\\d+(?=[.]tar[.]gz)")
   })
+}
+
+# CRAN keeps one directory per major R version; discover them instead of
+# hardcoding the current one.
+r_source_branches <- function() {
+  base_url <- "https://cran.r-project.org/src/base/"
+
+  branches <- tryCatch(
+    {
+      listing <- readr::read_lines(base_url)
+      found <- stringr::str_extract(listing, '(?<=href=")R-\\d+(?=/")')
+      unique(found[!is.na(found)])
+    },
+    error = function(error) character()
+  )
+
+  if (length(branches) == 0L) {
+    branches <- "R-4"
+  }
+
+  paste0(base_url, branches)
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
