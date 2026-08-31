@@ -94,7 +94,9 @@ This document maps the package structure and the main responsibilities of the co
   `~/.local/share/rstudio` on Linux/macOS.
 - `clear_r_history()` is an internal helper. In a running RStudio session it
   delegates to `rstudio_clear_history()` and RStudio's `clearHistory` command;
-  outside RStudio it uses base R history functions.
+  outside RStudio it uses base R history functions. Retain its Windows/RStudio
+  `FIXME` until the behavior is manually verified in a live IDE session; mocked
+  command delegation alone is not sufficient.
 
 ### Package entry points
 
