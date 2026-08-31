@@ -19,6 +19,9 @@ rstudio_delete_spellcheck_dictionaries(ask = TRUE)
 \item{ask}{(logical) If \code{TRUE}, user will have to confirm his/her choice
 interactively.}
 }
+\value{
+Invisibly, \code{TRUE} on success and \code{FALSE} on failure.
+}
 \description{
 \itemize{
 \item \code{rstudio_download_spellcheck_dictionaries()}
