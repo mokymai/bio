@@ -76,7 +76,8 @@ open_rstudio_internal_dictionaries_dir <- function() {
 #'  deletes RStudio (system) spellchecking dictionaries.
 #'
 #' @param secure (logical) If `TRUE`, uses "https", if `FALSE`, uses "http".
-#' @return Invisibly, `TRUE` on success and `FALSE` on failure.
+#' @return For `rstudio_install_spellcheck_dictionaries()` and its download
+#'   alias, invisibly returns `TRUE` on success and `FALSE` on handled failure.
 #'
 #' @concept r and rstudio settings
 #' @concept dictionaries
