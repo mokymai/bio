@@ -25,6 +25,9 @@
 - Keep drat matrix jobs sequential and serialize workflow runs that publish to
 	the shared download repository. Publication pull/push failures must fail the
 	workflow rather than be reported as "nothing to commit".
+- Keep generated-documentation checks on pull requests read-only. Post-merge
+  pkgdown runs may commit only `NAMESPACE`, `man/`, and `README.md`; serialize
+  those runs and do not suppress commit, rebase, or push failures.
 - Validate bundled JSON presets and test headless RStudio operations without
 	touching real user settings.
 
