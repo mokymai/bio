@@ -91,7 +91,9 @@ jobs:
       - name: Create generated documentation patch
         if: env.CAN_PUSH != 'true'
         shell: bash
-        run: git diff --binary -- NAMESPACE man README.md > generated-docs.patch
+        run: |
+          git add -- NAMESPACE man README.md
+          git diff --cached --binary -- NAMESPACE man README.md > generated-docs.patch
 
       - name: Upload generated documentation patch
         if: env.CAN_PUSH != 'true'
