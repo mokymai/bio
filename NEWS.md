@@ -29,7 +29,9 @@
 * GitHub Actions now tests installed-package behavior across current, devel,
   and older R releases. Package publication and generated-documentation jobs
   are serialized, deployment failures remain visible, and documentation jobs
-  follow the current R release rather than a hardcoded patch version.
+  follow the current R release rather than a hardcoded patch version. Generated
+  documentation is committed back to same-repository pull-request branches;
+  read-only fork pull requests receive a patch artifact.
 
 * Regression coverage was expanded for preference rollback, confirmation and
   reset summaries, malformed version responses, dictionary installation,
