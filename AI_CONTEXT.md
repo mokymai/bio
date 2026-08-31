@@ -92,6 +92,12 @@ This document maps the package structure and the main responsibilities of the co
   File-based preset application is transactional: failures restore the exact
   original preference-file bytes, or remove partial output if the file did not
   exist before the operation.
+  The rollback wraps **only** the headless path — a running RStudio owns
+  `rstudio-prefs.json` and re-persists its in-memory state, so the file is
+  neither deleted nor restored in a live session.
+  The `clearUserPrefs` RStudio command is only issued on the interactive
+  (`ask = TRUE`) path because it opens its own confirmation dialog that cannot
+  be suppressed, which would block an automated run.
 - `R/settings--keybindings.R` — keybinding reset helpers.
 - Current RStudio Desktop locations (verified against Posit Support): user
   configuration is `%APPDATA%/RStudio` on Windows and `~/.config/rstudio` on

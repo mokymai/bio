@@ -6,6 +6,13 @@
   restore the original file exactly, or remove partial output when no original
   file existed. Errors encountered while applying preferences are no longer
   hidden.
+  The rollback is applied only outside a live RStudio session; a running IDE
+  owns `rstudio-prefs.json`, so the file is neither deleted nor restored while
+  it is running.
+
+* The theme change and the `~/R/main` directory are only applied when the
+  preference reset actually succeeded.
+
 
 * `rstudio_install_spellcheck_dictionaries()` now works outside RStudio by
   downloading and validating Posit's dictionary archive, retrying interrupted

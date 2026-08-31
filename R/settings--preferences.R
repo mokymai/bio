@@ -112,11 +112,7 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
     )
   }
 
-  success <- with_preference_file_rollback(file_current, {
-    if (fs::file_exists(file_current)) {
-      fs::file_delete(file_current)
-    }
-
+  apply_presets <- function() {
     for (preset_file in preset_files) {
       preset_success <- rstudio_set_preferences(preset_file)
       if (!isTRUE(preset_success)) {
@@ -124,21 +120,38 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
       }
     }
 
-    if (identical(to, "rstudio-default") &&
-      isTRUE(ask) && rstudioapi::isAvailable()) {
-      rstudioapi::executeCommand("clearUserPrefs", quiet = TRUE)
-    }
-
     TRUE
-  })
+  }
 
-  if (!identical(to, "rstudio-default")) {
+  success <- if (rstudioapi::isAvailable("1.3.387")) {
+    # A running RStudio owns `rstudio-prefs.json`: preferences go through the
+    # API and the IDE re-persists its in-memory state, so neither deleting nor
+    # restoring the file would have any effect.
+    apply_presets()
+  } else {
+    with_preference_file_rollback(file_current, {
+      if (fs::file_exists(file_current)) {
+        fs::file_delete(file_current)
+      }
+
+      apply_presets()
+    })
+  }
+
+  # `clearUserPrefs` opens its own confirmation dialog that cannot be
+  # suppressed, so it is limited to the interactive (`ask = TRUE`) path.
+  if (identical(to, "rstudio-default") &&
+    isTRUE(ask) && rstudioapi::isAvailable()) {
+    rstudioapi::executeCommand("clearUserPrefs", quiet = TRUE)
+  }
+
+  if (isTRUE(success) && !identical(to, "rstudio-default")) {
     fs::dir_create("~/R/main", recurse = TRUE)
   }
 
 
   # Change RStudio theme (only possible in a live RStudio session)
-  if (rstudioapi::isAvailable()) {
+  if (isTRUE(success) && rstudioapi::isAvailable()) {
     switch(
       to,
       "bio-default"   = rstudioapi::applyTheme("Textmate (default)"),

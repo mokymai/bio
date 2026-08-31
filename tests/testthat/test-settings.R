@@ -419,6 +419,49 @@ test_that("headless preference reset applies both presets", {
   expect_false("remove_me" %in% names(result))
 })
 
+test_that("a live session leaves the preference file to RStudio", {
+  root <- withr::local_tempdir()
+  current <- fs::path(root, "rstudio-prefs.json")
+  rstudio_default <- fs::path(root, "rstudio-default.json")
+  bio_default <- fs::path(root, "bio-default.json")
+  writeLines('{"editor_theme":"Original"}', current)
+  writeLines('{"editor_theme":"Textmate (default)"}', rstudio_default)
+  writeLines('{"save_workspace":"never"}', bio_default)
+  applied <- character()
+
+  testthat::local_mocked_bindings(
+    get_path_rstudio_config_file = function(which = "current") {
+      switch(which,
+        current = current,
+        `rstudio-default` = rstudio_default,
+        bio = bio_default
+      )
+    },
+    rstudio_set_preferences = function(file) {
+      applied <<- c(applied, fs::path_file(file))
+      TRUE
+    },
+    .package = "bio"
+  )
+  testthat::local_mocked_bindings(
+    isAvailable = function(...) TRUE,
+    applyTheme = function(...) invisible(NULL),
+    executeCommand = function(...) invisible(NULL),
+    .package = "rstudioapi"
+  )
+  testthat::local_mocked_bindings(
+    dir_create = function(...) invisible(NULL),
+    .package = "fs"
+  )
+
+  expect_invisible(rstudio_reset_user_settings("bio-default", backup = FALSE, ask = FALSE))
+
+  expect_identical(applied, c("rstudio-default.json", "bio-default.json"))
+  expect_true(fs::file_exists(current))
+  expect_identical(readLines(current), '{"editor_theme":"Original"}')
+  expect_length(fs::dir_ls(root, regexp = "rstudio-prefs-"), 0L)
+})
+
 test_that("reset steps report warnings and errors in their summaries", {
   expect_warning(
     warning_result <- suppressMessages(run_reset_step("Warn", warning("careful"))),
