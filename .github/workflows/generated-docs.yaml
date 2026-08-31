@@ -1,4 +1,4 @@
-name: Check generated documentation
+name: Update generated documentation
 
 on:
   pull_request:
@@ -6,11 +6,11 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: generated-docs-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   generated-docs:
@@ -18,9 +18,13 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_REPOS: "c(mokymai = 'https://mokymai.github.io/download/', CRAN = 'https://cran.rstudio.com')"
+      CAN_PUSH: ${{ github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository }}
+      HEAD_BRANCH: ${{ github.event.pull_request.head.ref || github.ref_name }}
 
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
       - uses: r-lib/actions/setup-pandoc@v2
         with:
@@ -56,18 +60,43 @@ jobs:
           )
         shell: Rscript {0}
 
-      - name: Check generated documentation
+      - name: Commit generated documentation
+        if: env.CAN_PUSH == 'true'
         shell: bash
         run: |
-          changes="$(git status --short -- NAMESPACE man README.md)"
+          git add -- NAMESPACE man README.md
 
-          if [[ -z "${changes}" ]]; then
+          if git diff --cached --quiet; then
             echo "Generated documentation is current"
             exit 0
           fi
 
-          echo "Generated documentation is stale:" >&2
-          printf '%s\n' "${changes}" >&2
-          git --no-pager diff -- NAMESPACE man README.md
-          echo "Run roxygen and render README.Rmd, then commit the results." >&2
-          exit 1
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+          git commit -m "Update generated documentation [skip ci]"
+
+          for attempt in 1 2 3; do
+            git pull --rebase origin "${HEAD_BRANCH}"
+
+            if git push origin "HEAD:${HEAD_BRANCH}"; then
+              exit 0
+            fi
+
+            if [[ "${attempt}" -eq 3 ]]; then
+              echo "Failed to publish generated documentation after ${attempt} attempts" >&2
+              exit 1
+            fi
+          done
+
+      - name: Create generated documentation patch
+        if: env.CAN_PUSH != 'true'
+        shell: bash
+        run: git diff --binary -- NAMESPACE man README.md > generated-docs.patch
+
+      - name: Upload generated documentation patch
+        if: env.CAN_PUSH != 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-documentation-patch
+          path: generated-docs.patch
+          if-no-files-found: error
