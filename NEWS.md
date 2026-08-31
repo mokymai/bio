@@ -47,6 +47,22 @@
 * Documentation and AI-assistant context files updated to match current
   behavior.
 
+* Preference-file resets are now transactional: failed preset reads or writes
+  restore the original file exactly, or remove partial output when no original
+  file existed.
+
+* Online R, RStudio, and Quarto version checks now treat connectivity,
+  transport, parsing, and unexpected-response failures as unavailable version
+  information instead of aborting program checks.
+
+* Retained the exported `rstudio_install_spellcheck_dictionaries()` API and its
+  `rstudio_download_spellcheck_dictionaries()` compatibility alias, with a
+  namespace regression test.
+
+* Made generated-documentation checks reproducible by aligning R, roxygen2,
+  and Pandoc versions between local generation and GitHub Actions, deriving
+  README badge metadata from `DESCRIPTION`, and checking Rd usage contracts.
+
 * Fixed `rstudio_delete_spellcheck_dictionaries(ask = FALSE)`, which could
   previously fail before removing the selected dictionary directory.
 
@@ -64,6 +80,10 @@
 
 * Expanded automated coverage across exported package, path, project, file
   opening, RStudio integration, and offline program-information helpers.
+
+* Added regression coverage for preference rollback, confirmation branches,
+  reset-step summaries, malformed version responses, bundled JSON assets, and
+  deterministic internal helpers.
 
 * Fixed `clear_r_history()` to use RStudio's history commands in a live
   RStudio session, including on Windows.
