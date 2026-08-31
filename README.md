@@ -10,9 +10,9 @@ version](https://img.shields.io/badge/GitHub-0.3.2-brightgreen.svg)](https://git
 [![R-CMD-check](https://github.com/mokymai/bio/workflows/R-CMD-check/badge.svg)](https://github.com/mokymai/bio/actions)
 [![Updated-on](https://img.shields.io/badge/Updated%20on-2026--08--31-yellowgreen.svg)](/commits/master)
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/mokymai/bio/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mokymai/bio/actions/workflows/R-CMD-check.yaml)
-[![Codecov](https://codecov.io/gh/mokymai/bio/branch/master/graph/badge.svg)](https://codecov.io/gh/mokymai/bio)
+[![Codecov](https://codecov.io/gh/mokymai/bio/branch/master/graph/badge.svg)](https://app.codecov.io/gh/mokymai/bio)
 <!-- badges: end -->
 
 <!-- [![GitHub last commit](https://img.shields.io/github/last-commit/mokymai/bio)](https://github.com/mokymai/bio) -->
@@ -273,7 +273,7 @@ snippets::install_snippets_from_package("snippets", backup = TRUE)
 ```
 
 For more information about
-<a href="https://support.posit.co/hc/en-us/articles/204463668-Code-Snippets" target="_blank">Code Snippets</a>
+<a href="https://support.posit.co/hc/en-us/articles/204463668-Code-Snippets-in-the-RStudio-IDE" target="_blank">Code Snippets</a>
 in RStudio and on package
 <a href="https://gegznav.github.io/snippets/" target="_blank"><strong>snippets</strong></a>.
 

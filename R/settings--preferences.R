@@ -33,7 +33,7 @@ user_setting_set_names <- c(
 #'
 #' On [Customizing RStudio](https://support.posit.co/hc/en-us/articles/200549016-Customizing-the-RStudio-IDE) using point-and-click method.
 #'
-#' On [Configuration and Settings](https://www.rstudio.com/blog/rstudio-1-3-preview-configuration/).
+#' On [Configuration and Settings](https://posit.co/blog/rstudio-1-3-preview-configuration).
 #'
 #' A list of [Session User Settings](https://docs.posit.co/ide/server-pro/session_user_settings/session_user_settings.html) to be used with
 #' [rstudioapi::writeRStudioPreference()].
