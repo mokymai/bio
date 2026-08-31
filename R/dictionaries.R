@@ -261,7 +261,9 @@ rstudio_install_spellcheck_dictionaries <- function(secure = TRUE) {
 }
 #' @rdname spelling
 #' @export
-rstudio_download_spellcheck_dictionaries <- rstudio_install_spellcheck_dictionaries
+rstudio_download_spellcheck_dictionaries <- function(secure = TRUE) {
+  rstudio_install_spellcheck_dictionaries(secure = secure)
+}
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @name spelling

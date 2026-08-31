@@ -30,7 +30,7 @@ test_that("public dictionary installer aliases remain exported", {
   expect_true("rstudio_download_spellcheck_dictionaries" %in% exports)
   expect_false(".is_valid_dictionary_archive" %in% exports)
   expect_identical(
-    rstudio_download_spellcheck_dictionaries,
-    rstudio_install_spellcheck_dictionaries
+    formals(rstudio_download_spellcheck_dictionaries),
+    formals(rstudio_install_spellcheck_dictionaries)
   )
 })
