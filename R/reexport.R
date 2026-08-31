@@ -1,3 +1,4 @@
+#' @importFrom backup.tools open_backup_dir
 #' @export
 backup.tools::open_backup_dir
 
