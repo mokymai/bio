@@ -95,13 +95,9 @@ summarize_reset_steps <- function(steps) {
 #'
 #' Installs the "bio-default" preferences, keybindings and snippets, updates
 #' spellcheck dictionaries and TinyTeX. Unlike
-#' [rstudio_reset_session_state()], every step here is
-#' file-based (settings/keybindings are written straight to disk, see
-#' `rstudio_set_preferences()`) or a plain package install. Steps that do need
-#' a live RStudio session (such as
-#' downloading dictionaries via `.rs.downloadAllDictionaries()`, or applying
-#' a theme) are attempted but simply reported as failed/skipped when run
-#' headlessly, without stopping the remaining steps.
+#' [rstudio_reset_session_state()], every step here can run outside a live
+#' RStudio session. Settings and keybindings are written directly to disk, and
+#' dictionary installation falls back to downloading the archive directly.
 #'
 #' Every step is run through [run_reset_step()]: a failure in one step is
 #' reported but does not prevent the remaining steps from running, and none
@@ -117,14 +113,14 @@ rstudio_configure_defaults <- function(force_update_dictionaries = FALSE) {
 
   steps <- list()
 
-  # Dictionaries (requires a live RStudio session; reported as failed otherwise)
+  # Dictionaries
   steps$dictionaries <- run_reset_step("Update spellcheck dictionaries", {
     dict_path <- get_path_rstudio_config_dir("dictionaries/languages-system")
     lt_LT_is_missing <- !any(stringr::str_detect(dir(dict_path), "lt_LT"))
     if (force_update_dictionaries || lt_LT_is_missing) {
       ok <- bio::rstudio_download_spellcheck_dictionaries()
       if (!isTRUE(ok)) {
-        stop("dictionaries were not updated (requires a running RStudio session)")
+        stop("dictionaries were not installed")
       }
     }
   })
