@@ -588,7 +588,16 @@ test_that("preference transaction rolls back a false result", {
 
 test_that("all bundled RStudio settings assets contain valid JSON objects", {
   files <- fs::dir_ls(path_bio_rs(), regexp = "[.]json$")
-  expect_length(files, 4L)
+
+  expect_setequal(
+    fs::path_file(files),
+    c(
+      "keybindings--addins.json",
+      "keybindings--rstudio_bindings.json",
+      "rstudio-prefs--bio-default.json",
+      "rstudio-prefs--rstudio-default.json"
+    )
+  )
 
   assets <- lapply(files, jsonlite::fromJSON, simplifyVector = FALSE)
   expect_true(all(vapply(assets, is.list, logical(1))))
