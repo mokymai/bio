@@ -157,6 +157,37 @@ test_that("dictionary archive download retries interrupted transfers", {
   expect_identical(attempts, 3L)
 })
 
+test_that("default configuration reports headless dictionary failures accurately", {
+  testthat::local_mocked_bindings(
+    get_path_rstudio_config_dir = function(...) withr::local_tempdir(),
+    rstudio_download_spellcheck_dictionaries = function(...) FALSE,
+    rstudio_reset_user_settings = function(...) invisible(TRUE),
+    rstudio_reset_keybindings = function(...) invisible(TRUE),
+    .package = "bio"
+  )
+  testthat::local_mocked_bindings(
+    install_snippets_from_package = function(...) invisible(TRUE),
+    .package = "snippets"
+  )
+  testthat::local_mocked_bindings(
+    install_tinytex = function(...) invisible(TRUE),
+    .package = "tinytex"
+  )
+
+  result <- suppressMessages(rstudio_configure_defaults())
+
+  expect_false(result$ok[result$step == "dictionaries"])
+  expect_match(
+    result$message[result$step == "dictionaries"],
+    "dictionaries were not installed"
+  )
+  expect_false(grepl(
+    "running RStudio session",
+    result$message[result$step == "dictionaries"],
+    fixed = TRUE
+  ))
+})
+
 test_that("keybinding resets update only a temporary keybindings directory", {
   keybindings_dir <- withr::local_tempdir()
   testthat::local_mocked_bindings(
