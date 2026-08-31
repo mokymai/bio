@@ -118,7 +118,7 @@ rstudio_configure_defaults <- function(force_update_dictionaries = FALSE) {
     dict_path <- get_path_rstudio_config_dir("dictionaries/languages-system")
     lithuanian_is_missing <- !any(stringr::str_detect(dir(dict_path), "lt_LT"))
     if (force_update_dictionaries || lithuanian_is_missing) {
-      ok <- bio::rstudio_download_spellcheck_dictionaries()
+      ok <- rstudio_download_spellcheck_dictionaries()
       if (!isTRUE(ok)) {
         stop("dictionaries were not installed")
       }
@@ -127,12 +127,12 @@ rstudio_configure_defaults <- function(force_update_dictionaries = FALSE) {
 
   # User preferences (ask = FALSE: no confirmation popup); works headless too
   steps$user_settings <- run_reset_step("Reset user settings", {
-    bio::rstudio_reset_user_settings(to = "bio-default", backup = TRUE, ask = FALSE)
+    rstudio_reset_user_settings(to = "bio-default", backup = TRUE, ask = FALSE)
   })
 
   # Keybindings — plain file copy, works headless
   steps$keybindings <- run_reset_step("Reset keybindings", {
-    bio::rstudio_reset_keybindings("bio-default", backup = TRUE)
+    rstudio_reset_keybindings("bio-default", backup = TRUE)
   })
 
   # Snippets
