@@ -83,6 +83,8 @@ jobs:
           repository: ${{ env.DEST_REPO }} # 'mokymai/download'
           ref:   'master'
           path:  "${{ env.TMP_DIR }}"
+          # `git pull --rebase` in the publication step needs a full history.
+          fetch-depth: 0
           token: "${{ secrets.DEPLOY_DRAT_TOKEN }}"
 
       - name: Drat -- insert

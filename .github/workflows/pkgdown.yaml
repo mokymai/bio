@@ -25,6 +25,9 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v6
+        with:
+          # `git pull --rebase` in the commit step needs a full history.
+          fetch-depth: 0
 
       - uses: r-lib/actions/setup-pandoc@v2
         with:

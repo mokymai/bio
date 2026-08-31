@@ -25,6 +25,8 @@ jobs:
       - uses: actions/checkout@v6
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          # `git pull --rebase` in the commit step needs a full history.
+          fetch-depth: 0
 
       - uses: r-lib/actions/setup-pandoc@v2
         with:
