@@ -28,6 +28,9 @@
 - Keep generated-documentation checks on pull requests read-only. Post-merge
   pkgdown runs may commit only `NAMESPACE`, `man/`, and `README.md`; serialize
   those runs and do not suppress commit, rebase, or push failures.
+- Generate documentation with R 4.6.1, roxygen2 8.1.0, and Pandoc 2.14 locally
+	and in GitHub Actions. Keep README output derived from repository metadata,
+	and run `tools::checkDocFiles(dir = ".")` after roxygen generation.
 - Validate bundled JSON presets and test headless RStudio operations without
 	touching real user settings.
 
