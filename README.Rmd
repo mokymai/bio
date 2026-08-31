@@ -10,7 +10,6 @@ output: github_document
 ```{r README-0, include=FALSE}
 options(bio.local_list = TRUE)
 package_metadata <- read.dcf("DESCRIPTION")[1, ]
-current_r_version <- as.character(getRversion())
 
 options(
   repos = "https://cran.rstudio.com/",
