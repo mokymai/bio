@@ -11,9 +11,8 @@ template:
   bootswatch_dark: darkly
 
 # ----------------------------------------------------------------------------
-# Search settings
-search:
-  backend: docsearch
+# Search: pkgdown 2.x indexes the whole site with fuse.js and builds
+# `search.json` itself. The only supported key here would be `exclude`.
 
 # ----------------------------------------------------------------------------
 
