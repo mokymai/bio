@@ -26,11 +26,12 @@ newer.<br> </font> <font color="darkred" size=3> Functions may not work
 correctly with the previous versions of RStudio and R. </font>
 <br><br><br>
 </center>
-
-The package metadata permits installation on R 4.2.0 or newer. R 4.6.1
-and RStudio 2026.08 are the actively supported classroom baseline;
-compatibility with selected older R versions is checked in CI but is not
-the primary teaching configuration.
+<!--
+The package metadata permits installation on R 4.2.0 or newer. R 4.6.1 and
+RStudio 2026.08 are the actively supported classroom baseline; compatibility
+with selected older R versions is checked in CI but is not the primary
+teaching configuration.
+-->
 
 Bug reports and your feedback are welcome at
 <https://github.com/mokymai/bio/issues>. In the report, indicate what
