@@ -100,7 +100,7 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
 
   # Backup
   if (isTRUE(backup)) {
-    create_backup_copy(file_current, "user_settings", "RStudio settings")
+    backup.tools::create_backup_copy(file_current, "user_settings", "RStudio settings")
   }
 
   rs_default <- get_path_rstudio_config_file(which = "rstudio-default")
