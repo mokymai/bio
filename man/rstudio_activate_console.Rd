@@ -13,8 +13,8 @@ Invisibly returns \code{NULL} when RStudio is unavailable.
 Activate the console in RStudio when available.
 }
 \examples{
-\dontrun{
-rstudio_activate_console()
+if (interactive()) {
+  rstudio_activate_console()
 }
 }
 \keyword{internal}
