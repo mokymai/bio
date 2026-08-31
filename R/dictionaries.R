@@ -77,7 +77,6 @@ open_rstudio_internal_dictionaries_dir <- function() {
 #'
 #' @param secure (logical) If `TRUE`, uses "https", if `FALSE`, uses "http".
 #'
-#' @export
 #' @concept r and rstudio settings
 #' @concept dictionaries
 #'
@@ -86,6 +85,8 @@ open_rstudio_internal_dictionaries_dir <- function() {
 #'   rstudio_delete_spellcheck_dictionaries()
 #'   rstudio_download_spellcheck_dictionaries()
 #' }
+NULL
+
 .is_valid_dictionary_archive <- function(path) {
   if (!file.exists(path) || file.info(path)$size == 0) {
     return(FALSE)
@@ -149,6 +150,8 @@ open_rstudio_internal_dictionaries_dir <- function() {
   .download_dictionary_archive_with_curl(url, destfile)
 }
 
+#' @rdname spelling
+#' @export
 rstudio_install_spellcheck_dictionaries <- function(secure = TRUE) {
   dic_dir <- get_path_rstudio_config_dir("dictionaries/languages-system")
 
