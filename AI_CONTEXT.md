@@ -37,10 +37,9 @@ This document maps the package structure and the main responsibilities of the co
 - `R/helpers.R` — small reusable utility helpers used across the package.
 - `R/helpers--make_unique_obj_names.R` — naming helper for avoiding duplicate object names.
 - `R/reexport.R` — re-exported functions from imported packages.
-- `R/load_update.R` — update/install logic and package loading support.
 - `R/open_in_rstudio.R` — RStudio opening helpers.
 - `R/restart_reload.R` — reload/restart workflow helpers.
-- `R/get_os.R` and `R/get_os--NEW.R` — OS detection helpers.
+- `R/get_os.R` — OS detection helpers.
 - `R/paths-and-files.R` — file/path utilities.
 
 ### Project and environment lifecycle
@@ -83,7 +82,6 @@ This document maps the package structure and the main responsibilities of the co
   (`<install dir>/resources/app/resources/schema/user-prefs-schema.json`,
   `properties.<pref_name>.default`).
 - `R/settings--keybindings.R` — keybinding reset helpers.
-- `R/bio-related.R` — package-specific RStudio/bio helper integration points.
 - Current RStudio Desktop locations (verified against Posit Support): user
   configuration is `%APPDATA%/RStudio` on Windows and `~/.config/rstudio` on
   Linux/macOS; internal state is `%LOCALAPPDATA%/RStudio` on Windows and
@@ -105,8 +103,30 @@ This document maps the package structure and the main responsibilities of the co
 
 ## Bundled resources
 
-- `inst/rs-settings/` — packaged RStudio settings, keybinding and preference JSON payloads.
+- `inst/rs-settings/rstudio-prefs--bio-default.json` — the course preference
+  overrides applied on top of RStudio defaults.
+- `inst/rs-settings/rstudio-prefs--rstudio-default.json` — the package's
+  maintained baseline of RStudio defaults; local schema defaults are preferred
+  when settings are compared.
+- `inst/rs-settings/keybindings--addins.json` and
+  `inst/rs-settings/keybindings--rstudio_bindings.json` — packaged shortcut
+  profiles copied by the keybinding reset helpers.
 - `inst/WORDLIST` — spelling word list for package documentation and tests.
+
+## Automation
+
+- `.github/workflows/R-CMD-check.yaml` — cross-platform package checks.
+- `.github/workflows/lint.yaml` — `lintr` and `styler` checks for maintained R
+  and test code.
+- `.github/workflows/test-coverage.yaml` — test coverage reporting.
+- `.github/workflows/pkgdown.yaml` — README/reference-site generation and
+  GitHub Pages deployment without committing generated files to the source
+  branch.
+- `.github/workflows/drat--publish-package.yaml` — sequential source and binary
+  package publication to `mokymai/download`. The matrix must keep
+  `max-parallel: 1`, workflow concurrency serializes separate runs, publication
+  failures are not suppressed, and commit messages record the concrete runtime
+  R version.
 
 ## Suggested traversal order for AI work
 
