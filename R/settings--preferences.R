@@ -159,6 +159,44 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+with_preference_file_rollback <- function(path, expr) {
+  file_existed <- fs::file_exists(path)
+  backup <- tempfile("rstudio-prefs-", tmpdir = fs::path_dir(path))
+  on.exit(unlink(backup), add = TRUE)
+
+  if (file_existed) {
+    fs::file_copy(path, backup)
+  }
+
+  restore <- function() {
+    if (!file_existed) {
+      if (fs::file_exists(path)) {
+        fs::file_delete(path)
+      }
+      return(invisible(NULL))
+    }
+
+    fs::dir_create(fs::path_dir(path), recurse = TRUE)
+    fs::file_copy(backup, path, overwrite = TRUE)
+    invisible(NULL)
+  }
+
+  result <- tryCatch(
+    force(expr),
+    error = function(error) {
+      restore()
+      stop(error)
+    }
+  )
+
+  if (!isTRUE(result)) {
+    restore()
+  }
+
+  result
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Read preference from JSON file and set them in RStudio
 normalize_cran_mirror_pref <- function(value) {
   has_https_url <- function(x) {
