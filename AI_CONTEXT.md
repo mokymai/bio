@@ -119,9 +119,11 @@ This document maps the package structure and the main responsibilities of the co
 - `.github/workflows/lint.yaml` — `lintr` and `styler` checks for maintained R
   and test code.
 - `.github/workflows/test-coverage.yaml` — test coverage reporting.
-- `.github/workflows/pkgdown.yaml` — README/reference-site generation and
-  GitHub Pages deployment without committing generated files to the source
-  branch.
+- `.github/workflows/generated-docs.yaml` — read-only pull-request check that
+  fails when `NAMESPACE`, `man/`, or `README.md` are stale.
+- `.github/workflows/pkgdown.yaml` — serialized post-merge regeneration of
+  `NAMESPACE`, `man/`, and `README.md`; commits those files when needed, then
+  builds and deploys the GitHub Pages site.
 - `.github/workflows/drat--publish-package.yaml` — sequential source and binary
   package publication to `mokymai/download`. The matrix must keep
   `max-parallel: 1`, workflow concurrency serializes separate runs, publication
