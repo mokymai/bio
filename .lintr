@@ -1,6 +1,13 @@
 linters: lintr::linters_with_defaults(
   line_length_linter = lintr::line_length_linter(140),
   object_length_linter = NULL,
+  # Most locals here are consumed inside `usethis::ui_*()` glue strings or are
+  # created by `textConnection(local = TRUE)`, neither of which this linter sees.
+  object_usage_linter = NULL,
+  # `rstudioapi` and RStudio preference APIs use camelCase argument names.
+  object_name_linter = lintr::object_name_linter(
+    styles = c("snake_case", "symbols", "camelCase")
+  ),
   commented_code_linter = NULL,
   indentation_linter = NULL,
   trailing_blank_lines_linter = NULL

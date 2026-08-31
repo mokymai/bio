@@ -49,6 +49,11 @@
   mocked everywhere an online version check is exercised, so results no longer
   depend on runner connectivity.
 
+* The lint workflow now fails when `lintr` reports findings
+  (`LINTR_ERROR_ON_LINT`), and the package is lint-clean. `.lintr` documents
+  why `object_usage_linter` is disabled (glue interpolation through
+  `usethis::ui_*()`) and allows camelCase names required by external APIs.
+
 # bio 0.3.1
 
 ## `rstudio_compare_user_settings()` improvements
