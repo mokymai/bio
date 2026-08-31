@@ -404,6 +404,104 @@ test_that("reset helpers hold the expected scalar contracts", {
   expect_error(rstudio_reset_layout("middle"), "should be one of")
 })
 
+test_that("session reset honors safety gates without running commands", {
+  command_count <- 0L
+  testthat::local_mocked_bindings(
+    executeCommand = function(...) {
+      command_count <<- command_count + 1L
+      invisible(NULL)
+    },
+    .package = "rstudioapi"
+  )
+
+  expect_invisible(suppressMessages(rstudio_reset_session_state(ignore_ip = FALSE)))
+  expect_identical(command_count, 0L)
+
+  testthat::local_mocked_bindings(
+    isAvailable = function(...) FALSE,
+    .package = "rstudioapi"
+  )
+  expect_invisible(suppressMessages(rstudio_reset_session_state(ignore_ip = TRUE)))
+  expect_identical(command_count, 0L)
+})
+
+test_that("session reset runs mocked steps with history last", {
+  events <- character()
+  test_dir <- withr::local_tempdir()
+  withr::local_dir(test_dir)
+  writeLines("temporary history", ".Rhistory")
+
+  testthat::local_mocked_bindings(
+    isAvailable = function(...) TRUE,
+    executeCommand = function(command, ...) {
+      events <<- c(events, command)
+      invisible(NULL)
+    },
+    applyTheme = function(theme, ...) {
+      events <<- c(events, paste0("theme:", theme))
+      invisible(NULL)
+    },
+    .package = "rstudioapi"
+  )
+  testthat::local_mocked_bindings(
+    clear_r_workspace = function(...) {
+      events <<- c(events, "clearWorkspace")
+      invisible(NULL)
+    },
+    rstudio_reset_layout = function(...) {
+      events <<- c(events, "resetLayout")
+      invisible(NULL)
+    },
+    rstudio_clear_history = function(backup = FALSE) {
+      if (!identical(backup, FALSE)) stop("history backup must be disabled")
+      events <<- c(events, "clearHistory")
+      invisible(NULL)
+    },
+    .package = "bio"
+  )
+
+  result <- suppressMessages(rstudio_reset_session_state(ignore_ip = TRUE))
+
+  expect_identical(
+    result$step,
+    c(
+      "working_dir", "recent_files", "plots", "help", "viewer",
+      "recent_projects", "workspace", "layout", "theme", "documents",
+      "terminals", "console", "history"
+    )
+  )
+  expect_true(all(result$ok))
+  expect_identical(tail(events, 1L), "clearHistory")
+  expect_false(fs::file_exists(".Rhistory"))
+})
+
+test_that("combined reset honors its guard and delegates both phases", {
+  calls <- character()
+  testthat::local_mocked_bindings(
+    rstudio_configure_defaults = function(force_update_dictionaries = FALSE) {
+      calls <<- c(calls, paste0("configure:", force_update_dictionaries))
+      data.frame(step = "configure", ok = TRUE, message = NA_character_)
+    },
+    rstudio_reset_session_state = function(...) {
+      calls <<- c(calls, "session")
+      data.frame(step = "session", ok = TRUE, message = NA_character_)
+    },
+    .package = "bio"
+  )
+
+  expect_invisible(suppressMessages(rstudio_reset_gmc(ignore_ip = FALSE)))
+  expect_identical(calls, character())
+
+  result <- suppressMessages(rstudio_reset_gmc(
+    ignore_ip = TRUE,
+    force_update_dictionaries = TRUE
+  ))
+
+  expect_identical(calls, c("configure:TRUE", "session"))
+  expect_identical(result$configure$step, "configure")
+  expect_identical(result$session_state$step, "session")
+})
+
 test_that("clear_r_history() delegates to RStudio in a live session", {
   commands <- character()
   testthat::local_mocked_bindings(
