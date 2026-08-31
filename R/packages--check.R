@@ -186,6 +186,8 @@ get_pkgs_cran_details <- function(repos = NULL) {
 #'
 #' @importFrom stats na.omit
 #'
+#' @concept packages
+#'
 #' @examples
 #' pkg_list_archived_versions("ggplot2")
 #'

@@ -593,6 +593,7 @@ classify_rstudio_install_scope <- function(install_dir) {
 #' @return `"system"`, `"user"`, or `NA_character_` if the install location
 #'   is unknown (e.g. RStudio isn't installed).
 #' @export
+#' @concept check
 #' @examples
 #' if (interactive()) {
 #'   get_rstudio_install_scope()

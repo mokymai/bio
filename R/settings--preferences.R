@@ -652,6 +652,7 @@ read_current_prefs_from_file <- function(current_file, default_prefs) {
 #'         `source` is unavailable (e.g. `"live"` without a running RStudio
 #'         session, or `"file"`/`"auto"` with no saved preferences file).
 #' @export
+#' @concept r and rstudio settings
 #'
 #' @examples
 #' if (interactive()) {
