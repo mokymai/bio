@@ -70,8 +70,10 @@ open_rstudio_internal_dictionaries_dir <- function() {
 #' @name spelling
 #' @title Dictionaries to check spelling
 #' @description
+#' - `rstudio_install_spellcheck_dictionaries()`
+#'  downloads and installs RStudio (system) spellchecking dictionaries.
 #' - `rstudio_download_spellcheck_dictionaries()`
-#'  downloads and updates RStudio (system) spellchecking dictionaries.
+#'  is a compatibility alias for the installer.
 #' - `rstudio_delete_spellcheck_dictionaries()`
 #'  deletes RStudio (system) spellchecking dictionaries.
 #'

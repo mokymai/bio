@@ -28,8 +28,10 @@ alias, invisibly returns \code{TRUE} on success and \code{FALSE} on handled fail
 }
 \description{
 \itemize{
+\item \code{rstudio_install_spellcheck_dictionaries()}
+downloads and installs RStudio (system) spellchecking dictionaries.
 \item \code{rstudio_download_spellcheck_dictionaries()}
-downloads and updates RStudio (system) spellchecking dictionaries.
+is a compatibility alias for the installer.
 \item \code{rstudio_delete_spellcheck_dictionaries()}
 deletes RStudio (system) spellchecking dictionaries.
 }
