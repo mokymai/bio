@@ -45,6 +45,10 @@
   reset summaries, malformed version responses, dictionary installation,
   bundled JSON assets, and deterministic internal helpers.
 
+* The test suite no longer reaches the real network: the connectivity probe is
+  mocked everywhere an online version check is exercised, so results no longer
+  depend on runner connectivity.
+
 # bio 0.3.1
 
 ## `rstudio_compare_user_settings()` improvements

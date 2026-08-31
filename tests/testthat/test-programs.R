@@ -90,6 +90,10 @@ test_that("online checks tolerate connectivity probe failures and offline state"
 
 test_that("installed program reporting continues after endpoint failure", {
   testthat::local_mocked_bindings(
+    is_online = function(...) TRUE,
+    .package = "pingr"
+  )
+  testthat::local_mocked_bindings(
     read_lines = function(...) stop("endpoint unavailable"),
     .package = "readr"
   )
