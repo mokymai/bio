@@ -5,6 +5,13 @@ on:
 
 name: Publish package (drat)
 
+permissions:
+  contents: read
+
+concurrency:
+  group: drat-publish-mokymai-download
+  cancel-in-progress: false
+
 jobs:
   drat:
     runs-on: ${{ matrix.config.os }}
@@ -70,14 +77,6 @@ jobs:
             devtools::build(path = "check", binary = TRUE)
 
 # The steps to include the built package in ${DEST_REPO}
-      - name: Configure Git
-        run: |
-          git config --global user.email "actions@github.com"
-          git config --global user.name  "GitHub Actions | ${{ github.event.repository.name }}"
-          # git config --global url."https://${TOKEN}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
-        env:
-          TOKEN: ${{ secrets.DEPLOY_DRAT_TOKEN }}
-
       - name: Git clone DEST_REPO
         uses: actions/checkout@v4
         with:
@@ -113,9 +112,27 @@ jobs:
         run: |
           cd "${TMP_DIR}" # move into the subdir, which is Git controlled
           R_VERSION="$(Rscript -e 'cat(as.character(getRversion()))')"
-          git add *
-          git add -f *.tar.gz
-          git pull --rebase origin master || true
-          git commit -m "Update from ${SOURCE_REPO} ${{ runner.os }} R-${R_VERSION}" || echo "Nothing to commit"
-          git push origin master || echo "Nothing to commit"
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions | ${{ github.event.repository.name }}"
+          git add --all
+
+          if git diff --cached --quiet; then
+            echo "Nothing to commit"
+            exit 0
+          fi
+
+          git commit -m "Update from ${SOURCE_REPO} ${{ runner.os }} R-${R_VERSION}"
+
+          for attempt in 1 2 3; do
+            git pull --rebase origin master
+
+            if git push origin master; then
+              exit 0
+            fi
+
+            if [[ "${attempt}" -eq 3 ]]; then
+              echo "Failed to publish after ${attempt} attempts" >&2
+              exit 1
+            fi
+          done
 
