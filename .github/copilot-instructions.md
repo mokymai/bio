@@ -17,6 +17,8 @@
 	where practical, and keep tests confined to temporary paths.
 - Treat `utils::unzip()` failures as warnings, not errors: confirm extraction
 	by checking the expected files on disk.
+- Keep the test suite network-free and the package lint-clean; the lint
+	workflow runs with `LINTR_ERROR_ON_LINT: true`.
 - Keep package-publication jobs sequential both within a matrix and across
 	workflow runs; do not hide deployment pull or push failures.
 - Let serialized generated-documentation runs commit only `NAMESPACE`, `man/`,

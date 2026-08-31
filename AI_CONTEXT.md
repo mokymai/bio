@@ -153,7 +153,11 @@ This document maps the package structure and the main responsibilities of the co
 
 - `.github/workflows/R-CMD-check.yaml` — cross-platform package checks.
 - `.github/workflows/lint.yaml` — `lintr` and `styler` checks for maintained R
-  and test code.
+  and test code. `lintr` runs with `LINTR_ERROR_ON_LINT: true`, so findings fail
+  the workflow; keep the package lint-clean rather than letting findings
+  accumulate. `.lintr` disables `object_usage_linter` (locals consumed inside
+  `usethis::ui_*()` glue strings are invisible to it) and permits camelCase
+  names required by `rstudioapi`.
 - `.github/workflows/test-coverage.yaml` — test coverage reporting.
 - `.github/workflows/generated-docs.yaml` — regenerates `NAMESPACE`, `man/`,
   and `README.md`; commits scoped changes to same-repository pull-request

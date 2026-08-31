@@ -25,6 +25,8 @@
 - Run targeted tests for changed behavior.
 - Keep the test suite network-free: mock `pingr::is_online()` alongside any
 	mocked endpoint, otherwise the test fails on an offline runner.
+- Keep the package lint-clean; the lint workflow runs with
+	`LINTR_ERROR_ON_LINT: true` and must be able to fail.
 - Regenerate roxygen docs when function comments change.
 - Review for broken version-check logic before merging.
 - Keep drat matrix jobs sequential and serialize workflow runs that publish to
