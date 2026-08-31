@@ -236,7 +236,7 @@ test_that("dictionary archive download retries interrupted transfers", {
 
 test_that("default configuration reports headless dictionary failures accurately", {
   testthat::local_mocked_bindings(
-    get_path_rstudio_config_dir = function(...) withr::local_tempdir(),
+    get_path_rstudio_config_dir = function(...) dict_dir,
     rstudio_download_spellcheck_dictionaries = function(...) FALSE,
     rstudio_reset_user_settings = function(...) invisible(TRUE),
     rstudio_reset_keybindings = function(...) invisible(TRUE),
@@ -268,6 +268,8 @@ test_that("default configuration reports headless dictionary failures accurately
 test_that("keybinding resets update only a temporary keybindings directory", {
   keybindings_dir <- withr::local_tempdir()
   testthat::local_mocked_bindings(
+  dict_dir <- withr::local_tempdir()
+
     get_path_rstudio_keybindings_dir = function() keybindings_dir,
     .package = "bio"
   )
