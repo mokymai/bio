@@ -48,6 +48,11 @@
 
 ## Reliability and maintenance
 
+* Added three Quarto vignettes (`bio`, `checking-your-setup`,
+  `rstudio-settings`), each marked lifecycle: experimental. Their code chunks
+  are not evaluated, and the badge is vendored so the vignettes render without
+  network access.
+
 * Expanded the package description and replaced the broad `backup.tools`
   namespace import with package-qualified calls and the single narrow import
   required for the `open_backup_dir()` re-export.

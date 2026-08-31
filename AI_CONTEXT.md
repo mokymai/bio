@@ -26,6 +26,12 @@ This document maps the package structure and the main responsibilities of the co
 - `inst/` — bundled support files, config snapshots, and RStudio settings assets.
 - `R/` — package implementation source.
 - `docs/` — generated website output.
+- `vignettes/` — three Quarto (`.qmd`) vignettes built with the
+  `quarto::html` engine (`VignetteBuilder: quarto`). All chunks are
+  `eval: false` because the documented functions touch user settings and the
+  network. `vignettes/lifecycle-experimental.svg` is vendored deliberately:
+  Quarto embeds resources at render time, so a remote badge would make the
+  vignette build require network access.
 - `_tmp/` — temporary scratch and one-off development scripts; not part of the maintained package logic.
 - `man/` — generated roxygen documentation; not part of the hand-written source.
 
