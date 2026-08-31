@@ -125,7 +125,7 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
     }
 
     if (identical(to, "rstudio-default") &&
-        isTRUE(ask) && rstudioapi::isAvailable()) {
+      isTRUE(ask) && rstudioapi::isAvailable()) {
       rstudioapi::executeCommand("clearUserPrefs", quiet = TRUE)
     }
 
