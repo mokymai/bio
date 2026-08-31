@@ -127,7 +127,8 @@ NULL
   )
 }
 
-.is_valid_dictionary_archive <- function(path) {
+# The archive is only useful to this package if it carries the course locale.
+.has_required_dictionaries <- function(path, required = .required_dictionary_files()) {
   if (!file.exists(path) || file.info(path)$size == 0) {
     return(FALSE)
   }
@@ -137,7 +138,31 @@ NULL
     return(FALSE)
   }
 
-  all(.required_dictionary_files() %in% basename(entries))
+  all(required %in% basename(entries))
+}
+
+# Distinguishes "nothing downloaded" from "downloaded, but not what we need".
+.describe_archive_problem <- function(path) {
+  if (!file.exists(path) || file.info(path)$size == 0) {
+    return("the download produced no data")
+  }
+
+  entries <- .archive_entry_names(path)
+  if (is.null(entries)) {
+    return("the downloaded file is not a readable zip archive")
+  }
+  if (.has_unsafe_archive_entries(entries)) {
+    return("the archive contains entries that would be written outside the target directory")
+  }
+
+  missing <- setdiff(.required_dictionary_files(), basename(entries))
+  if (length(missing) > 0L) {
+    return(paste0(
+      "the archive does not contain ", paste(missing, collapse = " and ")
+    ))
+  }
+
+  "the archive could not be validated"
 }
 
 # `utils::unzip()` reports extraction failures as warnings, not errors, so the
@@ -191,7 +216,7 @@ NULL
     error = function(e) 1L
   )
 
-  isTRUE(status == 0L) && .is_valid_dictionary_archive(destfile)
+  isTRUE(status == 0L) && .has_required_dictionaries(destfile)
 }
 
 .download_dictionary_archive <- function(url, destfile, attempts = 3L) {
@@ -208,12 +233,16 @@ NULL
       error = function(e) 1L
     )
 
-    if (isTRUE(status == 0L) && .is_valid_dictionary_archive(destfile)) {
+    if (isTRUE(status == 0L) && .has_required_dictionaries(destfile)) {
       return(TRUE)
+    }
+
+    # A transient outage needs time to clear; retrying instantly does not help.
+    if (attempt < attempts) {
+      Sys.sleep(attempt)
     }
   }
 
-  unlink(destfile)
   .download_dictionary_archive_with_curl(url, destfile)
 }
 
@@ -246,7 +275,10 @@ rstudio_install_spellcheck_dictionaries <- function(secure = TRUE) {
   on.exit(unlink(archive_path), add = TRUE)
 
   if (!.download_dictionary_archive(url, archive_path)) {
-    usethis::ui_warn("Could not download a complete RStudio dictionary archive.")
+    usethis::ui_warn(paste0(
+      "Could not obtain the RStudio dictionary archive: ",
+      .describe_archive_problem(archive_path), "."
+    ))
     return(invisible(FALSE))
   }
 

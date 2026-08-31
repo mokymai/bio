@@ -239,7 +239,7 @@ test_that("dictionary archives with escaping entries are refused", {
   file.create(archive)
   writeLines("payload", archive)
 
-  expect_false(bio:::.is_valid_dictionary_archive(archive))
+  expect_false(bio:::.has_required_dictionaries(archive))
   expect_false(bio:::.extract_dictionary_archive(archive, target))
   expect_false(extracted)
 })
@@ -247,7 +247,15 @@ test_that("dictionary archives with escaping entries are refused", {
 test_that("dictionary archive download retries interrupted transfers", {
   archive_path <- withr::local_tempfile(fileext = ".zip")
   attempts <- 0L
+  waits <- numeric()
 
+  testthat::local_mocked_bindings(
+    Sys.sleep = function(seconds) {
+      waits <<- c(waits, seconds)
+      invisible(NULL)
+    },
+    .package = "base"
+  )
   testthat::local_mocked_bindings(
     download.file = function(url, destfile, ...) {
       attempts <<- attempts + 1L
@@ -265,6 +273,53 @@ test_that("dictionary archive download retries interrupted transfers", {
 
   expect_true(bio:::.download_dictionary_archive("https://example.test/dictionaries.zip", archive_path))
   expect_identical(attempts, 3L)
+  # Backs off between attempts, but not after the last one.
+  expect_identical(waits, c(1, 2))
+})
+
+test_that("a failed download reports why the archive was rejected", {
+  archive_path <- withr::local_tempfile(fileext = ".zip")
+
+  expect_match(bio:::.describe_archive_problem(archive_path), "no data")
+
+  writeLines("not a zip", archive_path)
+  expect_match(bio:::.describe_archive_problem(archive_path), "not a readable zip")
+
+  testthat::local_mocked_bindings(
+    unzip = function(zipfile, list = FALSE, ...) {
+      data.frame(Name = c("lt_LT.aff", "en_US.dic"))
+    },
+    .package = "utils"
+  )
+  expect_match(bio:::.describe_archive_problem(archive_path), "does not contain lt_LT[.]dic")
+  expect_false(bio:::.has_required_dictionaries(archive_path))
+
+  testthat::local_mocked_bindings(
+    unzip = function(zipfile, list = FALSE, ...) {
+      data.frame(Name = c("../evil.txt", "lt_LT.aff", "lt_LT.dic"))
+    },
+    .package = "utils"
+  )
+  expect_match(bio:::.describe_archive_problem(archive_path), "outside the target directory")
+})
+
+test_that("the required dictionary set can be overridden", {
+  archive_path <- withr::local_tempfile(fileext = ".zip")
+  writeLines("payload", archive_path)
+
+  testthat::local_mocked_bindings(
+    unzip = function(zipfile, list = FALSE, ...) {
+      data.frame(Name = c("dict/en_US.aff", "dict/en_US.dic"))
+    },
+    .package = "utils"
+  )
+
+  expect_false(bio:::.has_required_dictionaries(archive_path))
+  expect_true(
+    bio:::.has_required_dictionaries(archive_path, required = c("en_US.aff", "en_US.dic"))
+  )
+})
+
 })
 
 test_that("default configuration reports headless dictionary failures accurately", {
