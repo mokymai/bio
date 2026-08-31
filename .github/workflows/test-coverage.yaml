@@ -9,6 +9,9 @@ on:
 
 name: Test coverage
 
+permissions:
+  contents: read
+
 jobs:
   test-coverage:
     runs-on: ubuntu-latest
