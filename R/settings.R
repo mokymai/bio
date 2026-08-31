@@ -315,10 +315,11 @@ clear_r_history <- function(backup = TRUE) {
 
   if (isTRUE(backup)) {
 
-    new_name <- paste0("Rhistory", get_backup_stamp(), ".Rhistory")
-    hist_backup <- fs::path(get_path_backup_dir(), new_name)
+    new_name <- paste0("Rhistory", backup.tools::get_backup_stamp(), ".Rhistory")
+    backup_dir <- backup.tools::get_path_backup_dir()
+    hist_backup <- fs::path(backup_dir, new_name)
 
-    withr::with_dir(get_path_backup_dir(), savehistory(file = new_name))
+    withr::with_dir(backup_dir, savehistory(file = new_name))
 
     usethis::ui_done("R history saved to {usethis::ui_path(hist_backup)}")
   }
