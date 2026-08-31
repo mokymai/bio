@@ -69,8 +69,8 @@
   JSON files directly instead of requiring a live `rstudioapi` session.
 
 * `rstudio_reset_gmc()` was split into `rstudio_configure_defaults()`
-  (headless-capable: preferences, keybindings, snippets, directories,
-  dictionaries) and `rstudio_reset_session_state()` (requires a live
+  (headless-capable: preferences, keybindings, snippets, dictionaries, and
+  TinyTeX) and `rstudio_reset_session_state()` (requires a live
   RStudio session: tabs, workspace, layout, theme, console, history).
   `rstudio_reset_gmc()` remains as a thin wrapper calling both, for
   backward compatibility.
