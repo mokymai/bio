@@ -98,7 +98,10 @@ test_that("dictionary installer delegates only in a supported RStudio session", 
       writeLines("fake-zip-data", destfile)
       0L
     },
-    unzip = function(zipfile, exdir, ...) {
+    unzip = function(zipfile, exdir, list = FALSE, ...) {
+      if (list) {
+        return(data.frame(Name = c("lt_LT.aff", "lt_LT.dic")))
+      }
       writeLines("lt_LT", file.path(exdir, "lt_LT.dic"))
       character(0)
     },
@@ -110,7 +113,37 @@ test_that("dictionary installer delegates only in a supported RStudio session", 
     download.file = function(...) stop("download failed"),
     .package = "utils"
   )
-  expect_false(rstudio_install_spellcheck_dictionaries())
+  testthat::local_mocked_bindings(
+    .download_dictionary_archive_with_curl = function(...) FALSE,
+    .package = "bio"
+  )
+  expect_warning(
+    expect_false(rstudio_install_spellcheck_dictionaries()),
+    "complete RStudio dictionary archive"
+  )
+})
+
+test_that("dictionary archive download retries interrupted transfers", {
+  archive_path <- withr::local_tempfile(fileext = ".zip")
+  attempts <- 0L
+
+  testthat::local_mocked_bindings(
+    download.file = function(url, destfile, ...) {
+      attempts <<- attempts + 1L
+      writeLines(if (attempts < 3L) "partial" else "complete", destfile)
+      if (attempts < 3L) 1L else 0L
+    },
+    unzip = function(zipfile, list = FALSE, ...) {
+      if (list && identical(readLines(zipfile), "complete")) {
+        return(data.frame(Name = c("lt_LT.aff", "lt_LT.dic")))
+      }
+      stop("invalid archive")
+    },
+    .package = "utils"
+  )
+
+  expect_true(bio:::.download_dictionary_archive("https://example.test/dictionaries.zip", archive_path))
+  expect_identical(attempts, 3L)
 })
 
 test_that("keybinding resets update only a temporary keybindings directory", {
