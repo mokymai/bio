@@ -39,8 +39,8 @@ Invisibly returns \code{NULL}.
 }
 \description{
 Installs the "bio-default" preferences, keybindings and snippets, updates
-spellcheck dictionaries and TinyTeX, and (re)creates the course working
-directories. Unlike \code{\link[=rstudio_reset_session_state]{rstudio_reset_session_state()}}, every step here is
+spellcheck dictionaries and TinyTeX. Unlike
+\code{\link[=rstudio_reset_session_state]{rstudio_reset_session_state()}}, every step here is
 file-based (settings/keybindings are written straight to disk, see
 \code{rstudio_set_preferences()}) or a plain package install. Steps that do need
 a live RStudio session (such as
