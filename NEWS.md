@@ -1,3 +1,98 @@
+# bio 0.3.2
+
+## RStudio settings and dictionaries
+
+* Preference-file resets are now transactional: failed preset reads or writes
+  restore the original file exactly, or remove partial output when no original
+  file existed. Errors encountered while applying preferences are no longer
+  hidden.
+  The rollback is applied only outside a live RStudio session; a running IDE
+  owns `rstudio-prefs.json`, so the file is neither deleted nor restored while
+  it is running.
+
+* The theme change and the `~/R/main` directory are only applied when the
+  preference reset actually succeeded.
+
+* A preference key the running RStudio version does not accept no longer aborts
+  the whole reset. Rejected keys are collected and reported in one warning,
+  and the remaining keys are still applied. Unreadable preset JSON still aborts
+  and rolls back.
+
+* `secure = FALSE` now warns that the dictionary archive is fetched over an
+  unencrypted connection and extracted into your RStudio configuration
+  directory.
+
+* Dictionary archives containing entries that would escape the target
+  directory (absolute paths, drive letters, or `..` segments) are refused
+  before extraction.
+
+* A failed dictionary download now says why the archive was rejected —
+  no data, not a readable zip, unsafe entries, or a missing locale — instead
+  of always reporting an incomplete download. Retries also back off between
+  attempts.
+
+* The check for the newest available R version discovers the CRAN source
+  directories instead of assuming R 4, and its filename pattern now requires
+  literal dots.
+
+* `rstudio_install_spellcheck_dictionaries()` now works outside RStudio by
+  downloading and validating Posit's dictionary archive, retrying interrupted
+  transfers, and falling back to the system `curl` command when available. It
+  reports progress through UI messages and invisibly returns its success status.
+  `rstudio_download_spellcheck_dictionaries()` remains a compatibility alias.
+
+* Dictionary installation no longer reports success when extraction fails.
+  `utils::unzip()` signals extraction problems as warnings rather than errors,
+  so the result is now confirmed against the dictionary files that actually
+  reached the target directory.
+
+* RStudio Desktop detection no longer mistakes the local runtime state
+  directory for an installation directory.
+
+* `rstudio_configure_defaults()` no longer creates or deletes
+  `~/Desktop/BS-pratybos/`. Deleting a student's course folder without
+  confirmation was unsafe, so the step was dropped; create the folder manually
+  if you need it. `~/R/main` is still created by
+  `rstudio_reset_user_settings()` for the `bio-*` presets.
+
+## Reliability and maintenance
+
+* Added three Quarto vignettes (`bio`, `checking-your-setup`,
+  `rstudio-settings`), each marked lifecycle: experimental. Their code chunks
+  are not evaluated, and the badge is vendored so the vignettes render without
+  network access.
+
+* Expanded the package description and replaced the broad `backup.tools`
+  namespace import with package-qualified calls and the single narrow import
+  required for the `open_backup_dir()` re-export.
+
+* Removed obsolete global-variable declarations, modernized interactive
+  examples, and clarified the generated `..Rcheck/` ignore rule.
+
+* Online R, RStudio, and Quarto version checks now treat connectivity,
+  transport, parsing, and unexpected-response failures as unavailable version
+  information instead of aborting program checks.
+
+* GitHub Actions now tests installed-package behavior across current, devel,
+  and older R releases. Package publication and generated-documentation jobs
+  are serialized, deployment failures remain visible, and documentation jobs
+  follow the current R release rather than a hardcoded patch version. Generated
+  documentation is committed back to same-repository pull-request branches;
+  read-only fork pull requests receive a patch artifact.
+
+* Regression coverage was expanded for preference rollback, confirmation and
+  reset summaries, malformed version responses, dictionary installation,
+  bundled JSON assets, and deterministic internal helpers.
+
+* The test suite no longer reaches the real network: the connectivity probe is
+  mocked everywhere an online version check is exercised, so results no longer
+  depend on runner connectivity.
+
+* The lint workflow now fails when `lintr` reports findings
+  (`LINTR_ERROR_ON_LINT`), and the package is lint-clean. `.lintr` documents
+  why `object_usage_linter` is disabled (glue interpolation through
+  `usethis::ui_*()`) and allows camelCase names required by external APIs.
+
 # bio 0.3.1
 
 ## `rstudio_compare_user_settings()` improvements

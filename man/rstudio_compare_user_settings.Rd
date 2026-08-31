@@ -66,3 +66,4 @@ if (interactive()) {
   rstudio_compare_user_settings(to = "bio-default", output = "verbose")
 }
 }
+\concept{r and rstudio settings}

@@ -1,14 +1,17 @@
 Package: bio
 Type: Package
 Title: Resources Manager for R, RStudio and Related Software
-Version: 0.3.1
-Date: 2026-08-30
+Version: 0.3.2
+Date: 2026-08-31
 Authors@R: 
     person("Vilmantas", "Gegzna", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-9500-5167"),
            email = "GegznaV@gmail.com"
     )
-Description: Resources manager for course unit BS.
+Description: Provides tools for managing R and RStudio resources in
+    Biostatistics teaching environments. It configures user preferences,
+    keybindings, spellcheck dictionaries, project lists, and course setup,
+    and checks installed software and available versions.
 URL: 
     https://mokymai.github.io/bio/,
     https://github.com/mokymai/bio/
@@ -48,6 +51,7 @@ Suggests:
     spelling,
     testthat (>= 3.0.0),
     tinytex
+VignetteBuilder: quarto
 Remotes:
     GegznaV/backup.tools,
     GegznaV/snippets

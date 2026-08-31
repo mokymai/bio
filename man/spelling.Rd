@@ -14,15 +14,24 @@ rstudio_download_spellcheck_dictionaries(secure = TRUE)
 rstudio_delete_spellcheck_dictionaries(ask = TRUE)
 }
 \arguments{
-\item{secure}{(logical) If \code{TRUE}, uses "https", if \code{FALSE}, uses "http".}
+\item{secure}{(logical) If \code{TRUE} (the default), uses "https", if \code{FALSE},
+uses "http". \code{FALSE} downloads the dictionary archive over an
+unauthenticated connection and is not recommended: the archive is
+extracted into your RStudio configuration directory.}
 
 \item{ask}{(logical) If \code{TRUE}, user will have to confirm his/her choice
 interactively.}
 }
+\value{
+For \code{rstudio_install_spellcheck_dictionaries()} and its download
+alias, invisibly returns \code{TRUE} on success and \code{FALSE} on handled failure.
+}
 \description{
 \itemize{
+\item \code{rstudio_install_spellcheck_dictionaries()}
+downloads and installs RStudio (system) spellchecking dictionaries.
 \item \code{rstudio_download_spellcheck_dictionaries()}
-downloads and updates RStudio (system) spellchecking dictionaries.
+is a compatibility alias for the installer.
 \item \code{rstudio_delete_spellcheck_dictionaries()}
 deletes RStudio (system) spellchecking dictionaries.
 }

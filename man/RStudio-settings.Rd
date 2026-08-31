@@ -44,7 +44,7 @@ if (interactive()) {
 
 On \href{https://support.posit.co/hc/en-us/articles/200549016-Customizing-the-RStudio-IDE}{Customizing RStudio} using point-and-click method.
 
-On \href{https://www.rstudio.com/blog/rstudio-1-3-preview-configuration/}{Configuration and Settings}.
+On \href{https://posit.co/blog/rstudio-1-3-preview-configuration}{Configuration and Settings}.
 
 A list of \href{https://docs.posit.co/ide/server-pro/session_user_settings/session_user_settings.html}{Session User Settings} to be used with
 \code{\link[rstudioapi:writeRStudioPreference]{rstudioapi::writeRStudioPreference()}}.

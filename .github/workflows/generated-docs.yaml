@@ -1,31 +1,30 @@
-# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
-# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
+name: Update generated documentation
+
 on:
-  push:
-    branches: [main, master]
-  release:
-    types: [published]
+  pull_request:
+    branches: [main, master, devel]
   workflow_dispatch:
 
-name: Update website (pkgdown)
+permissions:
+  contents: write
 
-permissions: read-all
+concurrency:
+  group: generated-docs-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: false
 
 jobs:
-  pkgdown:
+  generated-docs:
     runs-on: ubuntu-latest
-    concurrency:
-      group: pkgdown-${{ github.ref }}
-      cancel-in-progress: false
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_REPOS: "c(mokymai = 'https://mokymai.github.io/download/', CRAN = 'https://cran.rstudio.com')"
+      CAN_PUSH: ${{ github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository }}
+      HEAD_BRANCH: ${{ github.event.pull_request.head.ref || github.ref_name }}
 
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v6
         with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           # `git pull --rebase` in the commit step needs a full history.
           fetch-depth: 0
 
@@ -40,12 +39,12 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::pkgdown, any::devtools, github::GegznaV/backup.tools, github::GegznaV/snippets, local::.
+          extra-packages: any::devtools, any::rmarkdown, github::GegznaV/backup.tools, github::GegznaV/snippets, local::.
           needs: website
           # The vignettes use the `quarto::html` engine.
           install-quarto: true
 
-      - name: Generate Rd files for website
+      - name: Generate Rd files
         run: |
           devtools::document(roclets = c('rd', 'collate', 'namespace'))
         shell: Rscript {0}
@@ -66,11 +65,9 @@ jobs:
         shell: Rscript {0}
 
       - name: Commit generated documentation
-        if: github.ref_type == 'branch' && (github.ref_name == 'master' || github.ref_name == 'main')
+        if: env.CAN_PUSH == 'true'
         shell: bash
         run: |
-          git config user.email "actions@github.com"
-          git config user.name "GitHub Actions"
           git add -- NAMESPACE man README.md
 
           if git diff --cached --quiet; then
@@ -78,12 +75,16 @@ jobs:
             exit 0
           fi
 
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+          # No `[skip ci]`: a skipped workflow leaves its checks Pending, which
+          # blocks merging. The follow-up run finds no diff and stops.
           git commit -m "Update generated documentation"
 
           for attempt in 1 2 3; do
             # Guarded so `bash -e` cannot abort the step on the first race.
-            if git pull --rebase origin "${GITHUB_REF_NAME}" &&
-              git push origin "HEAD:${GITHUB_REF_NAME}"; then
+            if git pull --rebase origin "${HEAD_BRANCH}" &&
+              git push origin "HEAD:${HEAD_BRANCH}"; then
               exit 0
             fi
 
@@ -97,18 +98,17 @@ jobs:
             sleep $((attempt * 5))
           done
 
-      - name: Build site
-        run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
-        shell: Rscript {0}
+      - name: Create generated documentation patch
+        if: env.CAN_PUSH != 'true'
+        shell: bash
+        run: |
+          git add -- NAMESPACE man README.md
+          git diff --cached --binary -- NAMESPACE man README.md > generated-docs.patch
 
-      - name: Remove internal maintainer pages
-        run: Rscript .github/scripts/prune-pkgdown-internal-pages.R docs
-
-      - name: Deploy to GitHub pages 🚀
-        if: github.event_name != 'pull_request'
-        uses: JamesIves/github-pages-deploy-action@d92aa235d04922e8f08b40ce78cc5442fcfbfa2f # v4.8.0
+      - name: Upload generated documentation patch
+        if: env.CAN_PUSH != 'true'
+        uses: actions/upload-artifact@v4
         with:
-          clean: true
-          clean-exclude: dev
-          branch: gh-pages
-          folder: docs
+          name: generated-documentation-patch
+          path: generated-docs.patch
+          if-no-files-found: error

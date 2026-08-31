@@ -5,7 +5,6 @@
 # The following block is used by usethis to automatically manage
 # roxygen namespace tags. Modify with care!
 ## usethis namespace: start
-#' @import backup.tools
 #' @importFrom utils browseURL download.file installed.packages loadhistory
 #'                   available.packages packageVersion sessionInfo modifyList
 #'                   read.table savehistory unzip
@@ -25,9 +24,7 @@ bio_envir <- new.env()
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 globalVariables(c(
-  ".", ".rs.downloadAllDictionaries", "bowse_meld_homepage", "cran_version",
+  ".", ".rs.downloadAllDictionaries", "cran_version",
   "current_version", "deps_below", "install_from",
-  "n_deps", "name", "on_cran", "package", "pkg", "value",
-  "...6", "...8", ".text", ".match", "specialybe", "pavarde", "vardas",
-  "patikslinimas", "Kategorija"
+  "n_deps", "name", "on_cran", "package", "pkg", "value"
 ))

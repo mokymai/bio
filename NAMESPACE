@@ -48,8 +48,7 @@ export(rstudio_reset_keybindings)
 export(rstudio_reset_user_settings)
 export(rstudio_restart_r)
 export(update_rstudio_proj_list_user)
-import(backup.tools)
-importFrom(backup.tools,create_backup_copy)
+importFrom(backup.tools,open_backup_dir)
 importFrom(crayon,
   blue,
   bold,

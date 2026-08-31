@@ -42,6 +42,6 @@ with_mocked_rstudio_api <- function(expr) {
 
 skip_rstudio_ui_tests <- function(message = "RStudio UI actions are intentionally skipped in automated tests.") {
   if (!rstudioapi::isAvailable() || identical(Sys.getenv("CI"), "true")) {
-    skip(message)
+    testthat::skip(message)
   }
 }

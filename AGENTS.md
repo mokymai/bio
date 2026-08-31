@@ -4,10 +4,16 @@
 - Prefer package-qualified calls: `pkg::fun()` instead of `library()`/`require()`.
 - Prefer the base pipe `|>` over `%>%` for new code.
 - Keep tidyverse-style formatting but avoid rigid spacing rules; use readable, idiomatic R.
+- Run Styler on affected R files or selected code before final validation. Use
+  the project `.Rprofile` style (`styler::tidyverse_style(strict = FALSE)`) and
+  avoid formatting unrelated files or lines.
 - Prefer small, explicit functions and early returns.
 - Avoid unsupported metadata or network-based version gates unless they are actually implemented and tested.
 - Do not leave obsolete implementations commented out in `R/`; preserve any
 	short-lived historical notes outside maintained package source.
+- Treat deletion of user preferences, histories, dictionaries, and course
+	directories as destructive behavior: require an explicit guard, preserve a
+	backup where practical, and test only against temporary paths.
 
 ## R package maintenance
 - Keep roxygen2 documentation in sync with function behavior.
@@ -17,8 +23,25 @@
 
 ## Verification checklist
 - Run targeted tests for changed behavior.
+- Keep the test suite network-free: mock `pingr::is_online()` alongside any
+	mocked endpoint, otherwise the test fails on an offline runner.
+- Keep the package lint-clean; the lint workflow runs with
+	`LINTR_ERROR_ON_LINT: true` and must be able to fail.
 - Regenerate roxygen docs when function comments change.
 - Review for broken version-check logic before merging.
+- Keep drat matrix jobs sequential and serialize workflow runs that publish to
+	the shared download repository. Publication pull/push failures must fail the
+	workflow rather than be reported as "nothing to commit".
+- Let serialized generated-documentation runs commit only `NAMESPACE`, `man/`,
+  and `README.md` to same-repository pull-request branches. Fork pull requests
+  remain read-only and receive a generated patch artifact. Do not suppress
+  commit, rebase, or push failures.
+- Generate documentation with the current R release, roxygen2 8.1.0, and
+  Pandoc 2.14 locally and in GitHub Actions. Keep README output derived from
+  repository metadata, and run `tools::checkDocFiles(dir = ".")` after roxygen
+  generation.
+- Validate bundled JSON presets and test headless RStudio operations without
+  touching real user settings.
 
 ## Related files
 - Package structure guide: [AI_CONTEXT.md](AI_CONTEXT.md)

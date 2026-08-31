@@ -13,8 +13,8 @@ Invisibly returns \code{NULL} if RStudio is unavailable or the user says no.
 Ask before clearing the RStudio console.
 }
 \examples{
-\dontrun{
-rstudio_clear_console_ask()
+if (interactive()) {
+  rstudio_clear_console_ask()
 }
 }
 \keyword{internal}

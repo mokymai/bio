@@ -94,14 +94,10 @@ summarize_reset_steps <- function(steps) {
 #' Install classroom/lab default configuration for RStudio and R
 #'
 #' Installs the "bio-default" preferences, keybindings and snippets, updates
-#' spellcheck dictionaries and TinyTeX, and (re)creates the course working
-#' directories. Unlike [rstudio_reset_session_state()], every step here is
-#' file-based (settings/keybindings are written straight to disk, see
-#' `rstudio_set_preferences()`) or a plain package install. Steps that do need
-#' a live RStudio session (such as
-#' downloading dictionaries via `.rs.downloadAllDictionaries()`, or applying
-#' a theme) are attempted but simply reported as failed/skipped when run
-#' headlessly, without stopping the remaining steps.
+#' spellcheck dictionaries and TinyTeX. Unlike
+#' [rstudio_reset_session_state()], every step here can run outside a live
+#' RStudio session. Settings and keybindings are written directly to disk, and
+#' dictionary installation falls back to downloading the archive directly.
 #'
 #' Every step is run through [run_reset_step()]: a failure in one step is
 #' reported but does not prevent the remaining steps from running, and none
@@ -117,26 +113,26 @@ rstudio_configure_defaults <- function(force_update_dictionaries = FALSE) {
 
   steps <- list()
 
-  # Dictionaries (requires a live RStudio session; reported as failed otherwise)
+  # Dictionaries
   steps$dictionaries <- run_reset_step("Update spellcheck dictionaries", {
     dict_path <- get_path_rstudio_config_dir("dictionaries/languages-system")
-    lt_LT_is_missing <- !any(stringr::str_detect(dir(dict_path), "lt_LT"))
-    if (force_update_dictionaries || lt_LT_is_missing) {
-      ok <- bio::rstudio_download_spellcheck_dictionaries()
+    lithuanian_is_missing <- !any(stringr::str_detect(dir(dict_path), "lt_LT"))
+    if (force_update_dictionaries || lithuanian_is_missing) {
+      ok <- rstudio_download_spellcheck_dictionaries()
       if (!isTRUE(ok)) {
-        stop("dictionaries were not updated (requires a running RStudio session)")
+        stop("dictionaries were not installed")
       }
     }
   })
 
   # User preferences (ask = FALSE: no confirmation popup); works headless too
   steps$user_settings <- run_reset_step("Reset user settings", {
-    bio::rstudio_reset_user_settings(to = "bio-default", backup = TRUE, ask = FALSE)
+    rstudio_reset_user_settings(to = "bio-default", backup = TRUE, ask = FALSE)
   })
 
   # Keybindings — plain file copy, works headless
   steps$keybindings <- run_reset_step("Reset keybindings", {
-    bio::rstudio_reset_keybindings("bio-default", backup = TRUE)
+    rstudio_reset_keybindings("bio-default", backup = TRUE)
   })
 
   # Snippets
@@ -150,17 +146,6 @@ rstudio_configure_defaults <- function(force_update_dictionaries = FALSE) {
       stop("package 'tinytex' is not installed")
     }
     tinytex::install_tinytex(force = TRUE)
-  })
-
-  # Create/clean course directories
-  steps$directories <- run_reset_step("Create/clean course directories", {
-    fs::path_expand_r("~/R/main") |> fs::dir_create()
-
-    bs_folder <- fs::path_expand("~/Desktop/BS-pratybos/")
-    if (fs::dir_exists(bs_folder)) {
-      fs::dir_delete(bs_folder)
-    }
-    fs::dir_create(bs_folder)
   })
 
   invisible(summarize_reset_steps(steps))
@@ -326,10 +311,11 @@ clear_r_history <- function(backup = TRUE) {
 
   if (isTRUE(backup)) {
 
-    new_name <- paste0("Rhistory", get_backup_stamp(), ".Rhistory")
-    hist_backup <- fs::path(get_path_backup_dir(), new_name)
+    new_name <- paste0("Rhistory", backup.tools::get_backup_stamp(), ".Rhistory")
+    backup_dir <- backup.tools::get_path_backup_dir()
+    hist_backup <- fs::path(backup_dir, new_name)
 
-    withr::with_dir(get_path_backup_dir(), savehistory(file = new_name))
+    withr::with_dir(backup_dir, savehistory(file = new_name))
 
     usethis::ui_done("R history saved to {usethis::ui_path(hist_backup)}")
   }
@@ -414,8 +400,8 @@ rstudio_reset_layout <- function(rs_layout = "left") {
 #' @return Invisibly returns `NULL` when RStudio is unavailable.
 #' @keywords internal
 #' @examples
-#' \dontrun{
-#' rstudio_activate_console()
+#' if (interactive()) {
+#'   rstudio_activate_console()
 #' }
 rstudio_activate_console <- function() {
   if (rstudioapi::isAvailable(version_needed = "1.2.1261")) {
@@ -430,8 +416,8 @@ rstudio_activate_console <- function() {
 #' @return Invisibly returns `NULL` if RStudio is unavailable or the user says no.
 #' @keywords internal
 #' @examples
-#' \dontrun{
-#' rstudio_clear_console_ask()
+#' if (interactive()) {
+#'   rstudio_clear_console_ask()
 #' }
 rstudio_clear_console_ask <- function() {
   if (!rstudioapi::isAvailable(version_needed = "1.2.1261")) {

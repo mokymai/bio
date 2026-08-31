@@ -132,26 +132,94 @@ check_installed_programs <- function(type = "main", skip_online_check = FALSE) {
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+can_check_available_version <- function(force = FALSE, get_what = "versions") {
+  if (isTRUE(force)) {
+    return(TRUE)
+  }
+
+  online <- tryCatch(
+    pingr::is_online(),
+    error = function(error) {
+      cli::cli_warn(c(
+        "Could not check network availability for {get_what}.",
+        "i" = conditionMessage(error)
+      ))
+      NA
+    }
+  )
+
+  if (is.na(online)) {
+    return(FALSE)
+  }
+
+  if (!isTRUE(online)) {
+    msg_offline(get_what = get_what)
+    return(FALSE)
+  }
+
+  TRUE
+}
+
+fetch_available_version <- function(get_what, fetch) {
+  tryCatch(
+    {
+      candidates <- fetch()
+      candidates <- as.character(candidates)
+      candidates <- candidates[!is.na(candidates) & nzchar(candidates)]
+
+      if (length(candidates) == 0L) {
+        stop("The endpoint returned no recognizable version.")
+      }
+
+      max(as.numeric_version(candidates))
+    },
+    error = function(error) {
+      cli::cli_warn(c(
+        "Could not get the newest available {get_what}.",
+        "i" = conditionMessage(error)
+      ))
+      NULL
+    }
+  )
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 get_available_r_version <- function(force = FALSE, skip = FALSE) {
   if (isTRUE(skip)) {
     return(NULL)
   }
 
-  if (force || pingr::is_online()) {
-    c(
-      # "https://cran.r-project.org/src/base/R-3",
-      "https://cran.r-project.org/src/base/R-4"
-    ) |>
+  if (!can_check_available_version(force, "R version")) {
+    return(NULL)
+  }
+
+  fetch_available_version("R version", function() {
+    r_source_branches() |>
       purrr::map(readr::read_lines) |>
       purrr::reduce(c) |>
-      stringr::str_extract("(?<=R-).\\d*[.].\\d*[.]\\d*(?=.tar.gz)") |>
-      purrr::discard(is.na) |>
-      as.numeric_version() |>
-      max()
-  } else {
-    msg_offline(get_what = "R version")
-    NULL
+      stringr::str_extract("(?<=R-)\\d+[.]\\d+[.]\\d+(?=[.]tar[.]gz)")
+  })
+}
+
+# CRAN keeps one directory per major R version; discover them instead of
+# hardcoding the current one.
+r_source_branches <- function() {
+  base_url <- "https://cran.r-project.org/src/base/"
+
+  branches <- tryCatch(
+    {
+      listing <- readr::read_lines(base_url)
+      found <- stringr::str_extract(listing, '(?<=href=")R-\\d+(?=/")')
+      unique(found[!is.na(found)])
+    },
+    error = function(error) character()
+  )
+
+  if (length(branches) == 0L) {
+    branches <- "R-4"
   }
+
+  paste0(base_url, branches)
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -160,17 +228,16 @@ get_available_rs_version <- function(force = FALSE, skip = FALSE) {
     return(NULL)
   }
 
-  if (force || pingr::is_online()) {
+  if (!can_check_available_version(force, "RStudio version")) {
+    return(NULL)
+  }
+
+  fetch_available_version("RStudio version", function() {
     "https://docs.posit.co/ide/user/#rstudio-ide-oss-downloads" |>
       readr::read_lines() |>
       stringr::str_extract("(?<=RStudio-)\\d{4}[.].*?(?=.exe)") |>
-      purrr::discard(is.na) |>
-      as.numeric_version() |>
-      max()
-  } else {
-    msg_offline(get_what = "RStudio version")
-    NULL
-  }
+      purrr::discard(is.na)
+  })
 }
 
 get_available_quarto_version <- function(force = FALSE, skip = FALSE) {
@@ -178,15 +245,15 @@ get_available_quarto_version <- function(force = FALSE, skip = FALSE) {
     return(NULL)
   }
 
-  if (force || pingr::is_online()) {
+  if (!can_check_available_version(force, "Quarto version")) {
+    return(NULL)
+  }
+
+  fetch_available_version("Quarto version", function() {
     url <- "https://api.github.com/repos/quarto-dev/quarto-cli/releases/latest"
     rel <- jsonlite::fromJSON(url)
-    sub("^v", "", rel$tag_name) |>
-      as.numeric_version()
-  } else {
-    msg_offline(get_what = "Quarto version")
-    NULL
-  }
+    sub("^v", "", rel$tag_name)
+  })
 }
 
 
@@ -389,6 +456,15 @@ check_rs_version <- function(skip_online_check = FALSE) {
 # to happen in one place.
 rstudio_registry_hives <- function() c("HCU", "HLM")
 
+rstudio_registry_paths <- function() {
+  c(
+    "SOFTWARE\\RStudio",
+    "SOFTWARE\\WOW6432Node\\RStudio",
+    "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\RStudio",
+    "SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\RStudio"
+  )
+}
+
 # Read a single registry key, returning `NULL` (never erroring) if missing,
 # unreadable, or not on Windows.
 read_registry_key_safely <- function(reg_path, hive) {
@@ -421,7 +497,6 @@ find_rstudio_install_dir <- function() {
     "windows" = c(
       # Per-user ("just me") install locations first.
       file.path(Sys.getenv("LOCALAPPDATA"), "Programs", "RStudio"),
-      file.path(Sys.getenv("LOCALAPPDATA"), "RStudio"),
       # System-wide ("all users") install locations.
       file.path(Sys.getenv("PROGRAMFILES"), "RStudio"),
       file.path(Sys.getenv("PROGRAMFILES(X86)"), "RStudio")
@@ -440,11 +515,23 @@ find_rstudio_install_dir <- function() {
   )
 
   if (identical(os, "windows")) {
-    registry_paths <- vapply(rstudio_registry_hives(), function(hive) {
-      key <- read_registry_key_safely("SOFTWARE\\RStudio", hive)
-      if (!is.null(key$InstallPath) && nzchar(key$InstallPath)) key$InstallPath else NA_character_
-    }, character(1))
-    candidates <- c(registry_paths[!is.na(registry_paths)], candidates)
+    registry_paths <- character()
+    for (hive in rstudio_registry_hives()) {
+      for (reg_path in rstudio_registry_paths()) {
+        key <- read_registry_key_safely(reg_path, hive)
+        loc <- if (!is.null(key$InstallLocation) && nzchar(key$InstallLocation)) {
+          key$InstallLocation
+        } else if (!is.null(key$InstallPath) && nzchar(key$InstallPath)) {
+          key$InstallPath
+        } else {
+          NA_character_
+        }
+        if (!is.na(loc)) {
+          registry_paths <- c(registry_paths, loc)
+        }
+      }
+    }
+    candidates <- c(registry_paths, candidates)
   }
 
   candidates <- candidates[nzchar(candidates) & !is.na(candidates)]
@@ -506,6 +593,7 @@ classify_rstudio_install_scope <- function(install_dir) {
 #' @return `"system"`, `"user"`, or `NA_character_` if the install location
 #'   is unknown (e.g. RStudio isn't installed).
 #' @export
+#' @concept check
 #' @examples
 #' if (interactive()) {
 #'   get_rstudio_install_scope()
@@ -574,14 +662,7 @@ get_installed_rstudio_version <- function() {
 #'
 #' @return A [numeric_version()] object, or `NULL` if not found.
 get_rstudio_version_from_registry <- function() {
-  reg_paths <- c(
-    "SOFTWARE\\RStudio",
-    "SOFTWARE\\WOW6432Node\\RStudio",
-    "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\RStudio",
-    "SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\RStudio"
-  )
-
-  for (reg_path in reg_paths) {
+  for (reg_path in rstudio_registry_paths()) {
     for (hive in rstudio_registry_hives()) {
       key <- read_registry_key_safely(reg_path, hive)
 

@@ -70,14 +70,20 @@ open_rstudio_internal_dictionaries_dir <- function() {
 #' @name spelling
 #' @title Dictionaries to check spelling
 #' @description
+#' - `rstudio_install_spellcheck_dictionaries()`
+#'  downloads and installs RStudio (system) spellchecking dictionaries.
 #' - `rstudio_download_spellcheck_dictionaries()`
-#'  downloads and updates RStudio (system) spellchecking dictionaries.
+#'  is a compatibility alias for the installer.
 #' - `rstudio_delete_spellcheck_dictionaries()`
 #'  deletes RStudio (system) spellchecking dictionaries.
 #'
-#' @param secure (logical) If `TRUE`, uses "https", if `FALSE`, uses "http".
+#' @param secure (logical) If `TRUE` (the default), uses "https", if `FALSE`,
+#'   uses "http". `FALSE` downloads the dictionary archive over an
+#'   unauthenticated connection and is not recommended: the archive is
+#'   extracted into your RStudio configuration directory.
+#' @return For `rstudio_install_spellcheck_dictionaries()` and its download
+#'   alias, invisibly returns `TRUE` on success and `FALSE` on handled failure.
 #'
-#' @export
 #' @concept r and rstudio settings
 #' @concept dictionaries
 #'
@@ -86,18 +92,212 @@ open_rstudio_internal_dictionaries_dir <- function() {
 #'   rstudio_delete_spellcheck_dictionaries()
 #'   rstudio_download_spellcheck_dictionaries()
 #' }
-rstudio_install_spellcheck_dictionaries <- function(secure = TRUE) {
+NULL
 
-  if (rstudioapi::isAvailable(version_needed = "1.3")) {
-    dic_dir <- get_path_rstudio_config_dir("dictionaries/languages-system")
-    .rs.downloadAllDictionaries(targetDir = dic_dir, secure = secure)
-  } else {
-    FALSE
+.required_dictionary_files <- function() {
+  c("lt_LT.aff", "lt_LT.dic")
+}
+
+.archive_entry_names <- function(path) {
+  contents <- tryCatch(
+    suppressWarnings(utils::unzip(path, list = TRUE)),
+    error = function(e) NULL
+  )
+
+  if (is.null(contents) || !"Name" %in% names(contents)) {
+    return(NULL)
   }
+
+  as.character(contents$Name)
+}
+
+# Reject entries that would escape `exdir` when extracted (Zip Slip).
+.has_unsafe_archive_entries <- function(names) {
+  if (length(names) == 0L) {
+    return(TRUE)
+  }
+
+  paths <- gsub("\\\\", "/", names)
+  segments <- strsplit(paths, "/", fixed = TRUE)
+
+  any(
+    startsWith(paths, "/") |
+      grepl("^[A-Za-z]:", paths) |
+      vapply(segments, function(x) any(x == ".."), logical(1))
+  )
+}
+
+# The archive is only useful to this package if it carries the course locale.
+.has_required_dictionaries <- function(path, required = .required_dictionary_files()) {
+  if (!file.exists(path) || file.info(path)$size == 0) {
+    return(FALSE)
+  }
+
+  entries <- .archive_entry_names(path)
+  if (is.null(entries) || .has_unsafe_archive_entries(entries)) {
+    return(FALSE)
+  }
+
+  all(required %in% basename(entries))
+}
+
+# Distinguishes "nothing downloaded" from "downloaded, but not what we need".
+.describe_archive_problem <- function(path) {
+  if (!file.exists(path) || file.info(path)$size == 0) {
+    return("the download produced no data")
+  }
+
+  entries <- .archive_entry_names(path)
+  if (is.null(entries)) {
+    return("the downloaded file is not a readable zip archive")
+  }
+  if (.has_unsafe_archive_entries(entries)) {
+    return("the archive contains entries that would be written outside the target directory")
+  }
+
+  missing <- setdiff(.required_dictionary_files(), basename(entries))
+  if (length(missing) > 0L) {
+    return(paste0(
+      "the archive does not contain ", paste(missing, collapse = " and ")
+    ))
+  }
+
+  "the archive could not be validated"
+}
+
+# `utils::unzip()` reports extraction failures as warnings, not errors, so the
+# result is confirmed against the files that actually reached `dic_dir`.
+.extract_dictionary_archive <- function(archive_path, dic_dir) {
+  entries <- .archive_entry_names(archive_path)
+  if (is.null(entries) || .has_unsafe_archive_entries(entries)) {
+    return(FALSE)
+  }
+
+  failed <- FALSE
+
+  withCallingHandlers(
+    tryCatch(
+      utils::unzip(archive_path, exdir = dic_dir),
+      error = function(error) {
+        failed <<- TRUE
+        NULL
+      }
+    ),
+    warning = function(warning) {
+      failed <<- TRUE
+      invokeRestart("muffleWarning")
+    }
+  )
+
+  if (isTRUE(failed)) {
+    return(FALSE)
+  }
+
+  installed <- basename(dir(dic_dir, recursive = TRUE))
+  all(.required_dictionary_files() %in% installed)
+}
+
+.download_dictionary_archive_with_curl <- function(url, destfile) {
+  curl <- Sys.which("curl")
+  if (!nzchar(curl)) {
+    return(FALSE)
+  }
+
+  status <- tryCatch(
+    system2(
+      curl,
+      args = c(
+        "--fail", "--location", "--retry", "3", "--retry-all-errors",
+        "--connect-timeout", "15", "--output", shQuote(destfile), shQuote(url)
+      ),
+      stdout = FALSE,
+      stderr = FALSE
+    ),
+    error = function(e) 1L
+  )
+
+  isTRUE(status == 0L) && .has_required_dictionaries(destfile)
+}
+
+.download_dictionary_archive <- function(url, destfile, attempts = 3L) {
+  for (attempt in seq_len(attempts)) {
+    unlink(destfile)
+    status <- tryCatch(
+      suppressWarnings(utils::download.file(
+        url = url,
+        destfile = destfile,
+        mode = "wb",
+        quiet = TRUE,
+        method = "libcurl"
+      )),
+      error = function(e) 1L
+    )
+
+    if (isTRUE(status == 0L) && .has_required_dictionaries(destfile)) {
+      return(TRUE)
+    }
+
+    # A transient outage needs time to clear; retrying instantly does not help.
+    if (attempt < attempts) {
+      Sys.sleep(attempt)
+    }
+  }
+
+  .download_dictionary_archive_with_curl(url, destfile)
+}
+
+#' @rdname spelling
+#' @export
+rstudio_install_spellcheck_dictionaries <- function(secure = TRUE) {
+  dic_dir <- get_path_rstudio_config_dir("dictionaries/languages-system")
+
+  if (!isTRUE(secure)) {
+    usethis::ui_warn(paste(
+      "`secure = FALSE` downloads the dictionary archive over an unencrypted",
+      "connection and extracts it into {usethis::ui_path(dic_dir)}."
+    ))
+  }
+
+  usethis::ui_info("Downloading RStudio spellcheck dictionaries...")
+
+  if (rstudioapi::isAvailable(version_needed = "1.3") &&
+    exists(".rs.downloadAllDictionaries", envir = globalenv(), inherits = TRUE)) {
+    .rs.downloadAllDictionaries(targetDir = dic_dir, secure = secure)
+    usethis::ui_done("RStudio spellcheck dictionaries were installed in {usethis::ui_path(dic_dir)}.")
+    return(invisible(TRUE))
+  }
+
+  # Headless fallback: execute RStudio's exact download-and-extract workflow directly
+  protocol <- if (isTRUE(secure)) "https" else "http"
+  url <- sprintf("%s://s3.amazonaws.com/rstudio-buildtools/dictionaries/all-dictionaries.zip", protocol)
+
+  archive_path <- tempfile("all-dictionaries-", fileext = ".zip")
+  on.exit(unlink(archive_path), add = TRUE)
+
+  if (!.download_dictionary_archive(url, archive_path)) {
+    usethis::ui_warn(paste0(
+      "Could not obtain the RStudio dictionary archive: ",
+      .describe_archive_problem(archive_path), "."
+    ))
+    return(invisible(FALSE))
+  }
+
+  fs::dir_create(dic_dir, recurse = TRUE)
+  unzip_res <- .extract_dictionary_archive(archive_path, dic_dir)
+
+  if (isTRUE(unzip_res)) {
+    usethis::ui_done("RStudio spellcheck dictionaries were installed in {usethis::ui_path(dic_dir)}.")
+  } else {
+    usethis::ui_warn("Could not extract the RStudio dictionary archive.")
+  }
+
+  invisible(isTRUE(unzip_res))
 }
 #' @rdname spelling
 #' @export
-rstudio_download_spellcheck_dictionaries <- rstudio_install_spellcheck_dictionaries
+rstudio_download_spellcheck_dictionaries <- function(secure = TRUE) {
+  rstudio_install_spellcheck_dictionaries(secure = secure)
+}
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 #' @name spelling

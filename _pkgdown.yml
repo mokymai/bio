@@ -11,9 +11,8 @@ template:
   bootswatch_dark: darkly
 
 # ----------------------------------------------------------------------------
-# Search settings
-search:
-  backend: docsearch
+# Search: pkgdown 2.x indexes the whole site with fuse.js and builds
+# `search.json` itself. The only supported key here would be `exclude`.
 
 # ----------------------------------------------------------------------------
 
@@ -35,6 +34,7 @@ navbar:
   components:
     version:
       icon: fa-book
+      aria-label: Documentation versions
       menu:
       - text: "Documentation for version of package:"
       - text: Released
@@ -104,19 +104,21 @@ reference:
 
 - title: 'Other Functions' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   desc: "Functions not mentioned above."
+# `lacks_concepts(c(...))` compares a topic's concepts against the whole vector
+# with recycling, so topics whose concept count differs are missed. Subtract one
+# concept at a time instead.
 - contents:
-  - lacks_concepts(c(
-    "main",
-    "check",
-    "programs",
-    "packages",
-    "rstudio projects",
-    "paths and dirs",
-    "settings",
-    "r and rstudio settings",
-    "utilities",
-    "deprecated"
-    ))
+  - matches(".")
+  - -has_concept("main")
+  - -has_concept("check")
+  - -has_concept("programs")
+  - -has_concept("packages")
+  - -has_concept("rstudio projects")
+  - -has_concept("paths and dirs")
+  - -has_concept("settings")
+  - -has_concept("r and rstudio settings")
+  - -has_concept("utilities")
+  - -has_concept("deprecated")
 
 
 # - title: 'Deprecated Functions' # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

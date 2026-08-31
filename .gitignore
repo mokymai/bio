@@ -9,4 +9,12 @@ docs/
 _tmp
 inst/install-r/pkgs-recommended--z.txt
 * - Copy.yaml
-/..Rcheck
+/..Rcheck/
+NUL
+/bio.Rcheck
+README.html
+/doc/
+/Meta/
+vignettes/*.html
+vignettes/*_files/
+vignettes/.quarto/

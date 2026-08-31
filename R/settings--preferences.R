@@ -33,7 +33,7 @@ user_setting_set_names <- c(
 #'
 #' On [Customizing RStudio](https://support.posit.co/hc/en-us/articles/200549016-Customizing-the-RStudio-IDE) using point-and-click method.
 #'
-#' On [Configuration and Settings](https://www.rstudio.com/blog/rstudio-1-3-preview-configuration/).
+#' On [Configuration and Settings](https://posit.co/blog/rstudio-1-3-preview-configuration).
 #'
 #' A list of [Session User Settings](https://docs.posit.co/ide/server-pro/session_user_settings/session_user_settings.html) to be used with
 #' [rstudioapi::writeRStudioPreference()].
@@ -100,46 +100,58 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
 
   # Backup
   if (isTRUE(backup)) {
-    create_backup_copy(file_current, "user_settings", "RStudio settings")
+    backup.tools::create_backup_copy(file_current, "user_settings", "RStudio settings")
   }
 
-  # Delete current settings (use RStudio defaults)
-  fs::file_delete(file_current)
-
-  # All other setup files contain differences from the default settings
   rs_default <- get_path_rstudio_config_file(which = "rstudio-default")
-  success <- rstudio_set_preferences(rs_default)
+  preset_files <- rs_default
+  if (!identical(to, "rstudio-default")) {
+    preset_files <- c(
+      preset_files,
+      get_path_rstudio_config_file(which = "bio")
+    )
+  }
 
-  # Change what is different from the defaults
-  switch(
-    to,
-
-    "rstudio-default" = {
-      if (isTRUE(ask) && rstudioapi::isAvailable()) {
-        rstudioapi::executeCommand("clearUserPrefs", quiet = TRUE)
+  apply_presets <- function() {
+    for (preset_file in preset_files) {
+      preset_success <- rstudio_set_preferences(preset_file)
+      if (!isTRUE(preset_success)) {
+        stop("Failed to apply RStudio preferences from: ", preset_file)
       }
-    },
+    }
 
-    "bio-default" = ,
-    "bio-dark-blue" = ,
-    "bio-black" = {
-      # Change the default dir, if default UI preferences change
-      fs::dir_create("~/R/main", recurse = TRUE)
+    TRUE
+  }
 
-      file_default <- get_path_rstudio_config_file(which = "bio")
-      success <- rstudio_set_preferences(file_default)
+  success <- if (rstudioapi::isAvailable("1.3.387")) {
+    # A running RStudio owns `rstudio-prefs.json`: preferences go through the
+    # API and the IDE re-persists its in-memory state, so neither deleting nor
+    # restoring the file would have any effect.
+    apply_presets()
+  } else {
+    with_preference_file_rollback(file_current, {
+      if (fs::file_exists(file_current)) {
+        fs::file_delete(file_current)
+      }
 
-    },
+      apply_presets()
+    })
+  }
 
-    usethis::ui_stop(paste0(
-      "Unknown option of user setting defaults: to = {usethis::ui_value(to[1])}. \n",
-      "Possible options: {ui_value(user_setting_set_names)}."
-    ))
-  )
+  # `clearUserPrefs` opens its own confirmation dialog that cannot be
+  # suppressed, so it is limited to the interactive (`ask = TRUE`) path.
+  if (identical(to, "rstudio-default") &&
+    isTRUE(ask) && rstudioapi::isAvailable()) {
+    rstudioapi::executeCommand("clearUserPrefs", quiet = TRUE)
+  }
+
+  if (isTRUE(success) && !identical(to, "rstudio-default")) {
+    fs::dir_create("~/R/main", recurse = TRUE)
+  }
 
 
   # Change RStudio theme (only possible in a live RStudio session)
-  if (rstudioapi::isAvailable()) {
+  if (isTRUE(success) && rstudioapi::isAvailable()) {
     switch(
       to,
       "bio-default"   = rstudioapi::applyTheme("Textmate (default)"),
@@ -156,6 +168,44 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
   } else {
     usethis::ui_oops("Failure to reset RStudio user settings.")
   }
+}
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+with_preference_file_rollback <- function(path, expr) {
+  file_existed <- fs::file_exists(path)
+  backup <- tempfile("rstudio-prefs-", tmpdir = fs::path_dir(path))
+  on.exit(unlink(backup), add = TRUE)
+
+  if (file_existed) {
+    fs::file_copy(path, backup)
+  }
+
+  restore <- function() {
+    if (!file_existed) {
+      if (fs::file_exists(path)) {
+        fs::file_delete(path)
+      }
+      return(invisible(NULL))
+    }
+
+    fs::dir_create(fs::path_dir(path), recurse = TRUE)
+    fs::file_copy(backup, path, overwrite = TRUE)
+    invisible(NULL)
+  }
+
+  result <- tryCatch(
+    force(expr),
+    error = function(error) {
+      restore()
+      stop(error)
+    }
+  )
+
+  if (!isTRUE(result)) {
+    restore()
+  }
+
+  result
 }
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -230,6 +280,25 @@ rstudio_merge_preferences_file <- function(file) {
   TRUE
 }
 
+# Write one preference, retrying with the type RStudio asked for.
+write_rstudio_preference_coerced <- function(pref_name, pref_value) {
+  tryCatch(
+    rstudioapi::writeRStudioPreference(pref_name, pref_value),
+    error = function(e) {
+      e_msg <- conditionMessage(e)
+      if (stringr::str_detect(e_msg, "expected <Integer>")) {
+        rstudioapi::writeRStudioPreference(pref_name, as.integer(pref_value))
+      } else if (stringr::str_detect(e_msg, "expected <Real>")) {
+        rstudioapi::writeRStudioPreference(pref_name, as.numeric(pref_value))
+      } else if (stringr::str_detect(e_msg, "expected <Array>")) {
+        rstudioapi::writeRStudioPreference(pref_name, as.list(pref_value))
+      } else {
+        stop(e)
+      }
+    }
+  )
+}
+
 rstudio_set_preferences <- function(file) {
   if (rstudioapi::isAvailable("1.3.387")) {
     pref <- jsonlite::fromJSON(file)
@@ -241,35 +310,35 @@ rstudio_set_preferences <- function(file) {
 
     valid_idx <- which(nzchar(pref_names))
 
-    purrr::walk2(
+    # One key the running RStudio rejects must not discard the whole preset.
+    failures <- purrr::map2(
       pref_names[valid_idx], unname(pref)[valid_idx],
-      ~ {
-        pref_name <- .x
-        pref_value <- .y
-
+      function(pref_name, pref_value) {
         if (identical(pref_name, "cran_mirror")) {
           pref_value <- normalize_cran_mirror_pref(pref_value)
         }
 
         tryCatch(
-          rstudioapi::writeRStudioPreference(pref_name, pref_value),
-          error = function(e) {
-            e_msg <- e$message
-            if (stringr::str_detect(e_msg, "expected <Integer>")) {
-              rstudioapi::writeRStudioPreference(pref_name, as.integer(pref_value))
-            } else if (stringr::str_detect(e_msg, "expected <Real>")) {
-              rstudioapi::writeRStudioPreference(pref_name, as.numeric(pref_value))
-            } else if (stringr::str_detect(e_msg, "expected <Array>")) {
-              rstudioapi::writeRStudioPreference(pref_name, as.list(pref_value))
-            } else {
-              print(glue::glue("'In {pref_name}' = {pref_value}\n{e}\n"))
-            }
-          }
+          {
+            write_rstudio_preference_coerced(pref_name, pref_value)
+            NULL
+          },
+          error = function(e) paste0(pref_name, ": ", conditionMessage(e))
         )
       }
     )
-    TRUE
 
+    failures <- unlist(failures, use.names = FALSE)
+
+    if (length(failures) > 0L) {
+      usethis::ui_warn(paste0(
+        "This RStudio version did not accept ", length(failures),
+        " preference(s) from ", fs::path_file(file), ":\n",
+        paste0("  - ", failures, collapse = "\n")
+      ))
+    }
+
+    TRUE
   } else {
     rstudio_merge_preferences_file(file)
   }
@@ -421,7 +490,10 @@ print_pref_diff_summary <- function(diff_df, x_arg, y_arg, details = TRUE) {
   }
 
   cat("\n")
-  usethis::ui_todo("\"Not set\" often just means RStudio doesn't know that setting yet (older/newer version) or it needs a restart/manual step.")
+  usethis::ui_todo(paste(
+    "\"Not set\" often just means RStudio doesn't know that setting yet",
+    "(older/newer version) or it needs a restart/manual step."
+  ))
   usethis::ui_todo("Run with `output = \"verbose\"` for the full technical diff.")
 
   invisible(diff_df)
@@ -580,6 +652,7 @@ read_current_prefs_from_file <- function(current_file, default_prefs) {
 #'         `source` is unavailable (e.g. `"live"` without a running RStudio
 #'         session, or `"file"`/`"auto"` with no saved preferences file).
 #' @export
+#' @concept r and rstudio settings
 #'
 #' @examples
 #' if (interactive()) {

@@ -28,5 +28,9 @@
 ^raw-data$
 ^AI_CONTEXT\.md$
 ^AGENTS\.md$
+^README\.html$
+^NUL$
 ^inst/rs-settings/other$
 ^.*[ ]- Copy\..*$
+^doc$
+^Meta$

@@ -28,6 +28,7 @@ get_base_packages <- function() {
 #'
 #' @return Character vector of unique, sorted package names.
 #' @export
+#' @concept packages
 list_pkgs_used_in_dir <- function(path = ".",
                                   exclude_base = TRUE,
                                   progress = FALSE,
@@ -60,6 +61,7 @@ list_pkgs_used_in_dir <- function(path = ".",
 #'
 #' @return Character vector of unique, sorted package names.
 #' @export
+#' @concept packages
 list_pkgs_used_in_files <- function(files,
                                     exclude_base = TRUE,
                                     progress = FALSE,

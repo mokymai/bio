@@ -39,14 +39,10 @@ Invisibly returns \code{NULL}.
 }
 \description{
 Installs the "bio-default" preferences, keybindings and snippets, updates
-spellcheck dictionaries and TinyTeX, and (re)creates the course working
-directories. Unlike \code{\link[=rstudio_reset_session_state]{rstudio_reset_session_state()}}, every step here is
-file-based (settings/keybindings are written straight to disk, see
-\code{rstudio_set_preferences()}) or a plain package install. Steps that do need
-a live RStudio session (such as
-downloading dictionaries via \code{.rs.downloadAllDictionaries()}, or applying
-a theme) are attempted but simply reported as failed/skipped when run
-headlessly, without stopping the remaining steps.
+spellcheck dictionaries and TinyTeX. Unlike
+\code{\link[=rstudio_reset_session_state]{rstudio_reset_session_state()}}, every step here can run outside a live
+RStudio session. Settings and keybindings are written directly to disk, and
+dictionary installation falls back to downloading the archive directly.
 
 Clears everything that only exists while RStudio is running: open tabs
 (files/plots/help/viewer/projects/terminals/documents), the R workspace,

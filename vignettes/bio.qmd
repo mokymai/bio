@@ -1,0 +1,125 @@
+---
+title: "Get started with bio"
+vignette: >
+  %\VignetteIndexEntry{Get started with bio}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: "#>"
+    eval: false
+format:
+  html:
+    toc: true
+---
+
+[![Lifecycle: experimental](lifecycle-experimental.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+
+::: {.callout-warning appearance="simple"}
+## Lifecycle: experimental
+
+`bio` is **experimental**. It is developed for a specific Biostatistics course
+and its user interface may change without a deprecation cycle. Several
+functions rewrite files that RStudio owns, so read
+[Managing RStudio settings](rstudio-settings.html) before running them on a
+machine you care about.
+:::
+
+## What `bio` is for
+
+`bio` prepares and inspects the R and RStudio environment used in a
+Biostatistics course. It groups into three areas:
+
+| Area | Typical question | Vignette |
+|------|------------------|----------|
+| Environment checks | *Is my software new enough?* | [Checking your setup](checking-your-setup.html) |
+| RStudio configuration | *Can I get the classroom defaults?* | [Managing RStudio settings](rstudio-settings.html) |
+| Projects and paths | *Where does RStudio keep this file?* | this vignette |
+
+Nothing in `bio` is required to *use* R — it exists to make a room full of
+laptops behave the same way.
+
+## Installation
+
+`bio` and two of its dependencies are published through a
+[drat](https://mokymai.github.io/download/) repository rather than CRAN:
+
+```{r}
+#| label: install
+repos <- c(
+  mokymai = "https://mokymai.github.io/download/",
+  CRAN = "https://cran.rstudio.com"
+)
+
+install.packages("bio", repos = repos)
+```
+
+`DESCRIPTION` declares that repository in `Additional_repositories`, so
+`install.packages()` resolves `backup.tools` and `snippets` from it too.
+
+## A short tour
+
+Start by confirming that the surrounding software is present:
+
+```{r}
+#| label: tour-check
+bio::check_installed_programs()
+```
+
+Then look at where RStudio keeps the files `bio` may rewrite:
+
+```{r}
+#| label: tour-paths
+bio::get_path_rstudio_config_dir()
+bio::get_path_rstudio_config_file(which = "current")
+bio::get_path_rstudio_keybindings_dir()
+bio::get_path_rstudio_snippets_dir()
+```
+
+The `open_*()` counterparts open the same locations in a file manager:
+
+```{r}
+#| label: tour-open
+bio::open_rstudio_config_dir()
+bio::open_rstudio_keybindings_dir()
+bio::open_backup_dir()
+```
+
+## Projects and project lists
+
+RStudio keeps a list of recently opened projects. `bio` can read it, refresh
+the user-editable copy, and open a project by a name pattern:
+
+```{r}
+#| label: projects
+bio::get_path_recent_proj_list()
+bio::get_path_user_proj_list()
+
+bio::update_rstudio_proj_list_user()
+bio::read_projects(file = bio::get_path_user_proj_list())
+
+bio::open_project("biostat", new_session = TRUE)
+```
+
+`open_project()` matches `pattern` against the project names. When several
+projects match, it asks which one to open, so it is interactive by design.
+
+## Restarting
+
+```{r}
+#| label: restart
+bio::restart_r()
+bio::restart_rstudio()
+bio::rstudio_reload_ui()
+```
+
+These require a running RStudio session; outside RStudio they report that and
+return without doing anything.
+
+## Where to go next
+
+* [Checking your setup](checking-your-setup.html) — installed versions,
+  packages, and what happens when the machine is offline.
+* [Managing RStudio settings](rstudio-settings.html) — presets, keybindings,
+  dictionaries, backups, and the live-session caveats.
