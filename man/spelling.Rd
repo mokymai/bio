@@ -14,7 +14,10 @@ rstudio_download_spellcheck_dictionaries(secure = TRUE)
 rstudio_delete_spellcheck_dictionaries(ask = TRUE)
 }
 \arguments{
-\item{secure}{(logical) If \code{TRUE}, uses "https", if \code{FALSE}, uses "http".}
+\item{secure}{(logical) If \code{TRUE} (the default), uses "https", if \code{FALSE},
+uses "http". \code{FALSE} downloads the dictionary archive over an
+unauthenticated connection and is not recommended: the archive is
+extracted into your RStudio configuration directory.}
 
 \item{ask}{(logical) If \code{TRUE}, user will have to confirm his/her choice
 interactively.}

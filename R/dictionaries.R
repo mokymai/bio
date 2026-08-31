@@ -75,7 +75,10 @@ open_rstudio_internal_dictionaries_dir <- function() {
 #' - `rstudio_delete_spellcheck_dictionaries()`
 #'  deletes RStudio (system) spellchecking dictionaries.
 #'
-#' @param secure (logical) If `TRUE`, uses "https", if `FALSE`, uses "http".
+#' @param secure (logical) If `TRUE` (the default), uses "https", if `FALSE`,
+#'   uses "http". `FALSE` downloads the dictionary archive over an
+#'   unauthenticated connection and is not recommended: the archive is
+#'   extracted into your RStudio configuration directory.
 #' @return For `rstudio_install_spellcheck_dictionaries()` and its download
 #'   alias, invisibly returns `TRUE` on success and `FALSE` on handled failure.
 #'
@@ -186,6 +189,14 @@ NULL
 #' @export
 rstudio_install_spellcheck_dictionaries <- function(secure = TRUE) {
   dic_dir <- get_path_rstudio_config_dir("dictionaries/languages-system")
+
+  if (!isTRUE(secure)) {
+    usethis::ui_warn(paste(
+      "`secure = FALSE` downloads the dictionary archive over an unencrypted",
+      "connection and extracts it into {usethis::ui_path(dic_dir)}."
+    ))
+  }
+
   usethis::ui_info("Downloading RStudio spellcheck dictionaries...")
 
   if (rstudioapi::isAvailable(version_needed = "1.3") &&

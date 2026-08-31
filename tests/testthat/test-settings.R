@@ -90,7 +90,7 @@ test_that("dictionary installer delegates only in a supported RStudio session", 
   )
 
   expect_invisible(expect_true(rstudio_install_spellcheck_dictionaries(secure = FALSE)))
-  expect_identical(ui_messages, c("info", "done"))
+  expect_identical(ui_messages, c("warn", "info", "done"))
   expect_identical(received_target, dic_dir)
   expect_false(received_secure)
 

@@ -18,6 +18,10 @@
   and the remaining keys are still applied. Unreadable preset JSON still aborts
   and rolls back.
 
+* `secure = FALSE` now warns that the dictionary archive is fetched over an
+  unencrypted connection and extracted into your RStudio configuration
+  directory.
+
 
 * `rstudio_install_spellcheck_dictionaries()` now works outside RStudio by
   downloading and validating Posit's dictionary archive, retrying interrupted

@@ -74,6 +74,7 @@ This document maps the package structure and the main responsibilities of the co
   `.extract_dictionary_archive()` traps warnings *and* confirms that the files
   listed by `.required_dictionary_files()` actually landed in the target
   directory before reporting success.
+  `secure = FALSE` warns that the download is unauthenticated.
 
 ### RStudio and settings management
 
