@@ -103,39 +103,38 @@ rstudio_reset_user_settings <- function(to, backup = TRUE, ask = TRUE) {
     create_backup_copy(file_current, "user_settings", "RStudio settings")
   }
 
-  # Delete current settings (use RStudio defaults)
-  fs::file_delete(file_current)
-
-  # All other setup files contain differences from the default settings
   rs_default <- get_path_rstudio_config_file(which = "rstudio-default")
-  success <- rstudio_set_preferences(rs_default)
+  preset_files <- rs_default
+  if (!identical(to, "rstudio-default")) {
+    preset_files <- c(
+      preset_files,
+      get_path_rstudio_config_file(which = "bio")
+    )
+  }
 
-  # Change what is different from the defaults
-  switch(
-    to,
+  success <- with_preference_file_rollback(file_current, {
+    if (fs::file_exists(file_current)) {
+      fs::file_delete(file_current)
+    }
 
-    "rstudio-default" = {
-      if (isTRUE(ask) && rstudioapi::isAvailable()) {
-        rstudioapi::executeCommand("clearUserPrefs", quiet = TRUE)
+    for (preset_file in preset_files) {
+      preset_success <- rstudio_set_preferences(preset_file)
+      if (!isTRUE(preset_success)) {
+        stop("Failed to apply RStudio preferences from: ", preset_file)
       }
-    },
+    }
 
-    "bio-default" = ,
-    "bio-dark-blue" = ,
-    "bio-black" = {
-      # Change the default dir, if default UI preferences change
-      fs::dir_create("~/R/main", recurse = TRUE)
+    if (identical(to, "rstudio-default") &&
+        isTRUE(ask) && rstudioapi::isAvailable()) {
+      rstudioapi::executeCommand("clearUserPrefs", quiet = TRUE)
+    }
 
-      file_default <- get_path_rstudio_config_file(which = "bio")
-      success <- rstudio_set_preferences(file_default)
+    TRUE
+  })
 
-    },
-
-    usethis::ui_stop(paste0(
-      "Unknown option of user setting defaults: to = {usethis::ui_value(to[1])}. \n",
-      "Possible options: {ui_value(user_setting_set_names)}."
-    ))
-  )
+  if (!identical(to, "rstudio-default")) {
+    fs::dir_create("~/R/main", recurse = TRUE)
+  }
 
 
   # Change RStudio theme (only possible in a live RStudio session)
