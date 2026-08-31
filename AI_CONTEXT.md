@@ -100,6 +100,11 @@ This document maps the package structure and the main responsibilities of the co
 
 - `R/bio-package.R` and `R/reexport.R` are the main entry points for public API exposure.
 - Public user-facing helpers should be documented in roxygen comments and exported through the package namespace.
+- Runtime dependencies remain in `Imports`; `Remotes` identifies development
+  sources for non-CRAN dependencies, while `Additional_repositories` lets R
+  resolve published packages from the project drat repository. Prefer
+  package-qualified calls, retaining narrow imports only for re-exports or
+  other established namespace contracts.
 - Before final validation, run Styler on affected R files or selected code only.
   The project `.Rprofile` configures
   `styler::tidyverse_style(strict = FALSE)`; avoid unrelated formatting churn.
