@@ -23,3 +23,4 @@ Character vector of unique, sorted package names.
 Scans a directory for R, Rmd, and Qmd files and returns a vector of
 unique package names used across those files.
 }
+\concept{packages}
