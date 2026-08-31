@@ -17,6 +17,9 @@
 - Keep pull-request generated-documentation checks read-only. Let serialized
 	post-merge pkgdown runs commit scoped generated files when contributors omit
 	them, with deployment failures remaining visible.
+- Keep local and CI documentation generation aligned on R 4.6.1, roxygen2
+  8.1.0, and Pandoc 2.14. Derive README badges from `DESCRIPTION`, and validate
+  generated Rd contracts with `tools::checkDocFiles(dir = ".")`.
 
 ## Future maintenance
 - Update this file when adding new package conventions or shared workflows.
