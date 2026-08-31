@@ -17,9 +17,10 @@
 	where practical, and keep tests confined to temporary paths.
 - Keep package-publication jobs sequential both within a matrix and across
 	workflow runs; do not hide deployment pull or push failures.
-- Keep pull-request generated-documentation checks read-only. Let serialized
-	post-merge pkgdown runs commit scoped generated files when contributors omit
-	them, with deployment failures remaining visible.
+- Let serialized generated-documentation runs commit only `NAMESPACE`, `man/`,
+  and `README.md` to same-repository pull-request branches. Keep fork pull
+  requests read-only and provide a generated patch artifact. Keep publication
+  and deployment failures visible.
 - Keep local and CI documentation generation aligned on the current R release,
   roxygen2 8.1.0, and Pandoc 2.14. Derive README badges from `DESCRIPTION`, and
   validate generated Rd contracts with `tools::checkDocFiles(dir = ".")`.
