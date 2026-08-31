@@ -28,9 +28,10 @@
 - Keep drat matrix jobs sequential and serialize workflow runs that publish to
 	the shared download repository. Publication pull/push failures must fail the
 	workflow rather than be reported as "nothing to commit".
-- Keep generated-documentation checks on pull requests read-only. Post-merge
-  pkgdown runs may commit only `NAMESPACE`, `man/`, and `README.md`; serialize
-  those runs and do not suppress commit, rebase, or push failures.
+- Let serialized generated-documentation runs commit only `NAMESPACE`, `man/`,
+  and `README.md` to same-repository pull-request branches. Fork pull requests
+  remain read-only and receive a generated patch artifact. Do not suppress
+  commit, rebase, or push failures.
 - Generate documentation with the current R release, roxygen2 8.1.0, and
   Pandoc 2.14 locally and in GitHub Actions. Keep README output derived from
   repository metadata, and run `tools::checkDocFiles(dir = ".")` after roxygen
