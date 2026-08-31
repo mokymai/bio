@@ -41,6 +41,8 @@ jobs:
         with:
           extra-packages: any::devtools, any::rmarkdown, github::GegznaV/backup.tools, github::GegznaV/snippets, local::.
           needs: website
+          # The vignettes use the `quarto::html` engine.
+          install-quarto: true
 
       - name: Generate Rd files
         run: |

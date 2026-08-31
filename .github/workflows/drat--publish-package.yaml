@@ -57,6 +57,8 @@ jobs:
             roxygen2
             devtools
             drat
+          # `devtools::build()` builds the `quarto::html` vignettes.
+          install-quarto: true
 
       - name: Roxygenize
         shell: Rscript {0}

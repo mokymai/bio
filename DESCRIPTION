@@ -51,6 +51,7 @@ Suggests:
     spelling,
     testthat (>= 3.0.0),
     tinytex
+VignetteBuilder: quarto
 Remotes:
     GegznaV/backup.tools,
     GegznaV/snippets

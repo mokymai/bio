@@ -1,0 +1,122 @@
+---
+title: "Checking your setup"
+vignette: >
+  %\VignetteIndexEntry{Checking your setup}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: "#>"
+    eval: false
+format:
+  html:
+    toc: true
+---
+
+[![Lifecycle: experimental](lifecycle-experimental.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+
+::: {.callout-warning appearance="simple"}
+## Lifecycle: experimental
+
+These helpers are **experimental**. Output formatting and the set of programs
+that are checked may change between releases.
+:::
+
+## Installed programs
+
+`check_installed_programs()` reports the installed version of R, RStudio,
+Quarto, Rtools, and related tools, and — when the machine is online — the
+newest version available:
+
+```{r}
+#| label: programs
+bio::check_installed_programs()
+```
+
+`type` selects which group of programs to report on, and
+`skip_online_check = TRUE` makes the call purely local:
+
+```{r}
+#| label: programs-offline
+bio::check_installed_programs(type = "main", skip_online_check = TRUE)
+```
+
+### Behaviour without a network
+
+Looking up "the newest available version" needs three things to work: a
+reachable network, a reachable endpoint, and a response in the expected shape.
+`bio` treats a failure in any of them as *"the available version is unknown"*
+rather than as an error:
+
+* no connectivity → a message that the computer is offline;
+* the endpoint refuses or times out → a warning naming the tool;
+* the page or API answers in an unexpected format → a warning naming the tool.
+
+In every case the installed versions are still reported. A broken or blocked
+download never prevents you from seeing what you actually have installed.
+
+### RStudio Desktop specifics
+
+RStudio can be installed for one user or for all users, and `bio` looks in
+both kinds of location:
+
+```{r}
+#| label: rstudio-scope
+install_dir <- bio:::find_rstudio_install_dir()
+bio::get_rstudio_install_scope(install_dir)
+```
+
+The scope only describes where the *application* lives. RStudio's preferences,
+keybindings, and internal state are always per operating-system user.
+
+## Your session
+
+`check_user_info()` collects the details worth pasting into a bug report:
+
+```{r}
+#| label: user-info
+bio::check_user_info()
+```
+
+Smaller helpers answer one question each:
+
+```{r}
+#| label: os
+bio::get_os_type()
+bio::is_64bit_os()
+bio::is_32bit_os()
+```
+
+## Packages
+
+Check whether specific packages are installed, list everything that is, or
+find out which packages a directory of scripts actually uses:
+
+```{r}
+#| label: packages
+bio::is_pkg_installed(c("dplyr", "ggplot2", "notapackage"))
+
+bio::get_pkgs_installed()
+
+bio::list_pkgs_used_in_dir(path = ".")
+bio::list_pkgs_used_in_files("analysis.R")
+```
+
+`list_pkgs_used_in_dir()` scans `.R`, `.Rmd`, and `.qmd` files, so it is a
+quick way to build the install list for a course folder.
+
+## Versions
+
+Compare two versions, or list the archived versions of a CRAN package:
+
+```{r}
+#| label: versions
+bio::compare_version(v_installed = "4.5.0", v_required = "4.6.0")
+
+bio::pkg_list_archived_versions("ggplot2")
+```
+
+`compare_version()` returns a comparison of two version strings; it is the
+helper behind the "is available online" annotations in
+`check_installed_programs()`.
