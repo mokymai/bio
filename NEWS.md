@@ -22,6 +22,9 @@
   namespace import with package-qualified calls and the single narrow import
   required for the `open_backup_dir()` re-export.
 
+* Removed obsolete global-variable declarations, modernized interactive
+  examples, and clarified the generated `..Rcheck/` ignore rule.
+
 * Online R, RStudio, and Quarto version checks now treat connectivity,
   transport, parsing, and unexpected-response failures as unavailable version
   information instead of aborting program checks.
