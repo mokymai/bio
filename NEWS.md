@@ -26,6 +26,15 @@
   directory (absolute paths, drive letters, or `..` segments) are refused
   before extraction.
 
+* A failed dictionary download now says why the archive was rejected —
+  no data, not a readable zip, unsafe entries, or a missing locale — instead
+  of always reporting an incomplete download. Retries also back off between
+  attempts.
+
+* The check for the newest available R version discovers the CRAN source
+  directories instead of assuming R 4, and its filename pattern now requires
+  literal dots.
+
 * `rstudio_install_spellcheck_dictionaries()` now works outside RStudio by
   downloading and validating Posit's dictionary archive, retrying interrupted
   transfers, and falling back to the system `curl` command when available. It
