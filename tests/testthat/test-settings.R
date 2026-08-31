@@ -179,6 +179,167 @@ test_that("declined user-settings reset does not modify preferences", {
   expect_identical(readLines(preference_file), '{"editor_theme":"Textmate (default)"}')
 })
 
+test_that("console clearing follows both RStudio question responses", {
+  commands <- character()
+  answer <- TRUE
+  testthat::local_mocked_bindings(
+    isAvailable = function(...) TRUE,
+    showQuestion = function(...) answer,
+    executeCommand = function(command, ...) {
+      commands <<- c(commands, command)
+      invisible(NULL)
+    },
+    .package = "rstudioapi"
+  )
+
+  # showQuestion() returns TRUE for the first button, which is "No" here.
+  expect_invisible(rstudio_clear_console_ask())
+  expect_identical(commands, character())
+
+  answer <- FALSE
+  expect_invisible(rstudio_clear_console_ask())
+  expect_identical(commands, "consoleClear")
+})
+
+test_that("preference reset restores the original file after a later failure", {
+  root <- withr::local_tempdir()
+  current <- fs::path(root, "rstudio-prefs.json")
+  rstudio_default <- fs::path(root, "rstudio-default.json")
+  bio_default <- fs::path(root, "bio-default.json")
+  original <- charToRaw('{"editor_theme":"Original"}\n')
+  writeBin(original, current)
+  writeLines('{"editor_theme":"Textmate (default)"}', rstudio_default)
+  writeLines('{"save_workspace":"never"}', bio_default)
+  calls <- 0L
+
+  testthat::local_mocked_bindings(
+    get_path_rstudio_config_file = function(which = "current") {
+      switch(which,
+        current = current,
+        `rstudio-default` = rstudio_default,
+        bio = bio_default
+      )
+    },
+    rstudio_set_preferences = function(file) {
+      calls <<- calls + 1L
+      writeLines(sprintf('{"partial":%d}', calls), current)
+      if (calls == 2L) stop("second preset failed")
+      TRUE
+    },
+    .package = "bio"
+  )
+  testthat::local_mocked_bindings(
+    isAvailable = function(...) FALSE,
+    .package = "rstudioapi"
+  )
+
+  expect_error(
+    rstudio_reset_user_settings("bio-default", backup = FALSE, ask = FALSE),
+    "second preset failed"
+  )
+  expect_identical(readBin(current, "raw", n = file.info(current)$size), original)
+})
+
+test_that("preference reset removes partial output when no original existed", {
+  root <- withr::local_tempdir()
+  current <- fs::path(root, "rstudio-prefs.json")
+  malformed <- fs::path(root, "rstudio-default.json")
+  writeLines("{not-json", malformed)
+
+  testthat::local_mocked_bindings(
+    get_path_rstudio_config_file = function(which = "current") {
+      switch(which, current = current, `rstudio-default` = malformed)
+    },
+    .package = "bio"
+  )
+  testthat::local_mocked_bindings(
+    isAvailable = function(...) FALSE,
+    .package = "rstudioapi"
+  )
+
+  expect_error(
+    rstudio_reset_user_settings("rstudio-default", backup = FALSE, ask = FALSE)
+  )
+  expect_false(fs::file_exists(current))
+})
+
+test_that("headless preference reset applies both presets", {
+  root <- withr::local_tempdir()
+  current <- fs::path(root, "rstudio-prefs.json")
+  rstudio_default <- fs::path(root, "rstudio-default.json")
+  bio_default <- fs::path(root, "bio-default.json")
+  writeLines('{"editor_theme":"Textmate (default)","remove_me":true}', current)
+  writeLines('{"editor_theme":"Textmate (default)"}', rstudio_default)
+  writeLines('{"save_workspace":"never"}', bio_default)
+
+  testthat::local_mocked_bindings(
+    get_path_rstudio_config_file = function(which = "current") {
+      switch(which,
+        current = current,
+        `rstudio-default` = rstudio_default,
+        bio = bio_default
+      )
+    },
+    .package = "bio"
+  )
+  testthat::local_mocked_bindings(
+    isAvailable = function(...) FALSE,
+    .package = "rstudioapi"
+  )
+  testthat::local_mocked_bindings(
+    dir_create = function(...) invisible(NULL),
+    .package = "fs"
+  )
+
+  expect_invisible(rstudio_reset_user_settings("bio-default", backup = FALSE, ask = FALSE))
+  result <- jsonlite::fromJSON(current, simplifyVector = FALSE)
+  expect_identical(result$editor_theme, "Textmate (default)")
+  expect_identical(result$save_workspace, "never")
+  expect_false("remove_me" %in% names(result))
+})
+
+test_that("reset steps report warnings and errors in their summaries", {
+  expect_warning(
+    warning_result <- suppressMessages(run_reset_step("Warn", warning("careful"))),
+    "Warn: careful"
+  )
+  error_result <- suppressMessages(run_reset_step("Fail", stop("boom")))
+
+  expect_true(warning_result$ok)
+  expect_true(is.na(warning_result$message))
+  expect_false(error_result$ok)
+  expect_identical(error_result$message, "boom")
+
+  summary <- suppressMessages(summarize_reset_steps(list(
+    warning = warning_result,
+    error = error_result
+  )))
+  expect_identical(summary$ok, c(TRUE, FALSE))
+  expect_identical(summary$message, c(NA_character_, "boom"))
+})
+
+test_that("preference transaction rolls back a false result", {
+  current <- withr::local_tempfile(fileext = ".json")
+  original <- charToRaw('{"value":"original"}\n')
+  writeBin(original, current)
+
+  result <- with_preference_file_rollback(current, {
+    writeLines('{"value":"partial"}', current)
+    FALSE
+  })
+
+  expect_false(result)
+  expect_identical(readBin(current, "raw", n = file.info(current)$size), original)
+})
+
+test_that("all bundled RStudio settings assets contain valid JSON objects", {
+  files <- fs::dir_ls(path_bio_rs(), regexp = "[.]json$")
+  expect_length(files, 4L)
+
+  assets <- lapply(files, jsonlite::fromJSON, simplifyVector = FALSE)
+  expect_true(all(vapply(assets, is.list, logical(1))))
+})
+
 test_that("reset helpers hold the expected scalar contracts", {
   expect_true(restriction_status(ignore_ip = TRUE))
   expect_false(restriction_status(ignore_ip = FALSE))
