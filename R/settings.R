@@ -152,17 +152,6 @@ rstudio_configure_defaults <- function(force_update_dictionaries = FALSE) {
     tinytex::install_tinytex(force = TRUE)
   })
 
-  # Create/clean course directories
-  steps$directories <- run_reset_step("Create/clean course directories", {
-    fs::path_expand_r("~/R/main") |> fs::dir_create()
-
-    bs_folder <- fs::path_expand("~/Desktop/BS-pratybos/")
-    if (fs::dir_exists(bs_folder)) {
-      fs::dir_delete(bs_folder)
-    }
-    fs::dir_create(bs_folder)
-  })
-
   invisible(summarize_reset_steps(steps))
 }
 
