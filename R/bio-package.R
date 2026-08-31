@@ -24,9 +24,7 @@ bio_envir <- new.env()
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 globalVariables(c(
-  ".", ".rs.downloadAllDictionaries", "bowse_meld_homepage", "cran_version",
+  ".", ".rs.downloadAllDictionaries", "cran_version",
   "current_version", "deps_below", "install_from",
-  "n_deps", "name", "on_cran", "package", "pkg", "value",
-  "...6", "...8", ".text", ".match", "specialybe", "pavarde", "vardas",
-  "patikslinimas", "Kategorija"
+  "n_deps", "name", "on_cran", "package", "pkg", "value"
 ))
