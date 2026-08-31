@@ -75,7 +75,9 @@ jobs:
 
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions"
-          git commit -m "Update generated documentation [skip ci]"
+          # No `[skip ci]`: a skipped workflow leaves its checks Pending, which
+          # blocks merging. The follow-up run finds no diff and stops.
+          git commit -m "Update generated documentation"
 
           for attempt in 1 2 3; do
             # Guarded so `bash -e` cannot abort the step on the first race.
