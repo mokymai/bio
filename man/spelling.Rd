@@ -20,7 +20,8 @@ rstudio_delete_spellcheck_dictionaries(ask = TRUE)
 interactively.}
 }
 \value{
-Invisibly, \code{TRUE} on success and \code{FALSE} on failure.
+For \code{rstudio_install_spellcheck_dictionaries()} and its download
+alias, invisibly returns \code{TRUE} on success and \code{FALSE} on handled failure.
 }
 \description{
 \itemize{

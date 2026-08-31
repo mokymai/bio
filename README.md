@@ -21,7 +21,7 @@ required resources for course unit ***Biostatistics*** (*BS*).
 
 <center>
 <br> <font color="darkred" size=4> This package is intended to be used
-with <b>RStudio 2026.08</b> or newer<br> and the <b>R 4.6.1</b> or
+with <b>RStudio 2026.08</b> or newer<br> and <b>R 4.6.1</b> or
 newer.<br> </font> <font color="darkred" size=3> Functions may not work
 correctly with the previous versions of RStudio and R. </font>
 <br><br><br>
