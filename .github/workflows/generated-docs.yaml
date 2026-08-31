@@ -1,0 +1,64 @@
+name: Check generated documentation
+
+on:
+  pull_request:
+    branches: [main, master, devel]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: generated-docs-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  generated-docs:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      R_REPOS: "c(mokymai = 'https://mokymai.github.io/download/', CRAN = 'https://cran.rstudio.com')"
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: "release"
+          use-public-rspm: false
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::devtools, any::rmarkdown, github::GegznaV/backup.tools, github::GegznaV/snippets, local::.
+          needs: website
+
+      - name: Generate Rd files
+        run: |
+          devtools::document(roclets = c('rd', 'collate', 'namespace'))
+        shell: Rscript {0}
+
+      - name: Render README
+        run: |
+          rmarkdown::render(
+            "README.Rmd",
+            output_format = rmarkdown::github_document(html_preview = FALSE)
+          )
+        shell: Rscript {0}
+
+      - name: Check generated documentation
+        shell: bash
+        run: |
+          changes="$(git status --short -- NAMESPACE man README.md)"
+
+          if [[ -z "${changes}" ]]; then
+            echo "Generated documentation is current"
+            exit 0
+          fi
+
+          echo "Generated documentation is stale:" >&2
+          printf '%s\n' "${changes}" >&2
+          git --no-pager diff -- NAMESPACE man README.md
+          echo "Run roxygen and render README.Rmd, then commit the results." >&2
+          exit 1
