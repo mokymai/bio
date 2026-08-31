@@ -100,8 +100,11 @@ This document maps the package structure and the main responsibilities of the co
 
 - `R/bio-package.R` and `R/reexport.R` are the main entry points for public API exposure.
 - Public user-facing helpers should be documented in roxygen comments and exported through the package namespace.
-- Generated documentation uses R 4.6.1, roxygen2 8.1.0 (pinned by
-  `Config/roxygen2/version`), and Pandoc 2.14 locally and in GitHub Actions.
+- Before final validation, run Styler on affected R files or selected code only.
+  The project `.Rprofile` configures
+  `styler::tidyverse_style(strict = FALSE)`; avoid unrelated formatting churn.
+- Generated documentation uses the current R release, roxygen2 8.1.0 (pinned
+  by `Config/roxygen2/version`), and Pandoc 2.14 locally and in GitHub Actions.
   README version/date badges come from `DESCRIPTION`, not the render date or
   an installed package. After roxygen generation,
   `tools::checkDocFiles(dir = ".")` checks usage, arguments, and aliases.
