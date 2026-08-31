@@ -23,6 +23,8 @@
 
 ## Verification checklist
 - Run targeted tests for changed behavior.
+- Keep the test suite network-free: mock `pingr::is_online()` alongside any
+	mocked endpoint, otherwise the test fails on an offline runner.
 - Regenerate roxygen docs when function comments change.
 - Review for broken version-check logic before merging.
 - Keep drat matrix jobs sequential and serialize workflow runs that publish to

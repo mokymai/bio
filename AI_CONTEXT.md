@@ -131,6 +131,11 @@ This document maps the package structure and the main responsibilities of the co
   spellcheck dictionary installer exports.
 - `tests/testthat.R` — testthat bootstrap entry file.
 - Add new tests beside the functional area they cover; keep them focused and runnable without network-dependent metadata unless explicitly mocked or skipped.
+- No test may reach the real network. `pingr::is_online()`,
+  `readr::read_lines(<url>)`, `jsonlite::fromJSON(<url>)`, and
+  `utils::download.file()` must all be mocked or skipped — mocking only the
+  endpoint while leaving the connectivity probe live makes a test fail on an
+  offline runner.
 
 ## Bundled resources
 
