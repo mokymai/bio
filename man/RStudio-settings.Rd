@@ -26,8 +26,9 @@ Correctly works only with RStudio 1.3 or newer.
 Recommended to use with RStudio 2022.07.1 or newer.
 }
 \details{
-Settings that can be used in \code{rstudio-prefs.json} file:
-https://docs.posit.co/ide/server-pro/session-user-settings.html
+Posit's \href{https://docs.posit.co/ide/user/ide/guide/productivity/custom-settings.html}{Custom Settings guide}
+documents the point-and-click interface for user preferences, preference
+files, and configuration directories.
 }
 \examples{
 if (interactive()) {
@@ -42,21 +43,15 @@ if (interactive()) {
 \seealso{
 \code{\link[=get_path_rstudio_config_file]{get_path_rstudio_config_file()}}
 
-On \href{https://support.posit.co/hc/en-us/articles/200549016-Customizing-the-RStudio-IDE}{Customizing RStudio} using point-and-click method.
-
-On \href{https://posit.co/blog/rstudio-1-3-preview-configuration}{Configuration and Settings}.
-
-A list of \href{https://docs.posit.co/ide/server-pro/session_user_settings/session_user_settings.html}{Session User Settings} to be used with
-\code{\link[rstudioapi:writeRStudioPreference]{rstudioapi::writeRStudioPreference()}}.
+\href{https://docs.posit.co/ide/server-pro/session_user_settings/session_user_settings.html}{Session User Settings}
+lists settings accepted by \code{\link[rstudioapi:writeRStudioPreference]{rstudioapi::writeRStudioPreference()}}.
 
 On \href{https://docs.posit.co/ide/desktop-pro/settings/settings.html}{RStudio setting locations}.
 
 On \href{https://support.posit.co/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State}{Resetting RStudio Desktop's State}.
 
-StackOverflow threads on export/import RStudio of user preferences:
-\itemize{
-\item https://stackoverflow.com/a/55940249/4783029
-\item https://stackoverflow.com/a/54982341/4783029
-}
+For a broader interface to preference files and addin shortcuts, see the
+\href{https://CRAN.R-project.org/package=rstudio.prefs}{rstudio.prefs} package by
+S.A. van der Wulp and Daniel D. Sjoberg.
 }
 \concept{r and rstudio settings}
