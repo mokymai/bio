@@ -25,6 +25,12 @@
 RStudio, Quarto, Rtools, and related tools, and — when the machine is
 online — the newest version available:
 
+Official installation and release information is available from the [R
+Project](https://www.r-project.org/), [RStudio IDE User
+Guide](https://docs.posit.co/ide/user/), [Quarto installation
+guide](https://quarto.org/docs/get-started/), and [Rtools
+documentation](https://cran.r-project.org/bin/windows/Rtools/).
+
 <div class="cell">
 
 <div id="cb1" class="sourceCode cell-code">
@@ -94,7 +100,9 @@ bio::get_rstudio_install_scope(install_dir)
 
 The scope only describes where the *application* lives. RStudio’s
 preferences, keybindings, and internal state are always per
-operating-system user.
+operating-system user. Posit’s guide documents the supported [RStudio
+configuration
+directories](https://docs.posit.co/ide/user/ide/guide/productivity/custom-settings.html).
 
 </div>
 
@@ -162,7 +170,9 @@ bio::list_pkgs_used_in_files("analysis.R")
 </div>
 
 `list_pkgs_used_in_dir()` scans `.R`, `.Rmd`, and `.qmd` files, so it is
-a quick way to build the install list for a course folder.
+a quick way to build the install list for a course folder. For
+reproducible project libraries rather than discovery alone, see
+[**renv**](https://rstudio.github.io/renv/).
 
 </div>
 

@@ -66,7 +66,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file --><!-- # Package **_bio_** --><!-- badges: start -->
 <!-- [![GitHub last commit](https://img.shields.io/github/last-commit/mokymai/bio)](https://github.com/mokymai/bio) --><p>Convenience functions to facilitate installation and management of required resources for course unit <strong><em>Biostatistics</em></strong> (<em>BS</em>).</p>
 <center>
-<br><font color="darkred" size="4"> This package is intended to be used with <b>RStudio 2026.08</b> or newer<br> and <b>R 4.6.1</b> or newer.<br></font> <font color="darkred" size="3"> Functions may not work correctly with the previous versions of RStudio and R. </font> <br><br><br>
+<br><font color="darkred" size="4"> This package is intended to be used with <b><a href="https://posit.co/download/rstudio-desktop/" class="external-link">RStudio 2026.08</a></b> or newer<br> and <b><a href="https://www.r-project.org/" class="external-link">R 4.6.1</a></b> or newer.<br></font> <font color="darkred" size="3"> Functions may not work correctly with the previous versions of RStudio and R. </font> <br><br><br>
 </center>
 <!--
 The package metadata permits installation on R 4.2.0 or newer. The current R
@@ -86,7 +86,7 @@ primary teaching configuration.
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org" class="external-link">remotes</a></span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span></span>
 <span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"mokymai/bio"</span>, dependencies <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p>Note: installation from <em>GitHub</em> may require <em>RTools</em> on <em>Windows</em>.</p></details>
+<p>Note: installation from <em>GitHub</em> may require <a href="https://cran.r-project.org/bin/windows/Rtools/" class="external-link">Rtools</a> on Windows.</p></details>
 </div>
 <div class="section level1">
 <h1 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
@@ -121,6 +121,7 @@ primary teaching configuration.
 <code>"all"</code> – additionally checks for presence of “XQuartz” (“Mac” only), “Git” (all systems), and (sometimes) “Meld”. <!-- This check may not work properly on "Mac" and "Linux". -->
 </li>
 </ul>
+<p>Installation and release information is maintained by the <a href="https://www.r-project.org/" class="external-link">R Project</a>, <a href="https://docs.posit.co/ide/user/" class="external-link">RStudio IDE</a>, and <a href="https://quarto.org/docs/get-started/" class="external-link">Quarto</a> projects. Windows users who build packages from source should also consult the <a href="https://cran.r-project.org/bin/windows/Rtools/" class="external-link">Rtools documentation</a>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/check_installed_programs.html">check_installed_programs</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">## ✔ Program R (4.6.1) is installed (4.6.1 is available online).</span></span>
@@ -142,7 +143,7 @@ primary teaching configuration.
 <div class="section level3">
 <h3 id="dictionaries">Dictionaries<a class="anchor" aria-label="anchor" href="#dictionaries"></a>
 </h3>
-<p>This function downloads or updates <strong>hunspell</strong> spelling-checking dictionaries (including Lithuanian) that can be used by RStudio or by tools from the <strong>wellspell.addin</strong> package.</p>
+<p>This function downloads or updates <strong>hunspell</strong> spelling-checking dictionaries (including Lithuanian) that can be used by RStudio or by tools from the <strong>wellspell.addin</strong> package. See Posit’s guide to <a href="https://docs.posit.co/ide/user/ide/guide/productivity/custom-settings.html#spelling" class="external-link">spelling dictionaries</a>.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/spelling.html">rstudio_install_spellcheck_dictionaries</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -169,8 +170,8 @@ primary teaching configuration.
 <p><strong>Table 1.</strong> Some examples of shortcut keys set with the <code>"bio-default"</code> option.</p>
 <table class="table">
 <colgroup>
-<col width="32%">
-<col width="67%">
+<col width="29%">
+<col width="70%">
 </colgroup>
 <thead><tr class="header">
 <th>Shortcut</th>
@@ -187,7 +188,7 @@ primary teaching configuration.
 <td>
 <kbd>Shift</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd>
 </td>
-<td>Use “Tidyverse” style on selected lines of R code. Package <strong>styler</strong> must be installed (<em>R code</em>).</td>
+<td>Use “Tidyverse” style on selected lines of R code. Package <a href="https://CRAN.R-project.org/package=styler" class="external-link"><strong>styler</strong></a> must be installed (<em>R code</em>).</td>
 </tr>
 <tr class="odd">
 <td>
@@ -264,6 +265,7 @@ primary teaching configuration.
 <h3 id="rstudio-settings">RStudio settings<a class="anchor" aria-label="anchor" href="#rstudio-settings"></a>
 </h3>
 <p>This function resets RStudio user preferences and settings.</p>
+<p>RStudio documents the corresponding point-and-click options in its <a href="https://docs.posit.co/ide/user/ide/guide/productivity/custom-settings.html" class="external-link">Custom Settings guide</a> and explains editor themes in the <a href="https://docs.posit.co/ide/user/ide/guide/ui/appearance.html" class="external-link">Themes guide</a>.</p>
 <p>Run the function without arguments to see the available options.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/RStudio-settings.html">rstudio_reset_user_settings</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -309,7 +311,7 @@ primary teaching configuration.
 <span><span class="co">##   'C:/Users/User/AppData/Roaming/RStudio/snippets/r.snippets'</span></span>
 <span><span class="co">##</span></span>
 <span><span class="co">## ℹ You will be able to use the snippets after RStudio is closed and reopened.</span></span></code></pre></div>
-<p>For more information about <a href="https://support.posit.co/hc/en-us/articles/204463668-Code-Snippets-in-the-RStudio-IDE" target="_blank" class="external-link">Code Snippets</a> in RStudio and on package <a href="https://gegznav.github.io/snippets/" target="_blank" class="external-link"><strong>snippets</strong></a>.</p>
+<p>For more information, see RStudio’s <a href="https://docs.posit.co/ide/user/ide/guide/productivity/snippets.html" target="_blank" class="external-link">Code Snippets guide</a> and the <a href="https://gegznav.github.io/snippets/" target="_blank" class="external-link"><strong>snippets</strong> package website</a>.</p>
 </div>
 <div class="section level3">
 <h3 id="restart-r-and-rstudio">Restart R and RStudio<a class="anchor" aria-label="anchor" href="#restart-r-and-rstudio"></a>
@@ -322,8 +324,26 @@ primary teaching configuration.
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="reference/restart-reload.html">restart_r</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Useful to apply before trying to install R packages.</p>
-<!-- ## RStudio projects --><!-- Open (recently used) RStudio project. --><!-- ```{r README-11, eval=FALSE} --><!-- bio::open_project() --><!-- ##  --><!-- ## Choose the name of the project (press 0 to cancel):  --><!-- ##  --><!-- ##  1: project-1  --><!-- ##  2: _learn --><!-- ##  3: biostatistics --><!-- ##   --><!-- ##  Selection: 0 --><!-- ##  Cancelled by user. --><!-- ``` --><!-- Copy the recent projects to your personal project list. --><!-- ```{r README-12, eval=FALSE} --><!-- bio::update_rstudio_proj_list_user() --><!-- ``` -->
 </div>
+</div>
+<div class="section level2">
+<h2 id="related-packages-and-tools">Related packages and tools<a class="anchor" aria-label="anchor" href="#related-packages-and-tools"></a>
+</h2>
+<p>The following projects overlap with or complement parts of <code>bio</code>. They are listed to help users choose a narrower or more general tool when appropriate:</p>
+<ul>
+<li>
+<a href="https://CRAN.R-project.org/package=rstudio.prefs" class="external-link"><strong>rstudio.prefs</strong></a>, by S.A. van der Wulp and Daniel D. Sjoberg, is the closest CRAN alternative for managing RStudio preferences and addin shortcuts across devices.</li>
+<li>
+<a href="https://CRAN.R-project.org/package=rstudioapi" class="external-link"><strong>rstudioapi</strong></a>, by Kevin Ushey, JJ Allaire, Hadley Wickham, and Gary Ritchie, exposes the supported API for interacting with a running RStudio session. <code>bio</code> uses it for live IDE operations.</li>
+<li>
+<a href="https://CRAN.R-project.org/package=renv" class="external-link"><strong>renv</strong></a>, by Kevin Ushey and Hadley Wickham, manages reproducible project-local package libraries and lockfiles. This complements <code>bio</code>’s package discovery helpers.</li>
+<li>
+<a href="https://CRAN.R-project.org/package=styler" class="external-link"><strong>styler</strong></a>, by Kirill Müller, Lorenz Walthert, and Indrajeet Patil, formats R code and powers one of the optional course shortcuts.</li>
+<li>
+<a href="https://CRAN.R-project.org/package=drat" class="external-link"><strong>drat</strong></a>, by Dirk Eddelbuettel and Carl Boettiger, creates and manages CRAN-like repositories; the <code>mokymai</code> repository used to distribute <code>bio</code> is built with this approach.</li>
+</ul>
+<p>The GitHub-only <a href="https://github.com/nevrome/wellspell.addin" class="external-link"><strong>wellspell.addin</strong></a> provides interactive spellchecking in RStudio. It is useful alongside the dictionaries installed by <code>bio</code>, but is not currently a CRAN package.</p>
+<!-- ## RStudio projects --><!-- Open (recently used) RStudio project. --><!-- ```{r README-11, eval=FALSE} --><!-- bio::open_project() --><!-- ##  --><!-- ## Choose the name of the project (press 0 to cancel):  --><!-- ##  --><!-- ##  1: project-1  --><!-- ##  2: _learn --><!-- ##  3: biostatistics --><!-- ##   --><!-- ##  Selection: 0 --><!-- ##  Cancelled by user. --><!-- ``` --><!-- Copy the recent projects to your personal project list. --><!-- ```{r README-12, eval=FALSE} --><!-- bio::update_rstudio_proj_list_user() --><!-- ``` -->
 </div>
 </div>
 

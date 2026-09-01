@@ -8,8 +8,9 @@ Convenience functions to facilitate installation and management of
 required resources for course unit ***Biostatistics*** (*BS*).
 
   
-This package is intended to be used with **RStudio 2026.08** or newer  
-and **R 4.6.1** or newer.  
+This package is intended to be used with **[RStudio
+2026.08](https://posit.co/download/rstudio-desktop/)** or newer  
+and **[R 4.6.1](https://www.r-project.org/)** or newer.  
 Functions may not work correctly with the previous versions of RStudio
 and R.  
   
@@ -50,7 +51,8 @@ remotes::install_github("mokymai/bio", dependencies = TRUE)
 
 </div>
 
-Note: installation from *GitHub* may require *RTools* on *Windows*.
+Note: installation from *GitHub* may require
+[Rtools](https://cran.r-project.org/bin/windows/Rtools/) on Windows.
 
 </div>
 
@@ -99,6 +101,13 @@ programs. Options:
 -   `"all"` – additionally checks for presence of “XQuartz” (“Mac”
     only), “Git” (all systems), and (sometimes) “Meld”.
 
+Installation and release information is maintained by the [R
+Project](https://www.r-project.org/), [RStudio
+IDE](https://docs.posit.co/ide/user/), and
+[Quarto](https://quarto.org/docs/get-started/) projects. Windows users
+who build packages from source should also consult the [Rtools
+documentation](https://cran.r-project.org/bin/windows/Rtools/).
+
 <div id="cb4" class="sourceCode">
 
 ``` r
@@ -140,7 +149,9 @@ bio::check_installed_programs("all")
 
 This function downloads or updates **hunspell** spelling-checking
 dictionaries (including Lithuanian) that can be used by RStudio or by
-tools from the **wellspell.addin** package.
+tools from the **wellspell.addin** package. See Posit’s guide to
+[spelling
+dictionaries](https://docs.posit.co/ide/user/ide/guide/productivity/custom-settings.html#spelling).
 
 <div id="cb6" class="sourceCode">
 
@@ -188,21 +199,21 @@ bio::rstudio_reset_keybindings(to = "bio-default")
 **Table 1.** Some examples of shortcut keys set with the `"bio-default"`
 option.
 
-| Shortcut         | Action                                                                                                                        |
-|------------------|-------------------------------------------------------------------------------------------------------------------------------|
-| Shift+Alt+S      | Insert inline LaTeX equation (*Quarto*).                                                                                      |
-| Shift+Alt+A      | Use “Tidyverse” style on selected lines of R code. Package **styler** must be installed (*R code*).                           |
-| Ctrl+Shift+Alt+S | Check spelling in selected text. Package [**wellspell.addin**](https://github.com/nevrome/wellspell.addin) must be installed. |
-| Ctrl+Shift+Alt+P | Align parts of selected lines at a custom pattern.                                                                            |
-| Ctrl+Shift+\]    | Change heading one level down (*Quarto*) **\[!\]**.                                                                           |
-| Ctrl+Shift+\[    | Change heading one level up or remove heading (*Quarto*) **\[!\]**.                                                           |
-| Ctrl+Shift+;     | Insert lower opening quotes `„`.                                                                                              |
-| Ctrl+Shift+’     | Insert upper closing quotes `“`.                                                                                              |
-| Ctrl+R           | **Insert/Enclose with R code block** (*Quarto*) **\[!\]** .                                                                   |
-| Ctrl+Alt+T       | Insert inline code highlighted as R code (Quarto).                                                                            |
-| Ctrl+Alt+NumPad8 | Insert operator `%*%` (*R code*).                                                                                             |
-| Ctrl+Alt+NumPad7 | Insert operator `%in%` (*R code*).                                                                                            |
-| Alt+Shift+D      | Document R package (that you are building).                                                                                   |
+| Shortcut         | Action                                                                                                                                           |
+|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| Shift+Alt+S      | Insert inline LaTeX equation (*Quarto*).                                                                                                         |
+| Shift+Alt+A      | Use “Tidyverse” style on selected lines of R code. Package [**styler**](https://CRAN.R-project.org/package=styler) must be installed (*R code*). |
+| Ctrl+Shift+Alt+S | Check spelling in selected text. Package [**wellspell.addin**](https://github.com/nevrome/wellspell.addin) must be installed.                    |
+| Ctrl+Shift+Alt+P | Align parts of selected lines at a custom pattern.                                                                                               |
+| Ctrl+Shift+\]    | Change heading one level down (*Quarto*) **\[!\]**.                                                                                              |
+| Ctrl+Shift+\[    | Change heading one level up or remove heading (*Quarto*) **\[!\]**.                                                                              |
+| Ctrl+Shift+;     | Insert lower opening quotes `„`.                                                                                                                 |
+| Ctrl+Shift+’     | Insert upper closing quotes `“`.                                                                                                                 |
+| Ctrl+R           | **Insert/Enclose with R code block** (*Quarto*) **\[!\]** .                                                                                      |
+| Ctrl+Alt+T       | Insert inline code highlighted as R code (Quarto).                                                                                               |
+| Ctrl+Alt+NumPad8 | Insert operator `%*%` (*R code*).                                                                                                                |
+| Ctrl+Alt+NumPad7 | Insert operator `%in%` (*R code*).                                                                                                               |
+| Alt+Shift+D      | Document R package (that you are building).                                                                                                      |
 
 For more information, see [Customizing Keyboard
 Shortcuts](https://docs.posit.co/ide/user/ide/guide/productivity/custom-shortcuts.html)
@@ -215,6 +226,12 @@ in RStudio.
 ### RStudio settings
 
 This function resets RStudio user preferences and settings.
+
+RStudio documents the corresponding point-and-click options in its
+[Custom Settings
+guide](https://docs.posit.co/ide/user/ide/guide/productivity/custom-settings.html)
+and explains editor themes in the [Themes
+guide](https://docs.posit.co/ide/user/ide/guide/ui/appearance.html).
 
 Run the function without arguments to see the available options.
 
@@ -312,10 +329,10 @@ snippets::install_snippets_from_package("snippets", backup = TRUE)
 
 </div>
 
-For more information about [Code
-Snippets](https://support.posit.co/hc/en-us/articles/204463668-Code-Snippets-in-the-RStudio-IDE)
-in RStudio and on package
-[**snippets**](https://gegznav.github.io/snippets/).
+For more information, see RStudio’s [Code Snippets
+guide](https://docs.posit.co/ide/user/ide/guide/productivity/snippets.html)
+and the [**snippets** package
+website](https://gegznav.github.io/snippets/).
 
 </div>
 
@@ -350,6 +367,42 @@ bio::restart_r()
 Useful to apply before trying to install R packages.
 
 </div>
+
+</div>
+
+<div class="section level2">
+
+## Related packages and tools
+
+The following projects overlap with or complement parts of `bio`. They
+are listed to help users choose a narrower or more general tool when
+appropriate:
+
+-   [**rstudio.prefs**](https://CRAN.R-project.org/package=rstudio.prefs),
+    by S.A. van der Wulp and Daniel D. Sjoberg, is the closest CRAN
+    alternative for managing RStudio preferences and addin shortcuts
+    across devices.
+-   [**rstudioapi**](https://CRAN.R-project.org/package=rstudioapi), by
+    Kevin Ushey, JJ Allaire, Hadley Wickham, and Gary Ritchie, exposes
+    the supported API for interacting with a running RStudio session.
+    `bio` uses it for live IDE operations.
+-   [**renv**](https://CRAN.R-project.org/package=renv), by Kevin Ushey
+    and Hadley Wickham, manages reproducible project-local package
+    libraries and lockfiles. This complements `bio`’s package discovery
+    helpers.
+-   [**styler**](https://CRAN.R-project.org/package=styler), by Kirill
+    Müller, Lorenz Walthert, and Indrajeet Patil, formats R code and
+    powers one of the optional course shortcuts.
+-   [**drat**](https://CRAN.R-project.org/package=drat), by Dirk
+    Eddelbuettel and Carl Boettiger, creates and manages CRAN-like
+    repositories; the `mokymai` repository used to distribute `bio` is
+    built with this approach.
+
+The GitHub-only
+[**wellspell.addin**](https://github.com/nevrome/wellspell.addin)
+provides interactive spellchecking in RStudio. It is useful alongside
+the dictionaries installed by `bio`, but is not currently a CRAN
+package.
 
 </div>
 

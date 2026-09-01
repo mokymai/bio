@@ -44,7 +44,9 @@ of laptops behave the same way.
 ## Installation
 
 `bio` and two of its dependencies are published through a
-[drat](https://mokymai.github.io/download/) repository rather than CRAN:
+[drat](https://CRAN.R-project.org/package=drat) repository rather than
+CRAN. The repository itself is available at
+[mokymai/download](https://mokymai.github.io/download/):
 
 <div class="cell">
 
@@ -65,6 +67,8 @@ install.packages("bio", repos = repos)
 
 `DESCRIPTION` declares that repository in `Additional_repositories`, so
 `install.packages()` resolves `backup.tools` and `snippets` from it too.
+See the R manual for details about [installing
+packages](https://cran.r-project.org/doc/manuals/r-release/R-admin.html#Installing-packages).
 
 </div>
 
@@ -187,6 +191,34 @@ that and return without doing anything.
     settings](https://mokymai.github.io/bio/articles/rstudio-settings.md)
     — presets, keybindings, dictionaries, backups, and the live-session
     caveats.
+
+</div>
+
+<div class="section level2">
+
+## Related packages and tools
+
+These projects overlap with or complement narrower parts of `bio`:
+
+-   [**rstudio.prefs**](https://CRAN.R-project.org/package=rstudio.prefs),
+    by S.A. van der Wulp and Daniel D. Sjoberg, is the closest CRAN
+    alternative for RStudio preference files and addin shortcuts.
+-   [**rstudioapi**](https://CRAN.R-project.org/package=rstudioapi), by
+    Kevin Ushey, JJ Allaire, Hadley Wickham, and Gary Ritchie, provides
+    the supported API for live RStudio integration.
+-   [**renv**](https://CRAN.R-project.org/package=renv), by Kevin Ushey
+    and Hadley Wickham, manages reproducible project-local libraries and
+    lockfiles; it complements `bio::list_pkgs_used_in_dir()`.
+-   [**styler**](https://CRAN.R-project.org/package=styler), by Kirill
+    Müller, Lorenz Walthert, and Indrajeet Patil, formats R code.
+-   [**drat**](https://CRAN.R-project.org/package=drat), by Dirk
+    Eddelbuettel and Carl Boettiger, manages CRAN-like package
+    repositories.
+
+For the underlying platforms, use the official [R
+manuals](https://cran.r-project.org/manuals.html), [RStudio IDE User
+Guide](https://docs.posit.co/ide/user/), and [Quarto
+guide](https://quarto.org/docs/guide/).
 
 </div>
 

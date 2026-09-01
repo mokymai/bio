@@ -88,6 +88,7 @@
 <section class="level2"><h2 id="installed-programs">Installed programs<a class="anchor" aria-label="anchor" href="#installed-programs"></a>
 </h2>
 <p><code><a href="../reference/check_installed_programs.html">check_installed_programs()</a></code> reports the installed version of R, RStudio, Quarto, Rtools, and related tools, and — when the machine is online — the newest version available:</p>
+<p>Official installation and release information is available from the <a href="https://www.r-project.org/" class="external-link">R Project</a>, <a href="https://docs.posit.co/ide/user/" class="external-link">RStudio IDE User Guide</a>, <a href="https://quarto.org/docs/get-started/" class="external-link">Quarto installation guide</a>, and <a href="https://cran.r-project.org/bin/windows/Rtools/" class="external-link">Rtools documentation</a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="../reference/check_installed_programs.html">check_installed_programs</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -114,7 +115,7 @@
 <code class="sourceCode R"><span><span class="va">install_dir</span> <span class="op">&lt;-</span> <span class="fu">bio</span><span class="fu">:::</span><span class="fu"><a href="../reference/find_rstudio_install_dir.html">find_rstudio_install_dir</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="../reference/get_rstudio_install_scope.html">get_rstudio_install_scope</a></span><span class="op">(</span><span class="va">install_dir</span><span class="op">)</span></span></code></pre></div>
 </div>
-<p>The scope only describes where the <em>application</em> lives. RStudio’s preferences, keybindings, and internal state are always per operating-system user.</p>
+<p>The scope only describes where the <em>application</em> lives. RStudio’s preferences, keybindings, and internal state are always per operating-system user. Posit’s guide documents the supported <a href="https://docs.posit.co/ide/user/ide/guide/productivity/custom-settings.html" class="external-link">RStudio configuration directories</a>.</p>
 </section></section><section class="level2"><h2 id="your-session">Your session<a class="anchor" aria-label="anchor" href="#your-session"></a>
 </h2>
 <p><code><a href="../reference/check_user_info.html">check_user_info()</a></code> collects the details worth pasting into a bug report:</p>
@@ -141,7 +142,7 @@
 <span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="../reference/list_pkgs_used_in_dir.html">list_pkgs_used_in_dir</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span>
 <span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="../reference/list_pkgs_used_in_files.html">list_pkgs_used_in_files</a></span><span class="op">(</span><span class="st">"analysis.R"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<p><code><a href="../reference/list_pkgs_used_in_dir.html">list_pkgs_used_in_dir()</a></code> scans <code>.R</code>, <code>.Rmd</code>, and <code>.qmd</code> files, so it is a quick way to build the install list for a course folder.</p>
+<p><code><a href="../reference/list_pkgs_used_in_dir.html">list_pkgs_used_in_dir()</a></code> scans <code>.R</code>, <code>.Rmd</code>, and <code>.qmd</code> files, so it is a quick way to build the install list for a course folder. For reproducible project libraries rather than discovery alone, see <a href="https://rstudio.github.io/renv/" class="external-link"><strong>renv</strong></a>.</p>
 </section><section class="level2"><h2 id="versions">Versions<a class="anchor" aria-label="anchor" href="#versions"></a>
 </h2>
 <p>Compare two versions, or list the archived versions of a CRAN package:</p>

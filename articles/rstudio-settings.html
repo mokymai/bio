@@ -87,6 +87,7 @@
 </div>
 <section class="level2"><h2 id="preferences">Preferences<a class="anchor" aria-label="anchor" href="#preferences"></a>
 </h2>
+<p>RStudio’s <a href="https://docs.posit.co/ide/user/ide/guide/productivity/custom-settings.html" class="external-link">Custom Settings guide</a> documents the point-and-click interface for these preferences. The CRAN package <a href="https://CRAN.R-project.org/package=rstudio.prefs" class="external-link"><strong>rstudio.prefs</strong></a>, by S.A. van der Wulp and Daniel D. Sjoberg, is a broader alternative for programmatic preference-file and addin-shortcut management.</p>
 <p>Four presets are available:</p>
 <table class="table caption-top">
 <thead><tr class="header">
@@ -156,6 +157,7 @@
 <p>Because that file only stores values you changed from RStudio’s built-in defaults, the file-based comparison fills in unset keys from your local RStudio installation’s preference schema when it can find it.</p>
 </section></section><section class="level2"><h2 id="keybindings">Keybindings<a class="anchor" aria-label="anchor" href="#keybindings"></a>
 </h2>
+<p>See Posit’s guide to <a href="https://docs.posit.co/ide/user/ide/guide/productivity/custom-shortcuts.html" class="external-link">custom keyboard shortcuts</a>, including conflict handling and the locations of the JSON binding files.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="../reference/rstudio_reset_keybindings.html">rstudio_reset_keybindings</a></span><span class="op">(</span>to <span class="op">=</span> <span class="st">"bio-default"</span><span class="op">)</span></span>
@@ -164,6 +166,7 @@
 <p>This is a plain file copy, so it works without a running RStudio session. Restart RStudio afterwards, or call <code><a href="../reference/restart-reload.html">bio::rstudio_reload_ui()</a></code>.</p>
 </section><section class="level2"><h2 id="spellcheck-dictionaries">Spellcheck dictionaries<a class="anchor" aria-label="anchor" href="#spellcheck-dictionaries"></a>
 </h2>
+<p>Posit’s <a href="https://docs.posit.co/ide/user/ide/guide/productivity/custom-settings.html#spelling" class="external-link">Spelling settings</a> guide explains how RStudio uses custom dictionaries. The GitHub-only <a href="https://github.com/nevrome/wellspell.addin" class="external-link"><strong>wellspell.addin</strong></a> provides interactive spellchecking that can use the dictionaries installed here.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">bio</span><span class="fu">::</span><span class="fu"><a href="../reference/spelling.html">rstudio_install_spellcheck_dictionaries</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -204,6 +207,7 @@
 </div>
 <p>Open them instead with <code><a href="../reference/RStudio-config-file.html">bio::open_rstudio_config_file()</a></code>, <code><a href="../reference/RStudio-related-dirs.html">bio::open_rstudio_keybindings_dir()</a></code>, <code><a href="https://gegznav.github.io/snippets/reference/open_rstudio_snippets_dir.html" class="external-link">bio::open_rstudio_snippets_dir()</a></code>, or <code><a href="../reference/open_r_environ.html">bio::open_r_environ()</a></code>.</p>
 <p>The configuration directory (<code>%APPDATA%/RStudio</code> on Windows, <code>~/.config/rstudio</code> elsewhere) holds preferences, keybindings, snippets, and dictionaries. The internal state directory (<code>%LOCALAPPDATA%/RStudio</code>, <code>~/.local/share/rstudio</code>) holds session state and is not something <code>bio</code> rewrites.</p>
+<p>See also Posit’s guides to <a href="https://docs.posit.co/ide/user/ide/guide/productivity/custom-settings.html" class="external-link">RStudio settings</a>, <a href="https://docs.posit.co/ide/user/ide/guide/productivity/snippets.html" class="external-link">code snippets</a>, and <a href="https://docs.posit.co/ide/user/ide/guide/ui/appearance.html" class="external-link">editor themes</a>.</p>
 </section><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);

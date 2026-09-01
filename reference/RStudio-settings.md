@@ -50,8 +50,10 @@ rstudio_reset_user_settings(to, backup = TRUE, ask = TRUE)
 
 ## Details
 
-Settings that can be used in `rstudio-prefs.json` file:
-https://docs.posit.co/ide/server-pro/session-user-settings.html
+Posit's [Custom Settings
+guide](https://docs.posit.co/ide/user/ide/guide/productivity/custom-settings.html)
+documents the point-and-click interface for user preferences, preference
+files, and configuration directories.
 
 </div>
 
@@ -63,16 +65,9 @@ https://docs.posit.co/ide/server-pro/session-user-settings.html
 
 `get_path_rstudio_config_file()`
 
-On [Customizing
-RStudio](https://support.posit.co/hc/en-us/articles/200549016-Customizing-the-RStudio-IDE)
-using point-and-click method.
-
-On [Configuration and
-Settings](https://posit.co/blog/rstudio-1-3-preview-configuration).
-
-A list of [Session User
+[Session User
 Settings](https://docs.posit.co/ide/server-pro/session_user_settings/session_user_settings.html)
-to be used with `rstudioapi::writeRStudioPreference()`.
+lists settings accepted by `rstudioapi::writeRStudioPreference()`.
 
 On [RStudio setting
 locations](https://docs.posit.co/ide/desktop-pro/settings/settings.html).
@@ -80,11 +75,9 @@ locations](https://docs.posit.co/ide/desktop-pro/settings/settings.html).
 On [Resetting RStudio Desktop's
 State](https://support.posit.co/hc/en-us/articles/200534577-Resetting-RStudio-Desktop-s-State).
 
-StackOverflow threads on export/import RStudio of user preferences:
-
--   https://stackoverflow.com/a/55940249/4783029
-
--   https://stackoverflow.com/a/54982341/4783029
+For a broader interface to preference files and addin shortcuts, see the
+[rstudio.prefs](https://CRAN.R-project.org/package=rstudio.prefs)
+package by S.A. van der Wulp and Daniel D. Sjoberg.
 
 </div>
 

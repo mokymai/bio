@@ -23,6 +23,14 @@
 
 ## Preferences
 
+RStudio’s [Custom Settings
+guide](https://docs.posit.co/ide/user/ide/guide/productivity/custom-settings.html)
+documents the point-and-click interface for these preferences. The CRAN
+package
+[**rstudio.prefs**](https://CRAN.R-project.org/package=rstudio.prefs),
+by S.A. van der Wulp and Daniel D. Sjoberg, is a broader alternative for
+programmatic preference-file and addin-shortcut management.
+
 Four presets are available:
 
 | `to`                | What it does                  |
@@ -127,6 +135,10 @@ RStudio installation’s preference schema when it can find it.
 
 ## Keybindings
 
+See Posit’s guide to [custom keyboard
+shortcuts](https://docs.posit.co/ide/user/ide/guide/productivity/custom-shortcuts.html),
+including conflict handling and the locations of the JSON binding files.
+
 <div class="cell">
 
 <div id="cb4" class="sourceCode cell-code">
@@ -148,6 +160,13 @@ session. Restart RStudio afterwards, or call `bio::rstudio_reload_ui()`.
 <div class="section level2">
 
 ## Spellcheck dictionaries
+
+Posit’s [Spelling
+settings](https://docs.posit.co/ide/user/ide/guide/productivity/custom-settings.html#spelling)
+guide explains how RStudio uses custom dictionaries. The GitHub-only
+[**wellspell.addin**](https://github.com/nevrome/wellspell.addin)
+provides interactive spellchecking that can use the dictionaries
+installed here.
 
 <div class="cell">
 
@@ -251,6 +270,13 @@ The configuration directory (`%APPDATA%/RStudio` on Windows,
 and dictionaries. The internal state directory
 (`%LOCALAPPDATA%/RStudio`, `~/.local/share/rstudio`) holds session state
 and is not something `bio` rewrites.
+
+See also Posit’s guides to [RStudio
+settings](https://docs.posit.co/ide/user/ide/guide/productivity/custom-settings.html),
+[code
+snippets](https://docs.posit.co/ide/user/ide/guide/productivity/snippets.html),
+and [editor
+themes](https://docs.posit.co/ide/user/ide/guide/ui/appearance.html).
 
 </div>
 
